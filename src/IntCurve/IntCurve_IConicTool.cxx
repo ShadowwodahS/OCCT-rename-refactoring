@@ -142,15 +142,15 @@ gp_Pnt2d ConicTool::Value(const Standard_Real X) const
   switch (type)
   {
     case GeomAbs_Line:
-      return (ElCLib::LineValue(X, Axis.XAxis()));
+      return (ElCLib1::LineValue(X, Axis.XAxis()));
     case GeomAbs_Ellipse:
-      return (ElCLib::EllipseValue(X, Axis, Elips_a, Elips_b));
+      return (ElCLib1::EllipseValue(X, Axis, Elips_a, Elips_b));
     case GeomAbs_Circle:
-      return (ElCLib::CircleValue(X, Axis, Circle_r));
+      return (ElCLib1::CircleValue(X, Axis, Circle_r));
     case GeomAbs_Parabola:
-      return (ElCLib::ParabolaValue(X, Axis, Parab_f));
+      return (ElCLib1::ParabolaValue(X, Axis, Parab_f));
     case GeomAbs_Hyperbola:
-      return (ElCLib::HyperbolaValue(X, Axis, Hypr_a, Hypr_b));
+      return (ElCLib1::HyperbolaValue(X, Axis, Hypr_a, Hypr_b));
     default: {
       std::cout << "### Erreur sur le  type de la courbe ###";
       return (gp_Pnt2d(0.0, 0.0));
@@ -165,19 +165,19 @@ void ConicTool::D1(const Standard_Real X, gp_Pnt2d& Pt, gp_Vec2d& Tan) const
   switch (type)
   {
     case GeomAbs_Line:
-      ElCLib::LineD1(X, Axis.XAxis(), Pt, Tan);
+      ElCLib1::LineD1(X, Axis.XAxis(), Pt, Tan);
       break;
     case GeomAbs_Ellipse:
-      ElCLib::EllipseD1(X, Axis, Elips_a, Elips_b, Pt, Tan);
+      ElCLib1::EllipseD1(X, Axis, Elips_a, Elips_b, Pt, Tan);
       break;
     case GeomAbs_Circle:
-      ElCLib::CircleD1(X, Axis, Circle_r, Pt, Tan);
+      ElCLib1::CircleD1(X, Axis, Circle_r, Pt, Tan);
       break;
     case GeomAbs_Parabola:
-      ElCLib::ParabolaD1(X, Axis, Parab_f, Pt, Tan);
+      ElCLib1::ParabolaD1(X, Axis, Parab_f, Pt, Tan);
       break;
     case GeomAbs_Hyperbola:
-      ElCLib::HyperbolaD1(X, Axis, Hypr_a, Hypr_b, Pt, Tan);
+      ElCLib1::HyperbolaD1(X, Axis, Hypr_a, Hypr_b, Pt, Tan);
       break;
     default: {
       std::cout << "### Erreur sur le  type de la courbe ###";
@@ -195,20 +195,20 @@ void ConicTool::D2(const Standard_Real X,
   switch (type)
   {
     case GeomAbs_Line:
-      ElCLib::LineD1(X, Axis.XAxis(), Pt, Tan);
+      ElCLib1::LineD1(X, Axis.XAxis(), Pt, Tan);
       Norm.SetCoord(0.0, 0.0);
       break;
     case GeomAbs_Ellipse:
-      ElCLib::EllipseD2(X, Axis, Elips_a, Elips_b, Pt, Tan, Norm);
+      ElCLib1::EllipseD2(X, Axis, Elips_a, Elips_b, Pt, Tan, Norm);
       break;
     case GeomAbs_Circle:
-      ElCLib::CircleD2(X, Axis, Circle_r, Pt, Tan, Norm);
+      ElCLib1::CircleD2(X, Axis, Circle_r, Pt, Tan, Norm);
       break;
     case GeomAbs_Parabola:
-      ElCLib::ParabolaD2(X, Axis, Parab_f, Pt, Tan, Norm);
+      ElCLib1::ParabolaD2(X, Axis, Parab_f, Pt, Tan, Norm);
       break;
     case GeomAbs_Hyperbola:
-      ElCLib::HyperbolaD2(X, Axis, Hypr_a, Hypr_b, Pt, Tan, Norm);
+      ElCLib1::HyperbolaD2(X, Axis, Hypr_a, Hypr_b, Pt, Tan, Norm);
       break;
     default: {
       std::cout << "### Erreur sur le  type de la courbe ###";
@@ -377,11 +377,11 @@ Standard_Real ConicTool::FindParameter(const gp_Pnt2d& P) const
   {
 
     case GeomAbs_Line:
-      Param = ElCLib::LineParameter(Axis.XAxis(), P);
+      Param = ElCLib1::LineParameter(Axis.XAxis(), P);
       break;
 
     case GeomAbs_Circle:
-      Param = ElCLib::CircleParameter(Axis, P);
+      Param = ElCLib1::CircleParameter(Axis, P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -389,7 +389,7 @@ Standard_Real ConicTool::FindParameter(const gp_Pnt2d& P) const
       break;
 
     case GeomAbs_Ellipse: {
-      Param = ElCLib::EllipseParameter(Axis, Elips_a, Elips_b, P);
+      Param = ElCLib1::EllipseParameter(Axis, Elips_a, Elips_b, P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -398,11 +398,11 @@ Standard_Real ConicTool::FindParameter(const gp_Pnt2d& P) const
     }
 
     case GeomAbs_Parabola: {
-      Param = ElCLib::ParabolaParameter(Axis, P);
+      Param = ElCLib1::ParabolaParameter(Axis, P);
       break;
     }
     case GeomAbs_Hyperbola: {
-      Param = ElCLib::HyperbolaParameter(Axis, Hypr_a, Hypr_b, P);
+      Param = ElCLib1::HyperbolaParameter(Axis, Hypr_a, Hypr_b, P);
       break;
     }
     default:

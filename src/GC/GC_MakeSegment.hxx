@@ -36,7 +36,7 @@ class gp_Lin;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed line segment.
-class GC_MakeSegment : public GC_Root
+class GC_MakeSegment : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

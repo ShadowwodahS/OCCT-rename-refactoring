@@ -53,7 +53,7 @@
 //            before calling this function.
 //=======================================================================
 template <class gpSmth>
-static void AddSpecialPoints(const IntAna_Quadric& theQuad,
+static void AddSpecialPoints(const Quadric2& theQuad,
                              const gpSmth&         theGpObj,
                              Standard_Real&        theTheta1,
                              Standard_Real&        theTheta2)
@@ -69,8 +69,8 @@ static void AddSpecialPoints(const IntAna_Quadric& theQuad,
   for (NCollection_List<Point3d>::Iterator anItr(aLSP); anItr.More(); anItr.Next())
   {
     const Point3d& aPt = anItr.Value();
-    ElSLib::Parameters(theGpObj, aPt, aU, aV);
-    const Point3d aPProj(ElSLib::Value(aU, aV, theGpObj));
+    ElSLib1::Parameters(theGpObj, aPt, aU, aV);
+    const Point3d aPProj(ElSLib1::Value(aU, aV, theGpObj));
 
     if (aPt.SquareDistance(aPProj) > Precision::SquareConfusion())
     {
@@ -333,10 +333,10 @@ public:
 
 //////////
 //=======================================================================
-// function : IntAna_IntQuadQuad::IntAna_IntQuadQuad
+// function : QuadQuadIntersection::QuadQuadIntersection
 // purpose  : C o n s t r u c t e u r    v i d e
 //=======================================================================
-IntAna_IntQuadQuad::IntAna_IntQuadQuad(void)
+QuadQuadIntersection::QuadQuadIntersection(void)
 {
   done                   = Standard_False;
   identical              = Standard_False;
@@ -350,11 +350,11 @@ IntAna_IntQuadQuad::IntAna_IntQuadQuad(void)
 }
 
 //=======================================================================
-// function : IntAna_IntQuadQuad::IntAna_IntQuadQuad
+// function : QuadQuadIntersection::QuadQuadIntersection
 // purpose  : I n t e r s e c t i o n   C y l i n d r e   Q u a d r i q u e
 //=======================================================================
-IntAna_IntQuadQuad::IntAna_IntQuadQuad(const gp_Cylinder&    Cyl,
-                                       const IntAna_Quadric& Quad,
+QuadQuadIntersection::QuadQuadIntersection(const gp_Cylinder&    Cyl,
+                                       const Quadric2& Quad,
                                        const Standard_Real   Tol)
 {
   myNbMaxCurves          = 12;
@@ -367,8 +367,8 @@ IntAna_IntQuadQuad::IntAna_IntQuadQuad(const gp_Cylinder&    Cyl,
 // function : Perform
 // purpose  : I n t e r s e c t i o n   C y l i n d r e   Q u a d r i q u e
 //=======================================================================
-void IntAna_IntQuadQuad::Perform(const gp_Cylinder&    Cyl,
-                                 const IntAna_Quadric& Quad,
+void QuadQuadIntersection::Perform(const gp_Cylinder&    Cyl,
+                                 const Quadric2& Quad,
                                  const Standard_Real)
 {
   done      = Standard_True;
@@ -623,7 +623,7 @@ void IntAna_IntQuadQuad::Perform(const gp_Cylinder&    Cyl,
             //--Standard_Real Theta = PolDIS(1);
             //--Standard_Real SecPar= -0.5 * MTFZ1.Value(Theta) / MTFZ2.Value(Theta);
             //--Thepoints[Nbpoints] =
-            // ElSLib::CylinderValue(Theta,SecPar,Cyl.Position(),Cyl.Radius());
+            // ElSLib1::CylinderValue(Theta,SecPar,Cyl.Position(),Cyl.Radius());
             //--Nbpoints++;
             NbCurves = 0;
           }
@@ -823,8 +823,8 @@ void IntAna_IntQuadQuad::Perform(const gp_Cylinder&    Cyl,
 
 //=================================================================================================
 
-IntAna_IntQuadQuad::IntAna_IntQuadQuad(const gp_Cone&        Cone,
-                                       const IntAna_Quadric& Quad,
+QuadQuadIntersection::QuadQuadIntersection(const gp_Cone&        Cone,
+                                       const Quadric2& Quad,
                                        const Standard_Real   Tol)
 {
   myNbMaxCurves          = 12;
@@ -835,8 +835,8 @@ IntAna_IntQuadQuad::IntAna_IntQuadQuad(const gp_Cone&        Cone,
 
 //=================================================================================================
 
-void IntAna_IntQuadQuad::Perform(const gp_Cone&        Cone,
-                                 const IntAna_Quadric& Quad,
+void QuadQuadIntersection::Perform(const gp_Cone&        Cone,
+                                 const Quadric2& Quad,
                                  const Standard_Real)
 {
   //
@@ -1422,7 +1422,7 @@ void IntAna_IntQuadQuad::Perform(const gp_Cone&        Cone,
 //-- 1: Test de      Fin(C1)    = Debut(C2)   ->N(C1) et P(C2)
 //-- 2:              Debut(C1)  = Fin(C2)     ->P(C1) et N(C2)
 //=======================================================================
-void IntAna_IntQuadQuad::InternalSetNextAndPrevious()
+void QuadQuadIntersection::InternalSetNextAndPrevious()
 {
   Standard_Boolean NotLastOpenC2, NotFirstOpenC2;
   Standard_Integer c1, c2;
@@ -1501,7 +1501,7 @@ void IntAna_IntQuadQuad::InternalSetNextAndPrevious()
 
 //=================================================================================================
 
-Standard_Boolean IntAna_IntQuadQuad::HasPreviousCurve(const Standard_Integer I) const
+Standard_Boolean QuadQuadIntersection::HasPreviousCurve(const Standard_Integer I) const
 {
   if (!done)
   {
@@ -1524,7 +1524,7 @@ Standard_Boolean IntAna_IntQuadQuad::HasPreviousCurve(const Standard_Integer I) 
 
 //=================================================================================================
 
-Standard_Boolean IntAna_IntQuadQuad::HasNextCurve(const Standard_Integer I) const
+Standard_Boolean QuadQuadIntersection::HasNextCurve(const Standard_Integer I) const
 {
   if (!done)
   {
@@ -1547,7 +1547,7 @@ Standard_Boolean IntAna_IntQuadQuad::HasNextCurve(const Standard_Integer I) cons
 
 //=================================================================================================
 
-Standard_Integer IntAna_IntQuadQuad::PreviousCurve(const Standard_Integer I,
+Standard_Integer QuadQuadIntersection::PreviousCurve(const Standard_Integer I,
                                                    Standard_Boolean&      theOpposite) const
 {
   if (HasPreviousCurve(I))
@@ -1571,7 +1571,7 @@ Standard_Integer IntAna_IntQuadQuad::PreviousCurve(const Standard_Integer I,
 
 //=================================================================================================
 
-Standard_Integer IntAna_IntQuadQuad::NextCurve(const Standard_Integer I,
+Standard_Integer QuadQuadIntersection::NextCurve(const Standard_Integer I,
                                                Standard_Boolean&      theOpposite) const
 {
   if (HasNextCurve(I))
@@ -1595,7 +1595,7 @@ Standard_Integer IntAna_IntQuadQuad::NextCurve(const Standard_Integer I,
 
 //=================================================================================================
 
-const IntAna_Curve& IntAna_IntQuadQuad::Curve(const Standard_Integer i) const
+const Curve1& QuadQuadIntersection::Curve(const Standard_Integer i) const
 {
   if (!done)
   {
@@ -1614,7 +1614,7 @@ const IntAna_Curve& IntAna_IntQuadQuad::Curve(const Standard_Integer i) const
 
 //=================================================================================================
 
-const Point3d& IntAna_IntQuadQuad::Point(const Standard_Integer i) const
+const Point3d& QuadQuadIntersection::Point(const Standard_Integer i) const
 {
   if (!done)
   {
@@ -1633,11 +1633,11 @@ const Point3d& IntAna_IntQuadQuad::Point(const Standard_Integer i) const
 
 //=================================================================================================
 
-void IntAna_IntQuadQuad::Parameters(const Standard_Integer, // i,
+void QuadQuadIntersection::Parameters(const Standard_Integer, // i,
                                     Standard_Real&,
                                     Standard_Real&) const
 {
-  std::cout << "IntAna_IntQuadQuad::Parameters(...) is not yet implemented" << std::endl;
+  std::cout << "QuadQuadIntersection::Parameters(...) is not yet implemented" << std::endl;
 }
 
 /*********************************************************************************
@@ -1699,11 +1699,11 @@ Out[17]= Q1 + r (2 d Qz + 2 Qx Cos[t] + 2 Qy Sin[t]) +
 /*
 static
   void DumpCurve(const Standard_Integer aIndex,
-         IntAna_Curve& aC);
+         Curve1& aC);
 //=================================================================================================
 
 void DumpCurve(const Standard_Integer aIndex,
-           IntAna_Curve& aC)
+           Curve1& aC)
 {
   Standard_Boolean bIsOpen, bIsConstant, bIsFirstOpen, bIsLastOpen;
   Standard_Integer i, aNb;
@@ -1717,7 +1717,7 @@ void DumpCurve(const Standard_Integer aIndex,
   bIsLastOpen=aC.IsLastOpen();
   //
   printf("\n");
-  printf(" * IntAna_Curve #%d*\n", aIndex);
+  printf(" * Curve1 #%d*\n", aIndex);
   printf(" Domain: [ %lf, %lf ]\n", aT1, aT2);
   printf(" IsOpen=%d\n", bIsOpen);
   printf(" IsConstant=%d\n", bIsConstant);

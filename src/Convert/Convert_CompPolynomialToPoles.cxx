@@ -210,14 +210,14 @@ void Convert_CompPolynomialToPoles::Perform(const Standard_Integer         NumCu
   num_poles = num_flat_knots - myDegree - 1;
 
   myFlatKnots = new TColStd_HArray1OfReal(1, num_flat_knots);
-  BSplCLib::KnotSequence(myKnots->Array1(),
+  BSplCLib1::KnotSequence(myKnots->Array1(),
                          myMults->Array1(),
                          myDegree,
                          Standard_False,
                          myFlatKnots->ChangeArray1());
 
   TColStd_Array1OfReal parameters(1, num_poles);
-  BSplCLib::BuildSchoenbergPoints(myDegree, myFlatKnots->Array1(), parameters);
+  BSplCLib1::BuildSchoenbergPoints(myDegree, myFlatKnots->Array1(), parameters);
   myPoles     = new TColStd_HArray2OfReal(1, num_poles, 1, Dimension);
   index       = 2;
   Tindex      = TrueIntervals.Lower() + 1;
@@ -250,7 +250,7 @@ void Convert_CompPolynomialToPoles::Perform(const Standard_Integer         NumCu
     coefficient_array    = (Standard_Real*)&(Coefficients(coeff_index));
     Standard_Integer Deg = NumCoeffPerCurve(NumCoeffPerCurve.Lower() + index - 2) - 1;
 
-    PLib::NoDerivativeEvalPolynomial(normalized_value,
+    PLib1::NoDerivativeEvalPolynomial(normalized_value,
                                      Deg,
                                      Dimension,
                                      Deg * Dimension,
@@ -261,7 +261,7 @@ void Convert_CompPolynomialToPoles::Perform(const Standard_Integer         NumCu
   // interpolation at schoenberg points should yield the desired
   // result
   //
-  BSplCLib::Interpolate(myDegree,
+  BSplCLib1::Interpolate(myDegree,
                         myFlatKnots->Array1(),
                         parameters,
                         contact_array,

@@ -24,7 +24,7 @@
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <Standard_Boolean.hxx>
 #include <math_Vector.hxx>
-class HLRBRep_CurveTool;
+class CurveTool5;
 class math_Matrix;
 
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter

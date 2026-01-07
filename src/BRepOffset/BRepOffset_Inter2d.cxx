@@ -1415,7 +1415,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
         GeomAbs_Shape                    Continuity = GeomAbs_C1;
         Standard_Integer                 MaxDegree  = 14;
         Standard_Integer                 MaxSegment = evaluateMaxSegment(ConS);
-        GeomLib::BuildCurve3d(Precision::Confusion(),
+        GeomLib1::BuildCurve3d(Precision::Confusion(),
                               ConS,
                               FirstParOnPC,
                               LastParOnPC,
@@ -1476,7 +1476,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoEdge&  E,
               if (!C3d.IsNull() && FirstParOnPC < LastParOnPC)
               {
                 Handle(GeomCurve2d) ProjPCurve =
-                  GeomProjLib::Curve2d(C3d, FirstParOnPC, LastParOnPC, theSurf);
+                  GeomProjLib1::Curve2d(C3d, FirstParOnPC, LastParOnPC, theSurf);
                 if (ProjPCurve.IsNull())
                   ProjectionSuccess = Standard_False;
                 else

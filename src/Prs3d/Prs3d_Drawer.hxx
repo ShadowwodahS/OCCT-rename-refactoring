@@ -847,13 +847,13 @@ public:
 
 public:
   //! Returns the drawer to which the current object references.
-  const Handle(StyleDrawer)& Link() const { return myLink; }
+  const Handle(StyleDrawer)& Link1() const { return myLink; }
 
   //! Returns true if the current object has a link on the other drawer.
   Standard_Boolean HasLink() const { return !myLink.IsNull(); }
 
   //! Sets theDrawer as a link to which the current object references.
-  void Link(const Handle(StyleDrawer)& theDrawer) { SetLink(theDrawer); }
+  void Link1(const Handle(StyleDrawer)& theDrawer) { SetLink(theDrawer); }
 
   //! Sets theDrawer as a link to which the current object references.
   void SetLink(const Handle(StyleDrawer)& theDrawer) { myLink = theDrawer; }
@@ -865,7 +865,7 @@ public:
   //! @param theProgram new program to set (might be NULL)
   //! @param theAspect  the type of primitives
   //! @param theToOverrideDefaults if true then non-overridden attributes using defaults will be
-  //! allocated and copied from the Link;
+  //! allocated and copied from the Link1;
   //!                              otherwise, only already customized attributes will be changed
   //! @return TRUE if presentation should be recomputed after creating aspects not previously
   //! customized (if theToOverrideDefaults is also TRUE)

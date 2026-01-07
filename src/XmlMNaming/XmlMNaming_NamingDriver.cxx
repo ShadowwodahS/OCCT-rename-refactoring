@@ -185,7 +185,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
       DataLabel tLab; // Null label.
       if (anEntry.Length() > 0)
       {
-        TDF_Tool::Label(aNg->Label().Data(), anEntry, tLab, Standard_True);
+        Tool3::Label(aNg->Label().Data(), anEntry, tLab, Standard_True);
         aNgName.ContextLabel(tLab);
 #ifdef OCCT_DEBUG
         std::cout << "Retrieving Context Label = " << anEntry.ToCString() << std::endl;
@@ -309,7 +309,7 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   // context label
   AsciiString1 anEntry;
   if (!aNgName.ContextLabel().IsNull())
-    TDF_Tool::Entry(aNgName.ContextLabel(), anEntry);
+    Tool3::Entry(aNgName.ContextLabel(), anEntry);
   XmlObjMgt_DOMString aDOMString;
   XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
   anElem.setAttribute(::ContextLabelString(), aDOMString);

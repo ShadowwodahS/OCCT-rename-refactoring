@@ -25,7 +25,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Integer.hxx>
 class TopoShape;
-class Bnd_Box;
+class Box2;
 
 class TopOpeBRepTool_HBoxTool;
 DEFINE_STANDARD_HANDLE(TopOpeBRepTool_HBoxTool, RefObject)
@@ -44,15 +44,15 @@ public:
 
   Standard_EXPORT void AddBox(const TopoShape& S);
 
-  Standard_EXPORT static void ComputeBox(const TopoShape& S, Bnd_Box& B);
+  Standard_EXPORT static void ComputeBox(const TopoShape& S, Box2& B);
 
-  Standard_EXPORT static void ComputeBoxOnVertices(const TopoShape& S, Bnd_Box& B);
+  Standard_EXPORT static void ComputeBoxOnVertices(const TopoShape& S, Box2& B);
 
-  Standard_EXPORT static void DumpB(const Bnd_Box& B);
+  Standard_EXPORT static void DumpB(const Box2& B);
 
-  Standard_EXPORT const Bnd_Box& Box(const TopoShape& S);
+  Standard_EXPORT const Box2& Box1(const TopoShape& S);
 
-  Standard_EXPORT const Bnd_Box& Box(const Standard_Integer I) const;
+  Standard_EXPORT const Box2& Box1(const Standard_Integer I) const;
 
   Standard_EXPORT Standard_Boolean HasBox(const TopoShape& S) const;
 

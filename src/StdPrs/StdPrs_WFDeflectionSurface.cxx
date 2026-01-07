@@ -147,8 +147,8 @@ void StdPrs_WFDeflectionSurface::Add(const Handle(Prs3d_Presentation)& aPresenta
   if (TOD == Aspect_TOD_RELATIVE)
   {
     // On calcule la fleche en fonction des min max globaux de la piece:
-    Bnd_Box Total;
-    BndLib_AddSurface::Add(*aSurface, U1, U2, V1, V2, 0., Total);
+    Box2 Total;
+    AddSurface::Add(*aSurface, U1, U2, V1, V2, 0., Total);
     Standard_Real m = aDrawer->MaximalChordialDeviation() / aDrawer->DeviationCoefficient();
     Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
     Total.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);

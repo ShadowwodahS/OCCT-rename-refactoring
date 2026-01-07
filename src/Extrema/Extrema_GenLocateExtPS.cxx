@@ -238,7 +238,7 @@ Standard_Real Extrema_GenLocateExtPS::SquareDistance() const
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_GenLocateExtPS::Point() const
+const PointOnSurface1& Extrema_GenLocateExtPS::Point() const
 {
   if (!IsDone())
   {

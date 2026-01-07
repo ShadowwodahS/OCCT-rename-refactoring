@@ -222,7 +222,7 @@ private:
 
 private:
   const TopoEdge*          myEdge;
-  GCPnts_TangentialDeflection myDiscretTool;
+  TangentialDeflectionSampler myDiscretTool;
   GeomAbs_IsoType             myIsoType;
 };
 

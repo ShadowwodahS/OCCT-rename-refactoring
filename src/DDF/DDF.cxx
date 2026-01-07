@@ -33,7 +33,7 @@ Standard_Boolean DDF1::AddLabel
 
   (const Handle(TDF_Data)& DF, const Standard_CString Entry, DataLabel& Label)
 {
-  TDF_Tool::Label(DF, Entry, Label, Standard_True);
+  Tool3::Label(DF, Entry, Label, Standard_True);
   return Standard_True;
 }
 
@@ -45,7 +45,7 @@ Standard_Boolean DDF1::FindLabel(const Handle(TDF_Data)& DF,
                                 const Standard_Boolean  Complain)
 {
   Label.Nullify();
-  TDF_Tool::Label(DF, Entry, Label, Standard_False);
+  Tool3::Label(DF, Entry, Label, Standard_False);
   if (Label.IsNull() && Complain)
     std::cout << "No label for entry " << Entry << std::endl;
   return !Label.IsNull();
@@ -97,7 +97,7 @@ Standard_Boolean DDF1::Find(const Handle(TDF_Data)& DF,
 DrawInterpreter& DDF1::ReturnLabel(DrawInterpreter& di, const DataLabel& L)
 {
   AsciiString1 S;
-  TDF_Tool::Entry(L, S);
+  Tool3::Entry(L, S);
   di << S.ToCString();
   return di;
 }

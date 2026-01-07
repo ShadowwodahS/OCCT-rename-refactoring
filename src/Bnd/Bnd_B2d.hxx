@@ -69,10 +69,10 @@ public:
   //! then a very big real value is returned.
   Standard_Real SquareExtent() const;
 
-  //! Extend the Box by the absolute value of theDiff.
+  //! Extend the Box1 by the absolute value of theDiff.
   void Enlarge(const Standard_Real theDiff);
 
-  //! Limit the Box by the internals of theOtherBox.
+  //! Limit the Box1 by the internals of theOtherBox.
   //! Returns True if the limitation takes place, otherwise False
   //! indicating that the boxes do not intersect.
   Standard_EXPORT Standard_Boolean Limit(const Bnd_B2d& theOtherBox);
@@ -81,7 +81,7 @@ public:
   //! The resulting box will be larger if theTrsf contains rotation.
   Standard_NODISCARD Standard_EXPORT Bnd_B2d Transformed(const gp_Trsf2d& theTrsf) const;
 
-  //! Check the given point for the inclusion in the Box.
+  //! Check the given point for the inclusion in the Box1.
   //! Returns True if the point is outside.
   Standard_Boolean IsOut(const Coords2d& thePnt) const;
 

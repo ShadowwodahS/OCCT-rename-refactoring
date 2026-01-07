@@ -19,7 +19,7 @@ class GeomCurve2d;
 class GeomSurface;
 
 //! Class contains conversion methods for 2d geom objects
-class GeomConvert_Units
+class Units1
 {
 public:
   DEFINE_STANDARD_ALLOC

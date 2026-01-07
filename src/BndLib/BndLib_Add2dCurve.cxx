@@ -52,7 +52,7 @@ public:
 
   void Range(Standard_Real& aT1, Standard_Real& aT2) const;
 
-  const Bnd_Box2d& Box() const;
+  const Bnd_Box2d& Box1() const;
 
   void Perform();
 
@@ -268,7 +268,7 @@ Standard_Integer BndLib_Box2dCurve::ErrorStatus() const
 
 //=================================================================================================
 
-const Bnd_Box2d& BndLib_Box2dCurve::Box() const
+const Bnd_Box2d& BndLib_Box2dCurve::Box1() const
 {
   return myBox;
 }
@@ -1179,16 +1179,16 @@ Standard_Real BndLib_Box2dCurve::AdjustToPeriod(const Standard_Real aT, const St
 
 //=================================================================================================
 
-void BndLib_Add2dCurve::Add(const Adaptor2d_Curve2d& aC,
+void Add2dCurve::Add(const Adaptor2d_Curve2d& aC,
                             const Standard_Real      aTol,
                             Bnd_Box2d&               aBox2D)
 {
-  BndLib_Add2dCurve::Add(aC, aC.FirstParameter(), aC.LastParameter(), aTol, aBox2D);
+  Add2dCurve::Add(aC, aC.FirstParameter(), aC.LastParameter(), aTol, aBox2D);
 }
 
 //=================================================================================================
 
-void BndLib_Add2dCurve::Add(const Adaptor2d_Curve2d& aC,
+void Add2dCurve::Add(const Adaptor2d_Curve2d& aC,
                             const Standard_Real      aU1,
                             const Standard_Real      aU2,
                             const Standard_Real      aTol,
@@ -1218,12 +1218,12 @@ void BndLib_Add2dCurve::Add(const Adaptor2d_Curve2d& aC,
   //
   const Handle(GeomCurve2d)& aC2D = pA->Curve();
   //
-  BndLib_Add2dCurve::Add(aC2D, aU1, aU2, aTol, aBox2D);
+  Add2dCurve::Add(aC2D, aU1, aU2, aTol, aBox2D);
 }
 
 //=================================================================================================
 
-void BndLib_Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
+void Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
                             const Standard_Real         aTol,
                             Bnd_Box2d&                  aBox2D)
 {
@@ -1232,12 +1232,12 @@ void BndLib_Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
   aT1 = aC2D->FirstParameter();
   aT2 = aC2D->LastParameter();
   //
-  BndLib_Add2dCurve::Add(aC2D, aT1, aT2, aTol, aBox2D);
+  Add2dCurve::Add(aC2D, aT1, aT2, aTol, aBox2D);
 }
 
 //=================================================================================================
 
-void BndLib_Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
+void Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
                             const Standard_Real         aT1,
                             const Standard_Real         aT2,
                             const Standard_Real         aTol,
@@ -1250,14 +1250,14 @@ void BndLib_Add2dCurve::Add(const Handle(GeomCurve2d)& aC2D,
   //
   aBC.Perform();
   //
-  const Bnd_Box2d& aBoxC = aBC.Box();
+  const Bnd_Box2d& aBoxC = aBC.Box1();
   aBox2D.Add(aBoxC);
   aBox2D.Enlarge(aTol);
 }
 
 //=================================================================================================
 
-void BndLib_Add2dCurve::AddOptimal(const Handle(GeomCurve2d)& aC2D,
+void Add2dCurve::AddOptimal(const Handle(GeomCurve2d)& aC2D,
                                    const Standard_Real         aT1,
                                    const Standard_Real         aT2,
                                    const Standard_Real         aTol,
@@ -1270,7 +1270,7 @@ void BndLib_Add2dCurve::AddOptimal(const Handle(GeomCurve2d)& aC2D,
   //
   aBC.PerformOptimal(aTol);
   //
-  const Bnd_Box2d& aBoxC = aBC.Box();
+  const Bnd_Box2d& aBoxC = aBC.Box1();
   aBox2D.Add(aBoxC);
   aBox2D.Enlarge(aTol);
 }

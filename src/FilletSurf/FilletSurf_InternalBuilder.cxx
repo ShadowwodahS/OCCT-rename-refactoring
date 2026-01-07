@@ -105,8 +105,8 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
   Point3d        pfin = Ed->Value(l);
   Standard_Real u, v;
   // check if the extremities are not solution
-  ElSLib::Parameters(P, pdeb, u, v);
-  Point3d        projdeb  = ElSLib::Value(u, v, P);
+  ElSLib1::Parameters(P, pdeb, u, v);
+  Point3d        projdeb  = ElSLib1::Value(u, v, P);
   Standard_Real dprojdeb = pdeb.Distance(projdeb);
   if (dprojdeb < tol3d)
   {
@@ -118,8 +118,8 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
       dist = d;
     }
   }
-  ElSLib::Parameters(P, pfin, u, v);
-  Point3d        projfin  = ElSLib::Value(u, v, P);
+  ElSLib1::Parameters(P, pfin, u, v);
+  Point3d        projfin  = ElSLib1::Value(u, v, P);
   Standard_Real dprojfin = pfin.Distance(projfin);
   if (dprojfin < tol3d)
   {

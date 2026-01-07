@@ -430,7 +430,7 @@ Standard_Boolean TDataXtd_Constraint::Inverted() const
 
 void TDataXtd_Constraint::CollectChildConstraints(const DataLabel& aLabel, TDF_LabelList& LL)
 {
-  TDF_ChildIterator           it(aLabel, Standard_True);
+  ChildIterator           it(aLabel, Standard_True);
   Handle(TDataXtd_Constraint) aConstraint;
   for (; it.More(); it.Next())
   {

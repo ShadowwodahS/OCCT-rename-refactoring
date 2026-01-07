@@ -164,7 +164,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
     Standard_Real dist2 = ext.SquareDistance();
     if (dist2 < tol * tol)
     {
-      Extrema_POnCurv ponc1, ponc2;
+      PointOnCurve1 ponc1, ponc2;
       ext.Point(ponc1, ponc2);
       Standard_Real parfb = ponc1.Parameter();
       p2dbout             = pcfb->Value(parfb);
@@ -246,7 +246,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
       p2dbout.SetCoord(pint.U(), pint.V());
       w = pint.W();
       if (isperiodic)
-        w = ElCLib::InPeriod(w, uf, ul);
+        w = ElCLib1::InPeriod(w, uf, ul);
     }
     else
     {
@@ -261,7 +261,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
         IntersectionPoint1 pint = Intersection.Point(isol);
         p2dbout.SetCoord(pint.U(), pint.V());
         w = pint.W();
-        w = ElCLib::InPeriod(w, uf, ul);
+        w = ElCLib1::InPeriod(w, uf, ul);
       }
     }
     fi.SetParameter(w, isfirst);
@@ -355,7 +355,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& face,
   Extrema_LocateExtCC ext(c1, c2, pared, parltg);
   if (ext.IsDone())
   {
-    Extrema_POnCurv ponc1, ponc2;
+    PointOnCurve1 ponc1, ponc2;
     ext.Point(ponc1, ponc2);
     pared  = ponc1.Parameter();
     parltg = ponc2.Parameter();
@@ -414,10 +414,10 @@ static void ChFi3d_ExtendSurface(Handle(GeomSurface)& S, Standard_Integer& prol)
   length = P1.Distance(P2);
 
   Handle(Geom_BoundedSurface) aBS = Handle(Geom_BoundedSurface)::DownCast(S);
-  GeomLib::ExtendSurfByLength(aBS, length, 1, Standard_False, Standard_True);
-  GeomLib::ExtendSurfByLength(aBS, length, 1, Standard_True, Standard_True);
-  GeomLib::ExtendSurfByLength(aBS, length, 1, Standard_False, Standard_False);
-  GeomLib::ExtendSurfByLength(aBS, length, 1, Standard_True, Standard_False);
+  GeomLib1::ExtendSurfByLength(aBS, length, 1, Standard_False, Standard_True);
+  GeomLib1::ExtendSurfByLength(aBS, length, 1, Standard_True, Standard_True);
+  GeomLib1::ExtendSurfByLength(aBS, length, 1, Standard_False, Standard_False);
+  GeomLib1::ExtendSurfByLength(aBS, length, 1, Standard_True, Standard_False);
   S = aBS;
 }
 
@@ -601,7 +601,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
   ChFiDS_CommonPoint&      CV1 = Fd->ChangeVertex(isfirst, 1);
   ChFiDS_CommonPoint&      CV2 = Fd->ChangeVertex(isfirst, 2);
   // To evaluate the new points.
-  Bnd_Box box1, box2;
+  Box2 box1, box2;
 
   // The cases of cap and intersection are processed separately.
   // ----------------------------------------------------------
@@ -946,7 +946,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
           }
         if (distmin2 <= Precision::SquareConfusion())
         {
-          Extrema_POnCurv ponc1, ponc2;
+          PointOnCurve1 ponc1, ponc2;
           extCC.Points(imin, ponc1, ponc2);
           par1              = ponc1.Parameter();
           par2              = ponc2.Parameter();
@@ -2515,7 +2515,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         if (!S1.IsNull())
         {
           Standard_Real length = 0.5 * Max(Fi1Length, Fi2Length);
-          GeomLib::ExtendSurfByLength(S1, length, 1, Standard_False, !isfirst);
+          GeomLib1::ExtendSurfByLength(S1, length, 1, Standard_False, !isfirst);
           prolface[nn] = 1;
           if (!stripe->IsInDS(!isfirst))
           {
@@ -3001,7 +3001,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
               Pl = C1->Value(C1->LastParameter());
               // Standard_Boolean sens;
               sens = Pl.Distance(pext) < tolpt;
-              GeomLib::ExtendCurveToPoint(C1, CV1.Point(), 1, sens != 0);
+              GeomLib1::ExtendCurveToPoint(C1, CV1.Point(), 1, sens != 0);
               csau = C1;
             }
           }
@@ -3013,7 +3013,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
               Pl = C1->Value(C1->LastParameter());
               // Standard_Boolean sens;
               sens = Pl.Distance(pext) < tolpt;
-              GeomLib::ExtendCurveToPoint(C1, CV2.Point(), 1, sens != 0);
+              GeomLib1::ExtendCurveToPoint(C1, CV2.Point(), 1, sens != 0);
               csau = C1;
             }
           }
@@ -3239,7 +3239,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     // compute curves for !<isfirst> end of <Fd> and <isfirst> end of previous <SurfData>
 
     // for Fd
-    // Bnd_Box box;
+    // Box2 box;
     gp_Pnt2d UV, UV1 = midP2d, UV2 = midP2d;
     if (isOnSame1)
       UV = UV2 = Fi1.PCurveOnSurf()->Value(Fi1.Parameter(!isfirst));
@@ -3722,7 +3722,7 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
   // calculation of the orientation of line of surfdata number
   // anIndPrev which contains aCP2onArc
 
-  Handle(GeomCurve2d) aPCraccS = GeomProjLib::Curve2d(aTrCracc, aSurf);
+  Handle(GeomCurve2d) aPCraccS = GeomProjLib1::Curve2d(aTrCracc, aSurf);
 
   if (is2ndCP1OnArc)
   {
@@ -4268,7 +4268,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
   ChFiDS_CommonPoint&      CV1 = Fd->ChangeVertex(isfirst, 1);
   ChFiDS_CommonPoint&      CV2 = Fd->ChangeVertex(isfirst, 2);
   // To evaluate the cloud of new points.
-  Bnd_Box box1, box2;
+  Box2 box1, box2;
 
   // The cases of cap are processed separately from intersection.
   // ----------------------------------------------------------
@@ -4586,7 +4586,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
           }
         if (dist2min <= Precision::SquareConfusion())
         {
-          Extrema_POnCurv ponc1, ponc2;
+          PointOnCurve1 ponc1, ponc2;
           extCC.Points(imin, ponc1, ponc2);
           par1              = ponc1.Parameter();
           par2              = ponc2.Parameter();

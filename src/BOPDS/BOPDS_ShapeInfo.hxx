@@ -60,15 +60,15 @@ public:
 
   //! Modifier
   //! Sets the boundung box of the shape theBox
-  void SetBox(const Bnd_Box& theBox);
+  void SetBox(const Box2& theBox);
 
   //! Selector
   //! Returns the boundung box of the shape
-  const Bnd_Box& Box() const;
+  const Box2& Box1() const;
 
   //! Selector/Modifier
   //! Returns the boundung box of the shape
-  Bnd_Box& ChangeBox();
+  Box2& ChangeBox();
 
   //! Selector
   //! Returns the list of indices of sub-shapes
@@ -124,7 +124,7 @@ public:
 protected:
   TopoShape          myShape;
   TopAbs_ShapeEnum      myType;
-  Bnd_Box               myBox;
+  Box2               myBox;
   TColStd_ListOfInteger mySubShapes;
   Standard_Integer      myReference;
   Standard_Integer      myFlag;

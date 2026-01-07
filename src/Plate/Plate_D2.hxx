@@ -25,17 +25,17 @@
 
 //! define an order 2 derivatives of a 3d valued
 //! function of a 2d variable
-class Plate_D2
+class D2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_D2(const gp_XYZ& duu, const gp_XYZ& duv, const gp_XYZ& dvv);
+  Standard_EXPORT D2(const gp_XYZ& duu, const gp_XYZ& duv, const gp_XYZ& dvv);
 
-  Standard_EXPORT Plate_D2(const Plate_D2& ref);
+  Standard_EXPORT D2(const D2& ref);
 
   friend class Plate_GtoCConstraint;
-  friend class Plate_FreeGtoCConstraint;
+  friend class FreeGtoCConstraint;
 
 protected:
 private:

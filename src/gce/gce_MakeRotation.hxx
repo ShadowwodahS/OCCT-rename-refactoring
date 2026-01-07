@@ -33,20 +33,20 @@ class Dir3d;
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class gce_MakeRotation
+class RotationBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a rotation through angle Angle about the axis defined by the line Line.
-  Standard_EXPORT gce_MakeRotation(const gp_Lin& Line, const Standard_Real Angle);
+  Standard_EXPORT RotationBuilder(const gp_Lin& Line, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis defined by the axis Axis.
-  Standard_EXPORT gce_MakeRotation(const Axis3d& Axis, const Standard_Real Angle);
+  Standard_EXPORT RotationBuilder(const Axis3d& Axis, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis defined by:
   //! the point Point and the unit vector Direc.
-  Standard_EXPORT gce_MakeRotation(const Point3d&       Point,
+  Standard_EXPORT RotationBuilder(const Point3d&       Point,
                                    const Dir3d&       Direc,
                                    const Standard_Real Angle);
 

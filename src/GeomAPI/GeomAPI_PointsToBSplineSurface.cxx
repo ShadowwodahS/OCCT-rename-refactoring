@@ -495,7 +495,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt& Points,
 
   for (i = 1; i <= NbPointJ; ++i)
   {
-    AppParCurves_ConstraintCouple ACC(i, Constraint);
+    ConstraintCouple ACC(i, Constraint);
     TABofCC->SetValue(i, ACC);
   }
 
@@ -565,7 +565,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt& Points,
 
   for (i = 1; i <= NbPointI; ++i)
   {
-    AppParCurves_ConstraintCouple ACC(i, Constraint);
+    ConstraintCouple ACC(i, Constraint);
     TABofCC2->SetValue(i, ACC);
   }
 
@@ -738,7 +738,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColStd_Array2OfReal& ZPoints,
   TColStd_Array1OfReal    NewTempPoles(1, VDegree + 1);
   TColStd_Array1OfReal    NewTempKnots(1, 2);
   TColStd_Array1OfInteger NewTempMults(1, 2);
-  BSplCLib::IncreaseDegree(1,
+  BSplCLib1::IncreaseDegree(1,
                            VDegree,
                            Standard_False,
                            1,
@@ -750,7 +750,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColStd_Array2OfReal& ZPoints,
                            NewTempMults);
 
   // insert the Knots
-  BSplCLib::InsertKnots(VDegree,
+  BSplCLib1::InsertKnots(VDegree,
                         Standard_False,
                         1,
                         NewTempPoles,
@@ -819,7 +819,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColStd_Array2OfReal& ZPoints,
 
   // increase the Degree
   TColStd_Array1OfReal NewTempPoles2(1, UDegree + 1);
-  BSplCLib::IncreaseDegree(1,
+  BSplCLib1::IncreaseDegree(1,
                            UDegree,
                            Standard_False,
                            1,
@@ -831,7 +831,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColStd_Array2OfReal& ZPoints,
                            NewTempMults);
 
   // insert the Knots
-  BSplCLib::InsertKnots(UDegree,
+  BSplCLib1::InsertKnots(UDegree,
                         Standard_False,
                         1,
                         NewTempPoles2,

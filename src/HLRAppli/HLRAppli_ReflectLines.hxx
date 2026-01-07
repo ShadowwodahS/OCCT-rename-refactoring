@@ -66,7 +66,7 @@ public:
 
 protected:
 private:
-  HLRAlgo_Projector    myProjector;
+  HLRAlgoProjector    myProjector;
   Handle(HLRBRep_Algo) myHLRAlgo;
   TopoShape         myShape;
   // TopoShape myCompound;

@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-void Bnd_Range::Common(const Bnd_Range& theOther)
+void Range1::Common(const Range1& theOther)
 {
   if (theOther.IsVoid())
   {
@@ -36,7 +36,7 @@ void Bnd_Range::Common(const Bnd_Range& theOther)
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Range::Union(const Bnd_Range& theOther)
+Standard_Boolean Range1::Union(const Range1& theOther)
 {
   if (IsVoid() || theOther.IsVoid())
     return Standard_False;
@@ -55,7 +55,7 @@ Standard_Boolean Bnd_Range::Union(const Bnd_Range& theOther)
 
 //=================================================================================================
 
-Standard_Integer Bnd_Range::IsIntersected(const Standard_Real theVal,
+Standard_Integer Range1::IsIntersected(const Standard_Real theVal,
                                           const Standard_Real thePeriod) const
 {
   if (IsVoid())
@@ -125,8 +125,8 @@ Standard_Integer Bnd_Range::IsIntersected(const Standard_Real theVal,
 
 //=================================================================================================
 
-void Bnd_Range::Split(const Standard_Real          theVal,
-                      NCollection_List<Bnd_Range>& theList,
+void Range1::Split(const Standard_Real          theVal,
+                      NCollection_List<Range1>& theList,
                       const Standard_Real          thePeriod) const
 {
   const Standard_Real aPeriod = Abs(thePeriod);
@@ -140,8 +140,8 @@ void Bnd_Range::Split(const Standard_Real          theVal,
 
   if (!isPeriodic)
   {
-    theList.Append(Bnd_Range(myFirst, theVal));
-    theList.Append(Bnd_Range(theVal, myLast));
+    theList.Append(Range1(myFirst, theVal));
+    theList.Append(Range1(theVal, myLast));
     return;
   }
 
@@ -151,26 +151,26 @@ void Bnd_Range::Split(const Standard_Real          theVal,
 
   if (aValPrev > myFirst)
   {
-    theList.Append(Bnd_Range(myFirst, aValPrev));
+    theList.Append(Range1(myFirst, aValPrev));
   }
 
   for (Standard_Real aVal = aValPrev + aPeriod; aVal <= myLast; aVal += aPeriod)
   {
-    theList.Append(Bnd_Range(aValPrev, aVal));
+    theList.Append(Range1(aValPrev, aVal));
     aValPrev = aVal;
   }
 
   if (aValPrev < myLast)
   {
-    theList.Append(Bnd_Range(aValPrev, myLast));
+    theList.Append(Range1(aValPrev, myLast));
   }
 }
 
 //=================================================================================================
 
-void Bnd_Range::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Range1::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, Bnd_Range)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, Range1)
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myFirst)
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myLast)

@@ -27,7 +27,7 @@ public:
   //! Constructs a sensitive box object defined by the
   //! owner theOwnerId, and the box theBox.
   Standard_EXPORT Select3D_SensitiveBox(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                        const Bnd_Box&                       theBox);
+                                        const Box2&                       theBox);
 
   //! Constructs a sensitive box object defined by the
   //! owner theOwnerId, and the coordinates theXmin, theYMin, theZMin, theXMax, theYMax, theZMax.
@@ -53,9 +53,9 @@ public:
                                                    SelectBasics_PickResult& thePickResult)
     Standard_OVERRIDE;
 
-  Bnd_Box Box() const
+  Box2 Box1() const
   {
-    Bnd_Box aBox;
+    Box2 aBox;
     aBox.Update(myBox.CornerMin().x(),
                 myBox.CornerMin().y(),
                 myBox.CornerMin().z(),

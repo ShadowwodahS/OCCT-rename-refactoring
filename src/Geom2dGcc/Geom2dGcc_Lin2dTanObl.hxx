@@ -65,7 +65,7 @@ public:
   //! Tolang is the angular tolerance.
   //! Warning
   //! An iterative algorithm is used if Qualified1 is more
-  //! complex than a line or a circle. In such cases, the
+  //! complex1 than a line or a circle. In such cases, the
   //! algorithm constructs only one solution.
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with

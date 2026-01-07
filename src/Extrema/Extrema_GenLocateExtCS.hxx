@@ -64,17 +64,17 @@ public:
   Standard_EXPORT Standard_Real SquareDistance() const;
 
   //! Returns the point of the extremum distance on C.
-  Standard_EXPORT const Extrema_POnCurv& PointOnCurve() const;
+  Standard_EXPORT const PointOnCurve1& PointOnCurve() const;
 
   //! Returns the point of the extremum distance on S.
-  Standard_EXPORT const Extrema_POnSurf& PointOnSurface() const;
+  Standard_EXPORT const PointOnSurface1& PointOnSurface() const;
 
 protected:
 private:
   Standard_Boolean myDone;
   Standard_Real    mySqDist;
-  Extrema_POnCurv  myPoint1;
-  Extrema_POnSurf  myPoint2;
+  PointOnCurve1  myPoint1;
+  PointOnSurface1  myPoint2;
 };
 
 #endif // _Extrema_GenLocateExtCS_HeaderFile

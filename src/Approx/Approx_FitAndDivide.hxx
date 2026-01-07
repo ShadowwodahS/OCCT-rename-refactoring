@@ -38,7 +38,7 @@ public:
   //! The approximation will be done from degreemin to degreemax
   //! with a cutting if the corresponding boolean is True.
   Standard_EXPORT Approx_FitAndDivide(
-    const AppCont_Function&       Line,
+    const ContinuityFunction&       Line,
     const Standard_Integer        degreemin   = 3,
     const Standard_Integer        degreemax   = 8,
     const Standard_Real           Tolerance3d = 1.0e-5,
@@ -58,7 +58,7 @@ public:
     const AppParCurves_Constraint LastC       = AppParCurves_TangencyPoint);
 
   //! runs the algorithm after having initialized the fields.
-  Standard_EXPORT void Perform(const AppCont_Function& Line);
+  Standard_EXPORT void Perform(const ContinuityFunction& Line);
 
   //! changes the degrees of the approximation.
   Standard_EXPORT void SetDegrees(const Standard_Integer degreemin,
@@ -114,7 +114,7 @@ public:
 protected:
 private:
   //! is internally used by the algorithms.
-  Standard_EXPORT Standard_Boolean Compute(const AppCont_Function& Line,
+  Standard_EXPORT Standard_Boolean Compute(const ContinuityFunction& Line,
                                            const Standard_Real     Ufirst,
                                            const Standard_Real     Ulast,
                                            Standard_Real&          TheTol3d,

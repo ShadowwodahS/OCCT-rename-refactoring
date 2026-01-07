@@ -56,7 +56,7 @@ static Standard_Integer NBPROJ = 1;
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Standard_Real         First,
                                           const Standard_Real         Last,
                                           const Handle(GeomSurface)& S,
@@ -157,7 +157,7 @@ Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Standard_Real         First,
                                           const Standard_Real         Last,
                                           const Handle(GeomSurface)& S,
@@ -173,7 +173,7 @@ Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
 //  Add not implemented method.
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Handle(GeomSurface)& S,
                                           const Standard_Real         UDeb,
                                           const Standard_Real         UFin,
@@ -183,14 +183,14 @@ Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
   Standard_Real First = C->FirstParameter();
   Standard_Real Last  = C->LastParameter();
   Standard_Real Tol   = Precision::PConfusion();
-  return GeomProjLib::Curve2d(C, First, Last, S, UDeb, UFin, VDeb, VFin, Tol);
+  return GeomProjLib1::Curve2d(C, First, Last, S, UDeb, UFin, VDeb, VFin, Tol);
 }
 
 //  Modified by skv - Wed Aug 11 17:26:03 2004 OCC6272 End
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Handle(GeomSurface)& S,
                                           const Standard_Real         UDeb,
                                           const Standard_Real         UFin,
@@ -200,34 +200,34 @@ Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
 {
   Standard_Real First = C->FirstParameter();
   Standard_Real Last  = C->LastParameter();
-  return GeomProjLib::Curve2d(C, First, Last, S, UDeb, UFin, VDeb, VFin, Tolerance);
+  return GeomProjLib1::Curve2d(C, First, Last, S, UDeb, UFin, VDeb, VFin, Tolerance);
 }
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Handle(GeomSurface)& S)
 {
   Standard_Real First = C->FirstParameter();
   Standard_Real Last  = C->LastParameter();
   Standard_Real Tol   = Precision::PConfusion();
-  return GeomProjLib::Curve2d(C, First, Last, S, Tol);
+  return GeomProjLib1::Curve2d(C, First, Last, S, Tol);
 }
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomProjLib::Curve2d(const Handle(GeomCurve3d)&   C,
+Handle(GeomCurve2d) GeomProjLib1::Curve2d(const Handle(GeomCurve3d)&   C,
                                           const Standard_Real         First,
                                           const Standard_Real         Last,
                                           const Handle(GeomSurface)& S)
 {
   Standard_Real Tol = Precision::PConfusion();
-  return GeomProjLib::Curve2d(C, First, Last, S, Tol);
+  return GeomProjLib1::Curve2d(C, First, Last, S, Tol);
 }
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomProjLib::Project(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S)
+Handle(GeomCurve3d) GeomProjLib1::Project(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S)
 {
   GeomAdaptor_Curve   AC(C);
   GeomAdaptor_Surface AS(S);
@@ -310,7 +310,7 @@ Handle(GeomCurve3d) GeomProjLib::Project(const Handle(GeomCurve3d)& C, const Han
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomProjLib::ProjectOnPlane(const Handle(GeomCurve3d)& Curve,
+Handle(GeomCurve3d) GeomProjLib1::ProjectOnPlane(const Handle(GeomCurve3d)& Curve,
                                                const Handle(GeomPlane)& Plane,
                                                const Dir3d&             Dir,
                                                const Standard_Boolean    KeepParametrization)

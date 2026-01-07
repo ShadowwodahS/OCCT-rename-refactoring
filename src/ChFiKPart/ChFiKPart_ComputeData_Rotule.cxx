@@ -83,12 +83,12 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   Standard_Real alpha = dpl1.Angle(dpl2);
 
-  IntAna_QuadQuadGeo LInt(pl1, pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(pl1, pl2, Precision::Angular(), Precision::Confusion());
   Point3d             ptor, pcirc;
   if (LInt.IsDone())
   {
 
-    pcirc = ElCLib::Value(ElCLib::Parameter(LInt.Line(1), pl.Location()), LInt.Line(1));
+    pcirc = ElCLib1::Value(ElCLib1::Parameter(LInt.Line(1), pl.Location()), LInt.Line(1));
     ptor.SetCoord(pcirc.X() + r * dpl.X(), pcirc.Y() + r * dpl.Y(), pcirc.Z() + r * dpl.Z());
   }
   else
@@ -106,7 +106,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   //------------------------------------------------------------
   Point3d pp;
   Vector3d du, dv;
-  ElSLib::TorusD1(0., M_PI / 2, ppos, r, r, pp, du, dv);
+  ElSLib1::TorusD1(0., M_PI / 2, ppos, r, r, pp, du, dv);
   Dir3d           drot(du.Crossed(dv));
   Standard_Boolean reversecur = (drot.Dot(dplnat) <= 0.);
   Standard_Boolean reversefil = (drot.Dot(dfpl) <= 0.);
@@ -128,7 +128,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   circAx2.SetLocation(pcirc);
   Handle(GeomCircle) GC = new GeomCircle(circAx2, r);
   Standard_Real       u, v;
-  ElSLib::Parameters(pl, pcirc, u, v);
+  ElSLib1::Parameters(pl, pcirc, u, v);
   gp_Pnt2d p2dcirc(u, v);
   gp_Dir2d dx2d(dpl1.Dot(pl.Position().XDirection()), dpl1.Dot(pl.Position().YDirection()));
   gp_Dir2d dy2d(ppos.YDirection().Dot(pl.Position().XDirection()),
@@ -159,7 +159,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   // et les points
   //-------------
   Data->ChangeVertexFirstOnS1().SetPoint(pp);
-  ElSLib::TorusD0(alpha, M_PI / 2, ppos, r, r, pp);
+  ElSLib1::TorusD0(alpha, M_PI / 2, ppos, r, r, pp);
   Data->ChangeVertexLastOnS1().SetPoint(pp);
   Data->ChangeInterferenceOnS1().SetFirstParameter(0.);
   Data->ChangeInterferenceOnS1().SetLastParameter(alpha);

@@ -320,7 +320,7 @@ Standard_Boolean BOPDS_PaveBlock::HasShrunkData() const
 
 void BOPDS_PaveBlock::SetShrunkData(const Standard_Real    theT1,
                                     const Standard_Real    theT2,
-                                    const Bnd_Box&         theBox,
+                                    const Box2&         theBox,
                                     const Standard_Boolean theIsSplittable)
 {
   myTS1          = theT1;
@@ -333,7 +333,7 @@ void BOPDS_PaveBlock::SetShrunkData(const Standard_Real    theT1,
 
 void BOPDS_PaveBlock::ShrunkData(Standard_Real&    theT1,
                                  Standard_Real&    theT2,
-                                 Bnd_Box&          theBox,
+                                 Box2&          theBox,
                                  Standard_Boolean& theIsSplittable) const
 {
   theT1           = myTS1;

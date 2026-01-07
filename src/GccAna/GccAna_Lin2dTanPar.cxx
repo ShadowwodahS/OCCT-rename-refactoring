@@ -123,7 +123,7 @@ Line2dTangentParallel::Line2dTangentParallel(const QualifiedCircle& Qualified1, 
     //                             =================
     pnttg1sol(NbrSol) = gp_Pnt2d((C1.Location().XY()).Added(signe * xy));
     par1sol(NbrSol)   = 0.;
-    pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+    pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
     WellDone          = Standard_True;
   }
 }

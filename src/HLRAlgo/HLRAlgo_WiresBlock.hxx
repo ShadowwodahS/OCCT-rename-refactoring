@@ -53,18 +53,18 @@ public:
     return *((Handle(HLRAlgo_EdgesBlock)*)&myWires(I));
   }
 
-  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices& theMinMaxes)
+  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& theMinMaxes)
   {
     myMinMax = theMinMaxes;
   }
 
-  HLRAlgo_EdgesBlock::MinMaxIndices& MinMax() { return myMinMax; }
+  HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax() { return myMinMax; }
 
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_WiresBlock, RefObject)
 
 private:
   TColStd_Array1OfTransient         myWires;
-  HLRAlgo_EdgesBlock::MinMaxIndices myMinMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 myMinMax;
 };
 
 #endif // _HLRAlgo_WiresBlock_HeaderFile

@@ -22,18 +22,18 @@
 
 class HSurfaceTool;
 class Adaptor3d_TopolTool;
-class Contap_HContTool;
+class HContTool;
 class Contap_SurfFunction;
 class InteriorPoint;
 
-class Contap_TheSearchInside
+class TheSearchInside1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Contap_TheSearchInside();
+  Standard_EXPORT TheSearchInside1();
 
-  Standard_EXPORT Contap_TheSearchInside(Contap_SurfFunction&               F,
+  Standard_EXPORT TheSearchInside1(Contap_SurfFunction&               F,
                                          const Handle(Adaptor3d_Surface)&   Surf,
                                          const Handle(Adaptor3d_TopolTool)& T,
                                          const Standard_Real                Epsilon);
@@ -75,11 +75,11 @@ private:
 #define Handle_TheTopolTool Handle(Adaptor3d_TopolTool)
 #define TheTopolTool Adaptor3d_TopolTool
 #define TheTopolTool_hxx <Adaptor3d_TopolTool.hxx>
-#define TheSITool Contap_HContTool
+#define TheSITool HContTool
 #define TheSITool_hxx <Contap_HContTool.hxx>
 #define TheFunction Contap_SurfFunction
 #define TheFunction_hxx <Contap_SurfFunction.hxx>
-#define IntStart_SearchInside Contap_TheSearchInside
+#define IntStart_SearchInside TheSearchInside1
 #define IntStart_SearchInside_hxx <Contap_TheSearchInside.hxx>
 
 #include <IntStart_SearchInside.lxx>

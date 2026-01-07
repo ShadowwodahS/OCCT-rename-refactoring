@@ -172,7 +172,7 @@ void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
     Standard_Integer nbTri = aT->NbTriangles(), i, j, n[3], t[3];
     for (i = 1; i <= nbTri; i++)
     {
-      aT->Triangle(i).Get(n[0], n[1], n[2]);
+      aT->Triangle1(i).Get(n[0], n[1], n[2]);
 
       aUsedNodes.Add(n[0]);
       aUsedNodes.Add(n[1]);

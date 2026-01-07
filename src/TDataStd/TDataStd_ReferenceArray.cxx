@@ -325,7 +325,7 @@ void TDataStd_ReferenceArray::DumpJson(Standard_OStream& theOStream,
          anArrayIt.Next())
     {
       aLabel.Clear();
-      TDF_Tool::Entry(anArrayIt.Value(), aLabel);
+      Tool3::Entry(anArrayIt.Value(), aLabel);
       OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
     }
   }

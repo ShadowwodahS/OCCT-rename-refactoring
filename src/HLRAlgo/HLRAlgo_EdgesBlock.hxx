@@ -45,11 +45,11 @@ class HLRAlgo_EdgesBlock : public RefObject
 {
 
 public:
-  struct MinMaxIndices
+  struct MinMaxIndices1
   {
     Standard_Integer Min[8], Max[8];
 
-    MinMaxIndices& Minimize(const MinMaxIndices& theMinMaxIndices)
+    MinMaxIndices1& Minimize(const MinMaxIndices1& theMinMaxIndices)
     {
       for (Standard_Integer aI = 0; aI < 8; ++aI)
       {
@@ -65,7 +65,7 @@ public:
       return *this;
     }
 
-    MinMaxIndices& Maximize(const MinMaxIndices& theMinMaxIndices)
+    MinMaxIndices1& Maximize(const MinMaxIndices1& theMinMaxIndices)
     {
       for (Standard_Integer aI = 0; aI < 8; ++aI)
       {
@@ -154,9 +154,9 @@ public:
       myFlags(I) &= ~EMaskIsoLine;
   }
 
-  void UpdateMinMax(const MinMaxIndices& TotMinMax) { myMinMax = TotMinMax; }
+  void UpdateMinMax(const MinMaxIndices1& TotMinMax) { myMinMax = TotMinMax; }
 
-  MinMaxIndices& MinMax() { return myMinMax; }
+  MinMaxIndices1& MinMax() { return myMinMax; }
 
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, RefObject)
 
@@ -173,7 +173,7 @@ protected:
 private:
   TColStd_Array1OfInteger myEdges;
   TColStd_Array1OfInteger myFlags;
-  MinMaxIndices           myMinMax;
+  MinMaxIndices1           myMinMax;
 };
 
 #endif // _HLRAlgo_EdgesBlock_HeaderFile

@@ -824,7 +824,7 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
 
 //=======================================================================
 // Function : GlobalTransition
-// Purpose  : Returns the before and after states of the complex
+// Purpose  : Returns the before and after states of the complex1
 //            transition of the IndP-th intersection point of the
 //            IndH-th hatching.
 //=======================================================================
@@ -854,7 +854,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
     Normale.SetCoord(Normale2d.X(), Normale2d.Y(), 0.0);
   }
 
-  TopTrans_CurveTransition ComplexTransition;
+  CurveTransition ComplexTransition;
   ComplexTransition.Reset(Tangente, Normale, Courbure);
 
 #if TRACE_HATCHER

@@ -168,7 +168,7 @@ static Standard_Integer DDocStd_UpdateLink(DrawInterpreter& di,
     }
     else
     {
-      for (TDocStd_XLinkIterator xit(DOC); xit.More(); xit.Next())
+      for (XLinkIterator xit(DOC); xit.More(); xit.Next())
       {
         XLinkTool.UpdateLink(xit.Value()->Label());
         if (!XLinkTool.IsDone())
@@ -355,7 +355,7 @@ static Standard_Integer DDocStd_DumpDocument(DrawInterpreter& di,
     di << "\n";
     // std::cout << "CURRENT :";
     //     AsciiString1 string;
-    //     TDF_Tool::Entry(D->CurrentLabel(),string);
+    //     Tool3::Entry(D->CurrentLabel(),string);
     //     std::cout << string;
     //     std::cout << std::endl;
     // modified
@@ -376,7 +376,7 @@ static Standard_Integer DDocStd_DumpDocument(DrawInterpreter& di,
         AsciiString1 string;
         for (; it.More(); it.Next())
         {
-          TDF_Tool::Entry(it.Key(), string);
+          Tool3::Entry(it.Key(), string);
           di << string.ToCString() << " ";
         }
         di << "\n";

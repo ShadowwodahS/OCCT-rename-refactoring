@@ -91,7 +91,7 @@ public:
 };
 
 //! Shared pointer to quad BVH (QBVH) tree.
-typedef opencascade::handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> QuadBvhHandle;
+typedef opencascade::handle<BVH_Tree<Standard_ShortReal, 3, QuadTree>> QuadBvhHandle;
 typedef BVH_Triangulation<Standard_ShortReal, 3> OpenGl_BVHTriangulation3f;
 
 //! Triangulation of single OpenGL primitive array.
@@ -132,10 +132,10 @@ public:
   }
 
   //! Returns AABB of primitive set.
-  virtual BVH_BoxNt Box() const Standard_OVERRIDE;
+  virtual BVH_BoxNt Box1() const Standard_OVERRIDE;
 
   //! Returns AABB of the given object.
-  using BVH_Triangulation<Standard_ShortReal, 3>::Box;
+  using BVH_Triangulation<Standard_ShortReal, 3>::Box1;
 
   //! Returns centroid position along the given axis.
   Standard_EXPORT virtual Standard_ShortReal Center(const Standard_Integer theIndex,

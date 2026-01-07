@@ -132,7 +132,7 @@ Standard_Integer IntTools1::PrepareArgs(BRepAdaptor_Curve&     C,
     if (!ip)
     {
       anAbsDeflection = Deflection * aR;
-      GCPnts_QuasiUniformDeflection anUD;
+      QuasiUniformDeflectionSampler anUD;
       anUD.Initialize(C, anAbsDeflection, tCurrent, tNext);
       if (!anUD.IsDone())
       {
@@ -338,27 +338,27 @@ Standard_Integer IntTools1::Parameter(const Point3d&             aP,
 
     case GeomAbs_Line: {
       gp_Lin aLin = aGAC.Line();
-      aParameter  = ElCLib::Parameter(aLin, aP);
+      aParameter  = ElCLib1::Parameter(aLin, aP);
       return 0;
     }
     case GeomAbs_Circle: {
       gp_Circ aCircle = aGAC.Circle();
-      aParameter      = ElCLib::Parameter(aCircle, aP);
+      aParameter      = ElCLib1::Parameter(aCircle, aP);
       return 0;
     }
     case GeomAbs_Ellipse: {
       gp_Elips aElips = aGAC.Ellipse();
-      aParameter      = ElCLib::Parameter(aElips, aP);
+      aParameter      = ElCLib1::Parameter(aElips, aP);
       return 0;
     }
     case GeomAbs_Hyperbola: {
       gp_Hypr aHypr = aGAC.Hyperbola();
-      aParameter    = ElCLib::Parameter(aHypr, aP);
+      aParameter    = ElCLib1::Parameter(aHypr, aP);
       return 0;
     }
     case GeomAbs_Parabola: {
       gp_Parab aParab = aGAC.Parabola();
-      aParameter      = ElCLib::Parameter(aParab, aP);
+      aParameter      = ElCLib1::Parameter(aParab, aP);
       return 0;
     }
 

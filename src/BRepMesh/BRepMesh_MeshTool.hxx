@@ -29,7 +29,7 @@
 class BRepMesh_MeshTool : public RefObject
 {
 public:
-  //! Helper functor intended to separate points to left and right from the constraint.
+  //! Helper1 functor intended to separate points to left and right from the constraint.
   class NodeClassifier
   {
   public:

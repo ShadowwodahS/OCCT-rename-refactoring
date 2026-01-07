@@ -112,7 +112,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   }
   else
   {
-    myPath = GeomConvert::CurveToBSplineCurve(Path);
+    myPath = GeomConvert1::CurveToBSplineCurve(Path);
   }
 }
 
@@ -140,7 +140,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   }
   else
   {
-    myPath = GeomConvert::CurveToBSplineCurve(Path);
+    myPath = GeomConvert1::CurveToBSplineCurve(Path);
   }
   if (FirstSect->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
@@ -149,7 +149,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   else
   {
     // JAG
-    myFirstSect = GeomConvert::CurveToBSplineCurve(FirstSect, Convert_QuasiAngular);
+    myFirstSect = GeomConvert1::CurveToBSplineCurve(FirstSect, Convert_QuasiAngular);
   }
   if (myFirstSect->IsPeriodic())
     myFirstSect->SetNotPeriodic();
@@ -180,7 +180,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   }
   else
   {
-    myPath = GeomConvert::CurveToBSplineCurve(Path);
+    myPath = GeomConvert1::CurveToBSplineCurve(Path);
   }
 
   // JAG
@@ -190,7 +190,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   }
   else
   {
-    myFirstSect = GeomConvert::CurveToBSplineCurve(FirstSect, Convert_QuasiAngular);
+    myFirstSect = GeomConvert1::CurveToBSplineCurve(FirstSect, Convert_QuasiAngular);
   }
   if (LastSect->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
@@ -198,7 +198,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
   }
   else
   {
-    myLastSect = GeomConvert::CurveToBSplineCurve(LastSect, Convert_QuasiAngular);
+    myLastSect = GeomConvert1::CurveToBSplineCurve(LastSect, Convert_QuasiAngular);
   }
 
   if (myFirstSect->IsPeriodic())
@@ -229,7 +229,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Adaptor3d_Curve)& Path,
   myType   = 0;
 
   Handle(GeomCurve3d) CC = GeomAdaptor1::MakeCurve(*Path);
-  myPath                = GeomConvert::CurveToBSplineCurve(CC);
+  myPath                = GeomConvert1::CurveToBSplineCurve(CC);
   myAdpPath             = Path;
   myAdpFirstSect        = Curve1;
   myAdpLastSect         = Curve2;
@@ -251,7 +251,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
   Standard_Real U1 = myPath->FirstParameter();
   Standard_Real U2 = myPath->LastParameter();
 
-  GCPnts_QuasiUniformDeflection Samp;
+  QuasiUniformDeflectionSampler Samp;
   // Calcul de la longueur approximative de la courbe
   GeomAdaptor_Curve AdpPath(myPath);
   Point3d            P1     = AdpPath.Value(U1);
@@ -299,7 +299,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
     /*
         Handle(GeomCircle) Circ = new GeomCircle( CircleAxis, myRadius);
 
-        myFirstSect = GeomConvert::CurveToBSplineCurve(Circ);
+        myFirstSect = GeomConvert1::CurveToBSplineCurve(Circ);
         // le cercle est segmente car AppBlend_AppSurf ne gere
         // pas les courbes periodiques.
         myFirstSect->Segment(0., 2.*M_PI);
@@ -307,7 +307,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
     Handle(Geom_TrimmedCurve) Circ =
       new Geom_TrimmedCurve(new GeomCircle(CircleAxis, myRadius), 0., 2. * M_PI);
 
-    myFirstSect = GeomConvert::CurveToBSplineCurve(Circ, Convert_QuasiAngular);
+    myFirstSect = GeomConvert1::CurveToBSplineCurve(Circ, Convert_QuasiAngular);
   }
 
   if (myType <= 3 && myType >= 1)
@@ -584,7 +584,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
           || Precision::IsInfinite(myAdpFirstSect->LastParameter()))
       {
         gp_Lin aLine = myAdpFirstSect->Line();
-        U1           = ElCLib::Parameter(aLine, PPath);
+        U1           = ElCLib1::Parameter(aLine, PPath);
       }
     }
     Point3d P1 = myAdpFirstSect->Value(U1);
@@ -598,7 +598,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
           || Precision::IsInfinite(myAdpLastSect->LastParameter()))
       {
         gp_Lin aLine = myAdpLastSect->Line();
-        U2           = ElCLib::Parameter(aLine, PPath);
+        U2           = ElCLib1::Parameter(aLine, PPath);
       }
     }
     Point3d P2 = myAdpLastSect->Value(U2);
@@ -612,7 +612,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     else
     {
       Axis  = Frame3d(PPath, Vector3d(PPath, P1) ^ Vector3d(PPath, P2), Vector3d(PPath, P1));
-      Angle = ElCLib::CircleParameter(Axis, P2);
+      Angle = ElCLib1::CircleParameter(Axis, P2);
     }
 #ifdef OCCT_DEBUG
 /*
@@ -639,9 +639,9 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
       Handle(Geom_TrimmedCurve) CT   = new Geom_TrimmedCurve(Circ, 0., Angle);
       Handle(BSplineCurve3d) BS;
       if (myPolynomial)
-        BS = GeomConvert::CurveToBSplineCurve(CT, Convert_Polynomial);
+        BS = GeomConvert1::CurveToBSplineCurve(CT, Convert_Polynomial);
       else
-        BS = GeomConvert::CurveToBSplineCurve(CT, Convert_QuasiAngular);
+        BS = GeomConvert1::CurveToBSplineCurve(CT, Convert_QuasiAngular);
 
 #ifdef DRAW
       if (Affich)

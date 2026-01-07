@@ -85,7 +85,7 @@ public:
   Standard_EXPORT virtual const Handle(Graphic3d_ArrayOfPoints) GetPoints() const;
 
   //! Get bounding box for presentation.
-  Standard_EXPORT virtual Bnd_Box GetBoundingBox() const;
+  Standard_EXPORT virtual Box2 GetBoundingBox() const;
 
 public:
   //! Setup custom color. Affects presentation only when no per-point color attribute has been
@@ -114,7 +114,7 @@ protected:
 
 private:
   Handle(Graphic3d_ArrayOfPoints) myPoints; //!< points array for presentation
-  Bnd_Box                         myBndBox; //!< bounding box for presentation
+  Box2                         myBndBox; //!< bounding box for presentation
 };
 
 DEFINE_STANDARD_HANDLE(AIS_PointCloud, VisualEntity)

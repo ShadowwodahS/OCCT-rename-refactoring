@@ -158,7 +158,7 @@ void VisualPoint::replaceWithNewPointAspect(const Handle(Prs3d_PointAspect)& the
 
   const Handle(Graphic3d_AspectMarker3d) anAspectOld = myDrawer->PointAspect()->Aspect();
   const Handle(Graphic3d_AspectMarker3d) anAspectNew =
-    !theAspect.IsNull() ? theAspect->Aspect() : myDrawer->Link()->PointAspect()->Aspect();
+    !theAspect.IsNull() ? theAspect->Aspect() : myDrawer->Link1()->PointAspect()->Aspect();
   if (anAspectNew != anAspectOld)
   {
     myDrawer->SetPointAspect(theAspect);
@@ -183,9 +183,9 @@ void VisualPoint::UpdatePointValues()
   Standard_Real       aScale = 1.0;
   if (myDrawer->HasLink())
   {
-    aCol   = myDrawer->Link()->PointAspect()->Aspect()->Color();
-    aTOM   = myDrawer->Link()->PointAspect()->Aspect()->Type();
-    aScale = myDrawer->Link()->PointAspect()->Aspect()->Scale();
+    aCol   = myDrawer->Link1()->PointAspect()->Aspect()->Color();
+    aTOM   = myDrawer->Link1()->PointAspect()->Aspect()->Type();
+    aScale = myDrawer->Link1()->PointAspect()->Aspect()->Scale();
   }
 
   if (hasOwnColor)

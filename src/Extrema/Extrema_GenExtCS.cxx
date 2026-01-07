@@ -563,7 +563,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
     if (aCT < theTUVinf(1) - Precision::PConfusion()
         || aCT > theTUVsup(1) + Precision::PConfusion())
     {
-      aCT = ElCLib::InPeriod(aCT, theTUVinf(1), theTUVinf(1) + 2. * M_PI);
+      aCT = ElCLib1::InPeriod(aCT, theTUVinf(1), theTUVinf(1) + 2. * M_PI);
     }
   }
 
@@ -647,7 +647,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
     anExtPS.Perform(aPOnC, anUV(1), anUV(2), Standard_False);
     if (anExtPS.IsDone())
     {
-      const Extrema_POnSurf& aPmin = anExtPS.Point();
+      const PointOnSurface1& aPmin = anExtPS.Point();
       aPmin.Parameter(anUV(1), anUV(2));
       math_Vector aTUV = theTUV;
       aTUV(2)          = anUV(1);
@@ -760,7 +760,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
     if (anUV(1) < theTUVinf(2) - Precision::PConfusion()
         || anUV(1) > theTUVsup(2) + Precision::PConfusion())
     {
-      anUV(1) = ElCLib::InPeriod(anUV(1), theTUVinf(2), theTUVinf(2) + 2. * M_PI);
+      anUV(1) = ElCLib1::InPeriod(anUV(1), theTUVinf(2), theTUVinf(2) + 2. * M_PI);
     }
   }
   //
@@ -769,7 +769,7 @@ void Extrema_GenExtCS::GlobMinCQuadric(const Adaptor3d_Curve& theC,
     if (anUV(2) < theTUVinf(3) - Precision::PConfusion()
         || anUV(2) > theTUVsup(3) + Precision::PConfusion())
     {
-      anUV(2) = ElCLib::InPeriod(anUV(2), theTUVinf(3), theTUVinf(3) + 2. * M_PI);
+      anUV(2) = ElCLib1::InPeriod(anUV(2), theTUVinf(3), theTUVinf(3) + 2. * M_PI);
     }
   }
   //
@@ -810,7 +810,7 @@ Standard_Real Extrema_GenExtCS::SquareDistance(const Standard_Integer N) const
 
 //=================================================================================================
 
-const Extrema_POnCurv& Extrema_GenExtCS::PointOnCurve(const Standard_Integer N) const
+const PointOnCurve1& Extrema_GenExtCS::PointOnCurve(const Standard_Integer N) const
 {
   if (N < 1 || N > NbExt())
   {
@@ -822,7 +822,7 @@ const Extrema_POnCurv& Extrema_GenExtCS::PointOnCurve(const Standard_Integer N) 
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_GenExtCS::PointOnSurface(const Standard_Integer N) const
+const PointOnSurface1& Extrema_GenExtCS::PointOnSurface(const Standard_Integer N) const
 {
   if (N < 1 || N > NbExt())
   {

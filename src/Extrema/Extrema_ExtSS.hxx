@@ -26,7 +26,7 @@
 #include <GeomAbs_SurfaceType.hxx>
 #include <Standard_Integer.hxx>
 class Adaptor3d_Surface;
-class Extrema_POnSurf;
+class PointOnSurface1;
 
 //! It calculates all the extremum distances
 //! between two surfaces.
@@ -90,8 +90,8 @@ public:
 
   //! Returns the point of the Nth resulting distance.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnSurf&       P1,
-                              Extrema_POnSurf&       P2) const;
+                              PointOnSurface1&       P1,
+                              PointOnSurface1&       P2) const;
 
 private:
   const Adaptor3d_Surface*  myS2;

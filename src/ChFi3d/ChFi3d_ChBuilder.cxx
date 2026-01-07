@@ -669,8 +669,8 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       gp_Pln              Pl   = AS.Plane();
       CircularSection& sec1 = sec->ChangeValue(1);
       CircularSection& sec2 = sec->ChangeValue(2);
-      sec1.Set(ElSLib::PlaneUIso(Pl.Position(), u1), v1, v2);
-      sec2.Set(ElSLib::PlaneUIso(Pl.Position(), u2), v1, v2);
+      sec1.Set(ElSLib1::PlaneUIso(Pl.Position(), u1), v1, v2);
+      sec2.Set(ElSLib1::PlaneUIso(Pl.Position(), u2), v1, v2);
     }
     break;
     case GeomAbs_Cone: {
@@ -689,7 +689,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       {
         CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
-        isec.Set(ElSLib::ConeUIso(Co.Position(), rad, sang, u), v1, v2);
+        isec.Set(ElSLib1::ConeUIso(Co.Position(), rad, sang, u), v1, v2);
       }
     }
     break;

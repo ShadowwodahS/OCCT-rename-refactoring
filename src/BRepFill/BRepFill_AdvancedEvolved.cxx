@@ -514,7 +514,7 @@ void BRepFill_AdvancedEvolved::GetLids()
 
   Standard_Real aTol = Max(aFS.Tolerance(), aFS.ToleranceReached());
   aTol += myFuzzyValue;
-  Bnd_Box aProfBox;
+  Box2 aProfBox;
   BRepBndLib::Add(myProfile, aProfBox);
   Standard_Real aSqDiag = aProfBox.SquareExtent();
   // Square of the default angular tolerance in

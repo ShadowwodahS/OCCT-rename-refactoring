@@ -76,7 +76,7 @@ void NamingScope::ValidChildren(const DataLabel& L, const Standard_Boolean withr
 {
   if (L.HasChild())
   {
-    TDF_ChildIterator itc(L, Standard_True);
+    ChildIterator itc(L, Standard_True);
     for (; itc.More(); itc.Next())
       myValid.Add(itc.Value());
   }
@@ -97,7 +97,7 @@ void NamingScope::UnvalidChildren(const DataLabel& L, const Standard_Boolean wit
 {
   if (L.HasChild())
   {
-    TDF_ChildIterator itc(L, Standard_True);
+    ChildIterator itc(L, Standard_True);
     for (; itc.More(); itc.Next())
       myValid.Remove(itc.Value());
   }

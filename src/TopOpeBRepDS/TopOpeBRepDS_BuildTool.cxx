@@ -686,7 +686,7 @@ void TopOpeBRepDS_BuildTool::ComputePCurves(const TopOpeBRepDS_Curve& C,
     }
     parmin = f;
     parmax = l;
-    ElCLib::AdjustPeriodic(f, f + period, Precision::PConfusion(), parmin, parmax);
+    ElCLib1::AdjustPeriodic(f, f + period, Precision::PConfusion(), parmin, parmax);
     if (compc3d)
       C3Dnew = new Geom_TrimmedCurve(C3D, parmin, parmax);
   }
@@ -918,7 +918,7 @@ void TopOpeBRepDS_BuildTool::Parameter(const TopoShape& E,
       {
         if (p < f)
         {
-          Standard_Real pp = ElCLib::InPeriod(p, f, f + per);
+          Standard_Real pp = ElCLib1::InPeriod(p, f, f + per);
           p                = pp;
         }
       }
@@ -955,7 +955,7 @@ void TopOpeBRepDS_BuildTool::UpdateEdge(const TopoShape& Ein, TopoShape& Eou) co
     Standard_Real f2n = f2, l2n = l2;
     if (l2n <= f2n)
     {
-      ElCLib::AdjustPeriodic(f1, l1, Precision::PConfusion(), f2n, l2n);
+      ElCLib1::AdjustPeriodic(f1, l1, Precision::PConfusion(), f2n, l2n);
       Range(Eou, f2n, l2n);
     }
   }
@@ -981,7 +981,7 @@ static Standard_Boolean Project(const Handle(GeomCurve3d)& C,
     {
       if (extrema.IsMin(i))
       {
-        Extrema_POnCurv EPOC = extrema.Point(i);
+        PointOnCurve1 EPOC = extrema.Point(i);
         if (P.Distance(EPOC.Value()) <= tol)
         {
           p = EPOC.Parameter();
@@ -1405,7 +1405,7 @@ void  TopOpeBRepDS_BuildTool::RecomputeCurveOnCone
     if (Vmin.Orientation() == TopAbs_FORWARD) { f = parmin; l = parmax; }
     else {                                      f = parmax; l = parmin; }
     parmin = f; parmax = l;
-    ElCLib::AdjustPeriodic(f,f+period,Precision::PConfusion(),parmin,parmax);
+    ElCLib1::AdjustPeriodic(f,f+period,Precision::PConfusion(),parmin,parmax);
   }
 
   Handle(Geom_TrimmedCurve) C3Dnew;

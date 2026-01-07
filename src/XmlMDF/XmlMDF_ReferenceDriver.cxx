@@ -70,7 +70,7 @@ Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theS
   DataLabel tLab; // Null label.
   if (anEntry.Length() > 0)
   {
-    TDF_Tool::Label(aRef->Label().Data(), anEntry, tLab, Standard_True);
+    Tool3::Label(aRef->Label().Data(), anEntry, tLab, Standard_True);
   }
 
   // set referenced label
@@ -104,7 +104,7 @@ void XmlMDF_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSource,
       {
         // Internal reference
         AsciiString1 anEntry;
-        TDF_Tool::Entry(refLab, anEntry);
+        Tool3::Entry(refLab, anEntry);
 
         XmlObjMgt_DOMString aDOMString;
         XmlObjMgt::SetTagEntryString(aDOMString, anEntry);

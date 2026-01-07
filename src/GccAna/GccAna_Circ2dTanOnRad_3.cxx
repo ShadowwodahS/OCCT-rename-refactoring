@@ -108,7 +108,7 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedCircle& Qualifie
             qualifier1(NbrSol) = Qualified1.Qualifier();
             TheSame1(NbrSol)   = 1;
             pntcen3(NbrSol)    = center1;
-            parcen3(NbrSol)    = ElCLib::Parameter(OnCirc, pntcen3(NbrSol));
+            parcen3(NbrSol)    = ElCLib1::Parameter(OnCirc, pntcen3(NbrSol));
             WellDone           = Standard_True;
           }
           else
@@ -147,7 +147,7 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedCircle& Qualifie
             qualifier1(NbrSol) = Qualified1.Qualifier();
             TheSame1(NbrSol)   = 1;
             pntcen3(NbrSol)    = center1;
-            parcen3(NbrSol)    = ElCLib::Parameter(OnCirc, pntcen3(NbrSol));
+            parcen3(NbrSol)    = ElCLib1::Parameter(OnCirc, pntcen3(NbrSol));
             WellDone           = Standard_True;
           }
           else
@@ -234,7 +234,7 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedCircle& Qualifie
     }
     for (Standard_Integer jj = 0; jj < nparal; jj++)
     {
-      IntAna2d_AnaIntersection Intp(OnCirc, gp_Circ2d(gp_Ax2d(center1, dirx), disparal[jj]));
+      AnalyticIntersection2d Intp(OnCirc, gp_Circ2d(gp_Ax2d(center1, dirx), disparal[jj]));
       if (Intp.IsDone())
       {
         if (!Intp.IsEmpty())
@@ -307,9 +307,9 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedCircle& Qualifie
     {
       pnttg1sol(ii + 1) = gp_Pnt2d(Center(ii + 1).XY() + signe[ii] * Radius * dir1on(ii + 1).XY());
       pntcen3(ii + 1)   = cirsol(ii + 1).Location();
-      pararg1(ii + 1)   = ElCLib::Parameter(C1, pnttg1sol(ii + 1));
-      par1sol(ii + 1)   = ElCLib::Parameter(cirsol(ii + 1), pnttg1sol(ii + 1));
-      parcen3(ii + 1)   = ElCLib::Parameter(OnCirc, pntcen3(ii + 1));
+      pararg1(ii + 1)   = ElCLib1::Parameter(C1, pnttg1sol(ii + 1));
+      par1sol(ii + 1)   = ElCLib1::Parameter(cirsol(ii + 1), pnttg1sol(ii + 1));
+      parcen3(ii + 1)   = ElCLib1::Parameter(OnCirc, pntcen3(ii + 1));
       ii++;
     }
   }

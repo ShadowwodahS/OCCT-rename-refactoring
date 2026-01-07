@@ -89,8 +89,8 @@ static void MapShapes(const DataLabel&              LCible,
     isource.Next();
   }
 
-  TDF_ChildIterator iccible(LCible);
-  TDF_ChildIterator icsource(LSource);
+  ChildIterator iccible(LCible);
+  ChildIterator icsource(LSource);
   while (iccible.More())
   {
     MapShapes(iccible.Value(), icsource.Value(), M);
@@ -263,7 +263,7 @@ void TNaming1::Update(const DataLabel& L, TopTools_DataMapOfShapeShape& M)
   // SI Les shapes dans les sous-labels sont des sous shapes des shapes de L
   // si les shapes de L n ont pas changes les shapes des sous-labels ne seront
   // pas changes non plus.
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     TNaming1::Update(ciL.Value(), M);
   }
@@ -285,7 +285,7 @@ static void BuildCompound(TopoCompound& C, const DataLabel& L)
       B.Add(C, it.NewShape());
     }
   }
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     BuildCompound(C, ciL.Value());
   }
@@ -312,7 +312,7 @@ static void BuildMap(const DataLabel&              L,
       M.Bind(S, Transformer.ModifiedShape(S));
     }
   }
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     BuildMap(ciL.Value(), Transformer, M);
   }
@@ -391,7 +391,7 @@ void TNaming1::Displace(const DataLabel&       L,
       LoadNamedShape(B, Evol, OS, NS);
     }
   }
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     Displace(ciL.Value(), Loc, WithOld);
   }
@@ -429,7 +429,7 @@ static void Replace(const DataLabel& L, const TopTools_DataMapOfShapeShape& M)
     }
     LoadNamedShape(B, Evol, OS, NS);
   }
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     Replace(ciL.Value(), M);
   }
@@ -595,7 +595,7 @@ void TNaming1::ChangeShapes(const DataLabel& L, TopTools_DataMapOfShapeShape& M)
     }
   }
 
-  for (TDF_ChildIterator ciL(L); ciL.More(); ciL.Next())
+  for (ChildIterator ciL(L); ciL.More(); ciL.Next())
   {
     ChangeShapes(ciL.Value(), M);
   }

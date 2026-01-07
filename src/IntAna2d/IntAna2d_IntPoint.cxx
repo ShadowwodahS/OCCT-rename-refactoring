@@ -16,7 +16,7 @@
 
 #include <IntAna2d_IntPoint.hxx>
 
-IntAna2d_IntPoint::IntAna2d_IntPoint(const Standard_Real X,
+IntersectionPoint2d::IntersectionPoint2d(const Standard_Real X,
                                      const Standard_Real Y,
                                      const Standard_Real U1,
                                      const Standard_Real U2)
@@ -27,7 +27,7 @@ IntAna2d_IntPoint::IntAna2d_IntPoint(const Standard_Real X,
 {
 }
 
-IntAna2d_IntPoint::IntAna2d_IntPoint(const Standard_Real X,
+IntersectionPoint2d::IntersectionPoint2d(const Standard_Real X,
                                      const Standard_Real Y,
                                      const Standard_Real U1)
     : myu1(U1),
@@ -37,7 +37,7 @@ IntAna2d_IntPoint::IntAna2d_IntPoint(const Standard_Real X,
 {
 }
 
-IntAna2d_IntPoint::IntAna2d_IntPoint()
+IntersectionPoint2d::IntersectionPoint2d()
     :
 
       myu1(RealLast()),
@@ -47,7 +47,7 @@ IntAna2d_IntPoint::IntAna2d_IntPoint()
 {
 }
 
-void IntAna2d_IntPoint::SetValue(const Standard_Real X,
+void IntersectionPoint2d::SetValue(const Standard_Real X,
                                  const Standard_Real Y,
                                  const Standard_Real U1,
                                  const Standard_Real U2)
@@ -59,7 +59,7 @@ void IntAna2d_IntPoint::SetValue(const Standard_Real X,
   myu2 = U2;
 }
 
-void IntAna2d_IntPoint::SetValue(const Standard_Real X,
+void IntersectionPoint2d::SetValue(const Standard_Real X,
                                  const Standard_Real Y,
                                  const Standard_Real U1)
 {

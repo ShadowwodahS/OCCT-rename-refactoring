@@ -96,23 +96,23 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // compute the origin of the conical chamfer PtPl
   Point3d        Or = Con.Location();
   Standard_Real u, v;
-  ElSLib::PlaneParameters(PosPl, Or, u, v);
+  ElSLib1::PlaneParameters(PosPl, Or, u, v);
 #ifdef OCCT_DEBUG
   gp_Pnt2d pt2dPln(u, v);
 #endif
-  ElSLib::PlaneD0(u, v, PosPl, Or);
+  ElSLib1::PlaneD0(u, v, PosPl, Or);
 
   Point3d PtSp;
   Vector3d DSp;
-  ElCLib::D1(First, Spine, PtSp, DSp);
+  ElCLib1::D1(First, Spine, PtSp, DSp);
 #ifdef OCCT_DEBUG
   Dir3d Dx(Vector3d(Or, PtSp));
 #endif
   // compute the normal to the cone in PtSp
   Vector3d deru, derv;
   Point3d PtCon;
-  ElSLib::Parameters(Con, PtSp, u, v);
-  ElSLib::D1(u, v, Con, PtCon, deru, derv);
+  ElSLib1::Parameters(Con, PtSp, u, v);
+  ElSLib1::D1(u, v, Con, PtCon, deru, derv);
   Dir3d Dcon(deru.Crossed(derv));
   if (Or2 == TopAbs_REVERSED)
     Dcon.Reverse();
@@ -168,21 +168,21 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     // compute the origin of the conical chamfer PtPl
   Point3d Or = Con.Location();
   Standard_Real u,v;
-  ElSLib::PlaneParameters(PosPl,Or,u,v);
+  ElSLib1::PlaneParameters(PosPl,Or,u,v);
   gp_Pnt2d pt2dPln(u,v);
-  ElSLib::PlaneD0(u,v,PosPl,Or);
+  ElSLib1::PlaneD0(u,v,PosPl,Or);
   Point3d PtPl = Or;
 
   Point3d PtSp;
   Vector3d DSp;
-  ElCLib::D1(First,Spine,PtSp,DSp);
+  ElCLib1::D1(First,Spine,PtSp,DSp);
   Dir3d Dx(Vector3d(PtPl,PtSp));
 
     //compute the normal to the cone in PtSp
   Vector3d deru,derv;
   Point3d PtCon;
-  ElSLib::Parameters(Con,PtSp,u,v);
-  ElSLib::D1(u,v,Con,PtCon ,deru,derv);
+  ElSLib1::Parameters(Con,PtSp,u,v);
+  ElSLib1::D1(u,v,Con,PtCon ,deru,derv);
   Dir3d Dcon( deru.Crossed(derv) );
   if ( Or2 == TopAbs_REVERSED ) Dcon.Reverse();
 
@@ -262,7 +262,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     v = sqrt(Dis*Dis + move*move);
   else
     v = - sqrt(Dis*Dis + move*move);
-  ElSLib::ConeD1(u,v,ChamfAx3,ChamfRad,SemiAngl,P,deru,derv);
+  ElSLib1::ConeD1(u,v,ChamfAx3,ChamfRad,SemiAngl,P,deru,derv);
   Dir3d norchamf(deru.Crossed(derv));
 
   Standard_Boolean toreverse = (norf.Dot(norchamf)<= 0.);
@@ -294,7 +294,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     GCirPln = new GeomCircle(CirPln);
 
       //pcurve on the plane
-    ElSLib::PlaneParameters(PosPl,Pt ,u,v);
+    ElSLib1::PlaneParameters(PosPl,Pt ,u,v);
     gp_Pnt2d p2dPln(u,v);
     gp_Dir2d d2d(DSp.Dot(PosPl.XDirection()),DSp.Dot(PosPl.YDirection()));
     gp_Ax22d ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln,p2dPln)),d2d);
@@ -305,7 +305,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
       //pcurve on chamfer
   gp_Pnt2d p2dch;
   p2dch.SetCoord(0.,0.);
-  ElSLib::ConeD1(0.,0.,ChamfAx3,ChamfRad,SemiAngl,Pt,deru,derv);
+  ElSLib1::ConeD1(0.,0.,ChamfAx3,ChamfRad,SemiAngl,Pt,deru,derv);
   gp_Lin2d lin2dch(p2dch,gp::DX2d());
   Handle(Geom2d_Line) GLin2dCh1 = new Geom2d_Line(lin2dch);
 
@@ -353,7 +353,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   else
     v = - sqrt(Dis*Dis + move*move);
   p2dch.SetCoord(0.,v);
-  ElSLib::ConeD1(0.,v,ChamfAx3,ChamfRad,SemiAngl,Pt,deru,derv);
+  ElSLib1::ConeD1(0.,v,ChamfAx3,ChamfRad,SemiAngl,Pt,deru,derv);
   lin2dch.SetLocation(p2dch);
   Handle(Geom2d_Line) GLin2dCh2 = new Geom2d_Line(lin2dch);
 
@@ -363,13 +363,13 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Pt.SetCoord(Or.X()+Rad*Dx.X(),
           Or.Y()+Rad*Dx.Y(),
           Or.Z()+Rad*Dx.Z());
-  ElSLib::Parameters(Con,Pt ,u,v);
+  ElSLib1::Parameters(Con,Pt ,u,v);
   Standard_Real tol = Precision::PConfusion();
   if(u >= 2*M_PI - tol && u <= 2*M_PI) u = 0.;
   if(u >= fu - tol && u < fu) u = fu;
   if(u <= lu + tol && u > lu) u = lu;
-  if(u < fu || u > lu) u = ElCLib::InPeriod(u,fu,fu + 2*M_PI);
-  ElSLib::D1(u,v,Con,Pt,deru,derv);
+  if(u < fu || u > lu) u = ElCLib1::InPeriod(u,fu,fu + 2*M_PI);
+  ElSLib1::D1(u,v,Con,Pt,deru,derv);
   gp_Pnt2d p2dCon(u,v);
   gp_Dir2d d2dCon;
   if ( deru.Dot(DSp)<=0. )

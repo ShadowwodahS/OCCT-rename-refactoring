@@ -103,7 +103,7 @@ public:
   DEFINE_NCOLLECTION_ALLOC
 
   /**
-   * Query the stored pointer to Triangle.
+   * Query the stored pointer to Triangle1.
    */
   inline const Poly_CoherentTriangle& GetTriangle() const { return *mypTriangle; }
 
@@ -125,7 +125,7 @@ public:
   /**
    * Append a pointer to triangle into the list after the current instance.
    * @param pTri
-   *   Triangle that is to be included in the list after this one.
+   *   Triangle1 that is to be included in the list after this one.
    * @param theA
    *   Allocator where the new pointer instance is created.
    */
@@ -135,7 +135,7 @@ public:
   /**
    * Prepend a pointer to triangle into the list before the current instance.
    * @param pTri
-   *   Triangle that is to be included in the list before this one.
+   *   Triangle1 that is to be included in the list before this one.
    * @param theA
    *   Allocator where the new pointer instance is created.
    */

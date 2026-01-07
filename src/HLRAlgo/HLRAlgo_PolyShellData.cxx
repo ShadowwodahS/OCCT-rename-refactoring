@@ -30,14 +30,14 @@ HLRAlgo_PolyShellData::HLRAlgo_PolyShellData(const Standard_Integer nbFace)
 
 //=================================================================================================
 
-void HLRAlgo_PolyShellData::UpdateGlobalMinMax(HLRAlgo_PolyData::Box& theBox)
+void HLRAlgo_PolyShellData::UpdateGlobalMinMax(HLRAlgo_PolyData::Box1& theBox)
 {
   HLRAlgo_ListIteratorOfListOfBPoint it;
 
   for (it.Initialize(mySegList); it.More(); it.Next())
   {
-    HLRAlgo_BiPoint&          BP      = it.ChangeValue();
-    HLRAlgo_BiPoint::PointsT& aPoints = BP.Points();
+    BiPoint&          BP      = it.ChangeValue();
+    BiPoint::PointsT1& aPoints = BP.Points();
     if (aPoints.PntP1.X() < aPoints.PntP2.X())
     {
       if (theBox.XMin > aPoints.PntP1.X())

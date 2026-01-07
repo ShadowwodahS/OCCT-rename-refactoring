@@ -347,7 +347,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineSurface::Restore(Standard_IStream& the
 {
   const DrawTrSurf_Params&    aParams = DrawTrSurf1::Parameters();
   Handle(Geom_BSplineSurface) aGeomSurface =
-    Handle(Geom_BSplineSurface)::DownCast(GeomTools_SurfaceSet::ReadSurface(theStream));
+    Handle(Geom_BSplineSurface)::DownCast(SurfaceSet1::ReadSurface(theStream));
   Handle(DrawTrSurf_BSplineSurface) aDrawSurface;
   if (!aParams.NeedKnotsIsos)
   {

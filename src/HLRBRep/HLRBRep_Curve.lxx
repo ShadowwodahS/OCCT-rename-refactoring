@@ -63,7 +63,7 @@ inline Point3d HLRBRep_Curve::Value3D(const Standard_Real U) const
 
 inline void HLRBRep_Curve::D0(const Standard_Real U, Point3d& P) const
 {
-  HLRBRep_BCurveTool::D0(myCurve, U, P);
+  BCurveTool::D0(myCurve, U, P);
 }
 
 //=======================================================================
@@ -73,7 +73,7 @@ inline void HLRBRep_Curve::D0(const Standard_Real U, Point3d& P) const
 
 inline void HLRBRep_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
-  HLRBRep_BCurveTool::D1(myCurve, U, P, V);
+  BCurveTool::D1(myCurve, U, P, V);
 }
 
 //=======================================================================
@@ -83,7 +83,7 @@ inline void HLRBRep_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) co
 
 inline Standard_Real HLRBRep_Curve::FirstParameter() const
 {
-  return Parameter2d(HLRBRep_BCurveTool::FirstParameter(myCurve));
+  return Parameter2d(BCurveTool::FirstParameter(myCurve));
 }
 
 //=======================================================================
@@ -93,7 +93,7 @@ inline Standard_Real HLRBRep_Curve::FirstParameter() const
 
 inline Standard_Real HLRBRep_Curve::LastParameter() const
 {
-  return Parameter2d(HLRBRep_BCurveTool::LastParameter(myCurve));
+  return Parameter2d(BCurveTool::LastParameter(myCurve));
 }
 
 //=======================================================================
@@ -103,7 +103,7 @@ inline Standard_Real HLRBRep_Curve::LastParameter() const
 
 inline GeomAbs_Shape HLRBRep_Curve::Continuity() const
 {
-  return HLRBRep_BCurveTool::Continuity(myCurve);
+  return BCurveTool::Continuity(myCurve);
 }
 
 //=======================================================================
@@ -113,7 +113,7 @@ inline GeomAbs_Shape HLRBRep_Curve::Continuity() const
 
 inline Standard_Integer HLRBRep_Curve::NbIntervals(const GeomAbs_Shape S) const
 {
-  return HLRBRep_BCurveTool::NbIntervals(myCurve, S);
+  return BCurveTool::NbIntervals(myCurve, S);
 }
 
 //=======================================================================
@@ -123,7 +123,7 @@ inline Standard_Integer HLRBRep_Curve::NbIntervals(const GeomAbs_Shape S) const
 
 inline void HLRBRep_Curve::Intervals(TColStd_Array1OfReal& Tab, const GeomAbs_Shape Sh) const
 {
-  HLRBRep_BCurveTool::Intervals(myCurve, Tab, Sh);
+  BCurveTool::Intervals(myCurve, Tab, Sh);
 }
 
 //=======================================================================
@@ -133,7 +133,7 @@ inline void HLRBRep_Curve::Intervals(TColStd_Array1OfReal& Tab, const GeomAbs_Sh
 
 inline Standard_Boolean HLRBRep_Curve::IsClosed() const
 {
-  return HLRBRep_BCurveTool::IsClosed(myCurve);
+  return BCurveTool::IsClosed(myCurve);
 }
 
 //=======================================================================
@@ -143,7 +143,7 @@ inline Standard_Boolean HLRBRep_Curve::IsClosed() const
 
 inline Standard_Boolean HLRBRep_Curve::IsPeriodic() const
 {
-  return HLRBRep_BCurveTool::IsPeriodic(myCurve);
+  return BCurveTool::IsPeriodic(myCurve);
 }
 
 //=======================================================================
@@ -153,7 +153,7 @@ inline Standard_Boolean HLRBRep_Curve::IsPeriodic() const
 
 inline Standard_Real HLRBRep_Curve::Period() const
 {
-  return HLRBRep_BCurveTool::Period(myCurve);
+  return BCurveTool::Period(myCurve);
 }
 
 //=======================================================================
@@ -175,7 +175,7 @@ inline gp_Pnt2d HLRBRep_Curve::Value(const Standard_Real U) const
 
 inline Standard_Real HLRBRep_Curve::Resolution(const Standard_Real R3d) const
 {
-  return HLRBRep_BCurveTool::Resolution(myCurve, R3d);
+  return BCurveTool::Resolution(myCurve, R3d);
 }
 
 //=======================================================================
@@ -195,7 +195,7 @@ inline GeomAbs_CurveType HLRBRep_Curve::GetType() const
 
 inline Standard_Integer HLRBRep_Curve::Degree() const
 {
-  return HLRBRep_BCurveTool::Degree(myCurve);
+  return BCurveTool::Degree(myCurve);
 }
 
 //=======================================================================
@@ -205,7 +205,7 @@ inline Standard_Integer HLRBRep_Curve::Degree() const
 
 inline Standard_Integer HLRBRep_Curve::NbPoles() const
 {
-  return HLRBRep_BCurveTool::NbPoles(myCurve);
+  return BCurveTool::NbPoles(myCurve);
 }
 
 //=======================================================================
@@ -215,7 +215,7 @@ inline Standard_Integer HLRBRep_Curve::NbPoles() const
 
 inline Standard_Integer HLRBRep_Curve::NbKnots() const
 {
-  return HLRBRep_BCurveTool::NbKnots(myCurve);
+  return BCurveTool::NbKnots(myCurve);
 }
 
 //=======================================================================
@@ -225,5 +225,5 @@ inline Standard_Integer HLRBRep_Curve::NbKnots() const
 
 inline Standard_Boolean HLRBRep_Curve::IsRational() const
 {
-  return HLRBRep_BCurveTool::IsRational(myCurve);
+  return BCurveTool::IsRational(myCurve);
 }

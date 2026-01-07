@@ -706,15 +706,15 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
   }
   C.SetPosition(Frame3d(Center, np, ns));
 
-  Pdeb = 0.; // ElCLib::Parameter(C,pts);
-  Pfin = ElCLib::Parameter(C, ptrst);
+  Pdeb = 0.; // ElCLib1::Parameter(C,pts);
+  Pfin = ElCLib1::Parameter(C, ptrst);
 
   // Test negative and almost null angles : Single Case
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
     C.SetPosition(Frame3d(Center, np, ns));
-    Pfin = ElCLib::Parameter(C, ptrst);
+    Pfin = ElCLib1::Parameter(C, ptrst);
   }
   if (Pfin < Precision::PConfusion())
     Pfin += Precision::PConfusion();

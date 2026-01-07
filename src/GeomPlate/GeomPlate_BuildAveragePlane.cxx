@@ -74,13 +74,13 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
     }
     Standard_Integer i, nb = myPts->Length();
     gp_Pln           P = myPlane->Pln();
-    ElSLib::Parameters(P, myG, myUmax, myVmax);
+    ElSLib1::Parameters(P, myG, myUmax, myVmax);
     myUmin          = myUmax;
     myVmin          = myVmax;
     Standard_Real U = 0, V = 0;
     for (i = 1; i <= nb; i++)
     {
-      ElSLib::Parameters(P, myPts->Value(i), U, V);
+      ElSLib1::Parameters(P, myPts->Value(i), U, V);
       if (myUmax < U)
         myUmax = U;
       if (myUmin > U)
@@ -207,7 +207,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
   TColgp_Array1OfPnt PtsArray(1, myPts->Length());
   for (i = 1; i <= myPts->Length(); i++)
     PtsArray(i) = myPts->Value(i);
-  GeomLib::AxeOfInertia(PtsArray, Axe, IsSingular);
+  GeomLib1::AxeOfInertia(PtsArray, Axe, IsSingular);
   Dir3d BestDir(BestVec);
   Dir3d XDir = BestDir ^ Axe.XDirection();
   XDir ^= BestDir;
@@ -217,7 +217,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
   // Initializing myUmin, myVmin, myUmax, myVmax
   gp_Pln Pln = myPlane->Pln();
-  ElSLib::Parameters(Pln, Axe.Location(), myUmax, myVmax);
+  ElSLib1::Parameters(Pln, Axe.Location(), myUmax, myVmax);
   myUmin = myUmax;
   myVmin = myVmax;
   Standard_Real U, V;
@@ -228,7 +228,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
     NormVec        = (aVec * NormVec) * NormVec;
 
     // clang-format off
-      ElSLib::Parameters( Pln, myPts->Value(i).Translated( -NormVec ), U, V ); //????? Real projecting?
+      ElSLib1::Parameters( Pln, myPts->Value(i).Translated( -NormVec ), U, V ); //????? Real projecting?
     // clang-format on
     if (U > myUmax)
       myUmax = U;
@@ -291,7 +291,7 @@ Vector3d GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
   {
     Frame3d           Axe;
     Standard_Boolean IsSingular;
-    GeomLib::AxeOfInertia(myPts->Array1(), Axe, IsSingular, myTol);
+    GeomLib1::AxeOfInertia(myPts->Array1(), Axe, IsSingular, myTol);
 
     myOX = Axe.XDirection();
     myOY = Axe.YDirection();

@@ -70,7 +70,7 @@ public:
   //! Changes only the list of Displayed Entities (Null allowed)
   Standard_EXPORT void InitImplied(const Handle(IGESData_HArray1OfIGESEntity)& allDisplayEntity);
 
-  //! Returns False (for a complex view)
+  //! Returns False (for a complex1 view)
   Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
 
   //! returns the number of Views containing the view visible, line font,

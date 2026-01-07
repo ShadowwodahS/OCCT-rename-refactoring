@@ -495,7 +495,7 @@ void BlendFunc_CSConstRad::Section(const Standard_Real Param,
     C.SetPosition(Frame3d(Center, nplan.Reversed(), ns));
   }
   Pdeb = 0.;
-  Pfin = ElCLib::Parameter(C, ptc);
+  Pfin = ElCLib1::Parameter(C, ptc);
 }
 
 Standard_Boolean BlendFunc_CSConstRad::Section(const Point2&,

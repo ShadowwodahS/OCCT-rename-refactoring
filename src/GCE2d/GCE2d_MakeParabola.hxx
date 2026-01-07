@@ -45,7 +45,7 @@ class gp_Pnt2d;
 //! parabola called Parameter).
 //! The focal length F = P/2 is the distance between the vertex
 //! and the focus of the parabola.
-class GCE2d_MakeParabola : public GCE2d_Root
+class GCE2d_MakeParabola : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -110,7 +110,7 @@ void TObj_TObject::BeforeForget()
     DataLabel aObjLabel = myElem->myLabel;
     if (!aObjLabel.IsNull())
     {
-      TDF_ChildIterator aLI(aObjLabel);
+      ChildIterator aLI(aObjLabel);
       DataLabel         aSubLabel;
       for (; aLI.More(); aLI.Next())
       {

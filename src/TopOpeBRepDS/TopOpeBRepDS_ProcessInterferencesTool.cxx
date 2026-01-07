@@ -517,7 +517,7 @@ static Standard_Integer FUN_select3dI(const Standard_Integer           SIX,
   //             = set of interferences of same geometry kind.
   //    -> <l3dFE> + <lFE>
   // <l3dFE> = sets of interferences with same geometry,
-  //           describing 3d complex transitions.
+  //           describing 3d complex1 transitions.
 
   TopOpeBRepDS_ListIteratorOfListOfInterference it1(lFE);
   while (it1.More())

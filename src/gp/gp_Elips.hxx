@@ -42,7 +42,7 @@
 //! local coordinate system as the "Axis" of the ellipse.
 //! See Also
 //! gce_MakeElips which provides functions for more
-//! complex ellipse constructions
+//! complex1 ellipse constructions
 //! Geom_Ellipse which provides additional functions for
 //! constructing ellipses and works, in particular, with the
 //! parametric equations of ellipses

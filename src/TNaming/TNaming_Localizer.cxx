@@ -40,7 +40,7 @@
 void LPrintEntry(const DataLabel& label)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
 }
 
@@ -137,7 +137,7 @@ void TNaming_Localizer::FindFeaturesInAncestors(const TopoShape&  S,
       else
       {
 #ifdef OCCT_DEBUG
-        std::cout << " TNaming_Localization : Failure in the research of ancetres in TDF"
+        std::cout << " TNaming_Localization : Failure in the research of ancetres in TDF1"
                   << std::endl;
 #endif
       }

@@ -23,7 +23,7 @@
 class BinMDF_ADriverTable;
 class Message_Messenger;
 
-//! Storage and Retrieval drivers for TDocStd modelling attributes.
+//! Storage and Retrieval drivers for TDocStd1 modelling attributes.
 class BinMDocStd1
 {
 public:

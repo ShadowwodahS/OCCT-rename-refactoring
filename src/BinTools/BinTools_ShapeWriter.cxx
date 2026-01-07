@@ -478,7 +478,7 @@ void BinTools_ShapeWriter::WriteTriangulation(BinaryOutputStream&               
       theStream << theTriangulation->UVNode(aNodeIter);
   }
   for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
-    theStream << theTriangulation->Triangle(aTriIter);
+    theStream << theTriangulation->Triangle1(aTriIter);
 
   if (theNeedToWriteNormals)
   {

@@ -64,8 +64,8 @@ FUNCTION, RULE and CONSTANT items, WHERE, INVERSE and DERIVE clauses
 of TYPE and ENTITY items are not considered (ignored on the level of lexical
 scanner).
 SUPERTYPE and UNIQUE clauses of ENTITY item are recognized but ignored.
-Also, complex constructs such as using call to function in dimensions of
-complex time or redefinition of inherited field are ignored.
+Also, complex1 constructs such as using call to function in dimensions of
+complex1 time or redefinition of inherited field are ignored.
 
 *****************************************************************************/
 
@@ -726,7 +726,7 @@ int parser::parse()
 
           case 21: // TYPE: TSET
           {
-            (yylhs.value.type) = (yystack_[0].value.type); /* type, simple or complex */
+            (yylhs.value.type) = (yystack_[0].value.type); /* type, simple or complex1 */
           }
           break;
 
@@ -777,7 +777,7 @@ int parser::parse()
             (yylhs.value.type) = mktset((yystack_[8].value.num),
                                         (yystack_[6].value.num),
                                         (yystack_[4].value.num),
-                                        (yystack_[0].value.type)); /* complex type: LIST */
+                                        (yystack_[0].value.type)); /* complex1 type: LIST */
           }
           break;
 
@@ -786,7 +786,7 @@ int parser::parse()
             (yylhs.value.type) = mktset((yystack_[8].value.num),
                                         (yystack_[6].value.num),
                                         (yystack_[4].value.num),
-                                        (yystack_[0].value.type)); /* complex type: ARRAY */
+                                        (yystack_[0].value.type)); /* complex1 type: ARRAY */
           }
           break;
 
@@ -795,7 +795,7 @@ int parser::parse()
             (yylhs.value.type) = mktset((yystack_[8].value.num),
                                         (yystack_[6].value.num),
                                         (yystack_[4].value.num),
-                                        (yystack_[0].value.type)); /* complex type: SET */
+                                        (yystack_[0].value.type)); /* complex1 type: SET */
           }
           break;
 
@@ -804,7 +804,7 @@ int parser::parse()
             (yylhs.value.type) = mktset((yystack_[8].value.num),
                                         (yystack_[6].value.num),
                                         (yystack_[4].value.num),
-                                        (yystack_[0].value.type)); /* complex type: BAG */
+                                        (yystack_[0].value.type)); /* complex1 type: BAG */
           }
           break;
 
@@ -832,7 +832,7 @@ int parser::parse()
 
           case 36: // OPTUNI: %empty
           {
-            (yylhs.value.num) = 0; /* UNIQUE keyword for complex type definition */
+            (yylhs.value.num) = 0; /* UNIQUE keyword for complex1 type definition */
           }
           break;
 

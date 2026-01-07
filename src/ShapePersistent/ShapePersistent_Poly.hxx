@@ -142,7 +142,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     Standard_Real                             myDeflection;
     Handle(ShapePersistent_HArray1::Pnt)      myNodes;
     Handle(ShapePersistent_HArray1::Pnt2d)    myUVNodes;
-    Handle(ShapePersistent_HArray1::Triangle) myTriangles;
+    Handle(ShapePersistent_HArray1::Triangle1) myTriangles;
   };
 
   template <class Persistent, class Transient>

@@ -16,7 +16,7 @@
 
 #include <Plate_PinpointConstraint.hxx>
 
-Plate_PinpointConstraint::Plate_PinpointConstraint()
+PinpointConstraint::PinpointConstraint()
 {
   pnt2d = Coords2d(0, 0);
   value = gp_XYZ(0, 0, 0);
@@ -24,7 +24,7 @@ Plate_PinpointConstraint::Plate_PinpointConstraint()
   idv   = 0;
 }
 
-Plate_PinpointConstraint::Plate_PinpointConstraint(const Coords2d&           point2d,
+PinpointConstraint::PinpointConstraint(const Coords2d&           point2d,
                                                    const gp_XYZ&          ImposedValue,
                                                    const Standard_Integer iu,
                                                    const Standard_Integer iv)

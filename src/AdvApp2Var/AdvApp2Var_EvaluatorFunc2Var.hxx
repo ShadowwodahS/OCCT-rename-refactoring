@@ -21,14 +21,14 @@
 
 // History - the C function pointer converted to a virtual class
 // in order to get rid of usage of static functions and static data
-class AdvApp2Var_EvaluatorFunc2Var
+class EvaluatorFunc2Var
 {
 public:
   //! Empty constructor
-  AdvApp2Var_EvaluatorFunc2Var() {}
+  EvaluatorFunc2Var() {}
 
   //! Destructor should be declared as virtual
-  virtual ~AdvApp2Var_EvaluatorFunc2Var() {}
+  virtual ~EvaluatorFunc2Var() {}
 
   //! Function evaluation method to be defined by descendant
   virtual void Evaluate(Standard_Integer* theDimension,
@@ -71,10 +71,10 @@ public:
 
 private:
   //! Copy constructor is declared private to forbid copying
-  AdvApp2Var_EvaluatorFunc2Var(const AdvApp2Var_EvaluatorFunc2Var&) {}
+  EvaluatorFunc2Var(const EvaluatorFunc2Var&) {}
 
   //! Assignment operator is declared private to forbid copying
-  void operator=(const AdvApp2Var_EvaluatorFunc2Var&) {}
+  void operator=(const EvaluatorFunc2Var&) {}
 };
 
 #endif

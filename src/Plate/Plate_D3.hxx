@@ -25,20 +25,20 @@
 
 //! define an order 3 derivatives of a 3d valued
 //! function of a 2d variable
-class Plate_D3
+class D3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_D3(const gp_XYZ& duuu,
+  Standard_EXPORT D3(const gp_XYZ& duuu,
                            const gp_XYZ& duuv,
                            const gp_XYZ& duvv,
                            const gp_XYZ& dvvv);
 
-  Standard_EXPORT Plate_D3(const Plate_D3& ref);
+  Standard_EXPORT D3(const D3& ref);
 
   friend class Plate_GtoCConstraint;
-  friend class Plate_FreeGtoCConstraint;
+  friend class FreeGtoCConstraint;
 
 protected:
 private:

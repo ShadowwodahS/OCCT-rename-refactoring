@@ -307,9 +307,9 @@ void PrsDim_LengthDimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoin
 
   // Get flyout end points
   theLineBegPoint =
-    ElCLib::Value(ElCLib::Parameter(aLine1, theFirstPoint) + GetFlyout() + aTargetProjectedToFlyout,
+    ElCLib1::Value(ElCLib1::Parameter(aLine1, theFirstPoint) + GetFlyout() + aTargetProjectedToFlyout,
                   aLine1);
-  theLineEndPoint = ElCLib::Value(ElCLib::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
+  theLineEndPoint = ElCLib1::Value(ElCLib1::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
 }
 
 //=================================================================================================
@@ -610,7 +610,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoShape& th
           mySecondPoint = PrsDim::ProjectPointOnPlane(myFirstPoint, aSecondPlane);
 
           Standard_Real anU, aV;
-          ElSLib::Parameters(aSecondPlane, mySecondPoint, anU, aV);
+          ElSLib1::Parameters(aSecondPlane, mySecondPoint, anU, aV);
 
           BRepTopAdaptor_FClass2d aClassifier(aSecondFace, Precision::Confusion());
           TopAbs_State            aState = aClassifier.Perform(gp_Pnt2d(anU, aV), Standard_False);

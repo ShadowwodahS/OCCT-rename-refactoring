@@ -53,7 +53,7 @@ XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(MeshTriangulation)& aMes
     {
       myElements.Add(i);
 
-      const Poly_Triangle aTri = myMesh->Triangle(i);
+      const Poly_Triangle aTri = myMesh->Triangle1(i);
 
       Standard_Integer V[3];
       aTri.Get(V[0], V[1], V[2]);

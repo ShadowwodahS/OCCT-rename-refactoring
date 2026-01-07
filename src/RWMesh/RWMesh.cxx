@@ -85,7 +85,7 @@ AsciiString1 RWMesh::FormatName(RWMesh_NameFormat theFormat,
       const AsciiString1 anInstName = ReadNameAttribute(theLabel);
       const AsciiString1 aProdName  = ReadNameAttribute(theRefLabel);
       AsciiString1       anEntryId;
-      TDF_Tool::Entry(theLabel, anEntryId);
+      Tool3::Entry(theLabel, anEntryId);
       return !anInstName.IsEmpty() && aProdName != anInstName
                ? aProdName + " [" + anInstName + "]" + " [" + anEntryId + "]"
                : aProdName + " [" + anEntryId + "]";

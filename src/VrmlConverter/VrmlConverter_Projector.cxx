@@ -45,7 +45,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   myTypeOfLight  = Light;
 
   Standard_Integer i;
-  Bnd_Box          box;
+  Box2          box;
   Standard_Real    Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;
   Standard_Real    Xtarget, Ytarget, Ztarget, Angle, MaxAngle, Height, MaxHeight;
 
@@ -139,7 +139,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
     Pers = Standard_True;
 
   // build a Projector with automatic minmax directions
-  myProjector = HLRAlgo_Projector(T, Pers, Focus);
+  myProjector = HLRAlgoProjector(T, Pers, Focus);
 
   Transform3d T3;
   T3 = T.Inverted();
@@ -365,7 +365,7 @@ VrmlConverter_TypeOfLight VrmlConverter_Projector::Light() const
   return myTypeOfLight;
 }
 
-HLRAlgo_Projector VrmlConverter_Projector::Projector() const
+HLRAlgoProjector VrmlConverter_Projector::Projector() const
 {
   return myProjector;
 }

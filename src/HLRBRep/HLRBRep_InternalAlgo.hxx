@@ -41,10 +41,10 @@ public:
   Standard_EXPORT HLRBRep_InternalAlgo(const Handle(HLRBRep_InternalAlgo)& A);
 
   //! set the projector.
-  Standard_EXPORT void Projector(const HLRAlgo_Projector& P);
+  Standard_EXPORT void Projector(const HLRAlgoProjector& P);
 
   //! set the projector.
-  Standard_EXPORT HLRAlgo_Projector& Projector();
+  Standard_EXPORT HLRAlgoProjector& Projector();
 
   //! update the DataStructure.
   Standard_EXPORT void Update();
@@ -131,7 +131,7 @@ private:
   Standard_EXPORT void HideSelected(const Standard_Integer I, const Standard_Boolean SideFace);
 
   Handle(HLRBRep_Data)          myDS;
-  HLRAlgo_Projector             myProj;
+  HLRAlgoProjector             myProj;
   HLRBRep_SeqOfShapeBounds      myShapes;
   BRepTopAdaptor_MapOfShapeTool myMapOfShapeTool;
   Standard_Boolean              myDebug;

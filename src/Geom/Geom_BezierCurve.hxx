@@ -306,7 +306,7 @@ public:
   {
     if (!weights.IsNull())
       return &weights->Array1();
-    return BSplCLib::NoWeights();
+    return BSplCLib1::NoWeights();
   }
 
   //! Applies the transformation T to this Bezier curve.

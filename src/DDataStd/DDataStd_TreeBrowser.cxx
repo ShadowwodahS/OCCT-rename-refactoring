@@ -144,7 +144,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
 {
   // Label entry. -0
   AsciiString1 tmp;
-  TDF_Tool::Entry(aTreeNode->Label(), tmp);
+  Tool3::Entry(aTreeNode->Label(), tmp);
   aList.AssignCat(tmp);
   // Name         -1
   aList.AssignCat(TDF_BrowserSeparator2);
@@ -158,7 +158,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
   // Dynamic type.      -2
   aList.AssignCat(TDF_BrowserSeparator2);
   UtfString ext;
-  if (TDF::ProgIDFromGUID(aTreeNode->ID(), ext))
+  if (TDF1::ProgIDFromGUID(aTreeNode->ID(), ext))
     aList.AssignCat(ext);
   else
     aList.AssignCat(aTreeNode->DynamicType()->Name());
@@ -182,7 +182,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
     aList.AssignCat("Null");
   else
   {
-    TDF_Tool::Entry(aTreeNode->Father()->Label(), tmp);
+    Tool3::Entry(aTreeNode->Father()->Label(), tmp);
     aList.AssignCat(tmp);
   }
   // First?                -5
@@ -191,7 +191,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
     aList.AssignCat("Null");
   else
   {
-    TDF_Tool::Entry(aTreeNode->First()->Label(), tmp);
+    Tool3::Entry(aTreeNode->First()->Label(), tmp);
     aList.AssignCat(tmp);
   }
   // Next?                -6
@@ -200,7 +200,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
     aList.AssignCat("Null");
   else
   {
-    TDF_Tool::Entry(aTreeNode->Next()->Label(), tmp);
+    Tool3::Entry(aTreeNode->Next()->Label(), tmp);
     aList.AssignCat(tmp);
   }
   // Previous?                -7
@@ -209,7 +209,7 @@ void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
     aList.AssignCat("Null");
   else
   {
-    TDF_Tool::Entry(aTreeNode->Previous()->Label(), tmp);
+    Tool3::Entry(aTreeNode->Previous()->Label(), tmp);
     aList.AssignCat(tmp);
   }
 }

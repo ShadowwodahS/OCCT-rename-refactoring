@@ -64,7 +64,7 @@ public:
 
 protected:
 private:
-  TopTrans_CurveTransition myCurveTransition;
+  CurveTransition myCurveTransition;
   Standard_Integer         nbBoundForward;
   Standard_Integer         nbBoundReversed;
 };

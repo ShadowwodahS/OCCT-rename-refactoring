@@ -32,7 +32,7 @@ template <class T, int N>
 class BVH_PrimitiveSet : public BVH_Object<T, N>, public BVH_Set<T, N>
 {
 protected:
-  using BVH_Set<T, N>::Box;
+  using BVH_Set<T, N>::Box1;
 
 public:
   static const Standard_Integer MaxTreeDepth = BVH_Constants_MaxTreeDepth;
@@ -65,11 +65,11 @@ public:
 
 public:
   //! Returns AABB of primitive set.
-  virtual BVH_Box<T, N> Box() const Standard_OVERRIDE
+  virtual BVH_Box<T, N> Box1() const Standard_OVERRIDE
   {
     if (BVH_Object<T, N>::myIsDirty)
     {
-      myBox = BVH_Set<T, N>::Box();
+      myBox = BVH_Set<T, N>::Box1();
     }
     return myBox;
   }
@@ -99,7 +99,7 @@ protected:
   {
     if (BVH_Object<T, N>::myIsDirty)
     {
-      myBuilder->Build(this, myBVH.operator->(), Box());
+      myBuilder->Build(this, myBVH.operator->(), Box1());
       BVH_Object<T, N>::myIsDirty = Standard_False;
     }
   }

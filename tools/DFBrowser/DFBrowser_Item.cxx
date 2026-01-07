@@ -85,7 +85,7 @@ void DFBrowser_Item::Init()
   else
   {
     int               aCurrentId = aRowId - aNbAttributes;
-    TDF_ChildIterator aLabelsIt(aParentLabel);
+    ChildIterator aLabelsIt(aParentLabel);
     DataLabel         aLabel;
     for (int aLabelId = 0; aLabelsIt.More(); aLabelsIt.Next(), aLabelId++)
     {

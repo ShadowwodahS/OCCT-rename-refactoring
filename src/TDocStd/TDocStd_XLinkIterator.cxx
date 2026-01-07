@@ -27,14 +27,14 @@
 
 //=================================================================================================
 
-TDocStd_XLinkIterator::TDocStd_XLinkIterator()
+XLinkIterator::XLinkIterator()
     : myValue(NULL)
 {
 }
 
 //=================================================================================================
 
-TDocStd_XLinkIterator::TDocStd_XLinkIterator(const Handle(AppDocument)& DOC)
+XLinkIterator::XLinkIterator(const Handle(AppDocument)& DOC)
     : myValue(NULL)
 {
   Init(DOC);
@@ -42,7 +42,7 @@ TDocStd_XLinkIterator::TDocStd_XLinkIterator(const Handle(AppDocument)& DOC)
 
 //=================================================================================================
 
-void TDocStd_XLinkIterator::Initialize(const Handle(AppDocument)& DOC)
+void XLinkIterator::Initialize(const Handle(AppDocument)& DOC)
 {
   myValue = NULL;
   Init(DOC);
@@ -50,17 +50,17 @@ void TDocStd_XLinkIterator::Initialize(const Handle(AppDocument)& DOC)
 
 //=================================================================================================
 
-void TDocStd_XLinkIterator::Next()
+void XLinkIterator::Next()
 {
   if (myValue == NULL)
-    throw Standard_NoMoreObject("TDocStd_XLinkIterator::Next() - no more values available");
+    throw Standard_NoMoreObject("XLinkIterator::Next() - no more values available");
   else
     myValue = myValue->Next();
 }
 
 //=================================================================================================
 
-void TDocStd_XLinkIterator::Init(const Handle(AppDocument)& DOC)
+void XLinkIterator::Init(const Handle(AppDocument)& DOC)
 {
   Handle(TDocStd_XLinkRoot) xRefRoot;
   if (DOC->GetData()->Root().FindAttribute(TDocStd_XLinkRoot::GetID(), xRefRoot))

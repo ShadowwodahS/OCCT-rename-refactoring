@@ -27,8 +27,8 @@ GC_MakeArcOfHyperbola::GC_MakeArcOfHyperbola(const gp_Hypr&         Hypr,
                                              const Point3d&          P2,
                                              const Standard_Boolean Sense)
 {
-  Standard_Real          Alpha1 = ElCLib::Parameter(Hypr, P1);
-  Standard_Real          Alpha2 = ElCLib::Parameter(Hypr, P2);
+  Standard_Real          Alpha1 = ElCLib1::Parameter(Hypr, P1);
+  Standard_Real          Alpha2 = ElCLib1::Parameter(Hypr, P2);
   Handle(Geom_Hyperbola) H      = new Geom_Hyperbola(Hypr);
   TheArc                        = new Geom_TrimmedCurve(H, Alpha1, Alpha2, Sense);
   TheError                      = gce_Done;
@@ -39,7 +39,7 @@ GC_MakeArcOfHyperbola::GC_MakeArcOfHyperbola(const gp_Hypr&         Hypr,
                                              const Standard_Real    Alpha,
                                              const Standard_Boolean Sense)
 {
-  Standard_Real          Alphafirst = ElCLib::Parameter(Hypr, P);
+  Standard_Real          Alphafirst = ElCLib1::Parameter(Hypr, P);
   Handle(Geom_Hyperbola) H          = new Geom_Hyperbola(Hypr);
   TheArc                            = new Geom_TrimmedCurve(H, Alphafirst, Alpha, Sense);
   TheError                          = gce_Done;

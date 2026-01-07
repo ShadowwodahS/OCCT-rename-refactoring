@@ -49,7 +49,7 @@ public:
   //! -   the minimal box which contains all the points. Use :
   //! -   the functions IsPoint, IsLinear, IsPlanar
   //! and IsSpace to find the result of the analysis, and
-  //! -   the function Point, Line, Plane or Box to
+  //! -   the function Point, Line, Plane or Box1 to
   //! access the computed result.
   Standard_EXPORT PrincipalEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol);
 
@@ -71,7 +71,7 @@ public:
   //! Returns true if, according to the given
   //! tolerance value, the points analyzed by this
   //! framework are neither coincident, nor collinear, nor coplanar.
-  //! Use the function Box to query the smallest box
+  //! Use the function Box1 to query the smallest box
   //! that includes the collection of points.
   Standard_EXPORT Standard_Boolean IsSpace() const;
 
@@ -122,7 +122,7 @@ public:
   //! Exceptions
   //! Standard_NoSuchObject if, according to the given precision,
   //! the points analyzed by this framework are considered to be coincident, collinear or coplanar.
-  Standard_EXPORT void Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const;
+  Standard_EXPORT void Box1(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const;
 
 protected:
 private:

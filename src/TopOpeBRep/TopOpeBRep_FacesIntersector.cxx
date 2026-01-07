@@ -145,7 +145,7 @@ static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
 static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
                                      const Adaptor3d_Surface& theTestSurface,
                                      const Standard_Real&     theTol,
-                                     Extrema_POnSurf&         theResultPoint);
+                                     PointOnSurface1&         theResultPoint);
 //-------------------------------------------------------------------------------------------------------------------------
 static Handle(IntPatch_WLine) GetMergedWLineOnRestriction(
   IntPatch_SequenceOfLine&        theSlin,
@@ -172,8 +172,8 @@ TopOpeBRep_FacesIntersector::TopOpeBRep_FacesIntersector()
 
 void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1,
                                           const TopoShape& F2,
-                                          const Bnd_Box&      B1,
-                                          const Bnd_Box&      B2)
+                                          const Box2&      B1,
+                                          const Box2&      B2)
 {
 #ifdef OCCT_DEBUG
   if (TopOpeBRep_GettraceSAVFF())
@@ -277,7 +277,7 @@ void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1,
 
 void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1, const TopoShape& F2)
 {
-  Bnd_Box B1, B2;
+  Box2 B1, B2;
   Perform(F1, F2, B1, B2);
 }
 
@@ -1478,8 +1478,8 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
   // create IntSurf_LineOn2S from points < PointsFromArc >
   for (i = 1; i <= PointsFromArc.Length(); i++)
   {
-    Extrema_POnSurf  pOnS1;
-    Extrema_POnSurf  pOnS2;
+    PointOnSurface1  pOnS1;
+    PointOnSurface1  pOnS2;
     Point3d           arcpoint = PointsFromArc.Value(i);
     Standard_Boolean isOnS1   = GetPointOn2S(arcpoint, *theSurfaceObj, CheckTol, pOnS1);
     Standard_Boolean isOnS2   = GetPointOn2S(arcpoint, *theSurfaceTool, CheckTol, pOnS2);
@@ -1534,7 +1534,7 @@ static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
 static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
                                      const Adaptor3d_Surface& theTestSurface,
                                      const Standard_Real&     theTol,
-                                     Extrema_POnSurf&         theResultPoint)
+                                     PointOnSurface1&         theResultPoint)
 {
   Standard_Boolean result = Standard_False;
   Standard_Real    ExtTol = theTol; // 1.e-7;

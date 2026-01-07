@@ -40,8 +40,8 @@ public:
                                    HLRAlgo_Array1OfPISeg& thePISeg,
                                    HLRAlgo_Array1OfPINod& thePINod);
 
-  Standard_EXPORT Standard_Integer AddNode(HLRAlgo_PolyInternalNode::NodeData& theNod1RValues,
-                                           HLRAlgo_PolyInternalNode::NodeData& theNod2RValues,
+  Standard_EXPORT Standard_Integer AddNode(HLRAlgo_PolyInternalNode::NodeData1& theNod1RValues,
+                                           HLRAlgo_PolyInternalNode::NodeData1& theNod2RValues,
                                            HLRAlgo_Array1OfPINod*&             thePINod1,
                                            HLRAlgo_Array1OfPINod*&             thePINod2,
                                            const Standard_Real                 theCoef1,

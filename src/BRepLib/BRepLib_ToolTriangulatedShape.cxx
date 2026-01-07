@@ -39,7 +39,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&              
   if (!theTris->HasUVNodes() || aSurf.IsNull())
   {
     // compute normals by averaging triangulation normals sharing the same vertex
-    Poly::ComputeNormals(theTris);
+    Poly1::ComputeNormals(theTris);
     return;
   }
 
@@ -50,7 +50,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&              
   for (Standard_Integer aNodeIter = 1; aNodeIter <= theTris->NbNodes(); ++aNodeIter)
   {
     // try to retrieve normal from real surface first, when UV coordinates are available
-    if (GeomLib::NormEstim(aSurf, theTris->UVNode(aNodeIter), aTol, aNorm) > 1)
+    if (GeomLib1::NormEstim(aSurf, theTris->UVNode(aNodeIter), aTol, aNorm) > 1)
     {
       if (thePolyConnect.Triangulation() != theTris)
       {
@@ -61,7 +61,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&              
       gp_XYZ eqPlan(0.0, 0.0, 0.0);
       for (thePolyConnect.Initialize(aNodeIter); thePolyConnect.More(); thePolyConnect.Next())
       {
-        theTris->Triangle(thePolyConnect.Value()).Get(aTri[0], aTri[1], aTri[2]);
+        theTris->Triangle1(thePolyConnect.Value()).Get(aTri[0], aTri[1], aTri[2]);
         const gp_XYZ        v1(theTris->Node(aTri[1]).Coord() - theTris->Node(aTri[0]).Coord());
         const gp_XYZ        v2(theTris->Node(aTri[2]).Coord() - theTris->Node(aTri[1]).Coord());
         const gp_XYZ        vv   = v1 ^ v2;

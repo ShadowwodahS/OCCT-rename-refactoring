@@ -36,7 +36,7 @@ class Axis3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed trimmed cylinder.
-class GC_MakeTrimmedCylinder : public GC_Root
+class GC_MakeTrimmedCylinder : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

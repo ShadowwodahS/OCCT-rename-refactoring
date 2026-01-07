@@ -37,7 +37,7 @@ struct BVH_Bin
   }
 
   Standard_Integer Count; //!< Number of primitives in the bin
-  BVH_Box<T, N>    Box;   //!< AABB of primitives in the bin
+  BVH_Box<T, N>    Box1;   //!< AABB of primitives in the bin
 };
 
 //! Performs construction of BVH tree using binned SAH algorithm. Number
@@ -116,7 +116,7 @@ void BVH_BinnedBuilder<T, N, Bins>::getSubVolumes(BVH_Set<T, N>*         theSet,
        anIdx <= theBVH->EndPrimitive(theNode);
        ++anIdx)
   {
-    typename BVH_Set<T, N>::BVH_BoxNt aBox = theSet->Box(anIdx);
+    typename BVH_Set<T, N>::BVH_BoxNt aBox = theSet->Box1(anIdx);
     Standard_Integer                  aBinIndex =
       BVH::IntFloor<T>((theSet->Center(anIdx, theAxis) - aMin) * anInverseStep);
     if (aBinIndex < 0)
@@ -129,7 +129,7 @@ void BVH_BinnedBuilder<T, N, Bins>::getSubVolumes(BVH_Set<T, N>*         theSet,
     }
 
     theBins[aBinIndex].Count++;
-    theBins[aBinIndex].Box.Combine(aBox);
+    theBins[aBinIndex].Box1.Combine(aBox);
   }
 }
 
@@ -266,11 +266,11 @@ typename BVH_QueueBuilder<T, N>::BVH_ChildNodes BVH_BinnedBuilder<T, N, Bins>::b
       aSplitPlanes[aRghSplit].RghVoxel.Count =
         aSplitPlanes[aRghSplit + 1].RghVoxel.Count + aBinVector[aRghSplit + 0].Count;
 
-      aSplitPlanes[aLftSplit].LftVoxel.Box = aSplitPlanes[aLftSplit - 1].LftVoxel.Box;
-      aSplitPlanes[aRghSplit].RghVoxel.Box = aSplitPlanes[aRghSplit + 1].RghVoxel.Box;
+      aSplitPlanes[aLftSplit].LftVoxel.Box1 = aSplitPlanes[aLftSplit - 1].LftVoxel.Box1;
+      aSplitPlanes[aRghSplit].RghVoxel.Box1 = aSplitPlanes[aRghSplit + 1].RghVoxel.Box1;
 
-      aSplitPlanes[aLftSplit].LftVoxel.Box.Combine(aBinVector[aLftSplit - 1].Box);
-      aSplitPlanes[aRghSplit].RghVoxel.Box.Combine(aBinVector[aRghSplit + 0].Box);
+      aSplitPlanes[aLftSplit].LftVoxel.Box1.Combine(aBinVector[aLftSplit - 1].Box1);
+      aSplitPlanes[aRghSplit].RghVoxel.Box1.Combine(aBinVector[aRghSplit + 0].Box1);
     }
 
     // Choose the best split (with minimum SAH cost)
@@ -278,9 +278,9 @@ typename BVH_QueueBuilder<T, N>::BVH_ChildNodes BVH_BinnedBuilder<T, N, Bins>::b
     {
       // Simple SAH evaluation
       Standard_Real aCost =
-        (static_cast<Standard_Real>(aSplitPlanes[aSplit].LftVoxel.Box.Area()) /* / S(N) */)
+        (static_cast<Standard_Real>(aSplitPlanes[aSplit].LftVoxel.Box1.Area()) /* / S(N) */)
           * aSplitPlanes[aSplit].LftVoxel.Count
-        + (static_cast<Standard_Real>(aSplitPlanes[aSplit].RghVoxel.Box.Area()) /* / S(N) */)
+        + (static_cast<Standard_Real>(aSplitPlanes[aSplit].RghVoxel.Box1.Area()) /* / S(N) */)
             * aSplitPlanes[aSplit].RghVoxel.Count;
 
       if (aCost <= aMinSplitCost)
@@ -288,8 +288,8 @@ typename BVH_QueueBuilder<T, N>::BVH_ChildNodes BVH_BinnedBuilder<T, N, Bins>::b
         aMinSplitCost   = aCost;
         aMinSplitAxis   = anAxis;
         aMinSplitIndex  = aSplit;
-        aMinSplitBoxLft = aSplitPlanes[aSplit].LftVoxel.Box;
-        aMinSplitBoxRgh = aSplitPlanes[aSplit].RghVoxel.Box;
+        aMinSplitBoxLft = aSplitPlanes[aSplit].LftVoxel.Box1;
+        aMinSplitBoxRgh = aSplitPlanes[aSplit].RghVoxel.Box1;
         aMinSplitNumLft = aSplitPlanes[aSplit].LftVoxel.Count;
         aMinSplitNumRgh = aSplitPlanes[aSplit].RghVoxel.Count;
       }
@@ -311,13 +311,13 @@ typename BVH_QueueBuilder<T, N>::BVH_ChildNodes BVH_BinnedBuilder<T, N, Bins>::b
     aMinSplitNumLft = aMiddle - aNodeBegPrimitive;
     for (Standard_Integer anIndex = aNodeBegPrimitive; anIndex < aMiddle; ++anIndex)
     {
-      aMinSplitBoxLft.Combine(theSet->Box(anIndex));
+      aMinSplitBoxLft.Combine(theSet->Box1(anIndex));
     }
 
     aMinSplitNumRgh = aNodeEndPrimitive - aMiddle + 1;
     for (Standard_Integer anIndex = aNodeEndPrimitive; anIndex >= aMiddle; --anIndex)
     {
-      aMinSplitBoxRgh.Combine(theSet->Box(anIndex));
+      aMinSplitBoxRgh.Combine(theSet->Box1(anIndex));
     }
   }
   else

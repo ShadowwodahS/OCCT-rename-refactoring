@@ -34,9 +34,9 @@ static const Standard_Real COSMIN = 1.e-2;
 
 // G1 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                                   const Plate_D1&        D1S,
-                                                   const Plate_D1&        D1T,
+FreeGtoCConstraint::FreeGtoCConstraint(const Coords2d&           point2d,
+                                                   const D1&        D1S,
+                                                   const D1&        D1T,
                                                    const Standard_Real    IncrementalLoad,
                                                    const Standard_Integer orientation)
 {
@@ -80,33 +80,33 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     Transform3d rota;
     Axis3d  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      Transform3d rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      Transform3d rota = RotationBuilder(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
   }
 
   gp_XYZ du = D1S.Du * (-1.);
   gp_XYZ dv = D1S.Dv * (-1.);
 
-  myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, du, 1, 0), normale);
-  myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dv, 0, 1), normale);
+  myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, du, 1, 0), normale);
+  myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dv, 0, 1), normale);
   nb_LSConstraints = 2;
 }
 
 // G1 + G2 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                                   const Plate_D1&        D1S,
-                                                   const Plate_D1&        D1T0,
-                                                   const Plate_D2&        D2S,
-                                                   const Plate_D2&        D2T0,
+FreeGtoCConstraint::FreeGtoCConstraint(const Coords2d&           point2d,
+                                                   const D1&        D1S,
+                                                   const D1&        D1T0,
+                                                   const D2&        D2S,
+                                                   const D2&        D2T0,
                                                    const Standard_Real    IncrementalLoad,
                                                    const Standard_Integer orientation)
 {
   pnt2d            = point2d;
   nb_PPConstraints = 0;
   nb_LSConstraints = 0;
-  Plate_D1 D1T     = D1T0;
-  Plate_D2 D2T     = D2T0;
+  D1 D1T     = D1T0;
+  D2 D2T     = D2T0;
 
   gp_XYZ normale = D1T.Du ^ D1T.Dv;
   if (normale.Modulus() < NORMIN)
@@ -122,8 +122,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     gp_XYZ du = D1S.Du * (-1.);
     gp_XYZ dv = D1S.Dv * (-1.);
 
-    myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, du, 1, 0), normale);
-    myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dv, 0, 1), normale);
+    myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, du, 1, 0), normale);
+    myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dv, 0, 1), normale);
     nb_LSConstraints = 2;
     return;
   }
@@ -156,7 +156,7 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     Transform3d rota;
     Axis3d  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      Transform3d rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      Transform3d rota = RotationBuilder(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
     rota.Transforms(D1T.Du);
     rota.Transforms(D1T.Dv);
@@ -171,8 +171,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     gp_XYZ du = D1S.Du * (-1.);
     gp_XYZ dv = D1S.Dv * (-1.);
 
-    myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, du, 1, 0), normale);
-    myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dv, 0, 1), normale);
+    myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, du, 1, 0), normale);
+    myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dv, 0, 1), normale);
     nb_LSConstraints = 2;
     return;
   }
@@ -182,8 +182,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -226,30 +226,30 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
   duv *= IncrementalLoad;
   dvv *= IncrementalLoad;
 
-  myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, duu, 2, 0), normale);
-  myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, duv, 1, 1), normale);
-  myLSC[2] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dvv, 0, 2), normale);
+  myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, duu, 2, 0), normale);
+  myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, duv, 1, 1), normale);
+  myLSC[2] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dvv, 0, 2), normale);
   nb_LSConstraints = 3;
 }
 
 // G1 + G2 + G3 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                                   const Plate_D1&        D1S,
-                                                   const Plate_D1&        D1T0,
-                                                   const Plate_D2&        D2S,
-                                                   const Plate_D2&        D2T0,
-                                                   const Plate_D3&        D3S,
-                                                   const Plate_D3&        D3T0,
+FreeGtoCConstraint::FreeGtoCConstraint(const Coords2d&           point2d,
+                                                   const D1&        D1S,
+                                                   const D1&        D1T0,
+                                                   const D2&        D2S,
+                                                   const D2&        D2T0,
+                                                   const D3&        D3S,
+                                                   const D3&        D3T0,
                                                    const Standard_Real    IncrementalLoad,
                                                    const Standard_Integer orientation)
 {
   pnt2d            = point2d;
   nb_PPConstraints = 0;
   nb_LSConstraints = 0;
-  Plate_D1 D1T     = D1T0;
-  Plate_D2 D2T     = D2T0;
-  Plate_D3 D3T     = D3T0;
+  D1 D1T     = D1T0;
+  D2 D2T     = D2T0;
+  D3 D3T     = D3T0;
 
   gp_XYZ normale = D1T.Du ^ D1T.Dv;
   if (normale.Modulus() < NORMIN)
@@ -265,8 +265,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     gp_XYZ du = D1S.Du * (-1.);
     gp_XYZ dv = D1S.Dv * (-1.);
 
-    myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, du, 1, 0), normale);
-    myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dv, 0, 1), normale);
+    myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, du, 1, 0), normale);
+    myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dv, 0, 1), normale);
     nb_LSConstraints = 2;
     return;
   }
@@ -298,7 +298,7 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     Transform3d rota;
     Axis3d  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      Transform3d rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      Transform3d rota = RotationBuilder(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
     rota.Transforms(D1T.Du);
     rota.Transforms(D1T.Dv);
@@ -317,8 +317,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
     gp_XYZ du = D1S.Du * (-1.);
     gp_XYZ dv = D1S.Dv * (-1.);
 
-    myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, du, 1, 0), normale);
-    myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dv, 0, 1), normale);
+    myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, du, 1, 0), normale);
+    myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dv, 0, 1), normale);
     nb_LSConstraints = 2;
     return;
   }
@@ -328,8 +328,8 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -369,9 +369,9 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
   gp_XYZ duv = normaleS * (normale * (Suv - D2S.Duv)) * invcos;
   gp_XYZ dvv = normaleS * (normale * (Svv - D2S.Dvv)) * invcos;
 
-  myPPC[2]         = Plate_PinpointConstraint(pnt2d, duu, 2, 0);
-  myPPC[3]         = Plate_PinpointConstraint(pnt2d, duv, 1, 1);
-  myPPC[4]         = Plate_PinpointConstraint(pnt2d, dvv, 0, 2);
+  myPPC[2]         = PinpointConstraint(pnt2d, duu, 2, 0);
+  myPPC[3]         = PinpointConstraint(pnt2d, duv, 1, 1);
+  myPPC[4]         = PinpointConstraint(pnt2d, dvv, 0, 2);
   nb_PPConstraints = 5;
 
   // G3 Constraints
@@ -427,9 +427,9 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           poi
   duvv *= IncrementalLoad;
   dvvv *= IncrementalLoad;
 
-  myLSC[0] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, duuu, 3, 0), normale);
-  myLSC[1] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, duuv, 2, 1), normale);
-  myLSC[2] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, duvv, 1, 2), normale);
-  myLSC[3] = Plate_LinearScalarConstraint(Plate_PinpointConstraint(pnt2d, dvvv, 0, 3), normale);
+  myLSC[0] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, duuu, 3, 0), normale);
+  myLSC[1] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, duuv, 2, 1), normale);
+  myLSC[2] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, duvv, 1, 2), normale);
+  myLSC[3] = Plate_LinearScalarConstraint(PinpointConstraint(pnt2d, dvvv, 0, 3), normale);
   nb_LSConstraints = 4;
 }

@@ -60,7 +60,7 @@ public: //! @name Rejection/Acceptance rules
   //! Checks if the element should be rejected
   Standard_Boolean RejectElement(const Standard_Integer theIndex)
   {
-    return myBox.IsOut(this->myBVHSet->Box(theIndex));
+    return myBox.IsOut(this->myBVHSet->Box1(theIndex));
   }
 
   //! Checks if the metric of the node may be accepted

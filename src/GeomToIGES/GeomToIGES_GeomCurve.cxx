@@ -425,7 +425,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 
   Handle(Geom_TrimmedCurve) mycurve3d = new Geom_TrimmedCurve(start, Udeb, Ufin);
   Handle(BSplineCurve3d) Bspline =
-    GeomConvert::CurveToBSplineCurve(mycurve3d,
+    GeomConvert1::CurveToBSplineCurve(mycurve3d,
                                      Convert_RationalC1); // #28 rln 19.10.98 UKI60155
   Standard_Real First = Bspline->FirstParameter();
   Standard_Real Last  = Bspline->LastParameter();
@@ -609,10 +609,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     if (approx.HasResult())
       Bspline = approx.Curve();
     if (Bspline.IsNull())
-      GeomConvert::CurveToBSplineCurve(copystart, Convert_QuasiAngular);
+      GeomConvert1::CurveToBSplineCurve(copystart, Convert_QuasiAngular);
     TColStd_Array1OfReal Knots(1, Bspline->NbKnots());
     Bspline->Knots(Knots);
-    BSplCLib::Reparametrize(Udeb, Udeb + 2 * M_PI, Knots);
+    BSplCLib1::Reparametrize(Udeb, Udeb + 2 * M_PI, Knots);
     Bspline->SetKnots(Knots);
     return TransferCurve(Bspline, Udeb, Ufin);
   }
@@ -867,7 +867,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 
   if (ExchangeConfig::IVal("write.iges.offset.mode") == 0)
   {
-    res = TransferCurve(GeomConvert::CurveToBSplineCurve(start), U1, U2);
+    res = TransferCurve(GeomConvert1::CurveToBSplineCurve(start), U1, U2);
     return res;
   }
 
@@ -882,14 +882,14 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     try
     {
       OCC_CATCH_SIGNALS
-      res = TransferCurve(GeomConvert::CurveToBSplineCurve(start), U1, U2);
+      res = TransferCurve(GeomConvert1::CurveToBSplineCurve(start), U1, U2);
       return res;
     }
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "writing non-planar offset curve." << std::endl;
-      std::cout << "Warning: GeomConvert::CurveToBSplineCurve raised an exception: ";
+      std::cout << "Warning: GeomConvert1::CurveToBSplineCurve raised an exception: ";
       anException.Print(std::cout);
 #endif
       (void)anException;

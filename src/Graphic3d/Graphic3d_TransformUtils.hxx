@@ -18,7 +18,7 @@
 #include <gp_Trsf.hxx>
 #include <Graphic3d_Vec.hxx>
 
-//! Helper class that implements transformation matrix functionality.
+//! Helper1 class that implements transformation matrix functionality.
 namespace Graphic3d_TransformUtils
 {
 template <class T>

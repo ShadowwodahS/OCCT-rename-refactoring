@@ -21,7 +21,7 @@
 #include <IntAna2d_Conic.hxx>
 #include <StdFail_NotDone.hxx>
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection()
+AnalyticIntersection2d::AnalyticIntersection2d()
     : done(Standard_False),
       para(Standard_False),
       iden(Standard_False),
@@ -30,42 +30,42 @@ IntAna2d_AnaIntersection::IntAna2d_AnaIntersection()
 {
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Lin2d& L1, const gp_Lin2d& L2)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Lin2d& L1, const gp_Lin2d& L2)
 {
   Perform(L1, L2);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Circ2d& C1, const gp_Circ2d& C2)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
 {
   Perform(C1, C2);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Lin2d& L, const gp_Circ2d& C)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Lin2d& L, const gp_Circ2d& C)
 {
   Perform(L, C);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Lin2d& L, const IntAna2d_Conic& Conic)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Lin2d& L, const Conic2d& Conic)
 {
   Perform(L, Conic);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Parab2d& P, const IntAna2d_Conic& Conic)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Parab2d& P, const Conic2d& Conic)
 {
   Perform(P, Conic);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Circ2d& C, const IntAna2d_Conic& Conic)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Circ2d& C, const Conic2d& Conic)
 {
   Perform(C, Conic);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Elips2d& E, const IntAna2d_Conic& Conic)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Elips2d& E, const Conic2d& Conic)
 {
   Perform(E, Conic);
 }
 
-IntAna2d_AnaIntersection::IntAna2d_AnaIntersection(const gp_Hypr2d& E, const IntAna2d_Conic& Conic)
+AnalyticIntersection2d::AnalyticIntersection2d(const gp_Hypr2d& E, const Conic2d& Conic)
 {
   Perform(E, Conic);
 }

@@ -1418,7 +1418,7 @@ static Standard_Integer OCC24945(DrawInterpreter& di, Standard_Integer argc, con
   gp_Cylinder aCylinder(aCylAxis, 1890.);
 
   Standard_Real aU = 0., aV = 0.;
-  ElSLib::Parameters(aCylinder, aProj, aU, aV);
+  ElSLib1::Parameters(aCylinder, aProj, aU, aV);
   di << "Parameters on cylinder: U = " << aU << "; V = " << aV << "\n";
 
   return 0;
@@ -3007,7 +3007,7 @@ static Standard_Integer OCC25413(DrawInterpreter& di, Standard_Integer narg, con
   IntCurvesFace_ShapeIntersector Inter;
   Inter.Load(aShape, Precision::Confusion());
 
-  Bnd_Box aBndBox;
+  Box2 aBndBox;
   BRepBndLib::Add(aShape, aBndBox);
 
   Dir3d        aDir(0., 1., 0.);
@@ -4009,7 +4009,7 @@ Standard_Integer OCC26446(DrawInterpreter& di, Standard_Integer n, const char** 
   aTolerances.SetValue(0, aTolConf);
 
   Standard_Boolean closed_flag = Standard_False;
-  GeomConvert::ConcatC1(aCurves, aTolerances, anIndices, aConcatCurves, closed_flag, aTolClosure);
+  GeomConvert1::ConcatC1(aCurves, aTolerances, anIndices, aConcatCurves, closed_flag, aTolClosure);
 
   Handle(BSplineCurve3d) aResult = aConcatCurves->Value(aConcatCurves->Lower());
 
@@ -4142,7 +4142,7 @@ static Standard_Integer OCC26485(DrawInterpreter& theDI,
     if (aT.IsNull())
       continue;
 
-    Poly::ComputeNormals(aT);
+    Poly1::ComputeNormals(aT);
 
     // Number of nodes in the triangulation
     int aVertexNb = aT->NbNodes();

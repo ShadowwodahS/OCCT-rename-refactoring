@@ -1052,12 +1052,12 @@ Standard_Boolean WireHealer::FixSelfIntersection()
             Standard_Real aLast = c2d->LastParameter();
             if(c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
                && (cf < aFirst || cl > aLast)) {
-              //pdn avoiding problems with segment in Bnd_Box
+              //pdn avoiding problems with segment in Box2
               gac.Load(c2d);
             }
             else
               gac.Load(c2d,cf,cl);
-        BndLib_Add2dCurve::Add(gac,::Precision::Confusion(),box);
+        Add2dCurve::Add(gac,::Precision::Confusion(),box);
         boxes(i) = box;
           }
         }
@@ -3107,7 +3107,7 @@ static Standard_Boolean TryBendingPCurve(const TopoEdge&     E,
       else // if ( c2d->IsKind(STANDARD_TYPE(Geom2d_Line)) )
       {
         Handle(Geom2d_TrimmedCurve) trim = new Geom2d_TrimmedCurve(c2d, first, last);
-        bs                               = Geom2dConvert::CurveToBSplineCurve(trim);
+        bs                               = Geom2dConvert1::CurveToBSplineCurve(trim);
       }
       if (bs.IsNull())
         return Standard_False;

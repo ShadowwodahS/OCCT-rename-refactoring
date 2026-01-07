@@ -64,7 +64,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
   const Handle(MeshTriangulation)& aPolyTri = theTri->Triangulation();
   for (Standard_Integer aTriIter = 1; aTriIter <= aPolyTri->NbTriangles(); ++aTriIter)
   {
-    const Poly_Triangle& aTri     = aPolyTri->Triangle(aTriIter);
+    const Poly_Triangle& aTri     = aPolyTri->Triangle1(aTriIter);
     const Point3d         aPnts[3] = {aPolyTri->Node(aTri(1)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(2)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(3)).Transformed(aTrsf)};
@@ -86,7 +86,7 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
                            const Transform3d&                       theLoc)
 {
   Graphic3d_Vec3d aMin, aMax;
-  theSensBox->Box().Get(aMin.x(), aMin.y(), aMin.z(), aMax.x(), aMax.y(), aMax.z());
+  theSensBox->Box1().Get(aMin.x(), aMin.y(), aMin.z(), aMax.x(), aMax.y(), aMax.z());
   Point3d aPnts[8] = {Point3d(aMin.x(), aMin.y(), aMin.z()),
                      Point3d(aMax.x(), aMin.y(), aMin.z()),
                      Point3d(aMax.x(), aMax.y(), aMin.z()),

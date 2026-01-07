@@ -104,7 +104,7 @@ public:
                               Standard_ShortReal& D) const;
 
   //! Returns   the current texture plane T equation
-  Standard_EXPORT void PlaneT(Standard_ShortReal& A,
+  Standard_EXPORT void PlaneT1(Standard_ShortReal& A,
                               Standard_ShortReal& B,
                               Standard_ShortReal& C,
                               Standard_ShortReal& D) const;

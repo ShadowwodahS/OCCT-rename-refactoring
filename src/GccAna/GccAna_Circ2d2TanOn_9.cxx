@@ -131,7 +131,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
     }
     if (ok)
     {
-      IntAna2d_AnaIntersection Intp(Bis.ThisSolution(1), OnCirc);
+      AnalyticIntersection2d Intp(Bis.ThisSolution(1), OnCirc);
       if (Intp.IsDone())
       {
         WellDone = Standard_True;
@@ -329,7 +329,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
       for (Standard_Integer k = i; k <= i + j - 1; k++)
       {
         kk++;
-        IntAna2d_AnaIntersection Intp(Bis.ThisSolution(k), OnCirc);
+        AnalyticIntersection2d Intp(Bis.ThisSolution(k), OnCirc);
         if (Intp.IsDone())
         {
           if (!Intp.IsEmpty())
@@ -397,11 +397,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
       dc2                = gp_Dir2d(sign * Coords2d(-L2.Direction().Y(), L2.Direction().X()));
       pnttg2sol(i)       = gp_Pnt2d(pbid.XY() + Radius * dc2.XY());
       pntcen(i)          = pbid;
-      par1sol(i)         = ElCLib::Parameter(cirsol(i), pnttg1sol(i));
-      pararg1(i)         = ElCLib::Parameter(L1, pnttg1sol(i));
-      par2sol(i)         = ElCLib::Parameter(cirsol(i), pnttg2sol(i));
-      pararg2(i)         = ElCLib::Parameter(L2, pnttg2sol(i));
-      parcen3(i)         = ElCLib::Parameter(OnCirc, pntcen(i));
+      par1sol(i)         = ElCLib1::Parameter(cirsol(i), pnttg1sol(i));
+      pararg1(i)         = ElCLib1::Parameter(L1, pnttg1sol(i));
+      par2sol(i)         = ElCLib1::Parameter(cirsol(i), pnttg2sol(i));
+      pararg2(i)         = ElCLib1::Parameter(L2, pnttg2sol(i));
+      parcen3(i)         = ElCLib1::Parameter(OnCirc, pntcen(i));
     }
   }
 }

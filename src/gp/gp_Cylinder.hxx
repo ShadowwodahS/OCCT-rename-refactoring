@@ -34,7 +34,7 @@
 //! Geom_CylindricalSurface cylinder.
 //! See Also
 //! gce_MakeCylinder which provides functions for more
-//! complex cylinder constructions
+//! complex1 cylinder constructions
 //! Geom_CylindricalSurface which provides additional
 //! functions for constructing cylinders and works, in
 //! particular, with the parametric equations of cylinders gp_Ax3

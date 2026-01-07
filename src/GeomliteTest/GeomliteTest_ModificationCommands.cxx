@@ -62,7 +62,7 @@ static Standard_Integer extendcurve(DrawInterpreter& di, Standard_Integer n, con
     }
   }
   Standard_Integer cont = Draw1::Atoi(a[3]);
-  GeomLib::ExtendCurveToPoint(GB, P, cont, apres);
+  GeomLib1::ExtendCurveToPoint(GB, P, cont, apres);
   DrawTrSurf1::Set(a[1], GB);
   return 0;
 }
@@ -103,7 +103,7 @@ static Standard_Integer extendsurf(DrawInterpreter& di, Standard_Integer n, cons
     }
   }
 
-  GeomLib::ExtendSurfByLength(GB, chord, cont, enU, apres);
+  GeomLib1::ExtendSurfByLength(GB, chord, cont, enU, apres);
   DrawTrSurf1::Set(a[1], GB);
 
   return 0;
@@ -123,7 +123,7 @@ static Standard_Integer samerange(DrawInterpreter& /*di*/, Standard_Integer n, c
   rf = Draw1::Atof(a[5]);
   rl = Draw1::Atof(a[6]);
 
-  GeomLib::SameRange(Precision::PConfusion(), C, f, l, rf, rl, Res);
+  GeomLib1::SameRange(Precision::PConfusion(), C, f, l, rf, rl, Res);
 
   DrawTrSurf1::Set(a[1], Res);
 

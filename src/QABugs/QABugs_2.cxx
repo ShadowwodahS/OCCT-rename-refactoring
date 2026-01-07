@@ -74,7 +74,7 @@ static Standard_Integer OCC527(DrawInterpreter& di, Standard_Integer argc, const
 
       // Build BndBox in order to avoid try of building section
       // if plane of the one does not intersect BndBox of the face
-      Bnd_Box aFaceBox;
+      Box2 aFaceBox;
       BRepBndLib::Add(aFace, aFaceBox);
       Standard_Real X1, X2, Y1, Y2, Z1, Z2;
       aFaceBox.Get(X1, Y1, Z1, X2, Y2, Z2);

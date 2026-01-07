@@ -25,9 +25,9 @@
 
 #define TheCurve Standard_Address
 #define TheCurve_hxx <Standard_Address.hxx>
-#define TheCurveTool HLRBRep_CurveTool
+#define TheCurveTool CurveTool5
 #define TheCurveTool_hxx <HLRBRep_CurveTool.hxx>
-#define TheProjPCur HLRBRep_TheProjPCurOfCInter
+#define TheProjPCur ProjPCurOfCInter
 #define TheProjPCur_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
 #define IntCurve_ThePolygon2d HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter
 #define IntCurve_ThePolygon2d_hxx <HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter.hxx>

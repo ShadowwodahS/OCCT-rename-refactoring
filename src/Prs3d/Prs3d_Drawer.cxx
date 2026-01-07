@@ -486,7 +486,7 @@ const Handle(Prs3d_LineAspect)& StyleDrawer::VectorAspect() const
 void StyleDrawer::SetVertexDrawMode(const Prs3d_VertexDrawMode theMode)
 {
   // Prs3d_VDM_Inherited is default value and means
-  // that correct value should be taken from the Link if it exists.
+  // that correct value should be taken from the Link1 if it exists.
   myVertexDrawMode = theMode;
 }
 

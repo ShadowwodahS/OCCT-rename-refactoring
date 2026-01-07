@@ -37,7 +37,7 @@ void DataLabel::Imported(const Standard_Boolean aStatus) const
   if (myLabelNode->IsImported() != aStatus)
   {
     myLabelNode->Imported(aStatus);
-    for (TDF_ChildIterator itr(*this, Standard_True); itr.More(); itr.Next())
+    for (ChildIterator itr(*this, Standard_True); itr.More(); itr.Next())
       itr.Value().myLabelNode->Imported(aStatus);
   }
 }
@@ -153,7 +153,7 @@ Standard_Integer DataLabel::NbChildren() const
     throw Standard_NullObject("A null Label has no children.");
   Standard_Integer n = 0;
   if (myLabelNode->FirstChild() != NULL)
-    for (TDF_ChildIterator itr(*this); itr.More(); itr.Next())
+    for (ChildIterator itr(*this); itr.More(); itr.Next())
       ++n;
   return n;
 }
@@ -246,7 +246,7 @@ Standard_Integer DataLabel::Transaction() const
 
 Standard_OStream& DataLabel::Dump(Standard_OStream& anOS) const
 {
-  TDF_IDFilter            f;
+  IDFilter            f;
   TDF_AttributeIndexedMap m;
   DataLabel::InternalDump(anOS, f, m, Standard_False);
   return anOS;
@@ -255,7 +255,7 @@ Standard_OStream& DataLabel::Dump(Standard_OStream& anOS) const
 //=================================================================================================
 
 void DataLabel::ExtendedDump(Standard_OStream&        anOS,
-                             const TDF_IDFilter&      aFilter,
+                             const IDFilter&      aFilter,
                              TDF_AttributeIndexedMap& aMap) const
 {
   DataLabel::InternalDump(anOS, aFilter, aMap, Standard_True);
@@ -272,7 +272,7 @@ void DataLabel::EntryDump(Standard_OStream& anOS) const
   else
   {
     AsciiString1 entry;
-    TDF_Tool::Entry(*this, entry);
+    Tool3::Entry(*this, entry);
     anOS << entry;
   }
 }
@@ -349,7 +349,7 @@ TDF_LabelNode* DataLabel::FindOrAddChild(const Standard_Integer aTag,
 //=======================================================================
 
 void DataLabel::InternalDump(Standard_OStream&        anOS,
-                             const TDF_IDFilter&      aFilter,
+                             const IDFilter&      aFilter,
                              TDF_AttributeIndexedMap& aMap,
                              const Standard_Boolean   extended) const
 {
@@ -360,7 +360,7 @@ void DataLabel::InternalDump(Standard_OStream&        anOS,
   else
   {
     AsciiString1 entry;
-    TDF_Tool::Entry(*this, entry);
+    Tool3::Entry(*this, entry);
     anOS << entry << "\t";
     if (IsImported())
       anOS << "IS ";
@@ -473,7 +473,7 @@ Standard_Boolean DataLabel::ForgetAttribute(const Standard_GUID& anID) const
 //   for (TDF_AttributeIterator itr1(myLabelNode); itr1.More(); itr1.Next())
 //     ForgetFromNode(myLabelNode,itr1.Value());
 //   if (clearChildren)
-//     for (TDF_ChildIterator itr2(myLabelNode); itr2.More(); itr2.Next()) {
+//     for (ChildIterator itr2(myLabelNode); itr2.More(); itr2.Next()) {
 //       itr2.Value().ForgetAll(clearChildren);
 //     }
 // }
@@ -495,7 +495,7 @@ void DataLabel::ForgetAllAttributes(const Standard_Boolean clearChildren) const
   //   itr1.Next();
   // }
   if (clearChildren)
-    for (TDF_ChildIterator itr2(myLabelNode); itr2.More(); itr2.Next())
+    for (ChildIterator itr2(myLabelNode); itr2.More(); itr2.Next())
     {
       itr2.Value().ForgetAllAttributes(clearChildren);
     }

@@ -56,10 +56,10 @@ public:
   }
 
   //! Returns AABB of entire set of objects.
-  using BVH_PrimitiveSet<T, N>::Box;
+  using BVH_PrimitiveSet<T, N>::Box1;
 
   //! Returns AABB of the given triangle.
-  virtual BVH_Box<T, N> Box(const Standard_Integer theIndex) const Standard_OVERRIDE
+  virtual BVH_Box<T, N> Box1(const Standard_Integer theIndex) const Standard_OVERRIDE
   {
     const BVH_Vec4i& anIndex = BVH::Array<Standard_Integer, 4>::Value(Elements, theIndex);
 

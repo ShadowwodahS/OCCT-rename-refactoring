@@ -216,7 +216,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           {
             gp_Sphere Sph  = S.Sphere();
             gp_Ax3    Axis = Sph.Position();
-            gp_Circ   Ci   = ElSLib::SphereVIso(Axis, Sph.Radius(), P.Y());
+            gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
@@ -232,7 +232,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           gp_Cylinder Cyl  = S.Cylinder();
           gp_Pnt2d    P    = C.Line().Location();
           gp_Ax3      Axis = Cyl.Position();
-          gp_Circ     Ci   = ElSLib::CylinderVIso(Axis, Cyl.Radius(), P.Y());
+          gp_Circ     Ci   = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -247,7 +247,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Cone.Position();
-          gp_Circ  Ci   = ElSLib::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
+          gp_Circ  Ci   = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -262,7 +262,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Tore.Position();
-          gp_Circ  Ci   = ElSLib::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
+          gp_Circ  Ci   = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -281,7 +281,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           gp_Pnt2d  P    = C.Line().Location();
           gp_Ax3    Axis = Sph.Position();
           // calculate iso 0.
-          gp_Circ Ci = ElSLib::SphereUIso(Axis, Sph.Radius(), 0.);
+          gp_Circ Ci = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
           // set to sameparameter (rotation of circle - offset of Y)
           Dir3d DRev = Axis.XDirection().Crossed(Axis.Direction());
@@ -303,7 +303,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Cylinder Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
-          gp_Lin      L   = ElSLib::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
+          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -317,7 +317,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
         {
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Lin   L = ElSLib::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
+          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -332,7 +332,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Tore.Position();
-          gp_Circ  Ci   = ElSLib::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
+          gp_Circ  Ci   = ElSLib1::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
           Ci.Rotate(Ci.Axis(), P.Y());
           Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
@@ -474,7 +474,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
   {
     Standard_Real Uc, Vc;
     Point3d        Apex = Co->Apex();
-    ElSLib::Parameters(Co->Cone(), Apex, Uc, Vc);
+    ElSLib1::Parameters(Co->Cone(), Apex, Uc, Vc);
     Standard_Real UU1, UU2, VV1, VV2;
     BRepTools1::UVBounds(Face, UU1, UU2, VV1, VV2);
     if (VV2 < Vc && Co->SemiAngle() > 0)
@@ -572,7 +572,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
         gp_Cone       theCone = Handle(Geom_ConicalSurface)::DownCast(TheSurf)->Cone();
         Point3d        apex    = theCone.Apex();
         Standard_Real Uapex, Vapex;
-        ElSLib::Parameters(theCone, apex, Uapex, Vapex);
+        ElSLib1::Parameters(theCone, apex, Uapex, Vapex);
         if (VminDegen)
         {
           TheSurf        = new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, Vapex, vf2);
@@ -612,7 +612,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
             {
               Handle(Geom_BoundedSurface) aSurf =
                 new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, vf1, vf2);
-              GeomLib::ExtendSurfByLength(aSurf, length, 1, Standard_True, Standard_False);
+              GeomLib1::ExtendSurfByLength(aSurf, length, 1, Standard_True, Standard_False);
               TheSurf = aSurf;
               Standard_Real u1, u2, v1, v2;
               TheSurf->Bounds(u1, u2, v1, v2);
@@ -653,7 +653,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
             {
               Handle(Geom_BoundedSurface) aSurf =
                 new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, vf1, vf2);
-              GeomLib::ExtendSurfByLength(aSurf, length, 1, Standard_True, Standard_True);
+              GeomLib1::ExtendSurfByLength(aSurf, length, 1, Standard_True, Standard_True);
               TheSurf = aSurf;
               Standard_Real u1, u2, v1, v2;
               TheSurf->Bounds(u1, u2, v1, v2);
@@ -694,7 +694,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
             {
               Handle(Geom_BoundedSurface) aSurf =
                 new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, vf1, vf2);
-              GeomLib::ExtendSurfByLength(aSurf, length, 1, Standard_False, Standard_False);
+              GeomLib1::ExtendSurfByLength(aSurf, length, 1, Standard_False, Standard_False);
               TheSurf = aSurf;
               Standard_Real u1, u2, v1, v2;
               TheSurf->Bounds(u1, u2, v1, v2);
@@ -737,7 +737,7 @@ void BRepOffset_Offset::Init(const TopoFace&                  Face,
             {
               Handle(Geom_BoundedSurface) aSurf =
                 new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, vf1, vf2);
-              GeomLib::ExtendSurfByLength(aSurf, length, 1, Standard_False, Standard_True);
+              GeomLib1::ExtendSurfByLength(aSurf, length, 1, Standard_False, Standard_True);
               TheSurf = aSurf;
               Standard_Real u1, u2, v1, v2;
               TheSurf->Bounds(u1, u2, v1, v2);
@@ -1503,7 +1503,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
   Handle(GeomSurface) SS = S;
 
   // En polynomial, calcul de la surface par F(u,v).
-  // Pas de changement de parametre, donc ProjLib sur la Sphere
+  // Pas de changement de parametre, donc ProjLib1 sur la Sphere
   // reste OK.
   if (Polynomial)
   {
@@ -1552,7 +1552,7 @@ void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
     }
 #endif
 
-    Handle(GeomCurve2d) PCurve = GeomProjLib::Curve2d(C, S);
+    Handle(GeomCurve2d) PCurve = GeomProjLib1::Curve2d(C, S);
     // check if the first point of PCurve in is the canonical boundaries
     // of the sphere. Else move it.
     // the transformation is : U` = U + PI + 2 k  PI

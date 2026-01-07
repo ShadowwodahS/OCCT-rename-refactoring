@@ -11,7 +11,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// sln 09.10.2001. BUC61003. Correction of looking for items of complex entity in case of them  do
+// sln 09.10.2001. BUC61003. Correction of looking for items of complex1 entity in case of them  do
 // not saticfy to alphabetical order
 
 #include <Interface_EntityIterator.hxx>
@@ -34,7 +34,7 @@ void RWStepBasic_RWConversionBasedUnitAndPlaneAngleUnit::ReadStep(
   Handle(Interface_Check)&                                      ach,
   const Handle(StepBasic_ConversionBasedUnitAndPlaneAngleUnit)& ent) const
 {
-  // sln 09.10.2001. BUC61003. Correction of looking for items of complex entity in case of them  do
+  // sln 09.10.2001. BUC61003. Correction of looking for items of complex1 entity in case of them  do
   // not saticfy to alphabetical order CONVERSION_BASED_UNIT
   Standard_Integer num = 0; // num0;
   data->NamedForComplex("CONVERSION_BASED_UNIT", "CNBSUN", num0, num, ach);

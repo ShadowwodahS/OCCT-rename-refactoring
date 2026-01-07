@@ -64,7 +64,7 @@ Standard_GUID TDF_AttributeDelta::ID() const
 Standard_OStream& TDF_AttributeDelta::Dump(Standard_OStream& OS) const
 {
   static AsciiString1 entry;
-  TDF_Tool::Entry(Label(), entry);
+  Tool3::Entry(Label(), entry);
   OS << this->DynamicType()->Name() << " at " << entry;
   OS << " on " << Attribute()->DynamicType()->Name();
   return OS;
@@ -79,6 +79,6 @@ void TDF_AttributeDelta::DumpJson(Standard_OStream& theOStream, Standard_Integer
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, myAttribute.get())
 
   AsciiString1 aStrForTDF_Label;
-  TDF_Tool::Entry(myLabel, aStrForTDF_Label);
+  Tool3::Entry(myLabel, aStrForTDF_Label);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aStrForTDF_Label)
 }

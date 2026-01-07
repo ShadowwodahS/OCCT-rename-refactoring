@@ -44,7 +44,7 @@ class Axis3d;
 //! * Create a Circ with two points giving its axis and
 //! its radius.
 //! * Create a Circ with is Ax2 and its Radius.
-class gce_MakeCirc : public gce_Root
+class gce_MakeCirc : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

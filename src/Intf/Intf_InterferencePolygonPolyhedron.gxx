@@ -127,7 +127,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
 
   iLin=0;
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
@@ -159,7 +159,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
   if (Tolerance==0.)
     Tolerance=Epsilon(1000.);
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 bToo;
   BeginOfClosedPolygon=Standard_False;
 
@@ -232,7 +232,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
 
   iLin=0;
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
@@ -262,7 +262,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
   if (Tolerance==0.)
     Tolerance=Epsilon(1000.);
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 Btoo;
   BeginOfClosedPolygon=Standard_False;
 
@@ -300,7 +300,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
   (const Polygon3d& thePolyg, const Polyhedron& thePolyh)
 {
 
-  Bnd_Box bofSeg;
+  Box2 bofSeg;
 
   Bnd_BoundSortBox PolyhGrid;
   PolyhGrid.Initialize(ToolPolyh::Bounding(thePolyh),
@@ -326,7 +326,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
       Point3d p1 = ToolPolygon3d::BeginOfSeg(thePolyg, iLin);
       Point3d p2 = ToolPolygon3d::EndOfSeg(thePolyg, iLin);
       Standard_Integer pTri0, pTri1, pTri2;
-      ToolPolyh::Triangle(thePolyh, indTri, pTri0, pTri1, pTri2);
+      ToolPolyh::Triangle1(thePolyh, indTri, pTri0, pTri1, pTri2);
       Point3d Pa=ToolPolyh::Point(thePolyh, pTri0);
       Point3d Pb=ToolPolyh::Point(thePolyh, pTri1);
       Point3d Pc=ToolPolyh::Point(thePolyh, pTri2);
@@ -395,7 +395,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
 
   iLin=0;
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
@@ -426,7 +426,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
   if (Tolerance==0.)
     Tolerance=Epsilon(1000.);
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 bToo;
   BeginOfClosedPolygon=Standard_False;
 
@@ -493,7 +493,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
 
   iLin=0;
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
@@ -524,7 +524,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
   if (Tolerance==0.)
     Tolerance=Epsilon(1000.);
 
-  Bnd_Box bofLin;
+  Box2 bofLin;
   Tool1 Btoo;
   BeginOfClosedPolygon=Standard_False;
 
@@ -559,7 +559,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
   (const Polygon3d& thePolyg, const Polyhedron& thePolyh,
    Bnd_BoundSortBox &PolyhGrid)
 {
-  Bnd_Box bofSeg;
+  Box2 bofSeg;
 
   Standard_Integer indTri;
   BeginOfClosedPolygon=ToolPolygon3d::Closed(thePolyg);
@@ -591,7 +591,7 @@ void Intf_InterferencePolygonPolyhedron::Interference
       //  Modified by MKK - Thu Oct  25 12:40:11 2007 Begin
 
       Standard_Integer pTri[3];
-      ToolPolyh::Triangle(thePolyh, indTri, pTri[0], pTri[1], pTri[2]);
+      ToolPolyh::Triangle1(thePolyh, indTri, pTri[0], pTri[1], pTri[2]);
       gp_XYZ triNor;                                   // Vecteur normal.
       Standard_Real triDp = 0.;                        // Distance polaire.
       
@@ -651,7 +651,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
  const Standard_Integer TTri, const Polyhedron& thePolyh)
 {
   Standard_Integer pTri0,pTri1,pTri2;
-  ToolPolyh::Triangle(thePolyh, TTri, pTri0, pTri1, pTri2);
+  ToolPolyh::Triangle1(thePolyh, TTri, pTri0, pTri1, pTri2);
   Point3d Pa=ToolPolyh::Point(thePolyh, pTri0);
   Point3d Pb=ToolPolyh::Point(thePolyh, pTri1);
   Point3d Pc=ToolPolyh::Point(thePolyh, pTri2);
@@ -764,7 +764,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
   Intf_PIType typOnG=Intf_EDGE;
   Standard_Real t;
   Standard_Integer pTri[3];
-  ToolPolyh::Triangle(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
+  ToolPolyh::Triangle1(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
   gp_XYZ triNor;                                   // Vecteur normal.
   Standard_Real triDp;                             // Distance polaire.
 
@@ -996,13 +996,13 @@ void Intf_InterferencePolygonPolyhedron::Intersect
       Standard_Real NVecTri = VecTri.Magnitude();
       Dir3d  DirTri(VecTri);
       gp_Lin  LinTri(BegT,DirTri);
-      Extrema_ExtElC Extrema(LinPol,LinTri,0.00000001);
+      ExtElC Extrema(LinPol,LinTri,0.00000001);
       if(Extrema.IsDone()) { 
 	if(Extrema.IsParallel() == Standard_False) { 
 	  if(Extrema.NbExt()) { 
 	    dist2 = Extrema.SquareDistance();
 	    if(dist2<=Tolerance * Tolerance) {
-	      Extrema_POnCurv POnC1,POnC2;
+	      PointOnCurve1 POnC1,POnC2;
 	      Extrema.Points(1,POnC1,POnC2);
 	      const Point3d& PO = POnC1.Value();
 	      const Point3d& PT = POnC2.Value();
@@ -1050,7 +1050,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
   Intf_PIType typOnG=Intf_EDGE;
   Standard_Real t;
   Standard_Integer pTri[3];
-  ToolPolyh::Triangle(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
+  ToolPolyh::Triangle1(thePolyh, TTri, pTri[0], pTri[1], pTri[2]);
   gp_XYZ triNor = TriNormal;                                   // Vecteur normal.
   //Standard_Real triDp = TriDp;                             // Distance polaire.
 
@@ -1276,13 +1276,13 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
       Standard_Real NVecTri = VecTri.Magnitude();
       Dir3d  DirTri(VecTri);
       gp_Lin  LinTri(BegT,DirTri);
-      Extrema_ExtElC Extrema(LinPol,LinTri,0.00000001);
+      ExtElC Extrema(LinPol,LinTri,0.00000001);
       if(Extrema.IsDone()) { 
 	if(Extrema.IsParallel() == Standard_False) { 
 	  if(Extrema.NbExt()) { 
 	    dist2 = Extrema.SquareDistance();
 	    if(dist2<=Tolerance * Tolerance) {
-	      Extrema_POnCurv POnC1,POnC2;
+	      PointOnCurve1 POnC1,POnC2;
 	      Extrema.Points(1,POnC1,POnC2);
 	      const Point3d& PO = POnC1.Value();
 	      const Point3d& PT = POnC2.Value();

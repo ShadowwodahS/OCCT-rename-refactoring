@@ -146,26 +146,26 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(GeomCurve3d)& GC1,
       if (GC1->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
         Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(GC1));
-        Standard_Real       par_inter = ElCLib::Parameter(circle->Circ(), P1);
-        ElCLib::D1(par_inter, circle->Circ(), P1, aVector1);
+        Standard_Real       par_inter = ElCLib1::Parameter(circle->Circ(), P1);
+        ElCLib1::D1(par_inter, circle->Circ(), P1, aVector1);
       }
       else if (GC1->IsInstance(STANDARD_TYPE(Geom_Ellipse)))
       {
         Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(GC1));
-        Standard_Real        par_inter = ElCLib::Parameter(ellipse->Elips(), P1);
-        ElCLib::D1(par_inter, ellipse->Elips(), P1, aVector1);
+        Standard_Real        par_inter = ElCLib1::Parameter(ellipse->Elips(), P1);
+        ElCLib1::D1(par_inter, ellipse->Elips(), P1, aVector1);
       }
       if (GC2->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
         Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(GC2));
-        Standard_Real       par_inter = ElCLib::Parameter(circle->Circ(), P2);
-        ElCLib::D1(par_inter, circle->Circ(), P2, aVector2);
+        Standard_Real       par_inter = ElCLib1::Parameter(circle->Circ(), P2);
+        ElCLib1::D1(par_inter, circle->Circ(), P2, aVector2);
       }
       else if (GC2->IsInstance(STANDARD_TYPE(Geom_Ellipse)))
       {
         Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(GC2));
-        Standard_Real        par_inter = ElCLib::Parameter(ellipse->Elips(), P2);
-        ElCLib::D1(par_inter, ellipse->Elips(), P2, aVector2);
+        Standard_Real        par_inter = ElCLib1::Parameter(ellipse->Elips(), P2);
+        ElCLib1::D1(par_inter, ellipse->Elips(), P2, aVector2);
       }
       //	  if ( aVector1.IsParallel(aVector2, 100*Precision::Angular()) ) break;
       if (aVector1.IsParallel(aVector2, M_PI / 360.0))
@@ -283,8 +283,8 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
       if (!found)
       {
         // it is enough to project the circus  center on the straight line
-        par_inter = ElCLib::Parameter(line->Lin(), circle->Location());
-        pint3d    = ElCLib::Value(par_inter, line->Lin());
+        par_inter = ElCLib1::Parameter(line->Lin(), circle->Location());
+        pint3d    = ElCLib1::Value(par_inter, line->Lin());
       }
 
       theDir   = line->Lin().Direction();
@@ -305,8 +305,8 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
       if (!found)
       {
         // it is enough to project the circus  center on the straight line
-        par_inter = ElCLib::Parameter(line->Lin(), circle->Location());
-        pint3d    = ElCLib::Value(par_inter, line->Lin());
+        par_inter = ElCLib1::Parameter(line->Lin(), circle->Location());
+        pint3d    = ElCLib1::Value(par_inter, line->Lin());
       }
 
       theDir   = line->Lin().Direction();
@@ -375,31 +375,31 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         {
           if (R1 >= R2)
           {
-            ElCLib::D1(par_inter, circle1->Circ(), pint3d, theVector);
+            ElCLib1::D1(par_inter, circle1->Circ(), pint3d, theVector);
           }
           else
           {
-            ElCLib::D1(par_inter, circle2->Circ(), pint3d, theVector);
+            ElCLib1::D1(par_inter, circle2->Circ(), pint3d, theVector);
           }
         }
         else
         {
           if (R1 >= R2)
           {
-            par_inter = ElCLib::Parameter(circle1->Circ(), circle2->Location());
-            ElCLib::D1(par_inter, circle1->Circ(), pint3d, theVector);
+            par_inter = ElCLib1::Parameter(circle1->Circ(), circle2->Location());
+            ElCLib1::D1(par_inter, circle1->Circ(), pint3d, theVector);
           }
           else
           {
-            par_inter = ElCLib::Parameter(circle2->Circ(), circle1->Location());
-            ElCLib::D1(par_inter, circle2->Circ(), pint3d, theVector);
+            par_inter = ElCLib1::Parameter(circle2->Circ(), circle1->Location());
+            ElCLib1::D1(par_inter, circle2->Circ(), pint3d, theVector);
           }
         }
       }
       else
       {
-        par_inter = ElCLib::Parameter(circle1->Circ(), pint3d);
-        ElCLib::D1(par_inter, circle1->Circ(), pint3d, theVector);
+        par_inter = ElCLib1::Parameter(circle1->Circ(), pint3d);
+        ElCLib1::D1(par_inter, circle1->Circ(), pint3d, theVector);
       }
       theDir = Dir3d(theVector);
     }
@@ -416,20 +416,20 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         if (R1 >= R2)
         {
           ComputeTangencyPoint(circle, ellipse, pint3d);
-          par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
-          ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(circle->Circ(), pint3d);
+          ElCLib1::D1(par_inter, circle->Circ(), pint3d, theVector);
         }
         else
         {
           ComputeTangencyPoint(ellipse, circle, pint3d);
-          par_inter = ElCLib::Parameter(ellipse->Elips(), pint3d);
-          ElCLib::D1(par_inter, ellipse->Elips(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(ellipse->Elips(), pint3d);
+          ElCLib1::D1(par_inter, ellipse->Elips(), pint3d, theVector);
         }
       }
       else
       {
-        par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
-        ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
+        par_inter = ElCLib1::Parameter(circle->Circ(), pint3d);
+        ElCLib1::D1(par_inter, circle->Circ(), pint3d, theVector);
       }
       theDir = Dir3d(theVector);
     }
@@ -446,20 +446,20 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         if (R1 >= R2)
         {
           ComputeTangencyPoint(ellipse, circle, pint3d);
-          par_inter = ElCLib::Parameter(ellipse->Elips(), pint3d);
-          ElCLib::D1(par_inter, ellipse->Elips(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(ellipse->Elips(), pint3d);
+          ElCLib1::D1(par_inter, ellipse->Elips(), pint3d, theVector);
         }
         else
         {
           ComputeTangencyPoint(circle, ellipse, pint3d);
-          par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
-          ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(circle->Circ(), pint3d);
+          ElCLib1::D1(par_inter, circle->Circ(), pint3d, theVector);
         }
       }
       else
       {
-        par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
-        ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
+        par_inter = ElCLib1::Parameter(circle->Circ(), pint3d);
+        ElCLib1::D1(par_inter, circle->Circ(), pint3d, theVector);
       }
       theDir = Dir3d(theVector);
     }
@@ -476,20 +476,20 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         if (R1 > R2)
         {
           ComputeTangencyPoint(ellipse1, ellipse2, pint3d);
-          par_inter = ElCLib::Parameter(ellipse1->Elips(), pint3d);
-          ElCLib::D1(par_inter, ellipse1->Elips(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(ellipse1->Elips(), pint3d);
+          ElCLib1::D1(par_inter, ellipse1->Elips(), pint3d, theVector);
         }
         else
         {
           ComputeTangencyPoint(ellipse2, ellipse1, pint3d);
-          par_inter = ElCLib::Parameter(ellipse2->Elips(), pint3d);
-          ElCLib::D1(par_inter, ellipse2->Elips(), pint3d, theVector);
+          par_inter = ElCLib1::Parameter(ellipse2->Elips(), pint3d);
+          ElCLib1::D1(par_inter, ellipse2->Elips(), pint3d, theVector);
         }
       }
       else
       {
-        par_inter = ElCLib::Parameter(ellipse1->Elips(), pint3d);
-        ElCLib::D1(par_inter, ellipse1->Elips(), pint3d, theVector);
+        par_inter = ElCLib1::Parameter(ellipse1->Elips(), pint3d);
+        ElCLib1::D1(par_inter, ellipse1->Elips(), pint3d, theVector);
       }
       theDir = Dir3d(theVector);
     }

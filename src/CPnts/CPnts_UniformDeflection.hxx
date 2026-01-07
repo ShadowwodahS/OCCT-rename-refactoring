@@ -49,13 +49,13 @@ class Adaptor2d_Curve2d;
 //! if(!Iter1.IsAllDone()) {
 //! ... something wrong happened
 //! }
-class CPnts_UniformDeflection
+class UniformDeflectionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! creation of a indefinite UniformDeflection
-  Standard_EXPORT CPnts_UniformDeflection();
+  Standard_EXPORT UniformDeflectionSampler();
 
   //! Computes a uniform deflection distribution of points
   //! on the curve <C>.
@@ -71,13 +71,13 @@ public:
   //! P(u + Max(CurrentStep,Abs(LastParameter-FirstParameter)))
   //! if the singularity is at the first point ,the next point
   //! calculated is the P(LastParameter)
-  Standard_EXPORT CPnts_UniformDeflection(const Adaptor3d_Curve& C,
+  Standard_EXPORT UniformDeflectionSampler(const Adaptor3d_Curve& C,
                                           const Standard_Real    Deflection,
                                           const Standard_Real    Resolution,
                                           const Standard_Boolean WithControl);
 
   //! As above with 2d curve
-  Standard_EXPORT CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
+  Standard_EXPORT UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
                                           const Standard_Real      Deflection,
                                           const Standard_Real      Resolution,
                                           const Standard_Boolean   WithControl);
@@ -86,7 +86,7 @@ public:
   //! the curve <C>. Deflection defines the step between the points.
   //! <U1> and <U2> define the distribution span.
   //! <U1> and <U2> must be in the parametric range of the curve.
-  Standard_EXPORT CPnts_UniformDeflection(const Adaptor3d_Curve& C,
+  Standard_EXPORT UniformDeflectionSampler(const Adaptor3d_Curve& C,
                                           const Standard_Real    Deflection,
                                           const Standard_Real    U1,
                                           const Standard_Real    U2,
@@ -94,7 +94,7 @@ public:
                                           const Standard_Boolean WithControl);
 
   //! As above with 2d curve
-  Standard_EXPORT CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
+  Standard_EXPORT UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
                                           const Standard_Real      Deflection,
                                           const Standard_Real      U1,
                                           const Standard_Real      U2,

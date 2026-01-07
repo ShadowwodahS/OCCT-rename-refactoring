@@ -78,7 +78,7 @@ Standard_Real BRepMesh_ShapeTool::MaxFaceTolerance(const TopoFace& theFace)
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::BoxMaxDimension(const Bnd_Box& theBox, Standard_Real& theMaxDimension)
+void BRepMesh_ShapeTool::BoxMaxDimension(const Box2& theBox, Standard_Real& theMaxDimension)
 {
   if (theBox.IsVoid())
     return;

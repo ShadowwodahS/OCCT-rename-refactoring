@@ -273,7 +273,7 @@ bool StdPrs_BRepFont::to3d(const Handle(GeomCurve2d)& theCurve2d,
   myCurve2dAdaptor->Load(theCurve2d);
   const Handle(Adaptor2d_Curve2d)& aCurve = myCurve2dAdaptor; // to avoid ambiguity
   myCurvOnSurf.Load(aCurve);
-  GeomLib::BuildCurve3d(myPrecision,
+  GeomLib1::BuildCurve3d(myPrecision,
                         myCurvOnSurf,
                         myCurve2dAdaptor->FirstParameter(),
                         myCurve2dAdaptor->LastParameter(),

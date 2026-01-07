@@ -53,7 +53,7 @@ GeomConvert_CompCurveToBSplineCurve::GeomConvert_CompCurveToBSplineCurve(
   }
   else
   {
-    myCurve = GeomConvert::CurveToBSplineCurve(BasisCurve, myType);
+    myCurve = GeomConvert1::CurveToBSplineCurve(BasisCurve, myType);
   }
 }
 
@@ -73,7 +73,7 @@ Standard_Boolean GeomConvert_CompCurveToBSplineCurve::Add(const Handle(Geom_Boun
   }
   else
   {
-    Bs = GeomConvert::CurveToBSplineCurve(NewCurve, myType);
+    Bs = GeomConvert1::CurveToBSplineCurve(NewCurve, myType);
   }
   if (myCurve.IsNull())
   {

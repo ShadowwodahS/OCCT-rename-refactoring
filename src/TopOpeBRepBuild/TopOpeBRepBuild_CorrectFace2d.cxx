@@ -857,7 +857,7 @@ void TopOpeBRepBuild_CorrectFace2d::BndBoxWire(const TopoWire& aWire, Bnd_Box2d&
     const TopoEdge&  anEdge = TopoDS::Edge(aWEx.Current());
     Standard_Real       aTolE  = BRepInspector::Tolerance(anEdge);
     BRepAdaptor_Curve2d aBAC2d(anEdge, myCorrectedFace);
-    BndLib_Add2dCurve::Add(aBAC2d, aTolE, aB2d);
+    Add2dCurve::Add(aBAC2d, aTolE, aB2d);
   }
   B2d = aB2d;
 }

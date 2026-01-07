@@ -131,7 +131,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
       else
       {
         Handle(Geom_TrimmedCurve) t3d = new Geom_TrimmedCurve(myCurve, First, Last);
-        aBSpline                      = GeomConvert::CurveToBSplineCurve(t3d, Convert_QuasiAngular);
+        aBSpline                      = GeomConvert1::CurveToBSplineCurve(t3d, Convert_QuasiAngular);
       }
       Shift = First - aBSpline->FirstParameter();
       First = aBSpline->FirstParameter();
@@ -139,7 +139,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     }
     else if (!myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
-      aBSpline = GeomConvert::CurveToBSplineCurve(myCurve, Convert_QuasiAngular);
+      aBSpline = GeomConvert1::CurveToBSplineCurve(myCurve, Convert_QuasiAngular);
     }
     else
       aBSpline = Handle(BSplineCurve3d)::DownCast(myCurve);

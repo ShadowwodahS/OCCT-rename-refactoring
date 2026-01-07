@@ -63,8 +63,8 @@ Line2dTwoTangent::Line2dTwoTangent(const gp_Pnt2d&     ThePoint1,
     NbrSol          = 1;
     pnttg1sol(1)    = ThePoint1;
     pnttg2sol(1)    = ThePoint2;
-    par1sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
-    par2sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pnttg2sol(NbrSol));
+    par1sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
+    par2sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pnttg2sol(NbrSol));
     pararg1(1)      = 0.0;
     pararg2(1)      = 0.0;
   }
@@ -166,9 +166,9 @@ Line2dTwoTangent::Line2dTwoTangent(const QualifiedCircle& Qualified1,
   }
   for (Standard_Integer i = 1; i <= NbrSol; i++)
   {
-    par1sol(i) = ElCLib::Parameter(linsol(i), pnttg1sol(i));
-    par2sol(i) = ElCLib::Parameter(linsol(i), pnttg2sol(i));
-    pararg1(i) = ElCLib::Parameter(C1, pnttg1sol(i));
+    par1sol(i) = ElCLib1::Parameter(linsol(i), pnttg1sol(i));
+    par2sol(i) = ElCLib1::Parameter(linsol(i), pnttg2sol(i));
+    pararg1(i) = ElCLib1::Parameter(C1, pnttg1sol(i));
     pararg2(i) = 0.;
   }
 }
@@ -530,10 +530,10 @@ Line2dTwoTangent::Line2dTwoTangent(const QualifiedCircle& Qualified1,
   }
   for (Standard_Integer i = 1; i <= NbrSol; i++)
   {
-    par1sol(i) = ElCLib::Parameter(linsol(i), pnttg1sol(i));
-    par2sol(i) = ElCLib::Parameter(linsol(i), pnttg2sol(i));
-    pararg1(i) = ElCLib::Parameter(C1, pnttg1sol(i));
-    pararg2(i) = ElCLib::Parameter(C2, pnttg2sol(i));
+    par1sol(i) = ElCLib1::Parameter(linsol(i), pnttg1sol(i));
+    par2sol(i) = ElCLib1::Parameter(linsol(i), pnttg2sol(i));
+    pararg1(i) = ElCLib1::Parameter(C1, pnttg1sol(i));
+    pararg2(i) = ElCLib1::Parameter(C2, pnttg2sol(i));
   }
 }
 

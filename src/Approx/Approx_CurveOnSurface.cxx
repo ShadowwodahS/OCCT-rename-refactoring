@@ -730,14 +730,14 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
   }
 
   // Convert arbitrary curve type to the b-spline.
-  myCurve3d = GeomConvert::CurveToBSplineCurve(aC3d, Convert_QuasiAngular);
+  myCurve3d = GeomConvert1::CurveToBSplineCurve(aC3d, Convert_QuasiAngular);
   if (!theIsForward)
     myCurve3d->Reverse();
 
   // Rebuild parameterization for the 3d curve to have the same parameterization with
   // a two-dimensional curve.
   TColStd_Array1OfReal aKnots = myCurve3d->Knots();
-  BSplCLib::Reparametrize(theC2D->FirstParameter(), theC2D->LastParameter(), aKnots);
+  BSplCLib1::Reparametrize(theC2D->FirstParameter(), theC2D->LastParameter(), aKnots);
   myCurve3d->SetKnots(aKnots);
 
   // Evaluate error.

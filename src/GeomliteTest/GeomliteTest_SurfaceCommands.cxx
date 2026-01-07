@@ -528,19 +528,19 @@ static Standard_Integer converting(DrawInterpreter&, Standard_Integer n, const c
       }
       else
       {
-        G2d = Geom2dConvert::CurveToBSplineCurve(G2d, Parameterisation);
+        G2d = Geom2dConvert1::CurveToBSplineCurve(G2d, Parameterisation);
         DrawTrSurf1::Set(a[1], G2d);
       }
     }
     else
     {
-      GS = GeomConvert::SurfaceToBSplineSurface(GS);
+      GS = GeomConvert1::SurfaceToBSplineSurface(GS);
       DrawTrSurf1::Set(a[1], GS);
     }
   }
   else
   {
-    GC = GeomConvert::CurveToBSplineCurve(GC, Parameterisation);
+    GC = GeomConvert1::CurveToBSplineCurve(GC, Parameterisation);
     DrawTrSurf1::Set(a[1], GC);
   }
 
@@ -842,7 +842,7 @@ static Standard_Integer convbz(DrawInterpreter& di, Standard_Integer n, const ch
   }
   else
   { // cas de courbes
-    Convert_CompBezierCurvesToBSplineCurve Conv;
+    BezierToBSpline Conv;
     Handle(BezierCurve3d)               BZ;
     for (ii = 1, kk = 3; ii <= NbU; ii++, kk++)
     {
@@ -1716,7 +1716,7 @@ static Standard_Integer parameters(DrawInterpreter& di, Standard_Integer n, cons
     }
     Point3d           P(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
     Standard_Real    Tol = Draw1::Atof(a[5]), U = 0., V = 0.;
-    Standard_Boolean res = GeomLib_Tool::Parameters(S, P, Tol, U, V);
+    Standard_Boolean res = Tool2::Parameters(S, P, Tol, U, V);
 
     Draw1::Set(a[6], U);
     Draw1::Set(a[7], V);
@@ -1738,7 +1738,7 @@ static Standard_Integer parameters(DrawInterpreter& di, Standard_Integer n, cons
     }
     Point3d           P(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
     Standard_Real    Tol = Draw1::Atof(a[5]), U = 0.;
-    Standard_Boolean res = GeomLib_Tool::Parameter(C, P, Tol, U);
+    Standard_Boolean res = Tool2::Parameter(C, P, Tol, U);
 
     Draw1::Set(a[6], U);
 
@@ -1759,7 +1759,7 @@ static Standard_Integer parameters(DrawInterpreter& di, Standard_Integer n, cons
     }
     gp_Pnt2d         P(Draw1::Atof(a[2]), Draw1::Atof(a[3]));
     Standard_Real    Tol = Draw1::Atof(a[4]), U = 0.;
-    Standard_Boolean res = GeomLib_Tool::Parameter(C, P, Tol, U);
+    Standard_Boolean res = Tool2::Parameter(C, P, Tol, U);
 
     Draw1::Set(a[5], U);
 

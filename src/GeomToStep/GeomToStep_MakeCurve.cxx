@@ -133,7 +133,7 @@ GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(GeomCurve2d)& C,
 #ifdef OCCT_DEBUG
         std::cout << "Warning : Circle converted to BSpline." << std::endl;
 #endif
-        Handle(Geom2d_BSplineCurve) aBSplineCurve2d = Geom2dConvert::CurveToBSplineCurve(theC2d);
+        Handle(Geom2d_BSplineCurve) aBSplineCurve2d = Geom2dConvert1::CurveToBSplineCurve(theC2d);
         const Handle(Geom2d_BoundedCurve)& aBC2d    = aBSplineCurve2d; // to avoid ambiguity
         GeomToStep_MakeBoundedCurve        MkBoundedC(aBC2d, theLocalFactors);
         theCurve = MkBoundedC.Value();
@@ -154,7 +154,7 @@ GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(GeomCurve2d)& C,
 #ifdef OCCT_DEBUG
         std::cout << "Warning : Ellipse converted to BSpline." << std::endl;
 #endif
-        Handle(Geom2d_BSplineCurve) aBSplineCurve2d = Geom2dConvert::CurveToBSplineCurve(theE2d);
+        Handle(Geom2d_BSplineCurve) aBSplineCurve2d = Geom2dConvert1::CurveToBSplineCurve(theE2d);
         const Handle(Geom2d_BoundedCurve)& aBC2d    = aBSplineCurve2d; // to avoid ambiguity
         GeomToStep_MakeBoundedCurve        MkBoundedC(aBC2d, theLocalFactors);
         theCurve = MkBoundedC.Value();

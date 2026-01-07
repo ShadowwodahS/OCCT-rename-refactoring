@@ -33,14 +33,14 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_MyBSplGradientOfBSplineCompute;
 class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpParFunctionOfMyBSplGradientOfBSplineCompute;
 class AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute;
 class AppDef_MyGradientbisOfBSplineCompute;
 class AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute;
-class AppDef_ResConstraintOfMyGradientbisOfBSplineCompute;
+class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
 class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute;
 class AppParCurves_MultiBSpCurve;

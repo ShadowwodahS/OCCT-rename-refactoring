@@ -64,7 +64,7 @@ void BinMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInsta
 
 const Handle(TypeInfo)& BinMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
 {
-  if (Handle(TDF_Attribute) anInstance = TDF_DerivedAttribute::Attribute(theDerivedType))
+  if (Handle(TDF_Attribute) anInstance = DerivedAttribute::Attribute(theDerivedType))
   {
     AddDerivedDriver(anInstance);
     return anInstance->DynamicType();

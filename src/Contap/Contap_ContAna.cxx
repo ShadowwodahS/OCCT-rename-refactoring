@@ -28,7 +28,7 @@
 
 static const Standard_Real Tolpetit = 1.e-8;
 
-Contap_ContAna::Contap_ContAna()
+ContourAnalyzer::ContourAnalyzer()
     : done(Standard_False),
       nbSol(0),
       typL(GeomAbs_OtherCurve),
@@ -36,7 +36,7 @@ Contap_ContAna::Contap_ContAna()
 {
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D)
+void ContourAnalyzer::Perform(const gp_Sphere& S, const Dir3d& D)
 {
   done = Standard_False;
   typL = GeomAbs_Circle;
@@ -55,7 +55,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D)
   done  = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D, const Standard_Real Angle)
+void ContourAnalyzer::Perform(const gp_Sphere& S, const Dir3d& D, const Standard_Real Angle)
 {
   done = Standard_False;
   typL = GeomAbs_Circle;
@@ -76,7 +76,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D, const Standard_
   done  = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const Point3d& Eye)
+void ContourAnalyzer::Perform(const gp_Sphere& S, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -113,7 +113,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const Point3d& Eye)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D)
+void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -137,7 +137,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D, const Standard_Real Angle)
+void ContourAnalyzer::Perform(const gp_Cylinder& C, const Dir3d& D, const Standard_Real Angle)
 {
   done = Standard_False;
 
@@ -197,7 +197,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D, const Standar
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const Point3d& Eye)
+void ContourAnalyzer::Perform(const gp_Cylinder& C, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -225,7 +225,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const Point3d& Eye)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D)
+void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -286,7 +286,7 @@ void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D, const Standard_Real Angle)
+void ContourAnalyzer::Perform(const gp_Cone& C, const Dir3d& D, const Standard_Real Angle)
 {
   done  = Standard_False;
   nbSol = 0;
@@ -390,7 +390,7 @@ void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D, const Standard_Re
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const Point3d& Eye)
+void ContourAnalyzer::Perform(const gp_Cone& C, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -454,7 +454,7 @@ void Contap_ContAna::Perform(const gp_Cone& C, const Point3d& Eye)
   done = Standard_True;
 }
 
-gp_Lin Contap_ContAna::Line(const Standard_Integer Index) const
+gp_Lin ContourAnalyzer::Line(const Standard_Integer Index) const
 {
   if (!done)
   {
@@ -479,5 +479,5 @@ gp_Lin Contap_ContAna::Line(const Standard_Integer Index) const
     case 4:
       return gp_Lin(pt4, dir4);
   }
-  throw Standard_OutOfRange("Program error in Contap_ContAna");
+  throw Standard_OutOfRange("Program error in ContourAnalyzer");
 }

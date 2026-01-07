@@ -25,7 +25,7 @@
 #include <Standard_Transient.hxx>
 #include <BRepTopAdaptor_MapOfShapeTool.hxx>
 #include <Standard_Integer.hxx>
-class HLRAlgo_Projector;
+class HLRAlgoProjector;
 class TopoFace;
 
 class HLRTopoBRep_OutLiner;
@@ -49,9 +49,9 @@ public:
 
   TopoShape& OutLinedShape();
 
-  HLRTopoBRep_Data& DataStructure();
+  Data1& DataStructure();
 
-  Standard_EXPORT void Fill(const HLRAlgo_Projector&       P,
+  Standard_EXPORT void Fill(const HLRAlgoProjector&       P,
                             BRepTopAdaptor_MapOfShapeTool& MST,
                             const Standard_Integer         nbIso);
 
@@ -68,7 +68,7 @@ private:
 
   TopoShape     myOriginalShape;
   TopoShape     myOutLinedShape;
-  HLRTopoBRep_Data myDS;
+  Data1 myDS;
 };
 
 #include <HLRTopoBRep_OutLiner.lxx>

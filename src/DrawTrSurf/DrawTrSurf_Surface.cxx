@@ -242,14 +242,14 @@ Handle(Draw_Drawable3D) DrawTrSurf_Surface::Copy() const
 
 void DrawTrSurf_Surface::Dump(Standard_OStream& S) const
 {
-  GeomTools_SurfaceSet::PrintSurface(surf, S);
+  SurfaceSet1::PrintSurface(surf, S);
 }
 
 //=================================================================================================
 
 void DrawTrSurf_Surface::Save(Standard_OStream& theStream) const
 {
-  GeomTools_SurfaceSet::PrintSurface(surf, theStream, true);
+  SurfaceSet1::PrintSurface(surf, theStream, true);
 }
 
 //=================================================================================================
@@ -257,7 +257,7 @@ void DrawTrSurf_Surface::Save(Standard_OStream& theStream) const
 Handle(Draw_Drawable3D) DrawTrSurf_Surface::Restore(std::istream& theStream)
 {
   const DrawTrSurf_Params&   aParams      = DrawTrSurf1::Parameters();
-  Handle(GeomSurface)       aGeomSurface = GeomTools_SurfaceSet::ReadSurface(theStream);
+  Handle(GeomSurface)       aGeomSurface = SurfaceSet1::ReadSurface(theStream);
   Handle(DrawTrSurf_Surface) aDrawSurface = new DrawTrSurf_Surface(aGeomSurface,
                                                                    aParams.NbUIsos,
                                                                    aParams.NbVIsos,

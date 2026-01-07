@@ -20,6 +20,6 @@
 #include <Bnd_Sphere.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Bnd_Sphere> Bnd_Array1OfSphere;
+typedef NCollection_Array1<Sphere2> Bnd_Array1OfSphere;
 
 #endif

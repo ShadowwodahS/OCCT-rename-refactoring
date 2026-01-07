@@ -315,7 +315,7 @@ private:
   };
 
   //! Hasher1 for merging equal elements (with pre-sorted indexes).
-  struct MergedElemHasher
+  struct MergedElemHasher1
   {
     size_t operator()(const NCollection_Vec4<int>& theVec) const
     {
@@ -332,7 +332,7 @@ private:
 private:
   Handle(MeshTriangulation)                               myPolyData;     //!< output triangulation
   MergedNodesMap                                           myNodeIndexMap; //!< map of merged nodes
-  NCollection_Map<NCollection_Vec4<int>, MergedElemHasher> myElemMap;      //!< map of elements
+  NCollection_Map<NCollection_Vec4<int>, MergedElemHasher1> myElemMap;      //!< map of elements
   NCollection_Vec4<int>                                    myNodeInds;  //!< current element indexes
   NCollection_Vec3<float>                                  myTriNormal; //!< current triangle normal
   gp_XYZ myPlaces[4]; //!< current triangle/quad coordinates to push

@@ -218,8 +218,8 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
   if (!ptfirst.IsEqual(ptend, Precision::Confusion()))
   {
     myIsAnArc  = Standard_True;
-    myFirstPar = ElCLib::Parameter(myEllipse, ptfirst);
-    myLastPar  = ElCLib::Parameter(myEllipse, ptend);
+    myFirstPar = ElCLib1::Parameter(myEllipse, ptfirst);
+    myLastPar  = ElCLib1::Parameter(myEllipse, ptend);
   }
   else
     myIsAnArc = Standard_False;
@@ -253,7 +253,7 @@ void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
   else
   {
     myIsAnArc  = Standard_True;
-    myFirstPar = ElCLib::Parameter(myEllipse, ptfirst);
-    myLastPar  = ElCLib::Parameter(myEllipse, ptend);
+    myFirstPar = ElCLib1::Parameter(myEllipse, ptfirst);
+    myLastPar  = ElCLib1::Parameter(myEllipse, ptend);
   }
 }

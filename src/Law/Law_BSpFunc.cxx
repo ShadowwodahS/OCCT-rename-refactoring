@@ -100,7 +100,7 @@ Standard_Integer Law_BSpFunc::NbIntervals(const GeomAbs_Shape S) const
         TColStd_Array1OfInteger TM(1, Nb);
         curv->Knots(TK);
         curv->Multiplicities(TM);
-        BSplCLib::LocateParameter(curv->Degree(),
+        BSplCLib1::LocateParameter(curv->Degree(),
                                   TK,
                                   TM,
                                   first,
@@ -109,7 +109,7 @@ Standard_Integer Law_BSpFunc::NbIntervals(const GeomAbs_Shape S) const
                                   Nb,
                                   Index1,
                                   newFirst);
-        BSplCLib::LocateParameter(curv->Degree(),
+        BSplCLib1::LocateParameter(curv->Degree(),
                                   TK,
                                   TM,
                                   last,
@@ -180,7 +180,7 @@ void Law_BSpFunc::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) cons
         TColStd_Array1OfInteger TM(1, Nb);
         curv->Knots(TK);
         curv->Multiplicities(TM);
-        BSplCLib::LocateParameter(curv->Degree(),
+        BSplCLib1::LocateParameter(curv->Degree(),
                                   TK,
                                   TM,
                                   first,
@@ -189,7 +189,7 @@ void Law_BSpFunc::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) cons
                                   Nb,
                                   Index1,
                                   newFirst);
-        BSplCLib::LocateParameter(curv->Degree(),
+        BSplCLib1::LocateParameter(curv->Degree(),
                                   TK,
                                   TM,
                                   last,

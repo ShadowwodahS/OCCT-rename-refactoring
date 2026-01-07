@@ -85,7 +85,7 @@ void TopOpeBRepTool_DrawSegment(const Point3d&        P,
                                 const Draw_ColorKind C)
 //===========================================================================
 {
-  TopOpeBRepTool_DrawSegment(P, ElCLib::Value(Par, L), C);
+  TopOpeBRepTool_DrawSegment(P, ElCLib1::Value(Par, L), C);
 }
 
 //===========================================================================

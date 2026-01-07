@@ -516,7 +516,7 @@ private: //! @name Private methods performing the operation
                            const Message_ProgressRange&         theRange)
   {
     // Get the extension value for the faces - half of the diagonal of bounding box of the feature
-    Bnd_Box aFeatureBox;
+    Box2 aFeatureBox;
     BRepBndLib::Add(myFeature, aFeatureBox);
 
     const Standard_Real anExtLength = sqrt(aFeatureBox.SquareExtent());

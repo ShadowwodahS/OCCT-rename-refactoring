@@ -495,7 +495,7 @@ TopoEdge ChFi2d_Builder::BuildChamferEdge(const TopoVertex& V,
   Vector3d                     myVec(p1, p2);
   Dir3d                     myDir(myVec);
   Handle(GeomLine)          newLine = new GeomLine(p1, myDir);
-  Standard_Real              param   = ElCLib::Parameter(newLine->Lin(), p2);
+  Standard_Real              param   = ElCLib1::Parameter(newLine->Lin(), p2);
   B.MakeEdge(chamfer, newLine, tol);
   B.Range(chamfer, 0., param);
   B.Add(chamfer, NewExtr1);
@@ -588,7 +588,7 @@ TopoEdge ChFi2d_Builder::BuildChamferEdge(const TopoVertex& V,
   NewExtr2.Orientation(TopAbs_REVERSED);
 
   // chamfer edge construction
-  Standard_Real param = ElCLib::Parameter(newLine->Lin(), p2);
+  Standard_Real param = ElCLib1::Parameter(newLine->Lin(), p2);
   B.MakeEdge(chamfer, newLine, tol);
   B.Range(chamfer, 0., param);
   B.Add(chamfer, NewExtr1);
@@ -650,7 +650,7 @@ Point3d ComputePoint(const TopoVertex& V,
     else
       thePoint = p1.Translated(myVec);
 
-    Param = ElCLib::Parameter(c.Line(), thePoint);
+    Param = ElCLib1::Parameter(c.Line(), thePoint);
     // szv:OCC20823-begin
     c.D0(Param, thePoint);
     // szv:OCC20823-end

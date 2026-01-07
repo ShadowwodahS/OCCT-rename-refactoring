@@ -26,7 +26,7 @@
 #include <TDF_AttributeMap.hxx>
 class TDF_DataSet;
 class TDF_RelocationTable;
-class TDF_IDFilter;
+class IDFilter;
 class DataLabel;
 
 //! This class provides services to build, copy or
@@ -64,7 +64,7 @@ class DataLabel;
 //! * finally call Copy(...) with the relocation table
 //! previously set. In this way, this method will take
 //! these relocations in account.
-class TDF_CopyTool
+class CopyTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -81,7 +81,7 @@ public:
   //! prevails over the source one.
   Standard_EXPORT static void Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
                                    const Handle(TDF_RelocationTable)& aRelocationTable,
-                                   const TDF_IDFilter&                aPrivilegeFilter);
+                                   const IDFilter&                aPrivilegeFilter);
 
   //! Copy    <aSourceDataSet>   using and    updating
   //! <aRelocationTable>. Use <aPrivilegeFilter> to give
@@ -96,8 +96,8 @@ public:
   //! Internal root label copy recursive method.
   Standard_EXPORT static void Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
                                    const Handle(TDF_RelocationTable)& aRelocationTable,
-                                   const TDF_IDFilter&                aPrivilegeFilter,
-                                   const TDF_IDFilter&                aRefFilter,
+                                   const IDFilter&                aPrivilegeFilter,
+                                   const IDFilter&                aRefFilter,
                                    const Standard_Boolean             setSelfContained);
 
 protected:

@@ -439,9 +439,9 @@ void ViewWindow::AutoZFit() const
 
 void ViewWindow::ZFitAll(const Standard_Real theScaleFactor) const
 {
-  Bnd_Box aMinMaxBox = myView->MinMaxValues(Standard_False); // applicative min max boundaries
+  Box2 aMinMaxBox = myView->MinMaxValues(Standard_False); // applicative min max boundaries
                                                              // clang-format off
-  Bnd_Box aGraphicBox  = myView->MinMaxValues (Standard_True);  // real graphical boundaries (not accounting infinite flag).
+  Box2 aGraphicBox  = myView->MinMaxValues (Standard_True);  // real graphical boundaries (not accounting infinite flag).
                                                              // clang-format on
 
   myView->Camera()->ZFitAll(theScaleFactor, aMinMaxBox, aGraphicBox);
@@ -1505,7 +1505,7 @@ void ViewWindow::FitAll(const Standard_Real theMargin, const Standard_Boolean th
 
 //=================================================================================================
 
-void ViewWindow::FitAll(const Bnd_Box&         theBox,
+void ViewWindow::FitAll(const Box2&         theBox,
                       const Standard_Real    theMargin,
                       const Standard_Boolean theToUpdate)
 {
@@ -1543,7 +1543,7 @@ void ViewWindow::DepthFitAll(const Standard_Real Aspect, const Standard_Real Mar
     return;
   }
 
-  Bnd_Box aBox = myView->MinMaxValues();
+  Box2 aBox = myView->MinMaxValues();
   if (aBox.IsVoid())
   {
     ImmediateUpdate();
@@ -1988,7 +1988,7 @@ Standard_Integer ViewWindow::MinMax(Standard_Real& Umin,
 
   if (Nstruct)
   {
-    Bnd_Box aBox = myView->MinMaxValues();
+    Box2 aBox = myView->MinMaxValues();
     aBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
     Project(Xmin, Ymin, Zmin, Umin, Vmin, Wmin);
     Project(Xmax, Ymax, Zmax, Umax, Vmax, Wmax);
@@ -2053,7 +2053,7 @@ Standard_Integer ViewWindow::MinMax(Standard_Real& Xmin,
 
   if (Nstruct)
   {
-    Bnd_Box aBox = myView->MinMaxValues();
+    Box2 aBox = myView->MinMaxValues();
     aBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
   }
   return Nstruct;
@@ -2133,7 +2133,7 @@ Point3d ViewWindow::GravityPoint() const
   if (aNbPoints == 0)
   {
     // fallback - just use bounding box of entire scene
-    Bnd_Box aBox = myView->MinMaxValues();
+    Box2 aBox = myView->MinMaxValues();
     if (!aBox.IsVoid())
     {
       aBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -2988,7 +2988,7 @@ const Handle(CameraOn3d)& ViewWindow::Camera() const
 //=================================================================================================
 
 Standard_Boolean ViewWindow::FitMinMax(const Handle(CameraOn3d)& theCamera,
-                                     const Bnd_Box&                  theBox,
+                                     const Box2&                  theBox,
                                      const Standard_Real             theMargin,
                                      const Standard_Real             theResolution,
                                      const Standard_Boolean          theToEnlargeIfLine) const

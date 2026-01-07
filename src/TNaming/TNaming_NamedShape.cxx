@@ -1509,7 +1509,7 @@ void ShapeAttribute::DumpJson(Standard_OStream& theOStream, Standard_Integer the
   if (p != 0L)
   {
     AsciiString1 aLabel;
-    TDF_Tool::Entry(myNode->Label(), aLabel);
+    Tool3::Entry(myNode->Label(), aLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
   }
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, myEvolution)

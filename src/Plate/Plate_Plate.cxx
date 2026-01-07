@@ -31,7 +31,7 @@
 
 //=================================================================================================
 
-Plate_Plate::Plate_Plate()
+PlateSurface::PlateSurface()
     : order(0),
       n_el(0),
       n_dim(0),
@@ -54,7 +54,7 @@ Plate_Plate::Plate_Plate()
 
 //=================================================================================================
 
-Plate_Plate::Plate_Plate(const Plate_Plate& Ref)
+PlateSurface::PlateSurface(const PlateSurface& Ref)
     : order(Ref.order),
       n_el(Ref.n_el),
       n_dim(Ref.n_dim),
@@ -126,7 +126,7 @@ Plate_Plate::Plate_Plate(const Plate_Plate& Ref)
 
 //=================================================================================================
 
-Plate_Plate& Plate_Plate::Copy(const Plate_Plate& Ref)
+PlateSurface& PlateSurface::Copy(const PlateSurface& Ref)
 {
   Init();
   order = Ref.order;
@@ -192,7 +192,7 @@ Plate_Plate& Plate_Plate::Copy(const Plate_Plate& Ref)
 
 //=================================================================================================
 
-void Plate_Plate::Load(const Plate_PinpointConstraint& PConst)
+void PlateSurface::Load(const PinpointConstraint& PConst)
 {
   OK = Standard_False;
   n_el++;
@@ -202,7 +202,7 @@ void Plate_Plate::Load(const Plate_PinpointConstraint& PConst)
     maxConstraintOrder = OrdreConst;
 }
 
-void Plate_Plate::Load(const Plate_LinearXYZConstraint& LXYZConst)
+void PlateSurface::Load(const Plate_LinearXYZConstraint& LXYZConst)
 {
   OK = Standard_False;
   n_el += LXYZConst.Coeff().RowLength();
@@ -216,7 +216,7 @@ void Plate_Plate::Load(const Plate_LinearXYZConstraint& LXYZConst)
   }
 }
 
-void Plate_Plate::Load(const Plate_LinearScalarConstraint& LScalarConst)
+void PlateSurface::Load(const Plate_LinearScalarConstraint& LScalarConst)
 {
   OK = Standard_False;
   n_el += LScalarConst.Coeff().RowLength();
@@ -229,28 +229,28 @@ void Plate_Plate::Load(const Plate_LinearScalarConstraint& LScalarConst)
   }
 }
 
-void Plate_Plate::Load(const Plate_LineConstraint& LConst)
+void PlateSurface::Load(const Plate_LineConstraint& LConst)
 {
   Load(LConst.LSC());
 }
 
-void Plate_Plate::Load(const Plate_PlaneConstraint& PConst)
+void PlateSurface::Load(const Plate_PlaneConstraint& PConst)
 {
   Load(PConst.LSC());
 }
 
-void Plate_Plate::Load(const Plate_SampledCurveConstraint& SCConst)
+void PlateSurface::Load(const Plate_SampledCurveConstraint& SCConst)
 {
   Load(SCConst.LXYZC());
 }
 
-void Plate_Plate::Load(const Plate_GtoCConstraint& GtoCConst)
+void PlateSurface::Load(const Plate_GtoCConstraint& GtoCConst)
 {
   for (Standard_Integer i = 0; i < GtoCConst.nb_PPC(); i++)
     Load(GtoCConst.GetPPC(i));
 }
 
-void Plate_Plate::Load(const Plate_FreeGtoCConstraint& FGtoCConst)
+void PlateSurface::Load(const FreeGtoCConstraint& FGtoCConst)
 {
   Standard_Integer i;
   for (i = 0; i < FGtoCConst.nb_PPC(); i++)
@@ -259,7 +259,7 @@ void Plate_Plate::Load(const Plate_FreeGtoCConstraint& FGtoCConst)
     Load(FGtoCConst.LSC(i));
 }
 
-void Plate_Plate::Load(const Plate_GlobalTranslationConstraint& GTConst)
+void PlateSurface::Load(const Plate_GlobalTranslationConstraint& GTConst)
 {
   Load(GTConst.LXYZC());
 }
@@ -269,7 +269,7 @@ void Plate_Plate::Load(const Plate_GlobalTranslationConstraint& GTConst)
 // purpose  : to solve the set of constraints
 //=======================================================================
 
-void Plate_Plate::SolveTI(const Standard_Integer       ord,
+void PlateSurface::SolveTI(const Standard_Integer       ord,
                           const Standard_Real          anisotropie,
                           const Message_ProgressRange& theProgress)
 {
@@ -327,7 +327,7 @@ void Plate_Plate::SolveTI(const Standard_Integer       ord,
 //           only PinPointConstraints are loaded
 //=======================================================================
 
-void Plate_Plate::SolveTI1(const Standard_Integer       IterationNumber,
+void PlateSurface::SolveTI1(const Standard_Integer       IterationNumber,
                            const Message_ProgressRange& theProgress)
 {
   // computation of square matrix members
@@ -391,7 +391,7 @@ void Plate_Plate::SolveTI1(const Standard_Integer       IterationNumber,
   Standard_Real pivot_max = 1.e-12;
   OK                      = Standard_True;
 
-  Message_ProgressScope aScope(theProgress, "Plate_Plate::SolveTI1()", 10);
+  Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI1()", 10);
   math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
@@ -463,7 +463,7 @@ void Plate_Plate::SolveTI1(const Standard_Integer       IterationNumber,
 //           LinearXYZ constraints are provided but no LinearScalar one
 //=======================================================================
 
-void Plate_Plate::SolveTI2(const Standard_Integer       IterationNumber,
+void PlateSurface::SolveTI2(const Standard_Integer       IterationNumber,
                            const Message_ProgressRange& theProgress)
 {
   // computation of square matrix members
@@ -508,7 +508,7 @@ void Plate_Plate::SolveTI2(const Standard_Integer       IterationNumber,
   Standard_Real pivot_max = 1.e-12;
   OK                      = Standard_True; // ************ JHH
 
-  Message_ProgressScope aScope(theProgress, "Plate_Plate::SolveTI2()", 10);
+  Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI2()", 10);
   math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
@@ -611,7 +611,7 @@ void Plate_Plate::SolveTI2(const Standard_Integer       IterationNumber,
 // purpose  : to solve the set of constraints in the most general situation
 //=======================================================================
 
-void Plate_Plate::SolveTI3(const Standard_Integer       IterationNumber,
+void PlateSurface::SolveTI3(const Standard_Integer       IterationNumber,
                            const Message_ProgressRange& theProgress)
 {
   // computation of square matrix members
@@ -826,7 +826,7 @@ void Plate_Plate::SolveTI3(const Standard_Integer       IterationNumber,
   Standard_Real pivot_max = 1.e-12;
   OK                      = Standard_True; // ************ JHH
 
-  Message_ProgressScope aScope(theProgress, "Plate_Plate::SolveTI3()", 10);
+  Message_ProgressScope aScope(theProgress, "PlateSurface::SolveTI3()", 10);
   math_Gauss            algo_gauss(mat, pivot_max, aScope.Next(7));
 
   if (aScope.UserBreak())
@@ -954,7 +954,7 @@ void Plate_Plate::SolveTI3(const Standard_Integer       IterationNumber,
 
 //=================================================================================================
 
-void Plate_Plate::fillXYZmatrix(math_Matrix&           mat,
+void PlateSurface::fillXYZmatrix(math_Matrix&           mat,
                                 const Standard_Integer i0,
                                 const Standard_Integer j0,
                                 const Standard_Integer ncc1,
@@ -1089,21 +1089,21 @@ void Plate_Plate::fillXYZmatrix(math_Matrix&           mat,
 
 //=================================================================================================
 
-Standard_Boolean Plate_Plate::IsDone() const
+Standard_Boolean PlateSurface::IsDone() const
 {
   return OK;
 }
 
 //=================================================================================================
 
-void Plate_Plate::destroy()
+void PlateSurface::destroy()
 {
   Init();
 }
 
 //=================================================================================================
 
-void Plate_Plate::Init()
+void PlateSurface::Init()
 {
   myConstraints.Clear();
   myLXYZConstraints.Clear();
@@ -1130,7 +1130,7 @@ void Plate_Plate::Init()
 
 //=================================================================================================
 
-gp_XYZ Plate_Plate::Evaluate(const Coords2d& point2d) const
+gp_XYZ PlateSurface::Evaluate(const Coords2d& point2d) const
 {
   if (solution == 0)
     return gp_XYZ(0, 0, 0);
@@ -1161,7 +1161,7 @@ gp_XYZ Plate_Plate::Evaluate(const Coords2d& point2d) const
 
 //=================================================================================================
 
-gp_XYZ Plate_Plate::EvaluateDerivative(const Coords2d&           point2d,
+gp_XYZ PlateSurface::EvaluateDerivative(const Coords2d&           point2d,
                                        const Standard_Integer iu,
                                        const Standard_Integer iv) const
 {
@@ -1192,12 +1192,12 @@ gp_XYZ Plate_Plate::EvaluateDerivative(const Coords2d&           point2d,
 }
 
 //=======================================================================
-// function : Plate_Plate::CoefPol
+// function : PlateSurface::CoefPol
 // purpose  : give back the array of power basis coefficient of
 // the polynomial part of the Plate function
 //=======================================================================
 
-void Plate_Plate::CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const
+void PlateSurface::CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const
 {
   Coefs              = new TColgp_HArray2OfXYZ(0, order - 1, 0, order - 1, gp_XYZ(0., 0., 0.));
   Standard_Integer i = n_el;
@@ -1212,26 +1212,26 @@ void Plate_Plate::CoefPol(Handle(TColgp_HArray2OfXYZ)& Coefs) const
 }
 
 //=======================================================================
-// function : Plate_Plate::Continuity
+// function : PlateSurface::Continuity
 // purpose  : give back the continuity order of the Plate function
 //=======================================================================
 
-Standard_Integer Plate_Plate::Continuity() const
+Standard_Integer PlateSurface::Continuity() const
 {
   return 2 * order - 3 - maxConstraintOrder;
 }
 
 //=======================================================================
-// function : Plate_Plate::SolEm
+// function : PlateSurface::SolEm
 // purpose  : compute the (iu,iv)th derivative of the fundamental solution
 // of Laplcian at the power order
 //=======================================================================
 
-Standard_Real Plate_Plate::SolEm(const Coords2d&           point2d,
+Standard_Real PlateSurface::SolEm(const Coords2d&           point2d,
                                  const Standard_Integer iu,
                                  const Standard_Integer iv) const
 {
-  Plate_Plate*     aThis = const_cast<Plate_Plate*>(this);
+  PlateSurface*     aThis = const_cast<PlateSurface*>(this);
   Standard_Real    U, V;
   Standard_Integer IU, IV;
 
@@ -1729,7 +1729,7 @@ Standard_Real Plate_Plate::SolEm(const Coords2d&           point2d,
 
 //=================================================================================================
 
-void Plate_Plate::UVBox(Standard_Real& UMin,
+void PlateSurface::UVBox(Standard_Real& UMin,
                         Standard_Real& UMax,
                         Standard_Real& VMin,
                         Standard_Real& VMax) const
@@ -1801,7 +1801,7 @@ void Plate_Plate::UVBox(Standard_Real& UMin,
 
 //=================================================================================================
 
-void Plate_Plate::UVConstraints(TColgp_SequenceOfXY& Seq) const
+void PlateSurface::UVConstraints(TColgp_SequenceOfXY& Seq) const
 {
   for (Standard_Integer i = 1; i <= myConstraints.Length(); i++)
   {
@@ -1812,7 +1812,7 @@ void Plate_Plate::UVConstraints(TColgp_SequenceOfXY& Seq) const
 
 //=======================================================================
 
-void Plate_Plate::SetPolynomialPartOnly(const Standard_Boolean PPOnly)
+void PlateSurface::SetPolynomialPartOnly(const Standard_Boolean PPOnly)
 {
   PolynomialPartOnly = PPOnly;
 }

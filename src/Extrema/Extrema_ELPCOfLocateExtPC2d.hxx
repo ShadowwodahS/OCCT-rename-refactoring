@@ -32,11 +32,11 @@ class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
 class Adaptor2d_Curve2d;
-class Extrema_Curve2dTool;
-class Extrema_ExtPElC2d;
+class Curve2dTool1;
+class PointElCCurveExtrema2d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class Extrema_POnCurv2d;
+class PointOnCurve2d;
 class Extrema_EPCOfELPCOfLocateExtPC2d;
 class Extrema_PCFOfEPCOfELPCOfLocateExtPC2d;
 
@@ -98,7 +98,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin(const Standard_Integer N) const;
 
   //! Returns the point of the <N>th extremum distance.
-  Standard_EXPORT const Extrema_POnCurv2d& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve2d& Point(const Standard_Integer N) const;
 
   //! if the curve is a trimmed curve,
   //! dist1 is a square distance between <P> and the point
@@ -122,7 +122,7 @@ private:
   Standard_Address                 myC;
   gp_Pnt2d                         Pf;
   gp_Pnt2d                         Pl;
-  Extrema_ExtPElC2d                myExtPElC;
+  PointElCCurveExtrema2d                myExtPElC;
   Extrema_SequenceOfPOnCurv2d      mypoint;
   Standard_Boolean                 mydone;
   Standard_Real                    mydist1;

@@ -88,7 +88,7 @@ Standard_Boolean DDocStd1::Find(const Handle(AppDocument)& D,
                                const Standard_Boolean          Complain)
 {
   Label.Nullify();
-  TDF_Tool::Label(D->GetData(), Entry, Label, Standard_False);
+  Tool3::Label(D->GetData(), Entry, Label, Standard_False);
   if (Label.IsNull() && Complain)
     std::cout << "No label for entry " << Entry << std::endl;
   return !Label.IsNull();
@@ -121,7 +121,7 @@ Standard_Boolean DDocStd1::Find(const Handle(AppDocument)& D,
 DrawInterpreter& DDocStd1::ReturnLabel(DrawInterpreter& di, const DataLabel& L)
 {
   AsciiString1 S;
-  TDF_Tool::Entry(L, S);
+  Tool3::Entry(L, S);
   di << S.ToCString();
   return di;
 }

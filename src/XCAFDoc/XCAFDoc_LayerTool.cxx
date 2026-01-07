@@ -118,7 +118,7 @@ DataLabel XCAFDoc_LayerTool::FindLayer(const UtfString& aLayer,
                                        const Standard_Boolean            theToFindWithProperty,
                                        const Standard_Boolean            theToFindVisible) const
 {
-  TDF_ChildIterator it(Label());
+  ChildIterator it(Label());
   DataLabel         lab;
   for (; it.More(); it.Next())
   {
@@ -176,7 +176,7 @@ void XCAFDoc_LayerTool::RemoveLayer(const DataLabel& lab) const
 void XCAFDoc_LayerTool::GetLayerLabels(TDF_LabelSequence& Labels) const
 {
   Labels.Clear();
-  TDF_ChildIterator ChildIterator(Label());
+  ChildIterator ChildIterator(Label());
   for (; ChildIterator.More(); ChildIterator.Next())
   {
     DataLabel L = ChildIterator.Value();
@@ -518,7 +518,7 @@ void XCAFDoc_LayerTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
        aLayerLabelIt.Next())
   {
     AsciiString1 aLayerLabel;
-    TDF_Tool::Entry(aLayerLabelIt.Value(), aLayerLabel);
+    Tool3::Entry(aLayerLabelIt.Value(), aLayerLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLayerLabel)
   }
 }

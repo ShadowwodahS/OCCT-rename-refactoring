@@ -26,15 +26,15 @@ class gp_Lin;
 class gp_Torus;
 
 //! Intersection between a line and a torus.
-class IntAna_IntLinTorus
+class LineTorusIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntAna_IntLinTorus();
+  Standard_EXPORT LineTorusIntersection();
 
   //! Creates the intersection between a line and a torus.
-  Standard_EXPORT IntAna_IntLinTorus(const gp_Lin& L, const gp_Torus& T);
+  Standard_EXPORT LineTorusIntersection(const gp_Lin& L, const gp_Torus& T);
 
   //! Intersects a line and a torus.
   Standard_EXPORT void Perform(const gp_Lin& L, const gp_Torus& T);

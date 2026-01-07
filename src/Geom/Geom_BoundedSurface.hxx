@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(Geom_BoundedSurface, GeomSurface)
 //! - Geom_BSplineSurface, and
 //! - Geom_RectangularTrimmedSurface.
 //! The first two of these implement well known
-//! mathematical definitions of complex surfaces, the third
+//! mathematical definitions of complex1 surfaces, the third
 //! trims a surface using four isoparametric curves, i.e. it
 //! limits the variation of its parameters to a rectangle in
 //! 2D parametric space.

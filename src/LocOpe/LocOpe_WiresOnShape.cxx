@@ -951,7 +951,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       Standard_Real       TolV  = Gas.VResolution(tol3d);
       Standard_Real       tol2d = Max(TolU, TolV);
 
-      Handle(GeomCurve2d) C2d = GeomProjLib::Curve2d(C, S, Umin, Umax, Vmin, Vmax, tol2d);
+      Handle(GeomCurve2d) C2d = GeomProjLib1::Curve2d(C, S, Umin, Umax, Vmin, Vmax, tol2d);
       if (C2d.IsNull())
         return;
 
@@ -1166,7 +1166,7 @@ void PutPCurves(const TopoEdge& Efrom, const TopoEdge& Eto, const TopoShape& myS
       Standard_Real       TolV  = Gas.VResolution(tol3d);
       Standard_Real       tol2d = Max(TolU, TolV);
 
-      Handle(GeomCurve2d) C2d = GeomProjLib::Curve2d(C, S, Umin, Umax, Vmin, Vmax, tol2d);
+      Handle(GeomCurve2d) C2d = GeomProjLib1::Curve2d(C, S, Umin, Umax, Vmin, Vmax, tol2d);
       c2dff                    = C2d;
       c2dfr                    = C2d;
     }
@@ -1281,7 +1281,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
 
   BRepAdaptor_Curve2d thePCurve(theEdge, theFace);
   Bnd_Box2d           theBox;
-  BndLib_Add2dCurve::Add(thePCurve, BRepInspector::Tolerance(theEdge), theBox);
+  Add2dCurve::Add(thePCurve, BRepInspector::Tolerance(theEdge), theBox);
 
   Standard_Real             thePar[2];
   Standard_Real             aFpar, aLpar;
@@ -1297,7 +1297,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
     const TopoEdge&  anEdge = TopoDS::Edge(Explo.Current());
     BRepAdaptor_Curve2d aPCurve(anEdge, theFace);
     Bnd_Box2d           aBox;
-    BndLib_Add2dCurve::Add(aPCurve, BRepInspector::Tolerance(anEdge), aBox);
+    Add2dCurve::Add(aPCurve, BRepInspector::Tolerance(anEdge), aBox);
     if (theBox.IsOut(aBox))
       continue;
 
@@ -1339,7 +1339,7 @@ void FindInternalIntersections(const TopoEdge&                         theEdge,
       if (aDist > aMaxTol2)
         continue;
 
-      Extrema_POnCurv aPOnC1, aPOnC2;
+      PointOnCurve1 aPOnC1, aPOnC2;
       anExtrema.Points(i, aPOnC1, aPOnC2);
       Standard_Real theIntPar = aPOnC1.Parameter();
       Standard_Real anIntPar  = aPOnC2.Parameter();
@@ -1449,7 +1449,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
 {
   TopTools_SequenceOfShape    anEdges;
   Standard_Integer            i = 1, nb = theEdges.Length();
-  NCollection_Array1<Bnd_Box> anEdgeBoxes(1, nb);
+  NCollection_Array1<Box2> anEdgeBoxes(1, nb);
   for (; i <= nb; i++)
   {
     const TopoShape& aCurSplit = theEdges(i);
@@ -1458,7 +1458,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
     {
       const TopoShape& aCurE = anExpE.Current();
 
-      Bnd_Box aBoxE;
+      Box2 aBoxE;
       BRepBndLib::AddClose(aCurE, aBoxE);
       if (aBoxE.IsVoid())
         continue;
@@ -1474,7 +1474,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
   for (; anExpFaces.More(); anExpFaces.Next(), numF++)
   {
     const TopoFace& aCurF = TopoDS::Face(anExpFaces.Current());
-    Bnd_Box            aBoxF;
+    Box2            aBoxF;
     BRepBndLib::Add(aCurF, aBoxF);
     if (aBoxF.IsVoid())
       continue;
@@ -1513,7 +1513,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
         Standard_Real aDist2 = anExtr.SquareDistance(n);
         if (aDist2 > aTol2)
           continue;
-        const Extrema_POnSurf& aPS = anExtr.Point(n);
+        const PointOnSurface1& aPS = anExtr.Point(n);
         Standard_Real          aU, aV;
         aPS.Parameter(aU, aV);
 

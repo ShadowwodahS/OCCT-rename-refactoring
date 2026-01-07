@@ -103,12 +103,12 @@ void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
       if (PR.ReadInteger(PR.Current(), "Number of Characters", nbChar))
         nbChars->SetValue(i, nbChar);
 
-      // st = PR.ReadReal(PR.Current(), "Box Width", boxWidth); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadReal(PR.Current(), "Box Width", boxWidth))
+      // st = PR.ReadReal(PR.Current(), "Box1 Width", boxWidth); //szv#4:S4163:12Mar99 moved in if
+      if (PR.ReadReal(PR.Current(), "Box1 Width", boxWidth))
         boxWidths->SetValue(i, boxWidth);
 
-      // st = PR.ReadReal(PR.Current(), "Box Height", boxHeight); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadReal(PR.Current(), "Box Height", boxHeight))
+      // st = PR.ReadReal(PR.Current(), "Box1 Height", boxHeight); //szv#4:S4163:12Mar99 moved in if
+      if (PR.ReadReal(PR.Current(), "Box1 Height", boxHeight))
         boxHeights->SetValue(i, boxHeight);
 
       Standard_Integer curnum = PR.CurrentNumber();
@@ -366,8 +366,8 @@ void GeneralNoteTool::OwnDump(const Handle(IGESDimen_GeneralNote)& ent,
   S << "IGESDimen_GeneralNote\n"
     << "Number of Text Strings : " << upper << "\n"
     << "Number of Characters :\n"
-    << "Box Widths :\n"
-    << "Box Heights :\n"
+    << "Box1 Widths :\n"
+    << "Box1 Heights :\n"
     << "Font Codes :\n"
     << "Font Entities :\n"
     << "Slant Angles :\n"
@@ -385,8 +385,8 @@ void GeneralNoteTool::OwnDump(const Handle(IGESDimen_GeneralNote)& ent,
     {
       S << "[" << i << "]:\n"
         << "Number of Characters : " << ent->NbCharacters(i) << "  "
-        << "Box Width  : " << ent->BoxWidth(i) << "  "
-        << "Box Height : " << ent->BoxHeight(i) << "\n";
+        << "Box1 Width  : " << ent->BoxWidth(i) << "  "
+        << "Box1 Height : " << ent->BoxHeight(i) << "\n";
       if (ent->IsFontEntity(i))
       {
         S << "Font Entity : ";

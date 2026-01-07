@@ -107,7 +107,7 @@ Standard_Boolean TFunction_Logbook::IsModified(const DataLabel&       L,
     return Standard_True;
   if (WithChildren)
   {
-    TDF_ChildIterator itr(L);
+    ChildIterator itr(L);
     for (; itr.More(); itr.Next())
     {
       if (IsModified(itr.Value(), Standard_True))
@@ -127,7 +127,7 @@ void TFunction_Logbook::SetValid(const DataLabel& L, const Standard_Boolean With
   myValid.Add(L);
   if (WithChildren)
   {
-    TDF_ChildIterator itr(L, Standard_True);
+    ChildIterator itr(L, Standard_True);
     for (; itr.More(); itr.Next())
     {
       myValid.Add(itr.Value());
@@ -154,7 +154,7 @@ void TFunction_Logbook::SetImpacted(const DataLabel& L, const Standard_Boolean W
   myImpacted.Add(L);
   if (WithChildren)
   {
-    TDF_ChildIterator itr(L, Standard_True);
+    ChildIterator itr(L, Standard_True);
     for (; itr.More(); itr.Next())
     {
       myImpacted.Add(itr.Value());
@@ -294,19 +294,19 @@ Standard_OStream& TFunction_Logbook::Dump(Standard_OStream& stream) const
   stream << "Touched labels: " << std::endl;
   for (itr.Initialize(myTouched); itr.More(); itr.Next())
   {
-    TDF_Tool::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key(), as);
     stream << as << std::endl;
   }
   stream << "Impacted labels: " << std::endl;
   for (itr.Initialize(myImpacted); itr.More(); itr.Next())
   {
-    TDF_Tool::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key(), as);
     stream << as << std::endl;
   }
   stream << "Valid labels: " << std::endl;
   for (itr.Initialize(myValid); itr.More(); itr.Next())
   {
-    TDF_Tool::Entry(itr.Key(), as);
+    Tool3::Entry(itr.Key(), as);
     stream << as << std::endl;
   }
 

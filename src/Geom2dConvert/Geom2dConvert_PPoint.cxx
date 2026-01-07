@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Geom2dConvert_PPoint::Geom2dConvert_PPoint(const Standard_Real      theParameter,
+ParameterPoint::ParameterPoint(const Standard_Real      theParameter,
                                            const Adaptor2d_Curve2d& theAdaptor)
     : myParameter(theParameter)
 {
@@ -29,21 +29,21 @@ Geom2dConvert_PPoint::Geom2dConvert_PPoint(const Standard_Real      theParameter
 }
 
 //=======================================================================
-// function : Geom2dConvert_PPoint::operator ==
+// function : ParameterPoint::operator ==
 // purpose  : Compare two values of this type.
 //=======================================================================
 
-Standard_Boolean Geom2dConvert_PPoint::operator==(const Geom2dConvert_PPoint& theOther) const
+Standard_Boolean ParameterPoint::operator==(const ParameterPoint& theOther) const
 {
   return (fabs(myParameter - theOther.Parameter()) <= Precision::PConfusion());
 }
 
 //=======================================================================
-// function : Geom2dConvert_PPoint::operator !=
+// function : ParameterPoint::operator !=
 // purpose  : Compare two values of this type.
 //=======================================================================
 
-Standard_Boolean Geom2dConvert_PPoint::operator!=(const Geom2dConvert_PPoint& theOther) const
+Standard_Boolean ParameterPoint::operator!=(const ParameterPoint& theOther) const
 {
   return (fabs(myParameter - theOther.Parameter()) > Precision::PConfusion());
 }

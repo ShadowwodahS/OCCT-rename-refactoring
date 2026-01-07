@@ -475,7 +475,7 @@ void BRepCheck_Edge::InContext(const TopoShape& S)
               Handle(GeomAdaptor_Curve) Gac = Handle(GeomAdaptor_Curve)::DownCast(myHCurve);
               Handle(GeomCurve3d)        C3d = Gac->Curve();
               Handle(GeomCurve3d)        ProjOnPlane =
-                GeomProjLib::ProjectOnPlane(new Geom_TrimmedCurve(C3d, First, Last),
+                GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3d, First, Last),
                                             P,
                                             P->Position().Direction(),
                                             Standard_True);
@@ -746,7 +746,7 @@ BRepCheck_Status BRepCheck_Edge::CheckPolygonOnTriangulation(const TopoEdge& the
       // If aPOnTriag does not have any parameters we will check if it
       // inscribes into Bounding box, which is built on the edge triangulation.
 
-      Bnd_Box aB;
+      Box2 aB;
 
       for (Standard_Integer i = 1; i <= aNbNodes; i++)
       {

@@ -233,11 +233,11 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoShape&    theS
     {
       if ((aFace.Orientation() == TopAbs_REVERSED))
       {
-        aT->Triangle(aTriIter).Get(anIndex[0], anIndex[2], anIndex[1]);
+        aT->Triangle1(aTriIter).Get(anIndex[0], anIndex[2], anIndex[1]);
       }
       else
       {
-        aT->Triangle(aTriIter).Get(anIndex[0], anIndex[1], anIndex[2]);
+        aT->Triangle1(aTriIter).Get(anIndex[0], anIndex[1], anIndex[2]);
       }
 
       const Point3d aP1 = aT->Node(anIndex[0]);

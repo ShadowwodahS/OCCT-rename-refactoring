@@ -22,7 +22,7 @@
 // purpose  : returns the number of Intervals
 //=======================================================================
 
-inline Standard_Integer Intrv_Intervals::NbIntervals() const
+inline Standard_Integer Intervals::NbIntervals() const
 {
   return myInter.Length();
 }
@@ -32,7 +32,7 @@ inline Standard_Integer Intrv_Intervals::NbIntervals() const
 // purpose  : returns the Interval1 of rank Index
 //=======================================================================
 
-inline const Intrv_Interval& Intrv_Intervals::Value(const Standard_Integer Index) const
+inline const Interval2& Intervals::Value(const Standard_Integer Index) const
 {
   return myInter(Index);
 }

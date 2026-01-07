@@ -44,13 +44,13 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
     }
     break;
     case Geom2dGcc_CiCuOnCu: {
-      ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
+      ElCLib1::D2(X(1), Circ1, Point1, Tan1, D21);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiCuOnCu: {
-      ElCLib::D1(X(1), Lin1, Point1, Tan1);
+      ElCLib1::D1(X(1), Lin1, Point1, Tan1);
       D21 = gp_Vec2d(0., 0.);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
@@ -67,20 +67,20 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
     case Geom2dGcc_CuCuOnCi: {
       CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
-      ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
+      ElCLib1::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CiCuOnCi: {
-      ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
+      ElCLib1::D2(X(1), Circ1, Point1, Tan1, D21);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
-      ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
+      ElCLib1::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiCuOnCi: {
-      ElCLib::D1(X(1), Lin1, Point1, Tan1);
+      ElCLib1::D1(X(1), Lin1, Point1, Tan1);
       D21 = gp_Vec2d(0., 0.);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
-      ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
+      ElCLib1::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CuPtOnCi: {
@@ -88,28 +88,28 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
       Point2 = Pnt2;
       Tan2   = gp_Vec2d(0., 0.);
       D22    = gp_Vec2d(0., 0.);
-      ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
+      ElCLib1::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CuCuOnLi: {
       CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
-      ElCLib::D1(X(3), Linon, Point3, Tan3);
+      ElCLib1::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_CiCuOnLi: {
-      ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
+      ElCLib1::D2(X(1), Circ1, Point1, Tan1, D21);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
-      ElCLib::D1(X(3), Linon, Point3, Tan3);
+      ElCLib1::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_LiCuOnLi: {
-      ElCLib::D1(X(1), Lin1, Point1, Tan1);
+      ElCLib1::D1(X(1), Lin1, Point1, Tan1);
       CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       D21 = gp_Vec2d(0., 0.);
-      ElCLib::D1(X(3), Linon, Point3, Tan3);
+      ElCLib1::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
@@ -118,7 +118,7 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
       Point2 = Pnt2;
       Tan2   = gp_Vec2d(0., 0.);
       D22    = gp_Vec2d(0., 0.);
-      ElCLib::D1(X(3), Linon, Point3, Tan3);
+      ElCLib1::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;

@@ -28,27 +28,27 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-//! The class describes the Oriented Bounding Box (OBB),
+//! The class describes the Oriented Bounding Box1 (OBB),
 //! much tighter enclosing volume for the shape than the
-//! Axis Aligned Bounding Box (AABB).
+//! Axis Aligned Bounding Box1 (AABB).
 //! The OBB is defined by a center of the box, the axes and the halves
 //! of its three dimensions.
 //! The OBB can be used more effectively than AABB as a rejection mechanism
 //! for non-interfering objects.
-class Bnd_OBB
+class OrientedBox
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Bnd_OBB()
+  OrientedBox()
       : myIsAABox(Standard_False)
   {
     myHDims[0] = myHDims[1] = myHDims[2] = -1.0;
   }
 
   //! Constructor taking all defining parameters
-  Bnd_OBB(const Point3d&       theCenter,
+  OrientedBox(const Point3d&       theCenter,
           const Dir3d&       theXDirection,
           const Dir3d&       theYDirection,
           const Dir3d&       theZDirection,
@@ -72,7 +72,7 @@ public:
   }
 
   //! Constructor to create OBB from AABB.
-  Bnd_OBB(const Bnd_Box& theBox)
+  OrientedBox(const Box2& theBox)
       : myIsAABox(Standard_True)
   {
     if (theBox.IsVoid())
@@ -98,7 +98,7 @@ public:
 
   //! Creates new OBB covering every point in theListOfPoints.
   //! Tolerance of every such point is set by *theListOfTolerances array.
-  //! If this array is not void (not null-pointer) then the resulted Bnd_OBB
+  //! If this array is not void (not null-pointer) then the resulted OrientedBox
   //! will be enlarged using tolerances of points lying on the box surface.
   //! <theIsOptimal> flag defines the mode in which the OBB will be built.
   //! Constructing Optimal box takes more time, but the resulting box is usually
@@ -240,17 +240,17 @@ public:
   }
 
   //! Check if the box do not interfere the other box.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_OBB& theOther) const;
+  Standard_EXPORT Standard_Boolean IsOut(const OrientedBox& theOther) const;
 
   //! Check if the point is inside of <this>.
   Standard_EXPORT Standard_Boolean IsOut(const Point3d& theP) const;
 
   //! Check if the theOther is completely inside *this.
-  Standard_EXPORT Standard_Boolean IsCompletelyInside(const Bnd_OBB& theOther) const;
+  Standard_EXPORT Standard_Boolean IsCompletelyInside(const OrientedBox& theOther) const;
 
   //! Rebuilds this in order to include all previous objects
   //! (which it was created from) and theOther.
-  Standard_EXPORT void Add(const Bnd_OBB& theOther);
+  Standard_EXPORT void Add(const OrientedBox& theOther);
 
   //! Rebuilds this in order to include all previous objects
   //! (which it was created from) and theP.

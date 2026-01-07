@@ -21,12 +21,12 @@
 #include <Standard_DefineAlloc.hxx>
 
 class Adaptor3d_Surface;
-class Bnd_Box;
+class Box2;
 
 //! computes the box from a surface
 //! Functions to add a surface to a bounding box.
 //! The surface is defined from a Geom surface.
-class BndLib_AddSurface
+class AddSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -55,11 +55,11 @@ public:
   //! Handle(GeomSurface) mysurface = ... ;
   //! GeomAdaptor_Surface S(mysurface);
   //! The bounding box B is then enlarged by adding this surface:
-  //! Bnd_Box B;
+  //! Box2 B;
   //! // ...
   //! Standard_Real Tol = ... ;
   //! AddSurface::Add ( S, Tol, B );
-  Standard_EXPORT static void Add(const Adaptor3d_Surface& S, const Standard_Real Tol, Bnd_Box& B);
+  Standard_EXPORT static void Add(const Adaptor3d_Surface& S, const Standard_Real Tol, Box2& B);
 
   //! Adds to the bounding box B the surface S
   //! the patch of the surface S limited in the u parametric
@@ -88,7 +88,7 @@ public:
   //! Handle(GeomSurface) mysurface = ... ;
   //! GeomAdaptor_Surface S(mysurface);
   //! The bounding box B is then enlarged by adding this surface:
-  //! Bnd_Box B;
+  //! Box2 B;
   //! // ...
   //! Standard_Real Tol = ... ;
   //! AddSurface::Add ( S, Tol, B );
@@ -98,14 +98,14 @@ public:
                                   const Standard_Real      VMin,
                                   const Standard_Real      VMax,
                                   const Standard_Real      Tol,
-                                  Bnd_Box&                 B);
+                                  Box2&                 B);
 
   //! Adds the surface S to the bounding box B.
   //! This algorithm builds precise bounding box
 
   Standard_EXPORT static void AddOptimal(const Adaptor3d_Surface& S,
                                          const Standard_Real      Tol,
-                                         Bnd_Box&                 B);
+                                         Box2&                 B);
 
   Standard_EXPORT static void AddOptimal(const Adaptor3d_Surface& S,
                                          const Standard_Real      UMin,
@@ -113,7 +113,7 @@ public:
                                          const Standard_Real      VMin,
                                          const Standard_Real      VMax,
                                          const Standard_Real      Tol,
-                                         Bnd_Box&                 B);
+                                         Box2&                 B);
 
   //! Adds to the bounding box B the surface S
   //! using numerical minimization algorithms
@@ -125,7 +125,7 @@ public:
                                          const Standard_Real      VMin,
                                          const Standard_Real      VMax,
                                          const Standard_Real      Tol,
-                                         Bnd_Box&                 B);
+                                         Box2&                 B);
 
 protected:
 private:

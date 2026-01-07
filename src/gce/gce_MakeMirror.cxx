@@ -23,7 +23,7 @@
 //=========================================================================
 //   Creation d une symetrie  de gp par rapport a un point.             +
 //=========================================================================
-gce_MakeMirror::gce_MakeMirror(const Point3d& Point)
+MirrorBuilder::MirrorBuilder(const Point3d& Point)
 {
   TheMirror.SetMirror(Point);
 }
@@ -32,7 +32,7 @@ gce_MakeMirror::gce_MakeMirror(const Point3d& Point)
 //   Creation d une symetrie  de gp par rapport a une droite.           +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const Axis3d& Axis)
+MirrorBuilder::MirrorBuilder(const Axis3d& Axis)
 {
   TheMirror.SetMirror(Axis);
 }
@@ -41,7 +41,7 @@ gce_MakeMirror::gce_MakeMirror(const Axis3d& Axis)
 //   Creation d une symetrie  de gp par rapport a une droite.           +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const gp_Lin& Line)
+MirrorBuilder::MirrorBuilder(const gp_Lin& Line)
 {
   TheMirror.SetMirror(Axis3d(Line.Location(), Line.Direction()));
 }
@@ -51,7 +51,7 @@ gce_MakeMirror::gce_MakeMirror(const gp_Lin& Line)
 //   par un point et une direction.                                       +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const Dir3d& Direc)
+MirrorBuilder::MirrorBuilder(const Point3d& Point, const Dir3d& Direc)
 {
   TheMirror.SetMirror(Axis3d(Point, Direc));
 }
@@ -61,7 +61,7 @@ gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 //   un Ax2 (Normale au plan et axe x du plan).                           +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const Frame3d& Plane)
+MirrorBuilder::MirrorBuilder(const Frame3d& Plane)
 {
   TheMirror.SetMirror(Plane);
 }
@@ -70,22 +70,22 @@ gce_MakeMirror::gce_MakeMirror(const Frame3d& Plane)
 //   Creation d une symetrie 3d de gp par rapport a un plan Plane.        +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const gp_Pln& Plane)
+MirrorBuilder::MirrorBuilder(const gp_Pln& Plane)
 {
   TheMirror.SetMirror(Plane.Position().Ax2());
 }
 
-const Transform3d& gce_MakeMirror::Value() const
+const Transform3d& MirrorBuilder::Value() const
 {
   return TheMirror;
 }
 
-const Transform3d& gce_MakeMirror::Operator() const
+const Transform3d& MirrorBuilder::Operator() const
 {
   return TheMirror;
 }
 
-gce_MakeMirror::operator Transform3d() const
+MirrorBuilder::operator Transform3d() const
 {
   return TheMirror;
 }

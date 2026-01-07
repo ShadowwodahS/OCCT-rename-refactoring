@@ -42,7 +42,7 @@ void WFDeflectionShapeConverter::Add(Standard_OStream&                   anOStre
   Standard_Real theRequestedDeflection;
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE) // TOD_RELATIVE, TOD_ABSOLUTE
   {
-    Bnd_Box box;
+    Box2 box;
     BRepBndLib::AddClose(aShape, box);
 
     Standard_Real Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-Handle(TColStd_HArray1OfReal) Extrema_Curve2dTool::DeflCurvIntervals(const Adaptor2d_Curve2d& C)
+Handle(TColStd_HArray1OfReal) Curve2dTool1::DeflCurvIntervals(const Adaptor2d_Curve2d& C)
 {
   const Standard_Real           epsd    = 1.e-3;
   const Standard_Real           maxdefl = 1.e3;
@@ -60,7 +60,7 @@ Handle(TColStd_HArray1OfReal) Extrema_Curve2dTool::DeflCurvIntervals(const Adapt
   }
   Standard_Real               aMinLen = Max(.00001 * L, Precision::Confusion());
   Standard_Real               aTol    = Max(0.00001 * (tl - tf), Precision::PConfusion());
-  GCPnts_TangentialDeflection aPntGen(C, M_PI / 6, aDefl, 2, aTol, aMinLen);
+  TangentialDeflectionSampler aPntGen(C, M_PI / 6, aDefl, 2, aTol, aMinLen);
   nbpnts    = aPntGen.NbPoints();
   Intervals = new TColStd_HArray1OfReal(1, nbpnts);
   for (i = 1; i <= nbpnts; ++i)

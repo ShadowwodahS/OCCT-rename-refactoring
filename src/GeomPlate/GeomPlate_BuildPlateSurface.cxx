@@ -356,7 +356,7 @@ Handle(Adaptor2d_Curve2d) GeomPlate_BuildPlateSurface::ProjectedCurve(Handle(Ada
 //---------------------------------------------------------
 gp_Pnt2d GeomPlate_BuildPlateSurface::ProjectPoint(const Point3d& p3d)
 {
-  Extrema_POnSurf P;
+  PointOnSurface1 P;
   myProj.Perform(p3d);
   Standard_Integer nearest = 1;
   if (myProj.NbExt() > 1)
@@ -2153,7 +2153,7 @@ void GeomPlate_BuildPlateSurface::Discretise(
                     Pdif.SetCoord(-PP.Coord(1) + P3d.Coord(1),
                                   -PP.Coord(2) + P3d.Coord(2),
                                   -PP.Coord(3) + P3d.Coord(3));
-                    Plate_PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
+                    PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
                     myPlate.Load(PC);
                   }
                   else // the point does not belong to interval G1
@@ -2194,7 +2194,7 @@ void GeomPlate_BuildPlateSurface::Discretise(
               Pdif.SetCoord(-PP.Coord(1) + P3d.Coord(1),
                             -PP.Coord(2) + P3d.Coord(2),
                             -PP.Coord(3) + P3d.Coord(3));
-              Plate_PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
+              PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
               myPlate.Load(PC);
             }
             else // the point does not belong to interval G1
@@ -2295,7 +2295,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
           Pdif.SetCoord(-PP.Coord(1) + P3d.Coord(1),
                         -PP.Coord(2) + P3d.Coord(2),
                         -PP.Coord(3) + P3d.Coord(3));
-          Plate_PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
+          PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
           myPlate.Load(PC);
 
           // Loading of points G1
@@ -2305,8 +2305,8 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             CC->D1(myPlateCont->Value(i).Value(j), PP, V1, V2);
             mySurfInit->D1(P2d.Coord(1), P2d.Coord(2), PP, V3, V4);
 
-            Plate_D1 D1final(V1.XYZ(), V2.XYZ());
-            Plate_D1 D1init(V3.XYZ(), V4.XYZ());
+            D1 D1final(V1.XYZ(), V2.XYZ());
+            D1 D1init(V3.XYZ(), V4.XYZ());
             if (!myFree)
             {
               Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final);
@@ -2314,7 +2314,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             }
             else if (NbBoucle == 1)
             {
-              Plate_FreeGtoCConstraint FreeGCC(P2d.XY(), D1init, D1final);
+              FreeGtoCConstraint FreeGCC(P2d.XY(), D1init, D1final);
               myPlate.Load(FreeGCC);
             }
             else
@@ -2331,8 +2331,8 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
 
               DU.SetLinearForm(-(V3 + DerPlateU).Dot(Normal), Normal, DerPlateU);
               DV.SetLinearForm(-(V4 + DerPlateV).Dot(Normal), Normal, DerPlateV);
-              Plate_PinpointConstraint PinU(P2d.XY(), DU.XYZ(), 1, 0);
-              Plate_PinpointConstraint PinV(P2d.XY(), DV.XYZ(), 0, 1);
+              PinpointConstraint PinU(P2d.XY(), DU.XYZ(), 1, 0);
+              PinpointConstraint PinV(P2d.XY(), DV.XYZ(), 0, 1);
               myPlate.Load(PinU);
               myPlate.Load(PinV);
             }
@@ -2344,10 +2344,10 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             CC->D2(myPlateCont->Value(i).Value(j), PP, V1, V2, V5, V6, V7);
             mySurfInit->D2(P2d.Coord(1), P2d.Coord(2), PP, V3, V4, V8, V9, V10);
 
-            Plate_D1 D1final(V1.XYZ(), V2.XYZ());
-            Plate_D1 D1init(V3.XYZ(), V4.XYZ());
-            Plate_D2 D2final(V5.XYZ(), V6.XYZ(), V7.XYZ());
-            Plate_D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
+            D1 D1final(V1.XYZ(), V2.XYZ());
+            D1 D1init(V3.XYZ(), V4.XYZ());
+            D2 D2final(V5.XYZ(), V6.XYZ(), V7.XYZ());
+            D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
             //		  if (! myFree)
             //		    {
             Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
@@ -2355,7 +2355,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
             //		    }
             //		  else // Good but too expansive
             //		    {
-            //		      Plate_FreeGtoCConstraint FreeGCC( P2d.XY(),
+            //		      FreeGtoCConstraint FreeGCC( P2d.XY(),
             //		            D1init, D1final, D2init, D2final );
             //		      myPlate.Load( FreeGCC );
             //		    }
@@ -2386,7 +2386,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
     Pdif.SetCoord(-PP.Coord(1) + P3d.Coord(1),
                   -PP.Coord(2) + P3d.Coord(2),
                   -PP.Coord(3) + P3d.Coord(3));
-    Plate_PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
+    PinpointConstraint PC(P2d.XY(), Pdif.XYZ(), 0, 0);
     myPlate.Load(PC);
     Tang = Min(myPntCont->Value(i)->Order(), OrderMax);
     if (Tang == 1)
@@ -2394,8 +2394,8 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       Vector3d V1, V2, V3, V4;
       myPntCont->Value(i)->D1(PP, V1, V2);
       mySurfInit->D1(P2d.Coord(1), P2d.Coord(2), PP, V3, V4);
-      Plate_D1 D1final(V1.XYZ(), V2.XYZ());
-      Plate_D1 D1init(V3.XYZ(), V4.XYZ());
+      D1 D1final(V1.XYZ(), V2.XYZ());
+      D1 D1init(V3.XYZ(), V4.XYZ());
       if (!myFree)
       {
         Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final);
@@ -2403,7 +2403,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       }
       else
       {
-        Plate_FreeGtoCConstraint FreeGCC(P2d.XY(), D1init, D1final);
+        FreeGtoCConstraint FreeGCC(P2d.XY(), D1init, D1final);
         myPlate.Load(FreeGCC);
       }
     }
@@ -2414,10 +2414,10 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       myPntCont->Value(i)->D2(PP, V1, V2, V5, V6, V7);
       //	Vector3d Tv2 = V1^V2;
       mySurfInit->D2(P2d.Coord(1), P2d.Coord(2), PP, V3, V4, V8, V9, V10);
-      Plate_D1 D1final(V1.XYZ(), V2.XYZ());
-      Plate_D1 D1init(V3.XYZ(), V4.XYZ());
-      Plate_D2 D2final(V5.XYZ(), V6.XYZ(), V7.XYZ());
-      Plate_D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
+      D1 D1final(V1.XYZ(), V2.XYZ());
+      D1 D1init(V3.XYZ(), V4.XYZ());
+      D2 D2final(V5.XYZ(), V6.XYZ(), V7.XYZ());
+      D2 D2init(V8.XYZ(), V9.XYZ(), V10.XYZ());
       //	if (! myFree)
       //	  {
       Plate_GtoCConstraint GCC(P2d.XY(), D1init, D1final, D2init, D2final);
@@ -2425,7 +2425,7 @@ void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standa
       //	  }
       //	else // Good but too expansive
       //	  {
-      //	    Plate_FreeGtoCConstraint FreeGCC( P2d.XY(), D1init, D1final, D2init//, D2final );
+      //	    FreeGtoCConstraint FreeGCC( P2d.XY(), D1init, D1final, D2init//, D2final );
       //	    myPlate.Load( FreeGCC );
       //	  }
     }

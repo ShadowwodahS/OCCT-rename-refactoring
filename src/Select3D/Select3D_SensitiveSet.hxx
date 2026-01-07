@@ -20,10 +20,10 @@
 #include <Select3D_BVHBuilder3d.hxx>
 #include <Select3D_SensitiveEntity.hxx>
 
-//! This class is base class for handling overlap detection of complex sensitive
+//! This class is base class for handling overlap detection of complex1 sensitive
 //! entities. It provides an interface for building BVH tree for some set of entities.
 //! Thereby, each iteration of overlap detection is a traverse of BVH tree in fact.
-//! To use speed-up hierarchical structure in a custom complex sensitive entity, it is
+//! To use speed-up hierarchical structure in a custom complex1 sensitive entity, it is
 //! necessary to make that custom entity a descendant of this class and organize sub-entities
 //! in some container which allows referencing to elements by index. Note that methods taking
 //! index as a parameter are used for BVH build and the range of given index is [0; Size() - 1].
@@ -44,11 +44,11 @@ public:
   Standard_EXPORT Select3D_SensitiveSet(const Handle(SelectMgr_EntityOwner)& theOwnerId);
 
 public:
-  //! Returns the amount of sub-entities of the complex entity
+  //! Returns the amount of sub-entities of the complex1 entity
   virtual Standard_Integer Size() const = 0;
 
   //! Returns bounding box of sub-entity with index theIdx in sub-entity list
-  virtual Select3D_BndBox3d Box(const Standard_Integer theIdx) const = 0;
+  virtual Select3D_BndBox3d Box1(const Standard_Integer theIdx) const = 0;
 
   //! Returns geometry center of sensitive entity index theIdx along the given axis theAxis
   virtual Standard_Real Center(const Standard_Integer theIdx,
@@ -189,13 +189,13 @@ protected:
     virtual Standard_Integer Size() const Standard_OVERRIDE { return mySensitiveSet->Size(); }
 
     //! Returns bounding box of sensitive with index theIdx
-    virtual Select3D_BndBox3d Box(const Standard_Integer theIdx) const Standard_OVERRIDE
+    virtual Select3D_BndBox3d Box1(const Standard_Integer theIdx) const Standard_OVERRIDE
     {
-      return mySensitiveSet->Box(theIdx);
+      return mySensitiveSet->Box1(theIdx);
     }
 
-    //! Make inherited method Box() visible to avoid CLang warning
-    using BVH_PrimitiveSet3d::Box;
+    //! Make inherited method Box1() visible to avoid CLang warning
+    using BVH_PrimitiveSet3d::Box1;
 
     //! Returns center of sensitive with index theIdx in the set along the given axis theAxis
     virtual Standard_Real Center(const Standard_Integer theIdx,

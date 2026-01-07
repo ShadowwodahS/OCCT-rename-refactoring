@@ -120,7 +120,7 @@ public:
   //! @param theToIncludeAuxiliary consider also auxiliary presentations (with infinite flag or with
   //! trihedron transformation persistence)
   //! @return computed bounding box
-  Standard_EXPORT Bnd_Box BoundingBox(Standard_Integer                theViewId,
+  Standard_EXPORT Box2 BoundingBox(Standard_Integer                theViewId,
                                       const Handle(CameraOn3d)& theCamera,
                                       Standard_Integer                theWindowWidth,
                                       Standard_Integer                theWindowHeight,
@@ -207,7 +207,7 @@ private:
   mutable bool myIsBoundingBoxNeedsReset[2];
 
   //! Cached layer bounding box.
-  mutable Bnd_Box myBoundingBox[2];
+  mutable Box2 myBoundingBox[2];
 };
 
 #endif // _Graphic3d_Layer_HeaderFile

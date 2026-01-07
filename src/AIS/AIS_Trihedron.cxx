@@ -98,9 +98,9 @@ void AIS_Trihedron::setOwnDatumAspect()
 
   Handle(Prs3d_DatumAspect) aNewAspect = new Prs3d_DatumAspect();
   myDrawer->SetDatumAspect(aNewAspect);
-  if (!myDrawer->Link().IsNull())
+  if (!myDrawer->Link1().IsNull())
   {
-    aNewAspect->CopyAspectsFrom(myDrawer->Link()->DatumAspect());
+    aNewAspect->CopyAspectsFrom(myDrawer->Link1()->DatumAspect());
   }
 }
 
@@ -130,7 +130,7 @@ void AIS_Trihedron::UnsetSize()
   if (hasOwnColor)
   {
     const Handle(Prs3d_DatumAspect) DA =
-      myDrawer->HasLink() ? myDrawer->Link()->DatumAspect() : new Prs3d_DatumAspect();
+      myDrawer->HasLink() ? myDrawer->Link1()->DatumAspect() : new Prs3d_DatumAspect();
     myDrawer->DatumAspect()->SetAxisLength(DA->AxisLength(Prs3d_DatumParts_XAxis),
                                            DA->AxisLength(Prs3d_DatumParts_YAxis),
                                            DA->AxisLength(Prs3d_DatumParts_ZAxis));

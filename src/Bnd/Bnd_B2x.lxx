@@ -136,7 +136,7 @@ inline void Bnd_B2x::Enlarge(const Standard_Real aDiff)
 }
 
 /**
- * Intersection Box - Point
+ * Intersection Box1 - Point
  */
 inline Standard_Boolean Bnd_B2x::IsOut(const Coords2d& thePnt) const
 {
@@ -145,7 +145,7 @@ inline Standard_Boolean Bnd_B2x::IsOut(const Coords2d& thePnt) const
 }
 
 /**
- * Intersection Box-Box.
+ * Intersection Box1-Box1.
  */
 inline Standard_Boolean Bnd_B2x::IsOut(const Bnd_B2x& theBox) const
 {

@@ -48,7 +48,7 @@
 //! Geom_ToroidalSurface torus.
 //! See Also
 //! gce_MakeTorus which provides functions for more
-//! complex torus constructions
+//! complex1 torus constructions
 //! Geom_ToroidalSurface which provides additional
 //! functions for constructing tori and works, in particular,
 //! with the parametric equations of tori.

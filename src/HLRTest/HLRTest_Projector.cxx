@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(HLRTest_Projector, Draw_Drawable3D)
 
 //=================================================================================================
 
-HLRTest_Projector::HLRTest_Projector(const HLRAlgo_Projector& P)
+HLRTest_Projector::HLRTest_Projector(const HLRAlgoProjector& P)
     : myProjector(P)
 {
   //
@@ -126,7 +126,7 @@ Handle(Draw_Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
   aTransformation.SetTranslationPart(
     Vector3d(aTranslationVector[0], aTranslationVector[1], aTranslationVector[2]));
 
-  HLRAlgo_Projector         anAlgoProtector(aTransformation, aPerspective, aFocus);
+  HLRAlgoProjector         anAlgoProtector(aTransformation, aPerspective, aFocus);
   Handle(HLRTest_Projector) aTestProjector = new HLRTest_Projector(anAlgoProtector);
   return aTestProjector;
 }

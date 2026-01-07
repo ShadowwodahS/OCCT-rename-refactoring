@@ -431,7 +431,7 @@ void BoundedArc (const TheArc& A,
       default:
         {
           Standard_Real MaxDeviation, AverageDeviation;
-          GeomLib::BuildCurve3d(1.e-5, ConS, ConS.FirstParameter(), ConS.LastParameter(),
+          GeomLib1::BuildCurve3d(1.e-5, ConS, ConS.FirstParameter(), ConS.LastParameter(),
                                 CurveConS, MaxDeviation, AverageDeviation);
           break;
         }
@@ -1060,7 +1060,7 @@ Standard_Integer TreatLC (const TheArc& A,
   }
 
   Point3d P1,PEdge;
-  Extrema_POnCurv PC1, PC2;
+  PointOnCurve1 PC1, PC2;
   
   anExtCC.Points(1, PC1, PC2);
   

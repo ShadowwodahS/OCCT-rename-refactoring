@@ -85,7 +85,7 @@ static void AdjustSecondPointToFirstPoint(const gp_Pnt2d&             theFirstPo
   if (theSurf->IsUPeriodic())
   {
     Standard_Real UPeriod = theSurf->UPeriod();
-    Standard_Real NewU    = ElCLib::InPeriod(theSecondPoint.X(),
+    Standard_Real NewU    = ElCLib1::InPeriod(theSecondPoint.X(),
                                           theFirstPoint.X() - UPeriod / 2,
                                           theFirstPoint.X() + UPeriod / 2);
     theSecondPoint.SetX(NewU);
@@ -93,7 +93,7 @@ static void AdjustSecondPointToFirstPoint(const gp_Pnt2d&             theFirstPo
   if (theSurf->IsVPeriodic())
   {
     Standard_Real VPeriod = theSurf->VPeriod();
-    Standard_Real NewV    = ElCLib::InPeriod(theSecondPoint.Y(),
+    Standard_Real NewV    = ElCLib1::InPeriod(theSecondPoint.Y(),
                                           theFirstPoint.Y() - VPeriod / 2,
                                           theFirstPoint.Y() + VPeriod / 2);
     theSecondPoint.SetY(NewV);
@@ -483,7 +483,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
 
   //: k1 abv 16 Dec 98: limit analytic cases by Plane surfaces only
   // This is necessary for K4L since it fails on other surfaces
-  // when general method GeomProjLib::Curve2d() is used
+  // when general method GeomProjLib1::Curve2d() is used
   // Projection is done as in BRepInspector and BRepCheck_Edge
   Handle(GeomSurface) surf  = mySurf->Surface();
   Handle(GeomPlane)   Plane = Handle(GeomPlane)::DownCast(surf);
@@ -503,7 +503,7 @@ Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
   if (!Plane.IsNull())
   {
     Handle(GeomCurve3d) ProjOnPlane =
-      GeomProjLib::ProjectOnPlane(c3d, Plane, Plane->Position().Direction(), Standard_True);
+      GeomProjLib1::ProjectOnPlane(c3d, Plane, Plane->Position().Direction(), Standard_True);
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(ProjOnPlane);
     ProjLib_ProjectedCurve    Proj(mySurf->Adaptor3d(), HC);
 
@@ -1961,7 +1961,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
   TColgp_SequenceOfPnt2d&   pnt2d)
 {
   Standard_Real CorrectedCurCoord =
-    ElCLib::InPeriod(CurCoord, prevCoord - Period / 2, prevCoord + Period / 2);
+    ElCLib1::InPeriod(CurCoord, prevCoord - Period / 2, prevCoord + Period / 2);
   if (!ToAdjust)
   {
     Standard_Real CurPar  = params(theIndex);
@@ -1971,7 +1971,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
     c3d->D0(MidPar, MidP3d);
     gp_Pnt2d      MidP2d   = mySurf->ValueOfUV(MidP3d, myPreci);
     Standard_Real MidCoord = MidP2d.Coord(theIndCoord);
-    MidCoord = ElCLib::InPeriod(MidCoord, prevCoord - Period / 2, prevCoord + Period / 2);
+    MidCoord = ElCLib1::InPeriod(MidCoord, prevCoord - Period / 2, prevCoord + Period / 2);
     Standard_Real FirstCoord = prevCoord, LastCoord = CorrectedCurCoord;
     if (LastCoord < FirstCoord)
     {
@@ -2243,7 +2243,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
 
     p1OnIso             = Standard_False;
     p2OnIso             = Standard_False;
-    const Bnd_Box* aBox = 0;
+    const Box2* aBox = 0;
 
     for (Standard_Integer j = 1; (j <= 4) /*&& !isoParam*/; j++)
     {

@@ -165,28 +165,28 @@ Standard_Boolean Geom2d_Circle::IsPeriodic() const
 
 void Geom2d_Circle::D0(const Standard_Real U, Pnt2d& P) const
 {
-  P = ElCLib::CircleValue(U, pos, radius);
+  P = ElCLib1::CircleValue(U, pos, radius);
 }
 
 //=================================================================================================
 
 void Geom2d_Circle::D1(const Standard_Real U, Pnt2d& P, Vec2d& V1) const
 {
-  ElCLib::CircleD1(U, pos, radius, P, V1);
+  ElCLib1::CircleD1(U, pos, radius, P, V1);
 }
 
 //=================================================================================================
 
 void Geom2d_Circle::D2(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2) const
 {
-  ElCLib::CircleD2(U, pos, radius, P, V1, V2);
+  ElCLib1::CircleD2(U, pos, radius, P, V1, V2);
 }
 
 //=================================================================================================
 
 void Geom2d_Circle::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, Vec2d& V3) const
 {
-  ElCLib::CircleD3(U, pos, radius, P, V1, V2, V3);
+  ElCLib1::CircleD3(U, pos, radius, P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -194,7 +194,7 @@ void Geom2d_Circle::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, Ve
 Vec2d Geom2d_Circle::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::CircleDN(U, pos, radius, N);
+  return ElCLib1::CircleDN(U, pos, radius, N);
 }
 
 //=================================================================================================

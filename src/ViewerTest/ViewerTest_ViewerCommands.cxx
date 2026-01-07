@@ -9171,8 +9171,8 @@ static int VCamera(DrawInterpreter& theDI, Standard_Integer theArgsNb, const cha
       }
       if (aView->AutoZFitMode())
       {
-        const Bnd_Box aMinMaxBox  = aView->View()->MinMaxValues(false);
-        const Bnd_Box aGraphicBox = aView->View()->MinMaxValues(true);
+        const Box2 aMinMaxBox  = aView->View()->MinMaxValues(false);
+        const Box2 aGraphicBox = aView->View()->MinMaxValues(true);
         aCamera->ZFitAll(aView->AutoZFitScaleFactor(), aMinMaxBox, aGraphicBox);
       }
     }
@@ -12520,12 +12520,12 @@ static int VManipulator(DrawInterpreter& theDi, Standard_Integer theArgsNb, cons
         break;
       }
       case ManipAjustPosition_Center: {
-        Bnd_Box aBox;
+        Box2 aBox;
         for (AIS_ManipulatorObjectSequence::Iterator anObjIter(*aManipulator->Objects());
              anObjIter.More();
              anObjIter.Next())
         {
-          Bnd_Box anObjBox;
+          Box2 anObjBox;
           anObjIter.Value()->BoundingBox(anObjBox);
           aBox.Add(anObjBox);
         }

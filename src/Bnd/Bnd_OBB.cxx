@@ -31,12 +31,12 @@
 //! BVH tree the two points giving the extreme projection
 //! parameters on the axis
 class OBB_ExtremePointsSelector
-    : public BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Bnd_Range>
+    : public BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Range1>
 {
 public:
   //! Constructor
   OBB_ExtremePointsSelector()
-      : BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Bnd_Range>(),
+      : BVH_Traverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, gp_XYZ>, Range1>(),
         myPrmMin(RealLast()),
         myPrmMax(RealFirst())
   {
@@ -71,7 +71,7 @@ public: //! @name Definition of rejection/acceptance rules
   //! Defines the rules for node rejection
   virtual Standard_Boolean RejectNode(const BVH_Vec3d& theCMin,
                                       const BVH_Vec3d& theCMax,
-                                      Bnd_Range&       theMetric) const Standard_OVERRIDE
+                                      Range1&       theMetric) const Standard_OVERRIDE
   {
     if (myPrmMin > myPrmMax)
       // No parameters computed yet
@@ -106,13 +106,13 @@ public: //! @name Definition of rejection/acceptance rules
       }
     }
 
-    theMetric = Bnd_Range(aPrmMin, aPrmMax);
+    theMetric = Range1(aPrmMin, aPrmMax);
 
     return isToReject;
   }
 
   //! Rules for node rejection by the metric
-  virtual Standard_Boolean RejectMetric(const Bnd_Range& theMetric) const Standard_OVERRIDE
+  virtual Standard_Boolean RejectMetric(const Range1& theMetric) const Standard_OVERRIDE
   {
     if (myPrmMin > myPrmMax)
       // no parameters computed
@@ -129,7 +129,7 @@ public: //! @name Definition of rejection/acceptance rules
 
   //! Defines the rules for leaf acceptance
   virtual Standard_Boolean Accept(const Standard_Integer theIndex,
-                                  const Bnd_Range&) Standard_OVERRIDE
+                                  const Range1&) Standard_OVERRIDE
   {
     const gp_XYZ& theLeaf = myBVHSet->Element(theIndex);
     Standard_Real aPrm    = myAxis.Dot(theLeaf);
@@ -148,8 +148,8 @@ public: //! @name Definition of rejection/acceptance rules
 
 public: //! @name Choosing the best branch
   //! Returns true if the metric of the left branch is better than the metric of the right
-  virtual Standard_Boolean IsMetricBetter(const Bnd_Range& theLeft,
-                                          const Bnd_Range& theRight) const Standard_OVERRIDE
+  virtual Standard_Boolean IsMetricBetter(const Range1& theLeft,
+                                          const Range1& theRight) const Standard_OVERRIDE
   {
     if (myPrmMin > myPrmMax)
       // no parameters computed
@@ -201,7 +201,7 @@ public:
   void ProcessDiTetrahedron();
 
   //! Creates OBB with already computed parameters
-  void BuildBox(Bnd_OBB& theBox);
+  void BuildBox(OrientedBox& theBox);
 
 protected:
   // Computes the extreme points on the set of Initial axes
@@ -682,7 +682,7 @@ void OBBTool::ProcessDiTetrahedron()
 
 //=================================================================================================
 
-void OBBTool::BuildBox(Bnd_OBB& theBox)
+void OBBTool::BuildBox(OrientedBox& theBox)
 {
   theBox.SetVoid();
 
@@ -759,7 +759,7 @@ void OBBTool::BuildBox(Bnd_OBB& theBox)
 // function : ReBuild
 // purpose  : http://www.idt.mdh.se/~tla/publ/
 // =======================================================================
-void Bnd_OBB::ReBuild(const TColgp_Array1OfPnt&   theListOfPoints,
+void OrientedBox::ReBuild(const TColgp_Array1OfPnt&   theListOfPoints,
                       const TColStd_Array1OfReal* theListOfTolerances,
                       const Standard_Boolean      theIsOptimal)
 {
@@ -816,7 +816,7 @@ void Bnd_OBB::ReBuild(const TColgp_Array1OfPnt&   theListOfPoints,
 
 //=================================================================================================
 
-Standard_Boolean Bnd_OBB::IsOut(const Bnd_OBB& theOther) const
+Standard_Boolean OrientedBox::IsOut(const OrientedBox& theOther) const
 {
   if (IsVoid() || theOther.IsVoid())
     return Standard_True;
@@ -919,7 +919,7 @@ Standard_Boolean Bnd_OBB::IsOut(const Bnd_OBB& theOther) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_OBB::IsOut(const Point3d& theP) const
+Standard_Boolean OrientedBox::IsOut(const Point3d& theP) const
 {
   // 1. Project the point to myAxes[i] (i=0...2).
   // 2. Check, whether the absolute value of the correspond
@@ -936,7 +936,7 @@ Standard_Boolean Bnd_OBB::IsOut(const Point3d& theP) const
 // function : IsCompletelyInside
 // purpose  : Checks if every vertex of theOther is completely inside *this
 // =======================================================================
-Standard_Boolean Bnd_OBB::IsCompletelyInside(const Bnd_OBB& theOther) const
+Standard_Boolean OrientedBox::IsCompletelyInside(const OrientedBox& theOther) const
 {
   if (IsVoid() || theOther.IsVoid())
     return Standard_False;
@@ -954,7 +954,7 @@ Standard_Boolean Bnd_OBB::IsCompletelyInside(const Bnd_OBB& theOther) const
 
 //=================================================================================================
 
-void Bnd_OBB::Add(const Point3d& theP)
+void OrientedBox::Add(const Point3d& theP)
 {
   if (IsVoid())
   {
@@ -978,7 +978,7 @@ void Bnd_OBB::Add(const Point3d& theP)
 
 //=================================================================================================
 
-void Bnd_OBB::Add(const Bnd_OBB& theOther)
+void OrientedBox::Add(const OrientedBox& theOther)
 {
   if (!theOther.IsVoid())
   {
@@ -1005,9 +1005,9 @@ void Bnd_OBB::Add(const Bnd_OBB& theOther)
 
 //=================================================================================================
 
-void Bnd_OBB::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void OrientedBox::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, Bnd_OBB)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, OrientedBox)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myCenter)
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myAxes[0])

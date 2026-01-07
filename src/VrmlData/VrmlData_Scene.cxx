@@ -488,7 +488,7 @@ VrmlData_ErrorStatus VrmlData_Scene::createNode(InputBuffer&           theBuffer
     else if (!VRMLDATA_LCOMPARE_SKIP(theBuffer.LinePtr, "ShapeHints")
              && VRMLDATA_LCOMPARE(theBuffer.LinePtr, "Shape"))
       aNode = new VrmlData_ShapeNode(*this, strName);
-    else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "Box"))
+    else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "Box1"))
       aNode = new VrmlData_Box(*this, strName);
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "Color"))
       aNode = new VrmlData_Color(*this, strName);
@@ -1161,7 +1161,7 @@ void dumpNode(Standard_OStream&              theStream,
     }
   }
   else if (theNode->IsKind(STANDARD_TYPE(VrmlData_Box)))
-    dumpNodeHeader(theStream, theIndent, "Box", theNode->Name());
+    dumpNodeHeader(theStream, theIndent, "Box1", theNode->Name());
   else if (theNode->IsKind(STANDARD_TYPE(VrmlData_Cylinder)))
     dumpNodeHeader(theStream, theIndent, "Cylinder", theNode->Name());
   else if (theNode->IsKind(STANDARD_TYPE(VrmlData_Sphere)))

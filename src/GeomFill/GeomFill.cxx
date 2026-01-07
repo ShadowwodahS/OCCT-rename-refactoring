@@ -243,14 +243,14 @@ void GeomFill1::GetMinimalWeights(const Convert_ParameterisationType TConv,
     Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
     gp_Circ                   C(popAx2, 1);
     Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new GeomCircle(C), 0., MaxAng);
-    Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
+    Handle(BSplineCurve3d) CtoBspl = GeomConvert1::CurveToBSplineCurve(Sect1, TConv);
     CtoBspl->Weights(Weights);
 
     TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
     Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
 
     Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
-    CtoBspl                         = GeomConvert::CurveToBSplineCurve(Sect2, TConv);
+    CtoBspl                         = GeomConvert1::CurveToBSplineCurve(Sect2, TConv);
     CtoBspl->Weights(poids);
 
     for (Standard_Integer ii = Weights.Lower(); ii <= Weights.Upper(); ii++)
@@ -332,7 +332,7 @@ Standard_Real GeomFill1::GetTolerance(const Convert_ParameterisationType TConv,
   Handle(Geom_TrimmedCurve) Sect      = new Geom_TrimmedCurve(popCircle, 0., Max(AngleMin, 0.02));
   // 0.02 est proche d'1 degree, en desous on ne se preocupe pas de la tngence
   // afin d'eviter des tolerances d'approximation tendant vers 0 !
-  Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect, TConv);
+  Handle(BSplineCurve3d) CtoBspl = GeomConvert1::CurveToBSplineCurve(Sect, TConv);
   Standard_Real             Dist;
   Dist = CtoBspl->Pole(1).Distance(CtoBspl->Pole(2)) + SpatialTol;
   return Dist * AngularTol / 2;
@@ -405,7 +405,7 @@ void GeomFill1::GetCircle(const Convert_ParameterisationType TConv,
     }
     default: {
       // Cas Rational, on utilise une expression directe beaucoup plus
-      // performente que GeomConvert
+      // performente que GeomConvert1
       Standard_Integer NbSpan = (Poles.Length() - 1) / 2;
 
       Poles(low)   = pts1;

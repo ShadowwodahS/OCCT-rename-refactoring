@@ -32,7 +32,7 @@ class gp_Sphere;
 class gp_Cylinder;
 class gp_Cone;
 class gp_Torus;
-class Extrema_POnSurf;
+class PointOnSurface1;
 
 //! It calculates all the distances between 2 elementary
 //! surfaces.
@@ -95,8 +95,8 @@ public:
   //! Returns the points for the Nth resulting distance.
   //! P1 is on the first surface, P2 on the second one.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnSurf&       P1,
-                              Extrema_POnSurf&       P2) const;
+                              PointOnSurface1&       P1,
+                              PointOnSurface1&       P2) const;
 
 protected:
 private:

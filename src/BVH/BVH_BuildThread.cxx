@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BVH_BuildThread, RefObject)
 // function : BVH_BuildThread
 // purpose  : Creates new BVH build thread
 // =======================================================================
-BVH_BuildThread::BVH_BuildThread(BVH_BuildTool& theBuildTool, BVH_BuildQueue& theBuildQueue)
+BVH_BuildThread::BVH_BuildThread(BuildTool& theBuildTool, BVH_BuildQueue& theBuildQueue)
     : myBuildTool(theBuildTool),
       myBuildQueue(theBuildQueue),
       myWorkThread(threadFunction)

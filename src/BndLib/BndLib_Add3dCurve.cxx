@@ -45,11 +45,11 @@ static Standard_Real AdjustExtr(const Adaptor3d_Curve& C,
 //           bezier and bspline curve.
 //=======================================================================
 static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
-                            const Bnd_Box&         theOrigBox,
-                            Bnd_Box&               theReducedBox)
+                            const Box2&         theOrigBox,
+                            Box2&               theReducedBox)
 {
   // Guaranteed bounding box based on poles of bspline.
-  Bnd_Box       aPolesBox;
+  Box2       aPolesBox;
   Standard_Real aPolesXMin, aPolesYMin, aPolesZMin, aPolesXMax, aPolesYMax, aPolesZMax;
 
   if (theCurve.GetType() == GeomAbs_BSplineCurve)
@@ -99,13 +99,13 @@ static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
 
 //=================================================================================================
 
-void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C, const Standard_Real Tol, Bnd_Box& B)
+void Add3dCurve::Add(const Adaptor3d_Curve& C, const Standard_Real Tol, Box2& B)
 {
-  BndLib_Add3dCurve::Add(C, C.FirstParameter(), C.LastParameter(), Tol, B);
+  Add3dCurve::Add(C, C.FirstParameter(), C.LastParameter(), Tol, B);
 }
 
 // OCC566(apo)->
-static Standard_Real FillBox(Bnd_Box&               B,
+static Standard_Real FillBox(Box2&               B,
                              const Adaptor3d_Curve& C,
                              const Standard_Real    first,
                              const Standard_Real    last,
@@ -146,11 +146,11 @@ static Standard_Real FillBox(Bnd_Box&               B,
 //<-OCC566(apo)
 //=================================================================================================
 
-void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
+void Add3dCurve::Add(const Adaptor3d_Curve& C,
                             const Standard_Real    U1,
                             const Standard_Real    U2,
                             const Standard_Real    Tol,
-                            Bnd_Box&               B)
+                            Box2&               B)
 {
   static Standard_Real weakness = 1.5; // OCC566(apo)
   Standard_Real        tol      = 0.0;
@@ -158,30 +158,30 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
   {
 
     case GeomAbs_Line: {
-      BndLib::Add(C.Line(), U1, U2, Tol, B);
+      BndLib1::Add(C.Line(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Circle: {
-      BndLib::Add(C.Circle(), U1, U2, Tol, B);
+      BndLib1::Add(C.Circle(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Ellipse: {
-      BndLib::Add(C.Ellipse(), U1, U2, Tol, B);
+      BndLib1::Add(C.Ellipse(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Hyperbola: {
-      BndLib::Add(C.Hyperbola(), U1, U2, Tol, B);
+      BndLib1::Add(C.Hyperbola(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Parabola: {
-      BndLib::Add(C.Parabola(), U1, U2, Tol, B);
+      BndLib1::Add(C.Parabola(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_BezierCurve: {
       Handle(BezierCurve3d) Bz = C.Bezier();
       Standard_Integer         N  = Bz->Degree();
       GeomAdaptor_Curve        GACurve(Bz);
-      Bnd_Box                  B1;
+      Box2                  B1;
       tol = FillBox(B1, GACurve, U1, U2, N);
       B1.Enlarge(weakness * tol);
       reduceSplineBox(C, B1, B);
@@ -199,7 +199,7 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
         Standard_Real             u1 = U1, u2 = U2;
         //// modified by jgv, 24.10.01 for BUC61031 ////
         if (Bsaux->IsPeriodic())
-          ElCLib::AdjustPeriodic(Bsaux->FirstParameter(),
+          ElCLib1::AdjustPeriodic(Bsaux->FirstParameter(),
                                  Bsaux->LastParameter(),
                                  Precision::PConfusion(),
                                  u1,
@@ -222,7 +222,7 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
         Bs = Bsaux;
       }
       // OCC566(apo)->
-      Bnd_Box          B1;
+      Box2          B1;
       Standard_Integer k, k1 = Bs->FirstUKnotIndex(), k2 = Bs->LastUKnotIndex(), N = Bs->Degree(),
                           NbKnots = Bs->NbKnots();
       TColStd_Array1OfReal Knots(1, NbKnots);
@@ -245,7 +245,7 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
       break;
     }
     default: {
-      Bnd_Box                 B1;
+      Box2                 B1;
       static Standard_Integer N = 33;
       tol                       = FillBox(B1, C, U1, U2, N);
       B1.Enlarge(weakness * tol);
@@ -259,40 +259,40 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void BndLib_Add3dCurve::AddOptimal(const Adaptor3d_Curve& C, const Standard_Real Tol, Bnd_Box& B)
+void Add3dCurve::AddOptimal(const Adaptor3d_Curve& C, const Standard_Real Tol, Box2& B)
 {
-  BndLib_Add3dCurve::AddOptimal(C, C.FirstParameter(), C.LastParameter(), Tol, B);
+  Add3dCurve::AddOptimal(C, C.FirstParameter(), C.LastParameter(), Tol, B);
 }
 
 //=================================================================================================
 
-void BndLib_Add3dCurve::AddOptimal(const Adaptor3d_Curve& C,
+void Add3dCurve::AddOptimal(const Adaptor3d_Curve& C,
                                    const Standard_Real    U1,
                                    const Standard_Real    U2,
                                    const Standard_Real    Tol,
-                                   Bnd_Box&               B)
+                                   Box2&               B)
 {
   switch (C.GetType())
   {
 
     case GeomAbs_Line: {
-      BndLib::Add(C.Line(), U1, U2, Tol, B);
+      BndLib1::Add(C.Line(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Circle: {
-      BndLib::Add(C.Circle(), U1, U2, Tol, B);
+      BndLib1::Add(C.Circle(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Ellipse: {
-      BndLib::Add(C.Ellipse(), U1, U2, Tol, B);
+      BndLib1::Add(C.Ellipse(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Hyperbola: {
-      BndLib::Add(C.Hyperbola(), U1, U2, Tol, B);
+      BndLib1::Add(C.Hyperbola(), U1, U2, Tol, B);
       break;
     }
     case GeomAbs_Parabola: {
-      BndLib::Add(C.Parabola(), U1, U2, Tol, B);
+      BndLib1::Add(C.Parabola(), U1, U2, Tol, B);
       break;
     }
     default: {
@@ -303,11 +303,11 @@ void BndLib_Add3dCurve::AddOptimal(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void BndLib_Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
+void Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
                                    const Standard_Real    UMin,
                                    const Standard_Real    UMax,
                                    const Standard_Real    Tol,
-                                   Bnd_Box&               B)
+                                   Box2&               B)
 {
   Standard_Integer Nu = NbSamples(C, UMin, UMax);
   //

@@ -51,7 +51,7 @@ class gp_Pnt2d;
 //! * Create a Parab2d with the directrix and the focus point.
 //! * Create a Parab2d with its vertex point and its axis
 //! of symmetry and its focus length.
-class gce_MakeParab2d : public gce_Root
+class gce_MakeParab2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

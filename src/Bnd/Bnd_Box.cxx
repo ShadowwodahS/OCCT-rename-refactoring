@@ -31,7 +31,7 @@
 
 //=================================================================================================
 
-Bnd_Box::Bnd_Box()
+Box2::Box2()
     // Equal to SetVoid();
     : Xmin(RealLast()),
       Xmax(-RealLast()),
@@ -46,7 +46,7 @@ Bnd_Box::Bnd_Box()
 
 //=================================================================================================
 
-Bnd_Box::Bnd_Box(const Point3d& theMin, const Point3d& theMax)
+Box2::Box2(const Point3d& theMin, const Point3d& theMax)
     // Equal to Update(theMin.X(), theMin.Y(), theMin.Z(), theMax.X(), theMax.Y(), theMax.Z());
     : Xmin(theMin.X()),
       Xmax(theMax.X()),
@@ -61,7 +61,7 @@ Bnd_Box::Bnd_Box(const Point3d& theMin, const Point3d& theMax)
 
 //=================================================================================================
 
-void Bnd_Box::Set(const Point3d& P)
+void Box2::Set(const Point3d& P)
 {
   SetVoid();
   Add(P);
@@ -69,7 +69,7 @@ void Bnd_Box::Set(const Point3d& P)
 
 //=================================================================================================
 
-void Bnd_Box::Set(const Point3d& P, const Dir3d& D)
+void Box2::Set(const Point3d& P, const Dir3d& D)
 {
   SetVoid();
   Add(P, D);
@@ -77,7 +77,7 @@ void Bnd_Box::Set(const Point3d& P, const Dir3d& D)
 
 //=================================================================================================
 
-void Bnd_Box::Update(const Standard_Real x,
+void Box2::Update(const Standard_Real x,
                      const Standard_Real y,
                      const Standard_Real z,
                      const Standard_Real X,
@@ -113,7 +113,7 @@ void Bnd_Box::Update(const Standard_Real x,
 
 //=================================================================================================
 
-void Bnd_Box::Update(const Standard_Real X, const Standard_Real Y, const Standard_Real Z)
+void Box2::Update(const Standard_Real X, const Standard_Real Y, const Standard_Real Z)
 {
   if (IsVoid())
   {
@@ -144,28 +144,28 @@ void Bnd_Box::Update(const Standard_Real X, const Standard_Real Y, const Standar
 
 //=================================================================================================
 
-Standard_Real Bnd_Box::GetGap() const
+Standard_Real Box2::GetGap() const
 {
   return Gap;
 }
 
 //=================================================================================================
 
-void Bnd_Box::SetGap(const Standard_Real Tol)
+void Box2::SetGap(const Standard_Real Tol)
 {
   Gap = Tol;
 }
 
 //=================================================================================================
 
-void Bnd_Box::Enlarge(const Standard_Real Tol)
+void Box2::Enlarge(const Standard_Real Tol)
 {
   Gap = Max(Gap, Abs(Tol));
 }
 
 //=================================================================================================
 
-void Bnd_Box::Get(Standard_Real& theXmin,
+void Box2::Get(Standard_Real& theXmin,
                   Standard_Real& theYmin,
                   Standard_Real& theZmin,
                   Standard_Real& theXmax,
@@ -174,7 +174,7 @@ void Bnd_Box::Get(Standard_Real& theXmin,
 {
   if (IsVoid())
   {
-    throw Standard_ConstructionError("Bnd_Box is void");
+    throw Standard_ConstructionError("Box2 is void");
   }
 
   if (IsOpenXmin())
@@ -205,12 +205,12 @@ void Bnd_Box::Get(Standard_Real& theXmin,
 
 //=================================================================================================
 
-Point3d Bnd_Box::CornerMin() const
+Point3d Box2::CornerMin() const
 {
   Point3d aCornerMin;
   if (IsVoid())
   {
-    throw Standard_ConstructionError("Bnd_Box is void");
+    throw Standard_ConstructionError("Box2 is void");
   }
   if (IsOpenXmin())
     aCornerMin.SetX(-Bnd_Precision_Infinite);
@@ -229,12 +229,12 @@ Point3d Bnd_Box::CornerMin() const
 
 //=================================================================================================
 
-Point3d Bnd_Box::CornerMax() const
+Point3d Box2::CornerMax() const
 {
   Point3d aCornerMax;
   if (IsVoid())
   {
-    throw Standard_ConstructionError("Bnd_Box is void");
+    throw Standard_ConstructionError("Box2 is void");
   }
   if (IsOpenXmax())
     aCornerMax.SetX(Bnd_Precision_Infinite);
@@ -253,7 +253,7 @@ Point3d Bnd_Box::CornerMax() const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsXThin(const Standard_Real tol) const
+Standard_Boolean Box2::IsXThin(const Standard_Real tol) const
 {
   if (IsWhole())
     return Standard_False;
@@ -270,7 +270,7 @@ Standard_Boolean Bnd_Box::IsXThin(const Standard_Real tol) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsYThin(const Standard_Real tol) const
+Standard_Boolean Box2::IsYThin(const Standard_Real tol) const
 {
   if (IsWhole())
     return Standard_False;
@@ -287,7 +287,7 @@ Standard_Boolean Bnd_Box::IsYThin(const Standard_Real tol) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsZThin(const Standard_Real tol) const
+Standard_Boolean Box2::IsZThin(const Standard_Real tol) const
 {
   if (IsWhole())
     return Standard_False;
@@ -304,7 +304,7 @@ Standard_Boolean Bnd_Box::IsZThin(const Standard_Real tol) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsThin(const Standard_Real tol) const
+Standard_Boolean Box2::IsThin(const Standard_Real tol) const
 {
   if (!IsXThin(tol))
     return Standard_False;
@@ -317,11 +317,11 @@ Standard_Boolean Bnd_Box::IsThin(const Standard_Real tol) const
 
 //=================================================================================================
 
-Bnd_Box Bnd_Box::Transformed(const Transform3d& T) const
+Box2 Box2::Transformed(const Transform3d& T) const
 {
   if (IsVoid())
   {
-    return Bnd_Box();
+    return Box2();
   }
   else if (T.Form() == gp_Identity)
   {
@@ -335,7 +335,7 @@ Bnd_Box Bnd_Box::Transformed(const Transform3d& T) const
     }
 
     const gp_XYZ& aDelta = T.TranslationPart();
-    Bnd_Box       aNewBox(*this);
+    Box2       aNewBox(*this);
     aNewBox.Xmin += aDelta.X();
     aNewBox.Xmax += aDelta.X();
     aNewBox.Ymin += aDelta.Y();
@@ -345,7 +345,7 @@ Bnd_Box Bnd_Box::Transformed(const Transform3d& T) const
     return aNewBox;
   }
 
-  Bnd_Box aNewBox;
+  Box2 aNewBox;
   if (HasFinitePart())
   {
     Point3d aCorners[8] = {
@@ -408,7 +408,7 @@ Bnd_Box Bnd_Box::Transformed(const Transform3d& T) const
 
 //=================================================================================================
 
-void Bnd_Box::Add(const Bnd_Box& Other)
+void Box2::Add(const Box2& Other)
 {
   if (Other.IsVoid())
   {
@@ -460,7 +460,7 @@ void Bnd_Box::Add(const Bnd_Box& Other)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const Point3d& P)
+void Box2::Add(const Point3d& P)
 {
   Standard_Real X, Y, Z;
   P.Coord(X, Y, Z);
@@ -469,7 +469,7 @@ void Bnd_Box::Add(const Point3d& P)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const Point3d& P, const Dir3d& D)
+void Box2::Add(const Point3d& P, const Dir3d& D)
 {
   Add(P);
   Add(D);
@@ -477,7 +477,7 @@ void Bnd_Box::Add(const Point3d& P, const Dir3d& D)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const Dir3d& D)
+void Box2::Add(const Dir3d& D)
 {
   Standard_Real DX, DY, DZ;
   D.Coord(DX, DY, DZ);
@@ -500,7 +500,7 @@ void Bnd_Box::Add(const Dir3d& D)
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const Point3d& P) const
+Standard_Boolean Box2::IsOut(const Point3d& P) const
 {
   if (IsWhole())
     return Standard_False;
@@ -529,7 +529,7 @@ Standard_Boolean Bnd_Box::IsOut(const Point3d& P) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const gp_Pln& P) const
+Standard_Boolean Box2::IsOut(const gp_Pln& P) const
 {
   if (IsWhole())
     return Standard_False;
@@ -563,7 +563,7 @@ Standard_Boolean Bnd_Box::IsOut(const gp_Pln& P) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const gp_Lin& L) const
+Standard_Boolean Box2::IsOut(const gp_Lin& L) const
 {
   if (IsWhole())
     return Standard_False;
@@ -671,7 +671,7 @@ Standard_Boolean Bnd_Box::IsOut(const gp_Lin& L) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other) const
+Standard_Boolean Box2::IsOut(const Box2& Other) const
 {
   // modified by NIZNHY-PKV Fri Jul 08 11:03:43 2011f
   if (!Flags && !Other.Flags)
@@ -723,14 +723,14 @@ Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other, const Transform3d& T) const
+Standard_Boolean Box2::IsOut(const Box2& Other, const Transform3d& T) const
 {
   return IsOut(Other.Transformed(T));
 }
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const Transform3d& T1, const Bnd_Box& Other, const Transform3d& T2) const
+Standard_Boolean Box2::IsOut(const Transform3d& T1, const Box2& Other, const Transform3d& T2) const
 {
   return Transformed(T1).IsOut(Other.Transformed(T2));
 }
@@ -785,7 +785,7 @@ static Standard_Boolean IsSegmentOut(Standard_Real x1,
   return Standard_False;
 }
 
-Standard_Boolean Bnd_Box::IsOut(const Point3d& P1, const Point3d& P2, const Dir3d& D) const
+Standard_Boolean Box2::IsOut(const Point3d& P1, const Point3d& P2, const Dir3d& D) const
 {
 
   if (IsWhole())
@@ -1021,7 +1021,7 @@ static Standard_Real DistMini2Box(const Standard_Real r1min,
   return (Min(r1, r2));
 }
 
-Standard_Real Bnd_Box::Distance(const Bnd_Box& Other) const
+Standard_Real Box2::Distance(const Box2& Other) const
 {
   Standard_Real xminB1, yminB1, zminB1, xmaxB1, ymaxB1, zmaxB1;
   Standard_Real xminB2, yminB2, zminB2, xmaxB2, ymaxB2, zmaxB2;
@@ -1060,7 +1060,7 @@ Standard_Real Bnd_Box::Distance(const Bnd_Box& Other) const
 
 //=================================================================================================
 
-void Bnd_Box::Dump() const
+void Box2::Dump() const
 {
   std::cout << "Box3D : ";
   if (IsVoid())
@@ -1106,7 +1106,7 @@ void Bnd_Box::Dump() const
 
 //=================================================================================================
 
-void Bnd_Box::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Box2::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_FIELD_VALUES_NUMERICAL(theOStream, "CornerMin", 3, Xmin, Ymin, Zmin)
     OCCT_DUMP_FIELD_VALUES_NUMERICAL(theOStream, "CornerMax", 3, Xmax, Ymax, Zmax)
 
@@ -1115,7 +1115,7 @@ void Bnd_Box::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Box2::InitFromJson(const Standard_SStream& theSStream,
                                        Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;

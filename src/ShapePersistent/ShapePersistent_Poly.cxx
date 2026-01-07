@@ -209,7 +209,7 @@ Handle(ShapePersistent_Poly::Triangulation) ShapePersistent_Poly::Translate(
       Poly_Array1OfTriangle pArrayOfTriangles(1, thePolyTriang->NbTriangles());
       for (Standard_Integer i = 1; i <= thePolyTriang->NbTriangles(); i++)
       {
-        pArrayOfTriangles.SetValue(i, thePolyTriang->Triangle(i));
+        pArrayOfTriangles.SetValue(i, thePolyTriang->Triangle1(i));
       }
 
       aPT->myPersistent->myNodes =

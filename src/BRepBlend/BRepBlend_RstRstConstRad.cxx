@@ -566,15 +566,15 @@ void BRepBlend_RstRstConstRad::Section(const Standard_Real Param,
   }
 
   C.SetPosition(Frame3d(Center, np, ns));
-  Pdeb = 0; // ElCLib::Parameter(C, pts);
-  Pfin = ElCLib::Parameter(C, ptrst2);
+  Pdeb = 0; // ElCLib1::Parameter(C, pts);
+  Pfin = ElCLib1::Parameter(C, ptrst2);
 
   // Test of angles negative and almost null : Special Case
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
     C.SetPosition(Frame3d(Center, np, ns));
-    Pfin = ElCLib::Parameter(C, ptrst2);
+    Pfin = ElCLib1::Parameter(C, ptrst2);
   }
   if (Pfin < Precision::PConfusion())
     Pfin += Precision::PConfusion();

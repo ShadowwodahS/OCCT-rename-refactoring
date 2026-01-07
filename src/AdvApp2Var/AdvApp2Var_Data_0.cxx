@@ -15,9 +15,9 @@
 
 //=================================================================================================
 
-mdnombr_1_& AdvApp2Var_Data::Getmdnombr()
+mdnombr_1_1& Data::Getmdnombr()
 {
-  static mdnombr_1_ s_mdnombr = {3.141592653589793,
+  static mdnombr_1_1 s_mdnombr = {3.141592653589793,
                                  6.283185307179586,
                                  1.570796326794897,
                                  .017453292519943296,
@@ -32,9 +32,9 @@ mdnombr_1_& AdvApp2Var_Data::Getmdnombr()
 
 //=================================================================================================
 
-minombr_1_& AdvApp2Var_Data::Getminombr()
+minombr_1_1& Data::Getminombr()
 {
-  static minombr_1_ s_minombr_1 = {
+  static minombr_1_1 s_minombr_1 = {
     {0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16,  17,  18,
      19,  20,  21,  22,  23,  24,  25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,
      38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  52,  53,  54,  55,  56,
@@ -93,9 +93,9 @@ minombr_1_& AdvApp2Var_Data::Getminombr()
 
 //=================================================================================================
 
-maovpar_1_& AdvApp2Var_Data::Getmaovpar()
+maovpar_1_1& Data::Getmaovpar()
 {
-  static maovpar_1_ s_maovpar = {2.225073858507201e-307,
+  static maovpar_1_1 s_maovpar = {2.225073858507201e-307,
                                  1.797693134862315e307,
                                  1.17549435e-38,
                                  3.40282347e38,
@@ -120,9 +120,9 @@ maovpar_1_& AdvApp2Var_Data::Getmaovpar()
 
 //=================================================================================================
 
-maovpch_1_& AdvApp2Var_Data::Getmaovpch()
+maovpch_1_1& Data::Getmaovpch()
 {
-  static maovpch_1_ s_maovpch_1_ = {
+  static maovpch_1_1 s_maovpch_1_ = {
     {'S', 'G', 'I', '_', 'I', 'R', 'I', 'S', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
     {'(', 'D', '1', '5', '.', '6', ')', ' '},
     {'(', 'D', '2', '3', '.', '1', '6', ')'},

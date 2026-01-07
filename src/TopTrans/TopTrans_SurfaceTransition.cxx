@@ -124,7 +124,7 @@ static Standard_Integer FUN_refnearest(const Standard_Real      Angref,
   {
     // Analysis for tangent cases : if two boundary faces are same sided
     // and have tangent normals, if they have opposite orientations
-    // we choose INTERNAL as resulting complex transition (case EXTERNAL
+    // we choose INTERNAL as resulting complex1 transition (case EXTERNAL
     // referring to no logical case)
     if (TopAbs1::Complement(Ori) == Oriref)
       return M_Ointernal;
@@ -231,7 +231,7 @@ static Standard_Integer FUN_refnearest(const Standard_Integer   i,
 //                       methods
 // ============================================================
 
-TopTrans_SurfaceTransition::TopTrans_SurfaceTransition()
+SurfaceTransition::SurfaceTransition()
     : myCurvRef(0.0),
       myAng(1, 2, 1, 2),
       myCurv(1, 2, 1, 2),
@@ -241,7 +241,7 @@ TopTrans_SurfaceTransition::TopTrans_SurfaceTransition()
   STATIC_DEFINED = Standard_False;
 }
 
-void TopTrans_SurfaceTransition::Reset(const Dir3d&       Tgt,
+void SurfaceTransition::Reset(const Dir3d&       Tgt,
                                        const Dir3d&       Norm,
                                        const Dir3d&       MaxD,
                                        const Dir3d&       MinD,
@@ -296,7 +296,7 @@ void TopTrans_SurfaceTransition::Reset(const Dir3d&       Tgt,
   myTouchFlag = Standard_False; // eap Mar 25 2002
 }
 
-void TopTrans_SurfaceTransition::Reset(const Dir3d& Tgt, const Dir3d& Norm)
+void SurfaceTransition::Reset(const Dir3d& Tgt, const Dir3d& Norm)
 {
   STATIC_DEFINED = Standard_True;
 
@@ -312,7 +312,7 @@ void TopTrans_SurfaceTransition::Reset(const Dir3d& Tgt, const Dir3d& Norm)
   myTouchFlag = Standard_False; // eap Mar 25 2002
 }
 
-void TopTrans_SurfaceTransition::Compare
+void SurfaceTransition::Compare
   //(const Standard_Real Tole,
   (const Standard_Real,
    const Dir3d&            Norm,
@@ -420,7 +420,7 @@ void TopTrans_SurfaceTransition::Compare
   } // k=1..kmax
 }
 
-void TopTrans_SurfaceTransition::Compare
+void SurfaceTransition::Compare
   //(const Standard_Real Tole,
   (const Standard_Real, const Dir3d& Norm, const TopAbs_Orientation S, const TopAbs_Orientation O)
 {
@@ -493,22 +493,22 @@ static TopAbs_State FUN_getstate(const TColStd_Array2OfReal&         Ang,
   {
     Standard_Integer   jok = undef1 ? 2 : 1;
     TopAbs_Orientation o   = Ori(iSTA, jok);
-    TopAbs_State       st  = (iINDEX == BEFORE) ? TopTrans_SurfaceTransition::GetBefore(o)
-                                                : TopTrans_SurfaceTransition::GetAfter(o);
+    TopAbs_State       st  = (iINDEX == BEFORE) ? SurfaceTransition::GetBefore(o)
+                                                : SurfaceTransition::GetAfter(o);
     return st;
   }
 
   TopAbs_Orientation o1 = Ori(iSTA, 1), o2 = Ori(iSTA, 2);
-  TopAbs_State       st1 = (iINDEX == BEFORE) ? TopTrans_SurfaceTransition::GetBefore(o1)
-                                              : TopTrans_SurfaceTransition::GetAfter(o1);
-  TopAbs_State       st2 = (iINDEX == BEFORE) ? TopTrans_SurfaceTransition::GetBefore(o2)
-                                              : TopTrans_SurfaceTransition::GetAfter(o2);
+  TopAbs_State       st1 = (iINDEX == BEFORE) ? SurfaceTransition::GetBefore(o1)
+                                              : SurfaceTransition::GetAfter(o1);
+  TopAbs_State       st2 = (iINDEX == BEFORE) ? SurfaceTransition::GetBefore(o2)
+                                              : SurfaceTransition::GetAfter(o2);
   if (st1 != st2)
     return TopAbs_UNKNOWN; // Incoherent data
   return st1;
 }
 
-TopAbs_State TopTrans_SurfaceTransition::StateBefore() const
+TopAbs_State SurfaceTransition::StateBefore() const
 {
   if (!STATIC_DEFINED)
     return TopAbs_UNKNOWN;
@@ -532,7 +532,7 @@ TopAbs_State TopTrans_SurfaceTransition::StateBefore() const
   return before;
 }
 
-TopAbs_State TopTrans_SurfaceTransition::StateAfter() const
+TopAbs_State SurfaceTransition::StateAfter() const
 {
   if (!STATIC_DEFINED)
     return TopAbs_UNKNOWN;
@@ -554,7 +554,7 @@ TopAbs_State TopTrans_SurfaceTransition::StateAfter() const
   return after;
 }
 
-TopAbs_State TopTrans_SurfaceTransition::GetBefore(const TopAbs_Orientation Tran)
+TopAbs_State SurfaceTransition::GetBefore(const TopAbs_Orientation Tran)
 {
   if (!STATIC_DEFINED)
     return TopAbs_UNKNOWN;
@@ -571,7 +571,7 @@ TopAbs_State TopTrans_SurfaceTransition::GetBefore(const TopAbs_Orientation Tran
   return TopAbs_OUT;
 }
 
-TopAbs_State TopTrans_SurfaceTransition::GetAfter(const TopAbs_Orientation Tran)
+TopAbs_State SurfaceTransition::GetAfter(const TopAbs_Orientation Tran)
 {
   if (!STATIC_DEFINED)
     return TopAbs_UNKNOWN;

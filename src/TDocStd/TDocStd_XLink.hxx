@@ -110,7 +110,7 @@ public:
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
   friend class TDocStd_XLinkRoot;
-  friend class TDocStd_XLinkIterator;
+  friend class XLinkIterator;
 
   DEFINE_STANDARD_RTTIEXT(TDocStd_XLink, TDF_Attribute)
 

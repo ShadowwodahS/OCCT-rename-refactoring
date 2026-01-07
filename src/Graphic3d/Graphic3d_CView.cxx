@@ -533,23 +533,23 @@ void Graphic3d_CView::DisplayedStructures(Graphic3d_MapOfStructure& theStructure
 
 //=================================================================================================
 
-Bnd_Box Graphic3d_CView::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
+Box2 Graphic3d_CView::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
 {
   if (!IsDefined())
   {
-    return Bnd_Box();
+    return Box2();
   }
 
   const Handle(CameraOn3d)& aCamera = Camera();
   Graphic3d_Vec2i                 aWinSize;
   Window()->Size(aWinSize.x(), aWinSize.y());
 
-  Bnd_Box aResult;
+  Box2 aResult;
   for (NCollection_List<Handle(Graphic3d_Layer)>::Iterator aLayerIter(Layers()); aLayerIter.More();
        aLayerIter.Next())
   {
     const Handle(Graphic3d_Layer)& aLayer = aLayerIter.Value();
-    Bnd_Box                        aBox   = aLayer->BoundingBox(Identification(),
+    Box2                        aBox   = aLayer->BoundingBox(Identification(),
                                        aCamera,
                                        aWinSize.x(),
                                        aWinSize.y(),
@@ -589,10 +589,10 @@ Standard_Real Graphic3d_CView::ConsiderZoomPersistenceObjects()
 
 //=================================================================================================
 
-Bnd_Box Graphic3d_CView::MinMaxValues(const Graphic3d_MapOfStructure& theSet,
+Box2 Graphic3d_CView::MinMaxValues(const Graphic3d_MapOfStructure& theSet,
                                       const Standard_Boolean          theToIgnoreInfiniteFlag) const
 {
-  Bnd_Box                aResult;
+  Box2                aResult;
   const Standard_Integer aViewId = Identification();
 
   Handle(CameraOn3d) aCamera    = Camera();
@@ -623,7 +623,7 @@ Bnd_Box Graphic3d_CView::MinMaxValues(const Graphic3d_MapOfStructure& theSet,
       }
     }
 
-    Bnd_Box aBox = aStructure->MinMaxValues(theToIgnoreInfiniteFlag);
+    Box2 aBox = aStructure->MinMaxValues(theToIgnoreInfiniteFlag);
 
     if (aBox.IsWhole() || aBox.IsVoid())
     {

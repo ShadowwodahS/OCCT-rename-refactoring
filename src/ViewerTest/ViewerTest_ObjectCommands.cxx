@@ -2967,7 +2967,7 @@ Handle(MeshTriangulation) CalculationOfSphere(double X, double Y, double Z, int 
     gp_XYZ eqPlan(0, 0, 0);
     for (pc.Initialize(i); pc.More(); pc.Next())
     {
-      polyTriangulation->Triangle(pc.Value()).Get(index[0], index[1], index[2]);
+      polyTriangulation->Triangle1(pc.Value()).Get(index[0], index[1], index[2]);
       gp_XYZ        v1(polyTriangulation->Node(index[1]).Coord()
                 - polyTriangulation->Node(index[0]).Coord());
       gp_XYZ        v2(polyTriangulation->Node(index[2]).Coord()
@@ -3218,7 +3218,7 @@ static int VComputeHLR(DrawInterpreter&, Standard_Integer theArgNb, const char**
     return 1;
   }
 
-  HLRAlgo_Projector aProjector(aProjAx);
+  HLRAlgoProjector aProjector(aProjAx);
   TopoShape      aVisible[6];
   TopoShape      aHidden[6];
   if (anAlgoType == Prs3d_TOH_PolyAlgo)
@@ -3383,7 +3383,7 @@ private:
   //! @param theColor the color to be set
   void setColorForShadingAspect(const Quantity_Color& theColor);
 
-  //! Replaces shading aspect from myDrawer->Link() with the own shading aspect of myDrawer for this
+  //! Replaces shading aspect from myDrawer->Link1() with the own shading aspect of myDrawer for this
   //! interactive object
   void replaceShadingAspect();
 
@@ -3736,12 +3736,12 @@ void MyPArrayObject::setColorForShadingAspect(const Quantity_Color& theColor)
 
 void MyPArrayObject::replaceShadingAspect()
 {
-  if (!myDrawer->Link())
+  if (!myDrawer->Link1())
   {
     return;
   }
   Graphic3d_MapOfAspectsToAspects anAspectReplacementMap;
-  anAspectReplacementMap.Bind(myDrawer->Link()->ShadingAspect()->Aspect(),
+  anAspectReplacementMap.Bind(myDrawer->Link1()->ShadingAspect()->Aspect(),
                               myDrawer->ShadingAspect()->Aspect());
   replaceAspects(anAspectReplacementMap);
 }
@@ -4981,7 +4981,7 @@ static Standard_Integer VSelectionPrevious(DrawInterpreter& /*theDI*/,
 //===========================================================================
 // function : VTriangle
 // Draw1 arg : vtriangle Name PointName PointName PointName
-// purpose  : creates and displays Triangle
+// purpose  : creates and displays Triangle1
 //===========================================================================
 static Standard_Integer VTriangle(DrawInterpreter& /*di*/,
                                   Standard_Integer argc,

@@ -28,8 +28,8 @@
 #include <AdvApp2Var_EvaluatorFunc2Var.hxx>
 #include <TColgp_HArray2OfPnt.hxx>
 class AdvApp2Var_Context;
-class AdvApp2Var_Framework;
-class AdvApp2Var_Criterion;
+class Framework;
+class Criterion;
 
 //! used to store results on a domain [Ui,Ui+1]x[Vj,Vj+1]
 class AdvApp2Var_Patch : public RefObject
@@ -48,21 +48,21 @@ public:
   Standard_EXPORT Standard_Boolean IsDiscretised() const;
 
   Standard_EXPORT void Discretise(const AdvApp2Var_Context&           Conditions,
-                                  const AdvApp2Var_Framework&         Constraints,
-                                  const AdvApp2Var_EvaluatorFunc2Var& func);
+                                  const Framework&         Constraints,
+                                  const EvaluatorFunc2Var& func);
 
   Standard_EXPORT Standard_Boolean IsApproximated() const;
 
   Standard_EXPORT Standard_Boolean HasResult() const;
 
   Standard_EXPORT void MakeApprox(const AdvApp2Var_Context&   Conditions,
-                                  const AdvApp2Var_Framework& Constraints,
+                                  const Framework& Constraints,
                                   const Standard_Integer      NumDec);
 
   Standard_EXPORT void AddConstraints(const AdvApp2Var_Context&   Conditions,
-                                      const AdvApp2Var_Framework& Constraints);
+                                      const Framework& Constraints);
 
-  Standard_EXPORT void AddErrors(const AdvApp2Var_Framework& Constraints);
+  Standard_EXPORT void AddErrors(const Framework& Constraints);
 
   Standard_EXPORT void ChangeDomain(const Standard_Real a,
                                     const Standard_Real b,
@@ -87,7 +87,7 @@ public:
 
   Standard_EXPORT Standard_Integer CutSense() const;
 
-  Standard_EXPORT Standard_Integer CutSense(const AdvApp2Var_Criterion& Crit,
+  Standard_EXPORT Standard_Integer CutSense(const Criterion& Crit,
                                             const Standard_Integer      NumDec) const;
 
   Standard_EXPORT Standard_Integer NbCoeffInU() const;

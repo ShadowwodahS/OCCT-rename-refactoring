@@ -173,8 +173,8 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
     {
       // segment on circle
       Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv);
-      Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), myFirstPnt1);
-      Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), myFirstPnt2);
+      Standard_Real       udeb    = ElCLib1::Parameter(thecirc->Circ(), myFirstPnt1);
+      Standard_Real       ufin    = ElCLib1::Parameter(thecirc->Circ(), myFirstPnt2);
       Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -184,8 +184,8 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
     {
       // segment on ellipse
       Handle(Geom_Ellipse) theEll = Handle(Geom_Ellipse)::DownCast(curv);
-      Standard_Real        udeb   = ElCLib::Parameter(theEll->Elips(), myFirstPnt1);
-      Standard_Real        ufin   = ElCLib::Parameter(theEll->Elips(), myFirstPnt2);
+      Standard_Real        udeb   = ElCLib1::Parameter(theEll->Elips(), myFirstPnt1);
+      Standard_Real        ufin   = ElCLib1::Parameter(theEll->Elips(), myFirstPnt2);
       Handle(GeomCurve3d)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -209,8 +209,8 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
     {
       // segment on circle
       Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv);
-      Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), mySecondPnt1);
-      Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), mySecondPnt2);
+      Standard_Real       udeb    = ElCLib1::Parameter(thecirc->Circ(), mySecondPnt1);
+      Standard_Real       ufin    = ElCLib1::Parameter(thecirc->Circ(), mySecondPnt2);
       Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -220,8 +220,8 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)&
     {
       // segment on ellipse
       Handle(Geom_Ellipse) theEll = Handle(Geom_Ellipse)::DownCast(curv);
-      Standard_Real        udeb   = ElCLib::Parameter(theEll->Elips(), mySecondPnt1);
-      Standard_Real        ufin   = ElCLib::Parameter(theEll->Elips(), mySecondPnt2);
+      Standard_Real        udeb   = ElCLib1::Parameter(theEll->Elips(), mySecondPnt1);
+      Standard_Real        ufin   = ElCLib1::Parameter(theEll->Elips(), mySecondPnt2);
       Handle(GeomCurve3d)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -377,8 +377,8 @@ void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentati
 
 void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Standard_Boolean first)
 {
-  Standard_Real ppar     = ElCLib::Parameter(aLin, myMidPoint);
-  Point3d        anAttach = ElCLib::Value(ppar, aLin);
+  Standard_Real ppar     = ElCLib1::Parameter(aLin, myMidPoint);
+  Point3d        anAttach = ElCLib1::Value(ppar, aLin);
 
   Standard_Real dist = anAttach.Distance(myMidPoint) / 10.0;
   if (dist < Precision::Confusion())
@@ -387,8 +387,8 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Stan
   Standard_Real fpar = ppar + dist;
   Standard_Real spar = ppar - dist;
 
-  Point3d aPnt1 = ElCLib::Value(fpar, aLin);
-  Point3d aPnt2 = ElCLib::Value(spar, aLin);
+  Point3d aPnt1 = ElCLib1::Value(fpar, aLin);
+  Point3d aPnt2 = ElCLib1::Value(spar, aLin);
 
   if (first)
   {
@@ -413,11 +413,11 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
   Vector3d aVec(pnt1, pnt2);
   gp_Lin aLin(pnt1, Dir3d(aVec));
 
-  Standard_Real fpar = ElCLib::Parameter(aLin, pnt1);
-  Standard_Real spar = ElCLib::Parameter(aLin, pnt2);
-  Standard_Real ppar = ElCLib::Parameter(aLin, myMidPoint);
+  Standard_Real fpar = ElCLib1::Parameter(aLin, pnt1);
+  Standard_Real spar = ElCLib1::Parameter(aLin, pnt2);
+  Standard_Real ppar = ElCLib1::Parameter(aLin, myMidPoint);
 
-  Point3d        aProjPnt = ElCLib::Value(ppar, aLin);
+  Point3d        aProjPnt = ElCLib1::Value(ppar, aLin);
   Standard_Real dist     = myMidPoint.Distance(aProjPnt);
   Standard_Real ll       = pnt1.Distance(pnt2);
   Standard_Real segm     = Min(dist, ll) * 0.75;
@@ -491,7 +491,7 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
     curpos.Translate(vprec * 1e-5);
   }
 
-  Standard_Real pcurpos = ElCLib::Parameter(aCirc, curpos);
+  Standard_Real pcurpos = ElCLib1::Parameter(aCirc, curpos);
 
   Standard_Real rad = M_PI / 5.0;
   Standard_Real segm;
@@ -506,8 +506,8 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
   }
   else
   {
-    Standard_Real pFAttach = ElCLib::Parameter(aCirc, pnt1);
-    Standard_Real pSAttach = ElCLib::Parameter(aCirc, pnt2);
+    Standard_Real pFAttach = ElCLib1::Parameter(aCirc, pnt1);
+    Standard_Real pSAttach = ElCLib1::Parameter(aCirc, pnt2);
 
     Standard_Real pSAttachM = pSAttach;
     Standard_Real deltap    = pSAttachM - pFAttach;
@@ -585,15 +585,15 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
 
   if (first)
   {
-    myFAttach   = ElCLib::Value(pcurpos, aCirc);
-    myFirstPnt1 = ElCLib::Value(pFPnt, aCirc);
-    myFirstPnt2 = ElCLib::Value(pSPnt, aCirc);
+    myFAttach   = ElCLib1::Value(pcurpos, aCirc);
+    myFirstPnt1 = ElCLib1::Value(pFPnt, aCirc);
+    myFirstPnt2 = ElCLib1::Value(pSPnt, aCirc);
   }
   else
   {
-    mySAttach    = ElCLib::Value(pcurpos, aCirc);
-    mySecondPnt1 = ElCLib::Value(pFPnt, aCirc);
-    mySecondPnt2 = ElCLib::Value(pSPnt, aCirc);
+    mySAttach    = ElCLib1::Value(pcurpos, aCirc);
+    mySecondPnt1 = ElCLib1::Value(pFPnt, aCirc);
+    mySecondPnt2 = ElCLib1::Value(pSPnt, aCirc);
   }
 }
 
@@ -617,7 +617,7 @@ void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
     curpos.Translate(vprec * 1e-5);
   }
 
-  Standard_Real pcurpos = ElCLib::Parameter(anEll, curpos);
+  Standard_Real pcurpos = ElCLib1::Parameter(anEll, curpos);
 
   Standard_Real rad = M_PI / 5.0;
   Standard_Real segm;
@@ -632,8 +632,8 @@ void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
   }
   else
   {
-    Standard_Real pFAttach = ElCLib::Parameter(anEll, pnt1);
-    Standard_Real pSAttach = ElCLib::Parameter(anEll, pnt2);
+    Standard_Real pFAttach = ElCLib1::Parameter(anEll, pnt1);
+    Standard_Real pSAttach = ElCLib1::Parameter(anEll, pnt2);
 
     Standard_Real pSAttachM = pSAttach;
     Standard_Real deltap    = pSAttachM - pFAttach;
@@ -711,14 +711,14 @@ void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
 
   if (first)
   {
-    myFAttach   = ElCLib::Value(pcurpos, anEll);
-    myFirstPnt1 = ElCLib::Value(pFPnt, anEll);
-    myFirstPnt2 = ElCLib::Value(pSPnt, anEll);
+    myFAttach   = ElCLib1::Value(pcurpos, anEll);
+    myFirstPnt1 = ElCLib1::Value(pFPnt, anEll);
+    myFirstPnt2 = ElCLib1::Value(pSPnt, anEll);
   }
   else
   {
-    mySAttach    = ElCLib::Value(pcurpos, anEll);
-    mySecondPnt1 = ElCLib::Value(pFPnt, anEll);
-    mySecondPnt2 = ElCLib::Value(pSPnt, anEll);
+    mySAttach    = ElCLib1::Value(pcurpos, anEll);
+    mySecondPnt1 = ElCLib1::Value(pFPnt, anEll);
+    mySecondPnt2 = ElCLib1::Value(pSPnt, anEll);
   }
 }

@@ -123,6 +123,6 @@ void DrawFairCurve_Batten::FreeAngle(const Standard_Integer Side)
 
 void DrawFairCurve_Batten::Dump(Standard_OStream& S) const
 {
-  GeomTools_Curve2dSet::PrintCurve2d(curv, S);
+  Curve2dSet1::PrintCurve2d(curv, S);
   ((FairCurve_Batten*)MyBatten)->Dump(S);
 }

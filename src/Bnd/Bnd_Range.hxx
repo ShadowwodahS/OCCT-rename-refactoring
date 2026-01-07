@@ -23,18 +23,18 @@
 //! This class describes a range in 1D space restricted
 //! by two real values.
 //! A range can be void indicating there is no point included in the range.
-class Bnd_Range
+class Range1
 {
 public:
   //! Default constructor. Creates VOID range.
-  Bnd_Range()
+  Range1()
       : myFirst(0.0),
         myLast(-1.0)
   {
   }
 
   //! Constructor. Never creates VOID range.
-  Bnd_Range(const Standard_Real theMin, const Standard_Real theMax)
+  Range1(const Standard_Real theMin, const Standard_Real theMax)
       : myFirst(theMin),
         myLast(theMax)
   {
@@ -43,14 +43,14 @@ public:
   }
 
   //! Replaces <this> with common-part of <this> and theOther
-  Standard_EXPORT void Common(const Bnd_Range& theOther);
+  Standard_EXPORT void Common(const Range1& theOther);
 
   //! Joins *this and theOther to one interval.
   //! Replaces *this to the result.
   //! Returns false if the operation cannot be done (e.g.
   //! input arguments are empty or separated).
   //! @sa use method ::Add() to merge two ranges unconditionally
-  Standard_EXPORT Standard_Boolean Union(const Bnd_Range& theOther);
+  Standard_EXPORT Standard_Boolean Union(const Range1& theOther);
 
   //! Splits <this> to several sub-ranges by theVal value
   //! (e.g. range [3, 15] will be split by theVal==5 to the two
@@ -63,7 +63,7 @@ public:
   //! (let thePeriod in above example be 4 ==> we will obtain
   //! four ranges: [3, 5], [5, 9], [9, 13] and [13, 15].
   Standard_EXPORT void Split(const Standard_Real          theVal,
-                             NCollection_List<Bnd_Range>& theList,
+                             NCollection_List<Range1>& theList,
                              const Standard_Real          thePeriod = 0.0) const;
 
   //! Checks if <this> intersects values like
@@ -93,7 +93,7 @@ public:
 
   //! Extends this range to include both ranges.
   //! @sa use method ::Union() to check if two ranges overlap method merging
-  void Add(const Bnd_Range& theRange)
+  void Add(const Range1& theRange)
   {
     if (theRange.IsVoid())
     {
@@ -193,9 +193,9 @@ public:
   }
 
   //! Returns the copy of <*this> shifted by theVal
-  Bnd_Range Shifted(const Standard_Real theVal) const
+  Range1 Shifted(const Standard_Real theVal) const
   {
-    return !IsVoid() ? Bnd_Range(myFirst + theVal, myLast + theVal) : Bnd_Range();
+    return !IsVoid() ? Range1(myFirst + theVal, myLast + theVal) : Range1();
   }
 
   //! Shifts <*this> by theVal
@@ -235,13 +235,13 @@ public:
   }
 
   //! Returns True if the given range is out of this range.
-  Standard_Boolean IsOut(const Bnd_Range& theRange) const
+  Standard_Boolean IsOut(const Range1& theRange) const
   {
     return IsVoid() || theRange.IsVoid() || theRange.myLast < myFirst || theRange.myFirst > myLast;
   }
 
   //! Returns TRUE if theOther is equal to <*this>
-  Standard_Boolean operator==(const Bnd_Range& theOther) const
+  Standard_Boolean operator==(const Range1& theOther) const
   {
     return ((myFirst == theOther.myFirst) && (myLast == theOther.myLast));
   }

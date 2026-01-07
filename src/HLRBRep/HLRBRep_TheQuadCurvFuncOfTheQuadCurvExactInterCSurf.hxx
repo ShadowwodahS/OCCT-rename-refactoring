@@ -27,7 +27,7 @@
 #include <Standard_Boolean.hxx>
 class Quadric1;
 class gp_Lin;
-class HLRBRep_LineTool;
+class LineTool3;
 
 class HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf : public math_FunctionWithDerivative
 {

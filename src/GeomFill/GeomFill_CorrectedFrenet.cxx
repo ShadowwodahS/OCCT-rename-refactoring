@@ -299,7 +299,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
   { // Recherche d'un plan moyen et controle
     Standard_Boolean issingular;
     Frame3d           inertia;
-    GeomLib::AxeOfInertia(TabP->Array1(), inertia, issingular);
+    GeomLib1::AxeOfInertia(TabP->Array1(), inertia, issingular);
     if (issingular)
     {
       found = Standard_False;
@@ -506,7 +506,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
                                                         TColgp_SequenceOfVec&   SeqTangent,
                                                         TColgp_SequenceOfVec&   SeqNormal) const
 {
-  Bnd_Box                Boite;
+  Box2                Boite;
   Vector3d                 Tangent, Normal, BN, cross;
   TColStd_SequenceOfReal parameters;
   TColStd_SequenceOfReal EvolAT;
@@ -518,7 +518,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
 
   frenet->SetInterval(First, Last); // To have right evaluation at bounds
   GeomFill_SnglrFunc CS(myCurve);
-  BndLib_Add3dCurve::Add(CS, First, Last, 1.e-2, Boite);
+  Add3dCurve::Add(CS, First, Last, 1.e-2, Boite);
   LengthMin = Boite.GetGap() * 1.e-4;
 
   aT = Vector3d(0, 0, 0);
@@ -937,7 +937,7 @@ Standard_Integer GeomFill_CorrectedFrenet::NbIntervals(const GeomAbs_Shape S) co
 
   frenet->Intervals(FrenetInt, S);
   EvolAroundT->Intervals(LawInt, S);
-  GeomLib::FuseIntervals(FrenetInt, LawInt, Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(FrenetInt, LawInt, Fusion, Precision::PConfusion(), Standard_True);
 
   return Fusion.Length() - 1;
 }
@@ -967,7 +967,7 @@ void GeomFill_CorrectedFrenet::Intervals(TColStd_Array1OfReal& T, const GeomAbs_
 
   frenet->Intervals(FrenetInt, S);
   EvolAroundT->Intervals(LawInt, S);
-  GeomLib::FuseIntervals(FrenetInt, LawInt, Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(FrenetInt, LawInt, Fusion, Precision::PConfusion(), Standard_True);
 
   for (Standard_Integer i = 1; i <= Fusion.Length(); i++)
     T.ChangeValue(i) = Fusion.Value(i);

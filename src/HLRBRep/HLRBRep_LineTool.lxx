@@ -26,183 +26,183 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-inline Standard_Real HLRBRep_LineTool::FirstParameter(const gp_Lin&)
+inline Standard_Real LineTool3::FirstParameter(const gp_Lin&)
 {
   return RealFirst();
 }
 
-inline Standard_Real HLRBRep_LineTool::LastParameter(const gp_Lin&)
+inline Standard_Real LineTool3::LastParameter(const gp_Lin&)
 {
   return RealLast();
 }
 
-inline GeomAbs_Shape HLRBRep_LineTool::Continuity(const gp_Lin&)
+inline GeomAbs_Shape LineTool3::Continuity(const gp_Lin&)
 {
   return GeomAbs_CN;
 }
 
-inline Standard_Integer HLRBRep_LineTool::NbIntervals(const gp_Lin&, const GeomAbs_Shape)
+inline Standard_Integer LineTool3::NbIntervals(const gp_Lin&, const GeomAbs_Shape)
 {
   return 1;
 }
 
-inline void HLRBRep_LineTool::Intervals(const gp_Lin&, TColStd_Array1OfReal&, const GeomAbs_Shape)
+inline void LineTool3::Intervals(const gp_Lin&, TColStd_Array1OfReal&, const GeomAbs_Shape)
 {
 }
 
-inline Standard_Real HLRBRep_LineTool::IntervalFirst(const gp_Lin&)
+inline Standard_Real LineTool3::IntervalFirst(const gp_Lin&)
 {
   return RealFirst();
 }
 
-inline Standard_Real HLRBRep_LineTool::IntervalLast(const gp_Lin&)
+inline Standard_Real LineTool3::IntervalLast(const gp_Lin&)
 {
   return RealLast();
 }
 
-inline GeomAbs_Shape HLRBRep_LineTool::IntervalContinuity(const gp_Lin&)
+inline GeomAbs_Shape LineTool3::IntervalContinuity(const gp_Lin&)
 {
   return GeomAbs_CN;
 }
 
-inline Standard_Boolean HLRBRep_LineTool::IsClosed(const gp_Lin&)
+inline Standard_Boolean LineTool3::IsClosed(const gp_Lin&)
 {
   return Standard_False;
 }
 
-inline Standard_Boolean HLRBRep_LineTool::IsPeriodic(const gp_Lin&)
+inline Standard_Boolean LineTool3::IsPeriodic(const gp_Lin&)
 {
   return Standard_False;
 }
 
-inline Standard_Real HLRBRep_LineTool::Period(const gp_Lin&)
+inline Standard_Real LineTool3::Period(const gp_Lin&)
 {
   return 0.;
 }
 
-inline Point3d HLRBRep_LineTool::Value(const gp_Lin& C, const Standard_Real U)
+inline Point3d LineTool3::Value(const gp_Lin& C, const Standard_Real U)
 {
-  return ElCLib::Value(U, C);
+  return ElCLib1::Value(U, C);
 }
 
-inline void HLRBRep_LineTool::D0(const gp_Lin& C, const Standard_Real U, Point3d& P)
+inline void LineTool3::D0(const gp_Lin& C, const Standard_Real U, Point3d& P)
 {
-  P = ElCLib::Value(U, C);
+  P = ElCLib1::Value(U, C);
 }
 
-inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, Point3d& P, Vector3d& V)
+inline void LineTool3::D1(const gp_Lin& C, const Standard_Real U, Point3d& P, Vector3d& V)
 {
-  ElCLib::D1(U, C, P, V);
+  ElCLib1::D1(U, C, P, V);
 }
 
-inline void HLRBRep_LineTool::D2(const gp_Lin&       C,
+inline void LineTool3::D2(const gp_Lin&       C,
                                  const Standard_Real U,
                                  Point3d&             P,
                                  Vector3d&             V1,
                                  Vector3d&             V2)
 {
-  ElCLib::D1(U, C, P, V1);
+  ElCLib1::D1(U, C, P, V1);
   V2 = Vector3d(0, 0, 0);
 }
 
-inline void HLRBRep_LineTool::D3(const gp_Lin&       C,
+inline void LineTool3::D3(const gp_Lin&       C,
                                  const Standard_Real U,
                                  Point3d&             P,
                                  Vector3d&             V1,
                                  Vector3d&             V2,
                                  Vector3d&             V3)
 {
-  ElCLib::D1(U, C, P, V1);
+  ElCLib1::D1(U, C, P, V1);
   V2 = V3 = Vector3d(0, 0, 0);
 }
 
-inline Vector3d HLRBRep_LineTool::DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N)
+inline Vector3d LineTool3::DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N)
 {
-  return ElCLib::DN(U, C, N);
+  return ElCLib1::DN(U, C, N);
 }
 
-inline Standard_Real HLRBRep_LineTool::Resolution(const gp_Lin&, const Standard_Real R3D)
+inline Standard_Real LineTool3::Resolution(const gp_Lin&, const Standard_Real R3D)
 {
   return R3D;
 }
 
-inline GeomAbs_CurveType HLRBRep_LineTool::GetType(const gp_Lin&)
+inline GeomAbs_CurveType LineTool3::GetType(const gp_Lin&)
 {
   return GeomAbs_Line;
 }
 
-inline gp_Lin HLRBRep_LineTool::Line(const gp_Lin& C)
+inline gp_Lin LineTool3::Line(const gp_Lin& C)
 {
   return C;
 }
 
-inline gp_Circ HLRBRep_LineTool::Circle(const gp_Lin&)
+inline gp_Circ LineTool3::Circle(const gp_Lin&)
 {
   return gp_Circ();
 }
 
-inline gp_Elips HLRBRep_LineTool::Ellipse(const gp_Lin&)
+inline gp_Elips LineTool3::Ellipse(const gp_Lin&)
 {
   return gp_Elips();
 }
 
-inline gp_Hypr HLRBRep_LineTool::Hyperbola(const gp_Lin&)
+inline gp_Hypr LineTool3::Hyperbola(const gp_Lin&)
 {
   return gp_Hypr();
 }
 
-inline gp_Parab HLRBRep_LineTool::Parabola(const gp_Lin&)
+inline gp_Parab LineTool3::Parabola(const gp_Lin&)
 {
   return gp_Parab();
 }
 
-inline Handle(BezierCurve3d) HLRBRep_LineTool::Bezier(const gp_Lin&)
+inline Handle(BezierCurve3d) LineTool3::Bezier(const gp_Lin&)
 {
   Handle(BezierCurve3d) NullCurve;
   return NullCurve;
 }
 
-inline Handle(BSplineCurve3d) HLRBRep_LineTool::BSpline(const gp_Lin&)
+inline Handle(BSplineCurve3d) LineTool3::BSpline(const gp_Lin&)
 {
   Handle(BSplineCurve3d) NullCurve;
   return NullCurve;
 }
 
-inline Standard_Integer HLRBRep_LineTool::Degree(const gp_Lin&)
+inline Standard_Integer LineTool3::Degree(const gp_Lin&)
 {
   return 1;
 }
 
-inline Standard_Integer HLRBRep_LineTool::NbPoles(const gp_Lin&)
+inline Standard_Integer LineTool3::NbPoles(const gp_Lin&)
 {
   return 0;
 }
 
-inline void HLRBRep_LineTool::Poles(const gp_Lin&, TColgp_Array1OfPnt&) {}
+inline void LineTool3::Poles(const gp_Lin&, TColgp_Array1OfPnt&) {}
 
-inline Standard_Boolean HLRBRep_LineTool::IsRational(const gp_Lin&)
+inline Standard_Boolean LineTool3::IsRational(const gp_Lin&)
 {
   return Standard_False;
 }
 
-inline void HLRBRep_LineTool::PolesAndWeights(const gp_Lin&,
+inline void LineTool3::PolesAndWeights(const gp_Lin&,
                                               TColgp_Array1OfPnt&,
                                               TColStd_Array1OfReal&)
 {
 }
 
-inline Standard_Integer HLRBRep_LineTool::NbKnots(const gp_Lin&)
+inline Standard_Integer LineTool3::NbKnots(const gp_Lin&)
 {
   return 0;
 }
 
-inline void HLRBRep_LineTool::KnotsAndMultiplicities(const gp_Lin&,
+inline void LineTool3::KnotsAndMultiplicities(const gp_Lin&,
                                                      TColStd_Array1OfReal&,
                                                      TColStd_Array1OfInteger&)
 {
 }
 
-inline Standard_Integer HLRBRep_LineTool::NbSamples(const gp_Lin&,
+inline Standard_Integer LineTool3::NbSamples(const gp_Lin&,
                                                     const Standard_Real,
                                                     const Standard_Real)
 {
@@ -210,7 +210,7 @@ inline Standard_Integer HLRBRep_LineTool::NbSamples(const gp_Lin&,
 }
 
 // modified by NIZHNY-MKK  Tue Nov  1 18:49:28 2005
-inline void HLRBRep_LineTool::SamplePars(const gp_Lin&,
+inline void LineTool3::SamplePars(const gp_Lin&,
                                          const Standard_Real U0,
                                          const Standard_Real U1,
                                          const Standard_Real,

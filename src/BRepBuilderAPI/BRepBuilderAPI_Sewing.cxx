@@ -120,7 +120,7 @@ Handle(GeomCurve2d) BRepBuilderAPI_Sewing::SameRange(const Handle(GeomCurve2d)& 
   try
   {
 
-    GeomLib::SameRange(Precision::PConfusion(),
+    GeomLib1::SameRange(Precision::PConfusion(),
                        CurvePtr,
                        FirstOnCurve,
                        LastOnCurve,
@@ -1406,8 +1406,8 @@ Standard_Boolean BRepBuilderAPI_Sewing::IsMergedClosed(const TopoEdge& Edge1,
   { // szv: Use brackets to destroy local variables
     Bnd_Box2d           B1, B2;
     Geom2dAdaptor_Curve aC2d1(C2d1), aC2d2(C2d2);
-    BndLib_Add2dCurve::Add(aC2d1, first2d1, last2d1, Precision::PConfusion(), B1);
-    BndLib_Add2dCurve::Add(aC2d2, first2d2, last2d2, Precision::PConfusion(), B2);
+    Add2dCurve::Add(aC2d1, first2d1, last2d1, Precision::PConfusion(), B1);
+    Add2dCurve::Add(aC2d2, first2d2, last2d2, Precision::PConfusion(), B2);
     B1.Get(C1Umin, C1Vmin, C1Umax, C1Vmax);
     B2.Get(C2Umin, C2Vmin, C2Umax, C2Vmax);
     Standard_Real du, dv;
@@ -3989,12 +3989,12 @@ void BRepBuilderAPI_Sewing::Cutting(const Message_ProgressRange& theProgress)
   // Create a box tree with vertices
   Standard_Real                                       eps = myTolerance * 0.5;
   BRepBuilderAPI_BndBoxTree                           aTree;
-  NCollection_UBTreeFiller<Standard_Integer, Bnd_Box> aTreeFiller(aTree);
+  NCollection_UBTreeFiller<Standard_Integer, Box2> aTreeFiller(aTree);
   BRepBuilderAPI_BndBoxTreeSelector                   aSelector;
   for (i = 1; i <= nbVertices; i++)
   {
     Point3d  pt = BRepInspector::Pnt(TopoDS::Vertex(myVertexNode.FindKey(i)));
-    Bnd_Box aBox;
+    Box2 aBox;
     aBox.Set(pt);
     aBox.Enlarge(eps);
     aTreeFiller.Add(i, aBox);
@@ -4031,9 +4031,9 @@ void BRepBuilderAPI_Sewing::Cutting(const Message_ProgressRange& theProgress)
       TopTools_IndexedMapOfShape CandidateVertices;
       { // szv: Use brackets to destroy local variables
         // Create bounding box around curve
-        Bnd_Box           aGlobalBox;
+        Box2           aGlobalBox;
         GeomAdaptor_Curve adptC(c3d, first, last);
-        BndLib_Add3dCurve::Add(adptC, myTolerance, aGlobalBox);
+        Add3dCurve::Add(adptC, myTolerance, aGlobalBox);
         // Sort vertices to find candidates
         aSelector.SetCurrent(aGlobalBox);
         aTree.Select(aSelector);
@@ -4833,7 +4833,7 @@ void BRepBuilderAPI_Sewing::ProjectPointsOnCurve(const TColgp_Array1OfPnt& arrPn
         if (indMin)
         {
           isProjected               = Standard_True;
-          Extrema_POnCurv pOnC      = locProj.Point(indMin);
+          PointOnCurve1 pOnC      = locProj.Point(indMin);
           Standard_Real   paramProj = pOnC.Parameter();
           Point3d          ptProj    = GAC.Value(paramProj);
           Standard_Real   distProj2 = ptProj.SquareDistance(pt);
@@ -5188,9 +5188,9 @@ void BRepBuilderAPI_Sewing::CreateSections(const TopoShape&             section,
     if (first > (c2d->FirstParameter() + Precision::PConfusion()) ||
     last < (c2d->LastParameter() - Precision::PConfusion())) {
     Handle(Geom2d_TrimmedCurve) TC = new Geom2d_TrimmedCurve(c2d, first, last);
-    c2dBSP = Geom2dConvert::CurveToBSplineCurve(TC);
+    c2dBSP = Geom2dConvert1::CurveToBSplineCurve(TC);
     }
-    else c2dBSP = Geom2dConvert::CurveToBSplineCurve(c2d);
+    else c2dBSP = Geom2dConvert1::CurveToBSplineCurve(c2d);
     }
     if (c2dBSP.IsNull()) continue;*/
     // gka fix for bug OCC12203 21.04.06 addition second curve for seam edges
@@ -5210,9 +5210,9 @@ void BRepBuilderAPI_Sewing::CreateSections(const TopoShape&             section,
       if (first > (c2d1->FirstParameter() + Precision::PConfusion()) ||
       last < (c2d1->LastParameter() - Precision::PConfusion())) {
       Handle(Geom2d_TrimmedCurve) TC = new Geom2d_TrimmedCurve(c2d1, first, last);
-      //c2dBSP1 = Geom2dConvert::CurveToBSplineCurve(TC);
+      //c2dBSP1 = Geom2dConvert1::CurveToBSplineCurve(TC);
       }
-      //else c2dBSP1 = Geom2dConvert::CurveToBSplineCurve(c2d);
+      //else c2dBSP1 = Geom2dConvert1::CurveToBSplineCurve(c2d);
 
       }*/
     }

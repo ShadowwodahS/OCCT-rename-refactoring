@@ -24,7 +24,7 @@
 class vtkLookupTable;
 class vtkMapper;
 
-//! Helper methods to facilitate usage of VIS classes in an application.
+//! Helper1 methods to facilitate usage of VIS classes in an application.
 namespace IVtkTools
 {
 

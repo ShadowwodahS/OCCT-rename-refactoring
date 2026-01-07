@@ -39,7 +39,7 @@ class BSplineCurve3d;
 //! degree of the BSpline curve and Mult is the multiplicity of the knot.
 //! It is possible to compute the arcs which correspond to
 //! this splitting using the global function
-//! SplitBSplineCurve provided by the package GeomConvert.
+//! SplitBSplineCurve provided by the package GeomConvert1.
 //! A BSplineCurveKnotSplitting object provides a framework for:
 //! -   defining the curve to be analyzed and the
 //! required degree of continuity,
@@ -57,7 +57,7 @@ public:
   //! are identified by indices in the knots table of BasisCurve.
   //! Use the available interrogation functions to access
   //! computed values, followed by the global function
-  //! SplitBSplineCurve (provided by the package GeomConvert) to split the curve.
+  //! SplitBSplineCurve (provided by the package GeomConvert1) to split the curve.
   //! Exceptions
   //! Standard_RangeError if ContinuityRange is less than zero.
   Standard_EXPORT GeomConvert_BSplineCurveKnotSplitting(const Handle(BSplineCurve3d)& BasisCurve,
@@ -80,7 +80,7 @@ public:
   //! give the first and last points of the curve. Use two
   //! consecutive values from the table as arguments of the
   //! global function SplitBSplineCurve (provided by the
-  //! package GeomConvert) to split the curve.
+  //! package GeomConvert1) to split the curve.
   //! Exceptions
   //! Standard_DimensionError if the array SplitValues
   //! was not created with the following bounds:

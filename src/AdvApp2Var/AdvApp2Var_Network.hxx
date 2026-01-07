@@ -26,14 +26,14 @@
 #include <Standard_Boolean.hxx>
 class AdvApp2Var_Patch;
 
-class AdvApp2Var_Network
+class Network
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AdvApp2Var_Network();
+  Standard_EXPORT Network();
 
-  Standard_EXPORT AdvApp2Var_Network(const AdvApp2Var_SequenceOfPatch& Net,
+  Standard_EXPORT Network(const AdvApp2Var_SequenceOfPatch& Net,
                                      const TColStd_SequenceOfReal&     TheU,
                                      const TColStd_SequenceOfReal&     TheV);
 

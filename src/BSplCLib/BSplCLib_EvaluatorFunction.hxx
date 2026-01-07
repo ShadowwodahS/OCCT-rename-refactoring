@@ -25,14 +25,14 @@
 
 // History - C function pointer converted to a virtual class
 // in order to get rid of usage of static functions and static data
-class BSplCLib_EvaluatorFunction
+class EvaluatorFunction1
 {
 public:
   //! Empty constructor
-  BSplCLib_EvaluatorFunction() {}
+  EvaluatorFunction1() {}
 
   //! Destructor should be declared as virtual
-  virtual ~BSplCLib_EvaluatorFunction() {}
+  virtual ~EvaluatorFunction1() {}
 
   //! Function evaluation method to be defined by descendant
   virtual void Evaluate(const Standard_Integer theDerivativeRequest,
@@ -53,10 +53,10 @@ public:
 
 private:
   //! Copy constructor is declared private to forbid copying
-  BSplCLib_EvaluatorFunction(const BSplCLib_EvaluatorFunction&) {}
+  EvaluatorFunction1(const EvaluatorFunction1&) {}
 
   //! Assignment operator is declared private to forbid copying
-  void operator=(const BSplCLib_EvaluatorFunction&) {}
+  void operator=(const EvaluatorFunction1&) {}
 };
 
 #endif

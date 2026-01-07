@@ -39,7 +39,7 @@ class Point3d;
 //! sets of points easily. But, like any GeometricProperties
 //! object, by using the Add function, it can theoretically
 //! bring together the computed global properties and
-//! those of a system more complex than a set of points .
+//! those of a system more complex1 than a set of points .
 //! The mass of each point and the density of each
 //! component of the composed system must be
 //! coherent. Note that this coherence cannot be checked.
@@ -67,7 +67,7 @@ public:
   //! the current system. The current system is, however,
   //! not kept by this framework, which only keeps that
   //! system's global properties. Note that the current
-  //! system may be more complex than a set of points.
+  //! system may be more complex1 than a set of points.
   Standard_EXPORT GProp_PGProps();
 
   //! Brings together the global properties already

@@ -23,12 +23,12 @@
 
 #include <Standard_Boolean.hxx>
 
-class TDocStd_Context
+class Context
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TDocStd_Context();
+  Standard_EXPORT Context();
 
   Standard_EXPORT void SetModifiedReferences(const Standard_Boolean Mod);
 

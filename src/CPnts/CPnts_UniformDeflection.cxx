@@ -84,7 +84,7 @@ static void D22d(const Standard_Address C,
 
 //=================================================================================================
 
-void CPnts_UniformDeflection::Perform()
+void UniformDeflectionSampler::Perform()
 {
   Point3d        P, P1, P2;
   Vector3d        V1, V2, VV;
@@ -259,7 +259,7 @@ void CPnts_UniformDeflection::Perform()
 
 //=================================================================================================
 
-CPnts_UniformDeflection::CPnts_UniformDeflection()
+UniformDeflectionSampler::UniformDeflectionSampler()
     : myDone(Standard_False),
       my3d(Standard_False),
       myFinish(Standard_False),
@@ -278,7 +278,7 @@ CPnts_UniformDeflection::CPnts_UniformDeflection()
 
 //=================================================================================================
 
-CPnts_UniformDeflection::CPnts_UniformDeflection(const Adaptor3d_Curve& C,
+UniformDeflectionSampler::UniformDeflectionSampler(const Adaptor3d_Curve& C,
                                                  const Standard_Real    Deflection,
                                                  const Standard_Real    Resolution,
                                                  const Standard_Boolean WithControl)
@@ -288,7 +288,7 @@ CPnts_UniformDeflection::CPnts_UniformDeflection(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-CPnts_UniformDeflection::CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
+UniformDeflectionSampler::UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
                                                  const Standard_Real      Deflection,
                                                  const Standard_Real      Resolution,
                                                  const Standard_Boolean   WithControl)
@@ -298,7 +298,7 @@ CPnts_UniformDeflection::CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-void CPnts_UniformDeflection::Initialize(const Adaptor3d_Curve& C,
+void UniformDeflectionSampler::Initialize(const Adaptor3d_Curve& C,
                                          const Standard_Real    Deflection,
                                          const Standard_Real    Resolution,
                                          const Standard_Boolean WithControl)
@@ -308,7 +308,7 @@ void CPnts_UniformDeflection::Initialize(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void CPnts_UniformDeflection::Initialize(const Adaptor2d_Curve2d& C,
+void UniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& C,
                                          const Standard_Real      Deflection,
                                          const Standard_Real      Resolution,
                                          const Standard_Boolean   WithControl)
@@ -318,7 +318,7 @@ void CPnts_UniformDeflection::Initialize(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-CPnts_UniformDeflection ::CPnts_UniformDeflection(const Adaptor3d_Curve& C,
+UniformDeflectionSampler ::UniformDeflectionSampler(const Adaptor3d_Curve& C,
                                                   const Standard_Real    Deflection,
                                                   const Standard_Real    U1,
                                                   const Standard_Real    U2,
@@ -330,7 +330,7 @@ CPnts_UniformDeflection ::CPnts_UniformDeflection(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-CPnts_UniformDeflection ::CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
+UniformDeflectionSampler ::UniformDeflectionSampler(const Adaptor2d_Curve2d& C,
                                                   const Standard_Real      Deflection,
                                                   const Standard_Real      U1,
                                                   const Standard_Real      U2,
@@ -342,7 +342,7 @@ CPnts_UniformDeflection ::CPnts_UniformDeflection(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-void CPnts_UniformDeflection::Initialize(const Adaptor3d_Curve& C,
+void UniformDeflectionSampler::Initialize(const Adaptor3d_Curve& C,
                                          const Standard_Real    Deflection,
                                          const Standard_Real    U1,
                                          const Standard_Real    U2,
@@ -373,7 +373,7 @@ void CPnts_UniformDeflection::Initialize(const Adaptor3d_Curve& C,
 
 //=================================================================================================
 
-void CPnts_UniformDeflection::Initialize(const Adaptor2d_Curve2d& C,
+void UniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& C,
                                          const Standard_Real      Deflection,
                                          const Standard_Real      U1,
                                          const Standard_Real      U2,
@@ -404,7 +404,7 @@ void CPnts_UniformDeflection::Initialize(const Adaptor2d_Curve2d& C,
 
 //=================================================================================================
 
-Standard_Boolean CPnts_UniformDeflection::More()
+Standard_Boolean UniformDeflectionSampler::More()
 {
   if (!myDone)
   {

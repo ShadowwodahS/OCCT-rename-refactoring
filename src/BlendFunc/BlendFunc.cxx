@@ -112,14 +112,14 @@ void BlendFunc1::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
       Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
       gp_Circ                   C(popAx2, 1);
       Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new GeomCircle(C), 0., MaxAng);
-      Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
+      Handle(BSplineCurve3d) CtoBspl = GeomConvert1::CurveToBSplineCurve(Sect1, TConv);
       CtoBspl->Weights(Weights);
 
       TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
       Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
 
       Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
-      CtoBspl                         = GeomConvert::CurveToBSplineCurve(Sect2, TConv);
+      CtoBspl                         = GeomConvert1::CurveToBSplineCurve(Sect2, TConv);
       CtoBspl->Weights(poids);
 
       for (Standard_Integer ii = Weights.Lower(); ii <= Weights.Upper(); ii++)
@@ -174,7 +174,7 @@ Standard_Boolean BlendFunc1::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf
   TColgp_Array2OfVec DerNUV(0, MaxOrder, 0, MaxOrder);
   for (i = 0; i <= MaxOrder; i++)
     for (j = 0; j <= MaxOrder; j++)
-      DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
+      DerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurf));
 
   Dir3d              thenormal;
   CSLib_NormalStatus  stat;
@@ -183,7 +183,7 @@ Standard_Boolean BlendFunc1::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf
   const Standard_Real Umax = Surf->LastUParameter();
   const Standard_Real Vmin = Surf->FirstVParameter();
   const Standard_Real Vmax = Surf->LastVParameter(); // szv: was FirstVParameter!
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 Standard_Real(1.e-9),
                 U,
@@ -228,7 +228,7 @@ Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(Adaptor3d_Surface)& Sur
   TColgp_Array2OfVec DerNUV(0, MaxOrder, 0, MaxOrder);
   for (i = 0; i <= MaxOrder; i++)
     for (j = 0; j <= MaxOrder; j++)
-      DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
+      DerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurf));
 
   Dir3d              thenormal;
   CSLib_NormalStatus  stat;
@@ -237,7 +237,7 @@ Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(Adaptor3d_Surface)& Sur
   const Standard_Real Umax = Surf->LastUParameter();
   const Standard_Real Vmin = Surf->FirstVParameter();
   const Standard_Real Vmax = Surf->LastVParameter(); // szv: was FirstVParameter!
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 Standard_Real(1.e-9),
                 U,
@@ -253,8 +253,8 @@ Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(Adaptor3d_Surface)& Sur
   if (stat == CSLib_Defined)
   {
     Normal.SetXYZ(thenormal.XYZ());
-    DNu = CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-    DNv = CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+    DNu = CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+    DNv = CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
     return Standard_True;
   }
   return Standard_False;

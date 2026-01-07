@@ -71,10 +71,10 @@ public:
   //! False if entity is Absolute    (Form 0).
   Standard_EXPORT Standard_Boolean IsIncremental() const;
 
-  //! returns Character Box Width.
+  //! returns Character Box1 Width.
   Standard_EXPORT Standard_Real BoxWidth() const;
 
-  //! returns Character Box Height.
+  //! returns Character Box1 Height.
   Standard_EXPORT Standard_Real BoxHeight() const;
 
   //! returns False if theFontEntity is Null, True otherwise.

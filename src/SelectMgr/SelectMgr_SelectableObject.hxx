@@ -175,7 +175,7 @@ public:
 
   //! Returns a bounding box of sensitive entities with the owners given if they are a part of
   //! activated selection
-  Standard_EXPORT Bnd_Box BndBoxOfSelected(const Handle(SelectMgr_IndexedMapOfOwner)& theOwners);
+  Standard_EXPORT Box2 BndBoxOfSelected(const Handle(SelectMgr_IndexedMapOfOwner)& theOwners);
 
   //! Returns the mode for selection of object as a whole; 0 by default.
   Standard_Integer GlobalSelectionMode() const { return myGlobalSelMode; }

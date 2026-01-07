@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(Geom_BoundedCurve, GeomCurve3d)
 //! gives the "end point" of the bounded curve.
 //! The length of a bounded curve is finite.
 //! The Geom package provides three concrete classes of bounded curves:
-//! - two frequently used mathematical formulations of complex curves:
+//! - two frequently used mathematical formulations of complex1 curves:
 //! - BezierCurve3d,
 //! - BSplineCurve3d, and
 //! - Geom_TrimmedCurve to trim a curve, i.e. to only

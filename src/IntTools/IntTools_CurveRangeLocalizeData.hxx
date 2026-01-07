@@ -24,7 +24,7 @@
 #include <IntTools_ListOfCurveRangeSample.hxx>
 
 class IntTools_CurveRangeSample;
-class Bnd_Box;
+class Box2;
 
 class CurveRangeLocalizeData
 {
@@ -40,10 +40,10 @@ public:
 
   Standard_EXPORT void AddOutRange(const IntTools_CurveRangeSample& theRange);
 
-  Standard_EXPORT void AddBox(const IntTools_CurveRangeSample& theRange, const Bnd_Box& theBox);
+  Standard_EXPORT void AddBox(const IntTools_CurveRangeSample& theRange, const Box2& theBox);
 
   Standard_EXPORT Standard_Boolean FindBox(const IntTools_CurveRangeSample& theRange,
-                                           Bnd_Box&                         theBox) const;
+                                           Box2&                         theBox) const;
 
   Standard_EXPORT Standard_Boolean IsRangeOut(const IntTools_CurveRangeSample& theRange) const;
 

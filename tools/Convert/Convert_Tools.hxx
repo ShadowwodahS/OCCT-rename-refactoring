@@ -71,13 +71,13 @@ public:
   //! Creates box shape
   //! \param theBoundingBox box shape parameters
   //! \return created shape
-  Standard_EXPORT static Standard_Boolean CreateShape(const Bnd_Box& theBoundingBox,
+  Standard_EXPORT static Standard_Boolean CreateShape(const Box2& theBoundingBox,
                                                       TopoShape&  theShape);
 
   //! Creates box shape
   //! \param theBoundingBox box shape parameters
   //! \return created shape
-  Standard_EXPORT static Standard_Boolean CreateShape(const Bnd_OBB& theBoundingBox,
+  Standard_EXPORT static Standard_Boolean CreateShape(const OrientedBox& theBoundingBox,
                                                       TopoShape&  theShape);
 
   //! Creates box shape

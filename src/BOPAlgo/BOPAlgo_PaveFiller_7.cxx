@@ -112,7 +112,7 @@ public:
   const TopoEdge& SplitEdge() const { return myESp; }
 
   //
-  const Bnd_Box Box() { return myBox; }
+  const Box2 Box1() { return myBox; }
 
   //
   Standard_Real Tolerance() const { return myTol; }
@@ -150,7 +150,7 @@ protected:
   Handle(BOPDS_CommonBlock) myCB;
   // <-
   TopoEdge   myESp;
-  Bnd_Box       myBox;
+  Box2       myBox;
   Standard_Real myTol;
   //
   BOPDS_PDS                myDS;
@@ -505,7 +505,7 @@ void BooleanPaveFiller::MakeSplitEdges(const Message_ProgressRange& theRange)
     BOPAlgo_SplitEdge& aBSE = aVBSE(k);
     //
     const TopoEdge& aSp  = aBSE.SplitEdge();
-    const Bnd_Box&     aBox = aBSE.Box();
+    const Box2&     aBox = aBSE.Box1();
     //
     Handle(BOPDS_PaveBlock)    aPBk = aBSE.PaveBlock();
     Handle(BOPDS_CommonBlock)& aCBk = aBSE.CommonBlock();
@@ -560,7 +560,7 @@ Standard_Integer BooleanPaveFiller::SplitEdge(const Standard_Integer nE,
   //
   aSI.SetShape(aSp);
   //
-  Bnd_Box& aBox = aSI.ChangeBox();
+  Box2& aBox = aSI.ChangeBox();
   BRepBndLib::Add(aSp, aBox);
   aBox.SetGap(aBox.GetGap() + Precision::Confusion());
   //

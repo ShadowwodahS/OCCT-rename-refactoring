@@ -16,7 +16,7 @@
 
 #include <Plate_D3.hxx>
 
-Plate_D3::Plate_D3(const gp_XYZ& duuu, const gp_XYZ& duuv, const gp_XYZ& duvv, const gp_XYZ& dvvv)
+D3::D3(const gp_XYZ& duuu, const gp_XYZ& duuv, const gp_XYZ& duvv, const gp_XYZ& dvvv)
     : Duuu(duuu),
       Duuv(duuv),
       Duvv(duvv),
@@ -24,7 +24,7 @@ Plate_D3::Plate_D3(const gp_XYZ& duuu, const gp_XYZ& duuv, const gp_XYZ& duvv, c
 {
 }
 
-Plate_D3::Plate_D3(const Plate_D3& ref)
+D3::D3(const D3& ref)
     : Duuu(ref.Duuu),
       Duuv(ref.Duuv),
       Duvv(ref.Duvv),

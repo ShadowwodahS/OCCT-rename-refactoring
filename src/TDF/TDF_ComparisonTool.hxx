@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 class TDF_DataSet;
-class TDF_IDFilter;
+class IDFilter;
 class TDF_RelocationTable;
 class DataLabel;
 
@@ -43,7 +43,7 @@ class DataLabel;
 //! * IsSelfContained(...) returns true if all the
 //! labels of the attributes of the given DataSet are
 //! descendant of the given label.
-class TDF_ComparisonTool
+class ComparisonTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,7 +53,7 @@ public:
   //! attributes found in both sets.
   Standard_EXPORT static void Compare(const Handle(TDF_DataSet)&         aSourceDataSet,
                                       const Handle(TDF_DataSet)&         aTargetDataSet,
-                                      const TDF_IDFilter&                aFilter,
+                                      const IDFilter&                aFilter,
                                       const Handle(TDF_RelocationTable)& aRelocationTable);
 
   //! Finds from <aRefDataSet> all the keys not bound
@@ -69,7 +69,7 @@ public:
   Standard_EXPORT static Standard_Boolean SourceUnbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
     const Handle(TDF_RelocationTable)& aRelocationTable,
-    const TDF_IDFilter&                aFilter,
+    const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption = 2);
 
@@ -86,7 +86,7 @@ public:
   Standard_EXPORT static Standard_Boolean TargetUnbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
     const Handle(TDF_RelocationTable)& aRelocationTable,
-    const TDF_IDFilter&                aFilter,
+    const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption = 2);
 
@@ -105,7 +105,7 @@ private:
                                       const DataLabel&                   aTrgLabel,
                                       const Handle(TDF_DataSet)&         aSourceDataSet,
                                       const Handle(TDF_DataSet)&         aTargetDataSet,
-                                      const TDF_IDFilter&                aFilter,
+                                      const IDFilter&                aFilter,
                                       const Handle(TDF_RelocationTable)& aRelocationTable);
 
   //! Internal function used by SourceUnbound() and
@@ -113,7 +113,7 @@ private:
   Standard_EXPORT static Standard_Boolean Unbound(
     const Handle(TDF_DataSet)&         aRefDataSet,
     const Handle(TDF_RelocationTable)& aRelocationTable,
-    const TDF_IDFilter&                aFilter,
+    const IDFilter&                aFilter,
     const Handle(TDF_DataSet)&         aDiffDataSet,
     const Standard_Integer             anOption,
     const Standard_Boolean             theSource);

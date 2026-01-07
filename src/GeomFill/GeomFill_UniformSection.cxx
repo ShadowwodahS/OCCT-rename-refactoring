@@ -50,7 +50,7 @@ GeomFill_UniformSection::GeomFill_UniformSection(const Handle(GeomCurve3d)& C,
   myCurve   = Handle(BSplineCurve3d)::DownCast(C);
   if (myCurve.IsNull())
   {
-    myCurve = GeomConvert::CurveToBSplineCurve(C, Convert_QuasiAngular);
+    myCurve = GeomConvert1::CurveToBSplineCurve(C, Convert_QuasiAngular);
     if (myCurve->IsPeriodic())
     {
       Standard_Integer M = myCurve->Degree() / 2 + 1;

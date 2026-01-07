@@ -243,8 +243,8 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectionContai
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
       Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
-      Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint1),
-                    LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint1);
+      Standard_Real       FirstPar = ElCLib1::Parameter(aCircle->Circ(), myAttachPoint1),
+                    LastPar        = ElCLib1::Parameter(aCircle->Circ(), myPoint1);
       if (LastPar < FirstPar)
         LastPar += M_PI * 2;
       Handle(Select3D_SensitivePoly) circ =
@@ -270,8 +270,8 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectionContai
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
       Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
-      Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint2),
-                    LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint2);
+      Standard_Real       FirstPar = ElCLib1::Parameter(aCircle->Circ(), myAttachPoint2),
+                    LastPar        = ElCLib1::Parameter(aCircle->Circ(), myPoint2);
       if (LastPar < FirstPar)
         LastPar += M_PI * 2;
       Handle(Select3D_SensitivePoly) circ =
@@ -297,8 +297,8 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectionContai
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
       Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
-      Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint3),
-                    LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint3);
+      Standard_Real       FirstPar = ElCLib1::Parameter(aCircle->Circ(), myAttachPoint3),
+                    LastPar        = ElCLib1::Parameter(aCircle->Circ(), myPoint3);
       if (LastPar < FirstPar)
         LastPar += M_PI * 2;
       Handle(Select3D_SensitivePoly) circ =
@@ -329,8 +329,8 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectionContai
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
       Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
-      Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint4),
-                    LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint4);
+      Standard_Real       FirstPar = ElCLib1::Parameter(aCircle->Circ(), myAttachPoint4),
+                    LastPar        = ElCLib1::Parameter(aCircle->Circ(), myPoint4);
       if (LastPar < FirstPar)
         LastPar += M_PI * 2;
       Handle(Select3D_SensitivePoly) circ =
@@ -356,7 +356,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
-  const Bnd_Box&                    BndBox,
+  const Box2&                    BndBox,
   Point3d&                           Position,
   Point3d&                           FirstAttach,
   Point3d&                           SecondAttach,
@@ -418,28 +418,28 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
       Standard_Real par1 = 0., par2 = 0.;
       if (!(isInfinite1 || isInfinite2))
       {
-        par1 = ElCLib::Parameter(l1, ptat11);
-        par2 = ElCLib::Parameter(l1, ptat21);
+        par1 = ElCLib1::Parameter(l1, ptat11);
+        par2 = ElCLib1::Parameter(l1, ptat21);
         if (par1 < par2)
         { // project ptat11 on l2
-          Point3d p2 = ElCLib::Value(ElCLib::Parameter(l2, ptat11), l2);
+          Point3d p2 = ElCLib1::Value(ElCLib1::Parameter(l2, ptat11), l2);
           curpos.SetXYZ((ptat11.XYZ() + p2.XYZ()) * 0.5);
         }
         else
         { // project ptat21 on l1
-          Point3d p2 = ElCLib::Value(par2, l1);
+          Point3d p2 = ElCLib1::Value(par2, l1);
           curpos.SetXYZ((ptat21.XYZ() + p2.XYZ()) * 0.5);
         }
       }
       else if (!isInfinite1)
       {
-        par2      = ElCLib::Parameter(l1, ptat21);
-        Point3d p2 = ElCLib::Value(par2, l1);
+        par2      = ElCLib1::Parameter(l1, ptat21);
+        Point3d p2 = ElCLib1::Value(par2, l1);
         curpos.SetXYZ((ptat21.XYZ() + p2.XYZ()) / 2.);
       }
       else if (!isInfinite2)
       {
-        Point3d p2 = ElCLib::Value(ElCLib::Parameter(l2, ptat11), l2);
+        Point3d p2 = ElCLib1::Value(ElCLib1::Parameter(l2, ptat11), l2);
         curpos.SetXYZ((ptat11.XYZ() + p2.XYZ()) * 0.5);
       }
       else
@@ -466,7 +466,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
     }
     else
     {
-      FirstAttach = ElCLib::Value(ElCLib::Parameter(l1, Position), l1);
+      FirstAttach = ElCLib1::Value(ElCLib1::Parameter(l1, Position), l1);
     }
 
     if (!isInfinite2)
@@ -478,7 +478,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
     }
     else
     {
-      SecondAttach = ElCLib::Value(ElCLib::Parameter(l2, Position), l2);
+      SecondAttach = ElCLib1::Value(ElCLib1::Parameter(l2, Position), l2);
     }
 
     constexpr Standard_Real confusion(Precision::Confusion());
@@ -560,22 +560,22 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
       if (par1 > par2)
       {
         FirstExtreme        = ptat12;
-        Standard_Real aPar1 = ElCLib::Parameter(aCirc2, ptat12);
-        SecondExtreme       = ElCLib::Value(aPar1, aCirc2);
+        Standard_Real aPar1 = ElCLib1::Parameter(aCirc2, ptat12);
+        SecondExtreme       = ElCLib1::Value(aPar1, aCirc2);
       }
       else
       {
-        Standard_Real aPar2 = ElCLib::Parameter(aCirc1, ptat22);
-        FirstExtreme        = ElCLib::Value(aPar2, aCirc1);
+        Standard_Real aPar2 = ElCLib1::Parameter(aCirc1, ptat22);
+        FirstExtreme        = ElCLib1::Value(aPar2, aCirc1);
         SecondExtreme       = ptat22;
       }
     }
     else
     {
-      Standard_Real pospar = ElCLib::Parameter(aCirc1, Position);
-      FirstExtreme         = ElCLib::Value(pospar, aCirc1);
-      pospar               = ElCLib::Parameter(aCirc2, Position);
-      SecondExtreme        = ElCLib::Value(pospar, aCirc2);
+      Standard_Real pospar = ElCLib1::Parameter(aCirc1, Position);
+      FirstExtreme         = ElCLib1::Value(pospar, aCirc1);
+      pospar               = ElCLib1::Parameter(aCirc2, Position);
+      SecondExtreme        = ElCLib1::Value(pospar, aCirc2);
     }
 
     DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(aPresentation,
@@ -622,7 +622,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
   const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
-  const Bnd_Box&                    BndBox,
+  const Box2&                    BndBox,
   const PrsDim_TypeOfDist           TypeDist,
   Point3d&                           Position,
   Point3d&                           FirstAttach,
@@ -716,7 +716,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
   const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
-  const Bnd_Box&                    BndBox,
+  const Box2&                    BndBox,
   Point3d&                           Position,
   Point3d&                           FirstAttach,
   Point3d&                           SecondAttach,
@@ -777,7 +777,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
 
     if (AutomaticPos)
     {
-      Point3d p = ElCLib::Value(ElCLib::Parameter(l, FirstAttach), l);
+      Point3d p = ElCLib1::Value(ElCLib1::Parameter(l, FirstAttach), l);
       Point3d curpos((FirstAttach.XYZ() + p.XYZ()) * 0.5);
       // make offset
       Vector3d offset(DirAttach);
@@ -799,7 +799,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
     }
     else
     {
-      SecondAttach = ElCLib::Value(ElCLib::Parameter(l, Position), l);
+      SecondAttach = ElCLib1::Value(ElCLib1::Parameter(l, Position), l);
     }
 
     Handle(Prs3d_DimensionAspect) la  = aDrawer->DimensionAspect();
@@ -832,8 +832,8 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
     }
     else
     {
-      Standard_Real aPar = ElCLib::Parameter(aCirc1, Position);
-      SecondAttach       = ElCLib::Value(aPar, aCirc1);
+      Standard_Real aPar = ElCLib1::Parameter(aCirc1, Position);
+      SecondAttach       = ElCLib1::Value(aPar, aCirc1);
     }
 
     Handle(GeomCircle) aCurve2 = new GeomCircle(aCirc2);

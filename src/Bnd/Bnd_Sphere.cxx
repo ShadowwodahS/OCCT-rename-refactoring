@@ -13,7 +13,7 @@
 
 #include <Bnd_Sphere.hxx>
 
-Bnd_Sphere::Bnd_Sphere()
+Sphere2::Sphere2()
     : myCenter(0., 0., 0.),
       myRadius(0.),
       myIsValid(Standard_False),
@@ -22,7 +22,7 @@ Bnd_Sphere::Bnd_Sphere()
 {
 }
 
-Bnd_Sphere::Bnd_Sphere(const gp_XYZ&          theCenter,
+Sphere2::Sphere2(const gp_XYZ&          theCenter,
                        const Standard_Real    theRadius,
                        const Standard_Integer theU,
                        const Standard_Integer theV)
@@ -34,7 +34,7 @@ Bnd_Sphere::Bnd_Sphere(const gp_XYZ&          theCenter,
 {
 }
 
-void Bnd_Sphere::SquareDistances(const gp_XYZ&  theXYZ,
+void Sphere2::SquareDistances(const gp_XYZ&  theXYZ,
                                  Standard_Real& theMin,
                                  Standard_Real& theMax) const
 {
@@ -43,14 +43,14 @@ void Bnd_Sphere::SquareDistances(const gp_XYZ&  theXYZ,
   theMax += myRadius * myRadius;
 }
 
-void Bnd_Sphere::Distances(const gp_XYZ& theXYZ, Standard_Real& theMin, Standard_Real& theMax) const
+void Sphere2::Distances(const gp_XYZ& theXYZ, Standard_Real& theMin, Standard_Real& theMax) const
 {
   theMax = (theXYZ - myCenter).Modulus();
   theMin = (theMax - myRadius < 0 ? 0.0 : theMax - myRadius);
   theMax += myRadius;
 }
 
-Standard_Boolean Bnd_Sphere::Project(const gp_XYZ&     theNode,
+Standard_Boolean Sphere2::Project(const gp_XYZ&     theNode,
                                      gp_XYZ&           theProjNode,
                                      Standard_Real&    theDist,
                                      Standard_Boolean& theInside) const
@@ -61,17 +61,17 @@ Standard_Boolean Bnd_Sphere::Project(const gp_XYZ&     theNode,
   return Standard_True;
 }
 
-Standard_Real Bnd_Sphere::Distance(const gp_XYZ& theNode) const
+Standard_Real Sphere2::Distance(const gp_XYZ& theNode) const
 {
   return (theNode - myCenter).Modulus();
 }
 
-Standard_Real Bnd_Sphere::SquareDistance(const gp_XYZ& theNode) const
+Standard_Real Sphere2::SquareDistance(const gp_XYZ& theNode) const
 {
   return (theNode - myCenter).SquareModulus();
 }
 
-void Bnd_Sphere::Add(const Bnd_Sphere& theOther)
+void Sphere2::Add(const Sphere2& theOther)
 {
   if (myRadius < 0.0)
   {
@@ -99,13 +99,13 @@ void Bnd_Sphere::Add(const Bnd_Sphere& theOther)
   myIsValid = Standard_False;
 }
 
-Standard_Boolean Bnd_Sphere::IsOut(const Bnd_Sphere& theOther) const
+Standard_Boolean Sphere2::IsOut(const Sphere2& theOther) const
 {
   return (myCenter - theOther.myCenter).SquareModulus()
          > (myRadius + theOther.myRadius) * (myRadius + theOther.myRadius);
 }
 
-Standard_Boolean Bnd_Sphere::IsOut(const gp_XYZ& theXYZ, Standard_Real& theMaxDist) const
+Standard_Boolean Sphere2::IsOut(const gp_XYZ& theXYZ, Standard_Real& theMaxDist) const
 {
   Standard_Real aCurMinDist, aCurMaxDist;
   Distances(theXYZ, aCurMinDist, aCurMaxDist);
@@ -116,7 +116,7 @@ Standard_Boolean Bnd_Sphere::IsOut(const gp_XYZ& theXYZ, Standard_Real& theMaxDi
   return Standard_False;
 }
 
-Standard_Real Bnd_Sphere::SquareExtent() const
+Standard_Real Sphere2::SquareExtent() const
 {
   return 4 * myRadius * myRadius;
 }

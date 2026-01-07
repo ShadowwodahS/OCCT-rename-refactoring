@@ -107,7 +107,7 @@ VrmlData_ErrorStatus VrmlData_Box::Read(InputBuffer& theBuffer)
 
 VrmlData_ErrorStatus VrmlData_Box::Write(const char* thePrefix) const
 {
-  static char          header[] = "Box {";
+  static char          header[] = "Box1 {";
   VrmlData_ErrorStatus aStatus;
   if (OK(aStatus, Scene().WriteLine(thePrefix, header, GlobalIndent())))
   {

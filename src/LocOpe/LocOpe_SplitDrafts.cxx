@@ -1484,7 +1484,7 @@ static Standard_Boolean NewPlane(const TopoFace&     F,
   Axis3d        Axe;
   Standard_Real Theta;
 
-  IntAna_QuadQuadGeo i2pl(Plorig, Neutr, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection i2pl(Plorig, Neutr, Precision::Angular(), Precision::Confusion());
 
   if (i2pl.IsDone() && i2pl.TypeInter() == IntAna_Line)
   {

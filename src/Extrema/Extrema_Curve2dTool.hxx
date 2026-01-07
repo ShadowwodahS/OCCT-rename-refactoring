@@ -39,7 +39,7 @@ class gp_Vec2d;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
 
-class Extrema_Curve2dTool
+class Curve2dTool1
 {
 public:
   DEFINE_STANDARD_ALLOC

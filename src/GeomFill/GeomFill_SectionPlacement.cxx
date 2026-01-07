@@ -175,11 +175,11 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
   Standard_Real    aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
 
   // Boite d'encombrement de la section pour en deduire le gabarit
-  Bnd_Box box;
+  Box2 box;
   if (myIsPoint)
     box.Add(myPoint);
   else
-    BndLib_Add3dCurve::Add(myAdpSection, 1.e-4, box);
+    Add3dCurve::Add(myAdpSection, 1.e-4, box);
   box.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
 
   Standard_Real DX = aXmax - aXmin;
@@ -331,7 +331,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
 
       Standard_Boolean issing;
       Frame3d           axe;
-      GeomLib::AxeOfInertia(Pnts->Array1(), axe, issing, Precision::Confusion());
+      GeomLib1::AxeOfInertia(Pnts->Array1(), axe, issing, Precision::Confusion());
       if (!issing)
       {
         isplan = Standard_True;
@@ -620,7 +620,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
                           myAdpSection.Resolution(Tol / 100));
         if (Ext.IsDone() && !Ext.IsParallel())
         {
-          Extrema_POnCurv P1, P2;
+          PointOnCurve1 P1, P2;
           for (ii = 1; ii <= Ext.NbExt(); ii++)
           {
             distaux = sqrt(Ext.SquareDistance(ii));

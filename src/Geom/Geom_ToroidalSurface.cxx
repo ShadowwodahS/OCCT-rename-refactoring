@@ -217,7 +217,7 @@ void Geom_ToroidalSurface::Coefficients(Array1OfReal& Coef) const
 void Geom_ToroidalSurface::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
 
-  ElSLib::TorusD0(U, V, pos, majorRadius, minorRadius, P);
+  ElSLib1::TorusD0(U, V, pos, majorRadius, minorRadius, P);
 }
 
 //=================================================================================================
@@ -228,7 +228,7 @@ void Geom_ToroidalSurface::D1(const Standard_Real U,
                               Vec&                D1U,
                               Vec&                D1V) const
 {
-  ElSLib::TorusD1(U, V, pos, majorRadius, minorRadius, P, D1U, D1V);
+  ElSLib1::TorusD1(U, V, pos, majorRadius, minorRadius, P, D1U, D1V);
 }
 
 //=================================================================================================
@@ -242,7 +242,7 @@ void Geom_ToroidalSurface::D2(const Standard_Real U,
                               Vec&                D2V,
                               Vec&                D2UV) const
 {
-  ElSLib::TorusD2(U, V, pos, majorRadius, minorRadius, P, D1U, D1V, D2U, D2V, D2UV);
+  ElSLib1::TorusD2(U, V, pos, majorRadius, minorRadius, P, D1U, D1V, D2U, D2V, D2UV);
 }
 
 //=================================================================================================
@@ -261,7 +261,7 @@ void Geom_ToroidalSurface::D3(const Standard_Real U,
                               Vec&                D3UVV) const
 {
 
-  ElSLib::TorusD3(U,
+  ElSLib1::TorusD3(U,
                   V,
                   pos,
                   majorRadius,
@@ -287,7 +287,7 @@ Vec Geom_ToroidalSurface::DN(const Standard_Real    U,
 {
 
   Standard_RangeError_Raise_if(Nu + Nv < 1 || Nu < 0 || Nv < 0, "  ");
-  return ElSLib::TorusDN(U, V, pos, majorRadius, minorRadius, Nu, Nv);
+  return ElSLib1::TorusDN(U, V, pos, majorRadius, minorRadius, Nu, Nv);
 }
 
 //=================================================================================================
@@ -302,7 +302,7 @@ gp_Torus Geom_ToroidalSurface::Torus() const
 
 Handle(GeomCurve3d) Geom_ToroidalSurface::UIso(const Standard_Real U) const
 {
-  Handle(GeomCircle) GC = new GeomCircle(ElSLib::TorusUIso(pos, majorRadius, minorRadius, U));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib1::TorusUIso(pos, majorRadius, minorRadius, U));
   return GC;
 }
 
@@ -310,7 +310,7 @@ Handle(GeomCurve3d) Geom_ToroidalSurface::UIso(const Standard_Real U) const
 
 Handle(GeomCurve3d) Geom_ToroidalSurface::VIso(const Standard_Real V) const
 {
-  Handle(GeomCircle) GC = new GeomCircle(ElSLib::TorusVIso(pos, majorRadius, minorRadius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib1::TorusVIso(pos, majorRadius, minorRadius, V));
   return GC;
 }
 

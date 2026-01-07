@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-void BSplSLib::PolesCoefficients(const TColgp_Array2OfPnt&   Poles,
+void BSplSLib1::PolesCoefficients(const TColgp_Array2OfPnt&   Poles,
                                  const TColStd_Array2OfReal* Weights,
                                  TColgp_Array2OfPnt&         CachePoles,
                                  TColStd_Array2OfReal*       CacheWeights)
@@ -50,7 +50,7 @@ void BSplSLib::PolesCoefficients(const TColgp_Array2OfPnt&   Poles,
   }
   if (uclas > vclas)
   {
-    BSplSLib::BuildCache(0.,
+    BSplSLib1::BuildCache(0.,
                          0.,
                          1.,
                          1.,
@@ -73,7 +73,7 @@ void BSplSLib::PolesCoefficients(const TColgp_Array2OfPnt&   Poles,
     TColgp_Array2OfPnt   CPoles(1, vclas, 1, uclas);
     TColStd_Array2OfReal CWeights(1, vclas, 1, uclas);
     Standard_Integer     ii, jj;
-    BSplSLib::BuildCache(0.,
+    BSplSLib1::BuildCache(0.,
                          0.,
                          1.,
                          1.,

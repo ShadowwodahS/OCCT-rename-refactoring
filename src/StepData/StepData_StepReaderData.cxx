@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 //    abv 09.04.99 S4136: eliminate parameter step.readaccept.void
-//    sln 04,10.2001. BUC61003. Prevent exception which may occur during reading of complex entity
+//    sln 04,10.2001. BUC61003. Prevent exception which may occur during reading of complex1 entity
 //    (if entity's items are not in alphabetical order)
 
 #include <Interface_Check.hxx>
@@ -440,7 +440,7 @@ void StepData_StepReaderData::SetRecord(const Standard_Integer num,
           if (thenametypes.FindKey(thetypes.Value(num))
                 .IsLess(thenametypes.FindKey(thetypes.Value(prev))))
           {
-            //  Warning: components in complex entity are not in alphabetical order.
+            //  Warning: components in complex1 entity are not in alphabetical order.
             AsciiString1 errm("Complex Type incorrect : ");
             errm.AssignCat(thenametypes.FindKey(thetypes.Value(prev)));
             errm.AssignCat(" / ");

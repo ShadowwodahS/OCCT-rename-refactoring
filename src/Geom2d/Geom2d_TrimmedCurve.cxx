@@ -110,7 +110,7 @@ void Geom2d_TrimmedCurve::SetTrim(const Standard_Real    U1,
     uTrim1 = U1;
     uTrim2 = U2;
     if (theAdjustPeriodic)
-      ElCLib::AdjustPeriodic(Udeb,
+      ElCLib1::AdjustPeriodic(Udeb,
                              Ufin,
                              Min(Abs(uTrim2 - uTrim1) / 2, Precision::PConfusion()),
                              uTrim1,

@@ -68,7 +68,7 @@ Handle(TDF_Reference) TDocStd_XLink::Update()
   Standard_Integer         IEntry = myDocEntry.IntegerValue();
   Handle(AppDocument) mydoc  = AppDocument::Get(Label()); // mon document
   refdoc                          = Handle(AppDocument)::DownCast(mydoc->Document(IEntry));
-  TDF_Tool::Label(refdoc->GetData(), myLabelEntry, reflabel);
+  Tool3::Label(refdoc->GetData(), myLabelEntry, reflabel);
   // return TXLink::Import(reflabel,Label());
   return TDF_Reference::Set(Label(), reflabel);
 }
@@ -108,7 +108,7 @@ const AsciiString1& TDocStd_XLink::DocumentEntry() const
 void TDocStd_XLink::LabelEntry(const DataLabel& aLabel)
 {
   Backup();
-  TDF_Tool::Entry(aLabel, myLabelEntry);
+  Tool3::Entry(aLabel, myLabelEntry);
 }
 
 //=================================================================================================

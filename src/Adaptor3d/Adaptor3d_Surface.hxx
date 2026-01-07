@@ -120,7 +120,7 @@ public:
   Standard_EXPORT virtual Standard_Real VPeriod() const;
 
   //! Computes the point of parameters U,V on the surface.
-  //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
+  //! Tip: use GeomLib1::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT virtual Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes the point of parameters U,V on the surface.
@@ -129,7 +129,7 @@ public:
   //! Computes the point  and the first derivatives on the surface.
   //! Raised if the continuity of the current intervals is not C1.
   //!
-  //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
+  //! Tip: use GeomLib1::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   const Standard_Real V,
                                   Point3d&             P,

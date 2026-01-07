@@ -24,11 +24,11 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
 #define Squares AppDef_TheLeastSquares
 #define Squares_hxx <AppDef_TheLeastSquares.hxx>
-#define ResolCons AppDef_TheResol
+#define ResolCons ResolutionTool
 #define ResolCons_hxx <AppDef_TheResol.hxx>
 #define AppParCurves_Function AppDef_TheFunction
 #define AppParCurves_Function_hxx <AppDef_TheFunction.hxx>

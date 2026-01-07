@@ -303,7 +303,7 @@ public:
   //! Use the function IsDone to verify that the filleted shape
   //! is built. Use the function Shape to retrieve the filleted shape.
   //! Warning
-  //! The construction of fillets implements highly complex
+  //! The construction of fillets implements highly complex1
   //! construction algorithms. Consequently, there may be
   //! instances where the algorithm fails, for example if the
   //! data defining the radius of the fillet is not compatible

@@ -88,7 +88,7 @@ static void LastModif(NewShapeIterator&   it,
     const DataLabel& Lab = it.Label();
 #ifdef OCCT_DEBUG_DESC
     AsciiString1 entry;
-    TDF_Tool::Entry(Lab, entry);
+    Tool3::Entry(Lab, entry);
     std::cout << "NamingTool:: LastModif LabelEntry = " << entry << std::endl;
 #endif
     if (!Updated.IsEmpty() && !Updated.Contains(Lab))
@@ -143,14 +143,14 @@ void NamingTool1::CurrentShape(const TDF_LabelMap&               Valid,
   DataLabel Lab = Att->Label();
 #ifdef OCCT_DEBUG_DESC
   AsciiString1 entry;
-  TDF_Tool::Entry(Lab, entry);
+  Tool3::Entry(Lab, entry);
   std::cout << "NamingTool:: LabelEntry = " << entry << std::endl;
 #endif
   if (!Valid.IsEmpty() && !Valid.Contains(Lab))
   {
 #ifdef OCCT_DEBUG_DESC
     AsciiString1 entry;
-    TDF_Tool::Entry(Lab, entry);
+    Tool3::Entry(Lab, entry);
     std::cout << "NamingTool:: LabelEntry = " << entry << " is out of Valid map" << std::endl;
 #endif
     return;
@@ -186,7 +186,7 @@ void NamingTool1::CurrentShape(const TDF_LabelMap&               Valid,
           else
           {
             Handle(TNaming_Naming) aNaming2;
-            TDF_ChildIterator      it(aNaming->Label());
+            ChildIterator      it(aNaming->Label());
             for (; it.More(); it.Next())
             {
               const DataLabel& aLabel = it.Value();
@@ -259,7 +259,7 @@ static void MakeDescendants(NewShapeIterator& it, TDF_LabelMap& Descendants)
     Descendants.Add(it.Label());
 #ifdef OCCT_DEBUG_DESC
     AsciiString1 entry;
-    TDF_Tool::Entry(it.Label(), entry);
+    Tool3::Entry(it.Label(), entry);
     std::cout << "MakeDescendants: Label = " << entry << std::endl;
 #endif
     if (!it.Shape().IsNull())
@@ -284,7 +284,7 @@ void BuildDescendants2(const Handle(ShapeAttribute)& NS,
     {
 #ifdef OCCT_DEBUG_DESC
       AsciiString1 entry;
-      TDF_Tool::Entry(it.Label(), entry);
+      Tool3::Entry(it.Label(), entry);
       std::cout << "MakeDescendants2: Label = " << entry << std::endl;
 #endif
       if (ForbLab == it.Label())
@@ -307,7 +307,7 @@ void NamingTool1::BuildDescendants(const Handle(ShapeAttribute)& NS,
   NewShapeIterator it(NS);
 #ifdef OCCT_DEBUG_DESC
   AsciiString1 entry;
-  TDF_Tool::Entry(NS->Label(), entry);
+  Tool3::Entry(NS->Label(), entry);
   std::cout << "MakeDescendants: Label = " << entry << std::endl;
 #endif
   MakeDescendants(it, Descendants);
@@ -321,7 +321,7 @@ void NamingTool1::BuildDescendants(const Handle(ShapeAttribute)& NS,
       {
 #ifdef OCCT_DEBUG_DESC
         AsciiString1 entry;
-        TDF_Tool::Entry(ONS->Label(), entry);
+        Tool3::Entry(ONS->Label(), entry);
         std::cout << "MakeDescendants_Old: Label = " << entry << std::endl;
 #endif
         BuildDescendants2(ONS, NS->Label(), Descendants);

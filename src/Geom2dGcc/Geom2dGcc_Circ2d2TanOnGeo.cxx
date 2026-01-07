@@ -115,10 +115,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
       {
         case GccInt_Cir: {
           gp_Circ2d       Circ(Sol->Circle());
-          Domain2 D1(ElCLib::Value(0., Circ),
+          Domain2 D1(ElCLib1::Value(0., Circ),
                              0.,
                              Tol1,
-                             ElCLib::Value(2. * M_PI, Circ),
+                             ElCLib1::Value(2. * M_PI, Circ),
                              2. * M_PI,
                              Tol2);
           D1.SetEquivalentParameters(0., 2. * M_PI);
@@ -127,10 +127,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
         break;
         case GccInt_Ell: {
           gp_Elips2d      Elips(Sol->Ellipse());
-          Domain2 D1(ElCLib::Value(0., Elips),
+          Domain2 D1(ElCLib1::Value(0., Elips),
                              0.,
                              Tol1,
-                             ElCLib::Value(2. * M_PI, Elips),
+                             ElCLib1::Value(2. * M_PI, Elips),
                              2. * M_PI,
                              Tol2);
           D1.SetEquivalentParameters(0., 2. * M_PI);
@@ -139,10 +139,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
         break;
         case GccInt_Hpr: {
           gp_Hypr2d       Hypr(Sol->Hyperbola());
-          Domain2 D1(ElCLib::Value(-4., Hypr),
+          Domain2 D1(ElCLib1::Value(-4., Hypr),
                              -4.,
                              Tol1,
-                             ElCLib::Value(4., Hypr),
+                             ElCLib1::Value(4., Hypr),
                              4.,
                              Tol2);
           Intp.Perform(Hypr, D1, Cu2, D2, Tol1, Tol2);
@@ -282,8 +282,8 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
                   TheSame1(NbrSol) = 0;
                   gp_Dir2d dc1(C1.Location().XY() - Center.XY());
                   pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc1.XY());
-                  par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                  pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                  par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                  pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
                 }
                 if (dist2 <= Tol && Abs(Radius(k) - C2.Radius()) <= Tol)
                 {
@@ -294,8 +294,8 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
                   TheSame2(NbrSol) = 0;
                   gp_Dir2d dc2(C2.Location().XY() - Center.XY());
                   pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc2.XY());
-                  par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-                  pararg2(NbrSol)   = ElCLib::Parameter(C2, pnttg2sol(NbrSol));
+                  par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                  pararg2(NbrSol)   = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));
                 }
                 pntcen(NbrSol)  = Center;
                 parcen3(NbrSol) = Intp.Point(j).ParamOnSecond();
@@ -389,10 +389,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
         break;
         case GccInt_Par: {
           gp_Parab2d      Parab(Sol->Parabola());
-          Domain2 D1(ElCLib::Value(-40, Parab),
+          Domain2 D1(ElCLib1::Value(-40, Parab),
                              -40,
                              Tol1,
-                             ElCLib::Value(40, Parab),
+                             ElCLib1::Value(40, Parab),
                              40,
                              Tol1);
           Intp.Perform(Parab, D1, C2, D2, Tol1, Tol2);
@@ -502,15 +502,15 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
                 TheSame1(NbrSol) = 0;
                 gp_Dir2d dc1(center1.XY() - Center.XY());
                 pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
-                par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
               }
               TheSame2(NbrSol)   = 0;
               Standard_Real sign = dc2.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
               dc2                = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
-              par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-              pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
+              par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              pararg2(NbrSol)    = ElCLib1::Parameter(L2, pnttg2sol(NbrSol));
               pntcen(NbrSol)     = Center;
               parcen3(NbrSol)    = Intp.Point(j).ParamOnSecond();
             }
@@ -686,13 +686,13 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1
               Standard_Real sign = dc1.Dot(Dnor1);
               dc1                = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
               pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
-              par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-              pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
+              par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+              pararg1(NbrSol)    = ElCLib1::Parameter(L1, pnttg1sol(NbrSol));
               sign               = dc2.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
               dc2                = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
-              par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-              pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
+              par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              pararg2(NbrSol)    = ElCLib1::Parameter(L2, pnttg2sol(NbrSol));
               pntcen(NbrSol)     = Center;
               parcen3(NbrSol)    = Intp.Point(j).ParamOnSecond();
             }
@@ -772,10 +772,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
       {
         case GccInt_Cir: {
           gp_Circ2d       Circ(Sol->Circle());
-          Domain2 D1(ElCLib::Value(0., Circ),
+          Domain2 D1(ElCLib1::Value(0., Circ),
                              0.,
                              Tol1,
-                             ElCLib::Value(2. * M_PI, Circ),
+                             ElCLib1::Value(2. * M_PI, Circ),
                              2. * M_PI,
                              Tol2);
           D1.SetEquivalentParameters(0., 2. * M_PI);
@@ -790,10 +790,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
         break;
         case GccInt_Ell: {
           gp_Elips2d      Elips(Sol->Ellipse());
-          Domain2 D1(ElCLib::Value(0., Elips),
+          Domain2 D1(ElCLib1::Value(0., Elips),
                              0.,
                              Tol1,
-                             ElCLib::Value(2. * M_PI, Elips),
+                             ElCLib1::Value(2. * M_PI, Elips),
                              2. * M_PI,
                              Tol2);
           D1.SetEquivalentParameters(0., 2. * M_PI);
@@ -802,10 +802,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
         break;
         case GccInt_Hpr: {
           gp_Hypr2d       Hypr(Sol->Hyperbola());
-          Domain2 D1(ElCLib::Value(-4., Hypr),
+          Domain2 D1(ElCLib1::Value(-4., Hypr),
                              -4.,
                              Tol1,
-                             ElCLib::Value(4., Hypr),
+                             ElCLib1::Value(4., Hypr),
                              4.,
                              Tol2);
           Intp.Perform(Hypr, D1, C2, D2, Tol1, Tol2);
@@ -881,15 +881,15 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualifie
                 gp_Dir2d dc1(center1.XY() - Center.XY());
                 pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
                 par1sol(NbrSol)   = 0.;
-                par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
               }
               TheSame2(NbrSol)  = 0;
               pnttg2sol(NbrSol) = Point2;
               pntcen(NbrSol)    = Center;
               parcen3(NbrSol)   = Intp.Point(j).ParamOnSecond();
               pararg2(NbrSol)   = 0.;
-              par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
           }
         }
@@ -969,10 +969,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1
       break;
       case GccInt_Par: {
         gp_Parab2d      Parab(Sol->Parabola());
-        Domain2 D1(ElCLib::Value(-40, Parab),
+        Domain2 D1(ElCLib1::Value(-40, Parab),
                            -40,
                            Tol1,
-                           ElCLib::Value(40, Parab),
+                           ElCLib1::Value(40, Parab),
                            40,
                            Tol1);
         Intp.Perform(Parab, D1, C2, D2, Tol1, Tol2);
@@ -1039,10 +1039,10 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1
             Standard_Real sign = dc1.Dot(gp_Dir2d(-dir1.Y(), dir1.X()));
             dc1                = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
             pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
-            par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
+            par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+            pararg1(NbrSol)    = ElCLib1::Parameter(L1, pnttg1sol(NbrSol));
             pnttg2sol(NbrSol)  = Point2;
-            par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+            par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             pararg2(NbrSol)    = 0.;
             pntcen(NbrSol)     = Center;
             parcen3(NbrSol)    = Intp.Point(j).ParamOnSecond();
@@ -1131,8 +1131,8 @@ Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const gp_Pnt2d&            Poin
             pnttg2sol(NbrSol)  = Point2;
             pararg1(NbrSol)    = 0.;
             pararg2(NbrSol)    = 0.;
-            par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+            par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+            par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             parcen3(NbrSol)    = Intp.Point(j).ParamOnSecond();
           }
         }

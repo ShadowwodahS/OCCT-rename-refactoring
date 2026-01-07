@@ -91,7 +91,7 @@ private:
   TopoEdge                   myEdge;
   BRepAdaptor_Curve             myCurve;
   Standard_Integer              myMinPointsNb;
-  GCPnts_TangentialDeflection   myDiscretTool;
+  TangentialDeflectionSampler   myDiscretTool;
   TopoVertex                 myFirstVertex;
   TopoVertex                 myLastVertex;
   Standard_Real                 mySquareEdgeDef;

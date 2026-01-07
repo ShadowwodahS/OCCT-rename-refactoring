@@ -21,7 +21,7 @@
 //! TOH_Algo enables using of exact HLR algorithm.
 //! TOH_PolyAlgo enables using of polygonal HLR algorithm.
 //! TOH_NotSet is used by StyleDrawer class, it means that the drawer should return the global
-//! value. For more details see StyleDrawer class, VisualShape::Compute() method and HLRAlgo package
+//! value. For more details see StyleDrawer class, VisualShape::Compute() method and HLRAlgo1 package
 //! from TKHLR toolkit.
 enum Prs3d_TypeOfHLR
 {

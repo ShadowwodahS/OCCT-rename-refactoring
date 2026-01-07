@@ -62,7 +62,7 @@ static void GeomLib_ChangeUBounds(Handle(Geom_BSplineSurface)& aSurface,
 {
   TColStd_Array1OfReal knots(1, aSurface->NbUKnots());
   aSurface->UKnots(knots);
-  BSplCLib::Reparametrize(newU1, newU2, knots);
+  BSplCLib1::Reparametrize(newU1, newU2, knots);
   aSurface->SetUKnots(knots);
 }
 
@@ -72,7 +72,7 @@ static void GeomLib_ChangeVBounds(Handle(Geom_BSplineSurface)& aSurface,
 {
   TColStd_Array1OfReal knots(1, aSurface->NbVKnots());
   aSurface->VKnots(knots);
-  BSplCLib::Reparametrize(newV1, newV2, knots);
+  BSplCLib1::Reparametrize(newV1, newV2, knots);
   aSurface->SetVKnots(knots);
 }
 
@@ -337,7 +337,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoFace& 
     S = new Geom_RectangularTrimmedSurface(S, U1, U2, V1, V2);
   S->Bounds(surfU1, surfU2, surfV1, surfV2);
 
-  S                              = GeomConvert::SurfaceToBSplineSurface(S);
+  S                              = GeomConvert1::SurfaceToBSplineSurface(S);
   Handle(Geom_BSplineSurface) BS = Handle(Geom_BSplineSurface)::DownCast(S);
   BS->Resolution(Tol, UTol, VTol);
 
@@ -471,9 +471,9 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoEdge&  E
   //   Transform3d trsf(L);
   //   Transform3d trsf = L.Transformation();
 
-  //  C = GeomConvert::CurveToBSplineCurve(C,Convert_QuasiAngular);
+  //  C = GeomConvert1::CurveToBSplineCurve(C,Convert_QuasiAngular);
 
-  C = GeomConvert::CurveToBSplineCurve(C);
+  C = GeomConvert1::CurveToBSplineCurve(C);
 
   Standard_Real fnew = C->FirstParameter(), lnew = C->LastParameter(), UTol;
 
@@ -486,7 +486,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoEdge&  E
     {
       TColStd_Array1OfReal knots(1, BC->NbKnots());
       BC->Knots(knots);
-      BSplCLib::Reparametrize(f, l, knots);
+      BSplCLib1::Reparametrize(f, l, knots);
       BC->SetKnots(knots);
     }
   }
@@ -568,7 +568,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
       Handle(Geom2d_TrimmedCurve) aTrimC = new Geom2d_TrimmedCurve(C2d, f2d, l2d);
       C2d                                = aTrimC;
     }
-    Curve2d = Geom2dConvert::CurveToBSplineCurve(C2d);
+    Curve2d = Geom2dConvert1::CurveToBSplineCurve(C2d);
     myMap.Add(aBaseC2d, Curve2d);
     return Standard_True;
   }
@@ -684,7 +684,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
       ProjLib_ComputeApprox       ProjOnCurve(G3dAHC, GAHS, Tol);
       if (ProjOnCurve.BSpline().IsNull())
       {
-        Curve2d              = Geom2dConvert::CurveToBSplineCurve(ProjOnCurve.Bezier());
+        Curve2d              = Geom2dConvert1::CurveToBSplineCurve(ProjOnCurve.Bezier());
         Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
         if (newTol > Tol)
         {
@@ -750,7 +750,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
     }
     else
     {
-      Curve2d              = Geom2dConvert::CurveToBSplineCurve(C2d);
+      Curve2d              = Geom2dConvert1::CurveToBSplineCurve(C2d);
       Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
       if (newTol > Tol)
       {
@@ -895,7 +895,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
       }
       else
       {
-        Curve2d              = Geom2dConvert::CurveToBSplineCurve(C2d);
+        Curve2d              = Geom2dConvert1::CurveToBSplineCurve(C2d);
         Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
         if (newTol > Tol)
         {
@@ -915,7 +915,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge& 
       {
         return Standard_False;
       }
-      Curve2d = Geom2dConvert::CurveToBSplineCurve(C2d);
+      Curve2d = Geom2dConvert1::CurveToBSplineCurve(C2d);
       myMap.Add(aBaseC2d, Curve2d);
       return Standard_True;
     }

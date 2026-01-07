@@ -60,7 +60,7 @@ class gp_Ax22d;
 //! Location point of the hyperbola C and the vertex of the First
 //! (or Second) Conjugate branch.
 //! The major radius can be lower than the minor radius.
-class gce_MakeHypr2d : public gce_Root
+class gce_MakeHypr2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

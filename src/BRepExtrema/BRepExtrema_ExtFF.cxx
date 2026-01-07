@@ -81,7 +81,7 @@ void BRepExtrema_ExtFF::Perform(const TopoFace& F1, const TopoFace& F2)
     // Exploration of points and classification
     BRepClass_FaceClassifier classifier;
     const Standard_Real      Tol2 = BRepInspector::Tolerance(F2);
-    Extrema_POnSurf          P1, P2;
+    PointOnSurface1          P1, P2;
 
     Standard_Integer i;
     for (i = 1; i <= myExtSS.NbExt(); i++)

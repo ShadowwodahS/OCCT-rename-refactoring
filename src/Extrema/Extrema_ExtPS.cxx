@@ -90,13 +90,13 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
 
 //=================================================================================================
 
-void Extrema_ExtPS::TreatSolution(const Extrema_POnSurf& PS, const Standard_Real Val)
+void Extrema_ExtPS::TreatSolution(const PointOnSurface1& PS, const Standard_Real Val)
 {
   Standard_Real U, V;
   PS.Parameter(U, V);
   if (myS->IsUPeriodic())
   {
-    U = ElCLib::InPeriod(U, myuinf, myuinf + myS->UPeriod());
+    U = ElCLib1::InPeriod(U, myuinf, myuinf + myS->UPeriod());
 
     // Handle trimmed surfaces.
     if (U > myusup + mytolu)
@@ -106,7 +106,7 @@ void Extrema_ExtPS::TreatSolution(const Extrema_POnSurf& PS, const Standard_Real
   }
   if (myS->IsVPeriodic())
   {
-    V = ElCLib::InPeriod(V, myvinf, myvinf + myS->VPeriod());
+    V = ElCLib1::InPeriod(V, myvinf, myvinf + myS->VPeriod());
 
     // Handle trimmed surfaces.
     if (V > myvsup + mytolv)
@@ -117,7 +117,7 @@ void Extrema_ExtPS::TreatSolution(const Extrema_POnSurf& PS, const Standard_Real
   if ((myuinf - U) <= mytolu && (U - myusup) <= mytolu && (myvinf - V) <= mytolv
       && (V - myvsup) <= mytolv)
   {
-    myPoints.Append(Extrema_POnSurf(U, V, PS.Value()));
+    myPoints.Append(PointOnSurface1(U, V, PS.Value()));
     mySqDist.Append(Val);
   }
 }
@@ -361,7 +361,7 @@ Standard_Integer Extrema_ExtPS::NbExt() const
   return mySqDist.Length();
 }
 
-const Extrema_POnSurf& Extrema_ExtPS::Point(const Standard_Integer N) const
+const PointOnSurface1& Extrema_ExtPS::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
     throw Standard_OutOfRange();

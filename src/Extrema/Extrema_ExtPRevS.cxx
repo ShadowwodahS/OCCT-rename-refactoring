@@ -51,7 +51,7 @@ static Frame3d GetPosition(
         Vector3d OO(L.Location(), S.AxeOfRevolution().Location());
         if (OO.Magnitude() <= gp::Resolution())
         {
-          OO = Vector3d(L.Location(), ElCLib::Value(100, L));
+          OO = Vector3d(L.Location(), ElCLib1::Value(100, L));
           if (N.IsParallel(OO, Precision::Angular()))
             return Frame3d(); // Line and axe of revolution coincide
         }
@@ -102,7 +102,7 @@ static Standard_Boolean HasSingularity(const GeomAdaptor_SurfaceOfRevolution& S)
 
 //=============================================================================
 
-static void PerformExtPElC(Extrema_ExtPElC&               E,
+static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
                            const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            Tol)
@@ -167,7 +167,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
 //=================================================================================================
 
 static Standard_Boolean IsOriginalPnt(const Point3d&          P,
-                                      const Extrema_POnSurf* Points,
+                                      const PointOnSurface1* Points,
                                       const Standard_Integer NbPoints)
 {
   for (Standard_Integer i = 1; i <= NbPoints; i++)
@@ -357,7 +357,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
   Standard_Real    Dist2;
   Standard_Integer i;
 
-  Extrema_ExtPElC anExt;
+  PointElCCurveExtrema anExt;
   PerformExtPElC(anExt, P1, anACurve, mytolv);
 
   if (anExt.IsDone())
@@ -365,7 +365,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
     myDone = Standard_True;
     for (i = 1; i <= anExt.NbExt(); i++)
     {
-      Extrema_POnCurv POC = anExt.Point(i);
+      PointOnCurve1 POC = anExt.Point(i);
       V                   = POC.Parameter();
       if (V > myvsup)
       {
@@ -375,7 +375,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
         if ((anACurve->GetType() == GeomAbs_Circle) || (anACurve->GetType() == GeomAbs_Ellipse))
         {
-          newV = ElCLib::InPeriod(V, myvinf, myvinf + 2. * M_PI);
+          newV = ElCLib1::InPeriod(V, myvinf, myvinf + 2. * M_PI);
 
           if (newV > myvsup)
           {
@@ -407,7 +407,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
         if ((anACurve->GetType() == GeomAbs_Circle) || (anACurve->GetType() == GeomAbs_Ellipse))
         {
-          newV = ElCLib::InPeriod(V, myvsup - 2. * M_PI, myvsup);
+          newV = ElCLib1::InPeriod(V, myvsup - 2. * M_PI, myvsup);
 
           if (newV < myvinf)
           {
@@ -435,7 +435,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
       }
       if (IsOriginalPnt(E, myPoint, myNbExt))
       {
-        myPoint[myNbExt]  = Extrema_POnSurf(U, V, E);
+        myPoint[myNbExt]  = PointOnSurface1(U, V, E);
         mySqDist[myNbExt] = Dist2;
         myNbExt++;
       }
@@ -453,7 +453,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
     for (i = 1; i <= anExt.NbExt(); i++)
     {
-      Extrema_POnCurv POC = anExt.Point(i);
+      PointOnCurve1 POC = anExt.Point(i);
       V                   = POC.Parameter();
       if (V > myvsup)
       {
@@ -464,7 +464,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
         if ((anACurve->GetType() == GeomAbs_Circle) || (anACurve->GetType() == GeomAbs_Ellipse))
         {
-          newV = ElCLib::InPeriod(V, myvinf, myvinf + 2. * M_PI);
+          newV = ElCLib1::InPeriod(V, myvinf, myvinf + 2. * M_PI);
 
           if (newV > myvsup)
           {
@@ -493,7 +493,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
         if ((anACurve->GetType() == GeomAbs_Circle) || (anACurve->GetType() == GeomAbs_Ellipse))
         {
-          newV = ElCLib::InPeriod(V, myvsup - 2. * M_PI, myvsup);
+          newV = ElCLib1::InPeriod(V, myvsup - 2. * M_PI, myvsup);
 
           if (newV < myvinf)
           {
@@ -521,7 +521,7 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
       }
       if (IsOriginalPnt(E, myPoint, myNbExt))
       {
-        myPoint[myNbExt]  = Extrema_POnSurf(U, V, E);
+        myPoint[myNbExt]  = PointOnSurface1(U, V, E);
         mySqDist[myNbExt] = Dist2;
         myNbExt++;
       }
@@ -563,7 +563,7 @@ Standard_Real Extrema_ExtPRevS::SquareDistance(const Standard_Integer N) const
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_ExtPRevS::Point(const Standard_Integer N) const
+const PointOnSurface1& Extrema_ExtPRevS::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {

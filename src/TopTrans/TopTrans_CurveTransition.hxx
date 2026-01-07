@@ -42,13 +42,13 @@
 //! - A curve and an orientation  called a half-curve,
 //! the boundary  of the curve is  before or after the
 //! intersection point depending on the orientation.
-class TopTrans_CurveTransition
+class CurveTransition
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Create an empty  Curve Transition.
-  Standard_EXPORT TopTrans_CurveTransition();
+  Standard_EXPORT CurveTransition();
 
   //! Initialize a Transition with the local description
   //! of a Curve.

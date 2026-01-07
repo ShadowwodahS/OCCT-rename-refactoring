@@ -572,7 +572,7 @@ void MeshVS_MeshPrsBuilder::BuildElements(const Handle(Prs3d_Presentation)& Prs,
   //   std::endl
   //   << "Face segs: " << aEdgeSegments->ItemNumber()  << " from " << aNbEdgePrimitives <<
   //   std::endl
-  //   << "Link segs: " << aLinkSegments->ItemNumber()  << " from " << aNbLinkPrimitives <<
+  //   << "Link1 segs: " << aLinkSegments->ItemNumber()  << " from " << aNbLinkPrimitives <<
   //   std::endl;
 
   DrawArrays(Prs,

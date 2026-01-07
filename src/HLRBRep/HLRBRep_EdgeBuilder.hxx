@@ -26,7 +26,7 @@
 #include <TopAbs_Orientation.hxx>
 class HLRBRep_AreaLimit;
 class HLRBRep_VertexList;
-class HLRAlgo_Intersection;
+class Intersection3;
 
 class HLRBRep_EdgeBuilder
 {
@@ -87,7 +87,7 @@ public:
   Standard_EXPORT void NextVertex();
 
   //! Returns the current vertex of the current edge.
-  Standard_EXPORT const HLRAlgo_Intersection& Current() const;
+  Standard_EXPORT const Intersection3& Current() const;
 
   //! Returns True if the  current vertex comes from the
   //! boundary of the edge.

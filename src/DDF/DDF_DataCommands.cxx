@@ -148,10 +148,10 @@ static Standard_Integer CopyDF(DrawInterpreter& /*di*/, Standard_Integer n, cons
 
   Handle(TDF_DataSet) DataSet = new TDF_DataSet;
   DataSet->AddLabel(Label1);
-  TDF_ClosureTool::Closure(DataSet);
+  ClosureTool::Closure(DataSet);
   Handle(TDF_RelocationTable) Reloc = new TDF_RelocationTable();
   Reloc->SetRelocation(Label1, Label2);
-  TDF_CopyTool::Copy(DataSet, Reloc);
+  CopyTool::Copy(DataSet, Reloc);
 
   return 0;
 }
@@ -224,10 +224,10 @@ static Standard_Integer XDumpDF(DrawInterpreter& di, Standard_Integer n, const c
 
   di << "*********** Dump of " << a[1] << " ***********\n";
 
-  TDF_IDFilter filter(Standard_False);
-  // TDF_Tool::ExtendedDeepDump(cout,DDF1->DataFramework(),filter);
+  IDFilter filter(Standard_False);
+  // Tool3::ExtendedDeepDump(cout,DDF1->DataFramework(),filter);
   Standard_SStream aSStream;
-  TDF_Tool::ExtendedDeepDump(aSStream, DDF1->DataFramework(), filter);
+  Tool3::ExtendedDeepDump(aSStream, DDF1->DataFramework(), filter);
   aSStream << std::ends;
   di << aSStream << "\n";
 
@@ -317,15 +317,15 @@ static Standard_Integer DDF_CheckAttrs(DrawInterpreter& di, Standard_Integer n, 
                 AsciiString1 entr1, entr2;
                 if (!Shar)
                 {
-                  TDF_Tool::Entry(SOURCE, entr1);
-                  TDF_Tool::Entry(TARGET, entr2);
+                  Tool3::Entry(SOURCE, entr1);
+                  Tool3::Entry(TARGET, entr2);
                   // std::cout<<"\tSHAREABLE attribute(s) found between Lab1 = "<<entr1<<" and Lab2
                   // = "<<entr2<<std::endl;
                   di << "\tSHAREABLE attribute(s) found between Lab1 = " << entr1.ToCString()
                      << " and Lab2 = " << entr2.ToCString() << "\n";
                   Shar = Standard_True;
                 }
-                TDF_Tool::Entry(sAtt->Label(), entr1);
+                Tool3::Entry(sAtt->Label(), entr1);
                 // std::cout<<"\tAttribute dynamic type = "<<sAtt->DynamicType()<<",\tlocated on
                 // Label = "<<entr1<<std::endl;
                 di << "\tAttribute dynamic type = " << sAtt->DynamicType()->Name();
@@ -373,7 +373,7 @@ static Standard_Integer DDF_CheckLabel(DrawInterpreter& di, Standard_Integer n, 
       {
         const Handle(TDF_Attribute)& sAtt = attMItr.Key();
         AsciiString1      entry;
-        TDF_Tool::Entry(sAtt->Label(), entry);
+        Tool3::Entry(sAtt->Label(), entry);
         // std::cout<<"\t\tReferences attribute dynamic type = "<<sAtt->DynamicType()<<",\tLabel =
         // "<<entry<<std::endl;
         di << "\t\tReferences attribute dynamic type = " << sAtt->DynamicType()->Name();

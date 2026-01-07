@@ -382,7 +382,7 @@ void BOPAlgo_Builder::BuildSplitFaces(const Message_ProgressRange& theRange)
       if (!isChecked)
       {
         const Handle(GeomSurface) aSurf = BRepInspector::Surface(aF);
-        GeomLib::IsClosed(aSurf, BRepInspector::Tolerance(aE), isUClosed, isVClosed);
+        GeomLib1::IsClosed(aSurf, BRepInspector::Tolerance(aE), isUClosed, isVClosed);
 
         isChecked = Standard_True;
       }
@@ -639,7 +639,7 @@ void BOPAlgo_Builder::FillSameDomainFaces(const Message_ProgressRange& theRange)
       if (myContext->SurfaceAdaptor(TopoDS::Face(aF)).GetType() == GeomAbs_Plane)
       {
         // Check bounding box of the face - it should not be open in any side
-        const Bnd_Box& aBox = aSI.Box();
+        const Box2& aBox = aSI.Box1();
         bCheckPlanar        = !(aBox.IsOpenXmin() || aBox.IsOpenXmax() || aBox.IsOpenYmin()
                          || aBox.IsOpenYmax() || aBox.IsOpenZmin() || aBox.IsOpenZmax());
       }

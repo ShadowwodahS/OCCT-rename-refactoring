@@ -12,9 +12,9 @@
 // commercial license or contractual agreement.
 
 // pdn 24.12.98 t3d_opt.stp: treatment of unsorted uncertainties
-//: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve -> surface_curve
+//: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve -> surface_curve
 // :j4 gka 15.03.99 S4134
-// sln 03.10.2001. BUC61003. Correction of alphabetic order of complex entity's items
+// sln 03.10.2001. BUC61003. Correction of alphabetic order of complex1 entity's items
 
 #include <Interface_Check.hxx>
 #include <Interface_ParamType.hxx>
@@ -3861,7 +3861,7 @@ Standard_Integer RWStepAP214_ReadWriteModule::CaseStep(
       return CaseStep(longs);
     }
 
-    // sln 03.10.2001. BUC61003. Correction of alphabetic order of complex entity's items (ascending
+    // sln 03.10.2001. BUC61003. Correction of alphabetic order of complex1 entity's items (ascending
     // sorting)
     TColStd_SequenceOfAsciiString types;
     for (i = 1; i <= theTypes.Length(); i++)
@@ -3984,7 +3984,7 @@ Standard_Integer RWStepAP214_ReadWriteModule::CaseStep(
     }
     else if (NbComp == 5)
     {
-      //: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve
+      //: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve
       if ((types(1).IsEqual(StepType(48))) && (types(2).IsEqual(StepType(84)))
           && (types(3).IsEqual(StepType(144))) && (types(4).IsEqual(StepType(247)))
           && (types(5).IsEqual(StepType(272))))
@@ -8366,7 +8366,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
     }
     break;
 
-      //: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve
+      //: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve
     case 358: {
       DeclareAndCast(StepGeom_SurfaceCurveAndBoundedCurve, anent, ent);
       RWStepGeom_RWSurfaceCurveAndBoundedCurve tool;
@@ -13258,7 +13258,7 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN
     }
     break;
 
-      //: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve
+      //: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve
     case 358: {
       DeclareAndCast(StepGeom_SurfaceCurveAndBoundedCurve, anent, ent);
       RWStepGeom_RWSurfaceCurveAndBoundedCurve tool;

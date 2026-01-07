@@ -305,7 +305,7 @@ static Standard_Boolean isTreatAnalityc(const BRepAdaptor_Surface& theBAS1,
     return Standard_True;
   }
 
-  IntAna_QuadQuadGeo inter;
+  QuadQuadGeoIntersection inter;
   inter.Perform(aS1, aS2, Tolang, theTol, aHigh);
   if (inter.TypeInter() == IntAna_Ellipse)
   {
@@ -1430,7 +1430,7 @@ reapprox:;
                 {
                   tpoles.SetValue(
                     ik,
-                    ElSLib::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
+                    ElSLib1::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
                 }
                 //
                 Handle(BSplineCurve3d) BS = new BSplineCurve3d(tpoles,
@@ -1513,7 +1513,7 @@ reapprox:;
                 {
                   tpoles.SetValue(
                     ik,
-                    ElSLib::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
+                    ElSLib1::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
                 }
                 //
                 Handle(BSplineCurve3d) BS = new BSplineCurve3d(tpoles,
@@ -2347,8 +2347,8 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
   if (aDRel > .2)
     return bRes;
 
-  Standard_Real par = ElCLib::Parameter(anCylAx, theSph.Location());
-  Point3d        aP  = ElCLib::Value(par, anCylAx);
+  Standard_Real par = ElCLib1::Parameter(anCylAx, theSph.Location());
+  Point3d        aP  = ElCLib1::Value(par, anCylAx);
   Vector3d        aV(aP, theSph.Location());
 
   Standard_Real dd = aV.Dot(theSph.Position().XDirection());
@@ -2378,7 +2378,7 @@ void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
   gp_Pln aPln1 = theS1->Plane();
   gp_Pln aPln2 = theS2->Plane();
 
-  IntAna_QuadQuadGeo aPlnInter(aPln1, aPln2, TolAng, TolTang);
+  QuadQuadGeoIntersection aPlnInter(aPln1, aPln2, TolAng, TolTang);
 
   if (!aPlnInter.IsDone())
   {
@@ -2531,14 +2531,14 @@ Standard_Boolean ClassifyLin2d(const Handle(GeomAdaptor_Surface)& theS,
   {
     // Intersection with boundary
     Standard_Real y = -(C + A * xmin) / B;
-    par[nbi]        = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmin, y));
+    par[nbi]        = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmin, y));
     nbi++;
   }
   else if (COINC(d1, d2, theTol))
   {
     // Coincidence with boundary
-    par[0] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmin, ymin));
-    par[1] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmin, ymax));
+    par[0] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmin, ymin));
+    par[1] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmin, ymax));
     nbi    = 2;
   }
 
@@ -2565,13 +2565,13 @@ Standard_Boolean ClassifyLin2d(const Handle(GeomAdaptor_Surface)& theS,
     if (INTER(d1, d2, theTol))
     {
       Standard_Real x = -(C + B * ymax) / A;
-      par[nbi]        = ElCLib::Parameter(theLin2d, gp_Pnt2d(x, ymax));
+      par[nbi]        = ElCLib1::Parameter(theLin2d, gp_Pnt2d(x, ymax));
       nbi++;
     }
     else if (COINC(d1, d2, theTol))
     {
-      par[0] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmin, ymax));
-      par[1] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmax, ymax));
+      par[0] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmin, ymax));
+      par[1] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmax, ymax));
       nbi    = 2;
     }
   }
@@ -2598,13 +2598,13 @@ Standard_Boolean ClassifyLin2d(const Handle(GeomAdaptor_Surface)& theS,
     if (INTER(d1, d2, theTol))
     {
       Standard_Real y = -(C + A * xmax) / B;
-      par[nbi]        = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmax, y));
+      par[nbi]        = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmax, y));
       nbi++;
     }
     else if (COINC(d1, d2, theTol))
     {
-      par[0] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmax, ymax));
-      par[1] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmax, ymin));
+      par[0] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmax, ymax));
+      par[1] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmax, ymin));
       nbi    = 2;
     }
   }
@@ -2630,13 +2630,13 @@ Standard_Boolean ClassifyLin2d(const Handle(GeomAdaptor_Surface)& theS,
     if (INTER(d1, d2, theTol))
     {
       Standard_Real x = -(C + B * ymin) / A;
-      par[nbi]        = ElCLib::Parameter(theLin2d, gp_Pnt2d(x, ymin));
+      par[nbi]        = ElCLib1::Parameter(theLin2d, gp_Pnt2d(x, ymin));
       nbi++;
     }
     else if (COINC(d1, d2, theTol))
     {
-      par[0] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmax, ymin));
-      par[1] = ElCLib::Parameter(theLin2d, gp_Pnt2d(xmin, ymin));
+      par[0] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmax, ymin));
+      par[1] = ElCLib1::Parameter(theLin2d, gp_Pnt2d(xmin, ymin));
       nbi    = 2;
     }
   }

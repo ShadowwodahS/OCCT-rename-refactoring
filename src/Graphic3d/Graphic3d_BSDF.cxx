@@ -144,7 +144,7 @@ Graphic3d_BSDF Graphic3d_BSDF::CreateTransparent(const Graphic3d_Vec3& theWeight
 
   aBSDF.Kt = theWeight;
 
-  // Link reflection and transmission coefficients
+  // Link1 reflection and transmission coefficients
   aBSDF.Kc.r() = aBSDF.Kt.r();
   aBSDF.Kc.g() = aBSDF.Kt.g();
   aBSDF.Kc.b() = aBSDF.Kt.b();

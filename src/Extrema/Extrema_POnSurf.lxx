@@ -14,14 +14,14 @@
 
 #include <Precision.hxx>
 
-inline Extrema_POnSurf::Extrema_POnSurf()
+inline PointOnSurface1::PointOnSurface1()
     : myU(Precision::Infinite()),
       myV(Precision::Infinite()),
       myP(Point3d(Precision::Infinite(), Precision::Infinite(), Precision::Infinite()))
 {
 }
 
-inline Extrema_POnSurf::Extrema_POnSurf(const Standard_Real U,
+inline PointOnSurface1::PointOnSurface1(const Standard_Real U,
                                         const Standard_Real V,
                                         const Point3d&       P)
     : myU(U),
@@ -30,7 +30,7 @@ inline Extrema_POnSurf::Extrema_POnSurf(const Standard_Real U,
 {
 }
 
-inline void Extrema_POnSurf::SetParameters(const Standard_Real U,
+inline void PointOnSurface1::SetParameters(const Standard_Real U,
                                            const Standard_Real V,
                                            const Point3d&       P)
 {
@@ -39,13 +39,13 @@ inline void Extrema_POnSurf::SetParameters(const Standard_Real U,
   myP = P;
 }
 
-inline void Extrema_POnSurf::Parameter(Standard_Real& U, Standard_Real& V) const
+inline void PointOnSurface1::Parameter(Standard_Real& U, Standard_Real& V) const
 {
   U = myU;
   V = myV;
 }
 
-inline const Point3d& Extrema_POnSurf::Value() const
+inline const Point3d& PointOnSurface1::Value() const
 {
   return myP;
 }

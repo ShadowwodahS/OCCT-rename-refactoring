@@ -166,7 +166,7 @@ void Adaptor3d_IsoCurve::Load(const GeomAbs_IsoType Iso,
 
     if (myIso == GeomAbs_IsoU)
     {
-      ElCLib::AdjustPeriodic(mySurface->FirstUParameter(),
+      ElCLib1::AdjustPeriodic(mySurface->FirstUParameter(),
                              mySurface->FirstUParameter() + mySurface->UPeriod(),
                              mySurface->UResolution(Precision::Confusion()),
                              myParameter,
@@ -174,7 +174,7 @@ void Adaptor3d_IsoCurve::Load(const GeomAbs_IsoType Iso,
     }
     else
     {
-      ElCLib::AdjustPeriodic(mySurface->FirstUParameter(),
+      ElCLib1::AdjustPeriodic(mySurface->FirstUParameter(),
                              mySurface->FirstUParameter() + mySurface->UPeriod(),
                              mySurface->UResolution(Precision::Confusion()),
                              myFirst,
@@ -187,7 +187,7 @@ void Adaptor3d_IsoCurve::Load(const GeomAbs_IsoType Iso,
 
     if (myIso == GeomAbs_IsoV)
     {
-      ElCLib::AdjustPeriodic(mySurface->FirstVParameter(),
+      ElCLib1::AdjustPeriodic(mySurface->FirstVParameter(),
                              mySurface->FirstVParameter() + mySurface->VPeriod(),
                              mySurface->VResolution(Precision::Confusion()),
                              myParameter,
@@ -195,7 +195,7 @@ void Adaptor3d_IsoCurve::Load(const GeomAbs_IsoType Iso,
     }
     else
     {
-      ElCLib::AdjustPeriodic(mySurface->FirstVParameter(),
+      ElCLib1::AdjustPeriodic(mySurface->FirstVParameter(),
                              mySurface->FirstVParameter() + mySurface->VPeriod(),
                              mySurface->VResolution(Precision::Confusion()),
                              myFirst,
@@ -635,7 +635,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:UIso");
         }
         case GeomAbs_IsoV: {
-          return ElSLib::CylinderVIso(cyl.Position(), cyl.Radius(), myParameter);
+          return ElSLib1::CylinderVIso(cyl.Position(), cyl.Radius(), myParameter);
         }
         case GeomAbs_NoneIso: {
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:NoneIso");
@@ -654,7 +654,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:UIso");
         }
         case GeomAbs_IsoV: {
-          return ElSLib::ConeVIso(cone.Position(), cone.RefRadius(), cone.SemiAngle(), myParameter);
+          return ElSLib1::ConeVIso(cone.Position(), cone.RefRadius(), cone.SemiAngle(), myParameter);
         }
         case GeomAbs_NoneIso: {
           throw Standard_NoSuchObject("Adaptor3d_IsoCurve:NoneIso");
@@ -670,11 +670,11 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
       {
 
         case GeomAbs_IsoU: {
-          return ElSLib::SphereUIso(sph.Position(), sph.Radius(), myParameter);
+          return ElSLib1::SphereUIso(sph.Position(), sph.Radius(), myParameter);
         }
 
         case GeomAbs_IsoV: {
-          return ElSLib::SphereVIso(sph.Position(), sph.Radius(), myParameter);
+          return ElSLib1::SphereVIso(sph.Position(), sph.Radius(), myParameter);
         }
 
         case GeomAbs_NoneIso: {
@@ -691,14 +691,14 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
       {
 
         case GeomAbs_IsoU: {
-          return ElSLib::TorusUIso(tor.Position(),
+          return ElSLib1::TorusUIso(tor.Position(),
                                    tor.MajorRadius(),
                                    tor.MinorRadius(),
                                    myParameter);
         }
 
         case GeomAbs_IsoV: {
-          return ElSLib::TorusVIso(tor.Position(),
+          return ElSLib1::TorusVIso(tor.Position(),
                                    tor.MajorRadius(),
                                    tor.MinorRadius(),
                                    myParameter);

@@ -169,14 +169,14 @@ static void PrepareConvert(const Standard_Integer         NumCurves,
       Coefficients.Value((icurve - 1) * Dimension * RealDegree + Coefficients.Lower()));
     Coef2                 = Coef1 + Dimension * RealDegree;
     Standard_Integer Deg1 = NumCoeffPerCurve(NumCoeffPerCurve.Lower() + icurve - 1) - 1;
-    PLib::EvalPolynomial(PolynomialIntervals(icurve, 2),
+    PLib1::EvalPolynomial(PolynomialIntervals(icurve, 2),
                          ContinuityOrder,
                          Deg1,
                          Dimension,
                          Coef1[0],
                          Res1[0]);
     Standard_Integer Deg2 = NumCoeffPerCurve(NumCoeffPerCurve.Lower() + icurve) - 1;
-    PLib::EvalPolynomial(PolynomialIntervals(icurve + 1, 1),
+    PLib1::EvalPolynomial(PolynomialIntervals(icurve + 1, 1),
                          ContinuityOrder,
                          Deg2,
                          Dimension,
@@ -486,7 +486,7 @@ void AdvApprox_ApproxAFunction::Approximation(
 
   Standard_Integer NbGaussPoints, WorkDegree;
 
-  PLib::JacobiParameters(Continuity, NumMaxCoeffs - 1, code_precis, NbGaussPoints, WorkDegree);
+  PLib1::JacobiParameters(Continuity, NumMaxCoeffs - 1, code_precis, NbGaussPoints, WorkDegree);
   //      NDJAC=WorkDegree;
 
   //------------------ Initialisation de la gestion des decoupes ---------
@@ -1005,7 +1005,7 @@ void AdvApprox_ApproxAFunction::Poles(const Standard_Integer Index, TColgp_Array
 Standard_Integer AdvApprox_ApproxAFunction::NbPoles() const
 {
   if (myDone || myHasResult)
-    return BSplCLib::NbPoles(myDegree, Standard_False, myMults->Array1());
+    return BSplCLib1::NbPoles(myDegree, Standard_False, myMults->Array1());
   return 0;
 }
 

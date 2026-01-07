@@ -64,7 +64,7 @@ Standard_IMPORT DrawViewer dout;
 // function : ConvertBndToShape
 // purpose  : Creates TopoSolid from theBox
 //=======================================================================
-static void ConvertBndToShape(const Bnd_OBB& theBox, const char* const theName)
+static void ConvertBndToShape(const OrientedBox& theBox, const char* const theName)
 {
   if (theBox.IsVoid())
   {
@@ -528,7 +528,7 @@ static Standard_Integer getcoords(DrawInterpreter& di, Standard_Integer n, const
 }
 
 //! Parse 6 real values for defining AABB.
-static Standard_Boolean parseMinMax(const char** theArgVec, Bnd_Box& theBox)
+static Standard_Boolean parseMinMax(const char** theArgVec, Box2& theBox)
 {
   const AsciiString1 aMin[3] = {theArgVec[0], theArgVec[1], theArgVec[2]};
   const AsciiString1 aMax[3] = {theArgVec[3], theArgVec[4], theArgVec[5]};
@@ -555,7 +555,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
   // 1. Parse arguments
 
   TopoShape aShape;
-  Bnd_Box      anAABB;
+  Box2      anAABB;
 
   Standard_Boolean doPrint            = Standard_False;
   Standard_Boolean doDumpJson         = Standard_False;
@@ -666,7 +666,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
   Handle(Draw_Box) aDB;
   if (isOBB)
   {
-    Bnd_OBB anOBB;
+    OrientedBox anOBB;
     BRepBndLib::AddOBB(aShape, anOBB, isTriangulationReq, isOptimal, isTolerUsed);
 
     if (anOBB.IsVoid())
@@ -752,7 +752,7 @@ static Standard_Integer BoundBox(DrawInterpreter& theDI,
                 << "Z-range: " << aMin.Z() << " " << aMax.Z() << "\n";
           if (anAABB.IsOpen() && anAABB.HasFinitePart())
           {
-            Bnd_Box      aFinitAabb = anAABB.FinitePart();
+            Box2      aFinitAabb = anAABB.FinitePart();
             const Point3d aFinMin    = aFinitAabb.CornerMin();
             const Point3d aFinMax    = aFinitAabb.CornerMax();
             theDI << "Finite part\n";
@@ -823,7 +823,7 @@ static Standard_Integer IsBoxesInterfered(DrawInterpreter& theDI,
 
   if (isOBB)
   {
-    Bnd_OBB anOBB1, anOBB2;
+    OrientedBox anOBB1, anOBB2;
     BRepBndLib::AddOBB(aShape1, anOBB1);
     BRepBndLib::AddOBB(aShape2, anOBB2);
 
@@ -838,7 +838,7 @@ static Standard_Integer IsBoxesInterfered(DrawInterpreter& theDI,
   }
   else
   {
-    Bnd_Box anAABB1, anAABB2;
+    Box2 anAABB1, anAABB2;
     BRepBndLib::Add(aShape1, anAABB1);
     BRepBndLib::Add(aShape2, anAABB2);
 
@@ -877,7 +877,7 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
       IsOptimal = Standard_True;
 
     Standard_Real        axmin, aymin, azmin, axmax, aymax, azmax;
-    Bnd_Box              B;
+    Box2              B;
     Bnd_Box2d            B2d;
     Handle(Draw_Box)     DB;
     Standard_Boolean     Is3d = Standard_True;
@@ -890,9 +890,9 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
       // add surf
       GeomAdaptor_Surface aGAS(S);
       if (IsOptimal)
-        BndLib_AddSurface::AddOptimal(aGAS, Precision::Confusion(), B);
+        AddSurface::AddOptimal(aGAS, Precision::Confusion(), B);
       else
-        BndLib_AddSurface::Add(aGAS, Precision::Confusion(), B);
+        AddSurface::Add(aGAS, Precision::Confusion(), B);
     }
     else
     {
@@ -902,9 +902,9 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
         // add cur
         GeomAdaptor_Curve aGAC(C);
         if (IsOptimal)
-          BndLib_Add3dCurve::AddOptimal(aGAC, Precision::Confusion(), B);
+          Add3dCurve::AddOptimal(aGAC, Precision::Confusion(), B);
         else
-          BndLib_Add3dCurve::Add(aGAC, Precision::Confusion(), B);
+          Add3dCurve::Add(aGAC, Precision::Confusion(), B);
       }
       else
       {
@@ -914,13 +914,13 @@ static Standard_Integer gbounding(DrawInterpreter& di, Standard_Integer n, const
           // add cur2d
           Is3d = Standard_False;
           if (IsOptimal)
-            BndLib_Add2dCurve::AddOptimal(C2d,
+            Add2dCurve::AddOptimal(C2d,
                                           C2d->FirstParameter(),
                                           C2d->LastParameter(),
                                           Precision::Confusion(),
                                           B2d);
           else
-            BndLib_Add2dCurve::Add(C2d,
+            Add2dCurve::Add(C2d,
                                    C2d->FirstParameter(),
                                    C2d->LastParameter(),
                                    Precision::Confusion(),
@@ -1679,7 +1679,7 @@ void BRepTest::BasicCommands(DrawInterpreter& theCommands)
     "\n\t\t: a shape or AABB corners (xmin, ymin, zmin, xmax, ymax, zmax)."
     "\n\t\t:"
     "\n\t\t: Calculation options (applicable only if input is a shape):"
-    "\n\t\t:  -obb     Compute Oriented Bounding Box (OBB) instead of AABB."
+    "\n\t\t:  -obb     Compute Oriented Bounding Box1 (OBB) instead of AABB."
     "\n\t\t:  -noTriangulation Force use of exact geometry for calculation"
     "\n\t\t:                   even if triangulation is present."
     "\n\t\t:  -optimal Force calculation of optimal (more tight) AABB."
@@ -1689,14 +1689,14 @@ void BRepTest::BasicCommands(DrawInterpreter& theCommands)
     "\n\t\t:  -extToler Include tolerance of the shape in the resulting box."
     "\n\t\t:"
     "\n\t\t: Output options:"
-    "\n\t\t:  -dump    Prints the information about computed Bounding Box."
-    "\n\t\t:  -print   Prints the information about computed Bounding Box."
+    "\n\t\t:  -dump    Prints the information about computed Bounding Box1."
+    "\n\t\t:  -print   Prints the information about computed Bounding Box1."
     "\n\t\t:           It is enabled by default (with plain old syntax for AABB)"
     "\n\t\t:           if neither -shape nor -save is specified."
-    "\n\t\t:  -dumpJson Prints DumpJson information about Bounding Box."
+    "\n\t\t:  -dumpJson Prints DumpJson information about Bounding Box1."
     "\n\t\t:  -shape   Stores computed box as solid in DRAW variable with specified name."
     "\n\t\t:  -save    Stores min and max coordinates of AABB in specified variables."
-    "\n\t\t:  -noDraw  Avoid drawing resulting Bounding Box in DRAW viewer."
+    "\n\t\t:  -noDraw  Avoid drawing resulting Bounding Box1 in DRAW viewer."
     "\n\t\t:  -finite  Return finite part of infinite box.",
     __FILE__,
     BoundBox,

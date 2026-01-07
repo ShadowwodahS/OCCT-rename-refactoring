@@ -28,7 +28,7 @@ class GeomCurve2d;
 //! Computes the bounding box for a curve in 2d .
 //! Functions to add a 2D curve to a bounding box.
 //! The 2D curve is defined from a Geom2d curve.
-class BndLib_Add2dCurve
+class Add2dCurve
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -107,7 +107,7 @@ public:
   //! -   if not, the points of an approximation of the curve C.
   Standard_EXPORT static void Add(const Handle(GeomCurve2d)& C,
                                   const Standard_Real         Tol,
-                                  Bnd_Box2d&                  Box);
+                                  Bnd_Box2d&                  Box1);
 
   //! Adds to the bounding box B the part of curve C
   //! B is then enlarged by the tolerance value Tol.

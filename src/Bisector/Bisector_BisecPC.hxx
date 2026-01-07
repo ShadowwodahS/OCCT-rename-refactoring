@@ -98,7 +98,7 @@ public:
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling
-  //! or a complex transformation obtained by combination of
+  //! or a complex1 transformation obtained by combination of
   //! the previous elementaries transformations.
   Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
 

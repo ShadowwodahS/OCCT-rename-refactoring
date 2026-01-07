@@ -19,7 +19,7 @@
 
 class AsciiString1;
 
-//! Base class for complex types (ARRAY, LIST, BAG, SET)
+//! Base class for complex1 types (ARRAY, LIST, BAG, SET)
 //! in EXPRESS schema
 //! Stores type of elements and
 class Express_ComplexType : public Express_Type
@@ -31,7 +31,7 @@ public:
                                       const Standard_Integer      theImax,
                                       const Handle(Express_Type)& theType);
 
-  //! Returns type of complex type items
+  //! Returns type of complex1 type items
   Standard_EXPORT const Handle(Express_Type)& Type() const;
 
   //! Returns CPP-style name of the type

@@ -44,7 +44,7 @@ class gp_Pnt2d;
 //! as the Bissectrice.
 //! This  class  is  to  be  send  to an approximation
 //! routine.
-class BRepFill_MultiLine : public AppCont_Function
+class BRepFill_MultiLine : public ContinuityFunction
 {
 public:
   DEFINE_STANDARD_ALLOC

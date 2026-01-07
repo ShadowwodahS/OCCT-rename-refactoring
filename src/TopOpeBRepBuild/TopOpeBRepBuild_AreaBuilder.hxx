@@ -33,7 +33,7 @@ class LoopClassifier;
 class TopOpeBRepBuild_Loop;
 
 //! The AreaBuilder algorithm is  used  to
-//! reconstruct complex  topological objects as  Faces
+//! reconstruct complex1  topological objects as  Faces
 //! or Solids.
 //! * Loop is  the  composite topological object of
 //! the boundary. Wire for a Face. Shell for a Solid.

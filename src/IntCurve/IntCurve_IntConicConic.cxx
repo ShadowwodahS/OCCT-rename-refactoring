@@ -86,7 +86,7 @@ static Standard_Boolean SET_BOUNDED_DOMAIN(const Domain2& domain,
   return result;
 }
 
-void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
+void SetBinfBsupFromIntAna2d(const AnalyticIntersection2d& theIntAna2d,
                              Standard_Real&                  binf,
                              gp_Pnt2d&                       pntinf,
                              Standard_Real&                  bsup,
@@ -95,7 +95,7 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
                              const Standard_Real             maxtol,
                              const Standard_Real             LIMITE);
 
-void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
+void SetBinfBsupFromIntAna2d(const AnalyticIntersection2d& theIntAna2d,
                              Standard_Real&                  binf,
                              gp_Pnt2d&                       pntinf,
                              Standard_Real&                  bsup,
@@ -131,7 +131,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
   Standard_Boolean wasSet = Standard_False;
 
   gp_Pnt2d                 Pntinf, Pntsup;
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
 
   maxtol *= 100.0;
   //  if(maxtol<0.000001) maxtol = 0.000001;
@@ -252,7 +252,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
     maxtol = 0.000001;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
   gp_Hypr2d Hp(H.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Hp, L);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -354,7 +354,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
   maxtol = C.Radius() / 10.0;
   gp_Circ2d Cp(C);
   Cp.SetRadius(C.Radius() + maxtol);
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(P, Cp);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -506,7 +506,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
   maxtol = C.Radius() / 10.0;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
   gp_Hypr2d Hp(H.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Hp, C);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -609,7 +609,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
   gp_Vec2d                 Offset(maxtol * P2.MirrorAxis().Direction().X(),
                   maxtol * P2.MirrorAxis().Direction().Y());
   gp_Parab2d               Pp(P2.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Pp, P1);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -719,7 +719,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
   gp_Elips2d Ep(E);
   Ep.SetMajorRadius(E.MajorRadius() + maxtol);
   Ep.SetMinorRadius(E.MinorRadius() + maxtol);
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(P, Ep);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -826,7 +826,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
     maxtol = 0.000001;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
   gp_Hypr2d Hp(H.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Hp, P);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -978,7 +978,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
   maxtol = E.MinorRadius() / 10.0;
   gp_Vec2d  Offset(maxtol * H.XAxis().Direction().X(), maxtol * H.XAxis().Direction().Y());
   gp_Hypr2d Hp(H.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Hp, E);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -1087,7 +1087,7 @@ void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
     maxtol = 0.000001;
   gp_Vec2d  Offset(maxtol * H2.XAxis().Direction().X(), maxtol * H2.XAxis().Direction().Y());
   gp_Hypr2d Hp(H2.Translated(Offset));
-  IntAna2d_AnaIntersection theIntAna2d;
+  AnalyticIntersection2d theIntAna2d;
   theIntAna2d.Perform(Hp, H1);
   SetBinfBsupFromIntAna2d(theIntAna2d,
                           binf,
@@ -1161,7 +1161,7 @@ void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
 
 //----------------------------------------------------------------------
 
-void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
+void SetBinfBsupFromIntAna2d(const AnalyticIntersection2d& theIntAna2d,
                              Standard_Real&                  binf,
                              gp_Pnt2d&                       Pntinf,
                              Standard_Real&                  bsup,
@@ -1183,7 +1183,7 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
         {
           gp_Vec2d V;
           gp_Pnt2d P;
-          ElCLib::D1(param, PR, P, V);
+          ElCLib1::D1(param, PR, P, V);
           Standard_Real NormeD1 = V.Magnitude();
           Standard_Real dparam  = 100.0 * maxtol / NormeD1;
           if (dparam < 1e-3)
@@ -1193,13 +1193,13 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
           if (param < binf)
           {
             binf   = param;
-            Pntinf = ElCLib::Value(param, PR);
+            Pntinf = ElCLib1::Value(param, PR);
           }
           param += dparam + dparam;
           if (param > bsup)
           {
             bsup   = param;
-            Pntsup = ElCLib::Value(param, PR);
+            Pntsup = ElCLib1::Value(param, PR);
           }
         }
       }
@@ -1207,7 +1207,7 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
   }
 }
 
-void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
+void SetBinfBsupFromIntAna2d(const AnalyticIntersection2d& theIntAna2d,
                              Standard_Real&                  binf,
                              gp_Pnt2d&                       Pntinf,
                              Standard_Real&                  bsup,
@@ -1229,7 +1229,7 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
         {
           gp_Vec2d V;
           gp_Pnt2d P;
-          ElCLib::D1(param, H, P, V);
+          ElCLib1::D1(param, H, P, V);
           Standard_Real NormeD1 = V.Magnitude();
           Standard_Real dparam  = 100.0 * maxtol / NormeD1;
           if (dparam < 1e-3)
@@ -1239,13 +1239,13 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
           if (param < binf)
           {
             binf   = param;
-            Pntinf = ElCLib::Value(param, H);
+            Pntinf = ElCLib1::Value(param, H);
           }
           param += dparam + dparam;
           if (param > bsup)
           {
             bsup   = param;
-            Pntsup = ElCLib::Value(param, H);
+            Pntsup = ElCLib1::Value(param, H);
           }
         }
       }

@@ -37,7 +37,7 @@
 //! -   consulting the results.
 //! Warning
 //! Do not attempt to convert rational Bezier curves using this type of algorithm.
-class Convert_CompBezierCurvesToBSplineCurve
+class BezierToBSpline
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -57,7 +57,7 @@ public:
   //! -   Perform to compute the data needed to build the BSpline curve,
   //! -   and the available consultation functions to access the
   //! computed data. This data may be used to construct the BSpline curve.
-  Standard_EXPORT Convert_CompBezierCurvesToBSplineCurve(
+  Standard_EXPORT BezierToBSpline(
     const Standard_Real AngularTolerance = 1.0e-4);
 
   //! Adds the Bezier curve defined by the table of poles Poles, to

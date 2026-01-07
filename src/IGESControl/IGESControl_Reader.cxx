@@ -194,15 +194,15 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
         else
           aMapCount.Bind(mess, 1);
 
-        Handle(TColStd_HSequenceOfInteger) alist;
+        Handle(TColStd_HSequenceOfInteger) alist1;
         if (aMapList.IsBound(mess))
-          alist = aMapList.ChangeFind(mess);
+          alist1 = aMapList.ChangeFind(mess);
         else
         {
-          alist = new TColStd_HSequenceOfInteger();
-          aMapList.Bind(mess, alist);
+          alist1 = new TColStd_HSequenceOfInteger();
+          aMapList.Bind(mess, alist1);
         }
-        alist->Append(model->Number(igesEnt) * 2 - 1);
+        alist1->Append(model->Number(igesEnt) * 2 - 1);
       }
       for (i = 1; i <= nf; i++)
       {
@@ -212,15 +212,15 @@ void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
           aMapCount.ChangeFind(mess)++;
         else
           aMapCount.Bind(mess, 1);
-        Handle(TColStd_HSequenceOfInteger) alist;
+        Handle(TColStd_HSequenceOfInteger) alist1;
         if (aMapList.IsBound(mess))
-          alist = aMapList.ChangeFind(mess);
+          alist1 = aMapList.ChangeFind(mess);
         else
         {
-          alist = new TColStd_HSequenceOfInteger();
-          aMapList.Bind(mess, alist);
+          alist1 = new TColStd_HSequenceOfInteger();
+          aMapList.Bind(mess, alist1);
         }
-        alist->Append(model->Number(igesEnt) * 2 - 1);
+        alist1->Append(model->Number(igesEnt) * 2 - 1);
       }
       nbWarn += nw;
       nbFail += nf;

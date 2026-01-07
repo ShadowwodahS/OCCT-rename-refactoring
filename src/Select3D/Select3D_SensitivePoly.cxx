@@ -68,14 +68,14 @@ static void initCircle(Select3D_PointData&    thePolygon,
 
   for (Standard_Integer anIndex = 1; anIndex <= theNbPnts; ++anIndex, aCurU += aStep)
   {
-    ElCLib::CircleD1(aCurU, theCircle.Position(), theCircle.Radius(), aP1, aV1);
+    ElCLib1::CircleD1(aCurU, theCircle.Position(), theCircle.Radius(), aP1, aV1);
     thePolygon.SetPnt(aPntIdx++, aP1);
 
     aV1.Normalize();
     const Point3d aP2 = aP1.XYZ() + aV1.XYZ() * Tan(aStep * 0.5) * aRadius;
     thePolygon.SetPnt(aPntIdx++, aP2);
   }
-  aP1 = ElCLib::CircleValue(theU2, theCircle.Position(), theCircle.Radius());
+  aP1 = ElCLib1::CircleValue(theU2, theCircle.Position(), theCircle.Radius());
   thePolygon.SetPnt(aPntIdx++, aP1);
 
   if (isSector && theIsFilled)
@@ -295,11 +295,11 @@ Standard_Integer Select3D_SensitivePoly::Size() const
 }
 
 //==================================================
-// Function: Box
+// Function: Box1
 // Purpose : Returns bounding box of segment with
 //           index theIdx
 //==================================================
-Select3D_BndBox3d Select3D_SensitivePoly::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_SensitivePoly::Box1(const Standard_Integer theIdx) const
 {
   if (mySegmentIndexes.IsNull())
     return Select3D_BndBox3d(SelectMgr_Vec3(RealLast()));
@@ -330,7 +330,7 @@ Standard_Real Select3D_SensitivePoly::Center(const Standard_Integer theIdx,
   if (mySegmentIndexes.IsNull())
     return RealLast();
 
-  const Select3D_BndBox3d aBndBox = Box(theIdx);
+  const Select3D_BndBox3d aBndBox = Box1(theIdx);
   const SelectMgr_Vec3    aCenter = (aBndBox.CornerMin() + aBndBox.CornerMax()) * 0.5;
   return theAxis == 0 ? aCenter.x() : (theAxis == 1 ? aCenter.y() : aCenter.z());
 }

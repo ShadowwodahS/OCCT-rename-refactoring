@@ -32,7 +32,7 @@ class Draw_Box : public Draw_Drawable3D
 {
 public:
   //! Constructor
-  Standard_EXPORT Draw_Box(const Bnd_OBB& theOBB, const DrawColor& theColor);
+  Standard_EXPORT Draw_Box(const OrientedBox& theOBB, const DrawColor& theColor);
 
   //! Draws myOBB
   Standard_EXPORT void DrawOn(DrawDisplay& theDis) const Standard_OVERRIDE;
@@ -57,7 +57,7 @@ protected:
 
 private:
   //! Oriented bounding box
-  Bnd_OBB myOBB;
+  OrientedBox myOBB;
 
   //! Color value
   DrawColor myColor;

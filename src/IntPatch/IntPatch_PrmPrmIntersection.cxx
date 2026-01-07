@@ -1519,7 +1519,7 @@ void SectionPointToParameters(const SectionPoint&   Sp,
     }
     case Intf_FACE: {
       Standard_Real ua, va, ub, vb, uc, vc, ca, cb, cc, cabc;
-      Poly1.Triangle(Adr1, Pt1, Pt2, Pt3);
+      Poly1.Triangle1(Adr1, Pt1, Pt2, Pt3);
       Point3d PA(Poly1.Point(Pt1));
       Point3d PB(Poly1.Point(Pt2));
       Point3d PC(Poly1.Point(Pt3));
@@ -1563,7 +1563,7 @@ void SectionPointToParameters(const SectionPoint&   Sp,
     }
     case Intf_FACE: {
       Standard_Real ua, va, ub, vb, uc, vc, ca, cb, cc, cabc;
-      Poly2.Triangle(Adr1, Pt1, Pt2, Pt3);
+      Poly2.Triangle1(Adr1, Pt1, Pt2, Pt3);
       Point3d PA(Poly2.Point(Pt1));
       Point3d PB(Poly2.Point(Pt2));
       Point3d PC(Poly2.Point(Pt3));
@@ -3330,7 +3330,7 @@ void ParameterParameterIntersection::PointDepart(Handle(IntSurf_LineOn2S)&      
   Standard_Real    resu0, resv0;
   Standard_Real    du1, du2, dv1, dv2, dmaxOn1, dmaxOn2;
   Standard_Real    x0, y0, z0, x1, y1, z1, d;
-  Bnd_Box          Box1, Box2;
+  Box2          Box1, Box2;
   //
   iC15 = 15;
   SU1  = iC15 * SU_1;

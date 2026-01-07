@@ -197,7 +197,7 @@ Handle(VrmlData_Geometry) ShapeConverter::makeTShapeNode(const TopoShape&    the
             const Standard_Real aFirst = aCurve.FirstParameter();
             const Standard_Real aLast  = aCurve.LastParameter();
 
-            GCPnts_TangentialDeflection TD(aCurve, aFirst, aLast, myDeflAngle, myDeflection, 2);
+            TangentialDeflectionSampler TD(aCurve, aFirst, aLast, myDeflAngle, myDeflection, 2);
             const Standard_Integer      nbNodes = TD.NbPoints();
 
             TColgp_Array1OfPnt   arrNodes(1, nbNodes);
@@ -327,13 +327,13 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
   for (i = 0; i < nTriangles; i++)
   {
     Standard_Integer idx[3];
-    theTri->Triangle(i + 1).Get(idx[0], idx[1], idx[2]);
+    theTri->Triangle1(i + 1).Get(idx[0], idx[1], idx[2]);
     if (idx[0] == idx[1] || idx[0] == idx[2] || idx[1] == idx[2])
     {
       continue;
     }
     nbTri++;
-    aTriangles.SetValue(nbTri, theTri->Triangle(i + 1));
+    aTriangles.SetValue(nbTri, theTri->Triangle1(i + 1));
   }
   aTriangles.Resize(1, nbTri, Standard_True);
 
@@ -428,7 +428,7 @@ Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
       {
         const gp_Pnt2d aUV = theTri->UVNode(i + 1);
         Dir3d         aNormal;
-        if (GeomLib::NormEstim(aSurface, aUV, Tol, aNormal) > 1)
+        if (GeomLib1::NormEstim(aSurface, aUV, Tol, aNormal) > 1)
         {
           // Try to estimate as middle normal of adjacent triangles
           Standard_Integer n[3];

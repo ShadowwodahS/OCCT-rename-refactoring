@@ -37,7 +37,7 @@
 // Method : RadianToDegree
 // Purpose:
 // ============================================================================
-Handle(GeomCurve2d) GeomConvert_Units::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d,
+Handle(GeomCurve2d) Units1::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d,
                                                        const Handle(GeomSurface)& theSurf,
                                                        const Standard_Real         theLengthFactor,
                                                        const Standard_Real theFactorRadianDegree)
@@ -112,7 +112,7 @@ Handle(GeomCurve2d) GeomConvert_Units::RadianToDegree(const Handle(GeomCurve2d)&
     if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Circle))
         || aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
-      Handle(Geom2d_BSplineCurve) aBSpline2d = Geom2dConvert::CurveToBSplineCurve(aCurve2d);
+      Handle(Geom2d_BSplineCurve) aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(aCurve2d);
       aCurve2d                               = aBSpline2d;
     }
     else if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Parabola)))
@@ -171,7 +171,7 @@ Handle(GeomCurve2d) GeomConvert_Units::RadianToDegree(const Handle(GeomCurve2d)&
 //             Then pcurves parameter have to be transformed
 //             from DEGREE to RADIAN
 // ============================================================================
-Handle(GeomCurve2d) GeomConvert_Units::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
+Handle(GeomCurve2d) Units1::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
                                                        const Handle(GeomSurface)& theSurface,
                                                        const Standard_Real         theLengthFactor,
                                                        const Standard_Real theFactorRadianDegree)
@@ -231,7 +231,7 @@ Handle(GeomCurve2d) GeomConvert_Units::DegreeToRadian(const Handle(GeomCurve2d)&
     if (aPcurve->IsKind(STANDARD_TYPE(Geom2d_Circle))
         || aPcurve->IsKind(STANDARD_TYPE(Geom2d_Ellipse)))
     {
-      Handle(Geom2d_BSplineCurve) aBSpline2d = Geom2dConvert::CurveToBSplineCurve(aPcurve);
+      Handle(Geom2d_BSplineCurve) aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(aPcurve);
       aPcurve                                = aBSpline2d;
     }
     else if (aPcurve->IsKind(STANDARD_TYPE(Geom2d_Parabola)))
@@ -306,7 +306,7 @@ Handle(GeomCurve2d) GeomConvert_Units::DegreeToRadian(const Handle(GeomCurve2d)&
 // Method : MirrorPCurve
 // Purpose:
 // ============================================================================
-Handle(GeomCurve2d) GeomConvert_Units::MirrorPCurve(const Handle(GeomCurve2d)& theCurve)
+Handle(GeomCurve2d) Units1::MirrorPCurve(const Handle(GeomCurve2d)& theCurve)
 {
   Handle(GeomCurve2d) theMirrored = Handle(GeomCurve2d)::DownCast(theCurve->Copy());
   gp_Trsf2d            T;

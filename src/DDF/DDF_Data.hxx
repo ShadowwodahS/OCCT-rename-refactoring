@@ -27,7 +27,7 @@ class DrawDisplay;
 class DDF_Data;
 DEFINE_STANDARD_HANDLE(DDF_Data, Draw_Drawable3D)
 
-//! Encapsulates a data framework from TDF in a drawable object
+//! Encapsulates a data framework from TDF1 in a drawable object
 class DDF_Data : public Draw_Drawable3D
 {
 

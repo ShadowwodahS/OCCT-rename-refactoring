@@ -1301,8 +1301,8 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
   Standard_Real fpar, lpar;
   DSC.Range(fpar, lpar);
   GeomAdaptor_Curve theCurve(DSC.Curve(), fpar, lpar);
-  Bnd_Box           theBox;
-  BndLib_Add3dCurve::Add(theCurve, 0., theBox);
+  Box2           theBox;
+  Add3dCurve::Add(theCurve, 0., theBox);
   Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax, MaxSide;
   theBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
   MaxSide              = Max(Max(Xmax - Xmin, Ymax - Ymin), Zmax - Zmin);

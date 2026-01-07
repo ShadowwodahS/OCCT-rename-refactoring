@@ -30,13 +30,13 @@
 class GeomCurve3d;
 
 //! Stores a set of Curves from Geom.
-class GeomTools_CurveSet
+class CurveSet1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of Curves.
-  Standard_EXPORT GeomTools_CurveSet();
+  Standard_EXPORT CurveSet1();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();

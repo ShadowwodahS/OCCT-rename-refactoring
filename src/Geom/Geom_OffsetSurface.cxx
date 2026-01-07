@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // Modified     04/10/96 : JCT : derivee des surfaces offset utilisation de
-//                               CSLib
+//                               CSLib1
 // Modified     15/11/96 : JPI : ajout equivalent surface pour les surfaces canoniques et modif des
 // methodes D0 D1, ... UIso,VIso Modified     18/11/96 : JPI : inversion de l'offsetValue dans
 // UReverse et Vreverse

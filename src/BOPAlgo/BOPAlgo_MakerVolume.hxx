@@ -127,7 +127,7 @@ public:
   Standard_Boolean IsIntersect() const;
 
   //! Returns the solid box <mySBox>.
-  const TopoSolid& Box() const;
+  const TopoSolid& Box1() const;
 
   //! Returns the processed faces <myFaces>.
   const ShapeList& Faces() const;
@@ -195,7 +195,7 @@ protected:
 
 protected:
   Standard_Boolean     myIntersect;
-  Bnd_Box              myBBox;
+  Box2              myBBox;
   TopoSolid         mySBox;
   ShapeList myFaces;
   Standard_Boolean     myAvoidInternalShapes;

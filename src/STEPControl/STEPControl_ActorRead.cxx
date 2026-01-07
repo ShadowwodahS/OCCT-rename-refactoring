@@ -2357,7 +2357,7 @@ void STEPControl_ActorRead::SetModel(const Handle(Interface_InterfaceModel)& the
 
 //=======================================================================
 // Method  : TransferRelatedSRR
-// Purpose : Helper method to transfer SRR related to the representation
+// Purpose : Helper1 method to transfer SRR related to the representation
 //=======================================================================
 TopoShape STEPControl_ActorRead::TransferRelatedSRR(
   const Handle(Transfer_TransientProcess)&     theTP,

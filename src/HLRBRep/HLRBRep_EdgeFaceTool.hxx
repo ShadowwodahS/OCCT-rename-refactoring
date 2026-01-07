@@ -26,7 +26,7 @@ class Dir3d;
 //! given parameter on a Curve and a Surface.  It also
 //! compute the signed  curvature value in a direction
 //! at a given u,v point on a surface.
-class HLRBRep_EdgeFaceTool
+class EdgeFaceTool
 {
 public:
   DEFINE_STANDARD_ALLOC

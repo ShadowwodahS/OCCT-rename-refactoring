@@ -25,14 +25,14 @@
 #include <AdvApp2Var_EvaluatorFunc2Var.hxx>
 
 //
-class AdvApp2Var_ApproxF2var
+class FunctionApprox2var
 {
 public:
   Standard_EXPORT static int mma2fnc_(integer*                            ndimen,
                                       integer*                            nbsesp,
                                       integer*                            ndimse,
                                       doublereal*                         uvfonc,
-                                      const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                                      const EvaluatorFunc2Var& foncnp,
                                       doublereal*                         tconst,
                                       integer*                            isofav,
                                       integer*                            nbroot,
@@ -96,7 +96,7 @@ public:
   Standard_EXPORT static int mma2ds1_(integer*                            ndimen,
                                       doublereal*                         uintfn,
                                       doublereal*                         vintfn,
-                                      const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                                      const EvaluatorFunc2Var& foncnp,
                                       integer*                            nbpntu,
                                       integer*                            nbpntv,
                                       doublereal*                         urootb,

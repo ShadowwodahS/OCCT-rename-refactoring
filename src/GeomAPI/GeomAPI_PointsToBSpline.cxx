@@ -215,7 +215,7 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt&   Points,
 
   TheCurve.Curve(1, Poles);
   Knots = TheCurve.Knots();
-  BSplCLib::Reparametrize(Params(Params.Lower()), Params(Params.Upper()), Knots);
+  BSplCLib1::Reparametrize(Params(Params.Lower()), Params(Params.Upper()), Knots);
 
   myCurve  = new BSplineCurve3d(Poles, Knots, TheCurve.Multiplicities(), TheCurve.Degree());
   myIsDone = Standard_True;
@@ -253,7 +253,7 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt& Points,
 
   for (i = 1; i <= NbPoint; ++i)
   {
-    AppParCurves_ConstraintCouple ACC(i, Constraint);
+    ConstraintCouple ACC(i, Constraint);
     TABofCC->SetValue(i, ACC);
   }
 

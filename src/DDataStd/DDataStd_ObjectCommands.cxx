@@ -78,7 +78,7 @@ static Standard_Integer DDataStd_AddDirectory(DrawInterpreter& di,
   {
     Handle(TDataStd_Directory) Dir = TDataStd_Directory::AddDirectory(A);
     AsciiString1    entry;
-    TDF_Tool::Entry(Dir->Label(), entry);
+    Tool3::Entry(Dir->Label(), entry);
     di << entry.ToCString() << " "; // return a label to draw
     return 0;
   }
@@ -111,7 +111,7 @@ static Standard_Integer DDataStd_MakeObjectLabel(DrawInterpreter& di,
   if (TDataStd_Directory::Find(label, A))
   {
     AsciiString1 entry;
-    TDF_Tool::Entry(TDataStd_Directory::MakeObjectLabel(A), entry);
+    Tool3::Entry(TDataStd_Directory::MakeObjectLabel(A), entry);
     di << entry.ToCString() << " "; // return a label to draw
     return 0;
   }

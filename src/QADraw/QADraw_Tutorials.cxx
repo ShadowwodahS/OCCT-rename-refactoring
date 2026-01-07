@@ -153,7 +153,7 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
   }
   else if (theMode == MyDispMode_Highlight)
   {
-    Bnd_Box aBox;
+    Box2 aBox;
     BRepBndLib::Add(aShape, aBox);
     Prs3d_BndBox::Add(thePrs, aBox, myDrawer);
   }
@@ -313,7 +313,7 @@ void MyAisObject::ComputeSelection(const Handle(SelectionContainer)& theSel,
 
   const double aRadius = 100.0, aHeight = 100.0;
   TopoShape aShape = CylinderMaker(aRadius, aHeight);
-  Bnd_Box      aBox;
+  Box2      aBox;
   BRepBndLib::Add(aShape, aBox);
   Handle(MyAisOwner) anOwner = new MyAisOwner(this);
   anOwner->SetAnimation(myAnim);

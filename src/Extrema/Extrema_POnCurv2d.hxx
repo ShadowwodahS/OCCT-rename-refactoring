@@ -23,17 +23,17 @@
 #include <gp_Pnt2d.hxx>
 class gp_Pnt2d;
 
-class Extrema_POnCurv2d
+class PointOnCurve2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creation of an indefinite point on curve.
-  Standard_EXPORT Extrema_POnCurv2d();
+  Standard_EXPORT PointOnCurve2d();
 
   //! Creation of a point on curve with a parameter
   //! value on the curve and a Pnt from gp.
-  Standard_EXPORT Extrema_POnCurv2d(const Standard_Real U, const gp_Pnt2d& P);
+  Standard_EXPORT PointOnCurve2d(const Standard_Real U, const gp_Pnt2d& P);
 
   //! sets the point and parameter values.
   Standard_EXPORT void SetValues(const Standard_Real U, const gp_Pnt2d& P);
@@ -52,7 +52,7 @@ private:
 
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>
-#define Extrema_Point Extrema_POnCurv2d
+#define Extrema_Point PointOnCurve2d
 #define Extrema_Point_hxx <Extrema_POnCurv2d.hxx>
 
 #include <Extrema_Point.lxx>

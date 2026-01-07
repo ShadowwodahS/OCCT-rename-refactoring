@@ -25,7 +25,7 @@
 //! List of shapes and their IDs for collision detection.
 typedef NCollection_Vector<TopoShape> BRepExtrema_ShapeList;
 
-//! Triangle set corresponding to specific face.
+//! Triangle1 set corresponding to specific face.
 class BRepExtrema_TriangleSet : public BVH_PrimitiveSet3d
 {
 public:
@@ -43,11 +43,11 @@ public: //! @name methods implementing BVH set interface
   Standard_EXPORT Standard_Integer Size() const Standard_OVERRIDE;
 
   //! Returns AABB of the given triangle.
-  Standard_EXPORT BVH_Box<Standard_Real, 3> Box(const Standard_Integer theIndex) const
+  Standard_EXPORT BVH_Box<Standard_Real, 3> Box1(const Standard_Integer theIndex) const
     Standard_OVERRIDE;
 
-  //! Make inherited method Box() visible to avoid CLang warning
-  using BVH_PrimitiveSet3d::Box;
+  //! Make inherited method Box1() visible to avoid CLang warning
+  using BVH_PrimitiveSet3d::Box1;
 
   //! Returns centroid position along specified axis.
   Standard_EXPORT Standard_Real Center(const Standard_Integer theIndex,

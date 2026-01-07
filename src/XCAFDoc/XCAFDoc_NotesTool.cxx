@@ -31,7 +31,7 @@ namespace
 XCAFDoc_AssemblyItemId labeledItem(const DataLabel& theLabel)
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(theLabel, anEntry);
+  Tool3::Entry(theLabel, anEntry);
   return XCAFDoc_AssemblyItemId(anEntry);
 }
 
@@ -89,7 +89,7 @@ DataLabel XCAFDoc_NotesTool::GetAnnotatedItemsLabel() const
 Standard_Integer XCAFDoc_NotesTool::NbNotes() const
 {
   Standard_Integer nbNotes = 0;
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     const DataLabel aLabel = anIter.Value();
     if (!XCAFDoc_Note::Get(aLabel).IsNull())
@@ -116,7 +116,7 @@ Standard_Integer XCAFDoc_NotesTool::NbAnnotatedItems() const
 
 void XCAFDoc_NotesTool::GetNotes(TDF_LabelSequence& theNoteLabels) const
 {
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     const DataLabel aLabel = anIter.Value();
     if (!XCAFDoc_Note::Get(aLabel).IsNull())
@@ -842,7 +842,7 @@ Standard_Integer XCAFDoc_NotesTool::DeleteNotes(TDF_LabelSequence& theNoteLabels
 Standard_Integer XCAFDoc_NotesTool::DeleteAllNotes()
 {
   Standard_Integer nbNotes = 0;
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     if (DeleteNote(anIter.Value()))
       ++nbNotes;
@@ -855,7 +855,7 @@ Standard_Integer XCAFDoc_NotesTool::DeleteAllNotes()
 Standard_Integer XCAFDoc_NotesTool::NbOrphanNotes() const
 {
   Standard_Integer nbNotes = 0;
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);
@@ -869,7 +869,7 @@ Standard_Integer XCAFDoc_NotesTool::NbOrphanNotes() const
 
 void XCAFDoc_NotesTool::GetOrphanNotes(TDF_LabelSequence& theNoteLabels) const
 {
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);
@@ -883,7 +883,7 @@ void XCAFDoc_NotesTool::GetOrphanNotes(TDF_LabelSequence& theNoteLabels) const
 Standard_Integer XCAFDoc_NotesTool::DeleteOrphanNotes()
 {
   Standard_Integer nbNotes = 0;
-  for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
     const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);

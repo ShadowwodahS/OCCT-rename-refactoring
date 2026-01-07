@@ -1113,9 +1113,9 @@ static Standard_Integer veriftriangles(DrawInterpreter& di, Standard_Integer n, 
       for (i = 1; i <= T->NbTriangles(); i++)
       {
         if (F.Orientation() == TopAbs_REVERSED)
-          T->Triangle(i).Get(n1, n3, n2);
+          T->Triangle1(i).Get(n1, n3, n2);
         else
-          T->Triangle(i).Get(n1, n2, n3);
+          T->Triangle1(i).Get(n1, n2, n3);
 
         const gp_Pnt2d xy1 = T->UVNode(n1);
         const gp_Pnt2d xy2 = T->UVNode(n2);
@@ -1259,7 +1259,7 @@ static Standard_Integer tri2d(DrawInterpreter&, Standard_Integer n, const char**
     for (i = 1; i <= nbTriangles; i++)
     {
       pc.Triangles(i, t[0], t[1], t[2]);
-      T->Triangle(i).Get(nodes[0], nodes[1], nodes[2]);
+      T->Triangle1(i).Get(nodes[0], nodes[1], nodes[2]);
       for (j = 0; j < 3; j++)
       {
         Standard_Integer k = (j + 1) % 3;
@@ -1322,7 +1322,7 @@ static Standard_Integer wavefront(DrawInterpreter&, Standard_Integer nbarg, cons
 
   // creation du maillage s'il n'existe pas.
 
-  Bnd_Box       B;
+  Box2       B;
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
   BRepBndLib::Add(S, B);
   B.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
@@ -1394,11 +1394,11 @@ static Standard_Integer wavefront(DrawInterpreter&, Standard_Integer nbarg, cons
           V = Tr->UVNode(i).Y();
 
           BS.D1(U, V, P, D1U, D1V);
-          CSLib::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor);
+          CSLib1::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor);
           if (aStatus != CSLib_Done)
           {
             BS.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
-            CSLib::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor);
+            CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor);
           }
           if (F.Orientation() == TopAbs_REVERSED)
             Nor.Reverse();
@@ -1417,9 +1417,9 @@ static Standard_Integer wavefront(DrawInterpreter&, Standard_Integer nbarg, cons
       for (i = 1; i <= nbTriangles; i++)
       {
         if (F.Orientation() == TopAbs_REVERSED)
-          Tr->Triangle(i).Get(n1, n3, n2);
+          Tr->Triangle1(i).Get(n1, n3, n2);
         else
-          Tr->Triangle(i).Get(n1, n2, n3);
+          Tr->Triangle1(i).Get(n1, n2, n3);
         k1 = n1 + totalnodes;
         k2 = n2 + totalnodes;
         k3 = n3 + totalnodes;

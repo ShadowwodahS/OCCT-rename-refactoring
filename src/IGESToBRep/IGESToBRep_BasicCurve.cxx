@@ -366,8 +366,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
         gp_Circ circ(frame, minorRadius);
 
-        t1 = ElCLib::Parameter(circ, startPoint);
-        t2 = ElCLib::Parameter(circ, endPoint);
+        t1 = ElCLib1::Parameter(circ, startPoint);
+        t2 = ElCLib1::Parameter(circ, endPoint);
         if (t1 > t2 && (t1 - t2) > Precision::Confusion())
           t2 += 2. * M_PI;
         if (Abs(t1 - t2) <= Precision::Confusion())
@@ -400,8 +400,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
     res = new Geom_Parabola(frame, focal);
 
-    t1 = ElCLib::Parameter(parab, startPoint);
-    t2 = ElCLib::Parameter(parab, endPoint);
+    t1 = ElCLib1::Parameter(parab, startPoint);
+    t2 = ElCLib1::Parameter(parab, endPoint);
     if (Abs(t1 - t2) <= Precision::Confusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
@@ -429,8 +429,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
     {
       gp_Elips elips(frame, majorRadius, minorRadius);
 
-      t1 = ElCLib::Parameter(elips, startPoint);
-      t2 = ElCLib::Parameter(elips, endPoint);
+      t1 = ElCLib1::Parameter(elips, startPoint);
+      t2 = ElCLib1::Parameter(elips, endPoint);
       if (t2 < t1 && (t1 - t2) > Precision::Confusion())
         t2 += 2. * M_PI;
       if (Abs(t1 - t2) <= Precision::Confusion())
@@ -448,8 +448,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeo
 
     gp_Hypr hpr(frame, majorRadius, minorRadius);
 
-    t1 = ElCLib::Parameter(hpr, startPoint);
-    t2 = ElCLib::Parameter(hpr, endPoint);
+    t1 = ElCLib1::Parameter(hpr, startPoint);
+    t2 = ElCLib1::Parameter(hpr, endPoint);
 
     res = new Geom_Hyperbola(frame, majorRadius, minorRadius);
 
@@ -550,8 +550,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
         gp_Circ2d circ =
           Handle(Geom2d_Circle)::DownCast(res)->Circ2d(); // #45 rln (frame, minorRadius);
 
-        t1 = ElCLib::Parameter(circ, startPoint);
-        t2 = ElCLib::Parameter(circ, endPoint);
+        t1 = ElCLib1::Parameter(circ, startPoint);
+        t2 = ElCLib1::Parameter(circ, endPoint);
 
         if (t2 < t1 && (t1 - t2) > Precision::PConfusion())
           t2 += 2. * M_PI;
@@ -587,8 +587,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
 
     gp_Parab2d parab = Handle(Geom2d_Parabola)::DownCast(res)->Parab2d(); // #45 rln (frame, focal);
 
-    t1 = ElCLib::Parameter(parab, startPoint);
-    t2 = ElCLib::Parameter(parab, endPoint);
+    t1 = ElCLib1::Parameter(parab, startPoint);
+    t2 = ElCLib1::Parameter(parab, endPoint);
     if (Abs(t1 - t2) <= Precision::PConfusion())
     { // t1 = t2
       Message_Msg msg1160("IGES_1160");
@@ -622,8 +622,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
       gp_Elips2d elips = Handle(Geom2d_Ellipse)::DownCast(res)->Elips2d();//#45 rln (frame, majorRadius, minorRadius);
       // clang-format on
 
-      t1 = ElCLib::Parameter(elips, startPoint);
-      t2 = ElCLib::Parameter(elips, endPoint);
+      t1 = ElCLib1::Parameter(elips, startPoint);
+      t2 = ElCLib1::Parameter(elips, endPoint);
       if (t2 < t1 && (t1 - t2) > Precision::PConfusion())
         t2 += 2. * M_PI;
       if (Abs(t1 - t2) <= Precision::PConfusion())
@@ -647,8 +647,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGESG
     gp_Hypr2d hpr = Handle(Geom2d_Hyperbola)::DownCast(res)->Hypr2d();//#45 rln (frame, majorRadius, minorRadius);
     // clang-format on
 
-    t1 = ElCLib::Parameter(hpr, startPoint);
-    t2 = ElCLib::Parameter(hpr, endPoint);
+    t1 = ElCLib1::Parameter(hpr, startPoint);
+    t2 = ElCLib1::Parameter(hpr, endPoint);
 
     if (Abs(t1 - t2) <= Precision::PConfusion())
     { // t1 = t2
@@ -716,8 +716,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferCircularArc(
 
   Standard_Real t1 = 0.0, t2 = 0.0;
 
-  t1 = ElCLib::Parameter(circ, startPoint);
-  t2 = ElCLib::Parameter(circ, endPoint);
+  t1 = ElCLib1::Parameter(circ, startPoint);
+  t2 = ElCLib1::Parameter(circ, endPoint);
 
   if (st->IsClosed() && t1 >= GetEpsGeom())
     t2 = t1 + 2. * M_PI;
@@ -795,8 +795,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dCircularArc(
 
   Standard_Real t1 = 0.0, t2 = 0.0;
 
-  t1 = ElCLib::Parameter(circ, startPoint);
-  t2 = ElCLib::Parameter(circ, endPoint);
+  t1 = ElCLib1::Parameter(circ, startPoint);
+  t2 = ElCLib1::Parameter(circ, endPoint);
 
   if (st->IsClosed() && t1 >= GetEpsGeom())
     t2 = t1 + 2. * M_PI;
@@ -1322,8 +1322,8 @@ Handle(GeomCurve3d) IGESToBRep_BasicCurve::TransferLine(const Handle(IGESGeom_Li
   if (!Ps.IsEqual(Pe, Precision::Confusion()))
   { //: l3 abv 11 Jan 99: GetEpsGeom()*GetUnitFactor()/10.)) {
     gp_Lin            line(Ps, Dir3d(Vector3d(Ps, Pe)));
-    Standard_Real     t1    = ElCLib::Parameter(line, Ps);
-    Standard_Real     t2    = ElCLib::Parameter(line, Pe);
+    Standard_Real     t1    = ElCLib1::Parameter(line, Ps);
+    Standard_Real     t2    = ElCLib1::Parameter(line, Pe);
     Handle(GeomLine) Gline = new GeomLine(line);
     if (Precision::IsNegativeInfinite(t1))
       t1 = -Precision::Infinite();
@@ -1369,8 +1369,8 @@ Handle(GeomCurve2d) IGESToBRep_BasicCurve::Transfer2dLine(const Handle(IGESGeom_
   if (!beg.IsEqual(end, Precision::PConfusion()))
   { //: l3 abv 11 Jan 99: GetEpsCoeff())) {
     gp_Lin2d            line2d(beg, gp_Dir2d(gp_Vec2d(beg, end)));
-    Standard_Real       t1      = ElCLib::Parameter(line2d, beg);
-    Standard_Real       t2      = ElCLib::Parameter(line2d, end);
+    Standard_Real       t1      = ElCLib1::Parameter(line2d, beg);
+    Standard_Real       t2      = ElCLib1::Parameter(line2d, end);
     Handle(Geom2d_Line) Gline2d = new Geom2d_Line(line2d);
     if (Precision::IsNegativeInfinite(t1))
       t1 = -Precision::Infinite();

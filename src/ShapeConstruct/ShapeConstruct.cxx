@@ -84,7 +84,7 @@ Handle(BSplineCurve3d) ShapeConstruct::ConvertCurveToBSpline(const Handle(GeomCu
       if (approx.HasResult())
         aBSpline = approx.Curve();
       else
-        aBSpline = GeomConvert::CurveToBSplineCurve(C3D, Convert_QuasiAngular);
+        aBSpline = GeomConvert1::CurveToBSplineCurve(C3D, Convert_QuasiAngular);
     }
     catch (ExceptionBase const& anException)
     {
@@ -94,7 +94,7 @@ Handle(BSplineCurve3d) ShapeConstruct::ConvertCurveToBSpline(const Handle(GeomCu
       std::cout << std::endl;
 #endif
       (void)anException;
-      aBSpline = GeomConvert::CurveToBSplineCurve(C3D, Convert_QuasiAngular);
+      aBSpline = GeomConvert1::CurveToBSplineCurve(C3D, Convert_QuasiAngular);
     }
   }
   return aBSpline;
@@ -121,11 +121,11 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
     if (approx.HasResult())
       aBSpline2d = approx.Curve();
     else
-      aBSpline2d = Geom2dConvert::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
+      aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
   }
   else if (!C2D->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
   {
-    aBSpline2d = Geom2dConvert::CurveToBSplineCurve(C2D, Convert_QuasiAngular);
+    aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(C2D, Convert_QuasiAngular);
   }
   else
     aBSpline2d = Handle(Geom2d_BSplineCurve)::DownCast(C2D);
@@ -135,10 +135,10 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
 
 //=================================================================================================
 
-// Note: this method has the same purpose as GeomConvert::SurfaceToBSplineSurface(),
+// Note: this method has the same purpose as GeomConvert1::SurfaceToBSplineSurface(),
 // but treats more correctly offset surfaces and takes parameters such as UV limits
 // and degree as arguments instead of deducing them from the surface.
-// Eventually it may be merged back to GeomConvert.
+// Eventually it may be merged back to GeomConvert1.
 
 Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
   const Handle(GeomSurface)& surf,
@@ -161,12 +161,12 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
     S = RTS->BasisSurface();
   }
 
-  // use GeomConvert for direct conversion of analytic surfaces
+  // use GeomConvert1 for direct conversion of analytic surfaces
   if (S->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) aRTS =
       new Geom_RectangularTrimmedSurface(S, UF, UL, VF, VL);
-    return GeomConvert::SurfaceToBSplineSurface(aRTS);
+    return GeomConvert1::SurfaceToBSplineSurface(aRTS);
   }
 
   if (S->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
@@ -613,7 +613,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
   bsplc12d->SetPole(bsplc12d->NbPoles(), pmid1);
   bsplc22d->SetPole(1, pmid1);
 
-  // abv 01 Sep 99: Geom2dConvert ALWAYS performs reparametrisation of the
+  // abv 01 Sep 99: Geom2dConvert1 ALWAYS performs reparametrisation of the
   // second curve before merging; this is quite not suitable
   // Use 3d tool instead
   //      Geom2dConvert_CompCurveToBSplineCurve connect2d(bsplc12d);

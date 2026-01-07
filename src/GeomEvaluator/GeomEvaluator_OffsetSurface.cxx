@@ -190,9 +190,9 @@ static void derivatives(Standard_Integer                   theMaxOrder,
       for (j = 0; j <= theMaxOrder + theNV; j++)
       {
         if (theAlongU)
-          theDerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurfL, theDerSurf));
+          theDerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurfL, theDerSurf));
         if (theAlongV)
-          theDerNUV.SetValue(i, j, CSLib::DNNUV(i, j, theDerSurf, DerSurfL));
+          theDerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, theDerSurf, DerSurfL));
       }
   }
   else
@@ -213,7 +213,7 @@ static void derivatives(Standard_Integer                   theMaxOrder,
     }
     for (i = 0; i <= theMaxOrder + theNU; i++)
       for (j = 0; j <= theMaxOrder + theNV; j++)
-        theDerNUV.SetValue(i, j, CSLib::DNNUV(i, j, theDerSurf));
+        theDerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, theDerSurf));
   }
 }
 
@@ -607,7 +607,7 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
 
     Dir3d             Normal;
     CSLib_NormalStatus NStatus = CSLib_Singular;
-    CSLib::Normal(MaxOrder,
+    CSLib1::Normal(MaxOrder,
                   DerNUV,
                   the_D1MagTol,
                   theU,
@@ -626,7 +626,7 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
       Vector3d aNewDU = theD1U;
       Vector3d aNewDV = theD1V;
       if (ReplaceDerivative(theU, theV, aNewDU, aNewDV, the_D1MagTol * the_D1MagTol))
-        CSLib::Normal(aNewDU, aNewDV, the_D1MagTol, NStatus, Normal);
+        CSLib1::Normal(aNewDU, aNewDV, the_D1MagTol, NStatus, Normal);
     }
 
     if (NStatus != CSLib_Defined)
@@ -683,7 +683,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 
   if (!isSingular)
   {
-    // AlongU or AlongV leads to more complex D1 computation
+    // AlongU or AlongV leads to more complex1 D1 computation
     // Try to compute D0 and D1 much simpler
     aNorm.Normalize();
     theValue.SetXYZ(theValue.XYZ() + myOffset * aSign * aNorm.XYZ());
@@ -736,7 +736,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 
   Dir3d             Normal;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 the_D1MagTol,
                 theU,
@@ -773,7 +773,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
                     L,
                     DerNUV,
                     DerSurf);
-      CSLib::Normal(MaxOrder,
+      CSLib1::Normal(MaxOrder,
                     DerNUV,
                     the_D1MagTol,
                     theU,
@@ -795,8 +795,8 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 
   theValue.SetXYZ(theValue.XYZ() + myOffset * aSign * Normal.XYZ());
 
-  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
 }
 
 void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
@@ -814,7 +814,7 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
 {
   Dir3d             Normal;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
+  CSLib1::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
 
   const Standard_Integer MaxOrder = (NStatus == CSLib_Defined) ? 0 : 3;
   Standard_Integer       OrderU, OrderV;
@@ -851,7 +851,7 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
   else
     derivatives(MaxOrder, 3, theU, theV, myBaseAdaptor, 2, 2, AlongU, AlongV, L, DerNUV, DerSurf);
 
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 the_D1MagTol,
                 theU,
@@ -870,8 +870,8 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
 
   theValue.SetXYZ(theValue.XYZ() + myOffset * aSign * Normal.XYZ());
 
-  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
 
   if (!myBaseSurf.IsNull())
   {
@@ -886,9 +886,9 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
     theD2UV = myBaseAdaptor->DN(theU, theV, 1, 1);
   }
 
-  theD2U += aSign * myOffset * CSLib::DNNormal(2, 0, DerNUV, OrderU, OrderV);
-  theD2V += aSign * myOffset * CSLib::DNNormal(0, 2, DerNUV, OrderU, OrderV);
-  theD2UV += aSign * myOffset * CSLib::DNNormal(1, 1, DerNUV, OrderU, OrderV);
+  theD2U += aSign * myOffset * CSLib1::DNNormal(2, 0, DerNUV, OrderU, OrderV);
+  theD2V += aSign * myOffset * CSLib1::DNNormal(0, 2, DerNUV, OrderU, OrderV);
+  theD2UV += aSign * myOffset * CSLib1::DNNormal(1, 1, DerNUV, OrderU, OrderV);
 }
 
 void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
@@ -906,7 +906,7 @@ void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
 {
   Dir3d             Normal;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
+  CSLib1::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
   const Standard_Integer MaxOrder = (NStatus == CSLib_Defined) ? 0 : 3;
   Standard_Integer       OrderU, OrderV;
   TColgp_Array2OfVec     DerNUV(0, MaxOrder + 3, 0, MaxOrder + 3);
@@ -941,7 +941,7 @@ void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
   else
     derivatives(MaxOrder, 3, theU, theV, myBaseAdaptor, 3, 3, AlongU, AlongV, L, DerNUV, DerSurf);
 
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 the_D1MagTol,
                 theU,
@@ -960,8 +960,8 @@ void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
 
   theValue.SetXYZ(theValue.XYZ() + myOffset * aSign * Normal.XYZ());
 
-  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+  theD1U = DerSurf(1, 0) + myOffset * aSign * CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+  theD1V = DerSurf(0, 1) + myOffset * aSign * CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
 
   if (!myBaseSurf.IsNull())
   {
@@ -984,13 +984,13 @@ void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
     theD3UVV = myBaseAdaptor->DN(theU, theV, 1, 2);
   }
 
-  theD2U += aSign * myOffset * CSLib::DNNormal(2, 0, DerNUV, OrderU, OrderV);
-  theD2V += aSign * myOffset * CSLib::DNNormal(0, 2, DerNUV, OrderU, OrderV);
-  theD2UV += aSign * myOffset * CSLib::DNNormal(1, 1, DerNUV, OrderU, OrderV);
-  theD3U += aSign * myOffset * CSLib::DNNormal(3, 0, DerNUV, OrderU, OrderV);
-  theD3V += aSign * myOffset * CSLib::DNNormal(0, 3, DerNUV, OrderU, OrderV);
-  theD3UUV += aSign * myOffset * CSLib::DNNormal(2, 1, DerNUV, OrderU, OrderV);
-  theD3UVV += aSign * myOffset * CSLib::DNNormal(1, 2, DerNUV, OrderU, OrderV);
+  theD2U += aSign * myOffset * CSLib1::DNNormal(2, 0, DerNUV, OrderU, OrderV);
+  theD2V += aSign * myOffset * CSLib1::DNNormal(0, 2, DerNUV, OrderU, OrderV);
+  theD2UV += aSign * myOffset * CSLib1::DNNormal(1, 1, DerNUV, OrderU, OrderV);
+  theD3U += aSign * myOffset * CSLib1::DNNormal(3, 0, DerNUV, OrderU, OrderV);
+  theD3V += aSign * myOffset * CSLib1::DNNormal(0, 3, DerNUV, OrderU, OrderV);
+  theD3UUV += aSign * myOffset * CSLib1::DNNormal(2, 1, DerNUV, OrderU, OrderV);
+  theD3UVV += aSign * myOffset * CSLib1::DNNormal(1, 2, DerNUV, OrderU, OrderV);
 }
 
 Vector3d GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
@@ -1002,7 +1002,7 @@ Vector3d GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
 {
   Dir3d             Normal;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
+  CSLib1::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
   const Standard_Integer MaxOrder = (NStatus == CSLib_Defined) ? 0 : 3;
   Standard_Integer       OrderU, OrderV;
   TColgp_Array2OfVec     DerNUV(0, MaxOrder + theNu, 0, MaxOrder + theNv);
@@ -1054,7 +1054,7 @@ Vector3d GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
                 DerNUV,
                 DerSurf);
 
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 the_D1MagTol,
                 theU,
@@ -1077,7 +1077,7 @@ Vector3d GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
   else
     D = myBaseAdaptor->DN(theU, theV, theNu, theNv);
 
-  D += aSign * myOffset * CSLib::DNNormal(theNu, theNv, DerNUV, OrderU, OrderV);
+  D += aSign * myOffset * CSLib1::DNNormal(theNu, theNv, DerNUV, OrderU, OrderV);
   return D;
 }
 

@@ -100,7 +100,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
     {
       Handle(GccInt_Bisec)     Sol1 = Bis1.ThisSolution(i);
       GccInt_IType             typ1 = Sol1->ArcType();
-      IntAna2d_AnaIntersection Intp;
+      AnalyticIntersection2d Intp;
       for (Standard_Integer k = 1; k <= nbsolution2; k++)
       {
         Handle(GccInt_Bisec) Sol2 = Bis2.ThisSolution(k);
@@ -117,30 +117,30 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
           }
           else if (typ2 == GccInt_Hpr)
           {
-            Intp.Perform(Sol1->Circle(), IntAna2d_Conic(Sol2->Hyperbola()));
+            Intp.Perform(Sol1->Circle(), Conic2d(Sol2->Hyperbola()));
           }
           else if (typ2 == GccInt_Ell)
           {
-            Intp.Perform(Sol1->Circle(), IntAna2d_Conic(Sol2->Ellipse()));
+            Intp.Perform(Sol1->Circle(), Conic2d(Sol2->Ellipse()));
           }
         }
         else if (typ1 == GccInt_Ell)
         {
           if (typ2 == GccInt_Cir)
           {
-            Intp.Perform(Sol2->Circle(), IntAna2d_Conic(Sol1->Ellipse()));
+            Intp.Perform(Sol2->Circle(), Conic2d(Sol1->Ellipse()));
           }
           else if (typ2 == GccInt_Lin)
           {
-            Intp.Perform(Sol2->Line(), IntAna2d_Conic(Sol1->Ellipse()));
+            Intp.Perform(Sol2->Line(), Conic2d(Sol1->Ellipse()));
           }
           else if (typ2 == GccInt_Hpr)
           {
-            Intp.Perform(Sol1->Ellipse(), IntAna2d_Conic(Sol2->Hyperbola()));
+            Intp.Perform(Sol1->Ellipse(), Conic2d(Sol2->Hyperbola()));
           }
           else if (typ2 == GccInt_Ell)
           {
-            Intp.Perform(Sol1->Ellipse(), IntAna2d_Conic(Sol2->Ellipse()));
+            Intp.Perform(Sol1->Ellipse(), Conic2d(Sol2->Ellipse()));
           }
         }
         else if (typ1 == GccInt_Lin)
@@ -155,30 +155,30 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
           }
           else if (typ2 == GccInt_Hpr)
           {
-            Intp.Perform(Sol1->Line(), IntAna2d_Conic(Sol2->Hyperbola()));
+            Intp.Perform(Sol1->Line(), Conic2d(Sol2->Hyperbola()));
           }
           else if (typ2 == GccInt_Ell)
           {
-            Intp.Perform(Sol1->Line(), IntAna2d_Conic(Sol2->Ellipse()));
+            Intp.Perform(Sol1->Line(), Conic2d(Sol2->Ellipse()));
           }
         }
         else if (typ1 == GccInt_Hpr)
         {
           if (typ2 == GccInt_Cir)
           {
-            Intp.Perform(Sol2->Circle(), IntAna2d_Conic(Sol1->Hyperbola()));
+            Intp.Perform(Sol2->Circle(), Conic2d(Sol1->Hyperbola()));
           }
           else if (typ2 == GccInt_Lin)
           {
-            Intp.Perform(Sol2->Line(), IntAna2d_Conic(Sol1->Hyperbola()));
+            Intp.Perform(Sol2->Line(), Conic2d(Sol1->Hyperbola()));
           }
           else if (typ2 == GccInt_Hpr)
           {
-            Intp.Perform(Sol2->Hyperbola(), IntAna2d_Conic(Sol1->Hyperbola()));
+            Intp.Perform(Sol2->Hyperbola(), Conic2d(Sol1->Hyperbola()));
           }
           else if (typ2 == GccInt_Ell)
           {
-            Intp.Perform(Sol2->Ellipse(), IntAna2d_Conic(Sol1->Hyperbola()));
+            Intp.Perform(Sol2->Ellipse(), Conic2d(Sol1->Hyperbola()));
           }
         }
         if (Intp.IsDone())
@@ -361,8 +361,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
 		       dc.Reverse(); // if tangent circle is inside the source circle, moving to edge of source circle
                     // clang-format on
                     pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k1) * dc.XY());
-                    par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                    pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                    par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                    pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
                   }
                   if (Center.Distance(center2) <= Tolerance && Abs(Radius(k1) - R2) <= Tolerance)
                   {
@@ -378,12 +378,12 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                     if (center1.Distance(center2) <= Tolerance)
                       alpha = -1;
                     pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + alpha * Radius(k1) * dc.XY());
-                    par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-                    pararg2(NbrSol)   = ElCLib::Parameter(C2, pnttg2sol(NbrSol));
+                    par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                    pararg2(NbrSol)   = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));
                   }
                   TheSame3(NbrSol)  = 0;
                   pnttg3sol(NbrSol) = Point3;
-                  par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+                  par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
                   pararg3(NbrSol)   = 0.;
                   WellDone          = Standard_True;
                   if (NbrSol == MaxSol)

@@ -187,7 +187,7 @@ void Law_Composite::Prepare(Standard_Real& W)
   Wtest = W + Eps; // Decalage pour discriminer les noeuds
   if (periodic)
   {
-    Wtest = ElCLib::InPeriod(Wtest, first, last);
+    Wtest = ElCLib1::InPeriod(Wtest, first, last);
     W     = Wtest - Eps;
   }
 

@@ -477,7 +477,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(InputBuffer& theBuffer)
     aStatus = readBrace(theBuffer);
   if (OK(aStatus))
   {
-    // Check if the Bounding Box has been imported
+    // Check if the Bounding Box1 has been imported
     if (aBoxSize.X() > -Precision::Confusion() && aBoxSize.Y() > -Precision::Confusion()
         && aBoxSize.Z() > -Precision::Confusion())
     {

@@ -41,7 +41,7 @@
 //=======================================================================
 static Standard_Real DistanceOut(const TopoShape& S1, const TopoShape& S2)
 {
-  Bnd_Box BBox1, BBox2;
+  Box2 BBox1, BBox2;
   BRepBndLib::Add(S1, BBox1);
   BRepBndLib::Add(S2, BBox2);
   return BBox1.Distance(BBox2);
@@ -50,13 +50,13 @@ static Standard_Real DistanceOut(const TopoShape& S1, const TopoShape& S2)
 //=======================================================================
 // function : DistanceIn
 // purpose  : Compute the maximum distance between input Shapes
-//           we compute the maximum dimension of each Bounding Box and then
+//           we compute the maximum dimension of each Bounding Box1 and then
 //           add each other with the minimum distance of shapes.
 //=======================================================================
 
 static Standard_Real DistanceIn(const TopoShape& S1, const TopoShape& S2)
 {
-  Bnd_Box LBBox, SBBox;
+  Box2 LBBox, SBBox;
   BRepBndLib::Add(S1, SBBox);
   BRepBndLib::Add(S2, LBBox);
 

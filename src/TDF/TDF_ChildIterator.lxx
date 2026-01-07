@@ -19,12 +19,12 @@
 // Version	Date		Purpose
 //		0.0	Feb  7 1997	Creation
 
-inline Standard_Boolean TDF_ChildIterator::More() const
+inline Standard_Boolean ChildIterator::More() const
 {
   return (myNode != NULL);
 }
 
-inline const DataLabel TDF_ChildIterator::Value() const
+inline const DataLabel ChildIterator::Value() const
 {
   return DataLabel(myNode);
 }

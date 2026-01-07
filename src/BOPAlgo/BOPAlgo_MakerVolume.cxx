@@ -227,7 +227,7 @@ void BOPAlgo_MakerVolume::CollectFaces()
       continue;
     }
     //
-    const Bnd_Box& aB = aSI.Box();
+    const Box2& aB = aSI.Box1();
     myBBox.Add(aB);
     //
     const TopoShape& aF = aSI.Shape();

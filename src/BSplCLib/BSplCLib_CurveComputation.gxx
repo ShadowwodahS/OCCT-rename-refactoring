@@ -36,9 +36,9 @@ struct BSplCLib_DataContainer
   BSplCLib_DataContainer(Standard_Integer Degree) 
   {
     (void)Degree; // avoid compiler warning
-    Standard_OutOfRange_Raise_if (Degree > BSplCLib::MaxDegree() ||
-        BSplCLib::MaxDegree() > 25,
-        "BSplCLib: bspline degree is greater than maximum supported");
+    Standard_OutOfRange_Raise_if (Degree > BSplCLib1::MaxDegree() ||
+        BSplCLib1::MaxDegree() > 25,
+        "BSplCLib1: bspline degree is greater than maximum supported");
   }
 
   Standard_Real poles[(25+1)*(Dimension_gen+1)];
@@ -51,7 +51,7 @@ struct BSplCLib_DataContainer
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::Reverse(Array1OfPoints& Poles,
+void  BSplCLib1::Reverse(Array1OfPoints& Poles,
 			const Standard_Integer L)
 {
   Standard_Integer i, l = L;
@@ -78,7 +78,7 @@ void  BSplCLib::Reverse(Array1OfPoints& Poles,
 //purpose  : 
 //=======================================================================
 
-Standard_Boolean BSplCLib::RemoveKnot 
+Standard_Boolean BSplCLib1::RemoveKnot 
 (const Standard_Integer         Index,       
  const Standard_Integer         Mult,        
  const Standard_Integer         Degree,  
@@ -101,15 +101,15 @@ Standard_Boolean BSplCLib::RemoveKnot
   TColStd_Array1OfReal poles(1,dim*Poles.Length());
   TColStd_Array1OfReal newpoles(1,dim*NewPoles.Length());
   
-  if (rational) PLib::SetPoles(Poles,*Weights,poles);
-  else          PLib::SetPoles(Poles,poles);
+  if (rational) PLib1::SetPoles(Poles,*Weights,poles);
+  else          PLib1::SetPoles(Poles,poles);
   
   if (!RemoveKnot(Index,Mult,Degree,Periodic,dim,
 		  poles,Knots,Mults,newpoles,NewKnots,NewMults,Tolerance))
     return Standard_False;
 
-  if (rational) PLib::GetPoles(newpoles,NewPoles,*NewWeights);
-  else          PLib::GetPoles(newpoles,NewPoles);
+  if (rational) PLib1::GetPoles(newpoles,NewPoles,*NewWeights);
+  else          PLib1::GetPoles(newpoles,NewPoles);
   return Standard_True;
 }
 
@@ -118,7 +118,7 @@ Standard_Boolean BSplCLib::RemoveKnot
 //purpose  : insert an array of knots and multiplicities
 //=======================================================================
 
-void BSplCLib::InsertKnots
+void BSplCLib1::InsertKnots
 (const Standard_Integer         Degree, 
  const Standard_Boolean         Periodic,
  const Array1OfPoints&          Poles,  
@@ -142,14 +142,14 @@ void BSplCLib::InsertKnots
   TColStd_Array1OfReal poles(1,dim*Poles.Length());
   TColStd_Array1OfReal newpoles(1,dim*NewPoles.Length());
   
-  if (rational) PLib::SetPoles(Poles,*Weights,poles);
-  else          PLib::SetPoles(Poles,poles);
+  if (rational) PLib1::SetPoles(Poles,*Weights,poles);
+  else          PLib1::SetPoles(Poles,poles);
   
   InsertKnots(Degree,Periodic,dim,poles,Knots,Mults,
 	      AddKnots,AddMults,newpoles,NewKnots,NewMults,Epsilon,Add);
   
-  if (rational) PLib::GetPoles(newpoles,NewPoles,*NewWeights);
-  else          PLib::GetPoles(newpoles,NewPoles);
+  if (rational) PLib1::GetPoles(newpoles,NewPoles,*NewWeights);
+  else          PLib1::GetPoles(newpoles,NewPoles);
 }
 
 //=======================================================================
@@ -157,7 +157,7 @@ void BSplCLib::InsertKnots
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::InsertKnot(const Standard_Integer , 
+void  BSplCLib1::InsertKnot(const Standard_Integer , 
 			   const Standard_Real U,
 			   const Standard_Integer UMult, 
 			   const Standard_Integer Degree, 
@@ -184,7 +184,7 @@ void  BSplCLib::InsertKnot(const Standard_Integer ,
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::RaiseMultiplicity(const Standard_Integer KnotIndex,
+void  BSplCLib1::RaiseMultiplicity(const Standard_Integer KnotIndex,
 				  const Standard_Integer Mult,
 				  const Standard_Integer Degree, 
 				  const Standard_Boolean Periodic,
@@ -210,7 +210,7 @@ void  BSplCLib::RaiseMultiplicity(const Standard_Integer KnotIndex,
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::IncreaseDegree 
+void BSplCLib1::IncreaseDegree 
 (const Standard_Integer          Degree,
  const Standard_Integer          NewDegree,
  const Standard_Boolean          Periodic,
@@ -231,14 +231,14 @@ void BSplCLib::IncreaseDegree
   TColStd_Array1OfReal poles(1,dim*Poles.Length());
   TColStd_Array1OfReal newpoles(1,dim*NewPoles.Length());
   
-  if (rational) PLib::SetPoles(Poles,*Weights,poles);
-  else          PLib::SetPoles(Poles,poles);
+  if (rational) PLib1::SetPoles(Poles,*Weights,poles);
+  else          PLib1::SetPoles(Poles,poles);
   
   IncreaseDegree(Degree,NewDegree,Periodic,dim,poles,Knots,Mults,
 		 newpoles,NewKnots,NewMults);
   
-  if (rational) PLib::GetPoles(newpoles,NewPoles,*NewWeights);
-  else          PLib::GetPoles(newpoles,NewPoles);
+  if (rational) PLib1::GetPoles(newpoles,NewPoles,*NewWeights);
+  else          PLib1::GetPoles(newpoles,NewPoles);
 }
 
 //=======================================================================
@@ -246,7 +246,7 @@ void BSplCLib::IncreaseDegree
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::Unperiodize
+void  BSplCLib1::Unperiodize
 (const Standard_Integer         Degree, 
  const TColStd_Array1OfInteger& Mults,
  const TColStd_Array1OfReal&    Knots,
@@ -265,14 +265,14 @@ void  BSplCLib::Unperiodize
   TColStd_Array1OfReal poles(1,dim*Poles.Length());
   TColStd_Array1OfReal newpoles(1,dim*NewPoles.Length());
   
-  if (rational) PLib::SetPoles(Poles,*Weights,poles);
-  else          PLib::SetPoles(Poles,poles);
+  if (rational) PLib1::SetPoles(Poles,*Weights,poles);
+  else          PLib1::SetPoles(Poles,poles);
   
   Unperiodize(Degree, dim, Mults, Knots, poles,
 	      NewMults,NewKnots, newpoles);
   
-  if (rational) PLib::GetPoles(newpoles,NewPoles,*NewWeights);
-  else          PLib::GetPoles(newpoles,NewPoles);
+  if (rational) PLib1::GetPoles(newpoles,NewPoles,*NewWeights);
+  else          PLib1::GetPoles(newpoles,NewPoles);
 }
 
 //=======================================================================
@@ -280,7 +280,7 @@ void  BSplCLib::Unperiodize
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::Trimming(const Standard_Integer         Degree, 
+void BSplCLib1::Trimming(const Standard_Integer         Degree, 
 			const Standard_Boolean         Periodic,
 			const TColStd_Array1OfReal&    Knots, 
 			const TColStd_Array1OfInteger& Mults,
@@ -301,27 +301,27 @@ void BSplCLib::Trimming(const Standard_Integer         Degree,
   TColStd_Array1OfReal poles(1,dim*Poles.Length());
   TColStd_Array1OfReal newpoles(1,dim*NewPoles.Length());
   
-  if (rational) PLib::SetPoles(Poles,*Weights,poles);
-  else          PLib::SetPoles(Poles,poles);
+  if (rational) PLib1::SetPoles(Poles,*Weights,poles);
+  else          PLib1::SetPoles(Poles,poles);
   
   Trimming(Degree, Periodic, dim, Knots, Mults, poles, U1, U2,
 	   NewKnots, NewMults, newpoles);
   
-  if (rational) PLib::GetPoles(newpoles,NewPoles,*NewWeights);
-  else          PLib::GetPoles(newpoles,NewPoles);
+  if (rational) PLib1::GetPoles(newpoles,NewPoles,*NewWeights);
+  else          PLib1::GetPoles(newpoles,NewPoles);
 }
 
 //--------------------------------------------------------------------------
 //ELEMENTARY COMPUTATIONS
 //--------------------------------------------------------------------------
 //
-// All the following methods are methods of low level used in BSplCLib 
-// but also in BSplSLib (but not in Geom)
+// All the following methods are methods of low level used in BSplCLib1 
+// but also in BSplSLib1 (but not in Geom)
 // At the creation time of this package there is no possibility 
 // to declare private methods of package and to declare friend
-// methods of package.  It could interesting to declare that BSplSLib
-// is a package friend to BSplCLib because it uses all the basis methods
-// of BSplCLib.
+// methods of package.  It could interesting to declare that BSplSLib1
+// is a package friend to BSplCLib1 because it uses all the basis methods
+// of BSplCLib1.
 //--------------------------------------------------------------------------
 
 //=======================================================================
@@ -329,7 +329,7 @@ void BSplCLib::Trimming(const Standard_Integer         Degree,
 //purpose  : builds the local array for evaluation
 //=======================================================================
 
-void  BSplCLib::BuildEval(const Standard_Integer         Degree,
+void  BSplCLib1::BuildEval(const Standard_Integer         Degree,
 			  const Standard_Integer         Index,
 			  const Array1OfPoints&          Poles, 
 			  const TColStd_Array1OfReal*    Weights,
@@ -381,30 +381,30 @@ static void PrepareEval
  BSplCLib_DataContainer& dc) 
 {
   // Set the Index
-  BSplCLib::LocateParameter(Degree,Knots,Mults,u,Periodic,index,u);
+  BSplCLib1::LocateParameter(Degree,Knots,Mults,u,Periodic,index,u);
 
   // make the knots
-  BSplCLib::BuildKnots(Degree,index,Periodic,Knots,Mults,*dc.knots);
+  BSplCLib1::BuildKnots(Degree,index,Periodic,Knots,Mults,*dc.knots);
   if (Mults == NULL)
     index -= Knots.Lower() + Degree;
   else
-    index = BSplCLib::PoleIndex(Degree,index,Periodic,*Mults);
+    index = BSplCLib1::PoleIndex(Degree,index,Periodic,*Mults);
   
   // check truly rational
   rational = (Weights != NULL);
   if (rational) {
     Standard_Integer WLower = Weights->Lower() + index;
-    rational = BSplCLib::IsRational(*Weights, WLower, WLower + Degree);
+    rational = BSplCLib1::IsRational(*Weights, WLower, WLower + Degree);
   }
   
   // make the poles
   if (rational) {
     dim = Dimension_gen + 1;
-    BSplCLib::BuildEval(Degree, index, Poles, Weights              , *dc.poles);
+    BSplCLib1::BuildEval(Degree, index, Poles, Weights              , *dc.poles);
   }
   else {
     dim = Dimension_gen; 
-    BSplCLib::BuildEval(Degree, index, Poles, BSplCLib::NoWeights(), *dc.poles);
+    BSplCLib1::BuildEval(Degree, index, Poles, BSplCLib1::NoWeights(), *dc.poles);
   }
 }
 
@@ -413,7 +413,7 @@ static void PrepareEval
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::D0 
+void BSplCLib1::D0 
 (const Standard_Real            U,                  
  const Standard_Integer         Index,          
  const Standard_Integer         Degree,     
@@ -430,7 +430,7 @@ void BSplCLib::D0
   Standard_Boolean rational;
   BSplCLib_DataContainer dc(Degree);
   PrepareEval(u,index,dim,rational,Degree,Periodic,Poles,Weights,Knots,Mults,dc);
-  BSplCLib::Eval(u,Degree,*dc.knots,dim,*dc.poles);
+  BSplCLib1::Eval(u,Degree,*dc.knots,dim,*dc.poles);
 
   if (rational) {
     Standard_Real w = dc.poles[Dimension_gen];
@@ -445,7 +445,7 @@ void BSplCLib::D0
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::D1
+void BSplCLib1::D1
 (const Standard_Real            U,                  
  const Standard_Integer         Index,          
  const Standard_Integer         Degree,     
@@ -462,10 +462,10 @@ void BSplCLib::D1
   Standard_Boolean rational;
   BSplCLib_DataContainer dc(Degree);
   PrepareEval(u,index,dim,rational,Degree,Periodic,Poles,Weights,Knots,Mults,dc);
-  BSplCLib::Bohm(u,Degree,1,*dc.knots,dim,*dc.poles);
+  BSplCLib1::Bohm(u,Degree,1,*dc.knots,dim,*dc.poles);
   Standard_Real *result = dc.poles;
   if (rational) {
-    PLib::RationalDerivative(Degree,1,Dimension_gen,*dc.poles,*dc.ders);
+    PLib1::RationalDerivative(Degree,1,Dimension_gen,*dc.poles,*dc.ders);
     result = dc.ders;
   }
   
@@ -478,7 +478,7 @@ void BSplCLib::D1
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::D2
+void BSplCLib1::D2
 (const Standard_Real            U,                  
  const Standard_Integer         Index,          
  const Standard_Integer         Degree,     
@@ -496,10 +496,10 @@ void BSplCLib::D2
   Standard_Boolean rational;
   BSplCLib_DataContainer dc(Degree);
   PrepareEval(u,index,dim,rational,Degree,Periodic,Poles,Weights,Knots,Mults,dc);
-  BSplCLib::Bohm(u,Degree,2,*dc.knots,dim,*dc.poles);
+  BSplCLib1::Bohm(u,Degree,2,*dc.knots,dim,*dc.poles);
   Standard_Real *result = dc.poles;
   if (rational) {
-    PLib::RationalDerivative(Degree,2,Dimension_gen,*dc.poles,*dc.ders);
+    PLib1::RationalDerivative(Degree,2,Dimension_gen,*dc.poles,*dc.ders);
     result = dc.ders;
   }
   
@@ -516,7 +516,7 @@ void BSplCLib::D2
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::D3
+void BSplCLib1::D3
 (const Standard_Real            U,                  
  const Standard_Integer         Index,          
  const Standard_Integer         Degree,     
@@ -535,10 +535,10 @@ void BSplCLib::D3
   Standard_Boolean rational;
   BSplCLib_DataContainer dc(Degree);
   PrepareEval(u,index,dim,rational,Degree,Periodic,Poles,Weights,Knots,Mults,dc);
-  BSplCLib::Bohm(u,Degree,3,*dc.knots,dim,*dc.poles);
+  BSplCLib1::Bohm(u,Degree,3,*dc.knots,dim,*dc.poles);
   Standard_Real *result = dc.poles;
   if (rational) {
-    PLib::RationalDerivative(Degree,3,Dimension_gen,*dc.poles,*dc.ders);
+    PLib1::RationalDerivative(Degree,3,Dimension_gen,*dc.poles,*dc.ders);
     result = dc.ders;
   }
 
@@ -559,7 +559,7 @@ void BSplCLib::D3
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::DN
+void BSplCLib1::DN
 (const Standard_Real            U,                  
  const Standard_Integer         N,          
  const Standard_Integer         Index,          
@@ -576,11 +576,11 @@ void BSplCLib::DN
   Standard_Boolean rational;
   BSplCLib_DataContainer dc(Degree);
   PrepareEval(u,index,dim,rational,Degree,Periodic,Poles,Weights,Knots,Mults,dc);
-  BSplCLib::Bohm(u,Degree,N,*dc.knots,dim,*dc.poles);
+  BSplCLib1::Bohm(u,Degree,N,*dc.knots,dim,*dc.poles);
 
   if (rational) {
     Standard_Real v[Dimension_gen];
-    PLib::RationalDerivative(Degree,N,Dimension_gen,*dc.poles,v[0],Standard_False);
+    PLib1::RationalDerivative(Degree,N,Dimension_gen,*dc.poles,v[0],Standard_False);
     CoordsToPoint (VN, v, );
   }
   else {
@@ -599,7 +599,7 @@ void BSplCLib::DN
 //=======================================================================
 
 Standard_Integer 
-BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
+BSplCLib1::SolveBandedSystem(const math_Matrix&  Matrix,
 			    const Standard_Integer UpperBandWidth,
 			    const Standard_Integer LowerBandWidth,
 			    Array1OfPoints&   PolesArray) 
@@ -607,7 +607,7 @@ BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
   Standard_Real *PArray ;
   PArray = (Standard_Real *) &PolesArray(PolesArray.Lower()) ;
   
-  return BSplCLib::SolveBandedSystem(Matrix,
+  return BSplCLib1::SolveBandedSystem(Matrix,
 				     UpperBandWidth,
 				     LowerBandWidth,
 				     Dimension_gen,
@@ -624,7 +624,7 @@ BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
 //=======================================================================
 
 Standard_Integer 
-BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
+BSplCLib1::SolveBandedSystem(const math_Matrix&  Matrix,
 			    const Standard_Integer UpperBandWidth,
 			    const Standard_Integer LowerBandWidth,
                             const Standard_Boolean HomogeneousFlag,
@@ -635,7 +635,7 @@ BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
   * WArray ;
   PArray = (Standard_Real *) &PolesArray(PolesArray.Lower()) ;
   WArray = (Standard_Real *) &WeightsArray(WeightsArray.Lower()) ;
-  return BSplCLib::SolveBandedSystem(Matrix,
+  return BSplCLib1::SolveBandedSystem(Matrix,
 				     UpperBandWidth,
 				     LowerBandWidth,
 				     HomogeneousFlag,
@@ -653,7 +653,7 @@ BSplCLib::SolveBandedSystem(const math_Matrix&  Matrix,
 //   to be stored homogeneously and the result will also be homogeneous
 //   Valid only if Weights 
 //=======================================================================
-void  BSplCLib::Eval(const Standard_Real                   Parameter,
+void  BSplCLib1::Eval(const Standard_Real                   Parameter,
                      const Standard_Boolean                PeriodicFlag,
 		     const Standard_Boolean                HomogeneousFlag,
                      Standard_Integer&                     ExtrapMode,
@@ -672,7 +672,7 @@ void  BSplCLib::Eval(const Standard_Real                   Parameter,
   PArray = (Standard_Real *) &PolesArray(PolesArray.Lower()) ;
   WArray = (Standard_Real *) &WeightsArray(WeightsArray.Lower()) ;
   if (HomogeneousFlag) {
-    BSplCLib::Eval(Parameter,
+    BSplCLib1::Eval(Parameter,
 		   PeriodicFlag,
 		   0,
 		   ExtrapMode,
@@ -681,7 +681,7 @@ void  BSplCLib::Eval(const Standard_Real                   Parameter,
 		   Dimension_gen,
 		   PArray[0],
 		   P[0]) ;
-    BSplCLib::Eval(Parameter,
+    BSplCLib1::Eval(Parameter,
 		   PeriodicFlag,
 		   0,
 		   ExtrapMode,
@@ -692,7 +692,7 @@ void  BSplCLib::Eval(const Standard_Real                   Parameter,
 		   aWeight) ;
   }
   else {
-    BSplCLib::Eval(Parameter,
+    BSplCLib1::Eval(Parameter,
 		   PeriodicFlag,
 		   0,
 		   ExtrapMode,
@@ -719,7 +719,7 @@ void  BSplCLib::Eval(const Standard_Real                   Parameter,
 //purpose  : Evaluates the polynomial cache of the Bspline Curve
 //           
 //=======================================================================
-void  BSplCLib::CacheD0(const Standard_Real                  Parameter,
+void  BSplCLib1::CacheD0(const Standard_Real                  Parameter,
 			const  Standard_Integer               Degree,
 			const  Standard_Real                  CacheParameter,
 			const  Standard_Real                  SpanLenght,
@@ -736,7 +736,7 @@ void  BSplCLib::CacheD0(const Standard_Real                  Parameter,
   Standard_Real * PArray  = (Standard_Real *) &(PolesArray(PolesArray.Lower())) ;
   Standard_Real * myPoint = (Standard_Real *) &aPoint  ;
   NewParameter = (Parameter - CacheParameter) / SpanLenght ; 
-  PLib::NoDerivativeEvalPolynomial(NewParameter,
+  PLib1::NoDerivativeEvalPolynomial(NewParameter,
 		       Degree,
 		       Dimension_gen,
 		       Degree * Dimension_gen,
@@ -746,7 +746,7 @@ void  BSplCLib::CacheD0(const Standard_Real                  Parameter,
     const TColStd_Array1OfReal& refWeights = *WeightsArray;
     Standard_Real *
       WArray = (Standard_Real *) &refWeights(refWeights.Lower()) ;
-    PLib::NoDerivativeEvalPolynomial(NewParameter,
+    PLib1::NoDerivativeEvalPolynomial(NewParameter,
 			 Degree,
 			 1,
 			 Degree,
@@ -763,7 +763,7 @@ void  BSplCLib::CacheD0(const Standard_Real                  Parameter,
 //purpose  : Evaluates the polynomial cache of the Bspline Curve
 //           
 //=======================================================================
-void  BSplCLib::CacheD1(const Standard_Real                  Parameter,
+void  BSplCLib1::CacheD1(const Standard_Real                  Parameter,
 		        const Standard_Integer                Degree,
                         const  Standard_Real                  CacheParameter,
                         const  Standard_Real                  SpanLenght,
@@ -788,7 +788,7 @@ void  BSplCLib::CacheD1(const Standard_Real                  Parameter,
   Standard_Real *
     myVector = (Standard_Real *) &aVector ;
   NewParameter = (Parameter - CacheParameter) / SpanLenght ; 
-  PLib::EvalPolynomial(NewParameter,
+  PLib1::EvalPolynomial(NewParameter,
 		       1,
 		       Degree,
 		       Dimension_gen,
@@ -804,7 +804,7 @@ void  BSplCLib::CacheD1(const Standard_Real                  Parameter,
     const TColStd_Array1OfReal& refWeights = *WeightsArray;
     Standard_Real *
       WArray = (Standard_Real *) &refWeights(refWeights.Lower()) ;
-    PLib::EvalPolynomial(NewParameter,
+    PLib1::EvalPolynomial(NewParameter,
 			 1,
 			 Degree,
 			 1,
@@ -816,7 +816,7 @@ void  BSplCLib::CacheD1(const Standard_Real                  Parameter,
     //
     LocalWDerivatives[1] /= SpanLenght ;
     
-    PLib::RationalDerivatives(1,
+    PLib1::RationalDerivatives(1,
 			      Dimension_gen,
 			      LocalPDerivatives[0],
 			      LocalWDerivatives[0],
@@ -832,7 +832,7 @@ void  BSplCLib::CacheD1(const Standard_Real                  Parameter,
 //purpose  : Evaluates the polynomial cache of the Bspline Curve
 //           
 //=======================================================================
-void  BSplCLib::CacheD2(const Standard_Real                  Parameter,
+void  BSplCLib1::CacheD2(const Standard_Real                  Parameter,
 			const Standard_Integer                Degree,
 			const  Standard_Real                  CacheParameter,
 			const  Standard_Real                  SpanLenght,
@@ -856,7 +856,7 @@ void  BSplCLib::CacheD2(const Standard_Real                  Parameter,
   Standard_Real * myVector1 = (Standard_Real *) &aVector1 ;
   Standard_Real * myVector2 = (Standard_Real *) &aVector2 ;
   NewParameter = (Parameter - CacheParameter) / SpanLenght ; 
-  PLib::EvalPolynomial(NewParameter,
+  PLib1::EvalPolynomial(NewParameter,
 		       2,
 		       Degree,
 		       Dimension_gen,
@@ -886,7 +886,7 @@ void  BSplCLib::CacheD2(const Standard_Real                  Parameter,
     Standard_Real *
       WArray = (Standard_Real *) &refWeights(refWeights.Lower()) ;
     
-    PLib::EvalPolynomial(NewParameter,
+    PLib1::EvalPolynomial(NewParameter,
 			 2,
 			 Degree,
 			 1,
@@ -906,7 +906,7 @@ void  BSplCLib::CacheD2(const Standard_Real                  Parameter,
       LocalWDerivatives[ii] *= Factor ;
       Factor /= SpanLenght ;
     }
-    PLib::RationalDerivatives(2,
+    PLib1::RationalDerivatives(2,
 			      Dimension_gen,
 			      LocalPDerivatives[0],
 			      LocalWDerivatives[0],
@@ -923,7 +923,7 @@ void  BSplCLib::CacheD2(const Standard_Real                  Parameter,
 //purpose  : Evaluates the polynomial cache of the Bspline Curve
 //           
 //=======================================================================
-void  BSplCLib::CacheD3(const Standard_Real                  Parameter,
+void  BSplCLib1::CacheD3(const Standard_Real                  Parameter,
 			const Standard_Integer                Degree,
 			const  Standard_Real                  CacheParameter,
 			const  Standard_Real                  SpanLenght,
@@ -949,7 +949,7 @@ void  BSplCLib::CacheD3(const Standard_Real                  Parameter,
   Standard_Real * myVector2 = (Standard_Real *) &aVector2 ;
   Standard_Real * myVector3 = (Standard_Real *) &aVector3 ;
   NewParameter = (Parameter - CacheParameter) / SpanLenght ; 
-  PLib::EvalPolynomial(NewParameter,
+  PLib1::EvalPolynomial(NewParameter,
 		       3,
 		       Degree,
 		       Dimension_gen,
@@ -980,7 +980,7 @@ void  BSplCLib::CacheD3(const Standard_Real                  Parameter,
     Standard_Real *
       WArray = (Standard_Real *) &refWeights(refWeights.Lower()) ;
     
-    PLib::EvalPolynomial(NewParameter,
+    PLib1::EvalPolynomial(NewParameter,
 			 3,
 			 Degree,
 			 1,
@@ -1000,7 +1000,7 @@ void  BSplCLib::CacheD3(const Standard_Real                  Parameter,
     for (ii = (Degree + 1)  ; ii <= 3 ; ii++) {
       LocalWDerivatives[ii] = 0.0e0 ;
     }
-    PLib::RationalDerivatives(3,
+    PLib1::RationalDerivatives(3,
 			      Dimension_gen,
 			      LocalPDerivatives[0],
 			      LocalWDerivatives[0],
@@ -1020,7 +1020,7 @@ void  BSplCLib::CacheD3(const Standard_Real                  Parameter,
 //           stored in homogeneous form 
 //=======================================================================
 
-void BSplCLib::BuildCache
+void BSplCLib1::BuildCache
 (const Standard_Real            U,   
  const Standard_Real            SpanDomain,    
  const Standard_Boolean         Periodic,
@@ -1049,7 +1049,7 @@ void BSplCLib::BuildCache
               Poles,
               Weights,
               FlatKnots,
-              (BSplCLib::NoMults()),
+              (BSplCLib1::NoMults()),
               dc);
   // 
   // Watch out : PrepareEval checks if locally the Bspline is polynomial
@@ -1057,7 +1057,7 @@ void BSplCLib::BuildCache
   // Weights. The Dimension is set accordingly.
   //
   
-  BSplCLib::Bohm(u,Degree,Degree,*dc.knots,Dimension,*dc.poles);
+  BSplCLib1::Bohm(u,Degree,Degree,*dc.knots,Dimension,*dc.poles);
   
   LocalValue = 1.0e0 ;
   LocalIndex = 0 ;
@@ -1094,7 +1094,7 @@ void BSplCLib::BuildCache
   }
 }
 
-void BSplCLib::BuildCache(const Standard_Real          theParameter,
+void BSplCLib1::BuildCache(const Standard_Real          theParameter,
                           const Standard_Real          theSpanDomain,
                           const Standard_Boolean       thePeriodicFlag,
                           const Standard_Integer       theDegree,
@@ -1119,7 +1119,7 @@ void BSplCLib::BuildCache(const Standard_Real          theParameter,
               thePoles,
               theWeights,
               theFlatKnots,
-              (BSplCLib::NoMults()),
+              (BSplCLib1::NoMults()),
               dc);
   //
   // Watch out : PrepareEval checks if locally the Bspline is polynomial
@@ -1130,7 +1130,7 @@ void BSplCLib::BuildCache(const Standard_Real          theParameter,
   Standard_Integer aCacheShift = // helps to store weights when PrepareEval did not found that the curve is locally polynomial
     (theWeights != NULL && !isRational) ? aDimension + 1 : aDimension;
 
-  BSplCLib::Bohm(aParam, theDegree, theDegree, *dc.knots, aDimension, *dc.poles);
+  BSplCLib1::Bohm(aParam, theDegree, theDegree, *dc.knots, aDimension, *dc.poles);
 
   Standard_Real aCoeff = 1.0;
   Standard_Real* aCache = (Standard_Real *) &(theCacheArray(theCacheArray.LowerRow(), theCacheArray.LowerCol()));
@@ -1159,7 +1159,7 @@ void BSplCLib::BuildCache(const Standard_Real          theParameter,
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::Interpolate(const Standard_Integer         Degree,
+void  BSplCLib1::Interpolate(const Standard_Integer         Degree,
 			    const TColStd_Array1OfReal&    FlatKnots,
 			    const TColStd_Array1OfReal&    Parameters,
 			    const TColStd_Array1OfInteger& ContactOrderArray,
@@ -1171,7 +1171,7 @@ void  BSplCLib::Interpolate(const Standard_Integer         Degree,
   
   PArray = (Standard_Real *) &Poles(Poles.Lower()) ;
   
-  BSplCLib::Interpolate(Degree,
+  BSplCLib1::Interpolate(Degree,
 			FlatKnots,
 			Parameters,
 			ContactOrderArray,
@@ -1185,7 +1185,7 @@ void  BSplCLib::Interpolate(const Standard_Integer         Degree,
 //purpose  : 
 //=======================================================================
 
-void  BSplCLib::Interpolate(const Standard_Integer         Degree,
+void  BSplCLib1::Interpolate(const Standard_Integer         Degree,
 			    const TColStd_Array1OfReal&    FlatKnots,
 			    const TColStd_Array1OfReal&    Parameters,
 			    const TColStd_Array1OfInteger& ContactOrderArray,
@@ -1197,7 +1197,7 @@ void  BSplCLib::Interpolate(const Standard_Integer         Degree,
   * WArray ;
   PArray = (Standard_Real *) &Poles(Poles.Lower()) ;
   WArray = (Standard_Real *) &Weights(Weights.Lower()) ;
-  BSplCLib::Interpolate(Degree,
+  BSplCLib1::Interpolate(Degree,
 			FlatKnots,
 			Parameters,
 			ContactOrderArray,
@@ -1213,7 +1213,7 @@ void  BSplCLib::Interpolate(const Standard_Integer         Degree,
 //           given  u as parameter) to reach a new position
 //=======================================================================
 
-void BSplCLib::MovePoint (const Standard_Real            U, 
+void BSplCLib1::MovePoint (const Standard_Real            U, 
 			  const Vector&                  Displ,
 			  const Standard_Integer         Index1,
 			  const Standard_Integer         Index2,
@@ -1230,7 +1230,7 @@ void BSplCLib::MovePoint (const Standard_Real            U,
   math_Matrix BSplineBasis(1, 1,
 			   1, Degree+1);
   Standard_Integer ErrorCode =
-    BSplCLib::EvalBsplineBasis(0,
+    BSplCLib1::EvalBsplineBasis(0,
 			       Degree+1,
 			       FlatKnots,
 			       U,
@@ -1339,7 +1339,7 @@ void BSplCLib::MovePoint (const Standard_Real            U,
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::MovePointAndTangent (const Standard_Real      U, 
+void BSplCLib1::MovePointAndTangent (const Standard_Real      U, 
 				    const Vector&            Delta,
 				    const Vector&            DeltaDerivatives,
 				    const Standard_Real      Tolerance,
@@ -1388,7 +1388,7 @@ void BSplCLib::MovePointAndTangent (const Standard_Real      U,
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::Resolution(const Array1OfPoints&          Poles,  
+void BSplCLib1::Resolution(const Array1OfPoints&          Poles,  
 			  const TColStd_Array1OfReal*    Weights,
 			  const Standard_Integer         NumPoles,
 			  const TColStd_Array1OfReal&    FlatKnots, 
@@ -1398,7 +1398,7 @@ void BSplCLib::Resolution(const Array1OfPoints&          Poles,
 {
   Standard_Real *PolesArray ;
   PolesArray = (Standard_Real *) &Poles(Poles.Lower()) ;
-  BSplCLib::Resolution(PolesArray[0],
+  BSplCLib1::Resolution(PolesArray[0],
 		       Dimension_gen,
 		       NumPoles,
 		       Weights,
@@ -1413,8 +1413,8 @@ void BSplCLib::Resolution(const Array1OfPoints&          Poles,
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::FunctionMultiply
-(const BSplCLib_EvaluatorFunction & FunctionPtr,
+void BSplCLib1::FunctionMultiply
+(const EvaluatorFunction1 & FunctionPtr,
  const Standard_Integer              BSplineDegree,
  const TColStd_Array1OfReal &        BSplineFlatKnots,
  const Array1OfPoints &              Poles,
@@ -1436,7 +1436,7 @@ void BSplCLib::FunctionMultiply
     (Standard_Real *) &Poles(Poles.Lower()) ;
   Standard_Real  * array_of_new_poles =
     (Standard_Real *) &NewPoles(NewPoles.Lower()) ;
-  BSplCLib::FunctionMultiply(FunctionPtr,
+  BSplCLib1::FunctionMultiply(FunctionPtr,
 			     BSplineDegree,
 			     BSplineFlatKnots,
 			     Dimension_gen,
@@ -1452,8 +1452,8 @@ void BSplCLib::FunctionMultiply
 //purpose  : 
 //=======================================================================
 
-void BSplCLib::FunctionReparameterise
-(const BSplCLib_EvaluatorFunction & FunctionPtr,
+void BSplCLib1::FunctionReparameterise
+(const EvaluatorFunction1 & FunctionPtr,
  const Standard_Integer              BSplineDegree,
  const TColStd_Array1OfReal &        BSplineFlatKnots,
  const Array1OfPoints &              Poles,
@@ -1475,7 +1475,7 @@ void BSplCLib::FunctionReparameterise
     (Standard_Real *) &Poles(Poles.Lower()) ;
   Standard_Real  * array_of_new_poles =
     (Standard_Real *) &NewPoles(NewPoles.Lower()) ;
-  BSplCLib::FunctionReparameterise(FunctionPtr,
+  BSplCLib1::FunctionReparameterise(FunctionPtr,
 				   BSplineDegree,
 				   BSplineFlatKnots,
 				   Dimension_gen,

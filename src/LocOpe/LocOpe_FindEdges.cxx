@@ -93,17 +93,17 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
       {
         gp_Lin        lif  = Handle(GeomLine)::DownCast(Cf)->Lin();
         gp_Lin        lit  = Handle(GeomLine)::DownCast(Ct)->Lin();
-        Point3d        p1   = ElCLib::Value(ff, lif);
-        Point3d        p2   = ElCLib::Value(lf, lif);
-        Standard_Real prm1 = ElCLib::Parameter(lit, p1);
-        Standard_Real prm2 = ElCLib::Parameter(lit, p2);
+        Point3d        p1   = ElCLib1::Value(ff, lif);
+        Point3d        p2   = ElCLib1::Value(lf, lif);
+        Standard_Real prm1 = ElCLib1::Parameter(lit, p1);
+        Standard_Real prm2 = ElCLib1::Parameter(lit, p2);
         if (prm1 >= ft - Tol && prm1 <= lt + Tol && prm2 >= ft - Tol && prm2 <= lt + Tol)
         {
           Tol *= Tol;
-          Point3d pt = ElCLib::Value(prm1, lit);
+          Point3d pt = ElCLib1::Value(prm1, lit);
           if (pt.SquareDistance(p1) <= Tol)
           {
-            pt = ElCLib::Value(prm2, lit);
+            pt = ElCLib1::Value(prm2, lit);
             if (pt.SquareDistance(p2) <= Tol)
             {
               myLFrom.Append(edgf);
@@ -124,17 +124,17 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
 
           Point3d p1, p2;
           Vector3d tgf, tgt;
-          ElCLib::D1(ff, cif, p1, tgf);
-          p2 = ElCLib::Value(lf, cif);
+          ElCLib1::D1(ff, cif, p1, tgf);
+          p2 = ElCLib1::Value(lf, cif);
 
-          Standard_Real prm1  = ElCLib::Parameter(cit, p1);
+          Standard_Real prm1  = ElCLib1::Parameter(cit, p1);
           Standard_Real Tol2d = Precision::PConfusion();
           if (Abs(prm1 - ft) <= Tol2d)
             prm1 = ft;
-          prm1 = ElCLib::InPeriod(prm1, ft, ft + 2. * M_PI);
-          ElCLib::D1(prm1, cit, p1, tgt);
+          prm1 = ElCLib1::InPeriod(prm1, ft, ft + 2. * M_PI);
+          ElCLib1::D1(prm1, cit, p1, tgt);
 
-          Standard_Real prm2 = ElCLib::Parameter(cit, p2);
+          Standard_Real prm2 = ElCLib1::Parameter(cit, p2);
           if (tgt.Dot(tgf) > 0.)
           { // meme sens
             while (prm2 <= prm1)
@@ -186,14 +186,14 @@ void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
 
           Point3d p1, p2;
           Vector3d tgf, tgt;
-          ElCLib::D1(ff, cif, p1, tgf);
-          p2 = ElCLib::Value(lf, cif);
+          ElCLib1::D1(ff, cif, p1, tgf);
+          p2 = ElCLib1::Value(lf, cif);
 
-          Standard_Real prm1 = ElCLib::Parameter(cit, p1);
-          prm1               = ElCLib::InPeriod(prm1, ft, ft + 2. * M_PI);
-          ElCLib::D1(prm1, cit, p1, tgt);
+          Standard_Real prm1 = ElCLib1::Parameter(cit, p1);
+          prm1               = ElCLib1::InPeriod(prm1, ft, ft + 2. * M_PI);
+          ElCLib1::D1(prm1, cit, p1, tgt);
 
-          Standard_Real prm2 = ElCLib::Parameter(cit, p2);
+          Standard_Real prm2 = ElCLib1::Parameter(cit, p2);
           if (tgt.Dot(tgf) > 0.)
           { // meme sens
             while (prm2 <= prm1)

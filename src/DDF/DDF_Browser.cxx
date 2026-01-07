@@ -100,7 +100,7 @@ AsciiString1 DDF_Browser::OpenRoot() const
 {
   AsciiString1 list;
   const DataLabel&        root = myDF->Root();
-  TDF_Tool::Entry(root, list);
+  Tool3::Entry(root, list);
   Handle(NameAttribute) name;
   list.AssignCat(TDF_BrowserSeparator2);
   list.AssignCat("\"");
@@ -145,11 +145,11 @@ AsciiString1 DDF_Browser::OpenLabel(const DataLabel& aLab) const
     split = Standard_True;
   }
   Handle(NameAttribute) name;
-  for (TDF_ChildIterator itr(aLab); itr.More(); itr.Next())
+  for (ChildIterator itr(aLab); itr.More(); itr.Next())
   {
     if (split)
       list.AssignCat(TDF_BrowserSeparator1);
-    TDF_Tool::Entry(itr.Value(), entry);
+    Tool3::Entry(itr.Value(), entry);
     list.AssignCat(entry);
     list.AssignCat(TDF_BrowserSeparator2);
     list.AssignCat("\"");

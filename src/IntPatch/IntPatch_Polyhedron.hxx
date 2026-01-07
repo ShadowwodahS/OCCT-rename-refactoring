@@ -65,7 +65,7 @@ public:
 
   //! Give the 3 points of the triangle of address Index in
   //! the double array of triangles.
-  Standard_EXPORT void Triangle(const Standard_Integer Index,
+  Standard_EXPORT void Triangle1(const Standard_Integer Index,
                                 Standard_Integer&      P1,
                                 Standard_Integer&      P2,
                                 Standard_Integer&      P3) const;
@@ -106,7 +106,7 @@ public:
   Standard_EXPORT void Point(const Standard_Integer Index, Point3d& P) const;
 
   //! Give the bounding box of the MaTriangle.
-  Standard_EXPORT const Bnd_Box& Bounding() const;
+  Standard_EXPORT const Box2& Bounding() const;
 
   //! Compute the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
@@ -143,7 +143,7 @@ public:
 
 protected:
 private:
-  Bnd_Box                  TheBnd;
+  Box2                  TheBnd;
   Handle(Bnd_HArray1OfBox) TheComponentsBnd;
   Standard_Real            TheDeflection;
   Standard_Integer         nbdeltaU;

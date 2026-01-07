@@ -207,7 +207,7 @@ void GeomPlane::Coefficients(Standard_Real& A,
 void GeomPlane::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
 
-  P = ElSLib::PlaneValue(U, V, pos);
+  P = ElSLib1::PlaneValue(U, V, pos);
 }
 
 //=================================================================================================
@@ -215,7 +215,7 @@ void GeomPlane::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 void GeomPlane::D1(const Standard_Real U, const Standard_Real V, Pnt& P, Vec& D1U, Vec& D1V) const
 {
 
-  ElSLib::PlaneD1(U, V, pos, P, D1U, D1V);
+  ElSLib1::PlaneD1(U, V, pos, P, D1U, D1V);
 }
 
 //=================================================================================================
@@ -230,7 +230,7 @@ void GeomPlane::D2(const Standard_Real U,
                     Vec&                D2UV) const
 {
 
-  ElSLib::PlaneD1(U, V, pos, P, D1U, D1V);
+  ElSLib1::PlaneD1(U, V, pos, P, D1U, D1V);
   D2U.SetCoord(0.0, 0.0, 0.0);
   D2V.SetCoord(0.0, 0.0, 0.0);
   D2UV.SetCoord(0.0, 0.0, 0.0);
@@ -251,7 +251,7 @@ void GeomPlane::D3(const Standard_Real U,
                     Vec&                D3UUV,
                     Vec&                D3UVV) const
 {
-  ElSLib::PlaneD1(U, V, pos, P, D1U, D1V);
+  ElSLib1::PlaneD1(U, V, pos, P, D1U, D1V);
   D2U.SetCoord(0.0, 0.0, 0.0);
   D2V.SetCoord(0.0, 0.0, 0.0);
   D2UV.SetCoord(0.0, 0.0, 0.0);
@@ -285,7 +285,7 @@ Vec GeomPlane::DN(const Standard_Real,
 
 Handle(GeomCurve3d) GeomPlane::UIso(const Standard_Real U) const
 {
-  Handle(GeomLine) GL = new GeomLine(ElSLib::PlaneUIso(pos, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib1::PlaneUIso(pos, U));
   return GL;
 }
 
@@ -293,7 +293,7 @@ Handle(GeomCurve3d) GeomPlane::UIso(const Standard_Real U) const
 
 Handle(GeomCurve3d) GeomPlane::VIso(const Standard_Real V) const
 {
-  Handle(GeomLine) GL = new GeomLine(ElSLib::PlaneVIso(pos, V));
+  Handle(GeomLine) GL = new GeomLine(ElSLib1::PlaneVIso(pos, V));
   return GL;
 }
 

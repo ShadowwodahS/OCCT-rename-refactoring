@@ -2781,7 +2781,7 @@ static Standard_Integer OCC28389(DrawInterpreter& di, Standard_Integer argc, con
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Error: Wrong label";
@@ -2943,7 +2943,7 @@ static Standard_Integer OCC28784(DrawInterpreter&, Standard_Integer argc, const 
     return 1;
 
   Frame3d            aPlane(gp::Origin(), gp::DX(), -gp::DZ());
-  HLRAlgo_Projector aProjector(aPlane);
+  HLRAlgoProjector aProjector(aPlane);
 
   Handle(HLRBRep_PolyAlgo) aHLR = new HLRBRep_PolyAlgo(aShape);
   aHLR->Projector(aProjector);
@@ -3088,7 +3088,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
   }
 
   Handle(BezierCurve3d)  outer_e_bzr_geom = new BezierCurve3d(outer_e_bzr_geom_v);
-  Handle(BSplineCurve3d) outer_e_bsp_geom = GeomConvert::CurveToBSplineCurve(outer_e_bzr_geom);
+  Handle(BSplineCurve3d) outer_e_bsp_geom = GeomConvert1::CurveToBSplineCurve(outer_e_bzr_geom);
   TopoEdge               outer_e          = EdgeMaker(outer_e_bsp_geom);
 
   Handle(BSplineCurve3d) curve1;
@@ -3525,8 +3525,8 @@ static Standard_Integer OCC29531(DrawInterpreter&, Standard_Integer, const char*
   Reader.ReadFile(theArgV[1]);
   Reader.Transfer(aDoc);
   DataLabel aShL, aDL;
-  TDF_Tool::Label(aDoc->GetData(), "0:1:1:2:672", aShL);
-  TDF_Tool::Label(aDoc->GetData(), "0:1:4:10", aDL);
+  Tool3::Label(aDoc->GetData(), "0:1:1:2:672", aShL);
+  Tool3::Label(aDoc->GetData(), "0:1:4:10", aDL);
 
   aDoc->OpenCommand();
 
@@ -3659,7 +3659,7 @@ static Standard_Integer OCC29311(DrawInterpreter& theDI,
   TopoShape     aShape  = DBRep1::Get(theArgv[1]);
   Standard_Integer aNbIter = Draw1::Atoi(theArgv[3]);
 
-  Bnd_OBB   anOBB;
+  OrientedBox   anOBB;
   OSD_Timer aTimer;
   aTimer.Start();
   for (Standard_Integer aN = aNbIter; aN > 0; --aN)
@@ -3862,7 +3862,7 @@ void* threadFunction(void* theArgs)
         else
         {
           DataLabel         aLabel = aDoc->Main();
-          TDF_ChildIterator anIt(aLabel, Standard_True);
+          ChildIterator anIt(aLabel, Standard_True);
           for (; anIt.More(); anIt.Next())
           {
             const DataLabel&             aLab = anIt.Value();
@@ -4027,7 +4027,7 @@ static Standard_Integer QAEndsWith(DrawInterpreter& di, Standard_Integer n, cons
 // Class is used in OCC30435
 #include <Adaptor3d_Curve.hxx>
 
-class CurveEvaluator : public AppCont_Function
+class CurveEvaluator : public ContinuityFunction
 
 {
 
@@ -4109,7 +4109,7 @@ static Standard_Integer OCC30435(DrawInterpreter& di, Standard_Integer, const ch
   }
   Standard_Integer NbCurves = anAppro.NbMultiCurves();
 
-  Convert_CompBezierCurvesToBSplineCurve Conv;
+  BezierToBSpline Conv;
 
   Standard_Real tol3d, tol2d, tolreached = 0.;
   for (i = 1; i <= NbCurves; i++)
@@ -4132,7 +4132,7 @@ static Standard_Integer OCC30435(DrawInterpreter& di, Standard_Integer, const ch
   Conv.KnotsAndMults(NewKnots, NewMults);
   Conv.Poles(NewPoles);
 
-  BSplCLib::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
+  BSplCLib1::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
   Handle(BSplineCurve3d) TheCurve =
     new BSplineCurve3d(NewPoles, NewKnots, NewMults, Conv.Degree());
 
@@ -4359,7 +4359,7 @@ static Standard_Integer OCC30704(DrawInterpreter& di, Standard_Integer, const ch
   const TopoShape& box = mkBox.Shape();
 
   // Add a bounding box of a shape to a void bounding box.
-  Bnd_OBB aVoidBox, aBox;
+  OrientedBox aVoidBox, aBox;
   BRepBndLib::AddOBB(box, aBox, Standard_False, Standard_False, Standard_False);
   aVoidBox.Add(aBox);
 
@@ -4375,7 +4375,7 @@ static Standard_Integer OCC30704_1(DrawInterpreter& di, Standard_Integer, const 
   Point3d aP(100, 200, 300);
 
   // Add the point to a void bounding box.
-  Bnd_OBB aVoidBox;
+  OrientedBox aVoidBox;
   aVoidBox.Add(aP);
 
   // Print the center point of the bounding box.
@@ -4880,7 +4880,7 @@ static Standard_Integer OCC32744(DrawInterpreter& theDi,
     Standard_Real            firstParam = 0., lastParam = 0.;
     Handle(GeomCurve3d)       pCurve = BRepInspector::Curve(anEdge, firstParam, lastParam);
     GeomAdaptor_Curve        curveAdaptor(pCurve, firstParam, lastParam);
-    GCPnts_UniformDeflection uniformAbs(curveAdaptor, 0.001, firstParam, lastParam);
+    UniformDeflection1 uniformAbs(curveAdaptor, 0.001, firstParam, lastParam);
   }
 
   return 0;
@@ -4888,7 +4888,7 @@ static Standard_Integer OCC32744(DrawInterpreter& theDi,
 
 static Standard_Integer OCC33009(DrawInterpreter&, Standard_Integer, const char**)
 {
-  Bnd_OBB aBndBox;
+  OrientedBox aBndBox;
 
   TColgp_Array1OfPnt aPoints(1, 5);
 
@@ -5414,7 +5414,7 @@ void QABugs::Commands_20(DrawInterpreter& theCommands)
     group);
 
   theCommands.Add("OCC32744",
-                  "Tests avoid Endless loop in GCPnts_UniformDeflection",
+                  "Tests avoid Endless loop in UniformDeflection1",
                   __FILE__,
                   OCC32744,
                   group);

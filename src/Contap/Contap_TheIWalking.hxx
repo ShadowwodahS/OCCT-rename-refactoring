@@ -213,8 +213,8 @@ private:
   IntWalk_VectorOfWalkingData           wd1;
   IntWalk_VectorOfWalkingData           wd2;
   IntWalk_VectorOfInteger               nbMultiplicities;
-  Bnd_Range                             mySRangeU; // Estimated U-range for section curve
-  Bnd_Range                             mySRangeV; // Estimated V-range for section curve
+  Range1                             mySRangeU; // Estimated U-range for section curve
+  Range1                             mySRangeV; // Estimated V-range for section curve
   Standard_Real                         Um;
   Standard_Real                         UM;
   Standard_Real                         Vm;

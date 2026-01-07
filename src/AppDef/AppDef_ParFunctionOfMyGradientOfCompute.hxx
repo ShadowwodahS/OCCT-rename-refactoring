@@ -30,9 +30,9 @@
 #include <math_MultipleVarFunctionWithGradient.hxx>
 #include <AppParCurves_Constraint.hxx>
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_ParLeastSquareOfMyGradientOfCompute;
-class AppDef_ResConstraintOfMyGradientOfCompute;
+class ResConstraintGradientCompute;
 class AppParCurves_MultiCurve;
 
 class AppDef_ParFunctionOfMyGradientOfCompute : public math_MultipleVarFunctionWithGradient

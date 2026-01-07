@@ -421,7 +421,7 @@ Standard_Real Extrema_GenExtSS::SquareDistance(const Standard_Integer N) const
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_GenExtSS::PointOnS1(const Standard_Integer N) const
+const PointOnSurface1& Extrema_GenExtSS::PointOnS1(const Standard_Integer N) const
 {
   if (N < 1 || N > NbExt())
   {
@@ -433,7 +433,7 @@ const Extrema_POnSurf& Extrema_GenExtSS::PointOnS1(const Standard_Integer N) con
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_GenExtSS::PointOnS2(const Standard_Integer N) const
+const PointOnSurface1& Extrema_GenExtSS::PointOnS2(const Standard_Integer N) const
 {
   if (N < 1 || N > NbExt())
   {

@@ -91,14 +91,14 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const gp_Pnt2d&     Point1,
       pnttg1sol(1)  = Point1;
       pntcen3(1)    = cirsol(1).Location();
       pararg1(1)    = 0.0;
-      par1sol(1)    = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
-      parcen3(1)    = ElCLib::Parameter(OnCirc, pntcen3(1));
+      par1sol(1)    = ElCLib1::Parameter(cirsol(1), pnttg1sol(1));
+      parcen3(1)    = ElCLib1::Parameter(OnCirc, pntcen3(1));
       WellDone      = Standard_True;
       NbrSol        = 1;
     }
     else
     {
-      IntAna2d_AnaIntersection Intp(OnCirc, gp_Circ2d(gp_Ax2d(Point1, dirx), Radius));
+      AnalyticIntersection2d Intp(OnCirc, gp_Circ2d(gp_Ax2d(Point1, dirx), Radius));
       if (Intp.IsDone())
       {
         if (!Intp.IsEmpty())
@@ -113,8 +113,8 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const gp_Pnt2d&     Point1,
             TheSame1(1)   = 0;
             pnttg1sol(1)  = Point1;
             pntcen3(1)    = cirsol(1).Location();
-            par1sol(1)    = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
-            parcen3(1)    = ElCLib::Parameter(OnCirc, pntcen3(1));
+            par1sol(1)    = ElCLib1::Parameter(cirsol(1), pnttg1sol(1));
+            parcen3(1)    = ElCLib1::Parameter(OnCirc, pntcen3(1));
             pararg1(1)    = 0.0;
           }
         }

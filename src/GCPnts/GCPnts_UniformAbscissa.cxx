@@ -63,7 +63,7 @@ static GCPnts_AbscissaType GetAbsType(const TheCurve& theC)
       return GCPnts_LengthParametrized;
     }
     case GeomAbs_BezierCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BezierCurve) aBZ = theC.Bezier();
+      Handle(typename TCurveTypes<TheCurve>::BezierCurve) aBZ = theC.Bezier();
       if (aBZ->NbPoles() == 2 && !aBZ->IsRational())
       {
         return GCPnts_LengthParametrized;
@@ -71,7 +71,7 @@ static GCPnts_AbscissaType GetAbsType(const TheCurve& theC)
       return GCPnts_Parametrized;
     }
     case GeomAbs_BSplineCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BSplineCurve) aBS = theC.BSpline();
+      Handle(typename TCurveTypes<TheCurve>::BSplineCurve) aBS = theC.BSpline();
       if (aBS->NbPoles() == 2 && !aBS->IsRational())
       {
         return GCPnts_LengthParametrized;

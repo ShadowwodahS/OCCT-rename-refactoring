@@ -128,7 +128,7 @@ Standard_Boolean XmlMDataStd_ReferenceArrayDriver::Paste(const XmlObjMgt_Persist
       DataLabel tLab; // Null label.
       if (anEntry.Length() > 0)
       {
-        TDF_Tool::Label(aReferenceArray->Label().Data(), anEntry, tLab, Standard_True);
+        Tool3::Label(aReferenceArray->Label().Data(), anEntry, tLab, Standard_True);
       }
       aReferenceArray->SetValue(i++, tLab);
       aCurNode    = aCurElement->getNextSibling();
@@ -156,7 +156,7 @@ Standard_Boolean XmlMDataStd_ReferenceArrayDriver::Paste(const XmlObjMgt_Persist
     DataLabel tLab; // Null label.
     if (anEntry.Length() > 0)
     {
-      TDF_Tool::Label(aReferenceArray->Label().Data(), anEntry, tLab, Standard_True);
+      Tool3::Label(aReferenceArray->Label().Data(), anEntry, tLab, Standard_True);
     }
     aReferenceArray->SetValue(i, tLab);
   }
@@ -196,7 +196,7 @@ void XmlMDataStd_ReferenceArrayDriver::Paste(const Handle(TDF_Attribute)& theSou
     {
       // Internal reference
       AsciiString1 anEntry;
-      TDF_Tool::Entry(label, anEntry);
+      Tool3::Entry(label, anEntry);
 
       XmlObjMgt_DOMString aDOMString;
       XmlObjMgt::SetTagEntryString(aDOMString, anEntry);

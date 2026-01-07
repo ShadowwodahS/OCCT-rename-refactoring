@@ -103,12 +103,12 @@ Standard_ShortReal OpenGl_TriangleSet::Center(const Standard_Integer theIndex,
 }
 
 // =======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns AABB of primitive set
 // =======================================================================
-OpenGl_TriangleSet::BVH_BoxNt OpenGl_TriangleSet::Box() const
+OpenGl_TriangleSet::BVH_BoxNt OpenGl_TriangleSet::Box1() const
 {
-  BVH_BoxNt                                   aBox = BVH_PrimitiveSet<Standard_ShortReal, 3>::Box();
+  BVH_BoxNt                                   aBox = BVH_PrimitiveSet<Standard_ShortReal, 3>::Box1();
   const BVH_Transform<Standard_ShortReal, 4>* aTransform =
     dynamic_cast<const BVH_Transform<Standard_ShortReal, 4>*>(Properties().get());
   if (aTransform == NULL)

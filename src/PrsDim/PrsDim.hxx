@@ -26,7 +26,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Bnd_Box;
+class Box2;
 class GeomCurve3d;
 class GeomPlane;
 class GeomSurface;
@@ -220,7 +220,7 @@ public:
 
   Standard_EXPORT static Point3d TranslatePointToBound(const Point3d&  aPoint,
                                                       const Dir3d&  aDir,
-                                                      const Bnd_Box& aBndBox);
+                                                      const Box2& aBndBox);
 
   //! returns  True  if  point  with anAttachPar  is
   //! in  domain  of  arc

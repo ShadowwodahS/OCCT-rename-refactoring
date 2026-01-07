@@ -39,9 +39,9 @@ class Vector3d;
 class gp_Vec2d;
 class math_Matrix;
 
-//! BSplCLib   B-spline curve Library.
+//! BSplCLib1   B-spline curve Library.
 //!
-//! The BSplCLib package is  a basic library  for BSplines. It
+//! The BSplCLib1 package is  a basic library  for BSplines. It
 //! provides three categories of functions.
 //!
 //! * Management methods to  process knots and multiplicities.
@@ -74,8 +74,8 @@ class math_Matrix;
 //! - They get back the result in the original dimension.
 //!
 //! Note that the  bspline   surface methods found   in the
-//! package BSplSLib  uses  the same  structure and rely on
-//! BSplCLib.
+//! package BSplSLib1  uses  the same  structure and rely on
+//! BSplCLib1.
 //!
 //! In the following list  of methods the  2d and 3d  curve
 //! methods   will be  described   with  the  corresponding
@@ -98,8 +98,8 @@ class math_Matrix;
 //! some functions so that NULL pointer is valid.
 //! That means no weights/no multiplicities passed.
 //!
-//! No weights (BSplCLib::NoWeights()) means the curve is non rational.
-//! No mults (BSplCLib::NoMults()) means the knots are "flat" knots.
+//! No weights (BSplCLib1::NoWeights()) means the curve is non rational.
+//! No mults (BSplCLib1::NoMults()) means the knots are "flat" knots.
 //!
 //! KeyWords :
 //! B-spline curve, Functions, Library
@@ -114,7 +114,7 @@ class math_Matrix;
 //! . Modelisation des surfaces en CAO, Henri GIAUME Peugeot SA
 //! . Curves and Surfaces for Computer Aided Geometric Design,
 //! a practical guide Gerald Farin
-class BSplCLib
+class BSplCLib1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -1187,7 +1187,7 @@ public:
   //! of range the correct value will be searched.
   //!
   //! VERY IMPORTANT!!!
-  //! USE  BSplCLib::NoWeights()  as Weights argument for non
+  //! USE  BSplCLib1::NoWeights()  as Weights argument for non
   //! rational curves computations.
   Standard_EXPORT static void DN(const Standard_Real         U,
                                  const Standard_Integer      N,
@@ -1399,7 +1399,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of F(a(t))
-  Standard_EXPORT static void FunctionReparameterise(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionReparameterise(const EvaluatorFunction1& Function,
                                                      const Standard_Integer      BSplineDegree,
                                                      const TColStd_Array1OfReal& BSplineFlatKnots,
                                                      const Standard_Integer      PolesDimension,
@@ -1434,7 +1434,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of F(a(t))
-  Standard_EXPORT static void FunctionReparameterise(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionReparameterise(const EvaluatorFunction1& Function,
                                                      const Standard_Integer      BSplineDegree,
                                                      const TColStd_Array1OfReal& BSplineFlatKnots,
                                                      const TColStd_Array1OfReal& Poles,
@@ -1463,7 +1463,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of F(a(t))
-  Standard_EXPORT static void FunctionReparameterise(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionReparameterise(const EvaluatorFunction1& Function,
                                                      const Standard_Integer      BSplineDegree,
                                                      const TColStd_Array1OfReal& BSplineFlatKnots,
                                                      const TColgp_Array1OfPnt&   Poles,
@@ -1492,7 +1492,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of F(a(t))
-  Standard_EXPORT static void FunctionReparameterise(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionReparameterise(const EvaluatorFunction1& Function,
                                                      const Standard_Integer      BSplineDegree,
                                                      const TColStd_Array1OfReal& BSplineFlatKnots,
                                                      const TColgp_Array1OfPnt2d& Poles,
@@ -1518,7 +1518,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of a(t)*F(t)
-  Standard_EXPORT static void FunctionMultiply(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionMultiply(const EvaluatorFunction1& Function,
                                                const Standard_Integer            BSplineDegree,
                                                const TColStd_Array1OfReal&       BSplineFlatKnots,
                                                const Standard_Integer            PolesDimension,
@@ -1545,7 +1545,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of a(t)*F(t)
-  Standard_EXPORT static void FunctionMultiply(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionMultiply(const EvaluatorFunction1& Function,
                                                const Standard_Integer            BSplineDegree,
                                                const TColStd_Array1OfReal&       BSplineFlatKnots,
                                                const TColStd_Array1OfReal&       Poles,
@@ -1571,7 +1571,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of a(t)*F(t)
-  Standard_EXPORT static void FunctionMultiply(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionMultiply(const EvaluatorFunction1& Function,
                                                const Standard_Integer            BSplineDegree,
                                                const TColStd_Array1OfReal&       BSplineFlatKnots,
                                                const TColgp_Array1OfPnt2d&       Poles,
@@ -1597,7 +1597,7 @@ public:
   //! of the matrix that was inverted to compute the multiplied
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of a(t)*F(t)
-  Standard_EXPORT static void FunctionMultiply(const BSplCLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionMultiply(const EvaluatorFunction1& Function,
                                                const Standard_Integer            BSplineDegree,
                                                const TColStd_Array1OfReal&       BSplineFlatKnots,
                                                const TColgp_Array1OfPnt&         Poles,

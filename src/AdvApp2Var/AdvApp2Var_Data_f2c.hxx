@@ -29,12 +29,12 @@ typedef float         real;
 typedef struct
 {
   real r, i;
-} complex;
+} complex1;
 
 typedef struct
 {
   doublereal r, i;
-} doublecomplex;
+} doublecomplex1;
 
 typedef long int  logical;
 typedef short int shortlogical;
@@ -76,7 +76,7 @@ typedef struct
   flag   ciend;
   char*  cifmt;
   ftnint cirec;
-} cilist;
+} cilist1;
 
 /*internal read, write*/
 typedef struct
@@ -87,7 +87,7 @@ typedef struct
   char*  icifmt;
   ftnint icirlen;
   ftnint icirnum;
-} icilist;
+} icilist1;
 
 /*open*/
 typedef struct
@@ -101,7 +101,7 @@ typedef struct
   char*  ofm;
   ftnint orl;
   char*  oblnk;
-} olist;
+} olist1;
 
 /*close*/
 typedef struct
@@ -109,14 +109,14 @@ typedef struct
   flag   cerr;
   ftnint cunit;
   char*  csta;
-} cllist;
+} cllist1;
 
 /*rewind, backspace, endfile*/
 typedef struct
 {
   flag   aerr;
   ftnint aunit;
-} alist;
+} alist1;
 
 /* inquire */
 typedef struct
@@ -147,7 +147,7 @@ typedef struct
   ftnint* innrec;
   char*   inblank;
   ftnlen  inblanklen;
-} inlist;
+} inlist1;
 
 #define VOID void
 
@@ -158,27 +158,27 @@ union Multitype { /* for multiple entry points */
   /* longint j; */
   real          r;
   doublereal    d;
-  complex       c;
-  doublecomplex z;
+  complex1       c;
+  doublecomplex1 z;
 };
 
 typedef union Multitype Multitype;
 
 /*typedef long int Long;*/ /* No longer used; formerly in Namelist */
 
-struct Vardesc
+struct Vardesc1
 { /* for Namelist */
   char*   name;
   char*   addr;
   ftnlen* dims;
   int     type;
 };
-typedef struct Vardesc Vardesc;
+typedef struct Vardesc1 Vardesc1;
 
 struct Namelist
 {
   char*     name;
-  Vardesc** vars;
+  Vardesc1** vars;
   int       nvars;
 };
 typedef struct Namelist Namelist;
@@ -222,9 +222,9 @@ typedef /* Character */ VOID (*H_fp)();
 typedef /* Subroutine */ int (*S_fp)();
 #endif
 /* E_fp is for real functions when -R is not specified */
-typedef VOID       C_f; /* complex function */
+typedef VOID       C_f; /* complex1 function */
 typedef VOID       H_f; /* character function */
-typedef VOID       Z_f; /* double complex function */
+typedef VOID       Z_f; /* double complex1 function */
 typedef doublereal E_f; /* real function with -R not specified */
 
 /* undef any lower-case symbols that your C compiler predefines, e.g.: */

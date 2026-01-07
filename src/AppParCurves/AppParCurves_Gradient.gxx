@@ -114,16 +114,16 @@ AppParCurves_Gradient::
   i2 = 0;
   for (k = 1; k <= nbP3d; k++) {
     SCU.Curve(k, TabPole);
-    BSplCLib::PolesCoefficients(TabPole, PLib::NoWeights(),
-				TabCoef, PLib::NoWeights());
+    BSplCLib1::PolesCoefficients(TabPole, PLib1::NoWeights(),
+				TabCoef, PLib1::NoWeights());
     for (j=1; j<=deg+1; j++) TheCoef(j+i2) = TabCoef(j);
     i2 += deg+1;
   }
   i2 = 0;
   for (k = 1; k <= nbP2d; k++) {
     SCU.Curve(nbP3d+k, TabPole2d);
-    BSplCLib::PolesCoefficients(TabPole2d, PLib::NoWeights(),
-				TabCoef2d, PLib::NoWeights());
+    BSplCLib1::PolesCoefficients(TabPole2d, PLib1::NoWeights(),
+				TabCoef2d, PLib1::NoWeights());
     for (j=1; j<=deg+1; j++) TheCoef2d(j+i2) = TabCoef2d(j);
     i2 += deg+1;
   }
@@ -147,7 +147,7 @@ AppParCurves_Gradient::
     for (k = 1; k <= nbP3d; k++) {
       for (l=1; l<=deg+1; l++) TabCoef(l) = TheCoef(l+i2);
       i2 += deg+1;
-      BSplCLib::CoefsD1(UF, TabCoef, BSplCLib::NoWeights(), Pt, V1);
+      BSplCLib1::CoefsD1(UF, TabCoef, BSplCLib1::NoWeights(), Pt, V1);
       MyV = Vector3d(Pt, TabP(k));
       FU += MyV*V1;
       DFU += V1.SquareMagnitude();
@@ -156,7 +156,7 @@ AppParCurves_Gradient::
     for (k = 1; k <= nbP2d; k++) {
       for (l=1; l<=deg+1; l++) TabCoef2d(l) = TheCoef2d(l+i2);
       i2 += deg+1;
-      BSplCLib::CoefsD1(UF, TabCoef2d, BSplCLib::NoWeights(), Pt2d, V12d);
+      BSplCLib1::CoefsD1(UF, TabCoef2d, BSplCLib1::NoWeights(), Pt2d, V12d);
       MyV2d = gp_Vec2d(Pt2d, TabP2d(k));
       FU += MyV2d*V12d;
       DFU += V12d.SquareMagnitude();

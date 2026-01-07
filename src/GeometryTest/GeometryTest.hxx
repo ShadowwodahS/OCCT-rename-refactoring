@@ -60,7 +60,7 @@ public:
   Standard_EXPORT static void ContinuityCommands(DrawInterpreter& I);
 
   //! defines     command  to    test  the    polyhedral
-  //! triangulations and the polygons from the Poly package.
+  //! triangulations and the polygons from the Poly1 package.
   Standard_EXPORT static void PolyCommands(DrawInterpreter& I);
 
   //! defines commands to test projection of geometric objects

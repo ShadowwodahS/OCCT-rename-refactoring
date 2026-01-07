@@ -78,7 +78,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
                                                            const Standard_Real U2,
                                                            const Standard_Real V1,
                                                            const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(TheNbUPoles,
+    : ElementaryToBSplineSurface(TheNbUPoles,
                                                 TheNbVPoles,
                                                 TheNbUKnots,
                                                 TheNbVKnots,
@@ -149,7 +149,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
 Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C,
                                                            const Standard_Real V1,
                                                            const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(TheNbUPoles,
+    : ElementaryToBSplineSurface(TheNbUPoles,
                                                 TheNbVPoles,
                                                 TheNbUKnots,
                                                 TheNbVKnots,

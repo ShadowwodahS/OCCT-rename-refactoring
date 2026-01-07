@@ -103,7 +103,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
     {
       Handle(GccInt_Bisec)     Sol1 = Bis1.ThisSolution(i);
       GccInt_IType             typ1 = Sol1->ArcType();
-      IntAna2d_AnaIntersection Intp;
+      AnalyticIntersection2d Intp;
       for (Standard_Integer k = 1; k <= nbsolution2; k++)
       {
         Handle(GccInt_Bisec) Sol2 = Bis2.ThisSolution(k);
@@ -116,18 +116,18 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
           }
           else if (typ2 == GccInt_Par)
           {
-            Intp.Perform(Sol1->Line(), IntAna2d_Conic(Sol2->Parabola()));
+            Intp.Perform(Sol1->Line(), Conic2d(Sol2->Parabola()));
           }
         }
         else if (typ1 == GccInt_Par)
         {
           if (typ2 == GccInt_Lin)
           {
-            Intp.Perform(Sol2->Line(), IntAna2d_Conic(Sol1->Parabola()));
+            Intp.Perform(Sol2->Line(), Conic2d(Sol1->Parabola()));
           }
           else if (typ2 == GccInt_Par)
           {
-            Intp.Perform(Sol1->Parabola(), IntAna2d_Conic(Sol2->Parabola()));
+            Intp.Perform(Sol1->Parabola(), Conic2d(Sol2->Parabola()));
           }
         }
         if (Intp.IsDone())
@@ -349,12 +349,12 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                                                           Precision::Confusion()))
                       par1sol(NbrSol) = 1;
                     else
-                      par1sol(NbrSol) = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                      par1sol(NbrSol) = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
                     // POP for protection if C1.Location == pnttg1sol(NbrSol)
                     if (C1.Location().IsEqual(pnttg1sol(NbrSol), Precision::Confusion()))
                       pararg1(NbrSol) = 1;
                     else
-                      pararg1(NbrSol) = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                      pararg1(NbrSol) = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
                   }
                   if (Center.Distance(C2.Location()) <= Tolerance
                       && Abs(Radius(ind3) - R2) <= Tolerance)
@@ -371,20 +371,20 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                                                           Precision::Confusion()))
                       par1sol(NbrSol) = 1;
                     else
-                      par2sol(NbrSol) = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                      par2sol(NbrSol) = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
                     // POP for protection if C2.Location == pnttg2sol(NbrSol)
                     if (C2.Location().IsEqual(pnttg2sol(NbrSol), Precision::Confusion()))
                       pararg2(NbrSol) = 1;
                     else
-                      pararg2(NbrSol) = ElCLib::Parameter(C2, pnttg2sol(NbrSol));
+                      pararg2(NbrSol) = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));
                   }
                   TheSame3(NbrSol) = 0;
                   gp_Dir2d      dc(L3.Location().XY() - Center.XY());
                   Standard_Real sign = dc.Dot(gp_Dir2d(-L3.Direction().Y(), L3.Direction().X()));
                   dc = gp_Dir2d(sign * Coords2d(-L3.Direction().Y(), L3.Direction().X()));
                   pnttg3sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(ind3) * dc.XY());
-                  par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
-                  pararg3(NbrSol)   = ElCLib::Parameter(L3, pnttg3sol(NbrSol));
+                  par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+                  pararg3(NbrSol)   = ElCLib1::Parameter(L3, pnttg3sol(NbrSol));
                 }
               }
             }

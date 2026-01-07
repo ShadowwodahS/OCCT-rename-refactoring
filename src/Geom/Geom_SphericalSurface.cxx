@@ -212,7 +212,7 @@ void Geom_SphericalSurface::Coefficients(Standard_Real& A1,
 
 void Geom_SphericalSurface::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
-  ElSLib::SphereD0(U, V, pos, radius, P);
+  ElSLib1::SphereD0(U, V, pos, radius, P);
 }
 
 //=================================================================================================
@@ -223,7 +223,7 @@ void Geom_SphericalSurface::D1(const Standard_Real U,
                                Vec&                D1U,
                                Vec&                D1V) const
 {
-  ElSLib::SphereD1(U, V, pos, radius, P, D1U, D1V);
+  ElSLib1::SphereD1(U, V, pos, radius, P, D1U, D1V);
 }
 
 //=================================================================================================
@@ -237,7 +237,7 @@ void Geom_SphericalSurface::D2(const Standard_Real U,
                                Vec&                D2V,
                                Vec&                D2UV) const
 {
-  ElSLib::SphereD2(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV);
+  ElSLib1::SphereD2(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV);
 }
 
 //=================================================================================================
@@ -255,7 +255,7 @@ void Geom_SphericalSurface::D3(const Standard_Real U,
                                Vec&                D3UUV,
                                Vec&                D3UVV) const
 {
-  ElSLib::SphereD3(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
+  ElSLib1::SphereD3(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
 }
 
 //=================================================================================================
@@ -267,7 +267,7 @@ Vec Geom_SphericalSurface::DN(const Standard_Real    U,
 {
 
   Standard_RangeError_Raise_if(Nu + Nv < 1 || Nu < 0 || Nv < 0, " ");
-  return ElSLib::SphereDN(U, V, pos, radius, Nu, Nv);
+  return ElSLib1::SphereDN(U, V, pos, radius, Nu, Nv);
 }
 
 //=================================================================================================
@@ -282,7 +282,7 @@ gp_Sphere Geom_SphericalSurface::Sphere() const
 
 Handle(GeomCurve3d) Geom_SphericalSurface::UIso(const Standard_Real U) const
 {
-  Handle(GeomCircle)       GC  = new GeomCircle(ElSLib::SphereUIso(pos, radius, U));
+  Handle(GeomCircle)       GC  = new GeomCircle(ElSLib1::SphereUIso(pos, radius, U));
   Handle(Geom_TrimmedCurve) iso = new Geom_TrimmedCurve(GC, -M_PI / 2., M_PI / 2);
   return iso;
 }
@@ -291,7 +291,7 @@ Handle(GeomCurve3d) Geom_SphericalSurface::UIso(const Standard_Real U) const
 
 Handle(GeomCurve3d) Geom_SphericalSurface::VIso(const Standard_Real V) const
 {
-  Handle(GeomCircle) GC = new GeomCircle(ElSLib::SphereVIso(pos, radius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib1::SphereVIso(pos, radius, V));
   return GC;
 }
 

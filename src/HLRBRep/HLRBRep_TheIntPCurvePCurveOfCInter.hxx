@@ -23,8 +23,8 @@
 #include <IntRes2d_Domain.hxx>
 #include <IntRes2d_Intersection.hxx>
 #include <Standard_Integer.hxx>
-class HLRBRep_CurveTool;
-class HLRBRep_TheProjPCurOfCInter;
+class CurveTool5;
+class ProjPCurOfCInter;
 class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter;

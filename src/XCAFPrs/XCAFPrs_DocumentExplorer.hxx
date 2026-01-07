@@ -40,12 +40,12 @@ class XCAFPrs_DocumentExplorer
 {
 public: //! @name string identification tools
   //! Construct a unique string identifier for the given label.
-  //! The identifier is a concatenation of label entries (TDF_Tool::Entry() with tailing '.') of
+  //! The identifier is a concatenation of label entries (Tool3::Entry() with tailing '.') of
   //! hierarchy from parent to child joined via '/' and looking like this:
   //! @code
   //!   0:1:1:1./0:1:1:1:9./0:1:1:5:7.
   //! @endcode
-  //! This generation scheme also allows finding originating labels using TDF_Tool::Label().
+  //! This generation scheme also allows finding originating labels using Tool3::Label().
   //! The tailing dot simplifies parent equality check.
   //! @param theLabel child label to define id
   //! @param theParentId parent string identifier defined by this method

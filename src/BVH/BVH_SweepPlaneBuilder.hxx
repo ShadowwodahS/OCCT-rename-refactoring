@@ -80,14 +80,14 @@ protected:
       // Sweep from left
       for (Standard_Integer anIndex = 1; anIndex < aNodeNbPrimitives; ++anIndex)
       {
-        aLftBox.Combine(theSet->Box(anIndex + aNodeBegPrimitive - 1));
+        aLftBox.Combine(theSet->Box1(anIndex + aNodeBegPrimitive - 1));
         aLftSet(anIndex) = static_cast<Standard_Real>(aLftBox.Area());
       }
 
       // Sweep from right
       for (Standard_Integer anIndex = 1; anIndex < aNodeNbPrimitives; ++anIndex)
       {
-        aRghBox.Combine(theSet->Box(aNodeEndPrimitive - anIndex + 1));
+        aRghBox.Combine(theSet->Box1(aNodeEndPrimitive - anIndex + 1));
         aRghSet(anIndex) = static_cast<Standard_Real>(aRghBox.Area());
       }
 
@@ -124,14 +124,14 @@ protected:
     for (Standard_Integer anIndex = aNodeBegPrimitive; anIndex < aMinSplitIndex + aNodeBegPrimitive;
          ++anIndex)
     {
-      aMinSplitBoxLft.Combine(theSet->Box(anIndex));
+      aMinSplitBoxLft.Combine(theSet->Box1(anIndex));
     }
 
     for (Standard_Integer anIndex = aNodeEndPrimitive;
          anIndex >= aMinSplitIndex + aNodeBegPrimitive;
          --anIndex)
     {
-      aMinSplitBoxRgh.Combine(theSet->Box(anIndex));
+      aMinSplitBoxRgh.Combine(theSet->Box1(anIndex));
     }
 
     const Standard_Integer aMiddle = aNodeBegPrimitive + aMinSplitIndex;

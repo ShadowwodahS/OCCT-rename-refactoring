@@ -21,7 +21,7 @@
 
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoShape, Bnd_Box, ShapeHasher>
+typedef NCollection_DataMap<TopoShape, Box2, ShapeHasher>
                                              TopTools_DataMapOfShapeBox;
 typedef TopTools_DataMapOfShapeBox::Iterator TopTools_DataMapIteratorOfDataMapOfShapeBox;
 

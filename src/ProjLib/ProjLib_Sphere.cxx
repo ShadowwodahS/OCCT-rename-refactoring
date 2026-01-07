@@ -82,7 +82,7 @@ static gp_Pnt2d EvalPnt2d(const Vector3d& P, const gp_Sphere& Sp)
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
   {
     Standard_Real UU = ATan2(Y, X);
-    U                = ElCLib::InPeriod(UU, 0., 2 * M_PI);
+    U                = ElCLib1::InPeriod(UU, 0., 2 * M_PI);
   }
   else
   {
@@ -205,12 +205,12 @@ void ProjLib_Sphere::SetInBounds(const Standard_Real U)
   StdFail_NotDone_Raise_if(!isDone, "ProjLib_Sphere:SetInBounds");
 
   // first set the y of the first point in -pi/2 pi/2
-  Standard_Real newY, Y = ElCLib::Value(U, myLin).Y();
-  newY = ElCLib::InPeriod(Y, -M_PI, M_PI);
+  Standard_Real newY, Y = ElCLib1::Value(U, myLin).Y();
+  newY = ElCLib1::InPeriod(Y, -M_PI, M_PI);
 
   myLin.Translate(gp_Vec2d(0., newY - Y));
 
-  gp_Pnt2d      P = ElCLib::Value(U, myLin);
+  gp_Pnt2d      P = ElCLib1::Value(U, myLin);
   gp_Trsf2d     Trsf;
   gp_Ax2d       Axis;
   Standard_Real Tol = 1.e-7;
@@ -240,7 +240,7 @@ void ProjLib_Sphere::SetInBounds(const Standard_Real U)
   myLin.Translate(gp_Vec2d(M_PI, 0.));
 
   // il faut maintenant recadrer en U
-  Standard_Real newX, X = ElCLib::Value(U, myLin).X();
-  newX = ElCLib::InPeriod(X, 0., 2. * M_PI);
+  Standard_Real newX, X = ElCLib1::Value(U, myLin).X();
+  newX = ElCLib1::InPeriod(X, 0., 2. * M_PI);
   myLin.Translate(gp_Vec2d(newX - X, 0.));
 }

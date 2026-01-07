@@ -255,8 +255,8 @@ void TopOpeBRep_ShapeIntersector2d::FindFFIntersection()
 #endif
 
     const TopOpeBRepTool_BoxSort& BS = myFaceScanner.BoxSort();
-    BS.Box(GS1);
-    BS.Box(GS2);
+    BS.Box1(GS1);
+    BS.Box1(GS2);
     myFFDone = Standard_True;
   }
 

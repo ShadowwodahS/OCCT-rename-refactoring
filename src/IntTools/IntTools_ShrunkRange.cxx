@@ -86,7 +86,7 @@ void IntTools_ShrunkRange::ShrunkRange(Standard_Real& aT1, Standard_Real& aT2) c
 
 //=================================================================================================
 
-const Bnd_Box& IntTools_ShrunkRange::BndBox() const
+const Box2& IntTools_ShrunkRange::BndBox() const
 {
   return myBndBox;
 }
@@ -99,7 +99,7 @@ void IntTools_ShrunkRange::SetShrunkRange(const Standard_Real aT1, const Standar
   myTS2 = aT2;
   //
   BRepAdaptor_Curve aBAC(myEdge);
-  BndLib_Add3dCurve::Add(aBAC, aT1, aT2, 0., myBndBox);
+  Add3dCurve::Add(aBAC, aT1, aT2, 0., myBndBox);
 }
 
 //=================================================================================================
@@ -187,5 +187,5 @@ void IntTools_ShrunkRange::Perform()
   }
   //
   // build bounding box for the edge on the shrunk range
-  BndLib_Add3dCurve::Add(aBAC, myTS1, myTS2, aTolE + aDTol, myBndBox);
+  Add3dCurve::Add(aBAC, myTS1, myTS2, aTolE + aDTol, myBndBox);
 }

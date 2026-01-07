@@ -25,7 +25,7 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
 class ConicTool;
-class HLRBRep_CurveTool;
+class CurveTool5;
 
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
     : public math_FunctionWithDerivative

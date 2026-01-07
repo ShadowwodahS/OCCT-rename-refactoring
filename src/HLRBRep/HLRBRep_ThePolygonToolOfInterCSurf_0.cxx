@@ -25,8 +25,8 @@
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon HLRBRep_ThePolygonOfInterCSurf
 #define ThePolygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>
-#define TheBoundingBox Bnd_Box
+#define TheBoundingBox Box2
 #define TheBoundingBox_hxx <Bnd_Box.hxx>
-#define IntCurveSurface_PolygonTool HLRBRep_ThePolygonToolOfInterCSurf
+#define IntCurveSurface_PolygonTool PolygonToolInterCSurf
 #define IntCurveSurface_PolygonTool_hxx <HLRBRep_ThePolygonToolOfInterCSurf.hxx>
 #include "../IntCurveSurface/IntCurveSurface_PolygonTool.gxx"

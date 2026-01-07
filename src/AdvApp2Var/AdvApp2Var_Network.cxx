@@ -25,11 +25,11 @@
 
 //=================================================================================================
 
-AdvApp2Var_Network::AdvApp2Var_Network() {}
+Network::Network() {}
 
 //=================================================================================================
 
-AdvApp2Var_Network::AdvApp2Var_Network(const AdvApp2Var_SequenceOfPatch& Net,
+Network::Network(const AdvApp2Var_SequenceOfPatch& Net,
                                        const TColStd_SequenceOfReal&     TheU,
                                        const TColStd_SequenceOfReal&     TheV)
 {
@@ -43,7 +43,7 @@ AdvApp2Var_Network::AdvApp2Var_Network(const AdvApp2Var_SequenceOfPatch& Net,
 // purpose  : return the first Patch not approximated
 //==========================================================================================
 
-Standard_Boolean AdvApp2Var_Network::FirstNotApprox(Standard_Integer& theIndex) const
+Standard_Boolean Network::FirstNotApprox(Standard_Integer& theIndex) const
 {
   Standard_Integer anIndex = 1;
   for (AdvApp2Var_SequenceOfPatch::Iterator aPatchIter(myNet); aPatchIter.More();
@@ -64,7 +64,7 @@ Standard_Boolean AdvApp2Var_Network::FirstNotApprox(Standard_Integer& theIndex) 
 // purpose  : modification and insertion of patches and parameters
 //==========================================================================================
 
-void AdvApp2Var_Network::UpdateInU(const Standard_Real CuttingValue)
+void Network::UpdateInU(const Standard_Real CuttingValue)
 {
 
   //  insertion du nouveau parametre de decoupe
@@ -100,7 +100,7 @@ void AdvApp2Var_Network::UpdateInU(const Standard_Real CuttingValue)
 // purpose  : modification and insertion of patches and parameters
 //==========================================================================================
 
-void AdvApp2Var_Network::UpdateInV(const Standard_Real CuttingValue)
+void Network::UpdateInV(const Standard_Real CuttingValue)
 {
 
   //  insertion du nouveau parametre de decoupe
@@ -141,7 +141,7 @@ void AdvApp2Var_Network::UpdateInV(const Standard_Real CuttingValue)
 // purpose  : same numbers of coefficients for all patches
 //=======================================================================
 
-void AdvApp2Var_Network::SameDegree(const Standard_Integer iu,
+void Network::SameDegree(const Standard_Integer iu,
                                     const Standard_Integer iv,
                                     Standard_Integer&      ncfu,
                                     Standard_Integer&      ncfv)
@@ -166,35 +166,35 @@ void AdvApp2Var_Network::SameDegree(const Standard_Integer iu,
 
 //=================================================================================================
 
-Standard_Integer AdvApp2Var_Network::NbPatch() const
+Standard_Integer Network::NbPatch() const
 {
   return myNet.Length();
 }
 
 //=================================================================================================
 
-Standard_Integer AdvApp2Var_Network::NbPatchInU() const
+Standard_Integer Network::NbPatchInU() const
 {
   return myUParameters.Length() - 1;
 }
 
 //=================================================================================================
 
-Standard_Integer AdvApp2Var_Network::NbPatchInV() const
+Standard_Integer Network::NbPatchInV() const
 {
   return myVParameters.Length() - 1;
 }
 
 //=================================================================================================
 
-Standard_Real AdvApp2Var_Network::UParameter(const Standard_Integer Index) const
+Standard_Real Network::UParameter(const Standard_Integer Index) const
 {
   return myUParameters.Value(Index);
 }
 
 //=================================================================================================
 
-Standard_Real AdvApp2Var_Network::VParameter(const Standard_Integer Index) const
+Standard_Real Network::VParameter(const Standard_Integer Index) const
 {
   return myVParameters.Value(Index);
 }

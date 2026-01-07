@@ -45,18 +45,18 @@ public:
 
 private:
   //! Create arc of circle by three points (knowing that myCurve is circle).
-  Handle(GeomCurve2d) makeCircle(const Geom2dConvert_PPoint& theFirst,
-                                  const Geom2dConvert_PPoint& theLast) const;
+  Handle(GeomCurve2d) makeCircle(const ParameterPoint& theFirst,
+                                  const ParameterPoint& theLast) const;
 
   //! Create an arc of circle using 2 points and a derivative in the first point.
-  Standard_Boolean makeArc(const Geom2dConvert_PPoint&  theParam1,
-                           Geom2dConvert_PPoint&        theParam2,
+  Standard_Boolean makeArc(const ParameterPoint&  theParam1,
+                           ParameterPoint&        theParam2,
                            const Standard_Boolean       isFirst,
                            Handle(Geom2d_TrimmedCurve)& theCurve) const;
 
   //! Make a line from myCurve in the limits by parameter from theFirst to theLast
-  Handle(Geom2d_TrimmedCurve) makeLine(Geom2dConvert_PPoint&  theFirst,
-                                       Geom2dConvert_PPoint&  theLast,
+  Handle(Geom2d_TrimmedCurve) makeLine(ParameterPoint&  theFirst,
+                                       ParameterPoint&  theLast,
                                        const Standard_Boolean isCheck) const;
 
   //! Create a sequence of elementary curves from a free-form adaptor curve.
@@ -68,20 +68,20 @@ private:
 
   //! Dichotomic search of the boundary of inflection interval, between
   //! two parameters on the Curve
-  Geom2dConvert_PPoint findInflection(const Geom2dConvert_PPoint& theParamIsIn,
-                                      const Geom2dConvert_PPoint& theParamNoIn) const;
+  ParameterPoint findInflection(const ParameterPoint& theParamIsIn,
+                                      const ParameterPoint& theParamNoIn) const;
 
   //! Make approximation non-linear part of the other curve.
-  Standard_Boolean makeApproximation(Geom2dConvert_PPoint& theFirstParam,
-                                     Geom2dConvert_PPoint& theLastParam);
+  Standard_Boolean makeApproximation(ParameterPoint& theFirstParam,
+                                     ParameterPoint& theLastParam);
 
   //! Method for calculation of a biarc.
-  Standard_Boolean calculateBiArcs(Geom2dConvert_PPoint& theFirstParam,
-                                   Geom2dConvert_PPoint& theLastParam);
+  Standard_Boolean calculateBiArcs(ParameterPoint& theFirstParam,
+                                   ParameterPoint& theLastParam);
 
   //! Method for calculation of a linear interpolation.
-  Standard_Boolean calculateLines(Geom2dConvert_PPoint& theFirstParam,
-                                  Geom2dConvert_PPoint& theLastParam);
+  Standard_Boolean calculateLines(ParameterPoint& theFirstParam,
+                                  ParameterPoint& theLastParam);
 
   //! Checking max deflection Geom curve from Adaptor Curve
   Standard_Boolean checkCurve(const Handle(GeomCurve2d)& aCurve,
@@ -92,7 +92,7 @@ private:
   // ---------- PRIVATE FIELDS ----------
 
   const Adaptor2d_Curve2d& myCurve;
-  Geom2dConvert_PPoint     myExt[2];
+  ParameterPoint     myExt[2];
 
   Handle(NCollection_BaseAllocator) myAlloc;
   Standard_Real                     myTolerance;

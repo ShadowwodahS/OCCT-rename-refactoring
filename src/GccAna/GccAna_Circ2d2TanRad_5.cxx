@@ -81,7 +81,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const gp_Pnt2d&     Point1,
       {
         gp_Circ2d                C1(gp_Ax2d(Point1, dirx), Radius);
         gp_Circ2d                C2(gp_Ax2d(Point2, dirx), Radius);
-        IntAna2d_AnaIntersection Intp(C1, C2);
+        AnalyticIntersection2d Intp(C1, C2);
         if (Intp.IsDone())
         {
           if (!Intp.IsEmpty())
@@ -109,7 +109,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const gp_Pnt2d&     Point1,
   {
     pararg1(i) = 0.;
     pararg2(i) = 0.;
-    par1sol(i) = ElCLib::Parameter(cirsol(i), pnttg1sol(i));
-    par2sol(i) = ElCLib::Parameter(cirsol(i), pnttg2sol(i));
+    par1sol(i) = ElCLib1::Parameter(cirsol(i), pnttg1sol(i));
+    par2sol(i) = ElCLib1::Parameter(cirsol(i), pnttg2sol(i));
   }
 }

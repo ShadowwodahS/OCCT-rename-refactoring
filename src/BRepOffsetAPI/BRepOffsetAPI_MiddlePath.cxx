@@ -967,7 +967,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         Point3d        theBary;
         Dir3d        xdir, ydir;
         Standard_Real xgap, ygap, zgap;
-        GeomLib::Inertia(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);
+        GeomLib1::Inertia(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);
         Vector3d theTangent(theBary.XYZ());
         theTangents(k - i + 1) = theTangent;
       }

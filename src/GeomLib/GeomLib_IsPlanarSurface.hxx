@@ -25,12 +25,12 @@
 class GeomSurface;
 
 //! Find if a surface is a planar  surface.
-class GeomLib_IsPlanarSurface
+class PlanarSurfaceChecker
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomLib_IsPlanarSurface(const Handle(GeomSurface)& S,
+  Standard_EXPORT PlanarSurfaceChecker(const Handle(GeomSurface)& S,
                                           const Standard_Real         Tol = 1.0e-7);
 
   //! Return if the Surface is a plan

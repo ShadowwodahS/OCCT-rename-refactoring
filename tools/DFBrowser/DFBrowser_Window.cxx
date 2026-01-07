@@ -373,7 +373,7 @@ void DFBrowser_Window::UpdateContent()
         Handle(AppDocument) aDocument;
         anApplication->GetDocument(aDocId, aDocument);
 
-        TDF_Tool::Label(aDocument->GetData(), aLabelEntry.ToCString(), aLabel, Standard_False);
+        Tool3::Label(aDocument->GetData(), aLabelEntry.ToCString(), aLabel, Standard_False);
         if (!aLabel.IsNull())
           break;
       }

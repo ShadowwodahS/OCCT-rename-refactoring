@@ -36,8 +36,8 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Plate_GtoCConstraint& ref)
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
-                                           const Plate_D1& D1S,
-                                           const Plate_D1& D1T)
+                                           const D1& D1S,
+                                           const D1& D1T)
     : myD1SurfInit(D1S)
 {
   pnt2d            = point2d;
@@ -64,15 +64,15 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0] = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1] = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0] = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1] = PinpointConstraint(pnt2d, dv, 0, 1);
 
   nb_PPConstraints = 2;
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
-                                           const Plate_D1& D1S,
-                                           const Plate_D1& D1T,
+                                           const D1& D1S,
+                                           const D1& D1T,
                                            const gp_XYZ&   nP)
     : myD1SurfInit(D1S)
 {
@@ -104,17 +104,17 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ du = nSP * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = nSP * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0] = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1] = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0] = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1] = PinpointConstraint(pnt2d, dv, 0, 1);
 
   nb_PPConstraints = 2;
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
-                                           const Plate_D1& D1S,
-                                           const Plate_D1& D1T,
-                                           const Plate_D2& D2S,
-                                           const Plate_D2& D2T)
+                                           const D1& D1S,
+                                           const D1& D1T,
+                                           const D2& D2S,
+                                           const D2& D2T)
     : myD1SurfInit(D1S)
 {
 
@@ -142,8 +142,8 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -183,17 +183,17 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ duv = normaleS * (normale * (Suv - D2S.Duv)) * invcos;
   gp_XYZ dvv = normaleS * (normale * (Svv - D2S.Dvv)) * invcos;
 
-  myPPC[2]         = Plate_PinpointConstraint(pnt2d, duu, 2, 0);
-  myPPC[3]         = Plate_PinpointConstraint(pnt2d, duv, 1, 1);
-  myPPC[4]         = Plate_PinpointConstraint(pnt2d, dvv, 0, 2);
+  myPPC[2]         = PinpointConstraint(pnt2d, duu, 2, 0);
+  myPPC[3]         = PinpointConstraint(pnt2d, duv, 1, 1);
+  myPPC[4]         = PinpointConstraint(pnt2d, dvv, 0, 2);
   nb_PPConstraints = 5;
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
-                                           const Plate_D1& D1S,
-                                           const Plate_D1& D1T,
-                                           const Plate_D2& D2S,
-                                           const Plate_D2& D2T,
+                                           const D1& D1S,
+                                           const D1& D1T,
+                                           const D2& D2S,
+                                           const D2& D2T,
                                            const gp_XYZ&   nP)
     : myD1SurfInit(D1S)
 {
@@ -227,8 +227,8 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ du = nSP * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = nSP * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -268,19 +268,19 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ duv = nSP * (normale * (Suv - D2S.Duv)) * invcos;
   gp_XYZ dvv = nSP * (normale * (Svv - D2S.Dvv)) * invcos;
 
-  myPPC[2]         = Plate_PinpointConstraint(pnt2d, duu, 2, 0);
-  myPPC[3]         = Plate_PinpointConstraint(pnt2d, duv, 1, 1);
-  myPPC[4]         = Plate_PinpointConstraint(pnt2d, dvv, 0, 2);
+  myPPC[2]         = PinpointConstraint(pnt2d, duu, 2, 0);
+  myPPC[3]         = PinpointConstraint(pnt2d, duv, 1, 1);
+  myPPC[4]         = PinpointConstraint(pnt2d, dvv, 0, 2);
   nb_PPConstraints = 5;
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
-                                           const Plate_D1& D1S,
-                                           const Plate_D1& D1T,
-                                           const Plate_D2& D2S,
-                                           const Plate_D2& D2T,
-                                           const Plate_D3& D3S,
-                                           const Plate_D3& D3T)
+                                           const D1& D1S,
+                                           const D1& D1T,
+                                           const D2& D2S,
+                                           const D2& D2T,
+                                           const D3& D3S,
+                                           const D3& D3T)
     : myD1SurfInit(D1S)
 {
   pnt2d            = point2d;
@@ -305,8 +305,8 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -346,9 +346,9 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ duv = normaleS * (normale * (Suv - D2S.Duv)) * invcos;
   gp_XYZ dvv = normaleS * (normale * (Svv - D2S.Dvv)) * invcos;
 
-  myPPC[2]         = Plate_PinpointConstraint(pnt2d, duu, 2, 0);
-  myPPC[3]         = Plate_PinpointConstraint(pnt2d, duv, 1, 1);
-  myPPC[4]         = Plate_PinpointConstraint(pnt2d, dvv, 0, 2);
+  myPPC[2]         = PinpointConstraint(pnt2d, duu, 2, 0);
+  myPPC[3]         = PinpointConstraint(pnt2d, duv, 1, 1);
+  myPPC[4]         = PinpointConstraint(pnt2d, dvv, 0, 2);
   nb_PPConstraints = 5;
 
   // G3 Constraints
@@ -400,21 +400,21 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
   gp_XYZ duvv = normaleS * (normale * (Suvv - D3S.Duvv)) * invcos;
   gp_XYZ dvvv = normaleS * (normale * (Svvv - D3S.Dvvv)) * invcos;
 
-  myPPC[5]         = Plate_PinpointConstraint(pnt2d, duuu, 3, 0);
-  myPPC[6]         = Plate_PinpointConstraint(pnt2d, duuv, 2, 1);
-  myPPC[7]         = Plate_PinpointConstraint(pnt2d, duvv, 1, 2);
-  myPPC[8]         = Plate_PinpointConstraint(pnt2d, dvvv, 0, 3);
+  myPPC[5]         = PinpointConstraint(pnt2d, duuu, 3, 0);
+  myPPC[6]         = PinpointConstraint(pnt2d, duuv, 2, 1);
+  myPPC[7]         = PinpointConstraint(pnt2d, duvv, 1, 2);
+  myPPC[8]         = PinpointConstraint(pnt2d, dvvv, 0, 3);
   nb_PPConstraints = 9;
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(
   const Coords2d&    point2d,
-  const Plate_D1& D1S,
-  const Plate_D1& D1T,
-  const Plate_D2& D2S,
-  const Plate_D2& D2T,
-  const Plate_D3& D3S,
-  const Plate_D3& D3T,
+  const D1& D1S,
+  const D1& D1T,
+  const D2& D2S,
+  const D2& D2T,
+  const D3& D3S,
+  const D3& D3T,
   //                                           const gp_XYZ& nP)
   const gp_XYZ&)
     : myD1SurfInit(D1S)
@@ -442,8 +442,8 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(
   gp_XYZ du = normaleS * -(normale * D1S.Du) * invcos;
   gp_XYZ dv = normaleS * -(normale * D1S.Dv) * invcos;
 
-  myPPC[0]         = Plate_PinpointConstraint(pnt2d, du, 1, 0);
-  myPPC[1]         = Plate_PinpointConstraint(pnt2d, dv, 0, 1);
+  myPPC[0]         = PinpointConstraint(pnt2d, du, 1, 0);
+  myPPC[1]         = PinpointConstraint(pnt2d, dv, 0, 1);
   nb_PPConstraints = 2;
 
   // G2 Constraints
@@ -484,9 +484,9 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(
   gp_XYZ duv = normaleS * (normale * (Suv - D2S.Duv)) * invcos;
   gp_XYZ dvv = normaleS * (normale * (Svv - D2S.Dvv)) * invcos;
 
-  myPPC[2]         = Plate_PinpointConstraint(pnt2d, duu, 2, 0);
-  myPPC[3]         = Plate_PinpointConstraint(pnt2d, duv, 1, 1);
-  myPPC[4]         = Plate_PinpointConstraint(pnt2d, dvv, 0, 2);
+  myPPC[2]         = PinpointConstraint(pnt2d, duu, 2, 0);
+  myPPC[3]         = PinpointConstraint(pnt2d, duv, 1, 1);
+  myPPC[4]         = PinpointConstraint(pnt2d, dvv, 0, 2);
   nb_PPConstraints = 5;
 
   // G3 Constraints
@@ -537,9 +537,9 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(
   gp_XYZ duvv = normaleS * (normale * (Suvv - D3S.Duvv)) * invcos;
   gp_XYZ dvvv = normaleS * (normale * (Svvv - D3S.Dvvv)) * invcos;
 
-  myPPC[5]         = Plate_PinpointConstraint(pnt2d, duuu, 3, 0);
-  myPPC[6]         = Plate_PinpointConstraint(pnt2d, duuv, 2, 1);
-  myPPC[7]         = Plate_PinpointConstraint(pnt2d, duvv, 1, 2);
-  myPPC[8]         = Plate_PinpointConstraint(pnt2d, dvvv, 0, 3);
+  myPPC[5]         = PinpointConstraint(pnt2d, duuu, 3, 0);
+  myPPC[6]         = PinpointConstraint(pnt2d, duuv, 2, 1);
+  myPPC[7]         = PinpointConstraint(pnt2d, duvv, 1, 2);
+  myPPC[8]         = PinpointConstraint(pnt2d, dvvv, 0, 3);
   nb_PPConstraints = 9;
 }

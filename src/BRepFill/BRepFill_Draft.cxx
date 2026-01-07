@@ -73,7 +73,7 @@ static Standard_Boolean Affich = 0;
 
 //=================================================================================================
 
-static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Bnd_Box& Box, Transform3d& Tf)
+static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Box2& Box1, Transform3d& Tf)
 {
   // Calculate approximate barycenter
   BRepTools_WireExplorer Exp(W);
@@ -94,7 +94,7 @@ static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Bnd_Box& Box, Transfo
   gp_Ax3 N(Bary, D);
   Tf.SetTransformation(N);
   BRepAdaptor_Curve AC;
-  //  BndLib_Add3dCurve BC;
+  //  Add3dCurve BC;
 
   // transformation to the wire
   TopoWire     TheW = W;
@@ -102,18 +102,18 @@ static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Bnd_Box& Box, Transfo
   TheW.Location(Loc);
 
   // Calculate the box
-  Box.SetVoid();
+  Box1.SetVoid();
   for (Exp.Init(TheW); Exp.More(); Exp.Next())
   {
     AC.Initialize(Exp.Current());
-    //    BC.Add(AC, 0.1, Box);
-    BndLib_Add3dCurve::Add(AC, 0.1, Box);
+    //    BC.Add(AC, 0.1, Box1);
+    Add3dCurve::Add(AC, 0.1, Box1);
   }
 }
 
 //=================================================================================================
 
-static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, Dir3d& D, Point3d& P)
+static Standard_Real Longueur(const Box2& WBox, const Box2& SBox, Dir3d& D, Point3d& P)
 {
   // face of the box most remoted from the face input in
   // the direction of skin
@@ -145,7 +145,7 @@ static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, Dir3d& D
 // function : GoodOrientation
 // purpose  : Check if the law is oriented to have an exterior skin
 //======================================================================
-static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
+static Standard_Boolean GoodOrientation(const Box2&                      B,
                                         const Handle(BRepFill_LocationLaw)& Law1,
                                         const Dir3d&                       D)
 {
@@ -317,7 +317,7 @@ void BRepFill_Draft::Perform(const Standard_Real LengthMax)
 {
   Handle(GeomSurface) S;
   S.Nullify();
-  Bnd_Box WBox; //, SBox;
+  Box2 WBox; //, SBox;
   Transform3d Trsf;
 
   ComputeTrsf(myWire, myDir, WBox, Trsf);
@@ -333,7 +333,7 @@ void BRepFill_Draft::Perform(const Standard_Real LengthMax)
 void BRepFill_Draft::Perform(const Handle(GeomSurface)& Surface,
                              const Standard_Boolean      KeepInsideSurface)
 {
-  Bnd_Box       WBox, SBox;
+  Box2       WBox, SBox;
   Transform3d       Trsf;
   Point3d        Pt;
   Standard_Real L;
@@ -344,9 +344,9 @@ void BRepFill_Draft::Perform(const Handle(GeomSurface)& Surface,
   Handle(GeomSurface) Surf;
   Surf = Handle(GeomSurface)::DownCast(Surface->Transformed(Trsf));
   GeomAdaptor_Surface S1(Surf);
-  //  BndLib_AddSurface AS;
+  //  AddSurface AS;
   //  AS.Add(S1, 0.1, SBox);
-  BndLib_AddSurface::Add(S1, 0.1, SBox);
+  AddSurface::Add(S1, 0.1, SBox);
 
   // calculate the maximum length of the rule.
   L = Longueur(WBox, SBox, myDir, Pt);
@@ -364,7 +364,7 @@ void BRepFill_Draft::Perform(const Handle(GeomSurface)& Surface,
 //================================================================
 void BRepFill_Draft::Perform(const TopoShape& StopShape, const Standard_Boolean KeepOutSide)
 {
-  Bnd_Box       WBox, SBox;
+  Box2       WBox, SBox;
   Transform3d       Trsf;
   Point3d        Pt;
   Standard_Real L;
@@ -372,13 +372,13 @@ void BRepFill_Draft::Perform(const TopoShape& StopShape, const Standard_Boolean 
   ComputeTrsf(myWire, myDir, WBox, Trsf);
 
   // bounding box of the stop shape
-  Bnd_Box       BSurf; //, TheBox;
+  Box2       BSurf; //, TheBox;
   Standard_Real Umin, Umax, Vmin, Vmax;
   //  BRepTools1 B;
   //  BRepInspector BT;
   Handle(GeomSurface) Surf;
 
-  //  BndLib_AddSurface AS;
+  //  AddSurface AS;
 
   ShapeExplorer Ex(StopShape, TopAbs_FACE);
 
@@ -393,7 +393,7 @@ void BRepFill_Draft::Perform(const TopoShape& StopShape, const Standard_Boolean 
     GeomAdaptor_Surface S1(Surf);
     // bounding box of the current face
     //    AS.Add(S1, Umin, Umax, Vmin, Vmax, 0.1, BSurf);
-    BndLib_AddSurface::Add(S1, Umin, Umax, Vmin, Vmax, 0.1, BSurf);
+    AddSurface::Add(S1, Umin, Umax, Vmin, Vmax, 0.1, BSurf);
     SBox.Add(BSurf); // group boxes
     Ex.Next();
   } // while_Ex
@@ -431,7 +431,7 @@ void BRepFill_Draft::Perform(const TopoShape& StopShape, const Standard_Boolean 
 //======================================================================
 void BRepFill_Draft::Init(const Handle(GeomSurface)&,
                           const Standard_Real Length,
-                          const Bnd_Box&      Box)
+                          const Box2&      Box1)
 {
   Standard_Boolean B;
 
@@ -439,7 +439,7 @@ void BRepFill_Draft::Init(const Handle(GeomSurface)&,
   Handle(GeomFill_LocationDraft) Loc = new (GeomFill_LocationDraft)(myDir, myAngle);
   myLoc                              = new (BRepFill_DraftLaw)(myWire, Loc);
 
-  B = GoodOrientation(Box, myLoc, myDir);
+  B = GoodOrientation(Box1, myLoc, myDir);
 
   if (IsInternal ^ (!B))
   {

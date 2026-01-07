@@ -91,7 +91,7 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
       for (Standard_Integer aTriangleIdx = 1; aTriangleIdx <= aNbTriangles; aTriangleIdx++)
       {
         aPoly.Triangles(aTriangleIdx, aTriangle[0], aTriangle[1], aTriangle[2]);
-        myTriangul->Triangle(aTriangleIdx).Get(aTrNodeIdx[0], aTrNodeIdx[1], aTrNodeIdx[2]);
+        myTriangul->Triangle1(aTriangleIdx).Get(aTrNodeIdx[0], aTrNodeIdx[1], aTrNodeIdx[2]);
         const Point3d aTriNodes[3] = {myTriangul->Node(aTrNodeIdx[0]),
                                      myTriangul->Node(aTrNodeIdx[1]),
                                      myTriangul->Node(aTrNodeIdx[2])};
@@ -113,7 +113,7 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
       Standard_Integer aTrNodeIdx[3];
       for (Standard_Integer aTrIdx = 1; aTrIdx <= aNbTriangles; aTrIdx++)
       {
-        myTriangul->Triangle(aTrIdx).Get(aTrNodeIdx[0], aTrNodeIdx[1], aTrNodeIdx[2]);
+        myTriangul->Triangle1(aTrIdx).Get(aTrNodeIdx[0], aTrNodeIdx[1], aTrNodeIdx[2]);
         const Point3d aTriNodes[3] = {myTriangul->Node(aTrNodeIdx[0]),
                                      myTriangul->Node(aTrNodeIdx[1]),
                                      myTriangul->Node(aTrNodeIdx[2])};
@@ -200,10 +200,10 @@ Standard_Integer Select3D_SensitiveTriangulation::Size() const
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns bounding box of triangle/edge with index theIdx
 //=======================================================================
-Select3D_BndBox3d Select3D_SensitiveTriangulation::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_SensitiveTriangulation::Box1(const Standard_Integer theIdx) const
 {
   Standard_Integer aPrimIdx = myBVHPrimIndexes->Value(theIdx);
   SelectMgr_Vec3   aMinPnt(RealLast());
@@ -212,7 +212,7 @@ Select3D_BndBox3d Select3D_SensitiveTriangulation::Box(const Standard_Integer th
   if (mySensType == Select3D_TOS_INTERIOR)
   {
     Standard_Integer aNode1, aNode2, aNode3;
-    myTriangul->Triangle(aPrimIdx + 1).Get(aNode1, aNode2, aNode3);
+    myTriangul->Triangle1(aPrimIdx + 1).Get(aNode1, aNode2, aNode3);
 
     const Point3d aPnt1 = myTriangul->Node(aNode1);
     const Point3d aPnt2 = myTriangul->Node(aNode2);
@@ -283,7 +283,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::Matches(
 Standard_Real Select3D_SensitiveTriangulation::Center(const Standard_Integer theIdx,
                                                       const Standard_Integer theAxis) const
 {
-  const Select3D_BndBox3d& aBox    = Box(theIdx);
+  const Select3D_BndBox3d& aBox    = Box1(theIdx);
   const SelectMgr_Vec3     aCenter = (aBox.CornerMin() + aBox.CornerMax()) * 0.5;
   return aCenter[theAxis];
 }
@@ -309,7 +309,7 @@ bool Select3D_SensitiveTriangulation::LastDetectedTriangle(Poly_Triangle& theTri
   const Standard_Integer anIndex = LastDetectedTriangleIndex();
   if (anIndex != -1)
   {
-    theTriangle = myTriangul->Triangle(anIndex);
+    theTriangle = myTriangul->Triangle1(anIndex);
     return true;
   }
   return false;
@@ -368,7 +368,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::overlapsElement(
   else
   {
     Standard_Integer aNode1, aNode2, aNode3;
-    myTriangul->Triangle(aPrimitiveIdx + 1).Get(aNode1, aNode2, aNode3);
+    myTriangul->Triangle1(aPrimitiveIdx + 1).Get(aNode1, aNode2, aNode3);
     const Point3d aPnt1 = myTriangul->Node(aNode1);
     const Point3d aPnt2 = myTriangul->Node(aNode2);
     const Point3d aPnt3 = myTriangul->Node(aNode3);
@@ -403,7 +403,7 @@ Standard_Boolean Select3D_SensitiveTriangulation::elementIsInside(
   else
   {
     Standard_Integer aNode1, aNode2, aNode3;
-    myTriangul->Triangle(aPrimitiveIdx + 1).Get(aNode1, aNode2, aNode3);
+    myTriangul->Triangle1(aPrimitiveIdx + 1).Get(aNode1, aNode2, aNode3);
 
     const Point3d aPnt1 = myTriangul->Node(aNode1);
     const Point3d aPnt2 = myTriangul->Node(aNode2);
@@ -497,7 +497,7 @@ void Select3D_SensitiveTriangulation::computeBoundingBox()
   if (myTriangul->HasCachedMinMax())
   {
     // Use cached MeshData_Data bounding box if it exists
-    Bnd_Box aCachedBox = myTriangul->CachedMinMax();
+    Box2 aCachedBox = myTriangul->CachedMinMax();
     myBndBox.Add(SelectMgr_Vec3(aCachedBox.CornerMin().X(),
                                 aCachedBox.CornerMin().Y(),
                                 aCachedBox.CornerMin().Z()));

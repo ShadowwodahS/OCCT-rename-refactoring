@@ -89,7 +89,7 @@ typedef TNaming_DataMapOfShapeMapOfShape::Iterator
 void Print_Entry(const DataLabel& label)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
 }
 
@@ -120,7 +120,7 @@ void WriteNSOnLabel(const Handle(ShapeAttribute)& NS, const AsciiString1& Nam)
   if (!NS.IsNull())
   {
     AsciiString1 entry;
-    TDF_Tool::Entry(NS->Label(), entry);
+    Tool3::Entry(NS->Label(), entry);
     TopoShape Sh = Tool11::GetShape(NS);
     if (!Sh.IsNull())
     {
@@ -155,11 +155,11 @@ static Standard_Integer RepeatabilityInContext(const TopoShape& Selection,
 Standard_Boolean TNaming_Naming::Solve(TDF_LabelMap& Valid)
 {
   Handle(TNaming_Naming) subname;
-  for (TDF_ChildIterator it(Label(), Standard_False); it.More(); it.Next())
+  for (ChildIterator it(Label(), Standard_False); it.More(); it.Next())
   {
 #ifdef OCCT_DEBUG_NBS
     AsciiString1 anEntry;
-    TDF_Tool::Entry(it.Value(), anEntry);
+    Tool3::Entry(it.Value(), anEntry);
     std::cout << "TNaming_Naming::Solve: Label to be solved = " << anEntry << std::endl;
 #endif
     if (it.Value().FindAttribute(TNaming_Naming::GetID(), subname))
@@ -177,7 +177,7 @@ Standard_Boolean TNaming_Naming::Solve(TDF_LabelMap& Valid)
   {
     const DataLabel&        aLabel = anItr.Key();
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aLabel, anEntry);
+    Tool3::Entry(aLabel, anEntry);
     std::cout << "Label = " << anEntry << std::endl;
   }
 #endif
@@ -1118,7 +1118,7 @@ static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
     if (!Stop.IsNull())
     {
       AsciiString1 Es;
-      TDF_Tool::Entry(Stop->Label(), Es);
+      Tool3::Entry(Stop->Label(), Es);
       std::cout << "StopNS at Label = " << Es << std::endl;
     }
 #endif
@@ -1135,7 +1135,7 @@ static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
         if (!Ident.FeatureArg().IsNull())
         {
           AsciiString1 E;
-          TDF_Tool::Entry(Ident.FeatureArg()->Label(), E);
+          Tool3::Entry(Ident.FeatureArg()->Label(), E);
           std::cout << "Added argument NS from Label = " << E << std::endl;
         }
 #endif
@@ -1167,7 +1167,7 @@ static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
     Naming->Regenerate(MDF.ChangeValid());
 #ifdef OCCT_DEBUG_MOD
     AsciiString1 E2;
-    TDF_Tool::Entry(Naming->Label(), E2);
+    Tool3::Entry(Naming->Label(), E2);
     std::cout << "Regenerated Naming Att at Label = " << E2 << std::endl;
 #endif
     Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
@@ -1179,7 +1179,7 @@ static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
     if (!NS.IsNull())
     {
       AsciiString1 E;
-      TDF_Tool::Entry(NS->Label(), E);
+      Tool3::Entry(NS->Label(), E);
       std::cout << "Regenerated NS at Label = " << E << std::endl;
     }
 #endif
@@ -1262,7 +1262,7 @@ static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
   if (!NS.IsNull())
   {
     AsciiString1 E;
-    TDF_Tool::Entry(NS->Label(), E);
+    Tool3::Entry(NS->Label(), E);
     std::cout << "Returned NS from Label = " << E << std::endl;
   }
 #endif
@@ -2226,7 +2226,7 @@ Standard_OStream& TNaming_Naming::Dump(Standard_OStream& anOS) const
 //=================================================================================================
 
 void TNaming_Naming::ExtendedDump(Standard_OStream& anOS,
-                                  const TDF_IDFilter& /*aFilter*/,
+                                  const IDFilter& /*aFilter*/,
                                   TDF_AttributeIndexedMap& /*aMap*/) const
 {
   anOS << "TNaming_Naming ExtendedDump  ";

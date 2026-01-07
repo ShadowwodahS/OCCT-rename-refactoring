@@ -22,13 +22,13 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class HLRBRep_CurveTool;
-class HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter;
+class CurveTool5;
+class HLRBRepProjPCurCurveLocator;
 class HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter;
 class HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter;
 class gp_Pnt2d;
 
-class HLRBRep_TheProjPCurOfCInter
+class ProjPCurOfCInter
 {
 public:
   DEFINE_STANDARD_ALLOC

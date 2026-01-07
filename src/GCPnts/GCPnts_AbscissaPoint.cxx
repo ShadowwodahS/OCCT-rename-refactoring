@@ -41,7 +41,7 @@ static GCPnts_AbscissaType computeType(const TheCurve& theC, Standard_Real& theR
       return GCPnts_LengthParametrized;
     }
     case GeomAbs_BezierCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BezierCurve) aBz = theC.Bezier();
+      Handle(typename TCurveTypes<TheCurve>::BezierCurve) aBz = theC.Bezier();
       if (aBz->NbPoles() == 2 && !aBz->IsRational())
       {
         theRatio = aBz->DN(0, 1).Magnitude();
@@ -50,7 +50,7 @@ static GCPnts_AbscissaType computeType(const TheCurve& theC, Standard_Real& theR
       return GCPnts_Parametrized;
     }
     case GeomAbs_BSplineCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BSplineCurve) aBs = theC.BSpline();
+      Handle(typename TCurveTypes<TheCurve>::BSplineCurve) aBs = theC.BSpline();
       if (aBs->NbPoles() == 2 && !aBs->IsRational())
       {
         theRatio = aBs->DN(aBs->FirstParameter(), 1).Magnitude();
@@ -99,7 +99,7 @@ static void Compute(CPnts_AbscissaPoint& theComputer,
       theC.Intervals(aTI, GeomAbs_CN);
       Standard_Real    aL = 0.0, aSign = 1.0;
       Standard_Integer anIndex = 1;
-      BSplCLib::Hunt(aTI, theU0, anIndex);
+      BSplCLib1::Hunt(aTI, theU0, anIndex);
       Standard_Integer aDirection = 1;
       if (theAbscis < 0)
       {
@@ -190,7 +190,7 @@ static void AdvCompute(CPnts_AbscissaPoint& theComputer,
       theC.Intervals(aTI, GeomAbs_CN);
       Standard_Real    aL = 0.0, aSign = 1.0;
       Standard_Integer anIndex = 1;
-      BSplCLib::Hunt(aTI, theU0, anIndex);
+      BSplCLib1::Hunt(aTI, theU0, anIndex);
 
       Standard_Integer aDirection = 1;
       if (theAbscis < 0)

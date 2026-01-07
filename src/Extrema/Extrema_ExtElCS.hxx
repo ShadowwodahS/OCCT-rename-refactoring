@@ -34,8 +34,8 @@ class gp_Sphere;
 class gp_Torus;
 class gp_Circ;
 class gp_Hypr;
-class Extrema_POnCurv;
-class Extrema_POnSurf;
+class PointOnCurve1;
+class PointOnSurface1;
 
 //! It calculates all the distances between a curve and
 //! a surface.
@@ -128,8 +128,8 @@ public:
   //! Returns the points of the Nth extremum distance.
   //! P1 is on the curve, P2 on the surface.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv&       P1,
-                              Extrema_POnSurf&       P2) const;
+                              PointOnCurve1&       P1,
+                              PointOnSurface1&       P2) const;
 
 protected:
 private:

@@ -145,6 +145,6 @@ void TDataStd_Current::DumpJson(Standard_OStream& theOStream, Standard_Integer t
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDF_Attribute)
 
   AsciiString1 aLabel;
-  TDF_Tool::Entry(myLabel, aLabel);
+  Tool3::Entry(myLabel, aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 }

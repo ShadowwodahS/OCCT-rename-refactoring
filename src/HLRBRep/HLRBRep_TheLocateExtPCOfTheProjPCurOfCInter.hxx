@@ -26,8 +26,8 @@
 class Standard_DomainError;
 class Standard_TypeMismatch;
 class StdFail_NotDone;
-class HLRBRep_CurveTool;
-class Extrema_POnCurv2d;
+class CurveTool5;
+class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter;
@@ -87,7 +87,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin() const;
 
   //! Returns the point of the extremum distance.
-  Standard_EXPORT const Extrema_POnCurv2d& Point() const;
+  Standard_EXPORT const PointOnCurve2d& Point() const;
 
 private:
   Standard_Boolean                                    myDone;

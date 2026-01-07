@@ -30,7 +30,7 @@ class TDocStd_XLinkRoot;
 DEFINE_STANDARD_HANDLE(TDocStd_XLinkRoot, TDF_Attribute)
 
 //! This attribute is the root of all external
-//! references contained in a Data from TDF. Only one
+//! references contained in a Data from TDF1. Only one
 //! instance of this class is added to the TDF_Data
 //! root label. Starting from this attribute all the
 //! Reference are linked together, to be found easily.
@@ -71,7 +71,7 @@ public:
   //! Dumps the attribute on <aStream>.
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
-  friend class TDocStd_XLinkIterator;
+  friend class XLinkIterator;
 
   DEFINE_STANDARD_RTTIEXT(TDocStd_XLinkRoot, TDF_Attribute)
 

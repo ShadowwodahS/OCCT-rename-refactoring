@@ -24,14 +24,14 @@
 #include <Standard_Integer.hxx>
 class TopoShape;
 class Contap_Contour;
-class HLRTopoBRep_Data;
+class Data1;
 class TopoFace;
 class TopoVertex;
 class Contap_Point;
 class TopoEdge;
 
-//! Provides methods  to  fill a HLRTopoBRep_Data.
-class HLRTopoBRep_DSFiller
+//! Provides methods  to  fill a Data1.
+class DSFiller
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! outliner and stores the isolines in <DS> using a Hatcher.
   Standard_EXPORT static void Insert(const TopoShape&            S,
                                      Contap_Contour&                FO,
-                                     HLRTopoBRep_Data&              DS,
+                                     Data1&              DS,
                                      BRepTopAdaptor_MapOfShapeTool& MST,
                                      const Standard_Integer         nbIso);
 
@@ -51,14 +51,14 @@ private:
   Standard_EXPORT static void InsertFace(const Standard_Integer FI,
                                          const TopoFace&     F,
                                          Contap_Contour&        FO,
-                                         HLRTopoBRep_Data&      DS,
+                                         Data1&      DS,
                                          const Standard_Boolean withPCurve);
 
   //! Make a  vertex  from an intersection  point <P>and
   //! store it in the data structure <DS>.
   Standard_EXPORT static TopoVertex MakeVertex(const Contap_Point& P,
                                                   const Standard_Real tol,
-                                                  HLRTopoBRep_Data&   DS);
+                                                  Data1&   DS);
 
   //! Insert a vertex    from an internal   intersection
   //! point <P> on restriction <E>  and store it in  the
@@ -66,11 +66,11 @@ private:
   Standard_EXPORT static void InsertVertex(const Contap_Point& P,
                                            const Standard_Real tol,
                                            const TopoEdge&  E,
-                                           HLRTopoBRep_Data&   DS);
+                                           Data1&   DS);
 
   //! Split all  the edges  with  vertices in   the data
   //! structure.
-  Standard_EXPORT static void ProcessEdges(HLRTopoBRep_Data& DS);
+  Standard_EXPORT static void ProcessEdges(Data1& DS);
 };
 
 #endif // _HLRTopoBRep_DSFiller_HeaderFile

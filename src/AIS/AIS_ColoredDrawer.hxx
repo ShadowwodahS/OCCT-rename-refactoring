@@ -30,7 +30,7 @@ public:
         myHasOwnTransp(false),
         myHasOwnWidth(false)
   {
-    Link(theLink);
+    Link1(theLink);
   }
 
   bool IsHidden() const { return myIsHidden; }

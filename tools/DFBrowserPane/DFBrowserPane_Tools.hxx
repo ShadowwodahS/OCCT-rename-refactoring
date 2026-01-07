@@ -33,7 +33,7 @@
 #define PROPERTY_TABLE_ROW_COUNT 200
 
 //! \class DFBrowserPane_Tools
-//! \brief The tool that gives auxiliary methods for TDocStd elements manipulation
+//! \brief The tool that gives auxiliary methods for TDocStd1 elements manipulation
 class DFBrowserPane_Tools
 {
 public:

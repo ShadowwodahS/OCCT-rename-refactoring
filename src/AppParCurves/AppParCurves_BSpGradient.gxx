@@ -44,7 +44,7 @@ static AppParCurves_Constraint FirstConstraint
 {
   Standard_Integer i, myindex;
   Standard_Integer low = TheConstraints->Lower(), upp= TheConstraints->Upper();
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint Cons = AppParCurves_NoConstraint;
 
   for (i = low; i <= upp; i++) {
@@ -65,7 +65,7 @@ static AppParCurves_Constraint LastConstraint
 {
   Standard_Integer i, myindex;
   Standard_Integer low = TheConstraints->Lower(), upp= TheConstraints->Upper();
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint Cons = AppParCurves_NoConstraint;
 
   for (i = low; i <= upp; i++) {

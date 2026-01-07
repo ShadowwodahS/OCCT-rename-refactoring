@@ -504,7 +504,7 @@ void AIS_ColorScale::updateTextAspect()
   if (!myDrawer->HasOwnTextAspect())
   {
     myDrawer->SetTextAspect(new Prs3d_TextAspect());
-    *myDrawer->TextAspect()->Aspect() = *myDrawer->Link()->TextAspect()->Aspect();
+    *myDrawer->TextAspect()->Aspect() = *myDrawer->Link1()->TextAspect()->Aspect();
   }
 
   const Handle(Prs3d_TextAspect)& anAspect = myDrawer->TextAspect();

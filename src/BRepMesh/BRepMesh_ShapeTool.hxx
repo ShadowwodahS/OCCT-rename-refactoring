@@ -26,7 +26,7 @@ class GeomCurve2d;
 class Poly_Polygon3D;
 class TopoFace;
 class TopoEdge;
-class Bnd_Box;
+class Box2;
 
 //! Auxiliary class providing functionality to compute,
 //! retrieve and store data to TopoDS and model shape.
@@ -41,7 +41,7 @@ public:
   //! If the given bounding box is void leaves the resulting value unchanged.
   //! @param theBox bounding box to be processed.
   //! @param theMaxDimension maximum dimension of the given box.
-  Standard_EXPORT static void BoxMaxDimension(const Bnd_Box& theBox,
+  Standard_EXPORT static void BoxMaxDimension(const Box2& theBox,
                                               Standard_Real& theMaxDimension);
 
   //! Checks same parameter, same range and degenerativity attributes

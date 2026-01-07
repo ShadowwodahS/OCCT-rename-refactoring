@@ -34,7 +34,7 @@ class Point3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed trimmed cone.
-class GC_MakeTrimmedCone : public GC_Root
+class GC_MakeTrimmedCone : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

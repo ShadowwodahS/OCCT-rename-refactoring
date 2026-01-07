@@ -342,7 +342,7 @@ void AIS_Manipulator::attachToPoint(const Point3d& thePoint)
 
 //=================================================================================================
 
-void AIS_Manipulator::attachToBox(const Bnd_Box& theBox)
+void AIS_Manipulator::attachToBox(const Box2& theBox)
 {
   if (theBox.IsVoid())
   {
@@ -360,7 +360,7 @@ void AIS_Manipulator::attachToBox(const Bnd_Box& theBox)
 
 //=================================================================================================
 
-void AIS_Manipulator::adjustSize(const Bnd_Box& theBox)
+void AIS_Manipulator::adjustSize(const Box2& theBox)
 {
   Standard_Real aXmin = 0., aYmin = 0., aZmin = 0., aXmax = 0., aYmax = 0., aZmax = 0.0;
   theBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
@@ -397,7 +397,7 @@ void AIS_Manipulator::Attach(const Handle(AIS_ManipulatorObjectSequence)& theObj
   }
 
   SetOwner(theObjects);
-  Bnd_Box                              aBox;
+  Box2                              aBox;
   const Handle(VisualEntity)& aCurObject = theObjects->Value(theObjects->Lower());
   aCurObject->BoundingBox(aBox);
 
@@ -534,14 +534,14 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
     case AIS_MM_Translation:
     case AIS_MM_Scaling: {
       const gp_Lin aLine(myStartPosition.Location(), myAxes[myCurrentIndex].Position().Direction());
-      Extrema_ExtElC anExtrema(anInputLine, aLine, Precision::Angular());
+      ExtElC anExtrema(anInputLine, aLine, Precision::Angular());
       if (!anExtrema.IsDone() || anExtrema.IsParallel() || anExtrema.NbExt() != 1)
       {
         // translation cannot be done co-directed with camera
         return Standard_False;
       }
 
-      Extrema_POnCurv anExPnts[2];
+      PointOnCurve1 anExPnts[2];
       anExtrema.Points(1, anExPnts[0], anExPnts[1]);
       const Point3d aNewPosition = anExPnts[1].Value();
       if (!myHasStartedTransformation)
@@ -578,7 +578,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
     case AIS_MM_Rotation: {
       const Point3d        aPosLoc   = myStartPosition.Location();
       const Axis3d        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
-      IntAna_IntConicQuad aIntersector(anInputLine,
+      ConicQuadIntersection aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
                                        Precision::Angular(),
                                        Precision::Intersection());
@@ -662,7 +662,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
     case AIS_MM_TranslationPlane: {
       const Point3d        aPosLoc   = myStartPosition.Location();
       const Axis3d        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
-      IntAna_IntConicQuad aIntersector(anInputLine,
+      ConicQuadIntersection aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
                                        Precision::Angular(),
                                        Precision::Intersection());

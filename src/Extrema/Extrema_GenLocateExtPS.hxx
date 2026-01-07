@@ -55,7 +55,7 @@ public:
   Standard_EXPORT Standard_Real SquareDistance() const;
 
   //! Returns the point of the extremum distance.
-  Standard_EXPORT const Extrema_POnSurf& Point() const;
+  Standard_EXPORT const PointOnSurface1& Point() const;
 
   //! Returns True if UV point theU0, theV0 is point of local minimum of square distance between
   //! point theP and points theS(U, V), U, V are in small area around theU0, theV0
@@ -77,7 +77,7 @@ private:
 
   // Result.
   Standard_Real   mySqDist;
-  Extrema_POnSurf myPoint;
+  PointOnSurface1 myPoint;
 };
 
 #endif // _Extrema_GenLocateExtPS_HeaderFile

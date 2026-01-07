@@ -1131,10 +1131,10 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
     switch (typarc)
     {
       case IntPatch_Lin: {
-        para = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Line(), Psurf);
+        para = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Line(), Psurf);
         if (para <= upper && para >= lower)
         {
-          pt      = ElCLib::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Line());
+          pt      = ElCLib1::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Line());
           aSqDist = Psurf.SquareDistance(pt);
           if ((aSqDist < aSqTol) && (aSqDist < aSqDistMin))
           {
@@ -1146,12 +1146,12 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
       }
       break;
       case IntPatch_Circle: {
-        para = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Circle(), Psurf);
+        para = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Circle(), Psurf);
         if ((para <= upper && para >= lower)
             || (para + 2. * M_PI <= upper && para + 2. * M_PI >= lower)
             || (para - 2. * M_PI <= upper && para - 2. * M_PI >= lower))
         {
-          pt      = ElCLib::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Circle());
+          pt      = ElCLib1::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Circle());
           aSqDist = Psurf.SquareDistance(pt);
           if ((aSqDist < aSqTol) && (aSqDist < aSqDistMin))
           {
@@ -1163,12 +1163,12 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
       }
       break;
       case IntPatch_Ellipse: {
-        para = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), Psurf);
+        para = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), Psurf);
         if ((para <= upper && para >= lower)
             || (para + 2. * M_PI <= upper && para + 2. * M_PI >= lower)
             || (para - 2. * M_PI <= upper && para - 2. * M_PI >= lower))
         {
-          pt      = ElCLib::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Ellipse());
+          pt      = ElCLib1::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Ellipse());
           aSqDist = Psurf.SquareDistance(pt);
           if ((aSqDist < aSqTol) && (aSqDist < aSqDistMin))
           {
@@ -1181,9 +1181,9 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
       break;
       case IntPatch_Parabola: {
 #if 0 	
-	para = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast (lin)->Parabola(),Psurf);
+	para = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast (lin)->Parabola(),Psurf);
 	if (para <= upper && para >= lower) {
-	  pt = ElCLib::Value(para,Handle(IntPatch_GLine)::DownCast (lin)->Parabola());
+	  pt = ElCLib1::Value(para,Handle(IntPatch_GLine)::DownCast (lin)->Parabola());
 	  dist = Psurf.Distance(pt);
 	  if (dist< distmin) {
 	    distmin = dist;
@@ -1192,12 +1192,12 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
 	  }
 	}
 #else
-        //-- Le calcul du parametre sur une parabole est mal fait ds ElCLib. Il ne tient pas compte
+        //-- Le calcul du parametre sur une parabole est mal fait ds ElCLib1. Il ne tient pas compte
         //-- de la meilleure facon de calculer (axe X ou axe Y). Bilan : Si la parabole est tres
         //-- pointue (focal de l'ordre de 1e-2 et si le point est a un parametre grand, ca foire. )
-        //-- On ne peut pas modifier faciolement ds ElCLib car on ne passe pas la focale. ...
+        //-- On ne peut pas modifier faciolement ds ElCLib1 car on ne passe pas la focale. ...
         const gp_Parab& Parab = Handle(IntPatch_GLine)::DownCast(lin)->Parabola();
-        para                  = ElCLib::Parameter(Parab, Psurf);
+        para                  = ElCLib1::Parameter(Parab, Psurf);
         if (para <= upper && para >= lower)
         {
           Standard_Integer amelioration = 0;
@@ -1206,10 +1206,10 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
           {
             Standard_Real parabis = para + 0.0000001;
 
-            pt      = ElCLib::Value(para, Parab);
+            pt      = ElCLib1::Value(para, Parab);
             aSqDist = Psurf.SquareDistance(pt);
 
-            const Point3d        ptbis   = ElCLib::Value(parabis, Parab);
+            const Point3d        ptbis   = ElCLib1::Value(parabis, Parab);
             const Standard_Real distbis = Psurf.Distance(ptbis);
             const Standard_Real aDist   = Sqrt(aSqDist);
             const Standard_Real ddist   = distbis - aDist;
@@ -1242,10 +1242,10 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
       }
       break;
       case IntPatch_Hyperbola: {
-        para = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), Psurf);
+        para = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), Psurf);
         if (para <= upper && para >= lower)
         {
-          pt      = ElCLib::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola());
+          pt      = ElCLib1::Value(para, Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola());
           aSqDist = Psurf.SquareDistance(pt);
           if ((aSqDist < aSqTol) && (aSqDist < aSqDistMin))
           {
@@ -1343,21 +1343,21 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
       break;
     case IntPatch_Circle:
       theLParams.Append(aParaInt);
-      Vtgtint = ElCLib::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Circle(), 1);
+      Vtgtint = ElCLib1::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Circle(), 1);
       break;
     case IntPatch_Ellipse:
       theLParams.Append(aParaInt);
-      Vtgtint = ElCLib::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Ellipse(), 1);
+      Vtgtint = ElCLib1::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Ellipse(), 1);
       break;
     case IntPatch_Parabola:
       theLParams.Append(aParaInt);
       Vtgtint =
-        ElCLib::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Parabola(), 1);
+        ElCLib1::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Parabola(), 1);
       break;
     case IntPatch_Hyperbola:
       theLParams.Append(aParaInt);
       Vtgtint =
-        ElCLib::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Hyperbola(), 1);
+        ElCLib1::DN(aParaInt, (*((Handle(IntPatch_GLine)*)&slin(theLineIdx)))->Hyperbola(), 1);
       break;
 
     case IntPatch_Analytic: {
@@ -1407,24 +1407,24 @@ Standard_Boolean SingleLine(const Point3d&                Psurf,
   switch (typarc)
   {
     case IntPatch_Lin:
-      parproj = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Line(), Psurf);
-      ElCLib::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Line(), ptproj, tgint);
+      parproj = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Line(), Psurf);
+      ElCLib1::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Line(), ptproj, tgint);
       break;
     case IntPatch_Circle:
-      parproj = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Circle(), Psurf);
-      ElCLib::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Circle(), ptproj, tgint);
+      parproj = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Circle(), Psurf);
+      ElCLib1::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Circle(), ptproj, tgint);
       break;
     case IntPatch_Ellipse:
-      parproj = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), Psurf);
-      ElCLib::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), ptproj, tgint);
+      parproj = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), Psurf);
+      ElCLib1::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Ellipse(), ptproj, tgint);
       break;
     case IntPatch_Parabola:
-      parproj = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Parabola(), Psurf);
-      ElCLib::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Parabola(), ptproj, tgint);
+      parproj = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Parabola(), Psurf);
+      ElCLib1::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Parabola(), ptproj, tgint);
       break;
     case IntPatch_Hyperbola:
-      parproj = ElCLib::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), Psurf);
-      ElCLib::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), ptproj, tgint);
+      parproj = ElCLib1::Parameter(Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), Psurf);
+      ElCLib1::D1(parproj, Handle(IntPatch_GLine)::DownCast(lin)->Hyperbola(), ptproj, tgint);
       break;
     case IntPatch_Analytic: {
       Handle(IntPatch_ALine) alin(Handle(IntPatch_ALine)::DownCast(lin));
@@ -2855,19 +2855,19 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
         }
         break;
         case GeomAbs_Cylinder: {
-          Ptreference = ElSLib::Value(0., 0., S1->Cylinder());
+          Ptreference = ElSLib1::Value(0., 0., S1->Cylinder());
         }
         break;
         case GeomAbs_Sphere: {
-          Ptreference = ElSLib::Value(M_PI / 4., M_PI / 4., S1->Sphere());
+          Ptreference = ElSLib1::Value(M_PI / 4., M_PI / 4., S1->Sphere());
         }
         break;
         case GeomAbs_Cone: {
-          Ptreference = ElSLib::Value(0., 10., S1->Cone());
+          Ptreference = ElSLib1::Value(0., 10., S1->Cone());
         }
         break;
         case GeomAbs_Torus: {
-          Ptreference = ElSLib::Value(0., 0., S1->Torus());
+          Ptreference = ElSLib1::Value(0., 0., S1->Torus());
         }
         break;
         default:
@@ -2984,7 +2984,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       if (glin->NbVertex() == 0)
       {
         gp_Circ Circ = glin->Circle();
-        P            = ElCLib::Value(0.0, Circ);
+        P            = ElCLib1::Value(0.0, Circ);
         quad1.Parameters(P, u1, v1);
         quad2.Parameters(P, u2, v2);
         point.SetValue(P, TolArc, Standard_False);
@@ -2992,7 +2992,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
         point.SetParameter(0.0);
         glin->AddVertex(point);
 
-        P = ElCLib::Value(0.0, Circ);
+        P = ElCLib1::Value(0.0, Circ);
         quad1.Parameters(P, u1, v1);
         quad2.Parameters(P, u2, v2);
         point.SetValue(P, TolArc, Standard_False);
@@ -3008,7 +3008,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       if (glin->NbVertex() == 0)
       {
         gp_Elips Elips = glin->Ellipse();
-        P              = ElCLib::Value(0.0, Elips);
+        P              = ElCLib1::Value(0.0, Elips);
         quad1.Parameters(P, u1, v1);
         quad2.Parameters(P, u2, v2);
         point.SetValue(P, TolArc, Standard_False);
@@ -3016,7 +3016,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
         point.SetParameter(0.0);
         glin->AddVertex(point);
 
-        P = ElCLib::Value(0.0, Elips);
+        P = ElCLib1::Value(0.0, Elips);
         quad1.Parameters(P, u1, v1);
         quad2.Parameters(P, u2, v2);
         point.SetValue(P, TolArc, Standard_False);
@@ -3092,7 +3092,7 @@ Standard_Boolean IntPP(const Quadric1&   Quad1,
   gp_Pln            pl1(Quad1.Plane());
   gp_Pln            pl2(Quad2.Plane());
 
-  IntAna_QuadQuadGeo inter(pl1, pl2, Tolang, TolTang);
+  QuadQuadGeoIntersection inter(pl1, pl2, Tolang, TolTang);
   if (!inter.IsDone())
   {
     return Standard_False;
@@ -3146,7 +3146,7 @@ Standard_Boolean IntPCy(const Quadric1&   Quad1,
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
 
-  IntAna_QuadQuadGeo inter;
+  QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
     Pl = Quad1.Plane();
@@ -3275,7 +3275,7 @@ Standard_Boolean IntPCy(const Quadric1&   Quad1,
       // modified by NIZNHY-PKV Thu Sep 15 11:30:03 2011f
       AdjustToSeam(Cy, cirsol);
       // modified by NIZNHY-PKV Thu Sep 15 11:30:15 2011t
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
 
       if (Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref)) > 0.0)
       {
@@ -3296,7 +3296,7 @@ Standard_Boolean IntPCy(const Quadric1&   Quad1,
       gp_Elips elipsol = inter.Ellipse(1);
       Point3d   ptref;
       Vector3d   Tgt;
-      ElCLib::D1(0., elipsol, ptref, Tgt);
+      ElCLib1::D1(0., elipsol, ptref, Tgt);
 
       if (Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref)) > 0.0)
       {
@@ -3343,7 +3343,7 @@ Standard_Boolean IntPSp(const Quadric1& Quad1,
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
 
-  IntAna_QuadQuadGeo inter;
+  QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
     Pl = Quad1.Plane();
@@ -3390,7 +3390,7 @@ Standard_Boolean IntPSp(const Quadric1& Quad1,
       // modified by NIZNHY-PKV Thu Sep 15 11:30:15 2011t
       Point3d ptref;
       Vector3d Tgt;
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
 
       if (Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref)) > 0.)
       {
@@ -3438,7 +3438,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
   IntSurf_TypeTrans trans1, trans2;
   IntAna_ResultType typint;
 
-  IntAna_QuadQuadGeo inter;
+  QuadQuadGeoIntersection inter;
   if (!Reversed)
   {
     Pl   = Quad1.Plane();
@@ -3482,8 +3482,8 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
       {
         linsol.SetDirection(linsol.Direction().Reversed());
       }
-      Standard_Real para = ElCLib::Parameter(linsol, apex);
-      Point3d        ptbid(ElCLib::Value(para + 5., linsol));
+      Standard_Real para = ElCLib1::Parameter(linsol, apex);
+      Point3d        ptbid(ElCLib1::Value(para + 5., linsol));
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(apex, U1, V1);
       Quad2.Parameters(apex, U2, V2);
@@ -3607,7 +3607,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
         //--
         linsol.SetDirection(linsol.Direction().Reversed());
         glig = new IntPatch_GLine(linsol, Standard_False, trans1, trans2);
-        para = ElCLib::Parameter(linsol, apex);
+        para = ElCLib1::Parameter(linsol, apex);
         ptsol.SetParameter(para);
         glig->AddVertex(ptsol);
         glig->SetFirstPoint(1);
@@ -3619,8 +3619,8 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
         {
           linsol.SetDirection(linsol.Direction().Reversed());
         }
-        para  = ElCLib::Parameter(linsol, apex);
-        ptbid = ElCLib::Value(para + 5., linsol);
+        para  = ElCLib1::Parameter(linsol, apex);
+        ptbid = ElCLib1::Value(para + 5., linsol);
         if (linsol.Direction().DotCross(Quad2.Normale(ptbid), Quad1.Normale(ptbid)) > 0.)
         {
           trans1 = IntSurf_Out;
@@ -3633,7 +3633,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
         }
         ptsol.SetParameter(para);
         glig = new IntPatch_GLine(linsol, Standard_False, trans1, trans2);
-        para = ElCLib::Parameter(linsol, apex);
+        para = ElCLib1::Parameter(linsol, apex);
         ptsol.SetParameter(para);
         glig->AddVertex(ptsol);
         glig->SetFirstPoint(1);
@@ -3644,7 +3644,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
         //--
         linsol.SetDirection(linsol.Direction().Reversed());
         glig = new IntPatch_GLine(linsol, Standard_False, trans1, trans2);
-        para = ElCLib::Parameter(linsol, apex);
+        para = ElCLib1::Parameter(linsol, apex);
         ptsol.SetParameter(para);
         glig->AddVertex(ptsol);
         glig->SetFirstPoint(1);
@@ -3660,7 +3660,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
       // modified by NIZNHY-PKV Thu Sep 15 11:36:08 2011t
       Point3d ptref;
       Vector3d Tgt;
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
 
       if (Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref)) > 0.)
       {
@@ -3681,7 +3681,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
       gp_Elips elipsol = inter.Ellipse(1);
       Point3d   ptref;
       Vector3d   Tgt;
-      ElCLib::D1(0., elipsol, ptref, Tgt);
+      ElCLib1::D1(0., elipsol, ptref, Tgt);
 
       if (Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref)) > 0.)
       {
@@ -3730,7 +3730,7 @@ Standard_Boolean IntPCo(const Quadric1&    Quad1,
       for (Standard_Integer i = 1; i <= 2; i++)
       {
         gp_Hypr hyprsol   = inter.Hyperbola(i);
-        tophypr           = ElCLib::Value(hyprsol.MajorRadius(), hyprsol.XAxis());
+        tophypr           = ElCLib1::Value(hyprsol.MajorRadius(), hyprsol.XAxis());
         Tgttop            = hyprsol.YAxis().Direction();
         Standard_Real qwe = Tgttop.DotCross(Quad2.Normale(tophypr), Quad1.Normale(tophypr));
 
@@ -3773,7 +3773,7 @@ Standard_Boolean IntPTo(const Quadric1&   theQuad1,
   const gp_Pln   aPln   = bReversed ? theQuad2.Plane() : theQuad1.Plane();
   const gp_Torus aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
-  IntAna_QuadQuadGeo inter(aPln, aTorus, theTolTang);
+  QuadQuadGeoIntersection inter(aPln, aTorus, theTolTang);
   Standard_Boolean   bRet = inter.IsDone();
   //
   if (!bRet)
@@ -3804,7 +3804,7 @@ Standard_Boolean IntPTo(const Quadric1&   theQuad1,
         {
           AdjustToSeam(aTorus, aC);
         }
-        ElCLib::D1(0., aC, ptref, Tgt);
+        ElCLib1::D1(0., aC, ptref, Tgt);
         //
         if (Tgt.DotCross(theQuad2.Normale(ptref), theQuad1.Normale(ptref)) > 0.0)
         {
@@ -3911,7 +3911,7 @@ static void ShortCosForm(const Standard_Real theCosFactor,
                          Standard_Real&      theAngle);
 //
 static Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
-                                     IntAna_Curve&       aC,
+                                     Curve1&       aC,
                                      const Standard_Real aTol,
                                      IntAna_ListOfCurve& aLC);
 
@@ -4325,12 +4325,12 @@ public:
 
   static Standard_Boolean BoundariesComputing(const ComputationMethods::stCoeffsValue& theCoeffs,
                                               const Standard_Real                      thePeriod,
-                                              Bnd_Range                                theURange[]);
+                                              Range1                                theURange[]);
 
   void BoundaryEstimation(const gp_Cylinder& theCy1,
                           const gp_Cylinder& theCy2,
-                          Bnd_Range&         theOutBoxS1,
-                          Bnd_Range&         theOutBoxS2) const;
+                          Range1&         theOutBoxS1,
+                          Range1&         theOutBoxS2) const;
 
 protected:
   // Solves equation (2) (see declaration of ComputationMethods class) in case,
@@ -4391,7 +4391,7 @@ static inline void MinMax(Standard_Real& theParMIN, Standard_Real& theParMAX)
 //=======================================================================
 // function : ExtremaLineLine
 // purpose  : Computes extrema between the given lines. Returns parameters
-//          on correspond curve (see correspond method for Extrema_ExtElC class).
+//          on correspond curve (see correspond method for ExtElC class).
 //=======================================================================
 static inline void ExtremaLineLine(const Axis3d&       theC1,
                                    const Axis3d&       theC2,
@@ -4812,7 +4812,7 @@ void ProcessBounds(const Handle(IntPatch_ALine)&  alig, //-- ligne courante
 //=======================================================================
 Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
                                          const Quadric1&    Quad2,
-                                         const IntAna_QuadQuadGeo& theInter,
+                                         const QuadQuadGeoIntersection& theInter,
                                          const Standard_Real       Tol,
                                          Standard_Boolean&         Empty,
                                          Standard_Boolean&         Same,
@@ -4991,8 +4991,8 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
 
       elipsol = theInter.Ellipse(1);
 
-      Point3d pttang1(ElCLib::Value(0.5 * M_PI, elipsol));
-      Point3d pttang2(ElCLib::Value(1.5 * M_PI, elipsol));
+      Point3d pttang1(ElCLib1::Value(0.5 * M_PI, elipsol));
+      Point3d pttang2(ElCLib1::Value(1.5 * M_PI, elipsol));
 
       Multpoint = Standard_True;
       pmult1.SetValue(pttang1, Tol, Standard_True);
@@ -5013,7 +5013,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
       // on traite la premiere ellipse
 
       //-- Calcul de la Transition de la ligne
-      ElCLib::D1(0., elipsol, ptref, Tgt);
+      ElCLib1::D1(0., elipsol, ptref, Tgt);
 
       // Theoretically, qwe = +/- |Tgt|.
       Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
@@ -5039,7 +5039,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
       {
         Standard_Real  aU1, aV1, aU2, aV2;
         IntPatch_Point aIP;
-        Point3d         aP(ElCLib::Value(0., elipsol));
+        Point3d         aP(ElCLib1::Value(0., elipsol));
         //
         aIP.SetValue(aP, Tol, Standard_False);
         aIP.SetMultiple(Standard_False);
@@ -5072,8 +5072,8 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
       // on traite la deuxieme ellipse
       elipsol = theInter.Ellipse(2);
 
-      Standard_Real param1              = ElCLib::Parameter(elipsol, pttang1);
-      Standard_Real param2              = ElCLib::Parameter(elipsol, pttang2);
+      Standard_Real param1              = ElCLib1::Parameter(elipsol, pttang1);
+      Standard_Real param2              = ElCLib1::Parameter(elipsol, pttang2);
       Standard_Real parampourtransition = 0.0;
       if (param1 < param2)
       {
@@ -5089,7 +5089,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
       }
 
       //-- Calcul des transitions de ligne pour la premiere ligne
-      ElCLib::D1(parampourtransition, elipsol, ptref, Tgt);
+      ElCLib1::D1(parampourtransition, elipsol, ptref, Tgt);
 
       // Theoretically, qwe = +/- |Tgt|.
       qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
@@ -5114,7 +5114,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
       {
         Standard_Real  aU1, aV1, aU2, aV2;
         IntPatch_Point aIP;
-        Point3d         aP(ElCLib::Value(0., elipsol));
+        Point3d         aP(ElCLib1::Value(0., elipsol));
         //
         aIP.SetValue(aP, Tol, Standard_False);
         aIP.SetMultiple(Standard_False);
@@ -5573,7 +5573,7 @@ Standard_Boolean InscribePoint(const Standard_Real    theUfTarget,
   const Standard_Real aUf = theUfTarget - theTol2D;
   const Standard_Real aUl = aUf + thePeriod;
 
-  theUGiven = ElCLib::InPeriod(theUGiven, aUf, aUl);
+  theUGiven = ElCLib1::InPeriod(theUGiven, aUf, aUl);
 
   return ((theUfTarget - theUGiven <= theTol2D) && (theUGiven - theUlTarget <= theTol2D));
 }
@@ -5585,7 +5585,7 @@ Standard_Boolean InscribePoint(const Standard_Real    theUfTarget,
 //=======================================================================
 static Standard_Boolean InscribeInterval(const Standard_Real theUfTarget,
                                          const Standard_Real theUlTarget,
-                                         Bnd_Range&          theRange,
+                                         Range1&          theRange,
                                          const Standard_Real theTol2D,
                                          const Standard_Real thePeriod)
 {
@@ -6149,7 +6149,7 @@ static void SeekAdditionalPoints(const Quadric1&                   theQuad1,
 Standard_Boolean WorkWithBoundaries::BoundariesComputing(
   const ComputationMethods::stCoeffsValue& theCoeffs,
   const Standard_Real                      thePeriod,
-  Bnd_Range                                theURange[])
+  Range1                                theURange[])
 {
   // All comments to this method is related to the comment
   // to ComputationMethods class
@@ -6458,8 +6458,8 @@ static void CriticalPointsComputing(const ComputationMethods::stCoeffsValue& the
 //=======================================================================
 void WorkWithBoundaries::BoundaryEstimation(const gp_Cylinder& theCy1,
                                             const gp_Cylinder& theCy2,
-                                            Bnd_Range&         theOutBoxS1,
-                                            Bnd_Range&         theOutBoxS2) const
+                                            Range1&         theOutBoxS1,
+                                            Range1&         theOutBoxS2) const
 {
   const Dir3d &      aD1 = theCy1.Axis().Direction(), &aD2 = theCy2.Axis().Direction();
   const Standard_Real aR1 = theCy1.Radius(), aR2 = theCy2.Radius();
@@ -6507,10 +6507,10 @@ void WorkWithBoundaries::BoundaryEstimation(const gp_Cylinder& theCy1,
 
   Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
   myUVSurf1.Get(aU1, aV1, aU2, aV2);
-  theOutBoxS1.Common(Bnd_Range(aV1, aV2));
+  theOutBoxS1.Common(Range1(aV1, aV2));
 
   myUVSurf2.Get(aU1, aV1, aU2, aV2);
-  theOutBoxS2.Common(Bnd_Range(aV1, aV2));
+  theOutBoxS2.Common(Range1(aV1, aV2));
 }
 
 //=================================================================================================
@@ -6519,7 +6519,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
   const gp_Cylinder&        theCyl1,
   const gp_Cylinder&        theCyl2,
   const WorkWithBoundaries& theBW,
-  Bnd_Range                 theRange[],
+  Range1                 theRange[],
   const Standard_Integer    theNbOfRanges /*=2*/,
   Standard_Boolean&         isTheEmpty,
   IntPatch_SequenceOfLine&  theSlin,
@@ -6531,7 +6531,7 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
   theBW.UVS1().Get(aUSurf1f, aVSurf1f, aUSurf1l, aVSurf1l);
   theBW.UVS2().Get(aUSurf2f, aVSurf2f, aUSurf2l, aVSurf2l);
 
-  Bnd_Range aRangeS1, aRangeS2;
+  Range1 aRangeS1, aRangeS2;
   theBW.BoundaryEstimation(theCyl1, theCyl2, aRangeS1, aRangeS2);
   if (aRangeS1.IsVoid() || aRangeS2.IsVoid())
     return IntPatch_ImpImpIntersection::IntStatus_OK;
@@ -7773,7 +7773,7 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
 
   const gp_Cylinder aCyl1 = theQuad1.Cylinder(), aCyl2 = theQuad2.Cylinder();
 
-  IntAna_QuadQuadGeo anInter(aCyl1, aCyl2, theTol3D);
+  QuadQuadGeoIntersection anInter(aCyl1, aCyl2, theTol3D);
 
   if (!anInter.IsDone())
   {
@@ -7813,7 +7813,7 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
   // Intersection result can include two non-connected regions
   //(see WorkWithBoundaries::BoundariesComputing(...) method).
   const Standard_Integer aNbOfBoundaries = 2;
-  Bnd_Range              anURange[2][aNbOfBoundaries]; // const
+  Range1              anURange[2][aNbOfBoundaries]; // const
 
   if (!WorkWithBoundaries::BoundariesComputing(anEquationCoeffs1, aPeriod, anURange[0]))
     return IntPatch_ImpImpIntersection::IntStatus_OK;
@@ -7846,21 +7846,21 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
   for (Standard_Integer aCID = 0; aCID < 2; aCID++)
   {
     anAlloc->Reset(false);
-    NCollection_List<Bnd_Range> aListOfRng(anAlloc);
+    NCollection_List<Range1> aListOfRng(anAlloc);
 
     aListOfRng.Append(anURange[aCID][0]);
     aListOfRng.Append(anURange[aCID][1]);
 
     const Standard_Real aSplitArr[3] = {aUSBou[aCID][0], aUSBou[aCID][1], 0.0};
 
-    NCollection_List<Bnd_Range>::Iterator anITrRng;
+    NCollection_List<Range1>::Iterator anITrRng;
     for (Standard_Integer aSInd = 0; aSInd < 3; aSInd++)
     {
-      NCollection_List<Bnd_Range> aLstTemp(aListOfRng);
+      NCollection_List<Range1> aLstTemp(aListOfRng);
       aListOfRng.Clear();
       for (anITrRng.Init(aLstTemp); anITrRng.More(); anITrRng.Next())
       {
-        Bnd_Range& aRng = anITrRng.ChangeValue();
+        Range1& aRng = anITrRng.ChangeValue();
         aRng.Split(aSplitArr[aSInd], aListOfRng, aPeriod);
       }
     }
@@ -7868,9 +7868,9 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
     anITrRng.Init(aListOfRng);
     for (; anITrRng.More(); anITrRng.Next())
     {
-      Bnd_Range& aCurrRange = anITrRng.ChangeValue();
+      Range1& aCurrRange = anITrRng.ChangeValue();
 
-      Bnd_Range aBoundR;
+      Range1 aBoundR;
       aBoundR.Add(aUSBou[aCID][0]);
       aBoundR.Add(aUSBou[aCID][1]);
 
@@ -7994,7 +7994,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
     Cy = Quad2.Cylinder();
     Sp = Quad1.Sphere();
   }
-  IntAna_QuadQuadGeo inter(Cy, Sp, Tol);
+  QuadQuadGeoIntersection inter(Cy, Sp, Tol);
 
   if (!inter.IsDone())
   {
@@ -8027,7 +8027,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
       cirsol = inter.Circle(1);
       Vector3d Tgt;
       Point3d ptref;
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
 
       if (NbSol == 1)
       {
@@ -8098,7 +8098,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
         slin.Append(glig);
 
         cirsol = inter.Circle(2);
-        ElCLib::D1(0., cirsol, ptref, Tgt);
+        ElCLib1::D1(0., cirsol, ptref, Tgt);
         Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
         if (qwe > 0.0000001)
         {
@@ -8123,7 +8123,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
     case IntAna_NoGeometricSolution: {
       Point3d             psol;
       Standard_Real      U1, V1, U2, V2;
-      IntAna_IntQuadQuad anaint(Cy, Sp, Tol);
+      QuadQuadIntersection anaint(Cy, Sp, Tol);
       if (!anaint.IsDone())
       {
         return Standard_False;
@@ -8149,7 +8149,7 @@ Standard_Boolean IntCySp(const Quadric1&    Quad1,
         Point3d           ptvalid, ptf, ptl;
         Vector3d           tgvalid;
         Standard_Real    first, last, para;
-        IntAna_Curve     curvsol;
+        Curve1     curvsol;
         Standard_Boolean tgfound;
         Standard_Integer kount;
 
@@ -8262,7 +8262,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
     Cy = Quad2.Cylinder();
     Co = Quad1.Cone();
   }
-  IntAna_QuadQuadGeo inter(Cy, Co, Tol);
+  QuadQuadGeoIntersection inter(Cy, Co, Tol);
 
   if (!inter.IsDone())
   {
@@ -8300,7 +8300,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
       for (j = 1; j <= 2; ++j)
       {
         cirsol = inter.Circle(j);
-        ElCLib::D1(0., cirsol, ptref, Tgt);
+        ElCLib1::D1(0., cirsol, ptref, Tgt);
         qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
         if (qwe > 0.00000001)
         {
@@ -8325,7 +8325,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
     case IntAna_NoGeometricSolution: {
       Point3d             psol;
       Standard_Real      U1, V1, U2, V2;
-      IntAna_IntQuadQuad anaint(Cy, Co, Tol);
+      QuadQuadIntersection anaint(Cy, Co, Tol);
       if (!anaint.IsDone())
       {
         return Standard_False;
@@ -8356,8 +8356,8 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
         Standard_Integer kount;
         //
         //
-        // IntAna_Curve curvsol;
-        IntAna_Curve                     aC;
+        // Curve1 curvsol;
+        Curve1                     aC;
         IntAna_ListOfCurve               aLC;
         IntAna_ListIteratorOfListOfCurve aIt;
 
@@ -8374,7 +8374,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
           aIt.Initialize(aLC);
           for (; aIt.More(); aIt.Next())
           {
-            IntAna_Curve& curvsol = aIt.ChangeValue();
+            Curve1& curvsol = aIt.ChangeValue();
             //
             curvsol.Domain(first, last);
             firstp = !curvsol.IsFirstOpen();
@@ -8466,7 +8466,7 @@ Standard_Boolean IntCyCo(const Quadric1&    Quad1,
 // purpose  : Splits aC on several curves in the cone apex points.
 //=======================================================================
 Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
-                              IntAna_Curve&       theCrv,
+                              Curve1&       theCrv,
                               const Standard_Real theTol,
                               IntAna_ListOfCurve& theLC)
 {
@@ -8504,7 +8504,7 @@ Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
     const Standard_Real aSqD = aP.SquareDistance(aPapx);
     if (aSqD < aSqTol)
     {
-      IntAna_Curve aC1 = theCrv;
+      Curve1 aC1 = theCrv;
       aC1.SetDomain(aT1, aPrm);
       aT1 = aPrm;
       theLC.Append(aC1);
@@ -8522,7 +8522,7 @@ Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
 
   if ((aT2 - aT1) > Precision::PConfusion())
   {
-    IntAna_Curve aC1 = theCrv;
+    Curve1 aC1 = theCrv;
     aC1.SetDomain(aT1, aT2);
     theLC.Append(aC1);
   }
@@ -8550,7 +8550,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
   gp_Cone Co1(Quad1.Cone());
   gp_Cone Co2(Quad2.Cone());
   //
-  IntAna_QuadQuadGeo inter(Co1, Co2, Tol);
+  QuadQuadGeoIntersection inter(Co1, Co2, Tol);
   if (!inter.IsDone())
   {
     return Standard_False;
@@ -8590,8 +8590,8 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
         IntSurf_Situation situC1, situC2;
         //
         linsol = inter.Line(1);
-        para   = ElCLib::Parameter(linsol, aPApex1);
-        ptbid  = ElCLib::Value(para + 5., linsol);
+        para   = ElCLib1::Parameter(linsol, aPApex1);
+        ptbid  = ElCLib1::Value(para + 5., linsol);
         Quad1.Parameters(aPApex1, U1, V1);
         Quad2.Parameters(aPApex1, U2, V2);
         //
@@ -8634,7 +8634,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
         slin.Append(glig);
         // 2
         linsol.SetDirection(linsol.Direction().Reversed());
-        para = ElCLib::Parameter(linsol, aPApex1);
+        para = ElCLib1::Parameter(linsol, aPApex1);
         aPtsol.SetParameter(para);
 
         glig = new IntPatch_GLine(linsol, Standard_True, situC2, situC1);
@@ -8649,8 +8649,8 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
         for (i = 1; i <= 2; ++i)
         {
           linsol = inter.Line(i);
-          para   = ElCLib::Parameter(linsol, aPApex1);
-          ptbid  = ElCLib::Value(para + 5., linsol);
+          para   = ElCLib1::Parameter(linsol, aPApex1);
+          ptbid  = ElCLib1::Value(para + 5., linsol);
           Quad1.Parameters(aPApex1, U1, V1);
           Quad2.Parameters(aPApex1, U2, V2);
           //
@@ -8675,7 +8675,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
           slin.Append(glig);
           // 2,4
           linsol.SetDirection(linsol.Direction().Reversed());
-          para = ElCLib::Parameter(linsol, aPApex1);
+          para = ElCLib1::Parameter(linsol, aPApex1);
           aPtsol.SetParameter(para);
           glig = new IntPatch_GLine(linsol, Standard_False, trans1, trans2);
           glig->AddVertex(aPtsol);
@@ -8693,13 +8693,13 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
       Point3d        apex1(Co1.Apex());
       Point3d        apex2(Co2.Apex());
       Standard_Real param1, param2;
-      Standard_Real paramapex1 = ElCLib::LineParameter(Co1.Axis(), apex1);
-      Standard_Real paramapex2 = ElCLib::LineParameter(Co2.Axis(), apex2);
+      Standard_Real paramapex1 = ElCLib1::LineParameter(Co1.Axis(), apex1);
+      Standard_Real paramapex2 = ElCLib1::LineParameter(Co2.Axis(), apex2);
       for (i = 1; i <= NbSol; i++)
       {
         ptcontact = inter.Point(i);
-        param1    = ElCLib::LineParameter(Co1.Axis(), ptcontact);
-        param2    = ElCLib::LineParameter(Co2.Axis(), ptcontact);
+        param1    = ElCLib1::LineParameter(Co1.Axis(), ptcontact);
+        param2    = ElCLib1::LineParameter(Co2.Axis(), ptcontact);
 
         Quad1.Parameters(ptcontact, U1, V1);
         Quad2.Parameters(ptcontact, U2, V2);
@@ -8729,7 +8729,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
       for (i = 1; i <= NbSol; i++)
       {
         gp_Circ cirsol = inter.Circle(i);
-        ElCLib::D1(0., cirsol, ptref, Tgt);
+        ElCLib1::D1(0., cirsol, ptref, Tgt);
         Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
         if (qwe > 0.00000001)
         {
@@ -8767,7 +8767,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
 
       Vector3d Tgt;
       Point3d ptref;
-      ElCLib::D1(0., elipsol, ptref, Tgt);
+      ElCLib1::D1(0., elipsol, ptref, Tgt);
 
       Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
       if (qwe > 0.00000001)
@@ -8806,7 +8806,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
       for (i = 1; i <= 2; i++)
       {
         gp_Hypr hyprsol = inter.Hyperbola(i);
-        ElCLib::D1(0., hyprsol, ptref, Tgt);
+        ElCLib1::D1(0., hyprsol, ptref, Tgt);
         Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
         if (qwe > 0.00000001)
         {
@@ -8877,7 +8877,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
 
     case IntAna_NoGeometricSolution: {
       Point3d             psol;
-      IntAna_IntQuadQuad anaint(Co1, Co2, Tol);
+      QuadQuadIntersection anaint(Co1, Co2, Tol);
       if (!anaint.IsDone())
       {
         return Standard_False;
@@ -8913,7 +8913,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
         {
           Handle(IntPatch_ALine) alig;
           kept                 = Standard_False;
-          IntAna_Curve curvsol = anaint.Curve(i);
+          Curve1 curvsol = anaint.Curve(i);
           curvsol.Domain(first, last);
           firstp = !curvsol.IsFirstOpen();
           lastp  = !curvsol.IsLastOpen();
@@ -9020,7 +9020,7 @@ Standard_Boolean IntCoCo(const Quadric1&    Quad1,
     Quad2.Parameters(aPChar, U2, V2);
     aPtsol.SetValue(aPChar, Tol, Standard_False);
     aPtsol.SetParameters(U1, V1, U2, V2);
-    para = ElCLib::Parameter(linsol, aPChar);
+    para = ElCLib1::Parameter(linsol, aPChar);
     aPtsol.SetParameter(para);
     glig->AddVertex(aPtsol);
 
@@ -9061,7 +9061,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
     Co = Quad2.Cone();
     Sp = Quad1.Sphere();
   }
-  IntAna_QuadQuadGeo inter(Sp, Co, Tol);
+  QuadQuadGeoIntersection inter(Sp, Co, Tol);
 
   if (!inter.IsDone())
   {
@@ -9083,11 +9083,11 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
       Point3d        ptcontact;
       Point3d        apex(Co.Apex());
       Standard_Real param;
-      Standard_Real paramapex = ElCLib::LineParameter(Co.Axis(), apex);
+      Standard_Real paramapex = ElCLib1::LineParameter(Co.Axis(), apex);
       for (i = 1; i <= NbSol; i++)
       {
         ptcontact = inter.Point(i);
-        param     = ElCLib::LineParameter(Co.Axis(), ptcontact);
+        param     = ElCLib1::LineParameter(Co.Axis(), ptcontact);
         Quad1.Parameters(ptcontact, U1, V1);
         Quad2.Parameters(ptcontact, U2, V2);
 
@@ -9116,11 +9116,11 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
       for (i = 1; i <= NbSol; i++)
       {
         gp_Circ cirsol = inter.Circle(i);
-        //-- param = ElCLib::LineParameter(Co.Axis(),
+        //-- param = ElCLib1::LineParameter(Co.Axis(),
         //-- 			      cirsol.Location());
         //-- if (param >= paramapex) {
 
-        ElCLib::D1(0., cirsol, ptref, Tgt);
+        ElCLib1::D1(0., cirsol, ptref, Tgt);
         Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
         if (qwe > 0.00000001)
         {
@@ -9148,7 +9148,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
       Point3d        ptref;
       Point3d        apex(Co.Apex());
       Standard_Real param;
-      Standard_Real paramapex = ElCLib::LineParameter(Co.Axis(), apex);
+      Standard_Real paramapex = ElCLib1::LineParameter(Co.Axis(), apex);
 
       // le point est necessairement l apex
       Quad1.Parameters(apex, U1, V1);
@@ -9159,8 +9159,8 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
       spnt.Append(ptsol);
 
       gp_Circ cirsol = inter.Circle(1);
-      param          = ElCLib::LineParameter(Co.Axis(), cirsol.Location());
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      param          = ElCLib1::LineParameter(Co.Axis(), cirsol.Location());
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
       Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
 
       if (param >= paramapex)
@@ -9204,7 +9204,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
 
     case IntAna_NoGeometricSolution: {
       Point3d             psol;
-      IntAna_IntQuadQuad anaint(Co, Sp, Tol);
+      QuadQuadIntersection anaint(Co, Sp, Tol);
       if (!anaint.IsDone())
       {
         return Standard_False;
@@ -9239,7 +9239,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
         {
           Handle(IntPatch_ALine) alig;
           kept                 = Standard_False;
-          IntAna_Curve curvsol = anaint.Curve(i);
+          Curve1 curvsol = anaint.Curve(i);
           curvsol.Domain(first, last);
           firstp = !curvsol.IsFirstOpen();
           lastp  = !curvsol.IsLastOpen();
@@ -9267,7 +9267,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
           }
           if (kount <= 5)
           {
-            para              = ElCLib::LineParameter(Co.Axis(), ptvalid);
+            para              = ElCLib1::LineParameter(Co.Axis(), ptvalid);
             Standard_Real qwe = tgvalid.DotCross(Quad2.Normale(ptvalid), Quad1.Normale(ptvalid));
             if (qwe > 0.000000001)
             {
@@ -9289,7 +9289,7 @@ Standard_Boolean IntCoSp(const Quadric1&    Quad1,
           else
           {
             ptvalid = curvsol.Value(para);
-            para    = ElCLib::LineParameter(Co.Axis(), ptvalid);
+            para    = ElCLib1::LineParameter(Co.Axis(), ptvalid);
             alig    = new IntPatch_ALine(curvsol, Standard_False);
             kept    = Standard_True;
             //-- cout << "Transition indeterminee" << endl;
@@ -9342,7 +9342,7 @@ Standard_Boolean IntSpSp(const Quadric1&    Quad1,
   gp_Sphere         sph1(Quad1.Sphere());
   gp_Sphere         sph2(Quad2.Sphere());
 
-  IntAna_QuadQuadGeo inter(sph1, sph2, Tol);
+  QuadQuadGeoIntersection inter(sph1, sph2, Tol);
   if (!inter.IsDone())
   {
     return Standard_False;
@@ -9380,7 +9380,7 @@ Standard_Boolean IntSpSp(const Quadric1&    Quad1,
       gp_Circ cirsol = inter.Circle(1);
       Point3d  ptref;
       Vector3d  Tgt;
-      ElCLib::D1(0., cirsol, ptref, Tgt);
+      ElCLib1::D1(0., cirsol, ptref, Tgt);
 
       Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
       if (qwe > 0.00000001)
@@ -9411,7 +9411,7 @@ Standard_Boolean IntSpSp(const Quadric1&    Quad1,
 
 static Standard_Boolean TreatResultTorus(const Quadric1&    theQuad1,
                                          const Quadric1&    theQuad2,
-                                         const IntAna_QuadQuadGeo& anInt,
+                                         const QuadQuadGeoIntersection& anInt,
                                          Standard_Boolean&         bEmpty,
                                          IntPatch_SequenceOfLine&  theSeqLin);
 
@@ -9427,7 +9427,7 @@ Standard_Boolean IntCyTo(const Quadric1&   theQuad1,
   const gp_Cylinder aCyl   = bReversed ? theQuad2.Cylinder() : theQuad1.Cylinder();
   const gp_Torus    aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
-  IntAna_QuadQuadGeo anInt(aCyl, aTorus, theTolTang);
+  QuadQuadGeoIntersection anInt(aCyl, aTorus, theTolTang);
   Standard_Boolean   bRet = TreatResultTorus(theQuad1, theQuad2, anInt, bEmpty, theSeqLin);
   //
   return bRet;
@@ -9445,7 +9445,7 @@ Standard_Boolean IntCoTo(const Quadric1&   theQuad1,
   const gp_Cone  aCone  = bReversed ? theQuad2.Cone() : theQuad1.Cone();
   const gp_Torus aTorus = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
-  IntAna_QuadQuadGeo anInt(aCone, aTorus, theTolTang);
+  QuadQuadGeoIntersection anInt(aCone, aTorus, theTolTang);
   Standard_Boolean   bRet = TreatResultTorus(theQuad1, theQuad2, anInt, bEmpty, theSeqLin);
   //
   return bRet;
@@ -9463,7 +9463,7 @@ Standard_Boolean IntSpTo(const Quadric1&   theQuad1,
   const gp_Sphere aSphere = bReversed ? theQuad2.Sphere() : theQuad1.Sphere();
   const gp_Torus  aTorus  = bReversed ? theQuad1.Torus() : theQuad2.Torus();
   //
-  IntAna_QuadQuadGeo anInt(aSphere, aTorus, theTolTang);
+  QuadQuadGeoIntersection anInt(aSphere, aTorus, theTolTang);
   Standard_Boolean   bRet = TreatResultTorus(theQuad1, theQuad2, anInt, bEmpty, theSeqLin);
   //
   return bRet;
@@ -9481,7 +9481,7 @@ Standard_Boolean IntToTo(const Quadric1&   theQuad1,
   const gp_Torus aTorus1 = theQuad1.Torus();
   const gp_Torus aTorus2 = theQuad2.Torus();
   //
-  IntAna_QuadQuadGeo anInt(aTorus1, aTorus2, theTolTang);
+  QuadQuadGeoIntersection anInt(aTorus1, aTorus2, theTolTang);
   Standard_Boolean   bRet = anInt.IsDone();
   if (bRet)
   {
@@ -9503,7 +9503,7 @@ Standard_Boolean IntToTo(const Quadric1&   theQuad1,
 
 static Standard_Boolean TreatResultTorus(const Quadric1&    theQuad1,
                                          const Quadric1&    theQuad2,
-                                         const IntAna_QuadQuadGeo& anInt,
+                                         const QuadQuadGeoIntersection& anInt,
                                          Standard_Boolean&         bEmpty,
                                          IntPatch_SequenceOfLine&  theSeqLin)
 {
@@ -9537,7 +9537,7 @@ static Standard_Boolean TreatResultTorus(const Quadric1&    theQuad1,
         {
           AdjustToSeam(theQuad1.Torus(), aC);
         }
-        ElCLib::D1(0., aC, ptref, Tgt);
+        ElCLib1::D1(0., aC, ptref, Tgt);
         Standard_Real qwe = Tgt.DotCross(theQuad2.Normale(ptref), theQuad1.Normale(ptref));
         if (qwe > 0.00000001)
         {

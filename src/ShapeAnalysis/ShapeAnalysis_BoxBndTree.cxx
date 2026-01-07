@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Reject(const Bnd_Box& theBnd) const
+Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Reject(const Box2& theBnd) const
 {
   Standard_Boolean fch = myFBox.IsOut(theBnd);
   Standard_Boolean lch = myLBox.IsOut(theBnd);

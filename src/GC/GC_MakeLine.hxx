@@ -39,7 +39,7 @@ class Dir3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed line.
-class GC_MakeLine : public GC_Root
+class GC_MakeLine : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

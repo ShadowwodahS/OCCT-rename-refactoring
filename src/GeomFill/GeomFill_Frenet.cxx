@@ -713,7 +713,7 @@ Standard_Integer GeomFill_Frenet::NbIntervals(const GeomAbs_Shape S) const
   myCurve->Intervals(TrimInt, tmpS);
 
   TColStd_SequenceOfReal Fusion;
-  GeomLib::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
 
   return Fusion.Length() - 1;
 }
@@ -752,7 +752,7 @@ void GeomFill_Frenet::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) 
   myCurve->Intervals(TrimInt, tmpS);
 
   TColStd_SequenceOfReal Fusion;
-  GeomLib::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
+  GeomLib1::FuseIntervals(TrimInt, mySngl->Array1(), Fusion, Precision::PConfusion(), Standard_True);
 
   for (Standard_Integer i = 1; i <= Fusion.Length(); i++)
     T.ChangeValue(i) = Fusion.Value(i);

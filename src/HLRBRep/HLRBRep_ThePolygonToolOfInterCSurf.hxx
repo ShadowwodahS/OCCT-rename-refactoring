@@ -26,15 +26,15 @@
 class Standard_OutOfRange;
 class Point3d;
 class HLRBRep_ThePolygonOfInterCSurf;
-class Bnd_Box;
+class Box2;
 
-class HLRBRep_ThePolygonToolOfInterCSurf
+class PolygonToolInterCSurf
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Give the bounding box of the polygon.
-  static const Bnd_Box& Bounding(const HLRBRep_ThePolygonOfInterCSurf& thePolygon);
+  static const Box2& Bounding(const HLRBRep_ThePolygonOfInterCSurf& thePolygon);
 
   static Standard_Real DeflectionOverEstimation(const HLRBRep_ThePolygonOfInterCSurf& thePolygon);
 
@@ -60,9 +60,9 @@ private:
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon HLRBRep_ThePolygonOfInterCSurf
 #define ThePolygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>
-#define TheBoundingBox Bnd_Box
+#define TheBoundingBox Box2
 #define TheBoundingBox_hxx <Bnd_Box.hxx>
-#define IntCurveSurface_PolygonTool HLRBRep_ThePolygonToolOfInterCSurf
+#define IntCurveSurface_PolygonTool PolygonToolInterCSurf
 #define IntCurveSurface_PolygonTool_hxx <HLRBRep_ThePolygonToolOfInterCSurf.hxx>
 
 #include <IntCurveSurface_PolygonTool.lxx>

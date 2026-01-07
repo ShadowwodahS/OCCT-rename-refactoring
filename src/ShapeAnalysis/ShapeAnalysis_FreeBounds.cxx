@@ -198,14 +198,14 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
   saw->SetPrecision(tolerance);
 
   ShapeAnalysis_BoxBndTree                            aBBTree;
-  NCollection_UBTreeFiller<Standard_Integer, Bnd_Box> aTreeFiller(aBBTree);
+  NCollection_UBTreeFiller<Standard_Integer, Box2> aTreeFiller(aBBTree);
   ShapeAnalysis_BoxBndTreeSelector                    aSel(arrwires, shared);
   aSel.LoadList(1);
 
   for (Standard_Integer inbW = 2; inbW <= arrwires->Length(); inbW++)
   {
     TopoWire   trW = TopoDS::Wire(arrwires->Value(inbW));
-    Bnd_Box       aBox;
+    Box2       aBox;
     TopoVertex trV1, trV2;
     ShapeAnalysis::FindBounds(trW, trV1, trV2);
     Point3d trP1 = BRepInspector::Pnt(trV1);
@@ -227,7 +227,7 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
     Standard_Boolean found = Standard_False, tail = Standard_False, direct = Standard_False;
     Standard_Integer lwire = 0;
     aSel.SetStop();
-    Bnd_Box       FVBox, LVBox;
+    Box2       FVBox, LVBox;
     TopoVertex Vf, Vl;
     Vf = sae.FirstVertex(sewd->Edge(1));
     Vl = sae.LastVertex(sewd->Edge(sewd->NbEdges()));

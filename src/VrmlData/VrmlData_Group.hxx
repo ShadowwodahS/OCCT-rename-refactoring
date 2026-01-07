@@ -82,12 +82,12 @@ public:
   /**
    * Query the bounding box.
    */
-  inline const Bnd_B3f& Box() const { return myBox; }
+  inline const Box3f& Box1() const { return myBox; }
 
   /**
    * Set the bounding box.
    */
-  inline void SetBox(const Bnd_B3f& theBox) { myBox = theBox; }
+  inline void SetBox(const Box3f& theBox) { myBox = theBox; }
 
   /**
    * Set the transformation. Returns True if the group is Transform type,
@@ -153,7 +153,7 @@ private:
 
   Standard_Boolean    myIsTransform;
   VrmlData_ListOfNode myNodes;
-  Bnd_B3f             myBox;
+  Box3f             myBox;
   Transform3d             myTrsf;
 
 public:

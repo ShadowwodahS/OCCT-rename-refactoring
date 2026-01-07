@@ -37,7 +37,7 @@ public:
     BVH_PrjStateInTriangle_INNER
   };
 
-public: //! @name Box-Box Square distance
+public: //! @name Box1-Box1 Square distance
   //! Computes Square distance between Axis aligned bounding boxes
   static T BoxBoxSquareDistance(const BVH_Box<T, N>& theBox1, const BVH_Box<T, N>& theBox2)
   {
@@ -76,7 +76,7 @@ public: //! @name Box-Box Square distance
     return aDist;
   }
 
-public: //! @name Point-Box Square distance
+public: //! @name Point-Box1 Square distance
   //! Computes square distance between point and bounding box
   static T PointBoxSquareDistance(const BVH_VecNt& thePoint, const BVH_Box<T, N>& theBox)
   {
@@ -111,7 +111,7 @@ public: //! @name Point-Box Square distance
     return aDist;
   }
 
-public: //! @name Point-Box projection
+public: //! @name Point-Box1 projection
   //! Computes projection of point on bounding box
   static BVH_VecNt PointBoxProjection(const BVH_VecNt& thePoint, const BVH_Box<T, N>& theBox)
   {
@@ -130,7 +130,7 @@ public: //! @name Point-Box projection
     return thePoint.cwiseMax(theCMin).cwiseMin(theCMax);
   }
 
-public: //! @name Point-Triangle Square distance
+public: //! @name Point-Triangle1 Square distance
   //! Find nearest point on a triangle for the given point
   static BVH_VecNt PointTriangleProjection(const BVH_VecNt&        thePoint,
                                            const BVH_VecNt&        theNode0,
@@ -255,7 +255,7 @@ public: //! @name Point-Triangle Square distance
     return aPP.Dot(aPP);
   }
 
-public: //! @name Ray-Box Intersection
+public: //! @name Ray-Box1 Intersection
   //! Computes hit time of ray-box intersection
   static Standard_Boolean RayBoxIntersection(const BVH_Ray<T, N>& theRay,
                                              const BVH_Box<T, N>& theBox,

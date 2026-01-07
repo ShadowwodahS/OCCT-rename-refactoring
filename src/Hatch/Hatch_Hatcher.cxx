@@ -85,8 +85,8 @@ void Hatcher::Trim(const gp_Lin2d&        L,
                          const Standard_Real    End,
                          const Standard_Integer Index)
 {
-  IntAna2d_IntPoint        Pinter;
-  IntAna2d_AnaIntersection Inters;
+  IntersectionPoint2d        Pinter;
+  AnalyticIntersection2d Inters;
   Standard_Integer         iLine;
   for (iLine = 1; iLine <= myLines.Length(); iLine++)
   {

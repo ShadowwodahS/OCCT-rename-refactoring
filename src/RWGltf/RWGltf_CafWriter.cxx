@@ -2271,7 +2271,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(AppDocument)&         theDocument
         myWriter->Key("children");
         myWriter->StartArray();
         {
-          for (TDF_ChildIterator aChildIter(aDocNode.RefLabel); aChildIter.More();
+          for (ChildIterator aChildIter(aDocNode.RefLabel); aChildIter.More();
                aChildIter.Next())
           {
             const DataLabel& aChildLabel = aChildIter.Value();

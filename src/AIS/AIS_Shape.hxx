@@ -179,7 +179,7 @@ public:
 
   //! Constructs a bounding box with which to reconstruct
   //! compound topological shapes for presentation.
-  Standard_EXPORT virtual const Bnd_Box& BoundingBox();
+  Standard_EXPORT virtual const Box2& BoundingBox();
 
   //! VisualEntity defines another virtual method BoundingBox,
   //! which is not the same as above; keep it visible.
@@ -337,7 +337,7 @@ public:
 
 protected:
   TopoShape     myshape;    //!< shape to display
-  Bnd_Box          myBB;       //!< cached bounding box of the shape
+  Box2          myBB;       //!< cached bounding box of the shape
   gp_Pnt2d         myUVOrigin; //!< UV origin vector for generating texture coordinates
   gp_Pnt2d         myUVRepeat; //!< UV repeat vector for generating texture coordinates
   gp_Pnt2d         myUVScale;  //!< UV scale  vector for generating texture coordinates

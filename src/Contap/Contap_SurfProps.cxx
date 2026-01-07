@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::Normale(const Handle(Adaptor3d_Surface)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
                                Point3d&                          P,
@@ -35,7 +35,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     case GeomAbs_Plane: {
       gp_Pln pl(HSurfaceTool::Plane(S));
       Norm = pl.Axis().Direction();
-      P    = ElSLib::Value(U, V, pl);
+      P    = ElSLib1::Value(U, V, pl);
       if (!pl.Direct())
       {
         Norm.Reverse();
@@ -45,7 +45,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Sphere: {
       gp_Sphere sp(HSurfaceTool::Sphere(S));
-      P    = ElSLib::Value(U, V, sp);
+      P    = ElSLib1::Value(U, V, sp);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
       {
@@ -60,7 +60,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cylinder: {
       gp_Cylinder cy(HSurfaceTool::Cylinder(S));
-      P = ElSLib::Value(U, V, cy);
+      P = ElSLib1::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
       {
@@ -71,7 +71,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cone: {
       gp_Cone co(HSurfaceTool::Cone(S));
-      P                   = ElSLib::Value(U, V, co);
+      P                   = ElSLib1::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = sin(Angle);
       Standard_Real Cosa  = cos(Angle);
@@ -128,7 +128,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
                                     Point3d&                          P,
@@ -143,7 +143,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     case GeomAbs_Plane: {
       gp_Pln pl(HSurfaceTool::Plane(S));
       Norm = pl.Axis().Direction();
-      ElSLib::D1(U, V, pl, P, d1u, d1v);
+      ElSLib1::D1(U, V, pl, P, d1u, d1v);
       if (!pl.Direct())
       {
         Norm.Reverse();
@@ -153,7 +153,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Sphere: {
       gp_Sphere sp(HSurfaceTool::Sphere(S));
-      ElSLib::D1(U, V, sp, P, d1u, d1v);
+      ElSLib1::D1(U, V, sp, P, d1u, d1v);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
       {
@@ -168,7 +168,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cylinder: {
       gp_Cylinder cy(HSurfaceTool::Cylinder(S));
-      ElSLib::D1(U, V, cy, P, d1u, d1v);
+      ElSLib1::D1(U, V, cy, P, d1u, d1v);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
       {
@@ -179,7 +179,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cone: {
       gp_Cone co(HSurfaceTool::Cone(S));
-      ElSLib::D1(U, V, co, P, d1u, d1v);
+      ElSLib1::D1(U, V, co, P, d1u, d1v);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);
       Standard_Real Cosa  = Cos(Angle);
@@ -233,7 +233,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
+void SurfaceProperties::NormAndDn(const Handle(Adaptor3d_Surface)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
                                  Point3d&                          P,
@@ -247,7 +247,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
   {
     case GeomAbs_Plane: {
       gp_Pln pl(HSurfaceTool::Plane(S));
-      P    = ElSLib::Value(U, V, pl);
+      P    = ElSLib1::Value(U, V, pl);
       Norm = pl.Axis().Direction();
       if (!pl.Direct())
       {
@@ -259,7 +259,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Sphere: {
       gp_Sphere sp(HSurfaceTool::Sphere(S));
-      ElSLib::D1(U, V, sp, P, Dnu, Dnv);
+      ElSLib1::D1(U, V, sp, P, Dnu, Dnv);
       Norm              = Vector3d(sp.Location(), P);
       Standard_Real Rad = sp.Radius();
       if (!sp.Direct())
@@ -274,7 +274,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cylinder: {
       gp_Cylinder cy(HSurfaceTool::Cylinder(S));
-      P = ElSLib::Value(U, V, cy);
+      P = ElSLib1::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       Dnu.SetLinearForm(-Sin(U), cy.XAxis().Direction(), Cos(U), cy.YAxis().Direction());
       if (!cy.Direct())
@@ -289,7 +289,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
     case GeomAbs_Cone: {
 
       gp_Cone co(HSurfaceTool::Cone(S));
-      P                   = ElSLib::Value(U, V, co);
+      P                   = ElSLib1::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);
       Standard_Real Cosa  = Cos(Angle);

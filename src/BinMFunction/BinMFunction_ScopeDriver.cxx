@@ -73,7 +73,7 @@ Standard_Boolean BinMFunction_ScopeDriver::Paste(const BinObjMgt_Persistent&  th
     if (!(theSource >> entry))
       return Standard_False;
     DataLabel L;
-    TDF_Tool::Label(S->Label().Data(), entry, L, Standard_True);
+    Tool3::Label(S->Label().Data(), entry, L, Standard_True);
     if (!L.IsNull())
     {
       map.Bind(IDs.Value(i), L);
@@ -128,7 +128,7 @@ void BinMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
       if (!L.IsNull())
       {
         AsciiString1 entry;
-        TDF_Tool::Entry(L, entry);
+        Tool3::Entry(L, entry);
         theTarget << entry;
       }
     }

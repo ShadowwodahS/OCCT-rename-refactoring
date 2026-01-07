@@ -26,7 +26,7 @@ static inline Standard_Real Transform2d(const Standard_Real u,
 //=================================================================================================
 
 template <class TCol_Containers2d>
-void CSLib_Class2d::Init(const TCol_Containers2d& TP2d,
+void Class2d::Init(const TCol_Containers2d& TP2d,
                          const Standard_Real      aTolu,
                          const Standard_Real      aTolv,
                          const Standard_Real      umin,
@@ -83,7 +83,7 @@ void CSLib_Class2d::Init(const TCol_Containers2d& TP2d,
 
 //=================================================================================================
 
-CSLib_Class2d::CSLib_Class2d(const TColgp_Array1OfPnt2d& thePnts2d,
+Class2d::Class2d(const TColgp_Array1OfPnt2d& thePnts2d,
                              const Standard_Real         theTolU,
                              const Standard_Real         theTolV,
                              const Standard_Real         theUMin,
@@ -96,7 +96,7 @@ CSLib_Class2d::CSLib_Class2d(const TColgp_Array1OfPnt2d& thePnts2d,
 
 //=================================================================================================
 
-CSLib_Class2d::CSLib_Class2d(const TColgp_SequenceOfPnt2d& thePnts2d,
+Class2d::Class2d(const TColgp_SequenceOfPnt2d& thePnts2d,
                              const Standard_Real           theTolU,
                              const Standard_Real           theTolV,
                              const Standard_Real           theUMin,
@@ -109,7 +109,7 @@ CSLib_Class2d::CSLib_Class2d(const TColgp_SequenceOfPnt2d& thePnts2d,
 
 //=================================================================================================
 
-Standard_Integer CSLib_Class2d::SiDans(const gp_Pnt2d& P) const
+Standard_Integer Class2d::SiDans(const gp_Pnt2d& P) const
 {
   if (!N)
   {
@@ -156,7 +156,7 @@ Standard_Integer CSLib_Class2d::SiDans(const gp_Pnt2d& P) const
 
 //=================================================================================================
 
-Standard_Integer CSLib_Class2d::SiDans_OnMode(const gp_Pnt2d& P, const Standard_Real Tol) const
+Standard_Integer Class2d::SiDans_OnMode(const gp_Pnt2d& P, const Standard_Real Tol) const
 {
   if (!N)
   {
@@ -198,7 +198,7 @@ Standard_Integer CSLib_Class2d::SiDans_OnMode(const gp_Pnt2d& P, const Standard_
 
 //=================================================================================================
 
-Standard_Integer CSLib_Class2d::InternalSiDans(const Standard_Real Px, const Standard_Real Py) const
+Standard_Integer Class2d::InternalSiDans(const Standard_Real Px, const Standard_Real Py) const
 {
   Standard_Integer nbc, i, ip1, SH, NH;
   Standard_Real    x, y, nx, ny;
@@ -245,7 +245,7 @@ Standard_Integer CSLib_Class2d::InternalSiDans(const Standard_Real Px, const Sta
 // function : InternalSiDansOuOn
 // purpose  : same code as above + test on ON (return(-1) in this case
 //=======================================================================
-Standard_Integer CSLib_Class2d::InternalSiDansOuOn(const Standard_Real Px,
+Standard_Integer Class2d::InternalSiDansOuOn(const Standard_Real Px,
                                                    const Standard_Real Py) const
 {
   Standard_Integer nbc, i, ip1, SH, NH, iRet;

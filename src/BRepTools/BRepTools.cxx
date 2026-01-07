@@ -177,7 +177,7 @@ void BRepTools1::AddUVBounds(const TopoFace& aF, const TopoEdge& aE, Bnd_Box2d& 
     return;
   }
   //
-  BndLib_Add2dCurve::Add(aC2D, aT1, aT2, 0., aBoxC);
+  Add2dCurve::Add(aC2D, aT1, aT2, 0., aBoxC);
   if (!aBoxC.IsVoid())
   {
     aBoxC.Get(aXmin, aYmin, aXmax, aYmax);

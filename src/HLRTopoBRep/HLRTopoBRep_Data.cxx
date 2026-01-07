@@ -25,14 +25,14 @@
 
 //=================================================================================================
 
-HLRTopoBRep_Data::HLRTopoBRep_Data()
+Data1::Data1()
 {
   Clear();
 }
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::Clear()
+void Data1::Clear()
 {
   myOldS.Clear();
   mySplE.Clear();
@@ -44,11 +44,11 @@ void HLRTopoBRep_Data::Clear()
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::Clean() {}
+void Data1::Clean() {}
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::EdgeHasSplE(const TopoEdge& E) const
+Standard_Boolean Data1::EdgeHasSplE(const TopoEdge& E) const
 {
   if (!mySplE.IsBound(E))
     return Standard_False;
@@ -57,7 +57,7 @@ Standard_Boolean HLRTopoBRep_Data::EdgeHasSplE(const TopoEdge& E) const
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::FaceHasIntL(const TopoFace& F) const
+Standard_Boolean Data1::FaceHasIntL(const TopoFace& F) const
 {
   if (!myData.IsBound(F))
     return Standard_False;
@@ -66,7 +66,7 @@ Standard_Boolean HLRTopoBRep_Data::FaceHasIntL(const TopoFace& F) const
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::FaceHasOutL(const TopoFace& F) const
+Standard_Boolean Data1::FaceHasOutL(const TopoFace& F) const
 {
   if (!myData.IsBound(F))
     return Standard_False;
@@ -75,7 +75,7 @@ Standard_Boolean HLRTopoBRep_Data::FaceHasOutL(const TopoFace& F) const
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::FaceHasIsoL(const TopoFace& F) const
+Standard_Boolean Data1::FaceHasIsoL(const TopoFace& F) const
 {
   if (!myData.IsBound(F))
     return Standard_False;
@@ -84,7 +84,7 @@ Standard_Boolean HLRTopoBRep_Data::FaceHasIsoL(const TopoFace& F) const
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::IsSplEEdgeEdge(const TopoEdge& E1,
+Standard_Boolean Data1::IsSplEEdgeEdge(const TopoEdge& E1,
                                                   const TopoEdge& E2) const
 {
   Standard_Boolean found = Standard_False;
@@ -102,7 +102,7 @@ Standard_Boolean HLRTopoBRep_Data::IsSplEEdgeEdge(const TopoEdge& E1,
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::IsIntLFaceEdge(const TopoFace& F, const TopoEdge& E) const
+Standard_Boolean Data1::IsIntLFaceEdge(const TopoFace& F, const TopoEdge& E) const
 {
   Standard_Boolean found = Standard_False;
   if (FaceHasIntL(F))
@@ -119,7 +119,7 @@ Standard_Boolean HLRTopoBRep_Data::IsIntLFaceEdge(const TopoFace& F, const TopoE
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::IsOutLFaceEdge(const TopoFace& F, const TopoEdge& E) const
+Standard_Boolean Data1::IsOutLFaceEdge(const TopoFace& F, const TopoEdge& E) const
 {
   Standard_Boolean found = Standard_False;
   if (FaceHasOutL(F))
@@ -136,7 +136,7 @@ Standard_Boolean HLRTopoBRep_Data::IsOutLFaceEdge(const TopoFace& F, const TopoE
 
 //=================================================================================================
 
-Standard_Boolean HLRTopoBRep_Data::IsIsoLFaceEdge(const TopoFace& F, const TopoEdge& E) const
+Standard_Boolean Data1::IsIsoLFaceEdge(const TopoFace& F, const TopoEdge& E) const
 {
   Standard_Boolean found = Standard_False;
   if (FaceHasIsoL(F))
@@ -153,7 +153,7 @@ Standard_Boolean HLRTopoBRep_Data::IsIsoLFaceEdge(const TopoFace& F, const TopoE
 
 //=================================================================================================
 
-TopoShape HLRTopoBRep_Data::NewSOldS(const TopoShape& NewS) const
+TopoShape Data1::NewSOldS(const TopoShape& NewS) const
 {
   if (myOldS.IsBound(NewS))
     return myOldS(NewS);
@@ -163,7 +163,7 @@ TopoShape HLRTopoBRep_Data::NewSOldS(const TopoShape& NewS) const
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::AddOldS(const TopoShape& NewS, const TopoShape& OldS)
+void Data1::AddOldS(const TopoShape& NewS, const TopoShape& OldS)
 {
   if (!myOldS.IsBound(NewS))
     myOldS.Bind(NewS, OldS);
@@ -171,7 +171,7 @@ void HLRTopoBRep_Data::AddOldS(const TopoShape& NewS, const TopoShape& OldS)
 
 //=================================================================================================
 
-ShapeList& HLRTopoBRep_Data::AddSplE(const TopoEdge& E)
+ShapeList& Data1::AddSplE(const TopoEdge& E)
 {
   if (!mySplE.IsBound(E))
   {
@@ -183,11 +183,11 @@ ShapeList& HLRTopoBRep_Data::AddSplE(const TopoEdge& E)
 
 //=================================================================================================
 
-ShapeList& HLRTopoBRep_Data::AddIntL(const TopoFace& F)
+ShapeList& Data1::AddIntL(const TopoFace& F)
 {
   if (!myData.IsBound(F))
   {
-    HLRTopoBRep_FaceData theData;
+    FaceData theData;
     myData.Bind(F, theData);
   }
   return myData(F).AddIntL();
@@ -195,11 +195,11 @@ ShapeList& HLRTopoBRep_Data::AddIntL(const TopoFace& F)
 
 //=================================================================================================
 
-ShapeList& HLRTopoBRep_Data::AddOutL(const TopoFace& F)
+ShapeList& Data1::AddOutL(const TopoFace& F)
 {
   if (!myData.IsBound(F))
   {
-    HLRTopoBRep_FaceData theData;
+    FaceData theData;
     myData.Bind(F, theData);
   }
   return myData(F).AddOutL();
@@ -207,11 +207,11 @@ ShapeList& HLRTopoBRep_Data::AddOutL(const TopoFace& F)
 
 //=================================================================================================
 
-ShapeList& HLRTopoBRep_Data::AddIsoL(const TopoFace& F)
+ShapeList& Data1::AddIsoL(const TopoFace& F)
 {
   if (!myData.IsBound(F))
   {
-    HLRTopoBRep_FaceData theData;
+    FaceData theData;
     myData.Bind(F, theData);
   }
   return myData(F).AddIsoL();
@@ -219,7 +219,7 @@ ShapeList& HLRTopoBRep_Data::AddIsoL(const TopoFace& F)
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::InitEdge()
+void Data1::InitEdge()
 {
   myEIterator.Initialize(myEdgesVertices);
 
@@ -229,7 +229,7 @@ void HLRTopoBRep_Data::InitEdge()
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::NextEdge()
+void Data1::NextEdge()
 {
   myEIterator.Next();
 
@@ -239,7 +239,7 @@ void HLRTopoBRep_Data::NextEdge()
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::InitVertex(const TopoEdge& E)
+void Data1::InitVertex(const TopoEdge& E)
 {
   if (!myEdgesVertices.IsBound(E))
   {
@@ -253,21 +253,21 @@ void HLRTopoBRep_Data::InitVertex(const TopoEdge& E)
 
 //=================================================================================================
 
-const TopoVertex& HLRTopoBRep_Data::Vertex() const
+const TopoVertex& Data1::Vertex() const
 {
   return TopoDS::Vertex(myVIterator.Value().Vertex());
 }
 
 //=================================================================================================
 
-Standard_Real HLRTopoBRep_Data::Parameter() const
+Standard_Real Data1::Parameter() const
 {
   return myVIterator.Value().Parameter();
 }
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::InsertBefore(const TopoVertex& V, const Standard_Real P)
+void Data1::InsertBefore(const TopoVertex& V, const Standard_Real P)
 {
   HLRTopoBRep_VData VD(P, V);
   myVList->InsertBefore(VD, myVIterator);
@@ -275,7 +275,7 @@ void HLRTopoBRep_Data::InsertBefore(const TopoVertex& V, const Standard_Real P)
 
 //=================================================================================================
 
-void HLRTopoBRep_Data::Append(const TopoVertex& V, const Standard_Real P)
+void Data1::Append(const TopoVertex& V, const Standard_Real P)
 {
   HLRTopoBRep_VData VD(P, V);
   myVList->Append(VD);

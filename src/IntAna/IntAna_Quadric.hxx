@@ -27,25 +27,25 @@ class gp_Sphere;
 
 //! This class provides a description of Quadrics by their
 //! Coefficients in natural coordinate system.
-class IntAna_Quadric
+class Quadric2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor
-  Standard_EXPORT IntAna_Quadric();
+  Standard_EXPORT Quadric2();
 
   //! Creates a Quadric from a Pln
-  Standard_EXPORT IntAna_Quadric(const gp_Pln& P);
+  Standard_EXPORT Quadric2(const gp_Pln& P);
 
   //! Creates a Quadric from a Sphere
-  Standard_EXPORT IntAna_Quadric(const gp_Sphere& Sph);
+  Standard_EXPORT Quadric2(const gp_Sphere& Sph);
 
   //! Creates a Quadric from a Cylinder
-  Standard_EXPORT IntAna_Quadric(const gp_Cylinder& Cyl);
+  Standard_EXPORT Quadric2(const gp_Cylinder& Cyl);
 
   //! Creates a Quadric from a Cone
-  Standard_EXPORT IntAna_Quadric(const gp_Cone& Cone);
+  Standard_EXPORT Quadric2(const gp_Cone& Cone);
 
   //! Initializes the quadric with a Pln
   Standard_EXPORT void SetQuadric(const gp_Pln& P);

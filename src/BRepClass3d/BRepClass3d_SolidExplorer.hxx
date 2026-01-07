@@ -172,7 +172,7 @@ public:
                                            const Standard_Real Par,
                                            const TopAbs_State  S) const;
 
-  Standard_EXPORT const Bnd_Box& Box() const;
+  Standard_EXPORT const Box2& Box1() const;
 
   Standard_EXPORT const TopoShape& GetShape() const;
 
@@ -195,7 +195,7 @@ protected:
                                                const gp_Pnt2d&                    theP2d) const;
 
 private:
-  Bnd_Box                    myBox;
+  Box2                    myBox;
   TopoShape               myShape;
   Standard_Boolean           myReject;
   Standard_Integer           myFirstFace;

@@ -24,7 +24,7 @@
 //   Creation d une rotation 3d de gp d angle Angle par rapport a une     +
 //   droite Line.                                                         +
 //=========================================================================
-gce_MakeRotation::gce_MakeRotation(const gp_Lin& Line, const Standard_Real Angle)
+RotationBuilder::RotationBuilder(const gp_Lin& Line, const Standard_Real Angle)
 {
   TheRotation.SetRotation(Axis3d(Line.Position()), Angle);
 }
@@ -34,7 +34,7 @@ gce_MakeRotation::gce_MakeRotation(const gp_Lin& Line, const Standard_Real Angle
 //   axe Axis.                                                            +
 //=========================================================================
 
-gce_MakeRotation::gce_MakeRotation(const Axis3d& Axis, const Standard_Real Angle)
+RotationBuilder::RotationBuilder(const Axis3d& Axis, const Standard_Real Angle)
 {
   TheRotation.SetRotation(Axis, Angle);
 }
@@ -44,24 +44,24 @@ gce_MakeRotation::gce_MakeRotation(const Axis3d& Axis, const Standard_Real Angle
 //   droite issue du point Point et de direction Direc.                   +
 //=========================================================================
 
-gce_MakeRotation::gce_MakeRotation(const Point3d&       Point,
+RotationBuilder::RotationBuilder(const Point3d&       Point,
                                    const Dir3d&       Direc,
                                    const Standard_Real Angle)
 {
   TheRotation.SetRotation(Axis3d(Point, Direc), Angle);
 }
 
-const Transform3d& gce_MakeRotation::Value() const
+const Transform3d& RotationBuilder::Value() const
 {
   return TheRotation;
 }
 
-const Transform3d& gce_MakeRotation::Operator() const
+const Transform3d& RotationBuilder::Operator() const
 {
   return TheRotation;
 }
 
-gce_MakeRotation::operator Transform3d() const
+RotationBuilder::operator Transform3d() const
 {
   return TheRotation;
 }

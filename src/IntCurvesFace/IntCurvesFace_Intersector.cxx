@@ -378,7 +378,7 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
   else
   {
     Tool1 bndTool;
-    Bnd_Box   boxLine;
+    Box2   boxLine;
     bndTool.LinBox(L, myPolyhedron->Bounding(), boxLine);
     if (bndTool.NbSegments() == 0)
       return;
@@ -497,7 +497,7 @@ void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
 }
 
 //============================================================================
-Bnd_Box IntCurvesFace_Intersector::Bounding() const
+Box2 IntCurvesFace_Intersector::Bounding() const
 {
   if (myPolyhedron)
   {
@@ -505,7 +505,7 @@ Bnd_Box IntCurvesFace_Intersector::Bounding() const
   }
   else
   {
-    Bnd_Box B;
+    Box2 B;
     return B;
   }
 }

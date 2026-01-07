@@ -42,7 +42,7 @@ DrawInterpreter& operator<<(DrawInterpreter& di, const cmd& c)
 DrawInterpreter& operator<<(DrawInterpreter& di, const DataLabel& L)
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(L, anEntry);
+  Tool3::Entry(L, anEntry);
   di << anEntry;
   return di;
 }
@@ -50,7 +50,7 @@ DrawInterpreter& operator<<(DrawInterpreter& di, const DataLabel& L)
 DrawInterpreter& operator<<(DrawInterpreter& di, const Handle(XCAFDoc_Note)& note)
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(note->Label(), anEntry);
+  Tool3::Entry(note->Label(), anEntry);
   di << anEntry;
   return di;
 }
@@ -58,7 +58,7 @@ DrawInterpreter& operator<<(DrawInterpreter& di, const Handle(XCAFDoc_Note)& not
 DrawInterpreter& operator<<(DrawInterpreter& di, const Handle(XCAFDoc_AssemblyItemRef)& ref)
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(ref->Label(), anEntry);
+  Tool3::Entry(ref->Label(), anEntry);
   di << anEntry;
   return di;
 }
@@ -466,7 +466,7 @@ static Standard_Integer noteDelete(DrawInterpreter& di, Standard_Integer argc, c
   UtfString anEntry = argv[2];
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), anEntry, aLabel);
+  Tool3::Label(aDoc->GetData(), anEntry, aLabel);
   if (aLabel.IsNull())
   {
     di << anEntry << ": invalid note entry.\n";
@@ -578,7 +578,7 @@ static Standard_Integer noteAdd(DrawInterpreter& di, Standard_Integer argc, cons
   AsciiString1 anItemEntry = argv[++iarg];
 
   DataLabel aNoteLabel;
-  TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
+  Tool3::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
     di << aNoteEntry << ": invalid note entry.\n";
@@ -586,7 +586,7 @@ static Standard_Integer noteAdd(DrawInterpreter& di, Standard_Integer argc, cons
   }
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
-  TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
+  Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
     di << anItemId.ToString() << ": invalid item id.\n";
@@ -698,7 +698,7 @@ static Standard_Integer noteRemove(DrawInterpreter& di, Standard_Integer argc, c
   AsciiString1 aNoteEntry  = argv[++iarg];
 
   DataLabel aNoteLabel;
-  TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
+  Tool3::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
     di << aNoteEntry << ": invalid note entry.\n";
@@ -706,7 +706,7 @@ static Standard_Integer noteRemove(DrawInterpreter& di, Standard_Integer argc, c
   }
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
-  TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
+  Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
     di << anItemId.ToString() << ": invalid item id.\n";
@@ -816,7 +816,7 @@ static Standard_Integer noteRemoveAll(DrawInterpreter& di,
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
-  TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
+  Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
     di << anItemId.ToString() << ": invalid item id.\n";
@@ -926,7 +926,7 @@ static Standard_Integer noteFindAnnotated(DrawInterpreter& di,
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
-  TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
+  Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
     di << anItemId.ToString() << ": invalid item id.\n";
@@ -1023,7 +1023,7 @@ static Standard_Integer noteGetNotes(DrawInterpreter& di, Standard_Integer argc,
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
   DataLabel              anItemLabel;
-  TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
+  Tool3::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
     di << anItemId.ToString() << ": invalid item id.\n";
@@ -1123,7 +1123,7 @@ static Standard_Integer noteUsername(DrawInterpreter& di, Standard_Integer argc,
   AsciiString1 aNoteEntry = argv[++iarg];
 
   DataLabel aNoteLabel;
-  TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
+  Tool3::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
     di << aNoteEntry << ": invalid note entry.\n";
@@ -1172,7 +1172,7 @@ static Standard_Integer noteTimestamp(DrawInterpreter& di,
   AsciiString1 aNoteEntry = argv[++iarg];
 
   DataLabel aNoteLabel;
-  TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
+  Tool3::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
     di << aNoteEntry << ": invalid note entry.\n";
@@ -1219,7 +1219,7 @@ static Standard_Integer noteDump(DrawInterpreter& di, Standard_Integer argc, con
   AsciiString1 aNoteEntry = argv[++iarg];
 
   DataLabel aNoteLabel;
-  TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
+  Tool3::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
     di << aNoteEntry << ": invalid note entry.\n";
@@ -1329,7 +1329,7 @@ static Standard_Integer noteRefDump(DrawInterpreter& di, Standard_Integer argc, 
   AsciiString1 aRefEntry = argv[++iarg];
 
   DataLabel aRefLabel;
-  TDF_Tool::Label(aDoc->GetData(), aRefEntry, aRefLabel);
+  Tool3::Label(aDoc->GetData(), aRefEntry, aRefLabel);
   if (aRefLabel.IsNull())
   {
     di << aRefEntry << ": invalid reference entry.\n";
@@ -1390,7 +1390,7 @@ static Standard_Integer noteIsRefOrphan(DrawInterpreter& di,
   AsciiString1 aRefEntry = argv[++iarg];
 
   DataLabel aRefLabel;
-  TDF_Tool::Label(aDoc->GetData(), aRefEntry, aRefLabel);
+  Tool3::Label(aDoc->GetData(), aRefEntry, aRefLabel);
   if (aRefLabel.IsNull())
   {
     di << aRefEntry << ": invalid reference entry.\n";

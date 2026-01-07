@@ -97,7 +97,7 @@ static void BuildPeriodicTangent(const TColStd_Array1OfReal& PointsArray,
     parameter_array[1]      = ParametersArray.Value(ParametersArray.Lower());
     parameter_array[2]      = ParametersArray.Value(ParametersArray.Lower() + 1);
     TangentFlags.SetValue(1, Standard_True);
-    PLib::EvalLagrange(parameter_array[1],
+    PLib1::EvalLagrange(parameter_array[1],
                        1,
                        degree,
                        1,
@@ -131,7 +131,7 @@ static void BuildTangents(const TColStd_Array1OfReal& PointsArray,
     point_array     = (Standard_Real*)&PointsArray.Value(PointsArray.Lower());
     parameter_array = (Standard_Real*)&ParametersArray.Value(1);
     TangentFlags.SetValue(1, Standard_True);
-    PLib::EvalLagrange(ParametersArray.Value(1),
+    PLib1::EvalLagrange(ParametersArray.Value(1),
                        1,
                        degree,
                        1,
@@ -146,7 +146,7 @@ static void BuildTangents(const TColStd_Array1OfReal& PointsArray,
     TangentFlags.SetValue(TangentFlags.Upper(), Standard_True);
     Standard_Integer iup = ParametersArray.Upper() - degree;
     parameter_array      = (Standard_Real*)&ParametersArray.Value(iup);
-    PLib::EvalLagrange(ParametersArray.Value(ParametersArray.Upper()),
+    PLib1::EvalLagrange(ParametersArray.Value(ParametersArray.Upper()),
                        1,
                        degree,
                        1,
@@ -378,7 +378,7 @@ void Law_Interpolate::PerformPeriodic()
   parameters.SetValue(num_poles, myParameters->Value(myParameters->Upper()));
   poles.SetValue(num_poles, myPoints->Value(1));
 
-  BSplCLib::Interpolate(degree,
+  BSplCLib1::Interpolate(degree,
                         flatknots,
                         parameters,
                         contact_order_array,
@@ -467,7 +467,7 @@ void Law_Interpolate::PerformNonPeriodic()
       {
         poles.SetValue(ii, myPoints->Value(ii));
       }
-      BSplCLib::Interpolate(degree,
+      BSplCLib1::Interpolate(degree,
                             flatknots,
                             myParameters->Array1(),
                             contact_order_array,
@@ -562,7 +562,7 @@ void Law_Interpolate::PerformNonPeriodic()
 
       poles.SetValue(num_poles, myPoints->Value(num_points));
 
-      BSplCLib::Interpolate(degree,
+      BSplCLib1::Interpolate(degree,
                             flatknots,
                             parameters,
                             contact_order_array,

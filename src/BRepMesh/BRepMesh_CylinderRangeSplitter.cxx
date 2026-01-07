@@ -26,7 +26,7 @@ void BRepMesh_CylinderRangeSplitter::Reset(const IMeshData::IFaceHandle& theDFac
   BRepMesh_DefaultRangeSplitter::Reset(theDFace, theParameters);
 
   const Standard_Real aRadius = GetDFace()->GetSurface()->Cylinder().Radius();
-  myDu                        = GCPnts_TangentialDeflection::ArcAngularStep(aRadius,
+  myDu                        = TangentialDeflectionSampler::ArcAngularStep(aRadius,
                                                      GetDFace()->GetDeflection(),
                                                      theParameters.Angle,
                                                      theParameters.MinSize);

@@ -649,8 +649,8 @@ void TopOpeBRep_ShapeIntersector::FindFFIntersection()
 #endif
 
     const TopOpeBRepTool_BoxSort& BS = myFaceScanner.BoxSort();
-    const Bnd_Box&                B1 = BS.Box(GS1);
-    const Bnd_Box&                B2 = BS.Box(GS2);
+    const Box2&                B1 = BS.Box1(GS1);
+    const Box2&                B2 = BS.Box1(GS2);
     myFFIntersector.Perform(GS1, GS2, B1, B2);
     Standard_Boolean ok = myFFIntersector.IsDone(); // xpu210998
     if (!ok)
@@ -740,8 +740,8 @@ void TopOpeBRep_ShapeIntersector::InitEEFFIntersection()
 #endif
 
   const TopOpeBRepTool_BoxSort& BS = myFaceScanner.BoxSort();
-  const Bnd_Box&                B1 = BS.Box(face1);
-  const Bnd_Box&                B2 = BS.Box(face2);
+  const Box2&                B1 = BS.Box1(face1);
+  const Box2&                B2 = BS.Box1(face2);
   myEEIntersector.SetFaces(face1, face2, B1, B2);
 
   TopAbs_ShapeEnum tscann = TopAbs_EDGE;
@@ -942,8 +942,8 @@ void TopOpeBRep_ShapeIntersector::InitEEIntersection()
     TopoShape                  face1 = myEEFace1.Oriented(TopAbs_FORWARD);
     TopoShape                  face2 = myEEFace2.Oriented(TopAbs_FORWARD);
     const TopOpeBRepTool_BoxSort& BS    = myFaceScanner.BoxSort();
-    const Bnd_Box&                B1    = BS.Box(face1);
-    const Bnd_Box&                B2    = BS.Box(face2);
+    const Box2&                B1    = BS.Box1(face1);
+    const Box2&                B2    = BS.Box1(face2);
     myEEIntersector.SetFaces(face1, face2, B1, B2);
 
     TopAbs_ShapeEnum tscann = TopAbs_EDGE;

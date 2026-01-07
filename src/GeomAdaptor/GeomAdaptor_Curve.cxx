@@ -96,7 +96,7 @@ GeomAbs_Shape GeomAdaptor_Curve::LocalContinuity(const Standard_Real U1,
   Standard_Real                  newFirst, newLast;
   const TColStd_Array1OfReal&    TK = myBSplineCurve->Knots();
   const TColStd_Array1OfInteger& TM = myBSplineCurve->Multiplicities();
-  BSplCLib::LocateParameter(myBSplineCurve->Degree(),
+  BSplCLib1::LocateParameter(myBSplineCurve->Degree(),
                             TK,
                             TM,
                             U1,
@@ -105,7 +105,7 @@ GeomAbs_Shape GeomAdaptor_Curve::LocalContinuity(const Standard_Real U1,
                             Nb,
                             Index1,
                             newFirst);
-  BSplCLib::LocateParameter(myBSplineCurve->Degree(),
+  BSplCLib1::LocateParameter(myBSplineCurve->Degree(),
                             TK,
                             TM,
                             U2,
@@ -316,7 +316,7 @@ Standard_Integer GeomAdaptor_Curve::NbIntervals(const GeomAbs_Shape S) const
 
     Standard_Real anEps = Min(Resolution(Precision::Confusion()), Precision::PConfusion());
 
-    return BSplCLib::Intervals(myBSplineCurve->Knots(),
+    return BSplCLib1::Intervals(myBSplineCurve->Knots(),
                                myBSplineCurve->Multiplicities(),
                                aDegree,
                                myBSplineCurve->IsPeriodic(),
@@ -408,7 +408,7 @@ void GeomAdaptor_Curve::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S
 
     Standard_Real anEps = Min(Resolution(Precision::Confusion()), Precision::PConfusion());
 
-    BSplCLib::Intervals(myBSplineCurve->Knots(),
+    BSplCLib1::Intervals(myBSplineCurve->Knots(),
                         myBSplineCurve->Multiplicities(),
                         aDegree,
                         myBSplineCurve->IsPeriodic(),
@@ -513,7 +513,7 @@ void GeomAdaptor_Curve::RebuildCache(const Standard_Real theParameter) const
     // Create cache for Bezier
     Handle(BezierCurve3d) aBezier = Handle(BezierCurve3d)::DownCast(myCurve);
     Standard_Integer         aDeg    = aBezier->Degree();
-    TColStd_Array1OfReal     aFlatKnots(BSplCLib::FlatBezierKnots(aDeg), 1, 2 * (aDeg + 1));
+    TColStd_Array1OfReal     aFlatKnots(BSplCLib1::FlatBezierKnots(aDeg), 1, 2 * (aDeg + 1));
     if (myCurveCache.IsNull())
       myCurveCache = new BSplCLib_Cache(aDeg,
                                         aBezier->IsPeriodic(),

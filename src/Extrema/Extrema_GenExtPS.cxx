@@ -41,7 +41,7 @@
 class Bnd_SphereUBTreeSelector : public Extrema_UBTreeOfSphere::Selector
 {
 public:
-  Bnd_SphereUBTreeSelector(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Bnd_Sphere& theSol)
+  Bnd_SphereUBTreeSelector(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Sphere2& theSol)
       : myXYZ(0, 0, 0),
         mySphereArray(theSphereArray),
         mySol(theSol)
@@ -50,16 +50,16 @@ public:
 
   void DefineCheckPoint(const Point3d& theXYZ) { myXYZ = theXYZ; }
 
-  Bnd_Sphere& Sphere() const { return mySol; }
+  Sphere2& Sphere() const { return mySol; }
 
-  virtual Standard_Boolean Reject(const Bnd_Sphere& theBnd) const = 0;
+  virtual Standard_Boolean Reject(const Sphere2& theBnd) const = 0;
 
   virtual Standard_Boolean Accept(const Standard_Integer& theObj) = 0;
 
 protected:
   Point3d                             myXYZ;
   const Handle(Bnd_HArray1OfSphere)& mySphereArray;
-  Bnd_Sphere&                        mySol;
+  Sphere2&                        mySol;
 
 private:
   void operator=(const Bnd_SphereUBTreeSelector&);
@@ -68,7 +68,7 @@ private:
 class Bnd_SphereUBTreeSelectorMin : public Bnd_SphereUBTreeSelector
 {
 public:
-  Bnd_SphereUBTreeSelectorMin(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Bnd_Sphere& theSol)
+  Bnd_SphereUBTreeSelectorMin(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Sphere2& theSol)
       : Bnd_SphereUBTreeSelector(theSphereArray, theSol),
         myMinDist(RealLast())
   {
@@ -78,7 +78,7 @@ public:
 
   Standard_Real MinDist() const { return myMinDist; }
 
-  Standard_Boolean Reject(const Bnd_Sphere& theBnd) const
+  Standard_Boolean Reject(const Sphere2& theBnd) const
   {
     Bnd_SphereUBTreeSelectorMin* me = const_cast<Bnd_SphereUBTreeSelectorMin*>(this);
     // myMinDist is decreased each time a nearer object is found
@@ -93,7 +93,7 @@ private:
 
 Standard_Boolean Bnd_SphereUBTreeSelectorMin::Accept(const Standard_Integer& theInd)
 {
-  const Bnd_Sphere& aSph = mySphereArray->Value(theInd);
+  const Sphere2& aSph = mySphereArray->Value(theInd);
   Standard_Real     aCurDist;
 
   //    if ( (aCurDist = aSph.SquareDistance(myXYZ.XYZ())) < mySol.SquareDistance(myXYZ.XYZ()) )
@@ -112,7 +112,7 @@ Standard_Boolean Bnd_SphereUBTreeSelectorMin::Accept(const Standard_Integer& the
 class Bnd_SphereUBTreeSelectorMax : public Bnd_SphereUBTreeSelector
 {
 public:
-  Bnd_SphereUBTreeSelectorMax(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Bnd_Sphere& theSol)
+  Bnd_SphereUBTreeSelectorMax(const Handle(Bnd_HArray1OfSphere)& theSphereArray, Sphere2& theSol)
       : Bnd_SphereUBTreeSelector(theSphereArray, theSol),
         myMaxDist(0)
   {
@@ -122,7 +122,7 @@ public:
 
   Standard_Real MaxDist() const { return myMaxDist; }
 
-  Standard_Boolean Reject(const Bnd_Sphere& theBnd) const
+  Standard_Boolean Reject(const Sphere2& theBnd) const
   {
     Bnd_SphereUBTreeSelectorMax* me = const_cast<Bnd_SphereUBTreeSelectorMax*>(this);
     // myMaxDist is decreased each time a nearer object is found
@@ -137,7 +137,7 @@ private:
 
 Standard_Boolean Bnd_SphereUBTreeSelectorMax::Accept(const Standard_Integer& theInd)
 {
-  const Bnd_Sphere& aSph = mySphereArray->Value(theInd);
+  const Sphere2& aSph = mySphereArray->Value(theInd);
   Standard_Real     aCurDist;
 
   //    if ( (aCurDist = aSph.SquareDistance(myXYZ.XYZ())) > mySol.SquareDistance(myXYZ.XYZ()) )
@@ -501,7 +501,7 @@ void Extrema_GenExtPS::BuildGrid(const Point3d& thePoint)
   // if grid was already built skip its creation
   if (!myInit)
   {
-    // build parametric grid in case of a complex surface geometry (BSpline and Bezier surfaces)
+    // build parametric grid in case of a complex1 surface geometry (BSpline and Bezier surfaces)
     GetGridPoints(*myS);
 
     // build grid in other cases
@@ -860,7 +860,7 @@ void Extrema_GenExtPS::BuildTree()
     for (NoV = 1; NoV <= myvsample; NoV++)
     {
       P1 = myS->Value(myUParams->Value(NoU), myVParams->Value(NoV));
-      Bnd_Sphere aSph(P1.XYZ(), 0 /*mytolu < mytolv ? mytolu : mytolv*/, NoU, NoV);
+      Sphere2 aSph(P1.XYZ(), 0 /*mytolu < mytolv ? mytolu : mytolv*/, NoU, NoV);
       aFiller.Add(i, aSph);
       mySphereArray->SetValue(i, aSph);
       i++;
@@ -1052,13 +1052,13 @@ void Extrema_GenExtPS::Perform(const Point3d& P)
     BuildTree();
     if (myFlag == Extrema_ExtFlag_MIN || myFlag == Extrema_ExtFlag_MINMAX)
     {
-      Bnd_Sphere                  aSol = mySphereArray->Value(0);
+      Sphere2                  aSol = mySphereArray->Value(0);
       Bnd_SphereUBTreeSelectorMin aSelector(mySphereArray, aSol);
       // aSelector.SetMaxDist( RealLast() );
       aSelector.DefineCheckPoint(P);
       mySphereUBTree->Select(aSelector);
       // TODO: check if no solution in binary tree
-      Bnd_Sphere&           aSph = aSelector.Sphere();
+      Sphere2&           aSph = aSelector.Sphere();
       Standard_Real         aU   = myUParams->Value(aSph.U());
       Standard_Real         aV   = myVParams->Value(aSph.V());
       Extrema_POnSurfParams aParams(aU, aV, myS->Value(aU, aV));
@@ -1069,13 +1069,13 @@ void Extrema_GenExtPS::Perform(const Point3d& P)
     }
     if (myFlag == Extrema_ExtFlag_MAX || myFlag == Extrema_ExtFlag_MINMAX)
     {
-      Bnd_Sphere                  aSol = mySphereArray->Value(0);
+      Sphere2                  aSol = mySphereArray->Value(0);
       Bnd_SphereUBTreeSelectorMax aSelector(mySphereArray, aSol);
       // aSelector.SetMaxDist( RealLast() );
       aSelector.DefineCheckPoint(P);
       mySphereUBTree->Select(aSelector);
       // TODO: check if no solution in binary tree
-      Bnd_Sphere&           aSph = aSelector.Sphere();
+      Sphere2&           aSph = aSelector.Sphere();
       Standard_Real         aU   = myUParams->Value(aSph.U());
       Standard_Real         aV   = myVParams->Value(aSph.V());
       Extrema_POnSurfParams aParams(aU, aV, myS->Value(aU, aV));
@@ -1119,7 +1119,7 @@ Standard_Real Extrema_GenExtPS::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnSurf& Extrema_GenExtPS::Point(const Standard_Integer N) const
+const PointOnSurface1& Extrema_GenExtPS::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {

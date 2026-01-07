@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 class gp_Lin;
-class Bnd_Box;
+class Box2;
 class gp_Lin2d;
 class Bnd_Box2d;
 class gp_Circ;
@@ -39,7 +39,7 @@ class gp_Cone;
 class gp_Sphere;
 class gp_Torus;
 
-//! The BndLib package provides functions to add a geometric primitive to a bounding box.
+//! The BndLib1 package provides functions to add a geometric primitive to a bounding box.
 //! Note: these functions work with gp objects, optionally
 //! limited by parameter values. If the curves and surfaces
 //! provided by the gp package are not explicitly
@@ -57,7 +57,7 @@ class gp_Torus;
 //! AddSurface : A class to compute the bounding box for a surface.
 //! The surface is defined by a tool for the geometry and another
 //! tool for the topology (only the edges in 2d dimensions)
-class BndLib
+class BndLib1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -75,7 +75,7 @@ public:
                                   const Standard_Real P1,
                                   const Standard_Real P2,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   Standard_EXPORT static void Add(const gp_Lin2d&     L,
                                   const Standard_Real P1,
@@ -83,14 +83,14 @@ public:
                                   const Standard_Real Tol,
                                   Bnd_Box2d&          B);
 
-  Standard_EXPORT static void Add(const gp_Circ& C, const Standard_Real Tol, Bnd_Box& B);
+  Standard_EXPORT static void Add(const gp_Circ& C, const Standard_Real Tol, Box2& B);
 
   //! P2-P1 can be in [0,2*pi]
   Standard_EXPORT static void Add(const gp_Circ&      C,
                                   const Standard_Real P1,
                                   const Standard_Real P2,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   Standard_EXPORT static void Add(const gp_Circ2d& C, const Standard_Real Tol, Bnd_Box2d& B);
 
@@ -104,14 +104,14 @@ public:
                                   const Standard_Real Tol,
                                   Bnd_Box2d&          B);
 
-  Standard_EXPORT static void Add(const gp_Elips& C, const Standard_Real Tol, Bnd_Box& B);
+  Standard_EXPORT static void Add(const gp_Elips& C, const Standard_Real Tol, Box2& B);
 
   //! P2-P1 can be in [0,2*pi]
   Standard_EXPORT static void Add(const gp_Elips&     C,
                                   const Standard_Real P1,
                                   const Standard_Real P2,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   Standard_EXPORT static void Add(const gp_Elips2d& C, const Standard_Real Tol, Bnd_Box2d& B);
 
@@ -129,7 +129,7 @@ public:
                                   const Standard_Real P1,
                                   const Standard_Real P2,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   //! Adds the arc of the parabola P limited by the two
   //! parameter values P1 and P2, to the bounding box B, and
@@ -148,7 +148,7 @@ public:
                                   const Standard_Real P1,
                                   const Standard_Real P2,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   //! Adds the arc of the branch of hyperbola H limited by the
   //! two parameter values P1 and P2, to the bounding box B,
@@ -170,7 +170,7 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   //! Adds to the bounding box B, the patch of the cylinder S limited
   //! -   in the v parametric direction, by the two parameter
@@ -186,7 +186,7 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   //! UMax-UMin can be in [0,2*pi]
   Standard_EXPORT static void Add(const gp_Cone&      S,
@@ -195,7 +195,7 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
   //! Adds to the bounding box B, the patch of the cone S limited
   //! -   in the v parametric direction, by the two parameter
@@ -211,9 +211,9 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
-  Standard_EXPORT static void Add(const gp_Sphere& S, const Standard_Real Tol, Bnd_Box& B);
+  Standard_EXPORT static void Add(const gp_Sphere& S, const Standard_Real Tol, Box2& B);
 
   //! Adds to the bounding box B the sphere S, or
   //! -   the patch of the sphere S, limited in the u parametric
@@ -229,9 +229,9 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 
-  Standard_EXPORT static void Add(const gp_Torus& P, const Standard_Real Tol, Bnd_Box& B);
+  Standard_EXPORT static void Add(const gp_Torus& P, const Standard_Real Tol, Box2& B);
 
   //! Adds to the bounding box B
   //! -   the torus S, or
@@ -248,7 +248,7 @@ public:
                                   const Standard_Real VMin,
                                   const Standard_Real VMax,
                                   const Standard_Real Tol,
-                                  Bnd_Box&            B);
+                                  Box2&            B);
 };
 
 #endif // _BndLib_HeaderFile

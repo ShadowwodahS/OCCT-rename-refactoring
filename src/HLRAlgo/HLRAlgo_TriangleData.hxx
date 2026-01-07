@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 
 //! Data structure of a triangle.
-struct HLRAlgo_TriangleData
+struct TriangleData
 {
   DEFINE_STANDARD_ALLOC
 

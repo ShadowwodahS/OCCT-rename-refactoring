@@ -27,7 +27,7 @@ class TDF_Delta;
 
 //! This class offers services to open, commit or
 //! abort a transaction in a more secure way than
-//! using Data from TDF. If you forget to close a
+//! using Data from TDF1. If you forget to close a
 //! transaction, it will be automatically aborted at
 //! the destruction of this object, at the closure of
 //! its scope.
@@ -73,7 +73,7 @@ public:
 
   ~TDF_Transaction() { Abort(); }
 
-  //! Returns the Data from TDF.
+  //! Returns the Data from TDF1.
   Handle(TDF_Data) Data() const;
 
   //! Returns the number of the transaction opened by <me>.

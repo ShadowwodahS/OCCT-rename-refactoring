@@ -26,12 +26,12 @@
 #include <gp_XYZ.hxx>
 #include <gp_XY.hxx>
 
-class HLRAlgo_BiPoint
+class BiPoint
 {
 public:
-  struct IndicesT
+  struct IndicesT1
   {
-    IndicesT()
+    IndicesT1()
         : ShapeIndex(-1),
           FaceConex1(0),
           Face1Pt1(0),
@@ -57,7 +57,7 @@ public:
     Standard_Integer SegFlags;
   };
 
-  struct PointsT
+  struct PointsT1
   {
     gp_XYZ Pnt1;
     gp_XYZ Pnt2;
@@ -71,9 +71,9 @@ public:
 
   DEFINE_STANDARD_ALLOC
 
-  HLRAlgo_BiPoint() {}
+  BiPoint() {}
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -91,7 +91,7 @@ public:
                                   const Standard_Boolean outl,
                                   const Standard_Boolean intl);
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -106,7 +106,7 @@ public:
                                   const Standard_Integer Index,
                                   const Standard_Integer flag);
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -127,7 +127,7 @@ public:
                                   const Standard_Boolean outl,
                                   const Standard_Boolean intl);
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -145,7 +145,7 @@ public:
                                   const Standard_Integer i1p2,
                                   const Standard_Integer flag);
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -169,7 +169,7 @@ public:
                                   const Standard_Boolean outl,
                                   const Standard_Boolean intl);
 
-  Standard_EXPORT HLRAlgo_BiPoint(const Standard_Real    X1,
+  Standard_EXPORT BiPoint(const Standard_Real    X1,
                                   const Standard_Real    Y1,
                                   const Standard_Real    Z1,
                                   const Standard_Real    X2,
@@ -240,9 +240,9 @@ public:
       myIndices.SegFlags &= ~EMskHidden;
   }
 
-  IndicesT& Indices() { return myIndices; }
+  IndicesT1& Indices() { return myIndices; }
 
-  PointsT& Points() { return myPoints; }
+  PointsT1& Points() { return myPoints; }
 
 protected:
   enum EMskFlags
@@ -255,8 +255,8 @@ protected:
   };
 
 private:
-  IndicesT myIndices;
-  PointsT  myPoints;
+  IndicesT1 myIndices;
+  PointsT1  myPoints;
 };
 
 #endif // _HLRAlgo_BiPoint_HeaderFile

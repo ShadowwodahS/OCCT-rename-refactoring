@@ -101,7 +101,7 @@ static Standard_Integer DFOpenLabel(DrawInterpreter& di, Standard_Integer n, con
 
   DataLabel lab;
   if (n == 3)
-    TDF_Tool::Label(browser->Data(), a[2], lab);
+    Tool3::Label(browser->Data(), a[2], lab);
 
   AsciiString1 list(lab.IsNull() ? browser->OpenRoot() : browser->OpenLabel(lab));
   di << list.ToCString();
@@ -130,7 +130,7 @@ static Standard_Integer DFOpenAttributeList(DrawInterpreter& di,
   }
 
   DataLabel lab;
-  TDF_Tool::Label(browser->Data(), a[2], lab);
+  Tool3::Label(browser->Data(), a[2], lab);
 
   if (lab.IsNull())
     return 1;

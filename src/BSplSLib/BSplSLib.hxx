@@ -29,13 +29,13 @@
 class Point3d;
 class Vector3d;
 
-//! BSplSLib   B-spline surface Library
+//! BSplSLib1   B-spline surface Library
 //! This  package provides   an  implementation  of  geometric
 //! functions for rational and non rational, periodic  and non
 //! periodic B-spline surface computation.
 //!
 //! this package uses   the  multi-dimensions splines  methods
-//! provided in the package BSplCLib.
+//! provided in the package BSplCLib1.
 //!
 //! In this package the B-spline surface is defined with :
 //! . its control points :  Array2OfPnt     Poles
@@ -83,7 +83,7 @@ class Vector3d;
 //! . Modelisation des surfaces en CAO, Henri GIAUME Peugeot SA
 //! . Curves and Surfaces for Computer Aided Geometric Design,
 //! a practical guide Gerald Farin
-class BSplSLib
+class BSplSLib1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -755,7 +755,7 @@ public:
   //! BSpline : the method used is interpolation at Schoenenberg
   //! points of a(u,v)*F(u,v)
   //! --
-  Standard_EXPORT static void FunctionMultiply(const BSplSLib_EvaluatorFunction& Function,
+  Standard_EXPORT static void FunctionMultiply(const EvaluatorFunction2& Function,
                                                const Standard_Integer            UBSplineDegree,
                                                const Standard_Integer            VBSplineDegree,
                                                const TColStd_Array1OfReal&       UBSplineKnots,

@@ -65,7 +65,7 @@ AsciiString1 DFBrowserPane_Tools::GetEntry(const DataLabel& theLabel)
     return "Null";
 
   AsciiString1 anAsciiEntry;
-  TDF_Tool::Entry(theLabel, anAsciiEntry);
+  Tool3::Entry(theLabel, anAsciiEntry);
   return anAsciiEntry;
 }
 
@@ -122,7 +122,7 @@ AsciiString1 DFBrowserPane_Tools::ToName(const DFBrowserPane_OcctEnumType& theTy
       break;
     }
     case DB_DIMENSION_TYPE: {
-      TDataStd::Print((TDataStd_RealEnum)theEnumId, aSStream);
+      TDataStd1::Print((TDataStd_RealEnum)theEnumId, aSStream);
       break;
     }
     case DB_MATERIAL_TYPE:

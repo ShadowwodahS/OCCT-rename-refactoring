@@ -255,8 +255,8 @@ private:
   Handle(GeomSurface)                         mySurfInit;
   Handle(GeomSurface)                         myPlanarSurfInit;
   Handle(GeomPlate_Surface)                    myGeomPlateSurface;
-  Plate_Plate                                  myPlate;
-  Plate_Plate                                  myPrevPlate;
+  PlateSurface                                  myPlate;
+  PlateSurface                                  myPrevPlate;
   Standard_Boolean                             myAnisotropie;
   Handle(TColStd_HArray1OfInteger)             mySense;
   Standard_Integer                             myDegree;

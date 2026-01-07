@@ -338,8 +338,8 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
 
     GeomAdaptor_Surface GArevol(Revol);
     Extrema_ExtCS       DistMini(*myGuide, GArevol, Precision::Confusion(), Precision::Confusion());
-    Extrema_POnCurv     Pc;
-    Extrema_POnSurf     Ps;
+    PointOnCurve1     Pc;
+    PointOnSurface1     Ps;
     Standard_Real       theU = 0., theV = 0.;
 
     if (!DistMini.IsDone() || DistMini.NbExt() == 0)
@@ -1204,7 +1204,7 @@ Standard_Integer GeomFill_LocationGuide::NbIntervals(const GeomAbs_Shape S) cons
   myTrimmed->Intervals(IntC, S);
   myLaw->Intervals(IntL, S);
 
-  GeomLib::FuseIntervals(IntC, IntL, Inter, Precision::PConfusion() * 0.99);
+  GeomLib1::FuseIntervals(IntC, IntL, Inter, Precision::PConfusion() * 0.99);
   return Inter.Length() - 1;
 }
 
@@ -1233,7 +1233,7 @@ void GeomFill_LocationGuide::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Sh
   myTrimmed->Intervals(IntC, S);
   myLaw->Intervals(IntL, S);
 
-  GeomLib::FuseIntervals(IntC, IntL, Inter, Precision::PConfusion() * 0.99);
+  GeomLib1::FuseIntervals(IntC, IntL, Inter, Precision::PConfusion() * 0.99);
   for (Standard_Integer ii = 1; ii <= Inter.Length(); ii++)
     T(ii) = Inter(ii);
 }
@@ -1421,12 +1421,12 @@ void GeomFill_LocationGuide::InitX(const Standard_Real Param)
 
   if (myGuide->IsPeriodic())
   {
-    X(1) = ElCLib::InPeriod(X(1), myGuide->FirstParameter(), myGuide->LastParameter());
+    X(1) = ElCLib1::InPeriod(X(1), myGuide->FirstParameter(), myGuide->LastParameter());
   }
-  X(2) = ElCLib::InPeriod(X(2), 0, 2 * M_PI);
+  X(2) = ElCLib1::InPeriod(X(2), 0, 2 * M_PI);
   if (mySec->IsUPeriodic())
   {
-    X(3) = ElCLib::InPeriod(X(3), Uf, Ul);
+    X(3) = ElCLib1::InPeriod(X(3), Uf, Ul);
   }
 }
 

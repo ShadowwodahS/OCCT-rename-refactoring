@@ -57,7 +57,7 @@
 static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParameter,
                                             MarkedRangeSet& theMarkedRange);
 
-static Bnd_Box GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
+static Box2 GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
                              const Standard_Real                theFirstU,
                              const Standard_Real                theLastU,
                              const Standard_Real                theFirstV,
@@ -79,7 +79,7 @@ static void BuildBox(const Handle(Geom_BSplineSurface)& theSurf,
                      const Standard_Real                theFirstV,
                      const Standard_Real                theLastV,
                      IntTools_SurfaceRangeLocalizeData& theSurfaceData,
-                     Bnd_Box&                           theBox);
+                     Box2&                           theBox);
 
 static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurveRange,
                            const IntTools_ListOfSurfaceRangeSample& theListSurfaceRange,
@@ -844,8 +844,8 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   }
   else
   {
-    Point3d        p1 = ElCLib::Value(myFirstParameter, L);
-    Point3d        p2 = ElCLib::Value(myLastParameter, L);
+    Point3d        p1 = ElCLib1::Value(myFirstParameter, L);
+    Point3d        p2 = ElCLib1::Value(myLastParameter, L);
     Standard_Real d1 = A * p1.X() + B * p1.Y() + C * p1.Z() + D;
     if (d1 < 0)
       d1 = -d1;
@@ -879,7 +879,7 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   Point3d pint(Orig.X() + t * Al, Orig.Y() + t * Bl, Orig.Z() + t * Cl);
 
   Standard_Real u, v;
-  ElSLib::Parameters(P, pint, u, v);
+  ElSLib1::Parameters(P, pint, u, v);
   if (myUMinParameter > u || u > myUMaxParameter || myVMinParameter > v || v > myVMaxParameter)
   {
     return;
@@ -1046,8 +1046,8 @@ void IntTools_BeanFaceIntersector::ComputeUsingExtremum()
         {
           if (anExtCS.SquareDistance(j) < myCriteria * myCriteria)
           {
-            Extrema_POnCurv p1;
-            Extrema_POnSurf p2;
+            PointOnCurve1 p1;
+            PointOnSurface1 p2;
             anExtCS.Points(j, p1, p2);
             Standard_Real U, V;
             p2.Parameter(U, V);
@@ -1226,7 +1226,7 @@ void IntTools_BeanFaceIntersector::ComputeRangeFromStartPoint(
     {
       if (anExtrema.SquareDistance() < myCriteria * myCriteria)
       {
-        Extrema_POnSurf aPOnSurf = anExtrema.Point();
+        PointOnSurface1 aPOnSurf = anExtrema.Point();
         aPOnSurf.Parameter(U, V);
         pointfound = Standard_True;
       }
@@ -1417,9 +1417,9 @@ static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParamete
 
 Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   const IntTools_CurveRangeSample&   theCurveRange,
-  const Bnd_Box&                     theBoxCurve,
+  const Box2&                     theBoxCurve,
   const IntTools_SurfaceRangeSample& theSurfaceRange,
-  const Bnd_Box&                     theBoxSurface,
+  const Box2&                     theBoxSurface,
   CurveRangeLocalizeData&   theCurveData,
   IntTools_SurfaceRangeLocalizeData& theSurfaceData,
   IntTools_ListOfCurveRangeSample&   theListCurveRange,
@@ -1432,8 +1432,8 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   aRootRangeC.SetDepth(0);
   IntTools_SurfaceRangeSample aRootRangeS(0, 0, 0, 0);
 
-  Bnd_Box          aMainBoxC      = theBoxCurve;
-  Bnd_Box          aMainBoxS      = theBoxSurface;
+  Box2          aMainBoxC      = theBoxCurve;
+  Box2          aMainBoxS      = theBoxSurface;
   Standard_Boolean bMainBoxFoundS = Standard_False;
   Standard_Boolean bMainBoxFoundC = Standard_False;
   //
@@ -1577,7 +1577,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
 
       // ///////
 
-      Bnd_Box aBoxS;
+      Box2 aBoxS;
 
       if (!theSurfaceData.FindBox(aNewRangeS, aBoxS))
       {
@@ -1597,7 +1597,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
         }
         else
         {
-          BndLib_AddSurface::Add(mySurface,
+          AddSurface::Add(mySurface,
                                  aPrevParU,
                                  aCurParU,
                                  aPrevParV,
@@ -1605,7 +1605,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
                                  myCriteria,
                                  aBoxS);
         }
-        // 	Bnd_Box aMainBoxC;
+        // 	Box2 aMainBoxC;
 
         if (!bMainBoxFoundC && theCurveData.FindBox(aRootRangeC, aMainBoxC))
         {
@@ -1673,14 +1673,14 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
         }
         // ignore already computed. end
 
-        // compute Box
-        Bnd_Box aBoxC;
+        // compute Box1
+        Box2 aBoxC;
 
         if (!theCurveData.FindBox(aCurRangeC, aBoxC))
         {
-          BndLib_Add3dCurve::Add(myCurve, aPrevPar, aCurPar, myCriteria, aBoxC);
+          Add3dCurve::Add(myCurve, aPrevPar, aCurPar, myCriteria, aBoxC);
 
-          //   Bnd_Box aMainBoxS;
+          //   Box2 aMainBoxS;
 
           if (!bMainBoxFoundS && theSurfaceData.FindBox(aRootRangeS, aMainBoxS))
           {
@@ -1757,7 +1757,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
           else if ((theCurveRange.GetDepth() < 4) && (theSurfaceRange.GetDepthU() < 4)
                    && (theSurfaceRange.GetDepthV() < 4))
           {
-            Bnd_Box aBoxC = anItBox.Value();
+            Box2 aBoxC = anItBox.Value();
 
             if (!aBoxC.IsWhole() && !aBoxS.IsWhole())
             {
@@ -1877,7 +1877,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
   aSurfaceData.RemoveRangeOutAll();
   aSurfaceData.ClearGrid();
 
-  Bnd_Box          FBox;
+  Box2          FBox;
   Standard_Boolean bFBoxFound = aSurfaceData.FindBox(aSurfaceRange, FBox);
 
   if (mySurface.GetType() == GeomAbs_BSplineSurface)
@@ -1907,7 +1907,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
   else if (!bFBoxFound)
   {
 
-    BndLib_AddSurface::Add(mySurface,
+    AddSurface::Add(mySurface,
                            myUMinParameter,
                            myUMaxParameter,
                            myVMinParameter,
@@ -1917,9 +1917,9 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
     aSurfaceData.AddBox(aSurfaceRange, FBox);
   }
 
-  Bnd_Box EBox;
+  Box2 EBox;
 
-  BndLib_Add3dCurve::Add(*myCurve.Trim(myFirstParameter, myLastParameter, Precision::PConfusion()),
+  Add3dCurve::Add(*myCurve.Trim(myFirstParameter, myLastParameter, Precision::PConfusion()),
                          myBeanTolerance,
                          EBox);
 
@@ -2081,8 +2081,8 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
           if (anExtremaGen.SquareDistance(j) < myCriteria * myCriteria)
           {
 
-            Extrema_POnCurv p1;
-            Extrema_POnSurf p2;
+            PointOnCurve1 p1;
+            PointOnSurface1 p2;
             p1 = anExtremaGen.PointOnCurve(j);
             p2 = anExtremaGen.PointOnSurface(j);
             Standard_Real U, V, T;
@@ -2090,11 +2090,11 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
             p2.Parameter(U, V);
 
             if (myCurve.IsPeriodic())
-              T = ElCLib::InPeriod(T, anarg1, anarg1 + myCurve.Period());
+              T = ElCLib1::InPeriod(T, anarg1, anarg1 + myCurve.Period());
             if (mySurface.IsUPeriodic())
-              U = ElCLib::InPeriod(U, parUF, parUF + mySurface.UPeriod());
+              U = ElCLib1::InPeriod(U, parUF, parUF + mySurface.UPeriod());
             if (mySurface.IsVPeriodic())
-              V = ElCLib::InPeriod(V, parVF, parVF + mySurface.VPeriod());
+              V = ElCLib1::InPeriod(V, parVF, parVF + mySurface.VPeriod());
 
             // To avoid occasional going out of boundaries because of numerical
             // problem
@@ -2207,7 +2207,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::TestComputeCoinside()
 // static function: GetSurfaceBox
 // purpose:
 // ---------------------------------------------------------------------------------
-Bnd_Box GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
+Box2 GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
                       const Standard_Real                theFirstU,
                       const Standard_Real                theLastU,
                       const Standard_Real                theFirstV,
@@ -2215,7 +2215,7 @@ Bnd_Box GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
                       const Standard_Real                theTolerance,
                       IntTools_SurfaceRangeLocalizeData& theSurfaceData)
 {
-  Bnd_Box aTotalBox;
+  Box2 aTotalBox;
 
   BuildBox(theSurf, theFirstU, theLastU, theFirstV, theLastV, theSurfaceData, aTotalBox);
 
@@ -2371,7 +2371,7 @@ void ComputeGridPoints(const Handle(Geom_BSplineSurface)& theSurf,
   Standard_Real    du = 0, dv = 0;
   Standard_Boolean isCalcDefl = aNbGridPnts[0] < 30 && aNbGridPnts[1] < 30;
 
-  Bnd_Box aGridBox, anExtBox;
+  Box2 aGridBox, anExtBox;
 
   for (i = 1; i <= aNbGridPnts[0]; i++)
   {
@@ -2472,7 +2472,7 @@ void BuildBox(const Handle(Geom_BSplineSurface)& theSurf,
               const Standard_Real                theFirstV,
               const Standard_Real                theLastV,
               IntTools_SurfaceRangeLocalizeData& theSurfaceData,
-              Bnd_Box&                           theBox)
+              Box2&                           theBox)
 {
   Standard_Integer i;
   Standard_Integer j;

@@ -79,7 +79,7 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
   else
   {
     DataLabel aLabel;
-    TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+    Tool3::Label(Doc->GetData(), argv[2], aLabel);
     if (!aLabel.IsNull())
     {
       aLabels.Append(aLabel);
@@ -119,12 +119,12 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
         if (flag)
         {
           AsciiString1 Entry;
-          TDF_Tool::Entry(aLabels.Value(i), Entry);
+          Tool3::Entry(aLabels.Value(i), Entry);
           di << "\n " << Entry << " Shape." << i;
           flag = Standard_False;
         }
         AsciiString1 Entry;
-        TDF_Tool::Entry(aGDTs.Value(j), Entry);
+        Tool3::Entry(aGDTs.Value(j), Entry);
         di << "\n \t " << Entry;
         flag = Standard_False;
 
@@ -194,12 +194,12 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
         if (flag)
         {
           AsciiString1 Entry;
-          TDF_Tool::Entry(aLabels.Value(i), Entry);
+          Tool3::Entry(aLabels.Value(i), Entry);
           di << "\n " << Entry << " Shape." << i;
           flag = Standard_False;
         }
         AsciiString1 Entry;
-        TDF_Tool::Entry(aGDTs.Value(j), Entry);
+        Tool3::Entry(aGDTs.Value(j), Entry);
         di << "\n \t " << Entry;
         flag = Standard_False;
 
@@ -262,7 +262,7 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
             {
               Handle(XCAFDimTolObjects_DatumObject) aDatumObj = aDatum->GetObject();
               AsciiString1               anEntry;
-              TDF_Tool::Entry(aNode->GetChild(k)->Label(), anEntry);
+              Tool3::Entry(aNode->GetChild(k)->Label(), anEntry);
               di << "\n \t \t " << anEntry;
               di << " Datum." << i << "." << j << "." << k;
               if (argc > 3)
@@ -308,12 +308,12 @@ static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, con
           if (flag)
           {
             AsciiString1 Entry;
-            TDF_Tool::Entry(aLabels.Value(i), Entry);
+            Tool3::Entry(aLabels.Value(i), Entry);
             di << "\n " << Entry << " Shape." << i;
             flag = Standard_False;
           }
           AsciiString1 Entry;
-          TDF_Tool::Entry(aDatumL.First(), Entry);
+          Tool3::Entry(aDatumL.First(), Entry);
           di << "\n \t " << Entry;
           flag = Standard_False;
 
@@ -541,7 +541,7 @@ static Standard_Integer addDim(DrawInterpreter& di, Standard_Integer argc, const
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -558,7 +558,7 @@ static Standard_Integer addDim(DrawInterpreter& di, Standard_Integer argc, const
   DataLabel aLabel1;
   if (argc == 4)
   {
-    TDF_Tool::Label(Doc->GetData(), argv[3], aLabel1);
+    Tool3::Label(Doc->GetData(), argv[3], aLabel1);
     if (aLabel1.IsNull())
     {
       TopoShape aShape = DBRep1::Get(argv[3]);
@@ -580,7 +580,7 @@ static Standard_Integer addDim(DrawInterpreter& di, Standard_Integer argc, const
   else
     aDimTolTool->SetDimension(aLabel, aLabel1, aDimL);
   AsciiString1 Entry;
-  TDF_Tool::Entry(aDimL, Entry);
+  Tool3::Entry(aDimL, Entry);
   di << Entry;
   return 0;
 }
@@ -603,7 +603,7 @@ static Standard_Integer addGTol(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -621,7 +621,7 @@ static Standard_Integer addGTol(DrawInterpreter& di, Standard_Integer argc, cons
   DataLabel aTolL = aDimTolTool->AddGeomTolerance();
   aDimTolTool->SetGeomTolerance(aLabel, aTolL);
   AsciiString1 Entry;
-  TDF_Tool::Entry(aTolL, Entry);
+  Tool3::Entry(aTolL, Entry);
   di << Entry;
   return 0;
 }
@@ -647,7 +647,7 @@ static Standard_Integer addDatum(DrawInterpreter& di, Standard_Integer argc, con
   for (Standard_Integer i = 2; i < argc; i++)
   {
     DataLabel aLabel;
-    TDF_Tool::Label(Doc->GetData(), argv[i], aLabel);
+    Tool3::Label(Doc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
     {
       TopoShape aShape = DBRep1::Get(argv[i]);
@@ -662,7 +662,7 @@ static Standard_Integer addDatum(DrawInterpreter& di, Standard_Integer argc, con
   DataLabel aDatumL = aDimTolTool->AddDatum();
   aDimTolTool->SetDatum(aLabelSeq, aDatumL);
   AsciiString1 Entry;
-  TDF_Tool::Entry(aDatumL, Entry);
+  Tool3::Entry(aDatumL, Entry);
   di << Entry;
   return 0;
 }
@@ -685,7 +685,7 @@ static Standard_Integer setDatum(DrawInterpreter& di, Standard_Integer argc, con
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -693,7 +693,7 @@ static Standard_Integer setDatum(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   DataLabel aTol;
-  TDF_Tool::Label(Doc->GetData(), argv[3], aTol);
+  Tool3::Label(Doc->GetData(), argv[3], aTol);
   if (aTol.IsNull())
   {
     di << "GeomTolerance " << argv[3] << " is absent in " << argv[1] << "\n";
@@ -751,7 +751,7 @@ static Standard_Integer setDatumPosition(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -787,7 +787,7 @@ static Standard_Integer getDatumPosition(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -819,7 +819,7 @@ static Standard_Integer getDatum(DrawInterpreter& di, Standard_Integer argc, con
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Label " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -836,7 +836,7 @@ static Standard_Integer getDatum(DrawInterpreter& di, Standard_Integer argc, con
     if (i > 1)
       di << ", ";
     AsciiString1 Entry;
-    TDF_Tool::Entry(aD.Value(i), Entry);
+    Tool3::Entry(aD.Value(i), Entry);
     di << Entry;
   }
   return 0;
@@ -862,7 +862,7 @@ static Standard_Integer addDatumModif(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -904,7 +904,7 @@ static Standard_Integer getDatumModif(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1012,7 +1012,7 @@ static Standard_Integer setDatumName(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1046,7 +1046,7 @@ static Standard_Integer getDatumName(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Datum " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1078,7 +1078,7 @@ static Standard_Integer setTypeOfTol(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1115,7 +1115,7 @@ static Standard_Integer getTypeOfTol(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1201,7 +1201,7 @@ static Standard_Integer setTypeOfTolVal(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1240,7 +1240,7 @@ static Standard_Integer getTypeOfTolVal(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1285,7 +1285,7 @@ static Standard_Integer setTolVal(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1319,7 +1319,7 @@ static Standard_Integer getTolVal(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1351,7 +1351,7 @@ static Standard_Integer setMatReq(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1389,7 +1389,7 @@ static Standard_Integer getMatReq(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1434,7 +1434,7 @@ static Standard_Integer setZoneMod(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1471,7 +1471,7 @@ static Standard_Integer getZoneMod(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1518,7 +1518,7 @@ static Standard_Integer setZoneModVal(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1554,7 +1554,7 @@ static Standard_Integer getZoneModVal(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1586,7 +1586,7 @@ static Standard_Integer addTolModif(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1626,7 +1626,7 @@ static Standard_Integer getTolModif(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1714,7 +1714,7 @@ static Standard_Integer setTolMaxVal(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1748,7 +1748,7 @@ static Standard_Integer getTolMaxVal(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GeomTolerance " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1780,7 +1780,7 @@ static Standard_Integer setDimType(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1817,7 +1817,7 @@ static Standard_Integer getDimType(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1943,7 +1943,7 @@ static Standard_Integer setDimVal(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1977,7 +1977,7 @@ static Standard_Integer getDimVal(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2009,7 +2009,7 @@ static Standard_Integer setDimQalif(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2046,7 +2046,7 @@ static Standard_Integer getDimQalif(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2095,7 +2095,7 @@ static Standard_Integer setDimRange(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2133,7 +2133,7 @@ static Standard_Integer getDimRange(DrawInterpreter& di, Standard_Integer argc, 
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2168,7 +2168,7 @@ static Standard_Integer setDimPlusMinusTol(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2208,7 +2208,7 @@ static Standard_Integer getDimPlusMinusTol(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2243,7 +2243,7 @@ static Standard_Integer setDimClassTol(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2285,7 +2285,7 @@ static Standard_Integer getDimClassTol(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2573,7 +2573,7 @@ static Standard_Integer setDimNbOfDecimalPlaces(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2609,7 +2609,7 @@ static Standard_Integer getDimNbOfDecimalPlaces(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2645,7 +2645,7 @@ static Standard_Integer addDimModifier(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2687,7 +2687,7 @@ static Standard_Integer getDimModifier(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2801,7 +2801,7 @@ static Standard_Integer addDimPath(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2839,7 +2839,7 @@ static Standard_Integer addDimPoints(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2886,7 +2886,7 @@ static Standard_Integer getDimPoints(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2928,7 +2928,7 @@ static Standard_Integer addDimDir(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2962,7 +2962,7 @@ static Standard_Integer getDimDir(DrawInterpreter& di, Standard_Integer argc, co
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -2996,7 +2996,7 @@ static Standard_Integer addDimDescr(DrawInterpreter& di, Standard_Integer argc, 
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3031,7 +3031,7 @@ static Standard_Integer getDimDescr(DrawInterpreter& di, Standard_Integer argc, 
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Dimension " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3071,7 +3071,7 @@ static Standard_Integer addGDTPosition(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3130,7 +3130,7 @@ static Standard_Integer getGDTPosition(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3190,7 +3190,7 @@ static Standard_Integer addGDTPresentation(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3244,7 +3244,7 @@ static Standard_Integer getGDTPresentation(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3295,7 +3295,7 @@ static Standard_Integer addGDTAffectedPlane(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3343,7 +3343,7 @@ static Standard_Integer getGDTAffectedPlane(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3391,7 +3391,7 @@ static Standard_Integer getGDTSemanticName(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -3444,7 +3444,7 @@ static Standard_Integer setGDTSemanticName(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";

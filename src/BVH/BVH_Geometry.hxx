@@ -63,14 +63,14 @@ public:
   virtual void MarkDirty() { myIsDirty = Standard_True; }
 
   //! Returns AABB of the given object.
-  using BVH_ObjectSet<T, N>::Box;
+  using BVH_ObjectSet<T, N>::Box1;
 
   //! Returns AABB of the whole geometry.
-  virtual BVH_Box<T, N> Box() const Standard_OVERRIDE
+  virtual BVH_Box<T, N> Box1() const Standard_OVERRIDE
   {
     if (myIsDirty)
     {
-      myBox = BVH_Set<T, N>::Box();
+      myBox = BVH_Set<T, N>::Box1();
     }
     return myBox;
   }
@@ -100,7 +100,7 @@ protected:
   {
     if (myIsDirty)
     {
-      myBuilder->Build(this, myBVH.operator->(), Box());
+      myBuilder->Build(this, myBVH.operator->(), Box1());
       myIsDirty = Standard_False;
     }
   }

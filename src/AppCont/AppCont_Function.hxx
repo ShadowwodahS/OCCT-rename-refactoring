@@ -24,10 +24,10 @@
 
 //! Class describing a continuous 3d and/or function f(u).
 //! This class must be provided by the user to use the approximation algorithm FittingCurve.
-class AppCont_Function
+class ContinuityFunction
 {
 public:
-  AppCont_Function()
+  ContinuityFunction()
   {
     myNbPnt   = -1;
     myNbPnt2d = -1;
@@ -47,7 +47,7 @@ public:
   Standard_Integer GetNbOf2dPoints() const { return myNbPnt2d; }
 
   //! Destructor
-  virtual ~AppCont_Function() {}
+  virtual ~ContinuityFunction() {}
 
   //! Returns the first parameter of the function.
   virtual Standard_Real FirstParameter() const = 0;

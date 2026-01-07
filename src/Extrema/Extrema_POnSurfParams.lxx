@@ -22,7 +22,7 @@ inline Extrema_POnSurfParams::Extrema_POnSurfParams()
 inline Extrema_POnSurfParams::Extrema_POnSurfParams(const Standard_Real theU,
                                                     const Standard_Real theV,
                                                     const Point3d&       thePnt)
-    : Extrema_POnSurf(theU, theV, thePnt),
+    : PointOnSurface1(theU, theV, thePnt),
       mySqrDistance(0.),
       myElementType(Extrema_Node),
       myIndexU(0),

@@ -27,7 +27,7 @@ class Point3d;
 //! Data container for point on surface parameters. These parameters
 //! are required to compute an initial approximation for extrema
 //! computation.
-class Extrema_POnSurfParams : public Extrema_POnSurf
+class Extrema_POnSurfParams : public PointOnSurface1
 {
 public:
   DEFINE_STANDARD_ALLOC

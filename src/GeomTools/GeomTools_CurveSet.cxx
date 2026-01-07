@@ -52,25 +52,25 @@
 
 //=================================================================================================
 
-GeomTools_CurveSet::GeomTools_CurveSet() {}
+CurveSet1::CurveSet1() {}
 
 //=================================================================================================
 
-void GeomTools_CurveSet::Clear()
+void CurveSet1::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer GeomTools_CurveSet::Add(const Handle(GeomCurve3d)& C)
+Standard_Integer CurveSet1::Add(const Handle(GeomCurve3d)& C)
 {
   return (C.IsNull()) ? 0 : myMap.Add(C);
 }
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomTools_CurveSet::Curve(const Standard_Integer I) const
+Handle(GeomCurve3d) CurveSet1::Curve(const Standard_Integer I) const
 {
   if (I <= 0 || I > myMap.Extent())
     return Handle(GeomCurve3d)();
@@ -79,7 +79,7 @@ Handle(GeomCurve3d) GeomTools_CurveSet::Curve(const Standard_Integer I) const
 
 //=================================================================================================
 
-Standard_Integer GeomTools_CurveSet::Index(const Handle(GeomCurve3d)& S) const
+Standard_Integer CurveSet1::Index(const Handle(GeomCurve3d)& S) const
 {
   return S.IsNull() ? 0 : myMap.FindIndex(S);
 }
@@ -407,7 +407,7 @@ static void Print(const Handle(Geom_TrimmedCurve)& C,
   OS << C->FirstParameter() << " " << C->LastParameter() << "\n";
   if (!compact)
     OS << "Basis curve :\n";
-  GeomTools_CurveSet::PrintCurve(C->BasisCurve(), OS, compact);
+  CurveSet1::PrintCurve(C->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
@@ -429,12 +429,12 @@ static void Print(const Handle(Geom_OffsetCurve)& C,
   OS << "\n";
   if (!compact)
     OS << "Basis curve :\n";
-  GeomTools_CurveSet::PrintCurve(C->BasisCurve(), OS, compact);
+  CurveSet1::PrintCurve(C->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
 
-void GeomTools_CurveSet::PrintCurve(const Handle(GeomCurve3d)& C,
+void CurveSet1::PrintCurve(const Handle(GeomCurve3d)& C,
                                     Standard_OStream&         OS,
                                     const Standard_Boolean    compact)
 {
@@ -478,7 +478,7 @@ void GeomTools_CurveSet::PrintCurve(const Handle(GeomCurve3d)& C,
   }
   else
   {
-    GeomTools::GetUndefinedTypeHandler()->PrintCurve(C, OS, compact);
+    GeomTools1::GetUndefinedTypeHandler()->PrintCurve(C, OS, compact);
     // if (!compact)
     //   OS << "****** UNKNOWN CURVE TYPE ******\n";
     // else
@@ -488,7 +488,7 @@ void GeomTools_CurveSet::PrintCurve(const Handle(GeomCurve3d)& C,
 
 //=================================================================================================
 
-void GeomTools_CurveSet::Dump(Standard_OStream& OS) const
+void CurveSet1::Dump(Standard_OStream& OS) const
 {
   Standard_Integer i, nbsurf = myMap.Extent();
   OS << "\n -------\n";
@@ -504,7 +504,7 @@ void GeomTools_CurveSet::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void GeomTools_CurveSet::Write(Standard_OStream& OS, const Message_ProgressRange& theProgress) const
+void CurveSet1::Write(Standard_OStream& OS, const Message_ProgressRange& theProgress) const
 {
   std::streamsize prec = OS.precision(17);
 
@@ -523,9 +523,9 @@ void GeomTools_CurveSet::Write(Standard_OStream& OS, const Message_ProgressRange
 static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
-  GeomTools::GetReal(IS, Z);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, Z);
   P.SetCoord(X, Y, Z);
   return IS;
 }
@@ -535,9 +535,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
-  GeomTools::GetReal(IS, Z);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, Z);
   D.SetCoord(X, Y, Z);
   return IS;
 }
@@ -561,7 +561,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomCircle)& C)
   Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R = 0.;
   IS >> P >> A >> AX >> AY;
-  GeomTools::GetReal(IS, R);
+  GeomTools1::GetReal(IS, R);
   C = new GeomCircle(Frame3d(P, A, AX), R);
   return IS;
 }
@@ -574,8 +574,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Ellipse)& 
   Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
-  GeomTools::GetReal(IS, R2);
+  GeomTools1::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R2);
   E = new Geom_Ellipse(Frame3d(P, A, AX), R1, R2);
   return IS;
 }
@@ -588,7 +588,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Parabola)&
   Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0.;
   IS >> P >> A >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R1);
   C = new Geom_Parabola(Frame3d(P, A, AX), R1);
   return IS;
 }
@@ -601,8 +601,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Hyperbola)
   Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
-  GeomTools::GetReal(IS, R2);
+  GeomTools1::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R2);
   H = new Geom_Hyperbola(Frame3d(P, A, AX), R1, R2);
   return IS;
 }
@@ -625,7 +625,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BezierCurve3d)&
   {
     IS >> poles(i);
     if (rational)
-      GeomTools::GetReal(IS, weights(i));
+      GeomTools1::GetReal(IS, weights(i));
   }
 
   if (rational)
@@ -655,7 +655,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BSplineCurve3d)
   {
     IS >> poles(i);
     if (rational)
-      GeomTools::GetReal(IS, weights(i));
+      GeomTools1::GetReal(IS, weights(i));
   }
 
   TColStd_Array1OfReal    knots(1, nbknots);
@@ -663,7 +663,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BSplineCurve3d)
 
   for (i = 1; i <= nbknots; i++)
   {
-    GeomTools::GetReal(IS, knots(i));
+    GeomTools1::GetReal(IS, knots(i));
     IS >> mults(i);
   }
 
@@ -680,9 +680,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BSplineCurve3d)
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_TrimmedCurve)& C)
 {
   Standard_Real p1 = 0., p2 = 0.;
-  GeomTools::GetReal(IS, p1);
-  GeomTools::GetReal(IS, p2);
-  Handle(GeomCurve3d) BC = GeomTools_CurveSet::ReadCurve(IS);
+  GeomTools1::GetReal(IS, p1);
+  GeomTools1::GetReal(IS, p2);
+  Handle(GeomCurve3d) BC = CurveSet1::ReadCurve(IS);
   C                     = new Geom_TrimmedCurve(BC, p1, p2);
   return IS;
 }
@@ -692,17 +692,17 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_TrimmedCur
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_OffsetCurve)& C)
 {
   Standard_Real p = 0.;
-  GeomTools::GetReal(IS, p);
+  GeomTools1::GetReal(IS, p);
   Dir3d D(1., 0., 0.);
   IS >> D;
-  Handle(GeomCurve3d) BC = GeomTools_CurveSet::ReadCurve(IS);
+  Handle(GeomCurve3d) BC = CurveSet1::ReadCurve(IS);
   C                     = new Geom_OffsetCurve(BC, p, D);
   return IS;
 }
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
+Handle(GeomCurve3d) CurveSet1::ReadCurve(Standard_IStream& IS)
 {
   Standard_Integer ctype;
 
@@ -779,7 +779,7 @@ Handle(GeomCurve3d) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
 
       default: {
         Handle(GeomCurve3d) CC;
-        GeomTools::GetUndefinedTypeHandler()->ReadCurve(ctype, IS, CC);
+        GeomTools1::GetUndefinedTypeHandler()->ReadCurve(ctype, IS, CC);
         C = CC;
       }
     }
@@ -787,7 +787,7 @@ Handle(GeomCurve3d) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "EXCEPTION in GeomTools_CurveSet::ReadCurve(..)!!!" << std::endl;
+    std::cout << "EXCEPTION in CurveSet1::ReadCurve(..)!!!" << std::endl;
     std::cout << anException << std::endl;
 #endif
     (void)anException;
@@ -797,7 +797,7 @@ Handle(GeomCurve3d) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
 
 //=================================================================================================
 
-void GeomTools_CurveSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
+void CurveSet1::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
 {
   char buffer[255];
   IS >> buffer;
@@ -812,7 +812,7 @@ void GeomTools_CurveSet::Read(Standard_IStream& IS, const Message_ProgressRange&
   Message_ProgressScope aPS(theProgress, "3D Curves", nbcurve);
   for (i = 1; i <= nbcurve && aPS.More(); i++, aPS.Next())
   {
-    Handle(GeomCurve3d) C = GeomTools_CurveSet::ReadCurve(IS);
+    Handle(GeomCurve3d) C = CurveSet1::ReadCurve(IS);
     myMap.Add(C);
   }
 }

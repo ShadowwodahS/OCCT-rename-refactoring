@@ -561,7 +561,7 @@ void IntPolyh_Triangle::MiddleRefinement(const Standard_Integer           NumTri
 //=================================================================================================
 
 void IntPolyh_Triangle::MultipleMiddleRefinement(const Standard_Real    theRefineCriterion,
-                                                 const Bnd_Box&         theBox,
+                                                 const Box2&         theBox,
                                                  const Standard_Integer theTriangleNumber,
                                                  const Handle(Adaptor3d_Surface)& theSurface,
                                                  IntPolyh_ArrayOfPoints&          TPoints,
@@ -633,7 +633,7 @@ void IntPolyh_Triangle::SetEdgeAndOrientation(const Edge&   theEdge,
 
 //=================================================================================================
 
-const Bnd_Box& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& thePoints)
+const Box2& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& thePoints)
 {
   if (myBox.IsVoid())
   {

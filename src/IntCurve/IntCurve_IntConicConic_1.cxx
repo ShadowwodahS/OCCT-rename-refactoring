@@ -72,12 +72,12 @@ void ProjectOnC2AndIntersectWithC2Domain(const gp_Circ2d&       Circle1,
   //--  Puis on intersecte l intervalle avec le domaine de C2
   //--  Enfin, on cherche l intervalle correspondant sur C1
   //--
-  Standard_Real C2inf = ElCLib::CircleParameter(
+  Standard_Real C2inf = ElCLib1::CircleParameter(
     Circle2.Axis(),
-    ElCLib::CircleValue(C1DomainAndRes.Binf, Circle1.Axis(), Circle1.Radius()));
-  Standard_Real C2sup = ElCLib::CircleParameter(
+    ElCLib1::CircleValue(C1DomainAndRes.Binf, Circle1.Axis(), Circle1.Radius()));
+  Standard_Real C2sup = ElCLib1::CircleParameter(
     Circle2.Axis(),
-    ElCLib::CircleValue(C1DomainAndRes.Bsup, Circle1.Axis(), Circle1.Radius()));
+    ElCLib1::CircleValue(C1DomainAndRes.Bsup, Circle1.Axis(), Circle1.Radius()));
 
   PeriodicInterval1 C2Inter(C2inf, C2sup);
 
@@ -110,12 +110,12 @@ void ProjectOnC2AndIntersectWithC2Domain(const gp_Circ2d&       Circle1,
     if (!C2InterAndDomain[i].IsNull())
     {
 
-      Standard_Real C1inf = ElCLib::CircleParameter(
+      Standard_Real C1inf = ElCLib1::CircleParameter(
         Circle1.Axis(),
-        ElCLib::CircleValue(C2InterAndDomain[i].Binf, Circle2.Axis(), Circle2.Radius()));
-      Standard_Real C1sup = ElCLib::CircleParameter(
+        ElCLib1::CircleValue(C2InterAndDomain[i].Binf, Circle2.Axis(), Circle2.Radius()));
+      Standard_Real C1sup = ElCLib1::CircleParameter(
         Circle1.Axis(),
-        ElCLib::CircleValue(C2InterAndDomain[i].Bsup, Circle2.Axis(), Circle2.Radius()));
+        ElCLib1::CircleValue(C2InterAndDomain[i].Bsup, Circle2.Axis(), Circle2.Radius()));
 
       SolutionC1[NbSolTotal] = PeriodicInterval1(C1inf, C1sup);
       if (!IdentCircles)
@@ -355,11 +355,11 @@ void ProjectOnLAndIntersectWithLDomain(const gp_Circ2d&       Circle,
   //--
 
   Standard_Real Linf =
-    ElCLib::Parameter(Line,
-                      ElCLib::CircleValue(CDomainAndRes.Binf, Circle.Axis(), Circle.Radius()));
+    ElCLib1::Parameter(Line,
+                      ElCLib1::CircleValue(CDomainAndRes.Binf, Circle.Axis(), Circle.Radius()));
   Standard_Real Lsup =
-    ElCLib::Parameter(Line,
-                      ElCLib::CircleValue(CDomainAndRes.Bsup, Circle.Axis(), Circle.Radius()));
+    ElCLib1::Parameter(Line,
+                      ElCLib1::CircleValue(CDomainAndRes.Bsup, Circle.Axis(), Circle.Radius()));
 
   Interval1 LInter(Linf, Lsup); //-- Necessairement Borne
 
@@ -399,12 +399,12 @@ void ProjectOnLAndIntersectWithLDomain(const gp_Circ2d&       Circle,
 
 #if 0     
     Standard_Real Cinf = 
-      ElCLib::CircleParameter(Circle.Axis()					       
-			      ,ElCLib::LineValue(LInterAndDomain.Binf,
+      ElCLib1::CircleParameter(Circle.Axis()					       
+			      ,ElCLib1::LineValue(LInterAndDomain.Binf,
 					Line.Position()));
     Standard_Real Csup = 
-      ElCLib::CircleParameter(Circle.Axis()
-			      ,ElCLib::LineValue(LInterAndDomain.Bsup
+      ElCLib1::CircleParameter(Circle.Axis()
+			      ,ElCLib1::LineValue(LInterAndDomain.Bsup
 					,Line.Position()));
 
     if(Cinf<CDomainAndRes.Binf) Cinf = CDomainAndRes.Binf;
@@ -1048,8 +1048,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
       gp_Vec2d aV11, aV12;
       gp_Vec2d aV21, aV22;
 
-      ElCLib::CircleD2(C1inf, Axis2C1, R1, aP1, aV11, aV12);
-      ElCLib::CircleD2(C2inf, Axis2C2, R2, aP2, aV21, aV22);
+      ElCLib1::CircleD2(C1inf, Axis2C1, R1, aP1, aV11, aV12);
+      ElCLib1::CircleD2(C2inf, Axis2C2, R2, aP2, aV21, aV22);
 
       if (aP1.SquareDistance(aP2) > Tol2 * Tol2)
       { // there are not any solutions in given parametric range.
@@ -1059,8 +1059,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
 
     if (IndirectCircles)
     {
-      ElCLib::CircleD2(C1inf, Axis2C1, R1, P1a, Tan1, Norm1);
-      ElCLib::CircleD2(C2inf, Axis2C2, R2, P2a, Tan2, Norm2);
+      ElCLib1::CircleD2(C1inf, Axis2C1, R1, P1a, Tan1, Norm1);
+      ElCLib1::CircleD2(C2inf, Axis2C2, R2, P2a, Tan2, Norm2);
       Tan2.Reverse();
 
       IntImpParGen1::DeterminePosition(Pos1a, DomainCirc1, P1a, C1inf);
@@ -1077,8 +1077,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
           C1sup += PIpPI;
         C2sup = NormalizeOnCircleDomain(C2sup, DomainCirc2);
 
-        ElCLib::CircleD2(C1sup, Axis2C1, R1, P1b, Tan1, Norm1);
-        ElCLib::CircleD2(C2sup, Axis2C2, R2, P2b, Tan2, Norm2);
+        ElCLib1::CircleD2(C1sup, Axis2C1, R1, P1b, Tan1, Norm1);
+        ElCLib1::CircleD2(C2sup, Axis2C2, R2, P2b, Tan2, Norm2);
         Tan2.Reverse();
 
         IntImpParGen1::DeterminePosition(Pos1b, DomainCirc1, P1b, C1sup);
@@ -1115,8 +1115,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
     }
     else
     {
-      ElCLib::CircleD2(C1inf, Axis2C1, R1, P1a, Tan1, Norm1);
-      ElCLib::CircleD2(C2inf, Axis2C2, R2, P2a, Tan2, Norm2);
+      ElCLib1::CircleD2(C1inf, Axis2C1, R1, P1a, Tan1, Norm1);
+      ElCLib1::CircleD2(C2inf, Axis2C2, R2, P2a, Tan2, Norm2);
 
       IntImpParGen1::DeterminePosition(Pos1a, DomainCirc1, P1a, C1inf);
       IntImpParGen1::DeterminePosition(Pos2a, DomainCirc2, P2a, C2inf);
@@ -1132,8 +1132,8 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       Circle1,
           C1sup += PIpPI;
         C2sup = NormalizeOnCircleDomain(C2sup, DomainCirc2);
 
-        ElCLib::CircleD2(C1sup, Axis2C1, R1, P1b, Tan1, Norm1);
-        ElCLib::CircleD2(C2sup, Axis2C2, R2, P2b, Tan2, Norm2);
+        ElCLib1::CircleD2(C1sup, Axis2C1, R1, P1b, Tan1, Norm1);
+        ElCLib1::CircleD2(C2sup, Axis2C2, R2, P2b, Tan2, Norm2);
 
         IntImpParGen1::DeterminePosition(Pos1b, DomainCirc1, P1b, C1sup);
         IntImpParGen1::DeterminePosition(Pos2b, DomainCirc2, P2b, C2sup);
@@ -1273,16 +1273,16 @@ static Standard_Boolean computeIntPoint(const Domain2&      theCurDomain,
   {
     if (isInside1)
     {
-      gp_Pnt2d Pt1        = ElCLib::Value(aRes2, theOtherLin);
+      gp_Pnt2d Pt1        = ElCLib1::Value(aRes2, theOtherLin);
       aResU2              = aRes2;
-      Standard_Real aPar1 = ElCLib::Parameter(theCurLin, Pt1);
+      Standard_Real aPar1 = ElCLib1::Parameter(theCurLin, Pt1);
       aResU1              = ((aPar1 >= aFirst1 && aPar1 <= aLast1) ? aPar1 : theResSup);
     }
     else if (isInside2)
     {
-      gp_Pnt2d aPt1       = ElCLib::Value(theResSup, theCurLin);
+      gp_Pnt2d aPt1       = ElCLib1::Value(theResSup, theCurLin);
       aResU1              = theResSup;
-      Standard_Real aPar2 = ElCLib::Parameter(theOtherLin, aPt1);
+      Standard_Real aPar2 = ElCLib1::Parameter(theOtherLin, aPt1);
       aResU2              = ((aPar2 >= aFirst2 && aPar2 <= aLast2) ? aPar2 : aRes2);
     }
     else
@@ -1299,7 +1299,7 @@ static Standard_Boolean computeIntPoint(const Domain2&      theCurDomain,
       aResU2 = aRes2;
     }
   }
-  gp_Pnt2d aPres((ElCLib::Value(aResU1, theCurLin).XY() + ElCLib::Value(aResU2, theOtherLin).XY())
+  gp_Pnt2d aPres((ElCLib1::Value(aResU1, theCurLin).XY() + ElCLib1::Value(aResU2, theOtherLin).XY())
                  * 0.5);
   if (theNum == 1)
     theNewPoint.SetValues(aPres, aResU1, aResU2, aT1, aT2, Standard_False);
@@ -1417,7 +1417,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
     {
       if (L1.Distance(Domain2.FirstPoint()) < Domain2.FirstTolerance())
       {
-        Standard_Real p = ElCLib::Parameter(L1, Domain2.FirstPoint());
+        Standard_Real p = ElCLib1::Parameter(L1, Domain2.FirstPoint());
         if (U1inf > p)
         {
           U1inf = p;
@@ -1432,7 +1432,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
     {
       if (L1.Distance(Domain2.LastPoint()) < Domain2.LastTolerance())
       {
-        Standard_Real p = ElCLib::Parameter(L1, Domain2.LastPoint());
+        Standard_Real p = ElCLib1::Parameter(L1, Domain2.LastPoint());
         if (U1inf > p)
         {
           U1inf = p;
@@ -1684,14 +1684,14 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               {
                 t3 = (Pos2a == IntRes2d_Head) ? Res2inf : Res2sup;
               }
-              Ptdebut = ElCLib::Value(t3, L2);
-              Res1inf = ElCLib::Parameter(L1, Ptdebut);
+              Ptdebut = ElCLib1::Value(t3, L2);
+              Res1inf = ElCLib1::Parameter(L1, Ptdebut);
             }
             else
             {
               Standard_Real t4 = (Pos1a == IntRes2d_Head) ? Res1inf : Res1sup;
-              Ptdebut          = ElCLib::Value(t4, L1);
-              Res2inf          = ElCLib::Parameter(L2, Ptdebut);
+              Ptdebut          = ElCLib1::Value(t4, L1);
+              Res2inf          = ElCLib1::Parameter(L2, Ptdebut);
             }
             PtSeg1.SetValues(Ptdebut, Res1inf, Res2inf, T1a, T2a, Standard_False);
             if (Pos1b != IntRes2d_Middle || Pos2b != IntRes2d_Middle)
@@ -1701,13 +1701,13 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               gp_Pnt2d Ptfin;
               if (Pos1b == IntRes2d_Middle)
               {
-                Ptfin   = ElCLib::Value(Res2sup, L2);
-                Res1sup = ElCLib::Parameter(L1, Ptfin);
+                Ptfin   = ElCLib1::Value(Res2sup, L2);
+                Res1sup = ElCLib1::Parameter(L1, Ptfin);
               }
               else
               {
-                Ptfin   = ElCLib::Value(Res1sup, L1);
-                Res2sup = ElCLib::Parameter(L2, Ptfin);
+                Ptfin   = ElCLib1::Value(Res1sup, L1);
+                Res2sup = ElCLib1::Parameter(L2, Ptfin);
               }
               PtSeg2.SetValues(Ptfin, Res1sup, Res2sup, T1b, T2b, Standard_False);
               IntRes2d_IntersectionSegment Segment(PtSeg1, PtSeg2, isOpposite, Standard_False);
@@ -1734,7 +1734,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 T2b.SetValue(Standard_False, Pos2b, IntRes2d_Unknown, isOpposite);
               }
 
-              PtSeg2.SetValues(ElCLib::Value(U2, L2), U1, U2, T1b, T2b, Standard_False);
+              PtSeg2.SetValues(ElCLib1::Value(U2, L2), U1, U2, T1b, T2b, Standard_False);
 
               if ((Abs(Res1inf - U1) > LongMiniSeg) && (Abs(Res2inf - U2) > LongMiniSeg))
               {
@@ -1772,8 +1772,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                   {
                     t2 = (Pos2b == IntRes2d_Head) ? Res2inf : Res2sup;
                   }
-                  Ptfin   = ElCLib::Value(t2, L2);
-                  Res1sup = ElCLib::Parameter(L1, Ptfin);
+                  Ptfin   = ElCLib1::Value(t2, L2);
+                  Res1sup = ElCLib1::Parameter(L1, Ptfin);
                   // modified by NIZHNY-MKK  Tue Feb 15 10:54:51 2000.BEGIN
                   Pos1b = FindPositionLL(Res1sup, Domain1);
                   // modified by NIZHNY-MKK  Tue Feb 15 10:54:55 2000.END
@@ -1781,8 +1781,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 else
                 {
                   Standard_Real t1 = (Pos1b == IntRes2d_Head) ? Res1inf : Res1sup;
-                  Ptfin            = ElCLib::Value(t1, L1);
-                  Res2sup          = ElCLib::Parameter(L2, Ptfin);
+                  Ptfin            = ElCLib1::Value(t1, L1);
+                  Res2sup          = ElCLib1::Parameter(L2, Ptfin);
                   // modified by NIZHNY-MKK  Tue Feb 15 10:55:08 2000.BEGIN
                   Pos2b = FindPositionLL(Res2sup, Domain2);
                   // modified by NIZHNY-MKK  Tue Feb 15 10:55:11 2000.END
@@ -1825,13 +1825,13 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                   T1b.SetValue(Standard_False, Pos1b, IntRes2d_Unknown, isOpposite);
                   T2b.SetValue(Standard_False, Pos2b, IntRes2d_Unknown, isOpposite);
                 }
-                PtSeg1.SetValues(ElCLib::Value(U2, L2), U1, U2, T1b, T2b, Standard_False);
+                PtSeg1.SetValues(ElCLib1::Value(U2, L2), U1, U2, T1b, T2b, Standard_False);
                 Append(PtSeg1);
               }
             }
             else
             {
-              PtSeg1.SetValues(ElCLib::Value(U2, L2), U1, U2, T1a, T2a, Standard_False);
+              PtSeg1.SetValues(ElCLib1::Value(U2, L2), U1, U2, T1a, T2a, Standard_False);
 
               if ((Pos1b != IntRes2d_Middle || Pos2b != IntRes2d_Middle))
               {
@@ -1855,13 +1855,13 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 gp_Pnt2d Ptfin;
                 if (Pos1b == IntRes2d_Middle)
                 {
-                  Ptfin   = ElCLib::Value(Res2sup, L2);
-                  Res1sup = ElCLib::Parameter(L1, Ptfin);
+                  Ptfin   = ElCLib1::Value(Res2sup, L2);
+                  Res1sup = ElCLib1::Parameter(L1, Ptfin);
                 }
                 else
                 {
-                  Ptfin   = ElCLib::Value(Res1sup, L1);
-                  Res2sup = ElCLib::Parameter(L2, Ptfin);
+                  Ptfin   = ElCLib1::Value(Res1sup, L1);
+                  Res2sup = ElCLib1::Parameter(L2, Ptfin);
                 }
 
                 PtSeg2.SetValues(Ptfin, Res1sup, Res2sup, T1b, T2b, Standard_False);
@@ -1956,7 +1956,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
       Standard_Integer ResHasFirstPoint = 0;
       Standard_Integer ResHasLastPoint  = 0;
       Standard_Real    ParamStart = 0., ParamStart2, ParamEnd = 0., ParamEnd2;
-      Standard_Real    Org2SurL1 = ElCLib::Parameter(L1, L2.Location());
+      Standard_Real    Org2SurL1 = ElCLib1::Parameter(L1, L2.Location());
       //== 3 : L1 et L2 bornent
       //== 2 :       L2 borne
       //== 1 : L1 borne
@@ -2089,7 +2089,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
               Pos2 = FindPositionLL(ParamStart2, Domain2);
               Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
               Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
-              IntRes2d_IntersectionPoint P1(ElCLib::Value(ParamStart, L1),
+              IntRes2d_IntersectionPoint P1(ElCLib1::Value(ParamStart, L1),
                                             ParamStart,
                                             ParamStart2,
                                             Tinf,
@@ -2103,7 +2103,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
                 Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
                 Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-                IntRes2d_IntersectionPoint   P2(ElCLib::Value(ParamEnd, L1),
+                IntRes2d_IntersectionPoint   P2(ElCLib1::Value(ParamEnd, L1),
                                               ParamEnd,
                                               ParamEnd2,
                                               Tinf,
@@ -2126,7 +2126,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
             Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
             Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-            IntRes2d_IntersectionPoint   P(ElCLib::Value(ParamStart, L1),
+            IntRes2d_IntersectionPoint   P(ElCLib1::Value(ParamStart, L1),
                                          ParamStart,
                                          ParamStart2,
                                          Tinf,
@@ -2143,7 +2143,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L1,
           Tinf.SetValue(Standard_True, Pos1, IntRes2d_Unknown, isOpposite);
           Tsup.SetValue(Standard_True, Pos2, IntRes2d_Unknown, isOpposite);
 
-          IntRes2d_IntersectionPoint   P2(ElCLib::Value(ParamEnd, L1),
+          IntRes2d_IntersectionPoint   P2(ElCLib1::Value(ParamEnd, L1),
                                         ParamEnd,
                                         ParamEnd2,
                                         Tinf,
@@ -2364,8 +2364,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
     Transition3 T1a, T2a, T1b, T2b;
     IntRes2d_Position   Pos1a, Pos1b, Pos2a, Pos2b;
 
-    ElCLib::CircleD1(SolutionCircle[0].Binf, CircleAxis, R, P1a, Tan1);
-    ElCLib::LineD1(SolutionLine[0].Binf, LineAxis, P2a, Tan2);
+    ElCLib1::CircleD1(SolutionCircle[0].Binf, CircleAxis, R, P1a, Tan1);
+    ElCLib1::LineD1(SolutionLine[0].Binf, LineAxis, P2a, Tan2);
 
     Standard_Boolean isOpposite = (Tan1.Dot(Tan2) < 0.0);
 
@@ -2433,8 +2433,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
         Lsup = T;
       }
 
-      ElCLib::CircleD2(SolutionCircle[i].Binf, CircleAxis, R, P1a, Tan1, Norm1);
-      ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+      ElCLib1::CircleD2(SolutionCircle[i].Binf, CircleAxis, R, P1a, Tan1, Norm1);
+      ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
 
       IntImpParGen1::DeterminePosition(Pos1a, CIRC_Domain, P1a, SolutionCircle[i].Binf);
       IntImpParGen1::DeterminePosition(Pos2a, LIG_Domain, P2a, Linf);
@@ -2444,10 +2444,10 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
       {
         Cinf = CIRC_Domain.LastParameter();
         P1a  = CIRC_Domain.LastPoint();
-        Linf = ElCLib::Parameter(Line, P1a);
+        Linf = ElCLib1::Parameter(Line, P1a);
 
-        ElCLib::CircleD2(Cinf, CircleAxis, R, P1a, Tan1, Norm1);
-        ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+        ElCLib1::CircleD2(Cinf, CircleAxis, R, P1a, Tan1, Norm1);
+        ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
         IntImpParGen1::DeterminePosition(Pos1a, CIRC_Domain, P1a, Cinf);
         IntImpParGen1::DeterminePosition(Pos2a, LIG_Domain, P2a, Linf);
         Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
@@ -2456,10 +2456,10 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
       {
         Cinf = CIRC_Domain.FirstParameter();
         P1a  = CIRC_Domain.FirstPoint();
-        Linf = ElCLib::Parameter(Line, P1a);
+        Linf = ElCLib1::Parameter(Line, P1a);
 
-        ElCLib::CircleD2(Cinf, CircleAxis, R, P1a, Tan1, Norm1);
-        ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+        ElCLib1::CircleD2(Cinf, CircleAxis, R, P1a, Tan1, Norm1);
+        ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
         IntImpParGen1::DeterminePosition(Pos1a, CIRC_Domain, P1a, Cinf);
         IntImpParGen1::DeterminePosition(Pos2a, LIG_Domain, P2a, Linf);
         Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
@@ -2474,8 +2474,8 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
       if ((SolutionLine[i].Length() + SolutionCircle[i].Length()) > 0.0)
       {
 
-        ElCLib::CircleD2(SolutionCircle[i].Bsup, CircleAxis, R, P1b, Tan1, Norm1);
-        ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+        ElCLib1::CircleD2(SolutionCircle[i].Bsup, CircleAxis, R, P1b, Tan1, Norm1);
+        ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
         IntImpParGen1::DeterminePosition(Pos1b, CIRC_Domain, P1b, SolutionCircle[i].Bsup);
         IntImpParGen1::DeterminePosition(Pos2b, LIG_Domain, P2b, Lsup);
@@ -2485,9 +2485,9 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
         {
           Csup = CIRC_Domain.LastParameter();
           P1b  = CIRC_Domain.LastPoint();
-          Lsup = ElCLib::Parameter(Line, P1b);
-          ElCLib::CircleD2(Csup, CircleAxis, R, P1b, Tan1, Norm1);
-          ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+          Lsup = ElCLib1::Parameter(Line, P1b);
+          ElCLib1::CircleD2(Csup, CircleAxis, R, P1b, Tan1, Norm1);
+          ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
           IntImpParGen1::DeterminePosition(Pos1b, CIRC_Domain, P1b, Csup);
           IntImpParGen1::DeterminePosition(Pos2b, LIG_Domain, P2b, Lsup);
@@ -2497,9 +2497,9 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        Line,
         {
           Csup = CIRC_Domain.FirstParameter();
           P1b  = CIRC_Domain.FirstPoint();
-          Lsup = ElCLib::Parameter(Line, P1b);
-          ElCLib::CircleD2(Csup, CircleAxis, R, P1b, Tan1, Norm1);
-          ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+          Lsup = ElCLib1::Parameter(Line, P1b);
+          ElCLib1::CircleD2(Csup, CircleAxis, R, P1b, Tan1, Norm1);
+          ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
           IntImpParGen1::DeterminePosition(Pos1b, CIRC_Domain, P1b, Csup);
           IntImpParGen1::DeterminePosition(Pos2b, LIG_Domain, P2b, Lsup);
@@ -2632,7 +2632,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
     Standard_Real D  = a2 * m2 + b2 - c2;
     if (D < 0.)
     {
-      Extrema_ExtElC2d anExt(aTLine, aTEllipse);
+      ExtElC2d anExt(aTLine, aTEllipse);
       Standard_Integer i, imin = 0;
       Standard_Real    dmin = RealLast();
       for (i = 1; i <= anExt.NbExt(); ++i)
@@ -2646,7 +2646,7 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
       if (imin > 0 && dmin <= TolTang * TolTang)
       {
         nbsol = 1;
-        Extrema_POnCurv2d aP1, aP2;
+        PointOnCurve2d aP1, aP2;
         anExt.Points(imin, aP1, aP2);
         Standard_Real pe1 = aP2.Parameter();
         EInt1.SetValues(pe1, pe1);
@@ -2692,10 +2692,10 @@ void LineEllipseGeometricIntersection(const gp_Lin2d&   Line,
   gp_Pnt2d      aP1(x1, y1);
   gp_Pnt2d      aP2(x2, y2);
   Standard_Real pe1 = 0., pe2 = 0.;
-  pe1 = ElCLib::Parameter(aTEllipse, aP1);
+  pe1 = ElCLib1::Parameter(aTEllipse, aP1);
   if (nbsol > 1)
   {
-    pe2 = ElCLib::Parameter(aTEllipse, aP2);
+    pe2 = ElCLib1::Parameter(aTEllipse, aP2);
     if (pe2 < pe1)
     {
       Standard_Real t = pe1;
@@ -2728,8 +2728,8 @@ void ProjectOnLAndIntersectWithLDomain(const gp_Elips2d&      Ellipse,
   //--  Enfin, on cherche l intervalle correspondant sur C1
   //--
 
-  Standard_Real Linf = ElCLib::Parameter(Line, ElCLib::Value(EDomainAndRes.Binf, Ellipse));
-  Standard_Real Lsup = ElCLib::Parameter(Line, ElCLib::Value(EDomainAndRes.Bsup, Ellipse));
+  Standard_Real Linf = ElCLib1::Parameter(Line, ElCLib1::Value(EDomainAndRes.Binf, Ellipse));
+  Standard_Real Lsup = ElCLib1::Parameter(Line, ElCLib1::Value(EDomainAndRes.Bsup, Ellipse));
 
   Interval1 LInter(Linf, Lsup); //-- Necessairement Borne
 
@@ -2955,13 +2955,13 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
     Transition3 T1a, T2a, T1b, T2b;
     IntRes2d_Position   Pos1a, Pos1b, Pos2a, Pos2b;
 
-    ElCLib::EllipseD1(SolutionEllipse[0].Binf,
+    ElCLib1::EllipseD1(SolutionEllipse[0].Binf,
                       EllipseAxis,
                       E.MajorRadius(),
                       E.MinorRadius(),
                       P1a,
                       Tan1);
-    ElCLib::LineD1(SolutionLine[0].Binf, LineAxis, P2a, Tan2);
+    ElCLib1::LineD1(SolutionLine[0].Binf, LineAxis, P2a, Tan2);
 
     Standard_Boolean isOpposite = (Tan1.Dot(Tan2) < 0.0);
     for (i = 0; i < NbSolTotal; i++)
@@ -3012,14 +3012,14 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
         Lsup                    = T;
       }
 
-      ElCLib::EllipseD2(SolutionEllipse[i].Binf,
+      ElCLib1::EllipseD2(SolutionEllipse[i].Binf,
                         EllipseAxis,
                         E.MajorRadius(),
                         E.MinorRadius(),
                         P1a,
                         Tan1,
                         Norm1);
-      ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+      ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
 
       IntImpParGen1::DeterminePosition(Pos1a, DE, P1a, SolutionEllipse[i].Binf);
       IntImpParGen1::DeterminePosition(Pos2a, DL, P2a, Linf);
@@ -3029,10 +3029,10 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
       {
         Einf = DE.LastParameter();
         P1a  = DE.LastPoint();
-        Linf = ElCLib::Parameter(L, P1a);
+        Linf = ElCLib1::Parameter(L, P1a);
 
-        ElCLib::EllipseD2(Einf, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1a, Tan1, Norm1);
-        ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+        ElCLib1::EllipseD2(Einf, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1a, Tan1, Norm1);
+        ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
         IntImpParGen1::DeterminePosition(Pos1a, DE, P1a, Einf);
         IntImpParGen1::DeterminePosition(Pos2a, DL, P2a, Linf);
         Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
@@ -3041,10 +3041,10 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
       {
         Einf = DE.FirstParameter();
         P1a  = DE.FirstPoint();
-        Linf = ElCLib::Parameter(L, P1a);
+        Linf = ElCLib1::Parameter(L, P1a);
 
-        ElCLib::EllipseD2(Einf, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1a, Tan1, Norm1);
-        ElCLib::LineD1(Linf, LineAxis, P2a, Tan2);
+        ElCLib1::EllipseD2(Einf, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1a, Tan1, Norm1);
+        ElCLib1::LineD1(Linf, LineAxis, P2a, Tan2);
         IntImpParGen1::DeterminePosition(Pos1a, DE, P1a, Einf);
         IntImpParGen1::DeterminePosition(Pos2a, DL, P2a, Linf);
         Determine_Transition_LC(Pos1a, Tan1, Norm1, T1a, Pos2a, Tan2, Norm2, T2a, Tol);
@@ -3059,14 +3059,14 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
       if ((SolutionLine[i].Length() + SolutionEllipse[i].Length()) > 0.0)
       {
 
-        ElCLib::EllipseD2(SolutionEllipse[i].Binf,
+        ElCLib1::EllipseD2(SolutionEllipse[i].Binf,
                           EllipseAxis,
                           E.MajorRadius(),
                           E.MinorRadius(),
                           P1b,
                           Tan1,
                           Norm1);
-        ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+        ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
         IntImpParGen1::DeterminePosition(Pos1b, DE, P1b, SolutionEllipse[i].Bsup);
         IntImpParGen1::DeterminePosition(Pos2b, DL, P2b, Lsup);
@@ -3076,9 +3076,9 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
         {
           Esup = DL.LastParameter();
           P1b  = DE.LastPoint();
-          Lsup = ElCLib::Parameter(L, P1b);
-          ElCLib::EllipseD2(Esup, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1b, Tan1, Norm1);
-          ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+          Lsup = ElCLib1::Parameter(L, P1b);
+          ElCLib1::EllipseD2(Esup, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1b, Tan1, Norm1);
+          ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
           IntImpParGen1::DeterminePosition(Pos1b, DE, P1b, Esup);
           IntImpParGen1::DeterminePosition(Pos2b, DL, P2b, Lsup);
@@ -3088,9 +3088,9 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
         {
           Esup = DE.FirstParameter();
           P1b  = DE.FirstPoint();
-          Lsup = ElCLib::Parameter(L, P1b);
-          ElCLib::EllipseD2(Esup, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1b, Tan1, Norm1);
-          ElCLib::LineD1(Lsup, LineAxis, P2b, Tan2);
+          Lsup = ElCLib1::Parameter(L, P1b);
+          ElCLib1::EllipseD2(Esup, EllipseAxis, E.MajorRadius(), E.MinorRadius(), P1b, Tan1, Norm1);
+          ElCLib1::LineD1(Lsup, LineAxis, P2b, Tan2);
 
           IntImpParGen1::DeterminePosition(Pos1b, DE, P1b, Esup);
           IntImpParGen1::DeterminePosition(Pos2b, DL, P2b, Lsup);

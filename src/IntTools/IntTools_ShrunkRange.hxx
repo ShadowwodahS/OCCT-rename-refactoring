@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT void ShrunkRange(Standard_Real& aT1, Standard_Real& aT2) const;
 
-  Standard_EXPORT const Bnd_Box& BndBox() const;
+  Standard_EXPORT const Box2& BndBox() const;
 
   Standard_EXPORT const TopoEdge& Edge() const;
 
@@ -75,7 +75,7 @@ protected:
   Standard_Real            myT2;
   Standard_Real            myTS1;
   Standard_Real            myTS2;
-  Bnd_Box                  myBndBox;
+  Box2                  myBndBox;
   Handle(IntTools_Context) myCtx;
   Standard_Boolean         myIsDone;
   Standard_Boolean         myIsSplittable;

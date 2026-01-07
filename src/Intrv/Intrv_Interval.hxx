@@ -38,16 +38,16 @@
 //! ***-----------------*   IsOverlappingAtEnd
 //! ***--------*   IsJustAfter
 //! ***---*   IsAfter
-class Intrv_Interval
+class Interval2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Intrv_Interval();
+  Standard_EXPORT Interval2();
 
-  Standard_EXPORT Intrv_Interval(const Standard_Real Start, const Standard_Real End);
+  Standard_EXPORT Interval2(const Standard_Real Start, const Standard_Real End);
 
-  Standard_EXPORT Intrv_Interval(const Standard_Real      Start,
+  Standard_EXPORT Interval2(const Standard_Real      Start,
                                  const Standard_ShortReal TolStart,
                                  const Standard_Real      End,
                                  const Standard_ShortReal TolEnd);
@@ -112,72 +112,72 @@ public:
   //! ***-----------------*   OverlappingAtEnd
   //! ***--------*   JustAfter
   //! ***---*   After
-  Standard_EXPORT Intrv_Position Position(const Intrv_Interval& Other) const;
+  Standard_EXPORT Intrv_Position Position(const Interval2& Other) const;
 
   //! True if me is Before Other
   //! ***----------------**                              me
   //! **-----------****          Other
-  Standard_Boolean IsBefore(const Intrv_Interval& Other) const;
+  Standard_Boolean IsBefore(const Interval2& Other) const;
 
   //! True if me is After Other
   //! **-----------****          me
   //! ***----------------**                              Other
-  Standard_Boolean IsAfter(const Intrv_Interval& Other) const;
+  Standard_Boolean IsAfter(const Interval2& Other) const;
 
   //! True if me is Inside Other
   //! **-----------****                          me
   //! ***--------------------------**                    Other
-  Standard_Boolean IsInside(const Intrv_Interval& Other) const;
+  Standard_Boolean IsInside(const Interval2& Other) const;
 
   //! True if me is Enclosing Other
   //! ***----------------------------****                  me
   //! ***------------------**                        Other
-  Standard_Boolean IsEnclosing(const Intrv_Interval& Other) const;
+  Standard_Boolean IsEnclosing(const Interval2& Other) const;
 
   //! True if me is just Enclosing Other at start
   //! ***---------------------------****            me
   //! ***------------------**                        Other
-  Standard_Boolean IsJustEnclosingAtStart(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustEnclosingAtStart(const Interval2& Other) const;
 
   //! True if me is just Enclosing Other at End
   //! ***----------------------------****                  me
   //! ***-----------------****                   Other
-  Standard_Boolean IsJustEnclosingAtEnd(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustEnclosingAtEnd(const Interval2& Other) const;
 
   //! True if me is just before Other
   //! ***--------****                                      me
   //! ***-----------**                        Other
-  Standard_Boolean IsJustBefore(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustBefore(const Interval2& Other) const;
 
   //! True if me is just after Other
   //! ****-------****                         me
   //! ***-----------**                                     Other
-  Standard_Boolean IsJustAfter(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustAfter(const Interval2& Other) const;
 
   //! True if me is overlapping Other at start
   //! ***---------------***                                me
   //! ***-----------**                        Other
-  Standard_Boolean IsOverlappingAtStart(const Intrv_Interval& Other) const;
+  Standard_Boolean IsOverlappingAtStart(const Interval2& Other) const;
 
   //! True if me is overlapping Other at end
   //! ***-----------**                        me
   //! ***---------------***                                Other
-  Standard_Boolean IsOverlappingAtEnd(const Intrv_Interval& Other) const;
+  Standard_Boolean IsOverlappingAtEnd(const Interval2& Other) const;
 
   //! True if me is just overlapping Other at start
   //! ***-----------***                                    me
   //! ***------------------------**                        Other
-  Standard_Boolean IsJustOverlappingAtStart(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustOverlappingAtStart(const Interval2& Other) const;
 
   //! True if me is just overlapping Other at end
   //! ***-----------*                         me
   //! ***------------------------**                        Other
-  Standard_Boolean IsJustOverlappingAtEnd(const Intrv_Interval& Other) const;
+  Standard_Boolean IsJustOverlappingAtEnd(const Interval2& Other) const;
 
   //! True if me and Other have the same bounds
   //! *----------------***                                me
   //! ***-----------------**                               Other
-  Standard_Boolean IsSimilar(const Intrv_Interval& Other) const;
+  Standard_Boolean IsSimilar(const Interval2& Other) const;
 
 protected:
 private:

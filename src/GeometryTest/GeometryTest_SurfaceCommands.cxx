@@ -337,7 +337,7 @@ static Standard_Integer fillcurves(DrawInterpreter& /*di*/, Standard_Integer n, 
     aC = DrawTrSurf1::GetCurve(a[i]);
     if (aC.IsNull())
       return 1;
-    C[i - 2] = GeomConvert::CurveToBSplineCurve(aC, Convert_RationalC1);
+    C[i - 2] = GeomConvert1::CurveToBSplineCurve(aC, Convert_RationalC1);
   }
 
   Standard_Integer      ist   = 2;

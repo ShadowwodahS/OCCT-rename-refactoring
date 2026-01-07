@@ -29,7 +29,7 @@ class Standard_GUID;
 class TDF_Attribute;
 
 //! This package   provides Draw1 services to test  CAF
-//! standard documents (see TDocStd package)
+//! standard documents (see TDocStd1 package)
 //!
 //! It provides :
 //!

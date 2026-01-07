@@ -2969,7 +2969,7 @@ TopAbs_State sta)
       }
       Standard_Integer nnewI = newloi.Extent();
       Standard_Integer nI = loi.Extent();
-      Standard_Boolean ko = (nnewI > 1) && (nnewI != nI); // complex transitions at G
+      Standard_Boolean ko = (nnewI > 1) && (nnewI != nI); // complex1 transitions at G
                                              // NYI : correcting reducing cto 001 W3 (e35)
       if (!ko) newLI.Append(newloi);
 //      newLI.Append(newloi); //xpu280898 : cto905J1 (e25,v8)

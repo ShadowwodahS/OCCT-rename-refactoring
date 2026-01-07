@@ -784,7 +784,7 @@ Standard_Integer TopOpeBRepTool_CORRISO::EdgeOUTofBoundsUV(const TopoEdge&     E
     Geom2dAdaptor_Curve GC2d(PC, f, l);
     Standard_Real       tolE   = BRepInspector::Tolerance(E);
     Standard_Real       toladd = Max(tolE, tol);
-    BndLib_Add2dCurve::Add(GC2d, toladd, Bn2d);
+    Add2dCurve::Add(GC2d, toladd, Bn2d);
     Standard_Real umin, vmin, umax, vmax;
     Bn2d.Get(umin, vmin, umax, vmax);
     Standard_Real    xmin = onU ? umin : vmin;

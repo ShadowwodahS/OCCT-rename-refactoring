@@ -63,7 +63,7 @@ class Point3d;
 //! Warnings :
 //! The major radius (on the major axis) can be lower than the
 //! minor radius (on the minor axis).
-class gce_MakeHypr : public gce_Root
+class gce_MakeHypr : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

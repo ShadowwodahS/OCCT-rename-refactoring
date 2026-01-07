@@ -35,7 +35,7 @@ class HLRBRep_AreaLimit : public RefObject
 
 public:
   //! The previous and next field are set to NULL.
-  Standard_EXPORT HLRBRep_AreaLimit(const HLRAlgo_Intersection& V,
+  Standard_EXPORT HLRBRep_AreaLimit(const Intersection3& V,
                                     const Standard_Boolean      Boundary,
                                     const Standard_Boolean      Interference,
                                     const TopAbs_State          StateBefore,
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT void Next(const Handle(HLRBRep_AreaLimit)& N);
 
-  Standard_EXPORT const HLRAlgo_Intersection& Vertex() const;
+  Standard_EXPORT const Intersection3& Vertex() const;
 
   Standard_EXPORT Standard_Boolean IsBoundary() const;
 
@@ -79,7 +79,7 @@ public:
 
 protected:
 private:
-  HLRAlgo_Intersection      myVertex;
+  Intersection3      myVertex;
   Standard_Boolean          myBoundary;
   Standard_Boolean          myInterference;
   TopAbs_State              myStateBefore;

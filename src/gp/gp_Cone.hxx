@@ -44,7 +44,7 @@
 //! Geom_ConicalSurface cone.
 //! See Also
 //! gce_MakeCone which provides functions for more
-//! complex cone constructions
+//! complex1 cone constructions
 //! Geom_ConicalSurface which provides additional
 //! functions for constructing cones and works, in particular,
 //! with the parametric equations of cones gp_Ax3

@@ -38,10 +38,10 @@ public:
   {
   }
 
-  //! Returns index of first node of the Link.
+  //! Returns index of first node of the Link1.
   Standard_Integer FirstNode() const { return myFirstNode; }
 
-  //! Returns index of last node of the Link.
+  //! Returns index of last node of the Link1.
   Standard_Integer LastNode() const { return myLastNode; }
 
   //! Checks this and other edge for equality.

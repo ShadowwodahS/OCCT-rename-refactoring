@@ -448,7 +448,7 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
       const TopoShape& aSol = aItLS.Value();
       myAreas.Append(aSol);
       // Build box
-      Bnd_Box aBox;
+      Box2 aBox;
       BRepBndLib::Add(aSol, aBox);
       myBoxes.Bind(aSol, aBox);
     }
@@ -465,9 +465,9 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
   {
     const TopoShape& aHShell = aHoleShells(i);
     //
-    Bnd_Box aBox;
+    Box2 aBox;
     BRepBndLib::Add(aHShell, aBox);
-    aBBTree.Add(i, Bnd_Tools::Bnd2BVH(aBox));
+    aBBTree.Add(i, Tools5::Bnd2BVH(aBox));
 
     myBoxes.Bind(aHShell, aBox);
   }
@@ -489,13 +489,13 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
     const TopoShape& aSolid = aItLS.Value();
 
     // Build box
-    Bnd_Box aBox;
+    Box2 aBox;
     BRepBndLib::Add(aSolid, aBox);
 
     myBoxes.Bind(aSolid, aBox);
 
     BOPTools_BoxTreeSelector aSelector;
-    aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBox));
+    aSelector.SetBox(Tools5::Bnd2BVH(aBox));
     aSelector.SetBVHSet(&aBBTree);
     aSelector.Select();
 
@@ -581,7 +581,7 @@ void BOPAlgo_BuilderSolid::PerformAreas(const Message_ProgressRange& theRange)
       //
       myAreas.Append(aSolid);
       // Make an infinite box for the hole
-      Bnd_Box aBox;
+      Box2 aBox;
       aBox.SetWhole();
       myBoxes.Bind(aSolid, aBox);
     }

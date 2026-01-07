@@ -113,7 +113,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  Bnd_Box aBox;
+  Box2 aBox;
   if (aBox.InitFromJson(theSStream, aStartPos))
   {
     TopoShape aShape;
@@ -168,7 +168,7 @@ Standard_Boolean Convert_Tools::ConvertStreamToColor(const Standard_SStream& the
 // function : CreateShape
 // purpose  :
 //=======================================================================
-Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoShape& theShape)
+Standard_Boolean Convert_Tools::CreateShape(const Box2& theBoundingBox, TopoShape& theShape)
 {
   if (theBoundingBox.IsVoid() || theBoundingBox.IsWhole())
     return Standard_False;
@@ -186,7 +186,7 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoS
 // function : CreateShape
 // purpose  :
 //=======================================================================
-Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoShape& theShape)
+Standard_Boolean Convert_Tools::CreateShape(const OrientedBox& theBoundingBox, TopoShape& theShape)
 {
   if (theBoundingBox.IsVoid())
     return Standard_False;
@@ -273,7 +273,7 @@ void Convert_Tools::CreatePresentation(
   const Transform3d&                                theTrsf,
   NCollection_List<Handle(RefObject)>& thePresentations)
 {
-  Bnd_Box aBox(Point3d(), Point3d(10., 10., 10));
+  Box2 aBox(Point3d(), Point3d(10., 10., 10));
 
   TopoShape aBoxShape;
   if (!Convert_Tools::CreateShape(aBox, aBoxShape))

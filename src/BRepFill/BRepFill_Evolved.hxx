@@ -112,19 +112,19 @@ private:
   Standard_EXPORT void ElementaryPerform(const TopoFace&              Spine,
                                          const TopoWire&              Profile,
                                          const BRepMAT2d_BisectingLocus& Locus,
-                                         BRepMAT2d_LinkTopoBilo&         Link,
+                                         BRepMAT2d_LinkTopoBilo&         Link1,
                                          const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
   Standard_EXPORT void PlanarPerform(const TopoFace&              Spine,
                                      const TopoWire&              Profile,
                                      const BRepMAT2d_BisectingLocus& Locus,
-                                     BRepMAT2d_LinkTopoBilo&         Link,
+                                     BRepMAT2d_LinkTopoBilo&         Link1,
                                      const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
   Standard_EXPORT void VerticalPerform(const TopoFace&              Spine,
                                        const TopoWire&              Profile,
                                        const BRepMAT2d_BisectingLocus& Locus,
-                                       BRepMAT2d_LinkTopoBilo&         Link,
+                                       BRepMAT2d_LinkTopoBilo&         Link1,
                                        const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
   Standard_EXPORT BRepFill_DataMapOfShapeDataMapOfShapeListOfShape& Generated();

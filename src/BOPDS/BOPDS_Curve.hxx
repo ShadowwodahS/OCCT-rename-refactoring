@@ -25,7 +25,7 @@
 #include <NCollection_BaseAllocator.hxx>
 #include <TColStd_ListOfInteger.hxx>
 class IntTools_Curve;
-class Bnd_Box;
+class Box2;
 class BOPDS_PaveBlock;
 
 //! The class BOPDS_Curve is to store
@@ -54,15 +54,15 @@ public:
 
   //! Modifier
   //! Sets the bounding box <theBox> of the curve
-  void SetBox(const Bnd_Box& theBox);
+  void SetBox(const Box2& theBox);
 
   //! Selector
   //! Returns the bounding box of the curve
-  const Bnd_Box& Box() const;
+  const Box2& Box1() const;
 
   //! Selector/Modifier
   //! Returns the bounding box of the curve
-  Bnd_Box& ChangeBox();
+  Box2& ChangeBox();
 
   void SetPaveBlocks(const BOPDS_ListOfPaveBlock& theLPB);
 
@@ -114,7 +114,7 @@ protected:
   IntTools_Curve                    myCurve;
   BOPDS_ListOfPaveBlock             myPaveBlocks;
   TColStd_ListOfInteger             myTechnoVertices;
-  Bnd_Box                           myBox;
+  Box2                           myBox;
   Standard_Real                     myTolerance;
 
 private:

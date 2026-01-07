@@ -93,32 +93,32 @@ Standard_Real Bisector_BisecAna::Distance(const gp_Pnt2d&             apoint,
   if (type == GccInt_Lin)
   {
     gpline     = abisector->Line();
-    aparameter = ElCLib::Parameter(gpline, apoint);
-    ElCLib::D1(aparameter, gpline, point, tangent);
+    aparameter = ElCLib1::Parameter(gpline, apoint);
+    ElCLib1::D1(aparameter, gpline, point, tangent);
   }
   else if (type == GccInt_Cir)
   {
     gpcircle   = abisector->Circle();
-    aparameter = ElCLib::Parameter(gpcircle, apoint);
-    ElCLib::D1(aparameter, gpcircle, point, tangent);
+    aparameter = ElCLib1::Parameter(gpcircle, apoint);
+    ElCLib1::D1(aparameter, gpcircle, point, tangent);
   }
   else if (type == GccInt_Hpr)
   {
     gphyperbola = abisector->Hyperbola();
-    aparameter  = ElCLib::Parameter(gphyperbola, apoint);
-    ElCLib::D1(aparameter, gphyperbola, point, tangent);
+    aparameter  = ElCLib1::Parameter(gphyperbola, apoint);
+    ElCLib1::D1(aparameter, gphyperbola, point, tangent);
   }
   else if (type == GccInt_Par)
   {
     gpparabola = abisector->Parabola();
-    aparameter = ElCLib::Parameter(gpparabola, apoint);
-    ElCLib::D1(aparameter, gpparabola, point, tangent);
+    aparameter = ElCLib1::Parameter(gpparabola, apoint);
+    ElCLib1::D1(aparameter, gpparabola, point, tangent);
   }
   else if (type == GccInt_Ell)
   {
     gpellipse  = abisector->Ellipse();
-    aparameter = ElCLib::Parameter(gpellipse, apoint);
-    ElCLib::D1(aparameter, gpellipse, point, tangent);
+    aparameter = ElCLib1::Parameter(gpellipse, apoint);
+    ElCLib1::D1(aparameter, gpellipse, point, tangent);
   }
 
   distance = apoint.Distance(point);
@@ -402,7 +402,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
         else
         {
           Standard_Real parameter2;
-          parameter2 = ElCLib::Parameter(line, circle1.Location());
+          parameter2 = ElCLib1::Parameter(line, circle1.Location());
           parameter2 += 1.e-8;
           thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, parameter2);
         }
@@ -552,7 +552,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
                   if (aNewLin.Distance(aCC2) <= aTolConf)
                   {
                     distancemini   = aNewDMin;
-                    firstparameter = ElCLib::Parameter(aNewLin, apoint);
+                    firstparameter = ElCLib1::Parameter(aNewLin, apoint);
                     bisectorcurve  = new Geom2d_Line(aNewLin);
                   }
                 }
@@ -560,8 +560,8 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
                 if (tan1.Dot(tan2) < 0.)
                 {
                   // flat and not turn back.
-                  Standard_Real Par1   = ElCLib::Parameter(gpline, circle1.Location());
-                  Standard_Real Par2   = ElCLib::Parameter(gpline, circle2.Location());
+                  Standard_Real Par1   = ElCLib1::Parameter(gpline, circle1.Location());
+                  Standard_Real Par2   = ElCLib1::Parameter(gpline, circle2.Location());
                   Standard_Real MinPar = Min(Par1, Par2);
                   Standard_Real MaxPar = Max(Par1, Par2);
 
@@ -718,7 +718,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
             circlecenter    = circle1.Location();
             gpline          = TheSol->Line();
-            secondparameter = ElCLib::Parameter(gpline, circlecenter);
+            secondparameter = ElCLib1::Parameter(gpline, circlecenter);
             bisectorcurve   = new Geom2d_Line(gpline);
 
             if (!thesense)
@@ -1003,7 +1003,7 @@ void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
 
             circlecenter    = circle.Location();
             line            = TheSol->Line();
-            secondparameter = ElCLib::Parameter(line, circlecenter);
+            secondparameter = ElCLib1::Parameter(line, circlecenter);
             bisectorcurve   = new Geom2d_Line(line);
 
             if (!thesense)
@@ -1576,27 +1576,27 @@ Standard_Real Bisector_BisecAna::Parameter(const gp_Pnt2d& P) const
   if (Type == STANDARD_TYPE(Geom2d_Line))
   {
     gpline = Handle(Geom2d_Line)::DownCast(BasisCurve)->Lin2d();
-    return ElCLib::Parameter(gpline, P);
+    return ElCLib1::Parameter(gpline, P);
   }
   else if (Type == STANDARD_TYPE(Geom2d_Circle))
   {
     gpcircle = Handle(Geom2d_Circle)::DownCast(BasisCurve)->Circ2d();
-    return ElCLib::Parameter(gpcircle, P);
+    return ElCLib1::Parameter(gpcircle, P);
   }
   else if (Type == STANDARD_TYPE(Geom2d_Hyperbola))
   {
     gphyperbola = Handle(Geom2d_Hyperbola)::DownCast(BasisCurve)->Hypr2d();
-    return ElCLib::Parameter(gphyperbola, P);
+    return ElCLib1::Parameter(gphyperbola, P);
   }
   else if (Type == STANDARD_TYPE(Geom2d_Parabola))
   {
     gpparabola = Handle(Geom2d_Parabola)::DownCast(BasisCurve)->Parab2d();
-    return ElCLib::Parameter(gpparabola, P);
+    return ElCLib1::Parameter(gpparabola, P);
   }
   else if (Type == STANDARD_TYPE(Geom2d_Ellipse))
   {
     gpellipse = Handle(Geom2d_Ellipse)::DownCast(BasisCurve)->Elips2d();
-    return ElCLib::Parameter(gpellipse, P);
+    return ElCLib1::Parameter(gpellipse, P);
   }
   return 0.;
 }

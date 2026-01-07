@@ -295,7 +295,7 @@ Standard_Integer Approx_CurvlinFunc::NbIntervals(const GeomAbs_Shape S) const
       CurOnSur.Intervals(T2, S);
 
       TColStd_SequenceOfReal Fusion;
-      GeomLib::FuseIntervals(T1, T2, Fusion);
+      GeomLib1::FuseIntervals(T1, T2, Fusion);
       return Fusion.Length() - 1;
   }
 
@@ -332,7 +332,7 @@ void Approx_CurvlinFunc::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape 
       CurOnSur.Intervals(T2, S);
 
       TColStd_SequenceOfReal Fusion;
-      GeomLib::FuseIntervals(T1, T2, Fusion);
+      GeomLib1::FuseIntervals(T1, T2, Fusion);
 
       for (i = 1; i <= Fusion.Length(); i++)
         T.ChangeValue(i) = Fusion.Value(i);

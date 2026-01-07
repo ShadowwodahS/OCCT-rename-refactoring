@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IntPatch_ALine, IntPatch_Line)
 
 #define DEBUG 0
 
-IntPatch_ALine::IntPatch_ALine(const IntAna_Curve&     C,
+IntPatch_ALine::IntPatch_ALine(const Curve1&     C,
                                const Standard_Boolean  Tang,
                                const IntSurf_TypeTrans Trans1,
                                const IntSurf_TypeTrans Trans2)
@@ -37,7 +37,7 @@ IntPatch_ALine::IntPatch_ALine(const IntAna_Curve&     C,
   curv = C;
 }
 
-IntPatch_ALine::IntPatch_ALine(const IntAna_Curve&     C,
+IntPatch_ALine::IntPatch_ALine(const Curve1&     C,
                                const Standard_Boolean  Tang,
                                const IntSurf_Situation Situ1,
                                const IntSurf_Situation Situ2)
@@ -51,7 +51,7 @@ IntPatch_ALine::IntPatch_ALine(const IntAna_Curve&     C,
   curv = C;
 }
 
-IntPatch_ALine::IntPatch_ALine(const IntAna_Curve& C, const Standard_Boolean Tang)
+IntPatch_ALine::IntPatch_ALine(const Curve1& C, const Standard_Boolean Tang)
     : IntPatch_Line(Tang),
       fipt(Standard_False),
       lapt(Standard_False),
@@ -62,7 +62,7 @@ IntPatch_ALine::IntPatch_ALine(const IntAna_Curve& C, const Standard_Boolean Tan
   curv = C;
 }
 
-const IntAna_Curve& IntPatch_ALine::Curve() const
+const Curve1& IntPatch_ALine::Curve() const
 {
   return (curv);
 }

@@ -29,8 +29,8 @@
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
 class Adaptor3d_Curve;
-class Extrema_CurveTool;
-class Extrema_POnCurv;
+class CurveTool4;
+class PointOnCurve1;
 class Point3d;
 class Vector3d;
 
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin(const Standard_Integer N) const;
 
   //! Returns the Nth extremum.
-  Standard_EXPORT const Extrema_POnCurv& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve1& Point(const Standard_Integer N) const;
 
   //! Determines boundaries of subinterval for find of root.
   Standard_EXPORT void SubIntervalInitialize(const Standard_Real theUfirst,

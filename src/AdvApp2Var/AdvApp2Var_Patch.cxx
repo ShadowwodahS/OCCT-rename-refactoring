@@ -93,8 +93,8 @@ Standard_Boolean AdvApp2Var_Patch::IsDiscretised() const
 //=================================================================================================
 
 void AdvApp2Var_Patch::Discretise(const AdvApp2Var_Context&           Conditions,
-                                  const AdvApp2Var_Framework&         Constraints,
-                                  const AdvApp2Var_EvaluatorFunc2Var& Func)
+                                  const Framework&         Constraints,
+                                  const EvaluatorFunc2Var& Func)
 {
 
   // data stored in the Context
@@ -281,7 +281,7 @@ void AdvApp2Var_Patch::Discretise(const AdvApp2Var_Context&           Conditions
   Standard_Integer IERCOD = 0;
 
   //  discretization of polynoms of interpolation
-  AdvApp2Var_ApproxF2var::mma2cdi_(&NDIMEN,
+  FunctionApprox2var::mma2cdi_(&NDIMEN,
                                    &NBPNTU,
                                    UROOT,
                                    &NBPNTV,
@@ -323,7 +323,7 @@ void AdvApp2Var_Patch::Discretise(const AdvApp2Var_Context&           Conditions
   // GCC 3.0 would not accept this line without the void
   // pointer cast.  Perhaps the real problem is a definition
   // somewhere that has a void * in it.
-  AdvApp2Var_ApproxF2var::mma2ds1_(&NDIMEN,
+  FunctionApprox2var::mma2ds1_(&NDIMEN,
                                    UDBFN,
                                    VDBFN,
                                    /*(void *)*/ Func,
@@ -372,7 +372,7 @@ Standard_Boolean AdvApp2Var_Patch::IsApproximated() const
 //=================================================================================================
 
 void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
-                                      const AdvApp2Var_Framework& Constraints)
+                                      const Framework& Constraints)
 {
   // data stored in the  Context
   Standard_Integer NDIMEN;
@@ -456,12 +456,12 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
   Standard_Real* HermV = (Standard_Real*)&HHERMV->ChangeArray1()(HHERMV->Lower());
   if (IORDRV >= 0)
   {
-    AdvApp2Var_ApproxF2var::mma1her_(&IORDRV, HermV, &IERCOD);
+    FunctionApprox2var::mma1her_(&IORDRV, HermV, &IERCOD);
     if (IERCOD != 0)
     {
       throw Standard_ConstructionError("AdvApp2Var_Patch::AddConstraints : Error in FORTRAN");
     }
-    AdvApp2Var_ApproxF2var::mma2ac2_(&NDIMEN,
+    FunctionApprox2var::mma2ac2_(&NDIMEN,
                                      &NDegU,
                                      &NDegV,
                                      &IORDRV,
@@ -480,12 +480,12 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
   Standard_Real* HermU = (Standard_Real*)&HHERMU->ChangeArray1()(HHERMU->Lower());
   if (IORDRU >= 0)
   {
-    AdvApp2Var_ApproxF2var::mma1her_(&IORDRU, HermU, &IERCOD);
+    FunctionApprox2var::mma1her_(&IORDRU, HermU, &IERCOD);
     if (IERCOD != 0)
     {
       throw Standard_ConstructionError("AdvApp2Var_Patch::AddConstraints : Error in FORTRAN");
     }
-    AdvApp2Var_ApproxF2var::mma2ac3_(&NDIMEN,
+    FunctionApprox2var::mma2ac3_(&NDIMEN,
                                      &NDegU,
                                      &NDegV,
                                      &IORDRU,
@@ -565,7 +565,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
     for (idim = 1; idim <= NDIMEN; idim++)
     {
       Is = IsoU0 + NCFLMV * (idim - 1) + NCFLMV * NDIMEN * (iu - 1);
-      AdvApp2Var_MathBase::mmdrc11_(&IORDRV, &iun, &ncf0, Is, EXTR, FACT);
+      MathBase::mmdrc11_(&IORDRV, &iun, &ncf0, Is, EXTR, FACT);
       for (iv = 1; iv <= IORDRV + 1; iv++)
       {
         ideb = HCOINS->Lower() + NDIMEN * (iu - 1) + NDIMEN * (IORDRU + 2) * (iv - 1) - 1;
@@ -573,7 +573,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
         HCOINS->ChangeValue(2 * SIZE + idim + ideb) += HEXTR->Value(2 + 2 * (iv - 1));
       }
       Is = IsoU1 + NCFLMV * (idim - 1) + NCFLMV * NDIMEN * (iu - 1);
-      AdvApp2Var_MathBase::mmdrc11_(&IORDRV, &iun, &ncf1, Is, EXTR, FACT);
+      MathBase::mmdrc11_(&IORDRV, &iun, &ncf1, Is, EXTR, FACT);
       for (iv = 1; iv <= IORDRV + 1; iv++)
       {
         ideb = HCOINS->Lower() + NDIMEN * (iu - 1) + NDIMEN * (IORDRU + 2) * (iv - 1) - 1;
@@ -591,7 +591,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
     for (idim = 1; idim <= NDIMEN; idim++)
     {
       Is = IsoV0 + NCFLMU * (idim - 1) + NCFLMU * NDIMEN * (iv - 1);
-      AdvApp2Var_MathBase::mmdrc11_(&IORDRU, &iun, &ncf0, Is, EXTR, FACT);
+      MathBase::mmdrc11_(&IORDRU, &iun, &ncf0, Is, EXTR, FACT);
       for (iu = 1; iu <= IORDRU + 1; iu++)
       {
         ideb = HCOINS->Lower() + NDIMEN * (iu - 1) + NDIMEN * (IORDRU + 2) * (iv - 1) - 1;
@@ -599,7 +599,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
         HCOINS->ChangeValue(SIZE + idim + ideb) += HEXTR->Value(2 + 2 * (iu - 1));
       }
       Is = IsoV1 + NCFLMU * (idim - 1) + NCFLMU * NDIMEN * (iv - 1);
-      AdvApp2Var_MathBase::mmdrc11_(&IORDRU, &iun, &ncf1, Is, EXTR, FACT);
+      MathBase::mmdrc11_(&IORDRU, &iun, &ncf1, Is, EXTR, FACT);
       for (iu = 1; iu <= IORDRU + 1; iu++)
       {
         ideb = HCOINS->Lower() + NDIMEN * (iu - 1) + NDIMEN * (IORDRU + 2) * (iv - 1) - 1;
@@ -616,7 +616,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
   Standard_Real* C4 = C3 + SIZE;
   if (IORDRU >= 0 && IORDRV >= 0)
   {
-    AdvApp2Var_ApproxF2var::mma2ac1_(&NDIMEN,
+    FunctionApprox2var::mma2ac1_(&NDIMEN,
                                      &NDegU,
                                      &NDegV,
                                      &IORDRU,
@@ -633,7 +633,7 @@ void AdvApp2Var_Patch::AddConstraints(const AdvApp2Var_Context&   Conditions,
 
 //=================================================================================================
 
-void AdvApp2Var_Patch::AddErrors(const AdvApp2Var_Framework& Constraints)
+void AdvApp2Var_Patch::AddErrors(const Framework& Constraints)
 {
   Standard_Integer NBSESP = 1, iesp;
   Standard_Integer iu, iv;
@@ -742,7 +742,7 @@ void AdvApp2Var_Patch::AddErrors(const AdvApp2Var_Framework& Constraints)
 //=================================================================================================
 
 void AdvApp2Var_Patch::MakeApprox(const AdvApp2Var_Context&   Conditions,
-                                  const AdvApp2Var_Framework& Constraints,
+                                  const Framework& Constraints,
                                   const Standard_Integer      NumDec)
 {
 
@@ -828,7 +828,7 @@ void AdvApp2Var_Patch::MakeApprox(const AdvApp2Var_Context&   Conditions,
   Standard_Integer iun = 1, itrois = 3;
   NCOEFU = 0;
   NCOEFV = 0;
-  AdvApp2Var_ApproxF2var::mma2ce1_((integer*)&NumDec,
+  FunctionApprox2var::mma2ce1_((integer*)&NumDec,
                                    &NDIMEN,
                                    &NBSESP,
                                    &NDIMSE,
@@ -867,7 +867,7 @@ void AdvApp2Var_Patch::MakeApprox(const AdvApp2Var_Context&   Conditions,
     myMoyErrors  = HERRMOY;
 
     // Passage to canonic on [-1,1]
-    AdvApp2Var_MathBase::mmfmca9_(&NJacU,
+    MathBase::mmfmca9_(&NJacU,
                                   &NJacV,
                                   &NDIMEN,
                                   &myNbCoeffInU,
@@ -875,7 +875,7 @@ void AdvApp2Var_Patch::MakeApprox(const AdvApp2Var_Context&   Conditions,
                                   &NDIMEN,
                                   PATJAC,
                                   PATJAC);
-    AdvApp2Var_ApproxF2var::mma2can_(&NCFLMU,
+    FunctionApprox2var::mma2can_(&NCFLMU,
                                      &NCFLMV,
                                      &NDIMEN,
                                      &myOrdInU,
@@ -899,7 +899,7 @@ void AdvApp2Var_Patch::MakeApprox(const AdvApp2Var_Context&   Conditions,
     // Reduction of degrees if possible
     PATCAN = (Standard_Real*)&myEquation->ChangeArray1()(myEquation->Lower());
 
-    AdvApp2Var_ApproxF2var::mma2fx6_(&NCFLMU,
+    FunctionApprox2var::mma2fx6_(&NCFLMU,
                                      &NCFLMV,
                                      &NDIMEN,
                                      &NBSESP,
@@ -1033,7 +1033,7 @@ Standard_Integer AdvApp2Var_Patch::CutSense() const
 //           2 : required cut by V; 3 : required cut by U and by V
 //============================================================================
 
-Standard_Integer AdvApp2Var_Patch::CutSense(const AdvApp2Var_Criterion& Crit,
+Standard_Integer AdvApp2Var_Patch::CutSense(const Criterion& Crit,
                                             const Standard_Integer      NumDec) const
 {
   Standard_Boolean CritRel = (Crit.Type() == AdvApp2Var_Relative);

@@ -35,12 +35,12 @@
 //! intersection with the face (before and after).
 //! This is necessary when the intersection is "ON"
 //! the face.
-class HLRAlgo_Coincidence
+class Coincidence
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  HLRAlgo_Coincidence()
+  Coincidence()
       : myFE(0),
         myParam(0.),
         myStBef(TopAbs_IN),

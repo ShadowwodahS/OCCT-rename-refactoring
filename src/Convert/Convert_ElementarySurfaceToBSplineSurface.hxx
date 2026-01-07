@@ -57,7 +57,7 @@ class Point3d;
 //! its weights, its knots and their multiplicity.
 //! KeyWords :
 //! Convert, ElementarySurface, BSplineSurface.
-class Convert_ElementarySurfaceToBSplineSurface
+class ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -126,7 +126,7 @@ public:
   Standard_EXPORT Standard_Integer VMultiplicity(const Standard_Integer VIndex) const;
 
 protected:
-  Standard_EXPORT Convert_ElementarySurfaceToBSplineSurface(const Standard_Integer NumberOfUPoles,
+  Standard_EXPORT ElementaryToBSplineSurface(const Standard_Integer NumberOfUPoles,
                                                             const Standard_Integer NumberOfVPoles,
                                                             const Standard_Integer NumberOfUKnots,
                                                             const Standard_Integer NumberOfVKnots,

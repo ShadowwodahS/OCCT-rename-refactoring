@@ -95,7 +95,7 @@ public:
   void SetFuzzyValue(const Standard_Real theFuzz) { IntTools_EdgeFace::SetFuzzyValue(theFuzz); }
 
   //
-  void SetBoxes(const Bnd_Box& theBox1, const Bnd_Box& theBox2)
+  void SetBoxes(const Box2& theBox1, const Box2& theBox2)
   {
     myBox1 = theBox1;
     myBox2 = theBox2;
@@ -152,8 +152,8 @@ protected:
   Standard_Integer        myIF;
   IntToolsRange          myNewSR;
   Handle(BOPDS_PaveBlock) myPB;
-  Bnd_Box                 myBox1;
-  Bnd_Box                 myBox2;
+  Box2                 myBox1;
+  Box2                 myBox2;
 };
 
 //
@@ -229,7 +229,7 @@ void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
     //
     const TopoEdge& aE   = (*(TopoEdge*)(&aSIE.Shape()));
     const TopoFace& aF   = (*(TopoFace*)(&myDS->Shape(nF)));
-    const Bnd_Box&     aBBF = myDS->ShapeInfo(nF).Box();
+    const Box2&     aBBF = myDS->ShapeInfo(nF).Box1();
     //
     BOPDS_FaceInfo&                    aFI   = myDS->ChangeFaceInfo(nF);
     const BOPDS_IndexedMapOfPaveBlock& aMPBF = aFI.PaveBlocksOn();
@@ -256,7 +256,7 @@ void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
         continue;
       }
       //
-      Bnd_Box aBBE;
+      Box2 aBBE;
       if (!GetPBBox(aE, aPB, aDMPBBox, aT1, aT2, aTS1, aTS2, aBBE))
       {
         continue;
@@ -279,7 +279,7 @@ void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
       //
       aEdgeFace.SetEdge(aE);
       aEdgeFace.SetFace(aF);
-      aEdgeFace.SetBoxes(myDS->ShapeInfo(nE).Box(), myDS->ShapeInfo(nF).Box());
+      aEdgeFace.SetBoxes(myDS->ShapeInfo(nE).Box1(), myDS->ShapeInfo(nF).Box1());
       aEdgeFace.SetFuzzyValue(myFuzzyValue);
       aEdgeFace.UseQuickCoincidenceCheck(bExpressCompute);
 
@@ -845,11 +845,11 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
     }
 
     Standard_Real    f, l;
-    Bnd_Box          aPBBox;
+    Box2          aPBBox;
     Standard_Boolean isSplit;
     aPB->ShrunkData(f, l, aPBBox, isSplit);
 
-    aBBTree.Add(aPBMap.Add(aPB), Bnd_Tools::Bnd2BVH(aPBBox));
+    aBBTree.Add(aPBMap.Add(aPB), Tools5::Bnd2BVH(aPBBox));
   }
 
   // Shake the tree
@@ -878,9 +878,9 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
       return;
     }
 
-    const Bnd_Box&           aBoxF = aSI.Box();
+    const Box2&           aBoxF = aSI.Box1();
     BOPTools_BoxTreeSelector aSelector;
-    aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBoxF));
+    aSelector.SetBox(Tools5::Bnd2BVH(aBoxF));
     aSelector.SetBVHSet(&aBBTree);
     if (!aSelector.Select())
       continue;
@@ -957,7 +957,7 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
       Standard_Boolean bUseAddTol = Standard_True;
 
       Standard_Real    aTS[2];
-      Bnd_Box          aPBBox;
+      Box2          aPBBox;
       Standard_Boolean isSplit;
       aPB->ShrunkData(aTS[0], aTS[1], aPBBox, isSplit);
 
@@ -1051,7 +1051,7 @@ void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
         aEdgeFace.SetPaveBlock(aPB);
         aEdgeFace.SetEdge(aE);
         aEdgeFace.SetFace(aF);
-        aEdgeFace.SetBoxes(myDS->ShapeInfo(nE).Box(), myDS->ShapeInfo(nF).Box());
+        aEdgeFace.SetBoxes(myDS->ShapeInfo(nE).Box1(), myDS->ShapeInfo(nF).Box1());
         aEdgeFace.SetFuzzyValue(myFuzzyValue + aTolAdd);
         aEdgeFace.UseQuickCoincidenceCheck(Standard_True);
         aEdgeFace.SetRange(IntToolsRange(aPB->Pave1().Parameter(), aPB->Pave2().Parameter()));

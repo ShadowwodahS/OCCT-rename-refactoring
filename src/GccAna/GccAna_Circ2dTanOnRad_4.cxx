@@ -133,7 +133,7 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedLine& Qualified1
         gp_Lin2d L(
           gp_Pnt2d(origin1.X() - sign * Radius * dir1.Y(), origin1.Y() + sign * Radius * dir1.X()),
           dir1);
-        IntAna2d_AnaIntersection Intp(L, OnCirc);
+        AnalyticIntersection2d Intp(L, OnCirc);
         if (Intp.IsDone())
         {
           if (!Intp.IsEmpty())
@@ -162,9 +162,9 @@ Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedLine& Qualified1
               pntcen3(NbrSol)   = cirsol(NbrSol).Location();
               pnttg1sol(NbrSol) = gp_Pnt2d(
                 pntcen3(NbrSol).XY() + Coords2d(sign * Radius * dir1.Y(), -sign * Radius * dir1.X()));
-              pararg1(NbrSol) = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
-              par1sol(NbrSol) = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-              parcen3(NbrSol) = ElCLib::Parameter(OnCirc, pntcen3(NbrSol));
+              pararg1(NbrSol) = ElCLib1::Parameter(L1, pnttg1sol(NbrSol));
+              par1sol(NbrSol) = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+              parcen3(NbrSol) = ElCLib1::Parameter(OnCirc, pntcen3(NbrSol));
             }
           }
           WellDone = Standard_True;

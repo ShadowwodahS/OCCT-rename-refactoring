@@ -32,10 +32,10 @@
                   "OCCT RTTI definition is incorrect: " #Base " is not base class of " #Class);
 #endif /* ! defined(OCCT_CHECK_BASE_CLASS) */
 
-//! Helper macro to get instance of a type descriptor for a class in a legacy way.
+//! Helper1 macro to get instance of a type descriptor for a class in a legacy way.
 #define STANDARD_TYPE(theType) theType::get_type_descriptor()
 
-//! Helper macro to be included in definition of the classes inheriting
+//! Helper1 macro to be included in definition of the classes inheriting
 //! RefObject to enable use of OCCT RTTI.
 //!
 //! Inline version, does not require IMPLEMENT_STANDARD_RTTIEXT, but when used
@@ -62,7 +62,7 @@ public:                                                                         
     return get_type_descriptor();                                                                  \
   }
 
-//! Helper macro to be included in definition of the classes inheriting
+//! Helper1 macro to be included in definition of the classes inheriting
 //! RefObject to enable use of OCCT RTTI.
 //!
 //! Out-of-line version, requires IMPLEMENT_STANDARD_RTTIEXT.

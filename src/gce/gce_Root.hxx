@@ -31,7 +31,7 @@
 
 //! This class implements the common services for
 //! all classes of gce which report error.
-class gce_Root
+class Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -75,10 +75,10 @@ StdPrs_ShapeTool::StdPrs_ShapeTool(const TopoShape&    theShape,
 
 //=================================================================================================
 
-Bnd_Box StdPrs_ShapeTool::FaceBound() const
+Box2 StdPrs_ShapeTool::FaceBound() const
 {
   const TopoFace& F = TopoDS::Face(myFaceExplorer.Current());
-  Bnd_Box            B;
+  Box2            B;
   BRepBndLib::Add(F, B);
   return B;
 }
@@ -107,10 +107,10 @@ Standard_Boolean StdPrs_ShapeTool::IsPlanarFace(const TopoFace& theFace)
 
 //=================================================================================================
 
-Bnd_Box StdPrs_ShapeTool::CurveBound() const
+Box2 StdPrs_ShapeTool::CurveBound() const
 {
   const TopoEdge& E = TopoDS::Edge(myEdgeMap.FindKey(myEdge));
-  Bnd_Box            B;
+  Box2            B;
   BRepBndLib::Add(E, B);
   return B;
 }

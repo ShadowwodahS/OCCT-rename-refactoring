@@ -289,7 +289,7 @@ void StdPrs_Isolines::addOnTriangulation(const Handle(MeshTriangulation)& theTri
       for (Standard_Integer aTriIter = 1; aTriIter <= theTriangulation->NbTriangles(); ++aTriIter)
       {
         Standard_Integer aNodeIdxs[3];
-        theTriangulation->Triangle(aTriIter).Get(aNodeIdxs[0], aNodeIdxs[1], aNodeIdxs[2]);
+        theTriangulation->Triangle1(aTriIter).Get(aNodeIdxs[0], aNodeIdxs[1], aNodeIdxs[2]);
         const Point3d   aNodesXYZ[3] = {theTriangulation->Node(aNodeIdxs[0]),
                                        theTriangulation->Node(aNodeIdxs[1]),
                                        theTriangulation->Node(aNodeIdxs[2])};
@@ -434,7 +434,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
       const Adaptor2d_Curve2d* anEdgeCurve   = &anEdgeTool.Value();
       if (anEdgeCurve->GetType() != GeomAbs_Line)
       {
-        GCPnts_QuasiUniformDeflection aSampler(*anEdgeCurve, aSamplerDeflection);
+        QuasiUniformDeflectionSampler aSampler(*anEdgeCurve, aSamplerDeflection);
         if (!aSampler.IsDone())
         {
 #ifdef OCCT_DEBUG
@@ -501,7 +501,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
     }
 
     // re-calculate UV-range basing on p-curves tessellation
-    Bnd_Range aTrimU, aTrimV;
+    Range1 aTrimU, aTrimV;
     for (Standard_Integer anI = 1; anI <= aTrimPoints.Length(); ++anI)
     {
       const gp_Pnt2d& aTrimPnt = aTrimPoints.Value(anI);

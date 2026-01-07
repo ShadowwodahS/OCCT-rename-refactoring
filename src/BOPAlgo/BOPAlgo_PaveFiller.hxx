@@ -161,7 +161,7 @@ public:
   Standard_Boolean IsAvoidBuildPCurve() const { return myAvoidBuildPCurve; }
 
 protected:
-  typedef NCollection_DataMap<Handle(BOPDS_PaveBlock), Bnd_Box> BOPAlgo_DataMapOfPaveBlockBndBox;
+  typedef NCollection_DataMap<Handle(BOPDS_PaveBlock), Box2> BOPAlgo_DataMapOfPaveBlockBndBox;
 
   typedef NCollection_DataMap<Handle(BOPDS_PaveBlock), TColStd_ListOfInteger>
     BOPAlgo_DataMapOfPaveBlockListOfInteger;
@@ -515,7 +515,7 @@ protected:
   //! Gets the bounding box for the given Pave Block.
   //! If Pave Block has shrunk data it will be used to get the box,
   //! and the Shrunk Range (<theSFirst>, <theSLast>).
-  //! Otherwise the box will be computed using BndLib_Add3dCurve method,
+  //! Otherwise the box will be computed using Add3dCurve method,
   //! and the Shrunk Range will be equal to the PB's range.
   //! To avoid re-computation of the bounding box for the same Pave Block
   //! it will be saved in the map <thePBBox>.
@@ -528,7 +528,7 @@ protected:
                                             Standard_Real&                    theLast,
                                             Standard_Real&                    theSFirst,
                                             Standard_Real&                    theSLast,
-                                            Bnd_Box&                          theBox);
+                                            Box2&                          theBox);
 
   //! Treatment of the possible common zones, not detected by the
   //! Face/Face intersection algorithm, by intersection of each section edge

@@ -87,7 +87,7 @@ Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
     BRepTools1::UVBounds(F, umin, umax, vmin, vmax);
     Point3d ptbid;
     Vector3d d1u, d1v;
-    ElSLib::D1(umin + umax / 2., vmin + vmax / 2., Co, ptbid, d1u, d1v);
+    ElSLib1::D1(umin + umax / 2., vmin + vmax / 2., Co, ptbid, d1u, d1v);
     d1u.Cross(d1v);
     d1u.Normalize();
     if (F.Orientation() == TopAbs_REVERSED)

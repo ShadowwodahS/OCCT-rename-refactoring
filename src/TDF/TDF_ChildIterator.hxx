@@ -28,20 +28,20 @@ class DataLabel;
 //! level only. It is possible to ask the iterator to
 //! explore all the sub label levels of the given one,
 //! with the option "allLevels".
-class TDF_ChildIterator
+class ChildIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an empty iterator  object to
   //! explore the children of a label.
-  Standard_EXPORT TDF_ChildIterator();
+  Standard_EXPORT ChildIterator();
 
   //! Constructs the iterator object defined by
   //! the label aLabel.  Iterates on the children of the given label. If
   //! <allLevels> option is set to true, it explores not
   //! only the first, but all the sub label levels.
-  Standard_EXPORT TDF_ChildIterator(const DataLabel&       aLabel,
+  Standard_EXPORT ChildIterator(const DataLabel&       aLabel,
                                     const Standard_Boolean allLevels = Standard_False);
 
   //! Initializes the iteration on the children of the
@@ -53,17 +53,17 @@ public:
   //! child labels is explored.
   //! In the example below, the label is iterated
   //! using Initialize, More and Next and its
-  //! child labels dumped using TDF_Tool::Entry.
+  //! child labels dumped using Tool3::Entry.
   //! Example
   //! void DumpChildren(const
   //! DataLabel& aLabel)
   //! {
-  //! TDF_ChildIterator it;
+  //! ChildIterator it;
   //! AsciiString1 es;
   //! for
   //! (it.Initialize(aLabel,Standard_True);
   //! it.More(); it.Next()){
-  //! TDF_Tool::Entry(it.Value(),es);
+  //! Tool3::Entry(it.Value(),es);
   //! std::cout << as.ToCString() << std::endl;
   //! }
   //! }

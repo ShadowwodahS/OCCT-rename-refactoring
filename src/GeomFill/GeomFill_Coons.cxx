@@ -87,10 +87,10 @@ void GeomFill_Coons::Init(const TColgp_Array1OfPnt& P1,
   Coef(3) = Point3d(-3., 3., 0.);
   Coef(2) = Point3d(0., 0., 0.);
   Coef(1) = Point3d(1., 0., 0.);
-  PLib::CoefficientsPoles(Coef, PLib::NoWeights(), Pole, PLib::NoWeights());
+  PLib1::CoefficientsPoles(Coef, PLib1::NoWeights(), Pole, PLib1::NoWeights());
   if (NPolU > 4)
   {
-    BSplCLib::IncreaseDegree(NPolU - 1, Pole, BSplCLib::NoWeights(), CoefU, BSplCLib::NoWeights());
+    BSplCLib1::IncreaseDegree(NPolU - 1, Pole, BSplCLib1::NoWeights(), CoefU, BSplCLib1::NoWeights());
   }
   else
   {
@@ -98,7 +98,7 @@ void GeomFill_Coons::Init(const TColgp_Array1OfPnt& P1,
   }
   if (NPolV > 4)
   {
-    BSplCLib::IncreaseDegree(NPolV - 1, Pole, BSplCLib::NoWeights(), CoefV, BSplCLib::NoWeights());
+    BSplCLib1::IncreaseDegree(NPolV - 1, Pole, BSplCLib1::NoWeights(), CoefV, BSplCLib1::NoWeights());
   }
   else
   {

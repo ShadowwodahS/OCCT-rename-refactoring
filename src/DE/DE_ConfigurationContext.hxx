@@ -52,14 +52,14 @@ public:
   Standard_EXPORT Standard_Boolean LoadStr(const AsciiString1& theResource);
 
   //! Checks for existing the parameter name
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[in] theScope base parameter name
   //! @return Standard_True if parameter is defined in the resource file
   Standard_EXPORT Standard_Boolean IsParamSet(const AsciiString1& theParam,
                                               const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
@@ -68,7 +68,7 @@ public:
                                            const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
@@ -77,7 +77,7 @@ public:
                                               const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
@@ -86,7 +86,7 @@ public:
                                               const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
@@ -95,7 +95,7 @@ public:
                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
@@ -104,7 +104,7 @@ public:
                                                 const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
@@ -113,7 +113,7 @@ public:
                                         const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
@@ -122,7 +122,7 @@ public:
                                               const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
@@ -131,7 +131,7 @@ public:
                                               const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
-  //! @param[in] theParam complex parameter name
+  //! @param[in] theParam complex1 parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value

@@ -126,7 +126,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const gp_Pnt2d&     Point1,
     {
       L2 = gp_Lin2d(Point1, gp_Dir2d(Point1.Y() - Point2.Y(), Point2.X() - Point1.X()));
     }
-    IntAna2d_AnaIntersection Intp(L1, L2);
+    AnalyticIntersection2d Intp(L1, L2);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())
@@ -146,9 +146,9 @@ Circle2dThreeTangent::Circle2dThreeTangent(const gp_Pnt2d&     Point1,
           pnttg1sol(NbrSol) = Point1;
           pnttg2sol(NbrSol) = Point2;
           pnttg3sol(NbrSol) = Point3;
-          par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-          par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-          par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+          par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+          par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+          par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
           pararg1(NbrSol)   = 0.0;
           pararg2(NbrSol)   = 0.0;
           pararg3(NbrSol)   = 0.0;

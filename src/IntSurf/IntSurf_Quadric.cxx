@@ -172,8 +172,8 @@ Standard_Real Quadric1::Distance(const Point3d& P) const
     {
       Standard_Real dist = lin.Distance(P);
       Standard_Real U, V;
-      ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
-      Point3d        Pp    = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
+      ElSLib1::ConeParameters(ax3, prm1, prm2, P, U, V);
+      Point3d        Pp    = ElSLib1::ConeValue(U, V, ax3, prm1, prm2);
       Standard_Real distp = lin.Distance(Pp);
       dist                = (dist - distp) / prm3;
       return (dist);
@@ -211,7 +211,7 @@ Vector3d Quadric1::Gradient(const Point3d& P) const
     case GeomAbs_Cylinder: // cylindre
     {
       gp_XYZ PP(lin.Location().XYZ());
-      PP.Add(ElCLib::Parameter(lin, P) * lin.Direction().XYZ());
+      PP.Add(ElCLib1::Parameter(lin, P) * lin.Direction().XYZ());
       grad.SetXYZ(P.XYZ() - PP);
       Standard_Real N = grad.Magnitude();
       if (N > 1e-14)
@@ -242,10 +242,10 @@ Vector3d Quadric1::Gradient(const Point3d& P) const
     case GeomAbs_Cone: // cone
     {
       Standard_Real U, V;
-      ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
-      Point3d Pp = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
+      ElSLib1::ConeParameters(ax3, prm1, prm2, P, U, V);
+      Point3d Pp = ElSLib1::ConeValue(U, V, ax3, prm1, prm2);
       Vector3d D1u, D1v;
-      ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
+      ElSLib1::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
       grad = D1u.Crossed(D1v);
       if (ax3direc == Standard_False)
       {
@@ -298,7 +298,7 @@ void Quadric1::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad)
     case GeomAbs_Cylinder: {
       Dist = lin.Distance(P) - prm1;
       gp_XYZ PP(lin.Location().XYZ());
-      PP.Add(ElCLib::Parameter(lin, P) * lin.Direction().XYZ());
+      PP.Add(ElCLib1::Parameter(lin, P) * lin.Direction().XYZ());
       Grad.SetXYZ((P.XYZ() - PP));
       Standard_Real N = Grad.Magnitude();
       if (N > 1e-14)
@@ -331,8 +331,8 @@ void Quadric1::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad)
       Standard_Real U, V;
       Vector3d        D1u, D1v;
       Point3d        Pp;
-      ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
-      ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
+      ElSLib1::ConeParameters(ax3, prm1, prm2, P, U, V);
+      ElSLib1::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
       Standard_Real distp = lin.Distance(Pp);
       dist                = (dist - distp) / prm3;
       Dist                = dist;
@@ -388,15 +388,15 @@ Point3d Quadric1::Value(const Standard_Real U, const Standard_Real V) const
   {
 
     case GeomAbs_Plane:
-      return ElSLib::PlaneValue(U, V, ax3);
+      return ElSLib1::PlaneValue(U, V, ax3);
     case GeomAbs_Cylinder:
-      return ElSLib::CylinderValue(U, V, ax3, prm1);
+      return ElSLib1::CylinderValue(U, V, ax3, prm1);
     case GeomAbs_Sphere:
-      return ElSLib::SphereValue(U, V, ax3, prm1);
+      return ElSLib1::SphereValue(U, V, ax3, prm1);
     case GeomAbs_Cone:
-      return ElSLib::ConeValue(U, V, ax3, prm1, prm2);
+      return ElSLib1::ConeValue(U, V, ax3, prm1, prm2);
     case GeomAbs_Torus:
-      return ElSLib::TorusValue(U, V, ax3, prm1, prm2);
+      return ElSLib1::TorusValue(U, V, ax3, prm1, prm2);
     default: {
       Point3d p(0, 0, 0);
       return (p);
@@ -417,19 +417,19 @@ void Quadric1::D1(const Standard_Real U,
   switch (typ)
   {
     case GeomAbs_Plane:
-      ElSLib::PlaneD1(U, V, ax3, P, D1U, D1V);
+      ElSLib1::PlaneD1(U, V, ax3, P, D1U, D1V);
       break;
     case GeomAbs_Cylinder:
-      ElSLib::CylinderD1(U, V, ax3, prm1, P, D1U, D1V);
+      ElSLib1::CylinderD1(U, V, ax3, prm1, P, D1U, D1V);
       break;
     case GeomAbs_Sphere:
-      ElSLib::SphereD1(U, V, ax3, prm1, P, D1U, D1V);
+      ElSLib1::SphereD1(U, V, ax3, prm1, P, D1U, D1V);
       break;
     case GeomAbs_Cone:
-      ElSLib::ConeD1(U, V, ax3, prm1, prm2, P, D1U, D1V);
+      ElSLib1::ConeD1(U, V, ax3, prm1, prm2, P, D1U, D1V);
       break;
     case GeomAbs_Torus:
-      ElSLib::TorusD1(U, V, ax3, prm1, prm2, P, D1U, D1V);
+      ElSLib1::TorusD1(U, V, ax3, prm1, prm2, P, D1U, D1V);
       break;
     default: {
     }
@@ -446,15 +446,15 @@ Vector3d Quadric1::DN(const Standard_Real    U,
   switch (typ)
   {
     case GeomAbs_Plane:
-      return ElSLib::PlaneDN(U, V, ax3, Nu, Nv);
+      return ElSLib1::PlaneDN(U, V, ax3, Nu, Nv);
     case GeomAbs_Cylinder:
-      return ElSLib::CylinderDN(U, V, ax3, prm1, Nu, Nv);
+      return ElSLib1::CylinderDN(U, V, ax3, prm1, Nu, Nv);
     case GeomAbs_Sphere:
-      return ElSLib::SphereDN(U, V, ax3, prm1, Nu, Nv);
+      return ElSLib1::SphereDN(U, V, ax3, prm1, Nu, Nv);
     case GeomAbs_Cone:
-      return ElSLib::ConeDN(U, V, ax3, prm1, prm2, Nu, Nv);
+      return ElSLib1::ConeDN(U, V, ax3, prm1, prm2, Nu, Nv);
     case GeomAbs_Torus:
-      return ElSLib::TorusDN(U, V, ax3, prm1, prm2, Nu, Nv);
+      return ElSLib1::TorusDN(U, V, ax3, prm1, prm2, Nu, Nv);
     default: {
       Vector3d v(0, 0, 0);
       return (v);
@@ -482,7 +482,7 @@ Vector3d Quadric1::Normale(const Standard_Real U, const Standard_Real V) const
     case GeomAbs_Cone: {
       Point3d P;
       Vector3d D1u, D1v;
-      ElSLib::ConeD1(U, V, ax3, prm1, prm2, P, D1u, D1v);
+      ElSLib1::ConeD1(U, V, ax3, prm1, prm2, P, D1u, D1v);
       if (D1u.Magnitude() < 0.0000001)
       {
         Vector3d Vn(0.0, 0.0, 0.0);
@@ -538,7 +538,7 @@ Vector3d Quadric1::Normale(const Point3d& P) const
     }
     case GeomAbs_Cone: {
       Standard_Real U, V;
-      ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
+      ElSLib1::ConeParameters(ax3, prm1, prm2, P, U, V);
       return Normale(U, V);
     }
     case GeomAbs_Torus: {
@@ -570,19 +570,19 @@ void Quadric1::Parameters(const Point3d& P, Standard_Real& U, Standard_Real& V) 
   switch (typ)
   {
     case GeomAbs_Plane:
-      ElSLib::PlaneParameters(ax3, P, U, V);
+      ElSLib1::PlaneParameters(ax3, P, U, V);
       break;
     case GeomAbs_Cylinder:
-      ElSLib::CylinderParameters(ax3, prm1, P, U, V);
+      ElSLib1::CylinderParameters(ax3, prm1, P, U, V);
       break;
     case GeomAbs_Sphere:
-      ElSLib::SphereParameters(ax3, prm1, P, U, V);
+      ElSLib1::SphereParameters(ax3, prm1, P, U, V);
       break;
     case GeomAbs_Cone:
-      ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
+      ElSLib1::ConeParameters(ax3, prm1, prm2, P, U, V);
       break;
     case GeomAbs_Torus:
-      ElSLib::TorusParameters(ax3, prm1, prm2, P, U, V);
+      ElSLib1::TorusParameters(ax3, prm1, prm2, P, U, V);
       break;
     default:
       break;

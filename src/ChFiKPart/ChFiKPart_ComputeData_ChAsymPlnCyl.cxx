@@ -92,21 +92,21 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // compute the origin Or of the cone
   Point3d        Or = Cyl.Location();
   Standard_Real u, v;
-  ElSLib::PlaneParameters(PosPl, Or, u, v);
+  ElSLib1::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d pt2dPln(u, v);
-  ElSLib::PlaneD0(u, v, PosPl, Or);
+  ElSLib1::PlaneD0(u, v, PosPl, Or);
   Point3d PtPl = Or; // projection of the cylinder origin
                     // on the plane
 
   Point3d PtSp; // start 3d point on the Spine
   Vector3d DSp;  // tangent vector to the spine on PtSp
-  ElCLib::D1(First, Spine, PtSp, DSp);
+  ElCLib1::D1(First, Spine, PtSp, DSp);
   Dir3d Dx(Vector3d(Or, PtSp));
   Dir3d Dy(DSp);
-  ElSLib::Parameters(Cyl, PtSp, u, v);
+  ElSLib1::Parameters(Cyl, PtSp, u, v);
   Point3d PtCyl; // point on the cylinder and on the Spine
   Vector3d Vu, Vv;
-  ElSLib::D1(u, v, Cyl, PtCyl, Vu, Vv);
+  ElSLib1::D1(u, v, Cyl, PtCyl, Vu, Vv);
   Dir3d Dcyl(Vu.Crossed(Vv)); // normal to the cylinder in PtSp
   if (Or2 == TopAbs_REVERSED)
     Dcyl.Reverse();
@@ -192,7 +192,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // search the normal to the cone
   Vector3d deru, derv;
-  ElSLib::ConeD1(0., 0., ConAx3, ConRad, SemiAngl, Pt, deru, derv);
+  ElSLib1::ConeD1(0., 0., ConAx3, ConRad, SemiAngl, Pt, deru, derv);
 
   Dir3d norCon(deru.Crossed(derv));
 
@@ -224,7 +224,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     GCirPln = new GeomCircle(CirPln);
 
     // pcurve on the plane
-    ElSLib::PlaneParameters(PosPl, Pt, u, v);
+    ElSLib1::PlaneParameters(PosPl, Pt, u, v);
     gp_Pnt2d  p2dPln(u, v);
     gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
     gp_Ax22d  ax2dPln(pt2dPln, gp_Dir2d(gp_Vec2d(pt2dPln, p2dPln)), d2d);
@@ -239,7 +239,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   else
     v = sqrt(dis1 * dis1 + dis2 * dis2);
   p2dch.SetCoord(0., v);
-  ElSLib::ConeD1(0., v, ConAx3, ConRad, SemiAngl, Pt, deru, derv);
+  ElSLib1::ConeD1(0., v, ConAx3, ConRad, SemiAngl, Pt, deru, derv);
   gp_Lin2d            lin2dch(p2dch, gp::DX2d());
   Handle(Geom2d_Line) GLin2dCh1 = new Geom2d_Line(lin2dch);
 
@@ -280,7 +280,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // pcurve on the chamfer
   p2dch.SetCoord(0., 0.);
-  ElSLib::ConeD1(0., 0., ConAx3, ConRad, SemiAngl, Pt, deru, derv);
+  ElSLib1::ConeD1(0., 0., ConAx3, ConRad, SemiAngl, Pt, deru, derv);
   lin2dch.SetLocation(p2dch);
   Handle(Geom2d_Line) GLin2dCh2 = new Geom2d_Line(lin2dch);
 
@@ -288,7 +288,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   norCon.SetXYZ(deru.Crossed(derv).XYZ());
 
   Pt.SetCoord(Or.X() + ConRad * Dx.X(), Or.Y() + ConRad * Dx.Y(), Or.Z() + ConRad * Dx.Z());
-  ElSLib::Parameters(Cyl, Pt, u, v);
+  ElSLib1::Parameters(Cyl, Pt, u, v);
   Standard_Real    tol           = Precision::PConfusion();
   Standard_Boolean careaboutsens = 0;
   if (Abs(lu - fu - 2 * M_PI) < tol)
@@ -300,7 +300,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   if (u < fu || u > lu)
     u = ChFiKPart_InPeriod(u, fu, fu + 2 * M_PI, tol);
 
-  ElSLib::D1(u, v, Cyl, Pt, deru, derv);
+  ElSLib1::D1(u, v, Cyl, Pt, deru, derv);
   Dir3d   norcyl = deru.Crossed(derv);
   gp_Dir2d d2dCyl = gp::DX2d();
   if (deru.Dot(Dy) < 0.)
@@ -371,7 +371,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   //        _|_          Ofpl is orientation of the plane face allowing
   //         |4          to determine the side of the material
 
-  Point3d OrSpine = ElCLib::Value(First, Spine);
+  Point3d OrSpine = ElCLib1::Value(First, Spine);
   Point3d POnCyl, POnPln, OrCyl;
 
   Dir3d XDir   = Spine.Direction();
@@ -468,8 +468,8 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   POnCyl.SetXYZ(OrCyl.XYZ().Added(VecTemp.XYZ()));
   Standard_Real UOnCyl, VOnCyl, UOnPln, VOnPln;
   Vector3d        DUOnCyl, DVOnCyl;
-  ElSLib::Parameters(Cyl, POnCyl, UOnCyl, VOnCyl);
-  ElSLib::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, DUOnCyl, DVOnCyl);
+  ElSLib1::Parameters(Cyl, POnCyl, UOnCyl, VOnCyl);
+  ElSLib1::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, DUOnCyl, DVOnCyl);
 
   // Construction of the point on the plane
   if (!IsDisOnP)
@@ -501,8 +501,8 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   POnPln.SetXYZ((OrSpine.XYZ()).Added(VecTranslPln.XYZ()));
 
   // construction of the chamfer
-  ElSLib::Parameters(Pln, POnPln, UOnPln, VOnPln);
-  POnPln = ElSLib::PlaneValue(UOnPln, VOnPln, AxPln);
+  ElSLib1::Parameters(Pln, POnPln, UOnPln, VOnPln);
+  POnPln = ElSLib1::PlaneValue(UOnPln, VOnPln, AxPln);
 
   // construction of YDir to go from face1 to face2.
   Vector3d YDir(POnPln, POnCyl);
@@ -521,11 +521,11 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   gp_Dir2d VPln2d(XDir.Dot(AxPln.XDirection()), XDir.Dot(AxPln.YDirection()));
   gp_Lin2d Lin2dPln(PPln2d, VPln2d);
 
-  POnPln = ElSLib::Value(UOnPln, VOnPln, Pln);
+  POnPln = ElSLib1::Value(UOnPln, VOnPln, Pln);
   gp_Lin C3d(POnPln, XDir);
 
   Standard_Real U, VOnChamfer;
-  ElSLib::PlaneParameters(AxCh, POnPln, U, VOnChamfer);
+  ElSLib1::PlaneParameters(AxCh, POnPln, U, VOnChamfer);
   gp_Lin2d LOnChamfer(gp_Pnt2d(U, VOnChamfer), gp::DX2d());
 
   Handle(GeomLine)   L3d  = new GeomLine(C3d);
@@ -581,10 +581,10 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   }
   gp_Lin2d Lin2dCyl(PCyl2d, VCyl2d);
 
-  POnCyl = ElSLib::Value(UOnCyl, VOnCyl, Cyl);
+  POnCyl = ElSLib1::Value(UOnCyl, VOnCyl, Cyl);
   C3d    = gp_Lin(POnCyl, XDir);
 
-  ElSLib::PlaneParameters(AxCh, POnCyl, U, VOnChamfer);
+  ElSLib1::PlaneParameters(AxCh, POnCyl, U, VOnChamfer);
   LOnChamfer = gp_Lin2d(gp_Pnt2d(U, VOnChamfer), gp::DX2d());
 
   L3d  = new GeomLine(C3d);
@@ -592,7 +592,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   LFil = new Geom2d_Line(LOnChamfer);
 
   Vector3d deru, derv;
-  ElSLib::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, deru, derv);
+  ElSLib1::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, deru, derv);
   Dir3d           NorCyl(deru.Crossed(derv));
   Dir3d           DirSCyl(Vector3d(OrSpine, POnCyl));
   Standard_Boolean PosChamfCyl = DirPlnCyl.Dot(DirSCyl) < 0;

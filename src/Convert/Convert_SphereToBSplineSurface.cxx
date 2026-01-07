@@ -90,7 +90,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
                                                                const Standard_Real U2,
                                                                const Standard_Real V1,
                                                                const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,
@@ -171,7 +171,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
                                                                const Standard_Real    Param1,
                                                                const Standard_Real    Param2,
                                                                const Standard_Boolean UTrim)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,
@@ -282,7 +282,7 @@ Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& 
 //=================================================================================================
 
 Convert_SphereToBSplineSurface::Convert_SphereToBSplineSurface(const gp_Sphere& Sph)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,

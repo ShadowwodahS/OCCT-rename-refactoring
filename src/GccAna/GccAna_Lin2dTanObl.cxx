@@ -63,7 +63,7 @@ Line2dTangentObl::Line2dTangentObl(const gp_Pnt2d&     ThePoint,
   //                               =======================================
   qualifier1(1) = GccEnt_noqualifier;
   pnttg1sol(1)  = ThePoint;
-  IntAna2d_AnaIntersection Intp(linsol(1), TheLine);
+  AnalyticIntersection2d Intp(linsol(1), TheLine);
   if (Intp.IsDone())
   {
     if (!Intp.IsEmpty())
@@ -73,10 +73,10 @@ Line2dTangentObl::Line2dTangentObl(const gp_Pnt2d&     ThePoint,
         pntint2sol(1) = Intp.Point(i).Value();
       }
     }
-    par1sol(1) = ElCLib::Parameter(linsol(1), pnttg1sol(1));
-    par2sol(1) = ElCLib::Parameter(linsol(1), pntint2sol(1));
+    par1sol(1) = ElCLib1::Parameter(linsol(1), pnttg1sol(1));
+    par2sol(1) = ElCLib1::Parameter(linsol(1), pntint2sol(1));
     pararg1(1) = 0.;
-    pararg2(1) = ElCLib::Parameter(TheLine, pntint2sol(1));
+    pararg2(1) = ElCLib1::Parameter(TheLine, pntint2sol(1));
     NbrSol     = 1;
     WellDone   = Standard_True;
   }
@@ -137,7 +137,7 @@ Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = Qualified1.Qualifier();
-      IntAna2d_AnaIntersection Intp(linsol(1), TheLine);
+      AnalyticIntersection2d Intp(linsol(1), TheLine);
       NbrSol   = 1;
       WellDone = Standard_True;
       if (Intp.IsDone())
@@ -160,7 +160,7 @@ Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = Qualified1.Qualifier();
-      IntAna2d_AnaIntersection Intp(linsol(1), TheLine);
+      AnalyticIntersection2d Intp(linsol(1), TheLine);
       WellDone = Standard_True;
       NbrSol   = 1;
       if (Intp.IsDone())
@@ -183,7 +183,7 @@ Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = GccEnt_enclosing;
-      IntAna2d_AnaIntersection Intp(linsol(1), TheLine);
+      AnalyticIntersection2d Intp(linsol(1), TheLine);
       WellDone = Standard_True;
       NbrSol   = 1;
       if (Intp.IsDone())
@@ -200,7 +200,7 @@ Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
       linsol(2)    = gp_Lin2d(pnttg1sol(2), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(2) = GccEnt_outside;
-      Intp          = IntAna2d_AnaIntersection(linsol(1), TheLine);
+      Intp          = AnalyticIntersection2d(linsol(1), TheLine);
       NbrSol++;
       WellDone = Standard_True;
       if (Intp.IsDone())
@@ -216,10 +216,10 @@ Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
     }
     for (Standard_Integer index = 1; index <= NbrSol; index++)
     {
-      par1sol(index) = ElCLib::Parameter(linsol(index), pnttg1sol(index));
-      pararg1(index) = ElCLib::Parameter(C1, pnttg1sol(index));
-      par2sol(index) = ElCLib::Parameter(linsol(index), pntint2sol(index));
-      pararg2(index) = ElCLib::Parameter(TheLine, pntint2sol(index));
+      par1sol(index) = ElCLib1::Parameter(linsol(index), pnttg1sol(index));
+      pararg1(index) = ElCLib1::Parameter(C1, pnttg1sol(index));
+      par2sol(index) = ElCLib1::Parameter(linsol(index), pntint2sol(index));
+      pararg2(index) = ElCLib1::Parameter(TheLine, pntint2sol(index));
     }
   }
 }

@@ -1174,30 +1174,30 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
 
         case GeomAbs_Plane: {
           gp_Pln Plane = SurfAdapt.Plane();
-          ElSLib::Parameters(Plane, P3D, S, T);
+          ElSLib1::Parameters(Plane, P3D, S, T);
           break;
         }
         case GeomAbs_Cylinder: {
           gp_Cylinder Cylinder = SurfAdapt.Cylinder();
-          ElSLib::Parameters(Cylinder, P3D, S, T);
+          ElSLib1::Parameters(Cylinder, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Cone: {
           gp_Cone Cone = SurfAdapt.Cone();
-          ElSLib::Parameters(Cone, P3D, S, T);
+          ElSLib1::Parameters(Cone, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Sphere: {
           gp_Sphere Sphere = SurfAdapt.Sphere();
-          ElSLib::Parameters(Sphere, P3D, S, T);
+          ElSLib1::Parameters(Sphere, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           break;
         }
         case GeomAbs_Torus: {
           gp_Torus Torus = SurfAdapt.Torus();
-          ElSLib::Parameters(Torus, P3D, S, T);
+          ElSLib1::Parameters(Torus, P3D, S, T);
           S += ShapeAnalysis::AdjustByPeriod(S, 0.5 * (uf + ul), 2 * M_PI);
           T += ShapeAnalysis::AdjustByPeriod(T, 0.5 * (vf + vl), 2 * M_PI);
           break;
@@ -1454,7 +1454,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
   { // RAJOUT
     OCC_CATCH_SIGNALS
     // pdn Create BndBox containing point;
-    Bnd_Box aPBox;
+    Box2 aPBox;
     aPBox.Set(P3d);
 
     // std::cout<<"Adaptor3d()->Surface().GetType() =
@@ -1471,7 +1471,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
       UV = (num < 3); // 0-1-2 : iso-U  3-4-5 : iso-V
       if (!(Adaptor3d()->GetType() == GeomAbs_OffsetSurface))
       {
-        const Bnd_Box* anIsoBox = 0;
+        const Box2* anIsoBox = 0;
         switch (num)
         {
           case 0:
@@ -1534,7 +1534,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
         Adaptor3d_Curve*  anAdaptor = NULL;
         GeomAdaptor_Curve aGeomCurve;
 
-        const Bnd_Box* anIsoBox = 0;
+        const Box2* anIsoBox = 0;
         switch (num)
         {
           case 0:
@@ -1787,34 +1787,34 @@ void ShapeAnalysis_Surface::ComputeBoxes()
   myIsoBoxes = Standard_True;
   ComputeBoundIsos();
   if (!myIsoUF.IsNull())
-    BndLib_Add3dCurve::Add(GeomAdaptor_Curve(myIsoUF), Precision::Confusion(), myBndUF);
+    Add3dCurve::Add(GeomAdaptor_Curve(myIsoUF), Precision::Confusion(), myBndUF);
   if (!myIsoUL.IsNull())
-    BndLib_Add3dCurve::Add(GeomAdaptor_Curve(myIsoUL), Precision::Confusion(), myBndUL);
+    Add3dCurve::Add(GeomAdaptor_Curve(myIsoUL), Precision::Confusion(), myBndUL);
   if (!myIsoVF.IsNull())
-    BndLib_Add3dCurve::Add(GeomAdaptor_Curve(myIsoVF), Precision::Confusion(), myBndVF);
+    Add3dCurve::Add(GeomAdaptor_Curve(myIsoVF), Precision::Confusion(), myBndVF);
   if (!myIsoVL.IsNull())
-    BndLib_Add3dCurve::Add(GeomAdaptor_Curve(myIsoVL), Precision::Confusion(), myBndVL);
+    Add3dCurve::Add(GeomAdaptor_Curve(myIsoVL), Precision::Confusion(), myBndVL);
 }
 
-const Bnd_Box& ShapeAnalysis_Surface::GetBoxUF()
+const Box2& ShapeAnalysis_Surface::GetBoxUF()
 {
   ComputeBoxes();
   return myBndUF;
 }
 
-const Bnd_Box& ShapeAnalysis_Surface::GetBoxUL()
+const Box2& ShapeAnalysis_Surface::GetBoxUL()
 {
   ComputeBoxes();
   return myBndUL;
 }
 
-const Bnd_Box& ShapeAnalysis_Surface::GetBoxVF()
+const Box2& ShapeAnalysis_Surface::GetBoxVF()
 {
   ComputeBoxes();
   return myBndVF;
 }
 
-const Bnd_Box& ShapeAnalysis_Surface::GetBoxVL()
+const Box2& ShapeAnalysis_Surface::GetBoxVL()
 {
   ComputeBoxes();
   return myBndVL;

@@ -111,7 +111,7 @@ static Standard_Boolean FUN_keepIonF(const Vector3d&        tgref,
                                      const TopoFace&   F,
                                      const Standard_Real& tola)
 // returns true if an interference I=(TonF,G=point/vertex,S=<E>)
-// is to add to the Edge3dInterferenceTool resolving 3d complex transitions
+// is to add to the Edge3dInterferenceTool resolving 3d complex1 transitions
 // on edge E
 {
   Vector3d           tmp;
@@ -148,7 +148,7 @@ TopOpeBRepDS_Edge3dInterferenceTool::TopOpeBRepDS_Edge3dInterferenceTool()
 
 //=======================================================================
 // function : InitPointVertex
-// purpose  : Initializes reference data for edge/face complex transition
+// purpose  : Initializes reference data for edge/face complex1 transition
 //=======================================================================
 // I = (TonF, G=POINT/VERTEX, S=<E>) interference on <Eref>
 // G has parameter <paronEref> on <Eref>, <paronE> on <E>
@@ -163,7 +163,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::InitPointVertex(const Standard_Integer
 
 //=======================================================================
 // function : Init
-// purpose  : Initializes reference data for edge/face complex transition
+// purpose  : Initializes reference data for edge/face complex1 transition
 //=======================================================================
 // I = (T on <F>, G=POINT/VERTEX, S=<E>) interference on <Eref>
 // G has parameter <paronEref> on <Eref>, <paronE> on <E>

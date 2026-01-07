@@ -1587,7 +1587,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
 
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
 
-  CSLib::Normal(d1u, d1v, 1.e-9, stat, thenormal);
+  CSLib1::Normal(d1u, d1v, 1.e-9, stat, thenormal);
   if (stat == CSLib_Defined)
     normale.SetXYZ(thenormal.XYZ());
   else
@@ -1611,7 +1611,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
     Der(2, 1) = HSurfaceTool::DN(surf, p2d.X(), p2d.Y(), 2, 1);
     Der(1, 2) = HSurfaceTool::DN(surf, p2d.X(), p2d.Y(), 1, 2);
     Der(2, 2) = HSurfaceTool::DN(surf, p2d.X(), p2d.Y(), 2, 2);
-    CSLib::Normal(2,
+    CSLib1::Normal(2,
                   Der,
                   1.e-9,
                   p2d.X(),
@@ -2640,7 +2640,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
     }
     if (imin)
     {
-      Extrema_POnSurf NewPOnSurf2 = projonsurf.Point(imin);
+      PointOnSurface1 NewPOnSurf2 = projonsurf.Point(imin);
       NewPoint                    = NewPOnSurf2.Value();
       NewPOnSurf2.Parameter(NewU, NewV);
       Standard_Real uperiod = (AnotherSurf->IsUPeriodic()) ? AnotherSurf->UPeriod() : 0.;

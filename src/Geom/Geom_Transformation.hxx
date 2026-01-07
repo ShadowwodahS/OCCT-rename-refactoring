@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 //! - symmetries,
 //! - scales.
 //! The Transformation class can also be used to
-//! construct complex transformations by combining these
+//! construct complex1 transformations by combining these
 //! elementary transformations.
 //! However, these transformations can never change
 //! the type of an object. For example, the projection
@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 //! the transformation.
 //! Note: Geom_Transformation transformations
 //! provide the same kind of "geometric" services as
-//! Transform3d ones but have more complex data structures.
+//! Transform3d ones but have more complex1 data structures.
 //! The geometric objects provided by the Geom
 //! package use Transform3d transformations in the syntaxes
 //! Transform and Transformed.

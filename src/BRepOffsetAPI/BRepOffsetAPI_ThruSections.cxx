@@ -1119,7 +1119,7 @@ static Handle(BSplineCurve3d) EdgeToBSpline(const TopoEdge& theEdge)
 
     // general case
     if (aBSCurve.IsNull())
-      aBSCurve = GeomConvert::CurveToBSplineCurve(aTrimCurve);
+      aBSCurve = GeomConvert1::CurveToBSplineCurve(aTrimCurve);
 
     // apply transformation if needed
     if (!aLoc.IsIdentity())
@@ -1128,7 +1128,7 @@ static Handle(BSplineCurve3d) EdgeToBSpline(const TopoEdge& theEdge)
     // reparameterize to [0,1]
     TColStd_Array1OfReal aKnots(1, aBSCurve->NbKnots());
     aBSCurve->Knots(aKnots);
-    BSplCLib::Reparametrize(0., 1., aKnots);
+    BSplCLib1::Reparametrize(0., 1., aKnots);
     aBSCurve->SetKnots(aKnots);
   }
 

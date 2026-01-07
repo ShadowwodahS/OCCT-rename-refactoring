@@ -74,7 +74,7 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& Point(const Standard_Integer N) const;
 
   DEFINE_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 
@@ -101,7 +101,7 @@ private:
   Standard_Boolean                             myDone;
   Standard_Integer                             myNbExt;
   Standard_Real                                mySqDist[4];
-  Extrema_POnSurf                              myPoint[4];
+  PointOnSurface1                              myPoint[4];
 };
 
 #endif // _Extrema_ExtPExtS_HeaderFile

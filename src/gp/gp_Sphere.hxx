@@ -35,7 +35,7 @@
 //! Geom_SphericalSurface sphere.
 //! See Also
 //! gce_MakeSphere which provides functions for more
-//! complex sphere constructions
+//! complex1 sphere constructions
 //! Geom_SphericalSurface which provides additional
 //! functions for constructing spheres and works, in
 //! particular, with the parametric equations of spheres.

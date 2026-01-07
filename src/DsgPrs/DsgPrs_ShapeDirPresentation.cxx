@@ -200,7 +200,7 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
 
   Dir3d  dir;
   Point3d  pt;
-  Bnd_Box box;
+  Box2 box;
 
   if (shape.ShapeType() == TopAbs_EDGE)
   {

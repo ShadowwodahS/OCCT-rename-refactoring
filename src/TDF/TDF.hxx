@@ -34,7 +34,7 @@ class UtfString;
 //! package is the TagSource attribute.This attribute
 //! is used for  random creation of child labels under
 //! a given label. Tags are randomly delivered.
-class TDF
+class TDF1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -17,7 +17,7 @@
 #include <gp_XY.hxx>
 #include <gp_XYZ.hxx>
 
-inline Standard_Real Plate_Plate::Polm(const Coords2d&           point2d,
+inline Standard_Real PlateSurface::Polm(const Coords2d&           point2d,
                                        const Standard_Integer iu,
                                        const Standard_Integer iv,
                                        const Standard_Integer idu,
@@ -54,22 +54,22 @@ inline Standard_Real Plate_Plate::Polm(const Coords2d&           point2d,
   // return value;
 }
 
-inline Standard_Integer& Plate_Plate::Deru(const Standard_Integer index) const
+inline Standard_Integer& PlateSurface::Deru(const Standard_Integer index) const
 {
   return ((Standard_Integer*)deru)[index];
 }
 
-inline Standard_Integer& Plate_Plate::Derv(const Standard_Integer index) const
+inline Standard_Integer& PlateSurface::Derv(const Standard_Integer index) const
 {
   return ((Standard_Integer*)derv)[index];
 }
 
-inline gp_XYZ& Plate_Plate::Solution(const Standard_Integer index) const
+inline gp_XYZ& PlateSurface::Solution(const Standard_Integer index) const
 {
   return ((gp_XYZ*)solution)[index];
 }
 
-inline Coords2d& Plate_Plate::Points(const Standard_Integer index) const
+inline Coords2d& PlateSurface::Points(const Standard_Integer index) const
 {
   return ((Coords2d*)points)[index];
 }

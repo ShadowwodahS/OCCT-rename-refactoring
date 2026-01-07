@@ -32,7 +32,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes
   const Standard_Real R      = aTorus.MajorRadius();
 
   const Standard_Real oldDv =
-    GCPnts_TangentialDeflection::ArcAngularStep(r,
+    TangentialDeflectionSampler::ArcAngularStep(r,
                                                 GetDFace()->GetDeflection(),
                                                 theParameters.Angle,
                                                 theParameters.MinSize);
@@ -47,7 +47,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes
   const Standard_Real ru = R + r;
   if (ru > 1.e-16)
   {
-    Du = GCPnts_TangentialDeflection::ArcAngularStep(ru,
+    Du = TangentialDeflectionSampler::ArcAngularStep(ru,
                                                      GetDFace()->GetDeflection(),
                                                      theParameters.Angle,
                                                      theParameters.MinSize);

@@ -261,7 +261,7 @@ static Handle(GeomCurve2d) MakeCurve2DfromWLineApproxAndPlane(const BRepApprox_A
   for (Standard_Integer i = 1; i <= np; i++)
   {
     Standard_Real U, V;
-    ElSLib::Parameters(Pl, poles3d.Value(i), U, V);
+    ElSLib1::Parameters(Pl, poles3d.Value(i), U, V);
     poles2d.SetValue(i, gp_Pnt2d(U, V));
   }
   const TColStd_Array1OfReal&    knots  = amc.Knots();

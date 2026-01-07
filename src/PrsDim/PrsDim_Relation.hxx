@@ -234,7 +234,7 @@ protected:
   PrsDim_KindOfSurface       mySecondSurfType;
   Standard_Real              myFirstOffset;
   Standard_Real              mySecondOffset;
-  Bnd_Box                    myBndBox;
+  Box2                    myBndBox;
   Standard_Boolean           myIsSetBndBox;
   Standard_Boolean           myArrowSizeIsDefined;
 };

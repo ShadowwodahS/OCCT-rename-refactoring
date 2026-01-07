@@ -136,7 +136,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BezierSurface::Restore(Standard_IStream& theS
 {
   const DrawTrSurf_Params&   aParams = DrawTrSurf1::Parameters();
   Handle(Geom_BezierSurface) aGeomSurface =
-    Handle(Geom_BezierSurface)::DownCast(GeomTools_SurfaceSet::ReadSurface(theStream));
+    Handle(Geom_BezierSurface)::DownCast(SurfaceSet1::ReadSurface(theStream));
   Handle(DrawTrSurf_BezierSurface) aDrawSurface = new DrawTrSurf_BezierSurface(aGeomSurface,
                                                                                aParams.NbUIsos,
                                                                                aParams.NbVIsos,

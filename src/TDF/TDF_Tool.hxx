@@ -28,12 +28,12 @@
 #include <TDF_LabelIntegerMap.hxx>
 #include <Standard_OStream.hxx>
 class DataLabel;
-class TDF_IDFilter;
+class IDFilter;
 class AsciiString1;
 class TDF_Data;
 
 //! This class provides general services for a data framework.
-class TDF_Tool
+class Tool3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,7 +53,7 @@ public:
   //! selected by a<Filter>, including those of
   //! <aLabel>.
   Standard_EXPORT static Standard_Integer NbAttributes(const DataLabel&    aLabel,
-                                                       const TDF_IDFilter& aFilter);
+                                                       const IDFilter& aFilter);
 
   //! Returns true if <aLabel> and its descendants
   //! reference only attributes or labels attached to
@@ -64,7 +64,7 @@ public:
   //! reference only attributes or labels attached to
   //! themselves and kept by <aFilter>.
   Standard_EXPORT static Standard_Boolean IsSelfContained(const DataLabel&    aLabel,
-                                                          const TDF_IDFilter& aFilter);
+                                                          const IDFilter& aFilter);
 
   //! Returns in <theAtts> the attributes having out
   //! references.
@@ -77,8 +77,8 @@ public:
   //! It considers only the references kept by <aFilterForReferences>.
   //! Caution: <atts> is not cleared before use!
   Standard_EXPORT static void OutReferers(const DataLabel&    aLabel,
-                                          const TDF_IDFilter& aFilterForReferers,
-                                          const TDF_IDFilter& aFilterForReferences,
+                                          const IDFilter& aFilterForReferers,
+                                          const IDFilter& aFilterForReferences,
                                           TDF_AttributeMap&   atts);
 
   //! Returns in <atts> the referenced attributes.
@@ -89,8 +89,8 @@ public:
   //! It considers only the referrers kept by <aFilterForReferers>.
   //! Caution: <atts> is not cleared before use!
   Standard_EXPORT static void OutReferences(const DataLabel&    aLabel,
-                                            const TDF_IDFilter& aFilterForReferers,
-                                            const TDF_IDFilter& aFilterForReferences,
+                                            const IDFilter& aFilterForReferers,
+                                            const IDFilter& aFilterForReferences,
                                             TDF_AttributeMap&   atts);
 
   //! Returns the label having the same sub-entry as
@@ -169,7 +169,7 @@ public:
   //! attributes content.
   Standard_EXPORT static void ExtendedDeepDump(Standard_OStream&       anOS,
                                                const Handle(TDF_Data)& aDF,
-                                               const TDF_IDFilter&     aFilter);
+                                               const IDFilter&     aFilter);
 
   //! Dumps <aLabel>, its children and their attributes.
   Standard_EXPORT static void DeepDump(Standard_OStream& anOS, const DataLabel& aLabel);
@@ -179,7 +179,7 @@ public:
   //! attributes content.
   Standard_EXPORT static void ExtendedDeepDump(Standard_OStream&   anOS,
                                                const DataLabel&    aLabel,
-                                               const TDF_IDFilter& aFilter);
+                                               const IDFilter& aFilter);
 
 protected:
 private:

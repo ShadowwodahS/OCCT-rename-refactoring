@@ -26,9 +26,9 @@
 
 #define Curve Standard_Address
 #define Curve_hxx <Standard_Address.hxx>
-#define Tool HLRBRep_CurveTool
+#define Tool CurveTool5
 #define Tool_hxx <HLRBRep_CurveTool.hxx>
-#define POnC Extrema_POnCurv2d
+#define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>

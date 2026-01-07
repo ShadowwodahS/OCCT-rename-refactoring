@@ -140,7 +140,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoFace&              FF,
       {
         // modified by NIZHNY-MKK  Mon Apr  2 15:41:16 2001.END
 
-        CEEFFx = GeomProjLib::Curve2d(CEE, fE, lE, SFF);
+        CEEFFx = GeomProjLib1::Curve2d(CEE, fE, lE, SFF);
 
         // modified by NIZHNY-MKK  Mon Apr  2 15:41:26 2001.BEGIN
       }

@@ -21,16 +21,16 @@
 #include <math_TrigonometricFunctionRoots.hxx>
 #include <IntAna2d_IntPoint.hxx>
 
-class MyDirectPolynomialRoots
+class MyDirectPolynomialRoots1
 {
 public:
-  MyDirectPolynomialRoots(const Standard_Real A4,
+  MyDirectPolynomialRoots1(const Standard_Real A4,
                           const Standard_Real A3,
                           const Standard_Real A2,
                           const Standard_Real A1,
                           const Standard_Real A0);
 
-  MyDirectPolynomialRoots(const Standard_Real A2, const Standard_Real A1, const Standard_Real A0);
+  MyDirectPolynomialRoots1(const Standard_Real A2, const Standard_Real A1, const Standard_Real A0);
 
   Standard_Integer NbSolutions() const { return (nbsol); }
 
@@ -52,7 +52,7 @@ Standard_Boolean Points_Confondus(const Standard_Real xa,
                                   const Standard_Real xb,
                                   const Standard_Real yb);
 
-void Traitement_Points_Confondus(Standard_Integer& nb_pts, IntAna2d_IntPoint* pts);
+void Traitement_Points_Confondus(Standard_Integer& nb_pts, IntersectionPoint2d* pts);
 
 void Coord_Ancien_Repere(Standard_Real& Ancien_X,
                          Standard_Real& Ancien_Y,

@@ -105,8 +105,8 @@ private:
 
   Standard_Boolean         done;
   Contap_TheSequenceOfLine slin;
-  Contap_TheSearch         solrst;
-  Contap_TheSearchInside   solins;
+  ContourSearch         solrst;
+  TheSearchInside1   solins;
   Contap_SurfFunction      mySFunc;
   Contap_ArcFunction       myAFunc;
   Standard_Boolean         modeset;

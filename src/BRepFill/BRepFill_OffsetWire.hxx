@@ -70,7 +70,7 @@ public:
   Standard_EXPORT void PerformWithBiLo(const TopoFace&              WSP,
                                        const Standard_Real             Offset,
                                        const BRepMAT2d_BisectingLocus& Locus,
-                                       BRepMAT2d_LinkTopoBilo&         Link,
+                                       BRepMAT2d_LinkTopoBilo&         Link1,
                                        const GeomAbs_JoinType          Join = GeomAbs_Arc,
                                        const Standard_Real             Alt  = 0.0);
 

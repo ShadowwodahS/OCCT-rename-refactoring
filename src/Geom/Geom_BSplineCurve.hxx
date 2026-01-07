@@ -110,7 +110,7 @@ DEFINE_STANDARD_HANDLE(BSplineCurve3d, Geom_BoundedCurve)
 //! - Knot(i+k) = Knot(i) + period
 //! - Pole(i+p) = Pole(i)
 //! Note: data structures of a periodic BSpline curve
-//! are more complex than those of a non-periodic one.
+//! are more complex1 than those of a non-periodic one.
 //! Warning
 //! In this class, weight value is considered to be zero if
 //! the weight is less than or equal to gp::Resolution().

@@ -27,8 +27,8 @@ GC_MakeArcOfParabola::GC_MakeArcOfParabola(const gp_Parab&        Parab,
                                            const Point3d&          P2,
                                            const Standard_Boolean Sense)
 {
-  Standard_Real         Alpha1 = ElCLib::Parameter(Parab, P1);
-  Standard_Real         Alpha2 = ElCLib::Parameter(Parab, P2);
+  Standard_Real         Alpha1 = ElCLib1::Parameter(Parab, P1);
+  Standard_Real         Alpha2 = ElCLib1::Parameter(Parab, P2);
   Handle(Geom_Parabola) P      = new Geom_Parabola(Parab);
   TheArc                       = new Geom_TrimmedCurve(P, Alpha1, Alpha2, Sense);
   TheError                     = gce_Done;
@@ -39,7 +39,7 @@ GC_MakeArcOfParabola::GC_MakeArcOfParabola(const gp_Parab&        Parab,
                                            const Standard_Real    Alpha,
                                            const Standard_Boolean Sense)
 {
-  Standard_Real         Alphafirst = ElCLib::Parameter(Parab, P);
+  Standard_Real         Alphafirst = ElCLib1::Parameter(Parab, P);
   Handle(Geom_Parabola) Parabola   = new Geom_Parabola(Parab);
   TheArc                           = new Geom_TrimmedCurve(Parabola, Alphafirst, Alpha, Sense);
   TheError                         = gce_Done;

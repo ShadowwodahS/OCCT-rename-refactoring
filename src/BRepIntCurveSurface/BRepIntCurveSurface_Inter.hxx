@@ -131,7 +131,7 @@ private:
   TopAbs_State                     myCurrentstate;
   Standard_Real                    myCurrentU;
   Standard_Real                    myCurrentV;
-  Bnd_Box                          myCurveBox;
+  Box2                          myCurveBox;
   Standard_Integer                 myIndFace;
   TopTools_SequenceOfShape         myFaces;
   Handle(Bnd_HArray1OfBox)         myFaceBoxes;

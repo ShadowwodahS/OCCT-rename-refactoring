@@ -125,7 +125,7 @@ TopoShape BRepMAT2d_LinkTopoBilo::GeneratingShape(const Handle(MAT_BasicElt)& BE
 static void LinkToContour(const BRepMAT2d_Explorer&        Explo,
                           const Standard_Integer           IndC,
                           const BRepMAT2d_BisectingLocus&  BiLo,
-                          TColStd_DataMapOfIntegerInteger& Link);
+                          TColStd_DataMapOfIntegerInteger& Link1);
 
 //=================================================================================================
 
@@ -204,7 +204,7 @@ void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoWire&              W,
 void LinkToContour(const BRepMAT2d_Explorer&        Explo,
                    const Standard_Integer           IndC,
                    const BRepMAT2d_BisectingLocus&  BiLo,
-                   TColStd_DataMapOfIntegerInteger& Link)
+                   TColStd_DataMapOfIntegerInteger& Link1)
 {
   Handle(MAT_BasicElt)    BE;
   Handle(Geom2d_Geometry) GeomBE;
@@ -247,11 +247,11 @@ void LinkToContour(const BRepMAT2d_Explorer&        Explo,
       //----------------------------------------------------------------
       if (DirectSense)
       {
-        Link.Bind(BE->Index(), IndOnCont);
+        Link1.Bind(BE->Index(), IndOnCont);
       }
       else
       {
-        Link.Bind(BE->Index(), -IndOnCont);
+        Link1.Bind(BE->Index(), -IndOnCont);
       }
     }
     else
@@ -261,11 +261,11 @@ void LinkToContour(const BRepMAT2d_Explorer&        Explo,
       //-----------------------------------------------------------------
       if (DirectSense || LastPoint)
       {
-        Link.Bind(BE->Index(), PrecIndOnCont);
+        Link1.Bind(BE->Index(), PrecIndOnCont);
       }
       else
       {
-        Link.Bind(BE->Index(), -PrecIndOnCont);
+        Link1.Bind(BE->Index(), -PrecIndOnCont);
       }
     }
 

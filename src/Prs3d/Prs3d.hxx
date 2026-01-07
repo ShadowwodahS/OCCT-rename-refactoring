@@ -77,7 +77,7 @@ public:
   //! StyleDrawer::MaximalChordialDeviation()
   //! @return absolute deflection coefficient based on bounding box dimensions or
   //! theMaximalChordialDeviation if bounding box is Void or Infinite
-  static Standard_Real GetDeflection(const Bnd_Box&      theBndBox,
+  static Standard_Real GetDeflection(const Box2&      theBndBox,
                                      const Standard_Real theDeviationCoefficient,
                                      const Standard_Real theMaximalChordialDeviation)
   {
@@ -86,7 +86,7 @@ public:
       return theMaximalChordialDeviation;
     }
 
-    Bnd_Box aBndBox = theBndBox;
+    Box2 aBndBox = theBndBox;
     if (theBndBox.IsOpen())
     {
       if (!theBndBox.HasFinitePart())

@@ -144,7 +144,7 @@ Point3d MeshVS_CommonSensitiveEntity::getVertexByIndex(const Standard_Integer th
 
 //=================================================================================================
 
-Select3D_BndBox3d MeshVS_CommonSensitiveEntity::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d MeshVS_CommonSensitiveEntity::Box1(const Standard_Integer theIdx) const
 {
   const Standard_Integer anItemIdx = myItemIndexes.Value(theIdx);
   Select3D_BndBox3d      aBox;
@@ -188,7 +188,7 @@ Select3D_BndBox3d MeshVS_CommonSensitiveEntity::Box(const Standard_Integer theId
 Standard_Real MeshVS_CommonSensitiveEntity::Center(const Standard_Integer theIdx,
                                                    const Standard_Integer theAxis) const
 {
-  const Select3D_BndBox3d& aBox    = Box(theIdx);
+  const Select3D_BndBox3d& aBox    = Box1(theIdx);
   SelectMgr_Vec3           aCenter = (aBox.CornerMin() + aBox.CornerMax()) * 0.5;
 
   return theAxis == 0 ? aCenter.x() : (theAxis == 1 ? aCenter.y() : aCenter.z());

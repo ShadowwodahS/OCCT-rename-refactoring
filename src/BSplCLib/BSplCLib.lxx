@@ -23,7 +23,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer BSplCLib::MaxDegree()
+inline Standard_Integer BSplCLib1::MaxDegree()
 {
   return 25;
 }
@@ -33,7 +33,7 @@ inline Standard_Integer BSplCLib::MaxDegree()
 // purpose  :
 //=======================================================================
 
-inline TColStd_Array1OfReal* BSplCLib::NoWeights()
+inline TColStd_Array1OfReal* BSplCLib1::NoWeights()
 {
   return NULL;
 }
@@ -43,7 +43,7 @@ inline TColStd_Array1OfReal* BSplCLib::NoWeights()
 // purpose  :
 //=======================================================================
 
-inline TColStd_Array1OfInteger* BSplCLib::NoMults()
+inline TColStd_Array1OfInteger* BSplCLib1::NoMults()
 {
   return NULL;
 }
@@ -53,12 +53,12 @@ inline TColStd_Array1OfInteger* BSplCLib::NoMults()
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD0(const Standard_Real         U,
+inline void BSplCLib1::CoefsD0(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P)
 {
-  BSplCLib::CacheD0(U, Poles.Length() - 1, 0., 1., Poles, Weights, P);
+  BSplCLib1::CacheD0(U, Poles.Length() - 1, 0., 1., Poles, Weights, P);
 }
 
 //=======================================================================
@@ -66,12 +66,12 @@ inline void BSplCLib::CoefsD0(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD0(const Standard_Real         U,
+inline void BSplCLib1::CoefsD0(const Standard_Real         U,
                               const TColgp_Array1OfPnt2d& Poles,
                               const TColStd_Array1OfReal* Weights,
                               gp_Pnt2d&                   P)
 {
-  BSplCLib::CacheD0(U, Poles.Length() - 1, 0., 1., Poles, Weights, P);
+  BSplCLib1::CacheD0(U, Poles.Length() - 1, 0., 1., Poles, Weights, P);
 }
 
 //=======================================================================
@@ -79,13 +79,13 @@ inline void BSplCLib::CoefsD0(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD1(const Standard_Real         U,
+inline void BSplCLib1::CoefsD1(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
                               Vector3d&                     Vec)
 {
-  BSplCLib::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
+  BSplCLib1::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
 }
 
 //=======================================================================
@@ -93,13 +93,13 @@ inline void BSplCLib::CoefsD1(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD1(const Standard_Real         U,
+inline void BSplCLib1::CoefsD1(const Standard_Real         U,
                               const TColgp_Array1OfPnt2d& Poles,
                               const TColStd_Array1OfReal* Weights,
                               gp_Pnt2d&                   P,
                               gp_Vec2d&                   Vec)
 {
-  BSplCLib::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
+  BSplCLib1::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
 }
 
 //=======================================================================
@@ -107,14 +107,14 @@ inline void BSplCLib::CoefsD1(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD2(const Standard_Real         U,
+inline void BSplCLib1::CoefsD2(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
                               Vector3d&                     Vec1,
                               Vector3d&                     Vec2)
 {
-  BSplCLib::CacheD2(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2);
+  BSplCLib1::CacheD2(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2);
 }
 
 //=======================================================================
@@ -122,14 +122,14 @@ inline void BSplCLib::CoefsD2(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD2(const Standard_Real         U,
+inline void BSplCLib1::CoefsD2(const Standard_Real         U,
                               const TColgp_Array1OfPnt2d& Poles,
                               const TColStd_Array1OfReal* Weights,
                               gp_Pnt2d&                   P,
                               gp_Vec2d&                   Vec1,
                               gp_Vec2d&                   Vec2)
 {
-  BSplCLib::CacheD2(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2);
+  BSplCLib1::CacheD2(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2);
 }
 
 //=======================================================================
@@ -137,7 +137,7 @@ inline void BSplCLib::CoefsD2(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD3(const Standard_Real         U,
+inline void BSplCLib1::CoefsD3(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
@@ -145,7 +145,7 @@ inline void BSplCLib::CoefsD3(const Standard_Real         U,
                               Vector3d&                     Vec2,
                               Vector3d&                     Vec3)
 {
-  BSplCLib::CacheD3(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2, Vec3);
+  BSplCLib1::CacheD3(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2, Vec3);
 }
 
 //=======================================================================
@@ -153,7 +153,7 @@ inline void BSplCLib::CoefsD3(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::CoefsD3(const Standard_Real         U,
+inline void BSplCLib1::CoefsD3(const Standard_Real         U,
                               const TColgp_Array1OfPnt2d& Poles,
                               const TColStd_Array1OfReal* Weights,
                               gp_Pnt2d&                   P,
@@ -161,7 +161,7 @@ inline void BSplCLib::CoefsD3(const Standard_Real         U,
                               gp_Vec2d&                   Vec2,
                               gp_Vec2d&                   Vec3)
 {
-  BSplCLib::CacheD3(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2, Vec3);
+  BSplCLib1::CacheD3(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2, Vec3);
 }
 
 //=======================================================================
@@ -169,10 +169,10 @@ inline void BSplCLib::CoefsD3(const Standard_Real         U,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::PolesCoefficients(const TColgp_Array1OfPnt& Poles,
+inline void BSplCLib1::PolesCoefficients(const TColgp_Array1OfPnt& Poles,
                                         TColgp_Array1OfPnt&       CachePoles)
 {
-  BSplCLib::PolesCoefficients(Poles, PLib::NoWeights(), CachePoles, PLib::NoWeights());
+  BSplCLib1::PolesCoefficients(Poles, PLib1::NoWeights(), CachePoles, PLib1::NoWeights());
 }
 
 //=======================================================================
@@ -180,8 +180,8 @@ inline void BSplCLib::PolesCoefficients(const TColgp_Array1OfPnt& Poles,
 // purpose  :
 //=======================================================================
 
-inline void BSplCLib::PolesCoefficients(const TColgp_Array1OfPnt2d& Poles,
+inline void BSplCLib1::PolesCoefficients(const TColgp_Array1OfPnt2d& Poles,
                                         TColgp_Array1OfPnt2d&       CachePoles)
 {
-  BSplCLib::PolesCoefficients(Poles, PLib::NoWeights(), CachePoles, PLib::NoWeights());
+  BSplCLib1::PolesCoefficients(Poles, PLib1::NoWeights(), CachePoles, PLib1::NoWeights());
 }

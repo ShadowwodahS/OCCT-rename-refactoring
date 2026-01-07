@@ -207,7 +207,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
-      parbar = ElCLib::LineParameter(myAxis, Barycentre);
+      parbar = ElCLib1::LineParameter(myAxis, Barycentre);
       if (parbar >= First && parbar <= Last && parbar <= parmin)
       {
         parmin = parbar;
@@ -222,7 +222,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
       for (its.Initialize(parts); its.More(); its.Next())
       {
         Baryc(its.Value(), Barycentre);
-        parbar = ElCLib::LineParameter(myAxis, Barycentre);
+        parbar = ElCLib1::LineParameter(myAxis, Barycentre);
         if (parbar < First)
         {
           if (First - parbar < dmin)
@@ -344,7 +344,7 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
-      parbar = ElCLib::LineParameter(myAxis, Barycentre);
+      parbar = ElCLib1::LineParameter(myAxis, Barycentre);
       if (parbar > PntInfoFirst.Parameter())
       {
         KeepPart(its.Value());
@@ -462,7 +462,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
-      parbar = ElCLib::LineParameter(myAxis, Barycentre);
+      parbar = ElCLib1::LineParameter(myAxis, Barycentre);
       if (!(parbar < PntInfoFirst.Parameter() || parbar > PntInfoLast.Parameter()))
       {
         KeepPart(its.Value());
@@ -593,7 +593,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
-      parbar = ElCLib::LineParameter(myAxis, Barycentre);
+      parbar = ElCLib1::LineParameter(myAxis, Barycentre);
       if (parbar >= First && parbar <= parmin)
       {
         parmin = parbar;
@@ -608,7 +608,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
       for (its.Initialize(parts); its.More(); its.Next())
       {
         Baryc(its.Value(), Barycentre);
-        parbar = ElCLib::LineParameter(myAxis, Barycentre);
+        parbar = ElCLib1::LineParameter(myAxis, Barycentre);
         if (Abs(First - parbar) < dmin)
         {
           dmin   = Abs(First - parbar);
@@ -725,7 +725,7 @@ void BoxParameters(const TopoShape& S,
 {
 
   // calculate the parameters of a bounding box in the direction of the axis of the hole
-  Bnd_Box B;
+  Box2 B;
   BRepBndLib::Add(S, B);
   Standard_Real c[6];
   B.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
@@ -743,7 +743,7 @@ void BoxParameters(const TopoShape& S,
       for (k = 4; k <= 5; k++)
       {
         P.SetZ(c[k]);
-        param  = ElCLib::LineParameter(Axis, P);
+        param  = ElCLib1::LineParameter(Axis, P);
         parmin = Min(param, parmin);
         parmax = Max(param, parmax);
       }
@@ -766,7 +766,7 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
   FFA.D1(Up, Vp, PP, D1U, D1V);
   Dir3d             NormF;
   CSLib_NormalStatus stat;
-  CSLib::Normal(D1U, D1V, Precision::Angular(), stat, NormF);
+  CSLib1::Normal(D1U, D1V, Precision::Angular(), stat, NormF);
   if (stat != CSLib_Defined)
     return Standard_False;
   Standard_Real angle = Axis.Direction().Angle(NormF);

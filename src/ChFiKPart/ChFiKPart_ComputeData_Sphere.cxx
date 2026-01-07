@@ -124,9 +124,9 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   // Parameters of p2 and p3 are calculated on the Sphere to have
   // ranges of curves.
   Standard_Real uu1, vv1, uu2, vv2;
-  ElSLib::SphereParameters(FilAx3, Rad, p2, uu1, vv1);
+  ElSLib1::SphereParameters(FilAx3, Rad, p2, uu1, vv1);
   uu1 = 0.;
-  ElSLib::SphereParameters(FilAx3, Rad, p3, uu2, vv2);
+  ElSLib1::SphereParameters(FilAx3, Rad, p3, uu2, vv2);
 
   // FaceInterferences are loaded with pcurves and curves 3d.
 

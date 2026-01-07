@@ -335,7 +335,7 @@ T SquareDistanceToGeomerty(BVH_Geometry<T, N>&                    theGeometry,
 {
   Standard_STATIC_ASSERT(N == 3 || N == 4);
 
-  const BVH_Tree<T, N, BVH_BinaryTree>* aBVH = theGeometry.BVH().get();
+  const BVH_Tree<T, N, BinaryTree>* aBVH = theGeometry.BVH().get();
 
   if (aBVH == NULL)
   {
@@ -423,7 +423,7 @@ Standard_Boolean BVH_DistanceField<T, N>::Build(BVH_Geometry<T, N>& theGeometry)
     return Standard_False;
   }
 
-  const BVH_VecNt aGlobalBoxSize = theGeometry.Box().Size();
+  const BVH_VecNt aGlobalBoxSize = theGeometry.Box1().Size();
 
   const T aMaxBoxSide = Max(Max(aGlobalBoxSize.x(), aGlobalBoxSize.y()), aGlobalBoxSize.z());
 
@@ -435,8 +435,8 @@ Standard_Boolean BVH_DistanceField<T, N>::Build(BVH_Geometry<T, N>& theGeometry)
   myDimensionY = Min(myMaximumSize, Max(myDimensionY, 16));
   myDimensionZ = Min(myMaximumSize, Max(myDimensionZ, 16));
 
-  const BVH_VecNt aGlobalBoxMin = theGeometry.Box().CornerMin();
-  const BVH_VecNt aGlobalBoxMax = theGeometry.Box().CornerMax();
+  const BVH_VecNt aGlobalBoxMin = theGeometry.Box1().CornerMin();
+  const BVH_VecNt aGlobalBoxMax = theGeometry.Box1().CornerMax();
 
   const Standard_Integer aVoxelOffset = 2;
 

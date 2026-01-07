@@ -261,7 +261,7 @@ void Geom_ConicalSurface::Coefficients(Standard_Real& A1,
 void Geom_ConicalSurface::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
 
-  P = ElSLib::ConeValue(U, V, pos, radius, semiAngle);
+  P = ElSLib1::ConeValue(U, V, pos, radius, semiAngle);
 }
 
 //=================================================================================================
@@ -272,7 +272,7 @@ void Geom_ConicalSurface::D1(const Standard_Real U,
                              Vec&                D1U,
                              Vec&                D1V) const
 {
-  ElSLib::ConeD1(U, V, pos, radius, semiAngle, P, D1U, D1V);
+  ElSLib1::ConeD1(U, V, pos, radius, semiAngle, P, D1U, D1V);
 }
 
 //=================================================================================================
@@ -286,7 +286,7 @@ void Geom_ConicalSurface::D2(const Standard_Real U,
                              Vec&                D2V,
                              Vec&                D2UV) const
 {
-  ElSLib::ConeD2(U, V, pos, radius, semiAngle, P, D1U, D1V, D2U, D2V, D2UV);
+  ElSLib1::ConeD2(U, V, pos, radius, semiAngle, P, D1U, D1V, D2U, D2V, D2UV);
 }
 
 //=================================================================================================
@@ -304,7 +304,7 @@ void Geom_ConicalSurface::D3(const Standard_Real U,
                              Vec&                D3UUV,
                              Vec&                D3UVV) const
 {
-  ElSLib::ConeD3(U, V, pos, radius, semiAngle, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
+  ElSLib1::ConeD3(U, V, pos, radius, semiAngle, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
 }
 
 //=================================================================================================
@@ -321,7 +321,7 @@ Vec Geom_ConicalSurface::DN(const Standard_Real    U,
   }
   else
   {
-    return ElSLib::ConeDN(U, V, pos, radius, semiAngle, Nu, Nv);
+    return ElSLib1::ConeDN(U, V, pos, radius, semiAngle, Nu, Nv);
   }
 }
 
@@ -329,7 +329,7 @@ Vec Geom_ConicalSurface::DN(const Standard_Real    U,
 
 Handle(GeomCurve3d) Geom_ConicalSurface::UIso(const Standard_Real U) const
 {
-  Handle(GeomLine) GL = new GeomLine(ElSLib::ConeUIso(pos, radius, semiAngle, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib1::ConeUIso(pos, radius, semiAngle, U));
   return GL;
 }
 
@@ -337,7 +337,7 @@ Handle(GeomCurve3d) Geom_ConicalSurface::UIso(const Standard_Real U) const
 
 Handle(GeomCurve3d) Geom_ConicalSurface::VIso(const Standard_Real V) const
 {
-  Handle(GeomCircle) GC = new GeomCircle(ElSLib::ConeVIso(pos, radius, semiAngle, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib1::ConeVIso(pos, radius, semiAngle, V));
   return GC;
 }
 

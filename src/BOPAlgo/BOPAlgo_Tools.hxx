@@ -182,7 +182,7 @@ public:
   //! their additional classification.
   //!
   //! Firstly, it checks the intersection of bounding boxes of the shapes.
-  //! If the Box is not stored in the <theShapeBoxMap> map, it builds the box.
+  //! If the Box1 is not stored in the <theShapeBoxMap> map, it builds the box.
   //! If the bounding boxes of solid and face are interfering the classification is performed.
   //!
   //! It is assumed that all faces and solids are already intersected and
@@ -219,8 +219,8 @@ public:
   //! @param theTrsf the computed transformation
   //! @param thePoint the Point to compute transformation to
   //! @param theCriteria the Criteria to check whether thranformation is required
-  Standard_EXPORT static Standard_Boolean TrsfToPoint(const Bnd_Box&      theBox1,
-                                                      const Bnd_Box&      theBox2,
+  Standard_EXPORT static Standard_Boolean TrsfToPoint(const Box2&      theBox1,
+                                                      const Box2&      theBox2,
                                                       Transform3d&            theTrsf,
                                                       const Point3d&       thePoint    = Point3d(0.0,
                                                                                       0.0,

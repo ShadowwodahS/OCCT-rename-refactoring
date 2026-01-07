@@ -54,7 +54,7 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, c
                                 TheLin.Direction().X()));
   //                                      ========================
   pnttg1sol(1) = ThePnt;
-  IntAna2d_AnaIntersection Intp(linsol(1), TheLin);
+  AnalyticIntersection2d Intp(linsol(1), TheLin);
   if (Intp.IsDone())
   {
     if (!Intp.IsEmpty())
@@ -65,10 +65,10 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, c
       }
     }
   }
-  par1sol(1) = ElCLib::Parameter(linsol(1), pnttg1sol(1));
-  par2sol(1) = ElCLib::Parameter(linsol(1), pntint2sol(1));
+  par1sol(1) = ElCLib1::Parameter(linsol(1), pnttg1sol(1));
+  par2sol(1) = ElCLib1::Parameter(linsol(1), pntint2sol(1));
   pararg1(1) = 0.;
-  pararg2(1) = ElCLib::Parameter(TheLin, pntint2sol(1));
+  pararg2(1) = ElCLib1::Parameter(TheLin, pntint2sol(1));
   NbrSol     = 1;
   WellDone   = Standard_True;
 }
@@ -96,7 +96,7 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, c
                        gp_Dir2d(TheCircle.Location().XY() - ThePnt.XY()));
   //                      ================================================
   pnttg1sol(1) = ThePnt;
-  IntAna2d_AnaIntersection Intp(linsol(1), TheCircle);
+  AnalyticIntersection2d Intp(linsol(1), TheCircle);
   if (Intp.IsDone())
   {
     if (!Intp.IsEmpty())
@@ -111,10 +111,10 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, c
       }
     }
   }
-  par1sol(1) = ElCLib::Parameter(linsol(1), pnttg1sol(1));
-  par2sol(1) = ElCLib::Parameter(linsol(1), pntint2sol(1));
+  par1sol(1) = ElCLib1::Parameter(linsol(1), pnttg1sol(1));
+  par2sol(1) = ElCLib1::Parameter(linsol(1), pntint2sol(1));
   pararg1(1) = 0.;
-  pararg2(1) = ElCLib::Parameter(TheCircle, pntint2sol(1));
+  pararg2(1) = ElCLib1::Parameter(TheCircle, pntint2sol(1));
   NbrSol     = 1;
   WellDone   = Standard_True;
 }
@@ -179,7 +179,7 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qu
                         TheLin.Direction().X()));
     //                                    ========================
     pnttg1sol(NbrSol) = gp_Pnt2d((C1.Location().XY()).Added(signe * xy));
-    IntAna2d_AnaIntersection Intp(linsol(NbrSol), TheLin);
+    AnalyticIntersection2d Intp(linsol(NbrSol), TheLin);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())
@@ -190,10 +190,10 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qu
         }
       }
     }
-    par1sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
-    par2sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pntint2sol(NbrSol));
-    pararg1(NbrSol) = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
-    pararg2(NbrSol) = ElCLib::Parameter(TheLin, pntint2sol(NbrSol));
+    par1sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
+    par2sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pntint2sol(NbrSol));
+    pararg1(NbrSol) = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
+    pararg2(NbrSol) = ElCLib1::Parameter(TheLin, pntint2sol(NbrSol));
     WellDone        = Standard_True;
   }
 }
@@ -257,7 +257,7 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qu
                               gp_Dir2d(-D1.Y(), D1.X()));
     //                     ======================================================
     pnttg1sol(NbrSol) = gp_Pnt2d((C1.Location().XY()) + signe * (D1.XY() * C1.Radius()));
-    IntAna2d_AnaIntersection Intp(linsol(NbrSol), TheCircle);
+    AnalyticIntersection2d Intp(linsol(NbrSol), TheCircle);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())
@@ -272,10 +272,10 @@ Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qu
         }
       }
     }
-    par1sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
-    par2sol(NbrSol) = ElCLib::Parameter(linsol(NbrSol), pntint2sol(NbrSol));
-    pararg1(NbrSol) = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
-    pararg2(NbrSol) = ElCLib::Parameter(TheCircle, pntint2sol(NbrSol));
+    par1sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pnttg1sol(NbrSol));
+    par2sol(NbrSol) = ElCLib1::Parameter(linsol(NbrSol), pntint2sol(NbrSol));
+    pararg1(NbrSol) = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
+    pararg2(NbrSol) = ElCLib1::Parameter(TheCircle, pntint2sol(NbrSol));
     WellDone        = Standard_True;
   }
 }

@@ -146,7 +146,7 @@ static Standard_Real CalculVolume(const TopoShape& So,
     for (Standard_Integer i = 1; i <= (facing->NbTriangles()); i++)
     {
 
-      Poly_Triangle    trian = facing->Triangle(i);
+      Poly_Triangle    trian = facing->Triangle1(i);
       Standard_Integer index1, index2, index3; // M,N;
       if (F.Orientation() == TopAbs_REVERSED)
         trian.Get(index1, index3, index2);
@@ -197,7 +197,7 @@ static Standard_Integer SetProps(DrawInterpreter& di, Standard_Integer argc, con
   Standard_Real Vres, Ares;
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   TopoShape aShape;
   if (aLabel.IsNull())
   {
@@ -269,7 +269,7 @@ static Standard_Integer SetVolume(DrawInterpreter& di, Standard_Integer argc, co
   Standard_Real res = 0.;
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -312,7 +312,7 @@ static Standard_Integer SetArea(DrawInterpreter& di, Standard_Integer argc, cons
   Standard_Real res = 0.;
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -354,7 +354,7 @@ static Standard_Integer SetCentroid(DrawInterpreter& di, Standard_Integer argc, 
   Point3d aPoint;
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -396,7 +396,7 @@ static Standard_Integer GetVolume(DrawInterpreter& di, Standard_Integer argc, co
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -436,7 +436,7 @@ static Standard_Integer GetArea(DrawInterpreter& di, Standard_Integer argc, cons
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -478,7 +478,7 @@ static Standard_Integer GetCentroid(DrawInterpreter& di, Standard_Integer argc, 
   Point3d aPoint;
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     TopoShape aShape = DBRep1::Get(argv[2]);
@@ -532,7 +532,7 @@ static Standard_Integer CheckProps(DrawInterpreter& di, Standard_Integer argc, c
   if (!wholeDoc)
   {
     DataLabel aLabel;
-    TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
+    Tool3::Label(Doc->GetData(), argv[3], aLabel);
     TopoShape aShape;
     if (aLabel.IsNull())
     {
@@ -581,7 +581,7 @@ static Standard_Integer CheckProps(DrawInterpreter& di, Standard_Integer argc, c
     }
 
     AsciiString1 str;
-    TDF_Tool::Entry(aLabel, str);
+    Tool3::Entry(aLabel, str);
     // printf ( "%s%-12.12s", ( wholeDoc ? "" : "Label " ), str.ToCString() );
     // fflush ( stdout );
     char string1[260];
@@ -920,7 +920,7 @@ static Standard_Integer ShapeMassProps(DrawInterpreter& di,
   if (!wholeDoc)
   {
     DataLabel aLabel;
-    TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
+    Tool3::Label(Doc->GetData(), argv[3], aLabel);
     TopoShape aShape;
     if (aLabel.IsNull())
     {
@@ -952,7 +952,7 @@ static Standard_Integer ShapeMassProps(DrawInterpreter& di,
     //    if(GetMassProps(aLabel,aCenterGravity,aMassVal,atol))
     //    {
     AsciiString1 str;
-    TDF_Tool::Entry(aLabel, str);
+    Tool3::Entry(aLabel, str);
     if (aMassVal > 0)
     {
       di << "Shape from label : " << str.ToCString() << "\n";
@@ -988,7 +988,7 @@ static Standard_Integer SetMaterial(DrawInterpreter& di, Standard_Integer argc, 
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
 
   Handle(XCAFDoc_MaterialTool) MatTool = XCAFDoc_DocumentTool::MaterialTool(Doc->Main());
 
@@ -1028,7 +1028,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
     TopoShape aShape = DBRep1::Get(argv[2]);
     if (aShape.IsNull())
     {
-      TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+      Tool3::Label(Doc->GetData(), argv[2], aLabel);
     }
     else
     {
@@ -1070,7 +1070,7 @@ static Standard_Integer GetValidationProps(DrawInterpreter& di,
     if (aProp[Vol] > 0 || aProp[Area] > 0 || !Precision::IsInfinite(aP.X()))
     {
       AsciiString1 str;
-      TDF_Tool::Entry(aLabel, str);
+      Tool3::Entry(aLabel, str);
       di << "Label : " << str;
 
       for (j = 0; j <= Area; j++)

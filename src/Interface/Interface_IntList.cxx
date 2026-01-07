@@ -182,9 +182,9 @@ Standard_Integer Interface_IntList::Number() const
 Interface_IntList Interface_IntList::List(const Standard_Integer number,
                                           const Standard_Boolean copied) const
 {
-  Interface_IntList alist(*this, copied);
-  alist.SetNumber(number);
-  return alist;
+  Interface_IntList alist1(*this, copied);
+  alist1.SetNumber(number);
+  return alist1;
 }
 
 void Interface_IntList::SetRedefined(const Standard_Boolean mode)

@@ -32,7 +32,7 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define LineTool AppDef_MyLineTool
+#define LineTool MultiLineTool
 #define LineTool_hxx <AppDef_MyLineTool.hxx>
 #define Approx_MyBSplGradient AppDef_MyBSplGradientOfBSplineCompute
 #define Approx_MyBSplGradient_hxx <AppDef_MyBSplGradientOfBSplineCompute.hxx>
@@ -63,7 +63,7 @@
 #define Approx_ParLeastSquareOfMyGradientbis AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute
 #define Approx_ParLeastSquareOfMyGradientbis_hxx                                                   \
   <AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute.hxx>
-#define Approx_ResConstraintOfMyGradientbis AppDef_ResConstraintOfMyGradientbisOfBSplineCompute
+#define Approx_ResConstraintOfMyGradientbis ResConstraintGradientbisBSpline
 #define Approx_ResConstraintOfMyGradientbis_hxx                                                    \
   <AppDef_ResConstraintOfMyGradientbisOfBSplineCompute.hxx>
 #define Approx_ParFunctionOfMyGradientbis AppDef_ParFunctionOfMyGradientbisOfBSplineCompute
@@ -75,7 +75,7 @@
 #define Approx_ParLeastSquareOfMyGradientbis AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute
 #define Approx_ParLeastSquareOfMyGradientbis_hxx                                                   \
   <AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute.hxx>
-#define Approx_ResConstraintOfMyGradientbis AppDef_ResConstraintOfMyGradientbisOfBSplineCompute
+#define Approx_ResConstraintOfMyGradientbis ResConstraintGradientbisBSpline
 #define Approx_ResConstraintOfMyGradientbis_hxx                                                    \
   <AppDef_ResConstraintOfMyGradientbisOfBSplineCompute.hxx>
 #define Approx_ParFunctionOfMyGradientbis AppDef_ParFunctionOfMyGradientbisOfBSplineCompute

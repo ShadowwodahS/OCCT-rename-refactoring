@@ -194,7 +194,7 @@ static void ResultEval(const Handle(Geom_BSplineSurface)& surf,
   extrap_mode[0] = extrap_mode[1] = Cdeg;
   TColStd_Array1OfReal EvalBS(1, Cdim * (deriv + 1));
   Standard_Real*       Eadr = (Standard_Real*)&EvalBS(1);
-  BSplCLib::Eval(V, periodic_flag, deriv, extrap_mode[0], Cdeg, FKnots, Cdim, *Padr, *Eadr);
+  BSplCLib1::Eval(V, periodic_flag, deriv, extrap_mode[0], Cdeg, FKnots, Cdim, *Padr, *Eadr);
 
   for (ii = 1; ii <= Cdim; ii++)
   {
@@ -432,7 +432,7 @@ Standard_Boolean GeomFill_NSections::D2(const Standard_Real   V,
   if (mySurface.IsNull())
     return Standard_False;
 
-  // pb dans BSplCLib::Eval() pour les surfaces rationnelles de degre 1
+  // pb dans BSplCLib1::Eval() pour les surfaces rationnelles de degre 1
   // si l'ordre de derivation est egal a 2.
   if (mySurface->VDegree() < 2)
     return Standard_False;
@@ -582,12 +582,12 @@ void GeomFill_NSections::ComputeSurface()
       Handle(BSplineCurve3d) curvBS = Handle(BSplineCurve3d)::DownCast(curv);
       if (curvBS.IsNull())
       {
-        curvBS = GeomConvert::CurveToBSplineCurve(curv, Convert_QuasiAngular);
+        curvBS = GeomConvert1::CurveToBSplineCurve(curv, Convert_QuasiAngular);
       }
 
       TColStd_Array1OfReal BSK(1, curvBS->NbKnots());
       curvBS->Knots(BSK);
-      BSplCLib::Reparametrize(UFirst, ULast, BSK);
+      BSplCLib1::Reparametrize(UFirst, ULast, BSK);
       curvBS->SetKnots(BSK);
 
       section.AddCurve(curvBS);

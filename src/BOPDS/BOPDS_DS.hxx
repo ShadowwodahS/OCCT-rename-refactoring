@@ -54,7 +54,7 @@ class TopoShape;
 class BOPDS_PaveBlock;
 class BOPDS_CommonBlock;
 class BOPDS_FaceInfo;
-class Bnd_Box;
+class Box2;
 
 //! The class BOPDS_DS provides the control
 //! of data structure for the algorithms in the
@@ -424,7 +424,7 @@ public:
   //! The flag <theCheckInverted> enables/disables the check of the solid
   //! for inverted status. By default the solids will be checked.
   Standard_EXPORT void BuildBndBoxSolid(const Standard_Integer theIndex,
-                                        Bnd_Box&               theBox,
+                                        Box2&               theBox,
                                         const Standard_Boolean theCheckInverted = Standard_True);
 
 protected:

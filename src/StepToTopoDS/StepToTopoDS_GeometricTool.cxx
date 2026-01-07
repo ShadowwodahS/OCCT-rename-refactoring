@@ -255,7 +255,7 @@ Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurv
   if (theCurve->IsPeriodic())
   {
     // clang-format off
-    ElCLib::AdjustPeriodic(cf, cl, Precision::PConfusion(), w1, w2); //:a7 abv 11 Feb 98: preci -> PConfusion()
+    ElCLib1::AdjustPeriodic(cf, cl, Precision::PConfusion(), w1, w2); //:a7 abv 11 Feb 98: preci -> PConfusion()
     // clang-format on
   }
   else if (theCurve->IsClosed())

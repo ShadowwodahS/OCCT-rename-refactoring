@@ -64,7 +64,7 @@ public:
   //! of the tangency point between these arguments and
   //! the solution sought, if the algorithm chooses an
   //! iterative method to find the solution (i.e. if either
-  //! Qualified1, Qualified2 or Qualified3 is more complex
+  //! Qualified1, Qualified2 or Qualified3 is more complex1
   //! than a line or a circle).
   Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Geom2dGcc_QualifiedCurve& Qualified2,
@@ -82,7 +82,7 @@ public:
   //! Qualified2 of the tangency point between this
   //! argument and the solution sought, if the algorithm
   //! chooses an iterative method to find the solution (i.e. if
-  //! either Qualified1 or Qualified2 is more complex than
+  //! either Qualified1 or Qualified2 is more complex1 than
   //! a line or a circle).
   Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Geom2dGcc_QualifiedCurve& Qualified2,
@@ -97,7 +97,7 @@ public:
   //! Qualified1 of the tangency point between this
   //! argument and the solution sought, if the algorithm
   //! chooses an iterative method to find the solution (i.e. if
-  //! Qualified1 is more complex than a line or a circle)
+  //! Qualified1 is more complex1 than a line or a circle)
   Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Handle(Geom2d_Point)&     Point1,
                                        const Handle(Geom2d_Point)&     Point2,
@@ -122,7 +122,7 @@ public:
   //! than or equal to Tolerance. Thus, the algorithm finds a solution.
   //! Warning
   //! An iterative algorithm is used if Qualified1, Qualified2 or
-  //! Qualified3 is more complex than a line or a circle. In
+  //! Qualified3 is more complex1 than a line or a circle. In
   //! such cases, the algorithm constructs only one solution.
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with

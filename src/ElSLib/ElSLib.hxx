@@ -46,13 +46,13 @@ class gp_Circ;
 //! -   calculation of isoparametric curves on an elementary
 //! surface defined in canonical form (as in the gp package).
 //! Notes:
-//! -   ElSLib stands for Elementary Surfaces Library.
+//! -   ElSLib1 stands for Elementary Surfaces Library.
 //! -   If the surfaces provided by the gp package are not
 //! explicitly parameterized, they still have an implicit
 //! parameterization, similar to that which they infer on
 //! the equivalent Geom surfaces.
-//! Note: ElSLib stands for Elementary Surfaces Library.
-class ElSLib
+//! Note: ElSLib1 stands for Elementary Surfaces Library.
+class ElSLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

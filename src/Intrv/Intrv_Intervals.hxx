@@ -22,43 +22,43 @@
 #include <Standard_Handle.hxx>
 
 #include <Intrv_SequenceOfInterval.hxx>
-class Intrv_Interval;
+class Interval2;
 
 //! The class  Intervals is a  sorted  sequence of non
 //! overlapping  Real Intervals.
-class Intrv_Intervals
+class Intervals
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a void sequence of intervals.
-  Standard_EXPORT Intrv_Intervals();
+  Standard_EXPORT Intervals();
 
   //! Creates a sequence of one interval.
-  Standard_EXPORT Intrv_Intervals(const Intrv_Interval& Int);
+  Standard_EXPORT Intervals(const Interval2& Int);
 
   //! Intersects the intervals with the interval <Tool>.
-  Standard_EXPORT void Intersect(const Intrv_Interval& Tool);
+  Standard_EXPORT void Intersect(const Interval2& Tool);
 
   //! Intersects the intervals with the intervals in the
   //! sequence  <Tool>.
-  Standard_EXPORT void Intersect(const Intrv_Intervals& Tool);
+  Standard_EXPORT void Intersect(const Intervals& Tool);
 
-  Standard_EXPORT void Subtract(const Intrv_Interval& Tool);
+  Standard_EXPORT void Subtract(const Interval2& Tool);
 
-  Standard_EXPORT void Subtract(const Intrv_Intervals& Tool);
+  Standard_EXPORT void Subtract(const Intervals& Tool);
 
-  Standard_EXPORT void Unite(const Intrv_Interval& Tool);
+  Standard_EXPORT void Unite(const Interval2& Tool);
 
-  Standard_EXPORT void Unite(const Intrv_Intervals& Tool);
+  Standard_EXPORT void Unite(const Intervals& Tool);
 
-  Standard_EXPORT void XUnite(const Intrv_Interval& Tool);
+  Standard_EXPORT void XUnite(const Interval2& Tool);
 
-  Standard_EXPORT void XUnite(const Intrv_Intervals& Tool);
+  Standard_EXPORT void XUnite(const Intervals& Tool);
 
   Standard_Integer NbIntervals() const;
 
-  const Intrv_Interval& Value(const Standard_Integer Index) const;
+  const Interval2& Value(const Standard_Integer Index) const;
 
 protected:
 private:

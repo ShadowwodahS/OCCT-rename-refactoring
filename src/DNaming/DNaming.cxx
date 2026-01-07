@@ -94,7 +94,7 @@ void DNaming1::GetShape(const Standard_CString  LabelName,
 
 void DNaming_BuildMap(TDF_LabelMap& Updated, const DataLabel& Lab)
 {
-  TDF_ChildIterator it(Lab);
+  ChildIterator it(Lab);
   for (; it.More(); it.Next())
   {
     Updated.Add(it.Value());
@@ -147,7 +147,7 @@ AsciiString1 DNaming1::GetEntry(const TopoShape&     Shape,
   Standard_Integer        Transdef;
   DataLabel               Lab = Tool11::Label(DF->Root(), Shape, Transdef);
   AsciiString1 entry;
-  TDF_Tool::Entry(Lab, entry);
+  Tool3::Entry(Lab, entry);
   // Update theStatus;
   Iterator1 it(Lab, DF->Transaction());
   for (; it.More(); it.Next())

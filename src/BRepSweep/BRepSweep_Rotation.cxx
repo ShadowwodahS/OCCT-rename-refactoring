@@ -422,7 +422,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     gl.Transform(Loc.Transformation());
     point      = gl.Location();
     Dir3d dir = gl.Direction();
-    ElSLib::PlaneParameters(ax3, point, u, v);
+    ElSLib1::PlaneParameters(ax3, point, u, v);
     pnt2d.SetCoord(u, v);
     dir2d.SetCoord(dir.Dot(ax3.XDirection()), dir.Dot(ax3.YDirection()));
     L.SetLocation(pnt2d);
@@ -442,21 +442,21 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     }
     else
     {
-      ElSLib::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), point, u, v);
+      ElSLib1::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), point, u, v);
     }
     //    u = 0.;
-    v = ElCLib::InPeriod(v, 0., 2 * M_PI);
+    v = ElCLib1::InPeriod(v, 0., 2 * M_PI);
     if ((2 * M_PI - v) <= Precision::PConfusion())
       v -= 2 * M_PI;
     if (aDirV.Index() == 2)
     {
       Standard_Real uLeft = u - myAng;
-      ElCLib::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), uLeft, u);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), uLeft, u);
     }
     else
     {
       Standard_Real uRight = u + myAng;
-      ElCLib::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u, uRight);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u, uRight);
     }
     //  modified by NIZHNY-EAP Wed Mar  1 17:49:32 2000 ___END___
     pnt2d.SetCoord(u, v - U);
@@ -469,7 +469,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoShape& aNewFace,
     BRepAdaptor_Curve BC(TopoDS::Edge(aNewEdge));
     Standard_Real     U = BC.FirstParameter();
     point               = BC.Value(U);
-    ElSLib::SphereParameters(sph.Position(), sph.Radius(), point, u, v);
+    ElSLib1::SphereParameters(sph.Position(), sph.Radius(), point, u, v);
     u = 0.;
     if (aDirV.Index() == 2)
       u = myAng;
@@ -514,7 +514,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       gp_Ax3        ax3 = pln.Position();
       Point3d        p1  = pln.Location();
       Standard_Real R   = p1.Distance(p2);
-      ElSLib::PlaneParameters(ax3, p2, u, v);
+      ElSLib1::PlaneParameters(ax3, p2, u, v);
       gp_Dir2d              dx2d(u, v);
       gp_Ax22d              axe(gp::Origin2d(), dx2d, gp::DY2d());
       gp_Circ2d             C(axe, R);
@@ -525,7 +525,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
 
     case GeomAbs_Cone: {
       gp_Cone cone = AS.Cone();
-      ElSLib::ConeParameters(cone.Position(), cone.RefRadius(), cone.SemiAngle(), p2, u, v);
+      ElSLib1::ConeParameters(cone.Position(), cone.RefRadius(), cone.SemiAngle(), p2, u, v);
       p22d.SetCoord(0., v);
       gp_Lin2d            L(p22d, gp::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
@@ -535,7 +535,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
 
     case GeomAbs_Sphere: {
       gp_Sphere sph = AS.Sphere();
-      ElSLib::SphereParameters(sph.Position(), sph.Radius(), p2, u, v);
+      ElSLib1::SphereParameters(sph.Position(), sph.Radius(), p2, u, v);
       p22d.SetCoord(0., v);
       gp_Lin2d            L(p22d, gp::DX2d());
       Handle(Geom2d_Line) GL = new Geom2d_Line(L);
@@ -558,7 +558,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       }
       else
       {
-        ElSLib::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), p1, u1, v1);
+        ElSLib1::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), p1, u1, v1);
       }
       p2 = BC.Value(BC.LastParameter());
       if (p2.Distance(tor.Location()) < Precision::Confusion())
@@ -567,12 +567,12 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoShape& aNewFace,
       }
       else
       {
-        ElSLib::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), p2, u2, v2);
+        ElSLib1::TorusParameters(tor.Position(), tor.MajorRadius(), tor.MinorRadius(), p2, u2, v2);
       }
-      ElCLib::AdjustPeriodic(0., 2 * M_PI, Precision::PConfusion(), v1, v2);
+      ElCLib1::AdjustPeriodic(0., 2 * M_PI, Precision::PConfusion(), v1, v2);
       //  modified by NIZHNY-EAP Thu Mar  2 15:29:04 2000 ___BEGIN___
       u2 = u1 + myAng;
-      ElCLib::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u1, u2);
+      ElCLib1::AdjustPeriodic(-M_PI, M_PI, Precision::PConfusion(), u1, u2);
       if (aGenV.Orientation() == TopAbs_FORWARD)
       {
         p22d.SetCoord(u1, v1);

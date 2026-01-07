@@ -25,13 +25,13 @@
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class HLRBRep_CLPropsATool
+class CLPropsATool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Computes the  point <P> of  parameter <U>   on the
-  //! Curve from HLRBRep <C>.
+  //! Curve from HLRBRep1 <C>.
   static void Value(const HLRBRep_Curve* A, const Standard_Real U, gp_Pnt2d& P);
 
   //! Computes the point <P>  and  first derivative <V1>

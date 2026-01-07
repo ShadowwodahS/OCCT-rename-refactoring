@@ -53,14 +53,14 @@ void HLRAlgo_PolyData::HPHDat(const Handle(HLRAlgo_HArray1OfPHDat)& HPHDat)
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::UpdateGlobalMinMax(Box& theBox)
+void HLRAlgo_PolyData::UpdateGlobalMinMax(Box1& theBox)
 {
   Standard_Integer          i;
   Standard_Real             X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3;
   const TColgp_Array1OfXYZ& Nodes = myHNodes->Array1();
   HLRAlgo_Array1OfTData&    TData = myHTData->ChangeArray1();
   Standard_Integer          nbT   = TData.Upper();
-  HLRAlgo_TriangleData*     TD    = &(TData.ChangeValue(1));
+  TriangleData*     TD    = &(TData.ChangeValue(1));
 
   for (i = 1; i <= nbT; i++)
   {
@@ -121,9 +121,9 @@ void HLRAlgo_PolyData::UpdateGlobalMinMax(Box& theBox)
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
-                                      Triangle&                       theTriangle,
-                                      HLRAlgo_BiPoint::IndicesT&      theIndices,
+void HLRAlgo_PolyData::HideByPolyData(const BiPoint::PointsT1& thePoints,
+                                      Triangle1&                       theTriangle,
+                                      BiPoint::IndicesT1&      theIndices,
                                       const Standard_Boolean          HidingShell,
                                       HLRAlgo_EdgeStatus&             status)
 {
@@ -138,15 +138,15 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
     Standard_Boolean             toHideBefore = Standard_False;
     Standard_Integer             TFlag        = 0;
     Standard_Integer             h, h2 = PHDat.Upper();
-    HLRAlgo_PolyHidingData*      PH = &(PHDat(1));
+    PolyHidingData*      PH = &(PHDat(1));
 
     for (h = 1; h <= h2; h++)
     {
-      HLRAlgo_PolyHidingData::TriangleIndices& aTriangleIndices = PH->Indices();
+      PolyHidingData::TriangleIndices1& aTriangleIndices = PH->Indices();
       if (((aTriangleIndices.Max - theIndices.MinSeg) & 0x80100200) == 0
           && ((theIndices.MaxSeg - aTriangleIndices.Min) & 0x80100000) == 0)
       {
-        const HLRAlgo_TriangleData& aTriangle = TData(aTriangleIndices.Index);
+        const TriangleData& aTriangle = TData(aTriangleIndices.Index);
         NotConnex                             = Standard_True;
         if (HidingShell)
         {
@@ -177,7 +177,7 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
         }
         if (NotConnex)
         {
-          HLRAlgo_PolyHidingData::PlaneT& aPlane = PH->Plane();
+          PolyHidingData::PlaneT1& aPlane = PH->Plane();
           d1                                     = aPlane.Normal * thePoints.PntP1 - aPlane.D;
           d2                                     = aPlane.Normal * thePoints.PntP2 - aPlane.D;
           if (d1 > theTriangle.Tolerance)
@@ -251,8 +251,8 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
 
 //=================================================================================================
 
-void HLRAlgo_PolyData::hideByOneTriangle(const HLRAlgo_BiPoint::PointsT& thePoints,
-                                         Triangle&                       theTriangle,
+void HLRAlgo_PolyData::hideByOneTriangle(const BiPoint::PointsT1& thePoints,
+                                         Triangle1&                       theTriangle,
                                          const Standard_Boolean          Crossing,
                                          const Standard_Boolean          HideBefore,
                                          const Standard_Integer          TrFlags,

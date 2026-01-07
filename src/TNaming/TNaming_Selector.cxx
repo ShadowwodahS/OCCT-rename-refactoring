@@ -45,14 +45,14 @@
 void PrintEntry(const DataLabel& label, const Standard_Boolean allLevels)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
   if (allLevels)
   {
-    TDF_ChildIterator it(label, allLevels);
+    ChildIterator it(label, allLevels);
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value(), entry);
+      Tool3::Entry(it.Value(), entry);
       std::cout << "ChildLabelEntry = " << entry << std::endl;
     }
   }
@@ -417,13 +417,13 @@ Standard_Boolean TNaming_Selector::Select(const TopoShape&    Selection,
   //
   TNaming_Builder B(myLabel);
   // mpv: if oldShape for selection is some shape from used map of shapes,
-  //      then naming structure becomes more complex, can be cycles
+  //      then naming structure becomes more complex1, can be cycles
   const TopoShape& aSelection = Tool11::CurrentShape(NS); // szy
 #ifdef OCCT_DEBUG_CHECK_TYPE
   if (!Selection.IsSame(aSelection) && Selection.ShapeType() != TopAbs_COMPOUND)
   {
     AsciiString1 entry;
-    TDF_Tool::Entry(NS->Label(), entry);
+    Tool3::Entry(NS->Label(), entry);
     std::cout << "Selection is Not Same (NSLabel = " << entry
               << "): TShape1 = " << Selection.TShape()->This()
               << " TShape2 = " << aSelection.TShape()->This() << std::endl;
@@ -480,7 +480,7 @@ Standard_Boolean TNaming_Selector::Solve(TDF_LabelMap& Valid) const
 
 void TNaming_Selector::Arguments(TDF_AttributeMap& args) const
 {
-  TDF_Tool::OutReferences(myLabel, args);
+  Tool3::OutReferences(myLabel, args);
 }
 
 //=================================================================================================

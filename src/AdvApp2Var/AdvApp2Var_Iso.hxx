@@ -61,7 +61,7 @@ public:
                                   const Standard_Real                 b,
                                   const Standard_Real                 c,
                                   const Standard_Real                 d,
-                                  const AdvApp2Var_EvaluatorFunc2Var& func,
+                                  const EvaluatorFunc2Var& func,
                                   AdvApp2Var_Node&                    NodeBegin,
                                   AdvApp2Var_Node&                    NodeEnd);
 

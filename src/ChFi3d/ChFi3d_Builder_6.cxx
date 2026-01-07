@@ -696,7 +696,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   const TColStd_Array1OfReal& kv   = approx.SurfVKnots();
   Standard_Real               larg = (kv(kv.Upper()) - kv(kv.Lower()));
   TColStd_Array1OfReal&       kku  = *((TColStd_Array1OfReal*)((void*)&ku));
-  BSplCLib::Reparametrize(0., larg, kku);
+  BSplCLib1::Reparametrize(0., larg, kku);
   Handle(Geom_BSplineSurface) Surf = new Geom_BSplineSurface(approx.SurfPoles(),
                                                              approx.SurfWeights(),
                                                              kku,
@@ -722,7 +722,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
     if (P11.Distance(P21) > eps)
     {
       // to avoid extending surface with singular boundary
-      GeomLib::ExtendSurfByLength(aBndSurf, length1, 1, Standard_False, Standard_False);
+      GeomLib1::ExtendSurfByLength(aBndSurf, length1, 1, Standard_False, Standard_False);
       ext1 = Standard_True;
     }
   }
@@ -734,7 +734,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
     if (P12.Distance(P22) > eps)
     {
       // to avoid extending surface with singular boundary
-      GeomLib::ExtendSurfByLength(aBndSurf, length2, 1, Standard_False, Standard_True);
+      GeomLib1::ExtendSurfByLength(aBndSurf, length2, 1, Standard_False, Standard_True);
       ext2 = Standard_True;
     }
   }

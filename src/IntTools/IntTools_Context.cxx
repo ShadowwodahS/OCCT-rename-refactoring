@@ -158,13 +158,13 @@ IntTools_Context::~IntTools_Context()
   }
   myProjSDataMap.Clear();
 
-  for (NCollection_DataMap<TopoShape, Bnd_Box*, ShapeHasher>::Iterator anIt(
+  for (NCollection_DataMap<TopoShape, Box2*, ShapeHasher>::Iterator anIt(
          myBndBoxDataMap);
        anIt.More();
        anIt.Next())
   {
-    Bnd_Box* pBox = anIt.Value();
-    (*pBox).~Bnd_Box();
+    Box2* pBox = anIt.Value();
+    (*pBox).~Box2();
     myAllocator->Free(pBox);
   }
   myBndBoxDataMap.Clear();
@@ -180,13 +180,13 @@ IntTools_Context::~IntTools_Context()
   }
   mySurfAdaptorMap.Clear();
 
-  for (NCollection_DataMap<TopoShape, Bnd_OBB*, ShapeHasher>::Iterator anIt(
+  for (NCollection_DataMap<TopoShape, OrientedBox*, ShapeHasher>::Iterator anIt(
          myOBBMap);
        anIt.More();
        anIt.Next())
   {
-    Bnd_OBB* pOBB = anIt.Value();
-    (*pOBB).~Bnd_OBB();
+    OrientedBox* pOBB = anIt.Value();
+    (*pOBB).~OrientedBox();
     myAllocator->Free(pOBB);
   }
   myOBBMap.Clear();
@@ -194,16 +194,16 @@ IntTools_Context::~IntTools_Context()
 
 //=================================================================================================
 
-Bnd_Box& IntTools_Context::BndBox(const TopoShape& aS)
+Box2& IntTools_Context::BndBox(const TopoShape& aS)
 {
-  Bnd_Box* pBox = NULL;
+  Box2* pBox = NULL;
   if (!myBndBoxDataMap.Find(aS, pBox))
   {
     //
-    pBox = (Bnd_Box*)myAllocator->Allocate(sizeof(Bnd_Box));
-    new (pBox) Bnd_Box();
+    pBox = (Box2*)myAllocator->Allocate(sizeof(Box2));
+    new (pBox) Box2();
     //
-    Bnd_Box& aBox = *pBox;
+    Box2& aBox = *pBox;
     BRepBndLib::Add(aS, aBox);
     //
     myBndBoxDataMap.Bind(aS, pBox);
@@ -215,7 +215,7 @@ Bnd_Box& IntTools_Context::BndBox(const TopoShape& aS)
 
 Standard_Boolean IntTools_Context::IsInfiniteFace(const TopoFace& aFace)
 {
-  const Bnd_Box& aBox = BndBox(aFace);
+  const Box2& aBox = BndBox(aFace);
   return aBox.IsOpenXmax() || aBox.IsOpenXmin() || aBox.IsOpenYmax() || aBox.IsOpenYmin()
          || aBox.IsOpenZmax() || aBox.IsOpenZmin();
 }
@@ -397,15 +397,15 @@ Geom2dHatch_Hatcher& IntTools_Context::Hatcher(const TopoFace& aF)
 
 //=================================================================================================
 
-Bnd_OBB& IntTools_Context::OBB(const TopoShape& aS, const Standard_Real theGap)
+OrientedBox& IntTools_Context::OBB(const TopoShape& aS, const Standard_Real theGap)
 {
-  Bnd_OBB* pBox = NULL;
+  OrientedBox* pBox = NULL;
   if (!myOBBMap.Find(aS, pBox))
   {
-    pBox = (Bnd_OBB*)myAllocator->Allocate(sizeof(Bnd_OBB));
-    new (pBox) Bnd_OBB();
+    pBox = (OrientedBox*)myAllocator->Allocate(sizeof(OrientedBox));
+    new (pBox) OrientedBox();
     //
-    Bnd_OBB& aBox = *pBox;
+    OrientedBox& aBox = *pBox;
     BRepBndLib::AddOBB(aS, aBox);
     aBox.Enlarge(theGap);
     //
@@ -839,7 +839,7 @@ Standard_Boolean IntTools_Context::IsVertexOnLine(const TopoVertex&  aV,
 
         if (anExt.IsDone())
         {
-          Extrema_POnCurv aPOncurve = anExt.Point();
+          PointOnCurve1 aPOncurve = anExt.Point();
           aT                        = aPOncurve.Parameter();
 
           if ((aT > (aLast + aFirst) * 0.5) || (aPv.Distance(aPOncurve.Value()) > aTolSum)
@@ -865,7 +865,7 @@ Standard_Boolean IntTools_Context::IsVertexOnLine(const TopoVertex&  aV,
           }
           if (aMinIdx != -1)
           {
-            const Extrema_POnCurv& aPOncurve = anExt2.Point(aMinIdx);
+            const PointOnCurve1& aPOncurve = anExt2.Point(aMinIdx);
             aT                               = aPOncurve.Parameter();
 
             if ((aT > (aLast + aFirst) * 0.5) || (aPv.Distance(aPOncurve.Value()) > aTolSum)
@@ -896,7 +896,7 @@ Standard_Boolean IntTools_Context::IsVertexOnLine(const TopoVertex&  aV,
 
         if (anExt.IsDone())
         {
-          Extrema_POnCurv aPOncurve = anExt.Point();
+          PointOnCurve1 aPOncurve = anExt.Point();
           aT                        = aPOncurve.Parameter();
 
           if ((aT < (aLast + aFirst) * 0.5) || (aPv.Distance(aPOncurve.Value()) > aTolSum)
@@ -922,7 +922,7 @@ Standard_Boolean IntTools_Context::IsVertexOnLine(const TopoVertex&  aV,
           }
           if (aMinIdx != -1)
           {
-            const Extrema_POnCurv& aPOncurve = anExt2.Point(aMinIdx);
+            const PointOnCurve1& aPOncurve = anExt2.Point(aMinIdx);
             aT                               = aPOncurve.Parameter();
 
             if ((aT < (aLast + aFirst) * 0.5) || (aPv.Distance(aPOncurve.Value()) > aTolSum)

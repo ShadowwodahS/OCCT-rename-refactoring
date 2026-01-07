@@ -66,13 +66,13 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   {
     D2.Reverse();
   }
-  IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
   Point3d             Pv;
   if (LInt.IsDone())
   {
     // On met l origine du cylindre au point de depart fourni sur la
     // ligne guide.
-    Pv = ElCLib::Value(ElCLib::Parameter(LInt.Line(1), ElCLib::Value(First, Spine)), LInt.Line(1));
+    Pv = ElCLib1::Value(ElCLib1::Parameter(LInt.Line(1), ElCLib1::Value(First, Spine)), LInt.Line(1));
   }
   else
   {
@@ -98,7 +98,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // des faces.
   Point3d P;
   Vector3d deru, derv;
-  ElSLib::CylinderD1(0., 0., CylAx3, Radius, P, deru, derv);
+  ElSLib1::CylinderD1(0., 0., CylAx3, Radius, P, deru, derv);
   Dir3d norcyl(deru.Crossed(derv));
   Dir3d norpl   = Pos1.XDirection().Crossed(Pos1.YDirection());
   Dir3d norface = norpl;
@@ -120,7 +120,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   Standard_Real u, v;
   // La face 1.
-  ElSLib::PlaneParameters(Pos1, P, u, v);
+  ElSLib1::PlaneParameters(Pos1, P, u, v);
   gp_Pnt2d p2dPln(u, v);
   gp_Dir2d dir2dPln(AxisCylinder.Dot(Pos1.XDirection()), AxisCylinder.Dot(Pos1.YDirection()));
   gp_Lin2d lin2dPln(p2dPln, dir2dPln);
@@ -145,11 +145,11 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
                                                  GLin2dCyl1);
 
   // La face 2.
-  ElSLib::CylinderD1(Ang, 0., CylAx3, Radius, P, deru, derv);
+  ElSLib1::CylinderD1(Ang, 0., CylAx3, Radius, P, deru, derv);
   norcyl    = deru.Crossed(derv);
   norpl     = Pos2.XDirection().Crossed(Pos2.YDirection());
   toreverse = (norcyl.Dot(norpl) <= 0.);
-  ElSLib::PlaneParameters(Pos2, P, u, v);
+  ElSLib1::PlaneParameters(Pos2, P, u, v);
   p2dPln.SetCoord(u, v);
   dir2dPln.SetCoord(AxisCylinder.Dot(Pos2.XDirection()), AxisCylinder.Dot(Pos2.YDirection()));
   lin2dPln.SetLocation(p2dPln);

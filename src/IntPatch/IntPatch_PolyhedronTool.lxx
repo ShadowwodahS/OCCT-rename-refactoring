@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline const Bnd_Box& PolyhedronTool::Bounding(const IntPatch_Polyhedron& thePolyh)
+inline const Box2& PolyhedronTool::Bounding(const IntPatch_Polyhedron& thePolyh)
 {
   return thePolyh.Bounding();
 }
@@ -36,13 +36,13 @@ inline Standard_Integer PolyhedronTool::NbTriangles(const IntPatch_Polyhedron& t
   return thePolyh.NbTriangles();
 }
 
-inline void PolyhedronTool::Triangle(const IntPatch_Polyhedron& thePolyh,
+inline void PolyhedronTool::Triangle1(const IntPatch_Polyhedron& thePolyh,
                                               const Standard_Integer     Index,
                                               Standard_Integer&          P1,
                                               Standard_Integer&          P2,
                                               Standard_Integer&          P3)
 {
-  thePolyh.Triangle(Index, P1, P2, P3);
+  thePolyh.Triangle1(Index, P1, P2, P3);
 }
 
 inline const Point3d& PolyhedronTool::Point(const IntPatch_Polyhedron& thePolyh,

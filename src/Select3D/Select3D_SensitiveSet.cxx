@@ -138,7 +138,7 @@ Standard_Boolean Select3D_SensitiveSet::matches(SelectBasics_SelectingVolumeMana
     return Standard_False;
   }
 
-  const Select3D_BndBox3d& aGlobalBox   = myContent.Box();
+  const Select3D_BndBox3d& aGlobalBox   = myContent.Box1();
   Standard_Boolean         isFullInside = Standard_True;
 
   if (!theMgr.OverlapsBox(aGlobalBox.CornerMin(), aGlobalBox.CornerMax(), &isFullInside))
@@ -165,7 +165,7 @@ Standard_Boolean Select3D_SensitiveSet::matches(SelectBasics_SelectingVolumeMana
   }
   else
   {
-    const BVH_Tree<Standard_Real, 3, BVH_BinaryTree>* aBVH = myContent.GetBVH().get();
+    const BVH_Tree<Standard_Real, 3, BinaryTree>* aBVH = myContent.GetBVH().get();
     NodeInStack                                       aStack[BVH_Constants_MaxTreeDepth];
     NodeInStack                                       aNode;
 

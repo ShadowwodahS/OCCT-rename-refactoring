@@ -29,7 +29,7 @@
 
 //! This class implements the common services for
 //! all classes of gce which report error.
-class GC_Root
+class Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

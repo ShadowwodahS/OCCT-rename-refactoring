@@ -45,7 +45,7 @@ public:
   //! Creates an undefined surface with no face loaded.
   Standard_EXPORT HLRBRep_Surface();
 
-  void Projector(const HLRAlgo_Projector* Proj) { myProj = Proj; }
+  void Projector(const HLRAlgoProjector* Proj) { myProj = Proj; }
 
   //! Returns the 3D Surface.
   BRepAdaptor_Surface& Surface();
@@ -192,7 +192,7 @@ private:
 
   BRepAdaptor_Surface      mySurf;
   GeomAbs_SurfaceType      myType;
-  const HLRAlgo_Projector* myProj;
+  const HLRAlgoProjector* myProj;
 };
 
 #include <HLRBRep_Surface.lxx>

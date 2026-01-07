@@ -689,7 +689,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualif
     {
       for (Standard_Integer j = 1; j <= nbsol; j++)
       {
-        IntAna2d_AnaIntersection Intp(C(2 * j - 1), C(2 * j));
+        AnalyticIntersection2d Intp(C(2 * j - 1), C(2 * j));
         if (Intp.IsDone())
         {
           if (!Intp.IsEmpty())
@@ -783,15 +783,15 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualif
   // calculation of parameters of tangency points
   for (Standard_Integer i = 1; i <= NbrSol; i++)
   {
-    par1sol(i) = ElCLib::Parameter(cirsol(i), pnttg1sol(i));
+    par1sol(i) = ElCLib1::Parameter(cirsol(i), pnttg1sol(i));
     if (TheSame1(i) == 0)
     {
-      pararg1(i) = ElCLib::Parameter(C1, pnttg1sol(i));
+      pararg1(i) = ElCLib1::Parameter(C1, pnttg1sol(i));
     }
-    par2sol(i) = ElCLib::Parameter(cirsol(i), pnttg2sol(i));
+    par2sol(i) = ElCLib1::Parameter(cirsol(i), pnttg2sol(i));
     if (TheSame2(i) == 0)
     {
-      pararg2(i) = ElCLib::Parameter(C2, pnttg2sol(i));
+      pararg2(i) = ElCLib1::Parameter(C2, pnttg2sol(i));
     }
   }
 }

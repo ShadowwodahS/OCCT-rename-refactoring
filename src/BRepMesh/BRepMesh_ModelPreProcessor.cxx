@@ -77,7 +77,7 @@ public:
              i <= aTriangulation->NbTriangles() && isTriangulationConsistent;
              ++i)
         {
-          const Poly_Triangle aTriangle = aTriangulation->Triangle(i);
+          const Poly_Triangle aTriangle = aTriangulation->Triangle1(i);
 
           Standard_Integer aNode[3];
           aTriangle.Get(aNode[0], aNode[1], aNode[2]);

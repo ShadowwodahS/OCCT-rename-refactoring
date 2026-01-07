@@ -33,12 +33,12 @@ class gp_Lin;
 
 //! This class provides the computation of the contours
 //! for quadric surfaces.
-class Contap_ContAna
+class ContourAnalyzer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Contap_ContAna();
+  Standard_EXPORT ContourAnalyzer();
 
   Standard_EXPORT void Perform(const gp_Sphere& S, const Dir3d& D);
 

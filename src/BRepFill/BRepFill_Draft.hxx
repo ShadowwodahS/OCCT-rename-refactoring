@@ -31,7 +31,7 @@
 class BRepFill_DraftLaw;
 class BRepFill_SectionLaw;
 class GeomSurface;
-class Bnd_Box;
+class Box2;
 
 class BRepFill_Draft
 {
@@ -73,7 +73,7 @@ protected:
 private:
   Standard_EXPORT void Init(const Handle(GeomSurface)& Surf,
                             const Standard_Real         Length,
-                            const Bnd_Box&              Box);
+                            const Box2&              Box1);
 
   Standard_EXPORT void BuildShell(const Handle(GeomSurface)& Surf,
                                   const Standard_Boolean      KeepOutSide = Standard_False);

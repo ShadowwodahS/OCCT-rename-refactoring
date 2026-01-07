@@ -377,7 +377,7 @@ static const char Shaders_PathtraceBase_fs[] =
   "//            which is then divided by two cosine terms. Here we perform\n"
   "//            importance sample the D part of the Blinn model; trying to\n"
   "//            develop a sampling procedure that accounted for all of the\n"
-  "//            terms would be complex, and it is the D term that accounts\n"
+  "//            terms would be complex1, and it is the D term that accounts\n"
   "//            for most of the variation.\n"
   "//=======================================================================\n"
   "vec3 SampleGlossyBlinnReflection (in vec3 theWo, out vec3 theWi, in vec3 theFresnel, in float "

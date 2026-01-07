@@ -32,7 +32,7 @@
 //                                       ***---*   After
 //=================================================================================================
 
-Intrv_Interval::Intrv_Interval()
+Interval2::Interval2()
     : myStart(RealFirst()),
       myEnd(RealLast())
 {
@@ -42,7 +42,7 @@ Intrv_Interval::Intrv_Interval()
 
 //=================================================================================================
 
-Intrv_Interval::Intrv_Interval(const Standard_Real Start, const Standard_Real End)
+Interval2::Interval2(const Standard_Real Start, const Standard_Real End)
     : myStart(Start),
       myEnd(End)
 {
@@ -52,7 +52,7 @@ Intrv_Interval::Intrv_Interval(const Standard_Real Start, const Standard_Real En
 
 //=================================================================================================
 
-Intrv_Interval::Intrv_Interval(const Standard_Real      Start,
+Interval2::Interval2(const Standard_Real      Start,
                                const Standard_ShortReal TolStart,
                                const Standard_Real      End,
                                const Standard_ShortReal TolEnd)
@@ -71,7 +71,7 @@ Intrv_Interval::Intrv_Interval(const Standard_Real      Start,
 
 //=================================================================================================
 
-Intrv_Position Intrv_Interval::Position(const Intrv_Interval& Other) const
+Intrv_Position Interval2::Position(const Interval2& Other) const
 {
   Standard_Real  mySMin = myStart - myTolStart;
   Standard_Real  mySMax = myStart + myTolStart;

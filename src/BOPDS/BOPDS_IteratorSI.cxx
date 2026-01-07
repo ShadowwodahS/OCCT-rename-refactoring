@@ -73,8 +73,8 @@ void BOPDS_IteratorSI::Intersect(const Handle(IntTools_Context)& theCtx,
     if (!aSI.IsInterfering())
       continue;
 
-    const Bnd_Box& aBoxEx = aSI.Box();
-    aBBTree.Add(i, Bnd_Tools::Bnd2BVH(aBoxEx));
+    const Box2& aBoxEx = aSI.Box1();
+    aBBTree.Add(i, Tools5::Bnd2BVH(aBoxEx));
   }
 
   aBBTree.Build();
@@ -111,8 +111,8 @@ void BOPDS_IteratorSI::Intersect(const Handle(IntTools_Context)& theCtx,
     if (theCheckOBB)
     {
       // Check intersection of Oriented bounding boxes of the shapes
-      const Bnd_OBB& anOBB1 = theCtx->OBB(aSI1.Shape(), theFuzzyValue);
-      const Bnd_OBB& anOBB2 = theCtx->OBB(aSI2.Shape(), theFuzzyValue);
+      const OrientedBox& anOBB1 = theCtx->OBB(aSI1.Shape(), theFuzzyValue);
+      const OrientedBox& anOBB2 = theCtx->OBB(aSI2.Shape(), theFuzzyValue);
 
       if (anOBB1.IsOut(anOBB2))
         continue;

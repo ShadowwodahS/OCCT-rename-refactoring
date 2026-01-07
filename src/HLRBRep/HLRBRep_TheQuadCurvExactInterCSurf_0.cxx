@@ -23,15 +23,15 @@
 
 #define TheSurface Standard_Address
 #define TheSurface_hxx <Standard_Address.hxx>
-#define TheSurfaceTool HLRBRep_SurfaceTool
+#define TheSurfaceTool SurfaceTool3
 #define TheSurfaceTool_hxx <HLRBRep_SurfaceTool.hxx>
 #define TheCurve gp_Lin
 #define TheCurve_hxx <gp_Lin.hxx>
-#define TheCurveTool HLRBRep_LineTool
+#define TheCurveTool LineTool3
 #define TheCurveTool_hxx <HLRBRep_LineTool.hxx>
 #define IntCurveSurface_TheQuadCurvFunc HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf
 #define IntCurveSurface_TheQuadCurvFunc_hxx                                                        \
   <HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf.hxx>
-#define IntCurveSurface_QuadricCurveExactInter HLRBRep_TheQuadCurvExactInterCSurf
+#define IntCurveSurface_QuadricCurveExactInter QuadCurvExactInterCSurf
 #define IntCurveSurface_QuadricCurveExactInter_hxx <HLRBRep_TheQuadCurvExactInterCSurf.hxx>
 #include "../IntCurveSurface/IntCurveSurface_QuadricCurveExactInter.gxx"

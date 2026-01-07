@@ -69,7 +69,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const gp_Pnt2d&     Point1,
   {
     gp_Lin2d                 L1(gp_Pnt2d((Point1.XY() + Point2.XY()) / 2.0),
                 gp_Dir2d(Point1.Y() - Point2.Y(), Point2.X() - Point1.X()));
-    IntAna2d_AnaIntersection Intp(L1, OnLine);
+    AnalyticIntersection2d Intp(L1, OnLine);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())
@@ -87,9 +87,9 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const gp_Pnt2d&     Point1,
           pntcen(NbrSol)     = cirsol(NbrSol).Location();
           pararg1(NbrSol)    = 0.;
           pararg2(NbrSol)    = 0.;
-          par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-          par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-          parcen3(NbrSol)    = ElCLib::Parameter(OnLine, pntcen(NbrSol));
+          par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+          par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+          parcen3(NbrSol)    = ElCLib1::Parameter(OnLine, pntcen(NbrSol));
         }
       }
       WellDone = Standard_True;

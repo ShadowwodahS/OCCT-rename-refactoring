@@ -25,7 +25,7 @@
 class HLRAlgo_Interference;
 class HLRBRep_EdgeInterferenceTool;
 
-class HLRBRep_EdgeIList
+class EdgeIList
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -35,7 +35,7 @@ public:
                                               const HLRAlgo_Interference&         I,
                                               const HLRBRep_EdgeInterferenceTool& T);
 
-  //! Process complex transitions on the list IL.
+  //! Process complex1 transitions on the list IL.
   Standard_EXPORT static void ProcessComplex(HLRAlgo_InterferenceList&           IL,
                                              const HLRBRep_EdgeInterferenceTool& T);
 

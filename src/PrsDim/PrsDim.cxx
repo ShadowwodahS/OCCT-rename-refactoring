@@ -187,21 +187,21 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theEdge,
   if (theCurve->IsInstance(STANDARD_TYPE(GeomLine)))
   {
     Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(theCurve);
-    theFirstPnt             = ElCLib::Value(aFirst, aLine->Lin());
-    theLastPnt              = ElCLib::Value(aLast, aLine->Lin());
+    theFirstPnt             = ElCLib1::Value(aFirst, aLine->Lin());
+    theLastPnt              = ElCLib1::Value(aLast, aLine->Lin());
   }
   else if (theCurve->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
     Handle(GeomCircle) aCirc = Handle(GeomCircle)::DownCast(theCurve);
 
-    theFirstPnt = ElCLib::Value(aFirst, aCirc->Circ());
-    theLastPnt  = ElCLib::Value(aLast, aCirc->Circ());
+    theFirstPnt = ElCLib1::Value(aFirst, aCirc->Circ());
+    theLastPnt  = ElCLib1::Value(aLast, aCirc->Circ());
   }
   else if (theCurve->IsInstance(STANDARD_TYPE(Geom_Ellipse)))
   {
     Handle(Geom_Ellipse) anEllipse = Handle(Geom_Ellipse)::DownCast(theCurve);
-    theFirstPnt                    = ElCLib::Value(aFirst, anEllipse->Elips());
-    theLastPnt                     = ElCLib::Value(aLast, anEllipse->Elips());
+    theFirstPnt                    = ElCLib1::Value(aFirst, anEllipse->Elips());
+    theLastPnt                     = ElCLib1::Value(aLast, anEllipse->Elips());
   }
   else
   {
@@ -304,7 +304,7 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
     theExtCurve.Nullify();
   }
 
-  theCurve = GeomProjLib::ProjectOnPlane(theCurve,
+  theCurve = GeomProjLib1::ProjectOnPlane(theCurve,
                                          thePlane,
                                          thePlane->Pln().Axis().Direction(),
                                          Standard_False);
@@ -313,19 +313,19 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theEdge,
   {
     if (!theIsInfinite)
     {
-      theFirstPnt = ElCLib::Value(aFirst, aLine->Lin());
-      theLastPnt  = ElCLib::Value(aLast, aLine->Lin());
+      theFirstPnt = ElCLib1::Value(aFirst, aLine->Lin());
+      theLastPnt  = ElCLib1::Value(aLast, aLine->Lin());
     }
   }
   else if (Handle(GeomCircle) aCirc = Handle(GeomCircle)::DownCast(theCurve))
   {
-    theFirstPnt = ElCLib::Value(aFirst, aCirc->Circ());
-    theLastPnt  = ElCLib::Value(aLast, aCirc->Circ());
+    theFirstPnt = ElCLib1::Value(aFirst, aCirc->Circ());
+    theLastPnt  = ElCLib1::Value(aLast, aCirc->Circ());
   }
   else if (Handle(Geom_Ellipse) anEllipse = Handle(Geom_Ellipse)::DownCast(theCurve))
   {
-    theFirstPnt = ElCLib::Value(aFirst, anEllipse->Elips());
-    theLastPnt  = ElCLib::Value(aLast, anEllipse->Elips());
+    theFirstPnt = ElCLib1::Value(aFirst, anEllipse->Elips());
+    theLastPnt  = ElCLib1::Value(aLast, anEllipse->Elips());
   }
   else
   {
@@ -376,12 +376,12 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
     theSecondCurve = Handle(GeomCurve3d)::DownCast(aGeomGeometry);
   }
 
-  theFirstCurve = GeomProjLib::ProjectOnPlane(theFirstCurve,
+  theFirstCurve = GeomProjLib1::ProjectOnPlane(theFirstCurve,
                                               thePlane,
                                               thePlane->Pln().Axis().Direction(),
                                               Standard_False);
 
-  theSecondCurve = GeomProjLib::ProjectOnPlane(theSecondCurve,
+  theSecondCurve = GeomProjLib1::ProjectOnPlane(theSecondCurve,
                                                thePlane,
                                                thePlane->Pln().Axis().Direction(),
                                                Standard_False);
@@ -396,13 +396,13 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
 
   if (Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(theFirstCurve))
   {
-    theFirstPnt1 = ElCLib::Value(aFirst1, aLine->Lin());
-    theLastPnt1  = ElCLib::Value(aLast1, aLine->Lin());
+    theFirstPnt1 = ElCLib1::Value(aFirst1, aLine->Lin());
+    theLastPnt1  = ElCLib1::Value(aLast1, aLine->Lin());
   }
   else if (Handle(GeomCircle) aCirc = Handle(GeomCircle)::DownCast(theFirstCurve))
   {
-    theFirstPnt1 = ElCLib::Value(aFirst1, aCirc->Circ());
-    theLastPnt1  = ElCLib::Value(aLast1, aCirc->Circ());
+    theFirstPnt1 = ElCLib1::Value(aFirst1, aCirc->Circ());
+    theLastPnt1  = ElCLib1::Value(aLast1, aCirc->Circ());
   }
   else
   {
@@ -411,13 +411,13 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
 
   if (Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(theSecondCurve))
   {
-    theFirstPnt2 = ElCLib::Value(aFirst2, aLine->Lin());
-    theLastPnt2  = ElCLib::Value(aLast2, aLine->Lin());
+    theFirstPnt2 = ElCLib1::Value(aFirst2, aLine->Lin());
+    theLastPnt2  = ElCLib1::Value(aLast2, aLine->Lin());
   }
   else if (Handle(GeomCircle) aCirc = Handle(GeomCircle)::DownCast(theSecondCurve))
   {
-    theFirstPnt2 = ElCLib::Value(aFirst2, aCirc->Circ());
-    theLastPnt2  = ElCLib::Value(aLast2, aCirc->Circ());
+    theFirstPnt2 = ElCLib1::Value(aFirst2, aCirc->Circ());
+    theLastPnt2  = ElCLib1::Value(aLast2, aCirc->Circ());
   }
   else
   {
@@ -469,13 +469,13 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&  theFirstEdge,
       gp_Lin aLin2 = Handle(GeomLine)::DownCast(theSecondCurve)->Lin();
       if (theIsInfinite1)
       {
-        theFirstPnt1 = ElCLib::Value(ElCLib::Parameter(aLin2, theFirstPnt2), aLin1);
-        theLastPnt1  = ElCLib::Value(ElCLib::Parameter(aLin2, theLastPnt2), aLin1);
+        theFirstPnt1 = ElCLib1::Value(ElCLib1::Parameter(aLin2, theFirstPnt2), aLin1);
+        theLastPnt1  = ElCLib1::Value(ElCLib1::Parameter(aLin2, theLastPnt2), aLin1);
       }
       else if (theIsInfinite2)
       {
-        theFirstPnt2 = ElCLib::Value(ElCLib::Parameter(aLin1, theFirstPnt1), aLin2);
-        theLastPnt2  = ElCLib::Value(ElCLib::Parameter(aLin1, theLastPnt1), aLin2);
+        theFirstPnt2 = ElCLib1::Value(ElCLib1::Parameter(aLin1, theFirstPnt1), aLin2);
+        theLastPnt2  = ElCLib1::Value(ElCLib1::Parameter(aLin1, theLastPnt1), aLin2);
       }
     }
     else
@@ -623,13 +623,13 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoEdge&        theFirstEdge,
 
       if (theExtIndex == 1)
       {
-        theFirstPnt1 = ElCLib::Value(ElCLib::Parameter(aLin2, theFirstPnt2), aLin1);
-        theLastPnt1  = ElCLib::Value(ElCLib::Parameter(aLin2, theLastPnt2), aLin1);
+        theFirstPnt1 = ElCLib1::Value(ElCLib1::Parameter(aLin2, theFirstPnt2), aLin1);
+        theLastPnt1  = ElCLib1::Value(ElCLib1::Parameter(aLin2, theLastPnt2), aLin1);
       }
       else if (theExtIndex == 2)
       {
-        theFirstPnt2 = ElCLib::Value(ElCLib::Parameter(aLin1, theFirstPnt1), aLin2);
-        theLastPnt2  = ElCLib::Value(ElCLib::Parameter(aLin1, theLastPnt1), aLin2);
+        theFirstPnt2 = ElCLib1::Value(ElCLib1::Parameter(aLin1, theFirstPnt1), aLin2);
+        theLastPnt2  = ElCLib1::Value(ElCLib1::Parameter(aLin1, theLastPnt1), aLin2);
       }
     }
   }
@@ -701,7 +701,7 @@ Standard_Boolean PrsDim::ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
   if (!isOnPlane)
   {
     Handle(GeomCurve3d) aGeomCurve =
-      GeomProjLib::ProjectOnPlane(aCurve, aPlane, aPlane->Pln().Axis().Direction(), Standard_False);
+      GeomProjLib1::ProjectOnPlane(aCurve, aPlane, aPlane->Pln().Axis().Direction(), Standard_False);
     aCurve = aGeomCurve;
     if (aCurve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
     {
@@ -1057,24 +1057,24 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
       Standard_Real anU, aV;
       if (theFirstSurfType == PrsDim_KOS_Cylinder)
       {
-        ElSLib::Parameters((Handle(Geom_CylindricalSurface)::DownCast(aFirstSurf))->Cylinder(),
+        ElSLib1::Parameters((Handle(Geom_CylindricalSurface)::DownCast(aFirstSurf))->Cylinder(),
                            theFirstAttach,
                            anU,
                            aV);
 
         theFirstAttach =
-          ElSLib::Value(aFirstU,
+          ElSLib1::Value(aFirstU,
                         aV,
                         (Handle(Geom_CylindricalSurface)::DownCast(aFirstSurf))->Cylinder());
       }
       else if (theFirstSurfType == PrsDim_KOS_Cone)
       {
-        ElSLib::Parameters((Handle(Geom_ConicalSurface)::DownCast(aFirstSurf))->Cone(),
+        ElSLib1::Parameters((Handle(Geom_ConicalSurface)::DownCast(aFirstSurf))->Cone(),
                            theFirstAttach,
                            anU,
                            aV);
         theFirstAttach =
-          ElSLib::Value(aFirstU, aV, (Handle(Geom_ConicalSurface)::DownCast(aFirstSurf))->Cone());
+          ElSLib1::Value(aFirstU, aV, (Handle(Geom_ConicalSurface)::DownCast(aFirstSurf))->Cone());
       }
       else
       {
@@ -1190,7 +1190,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
 
 Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
                                      const Dir3d&  aDir,
-                                     const Bnd_Box& aBndBox)
+                                     const Box2& aBndBox)
 {
   if (aBndBox.IsOut(aPoint))
     return aPoint;
@@ -1206,7 +1206,7 @@ Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
     aPoint.Coord(Origin(1), Origin(2), Origin(3));
     aDir.Coord(Dir(1), Dir(2), Dir(3));
 
-    Bnd_Box EnlargedBox = aBndBox;
+    Box2 EnlargedBox = aBndBox;
     EnlargedBox.Enlarge(aBndBox.GetGap() + Precision::Confusion());
 
     Standard_Boolean IsFound = Standard_False;
@@ -1274,7 +1274,7 @@ Standard_Real PrsDim::DistanceFromApex(const gp_Elips&     elips,
                                        const Standard_Real par)
 {
   Standard_Real dist;
-  Standard_Real parApex = ElCLib::Parameter(elips, Apex);
+  Standard_Real parApex = ElCLib1::Parameter(elips, Apex);
   if (parApex == 0.0 || parApex == M_PI)
   {                     // Major case
     if (parApex == 0.0) // pos Apex
@@ -1324,12 +1324,12 @@ Point3d PrsDim::NearestApex(const gp_Elips&     elips,
   Standard_Real parP, parN;
   Point3d        EndOfArrow(0.0, 0.0, 0.0);
   IsInDomain = Standard_True;
-  parP       = ElCLib::Parameter(elips, pApex);
+  parP       = ElCLib1::Parameter(elips, pApex);
   if (InDomain(fpara, lpara, parP))
     EndOfArrow = pApex;
   else
   {
-    parN = ElCLib::Parameter(elips, nApex);
+    parN = ElCLib1::Parameter(elips, nApex);
     if (InDomain(fpara, lpara, parN))
       EndOfArrow = nApex;
     else
@@ -1394,8 +1394,8 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
     // ENDCLE
     if (!isInfinite)
     {
-      pf = ElCLib::Parameter(gl->Lin(), FirstP);
-      pl = ElCLib::Parameter(gl->Lin(), LastP);
+      pf = ElCLib1::Parameter(gl->Lin(), FirstP);
+      pl = ElCLib1::Parameter(gl->Lin(), LastP);
       EdgeMaker MakEd(gl->Lin(), pf, pl);
       E = MakEd.Edge();
     }
@@ -1411,8 +1411,8 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
     // Handle(GeomCircle) gc (Handle(GeomCircle)::DownCast (ProjCurve));
     Handle(GeomCircle) gc = Handle(GeomCircle)::DownCast(ProjCurve);
     // ENDCLE
-    pf = ElCLib::Parameter(gc->Circ(), FirstP);
-    pl = ElCLib::Parameter(gc->Circ(), LastP);
+    pf = ElCLib1::Parameter(gc->Circ(), FirstP);
+    pl = ElCLib1::Parameter(gc->Circ(), LastP);
     EdgeMaker MakEd(gc->Circ(), pf, pl);
     E = MakEd.Edge();
   }

@@ -65,7 +65,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Polygon3D::Copy() const
 
 void DrawTrSurf_Polygon3D::Dump(Standard_OStream& S) const
 {
-  Poly::Dump(myPolygon3D, S);
+  Poly1::Dump(myPolygon3D, S);
 }
 
 //=================================================================================================
@@ -80,7 +80,7 @@ void DrawTrSurf_Polygon3D::Save(Standard_OStream& theStream) const
   long            aForm = theStream.setf(std::ios::scientific);
   std::streamsize aPrec = theStream.precision(15);
 #endif
-  Poly::Write(myPolygon3D, theStream);
+  Poly1::Write(myPolygon3D, theStream);
 #if !defined(_MSC_VER) && !defined(__sgi) && !defined(IRIX)
   theStream.setf(aFlags);
 #else
@@ -93,7 +93,7 @@ void DrawTrSurf_Polygon3D::Save(Standard_OStream& theStream) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Polygon3D::Restore(Standard_IStream& theStream)
 {
-  return new DrawTrSurf_Polygon3D(Poly::ReadPolygon3D(theStream));
+  return new DrawTrSurf_Polygon3D(Poly1::ReadPolygon3D(theStream));
 }
 
 //=================================================================================================

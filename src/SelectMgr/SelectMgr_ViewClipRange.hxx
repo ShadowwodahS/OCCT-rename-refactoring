@@ -55,14 +55,14 @@ public:
 
   //! Calculates the min not clipped value from the range.
   //! Returns FALSE if the whole range is clipped.
-  Standard_Boolean GetNearestDepth(const Bnd_Range& theRange, Standard_Real& theDepth) const
+  Standard_Boolean GetNearestDepth(const Range1& theRange, Standard_Real& theDepth) const
   {
     if (!myUnclipRange.IsVoid() && myUnclipRange.IsOut(theRange))
     {
       return false;
     }
 
-    Bnd_Range aCommonClipRange;
+    Range1 aCommonClipRange;
     theRange.GetMin(theDepth);
 
     if (!myUnclipRange.IsVoid() && myUnclipRange.IsOut(theDepth))
@@ -102,7 +102,7 @@ public:
   void SetVoid()
   {
     myClipRanges.resize(0);
-    myUnclipRange = Bnd_Range(RealFirst(), RealLast());
+    myUnclipRange = Range1(RealFirst(), RealLast());
   }
 
   //! Add clipping planes. Planes and picking ray should be defined in the same coordinate system.
@@ -110,17 +110,17 @@ public:
                                          const Axis3d&                         thePickRay);
 
   //! Returns the main unclipped range; [-inf, inf] by default.
-  Bnd_Range& ChangeUnclipRange() { return myUnclipRange; }
+  Range1& ChangeUnclipRange() { return myUnclipRange; }
 
   //! Adds a clipping sub-range (for clipping chains).
-  void AddClipSubRange(const Bnd_Range& theRange) { myClipRanges.push_back(theRange); }
+  void AddClipSubRange(const Range1& theRange) { myClipRanges.push_back(theRange); }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 private:
-  std::vector<Bnd_Range> myClipRanges;
-  Bnd_Range              myUnclipRange;
+  std::vector<Range1> myClipRanges;
+  Range1              myUnclipRange;
 };
 
 #endif // _SelectMgr_ViewClipRange_HeaderFile

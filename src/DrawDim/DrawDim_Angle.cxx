@@ -97,7 +97,7 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
     return;
   if (!DrawDim1::Pln(myPlane2, pln2))
     return;
-  IntAna_QuadQuadGeo ip(pln1, pln2, Precision::Confusion(), Precision::Angular());
+  QuadQuadGeoIntersection ip(pln1, pln2, Precision::Confusion(), Precision::Angular());
   if (!ip.IsDone())
     return;
 
@@ -122,7 +122,7 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
       explo1.Next();
     }
     curpos                 = myFAttach.Rotated(AxePos, myVal / 2.);
-    myCenter               = ElCLib::Value(ElCLib::Parameter(theaxis, curpos), theaxis);
+    myCenter               = ElCLib1::Value(ElCLib1::Parameter(theaxis, curpos), theaxis);
     Standard_Real thedista = myCenter.Distance(myFAttach);
     if (thedista > Precision::Confusion())
     {
@@ -159,7 +159,7 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
       }
       explo1.Next();
     }
-    myCenter = ElCLib::Value(ElCLib::Parameter(theaxis, myFAttach), theaxis);
+    myCenter = ElCLib1::Value(ElCLib1::Parameter(theaxis, myFAttach), theaxis);
   }
 
   mySAttach = myFAttach.Rotated(AxePos, myVal);
@@ -174,8 +174,8 @@ void DrawDim_Angle::DrawOn(DrawDisplay&) const
     // Projection of the position on the plane defined by myFDir mySDir and normal theAxisDir
     gp_Pln        aPln(myCenter, theAxisDir);
     Standard_Real U, V;
-    ElSLib::Parameters(aPln, curpos, U, V);
-    curpos = ElSLib::Value(U, V, aPln);
+    ElSLib1::Parameters(aPln, curpos, U, V);
+    curpos = ElSLib1::Value(U, V, aPln);
   }
 
   // DISPLAY

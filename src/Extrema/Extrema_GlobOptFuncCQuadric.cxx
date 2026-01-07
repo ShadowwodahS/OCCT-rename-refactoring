@@ -27,19 +27,19 @@ void Extrema_GlobOptFuncCQuadric::value(Standard_Real ct, Standard_Real& F)
   switch (mySType)
   {
     case GeomAbs_Plane:
-      ElSLib::Parameters(myPln, aCP, u, v);
+      ElSLib1::Parameters(myPln, aCP, u, v);
       break;
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(myCylinder, aCP, u, v);
+      ElSLib1::Parameters(myCylinder, aCP, u, v);
       break;
     case GeomAbs_Cone:
-      ElSLib::Parameters(myCone, aCP, u, v);
+      ElSLib1::Parameters(myCone, aCP, u, v);
       break;
     case GeomAbs_Sphere:
-      ElSLib::Parameters(mySphere, aCP, u, v);
+      ElSLib1::Parameters(mySphere, aCP, u, v);
       break;
     case GeomAbs_Torus:
-      ElSLib::Parameters(myTorus, aCP, u, v);
+      ElSLib1::Parameters(myTorus, aCP, u, v);
       break;
     default:
       F = Precision::Infinite();
@@ -140,7 +140,7 @@ void Extrema_GlobOptFuncCQuadric::LoadQuad(const Adaptor3d_Surface* S,
     constexpr Standard_Real aTMax = 2. * M_PI + Precision::PConfusion();
     if (myUf > aTMax || myUf < -Precision::PConfusion() || Abs(myUl - myUf) > aTMax)
     {
-      ElCLib::AdjustPeriodic(0.,
+      ElCLib1::AdjustPeriodic(0.,
                              2. * M_PI,
                              Min(Abs(myUl - myUf) / 2, Precision::PConfusion()),
                              myUf,
@@ -152,7 +152,7 @@ void Extrema_GlobOptFuncCQuadric::LoadQuad(const Adaptor3d_Surface* S,
     constexpr Standard_Real aTMax = 2. * M_PI + Precision::PConfusion();
     if (myVf > aTMax || myVf < -Precision::PConfusion() || Abs(myVl - myVf) > aTMax)
     {
-      ElCLib::AdjustPeriodic(0.,
+      ElCLib1::AdjustPeriodic(0.,
                              2. * M_PI,
                              Min(Abs(myVl - myVf) / 2, Precision::PConfusion()),
                              myVf,
@@ -224,19 +224,19 @@ void Extrema_GlobOptFuncCQuadric::QuadricParameters(const math_Vector& theCT,
   switch (mySType)
   {
     case GeomAbs_Plane:
-      ElSLib::Parameters(myPln, aCP, u, v);
+      ElSLib1::Parameters(myPln, aCP, u, v);
       break;
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(myCylinder, aCP, u, v);
+      ElSLib1::Parameters(myCylinder, aCP, u, v);
       break;
     case GeomAbs_Cone:
-      ElSLib::Parameters(myCone, aCP, u, v);
+      ElSLib1::Parameters(myCone, aCP, u, v);
       break;
     case GeomAbs_Sphere:
-      ElSLib::Parameters(mySphere, aCP, u, v);
+      ElSLib1::Parameters(mySphere, aCP, u, v);
       break;
     case GeomAbs_Torus:
-      ElSLib::Parameters(myTorus, aCP, u, v);
+      ElSLib1::Parameters(myTorus, aCP, u, v);
       break;
     default:
       theUV(1) = myUf;

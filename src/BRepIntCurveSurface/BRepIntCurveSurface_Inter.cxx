@@ -97,7 +97,7 @@ void BRepIntCurveSurface_Inter::Init(const GeomAdaptor_Curve& theCurve)
   myCurve              = new GeomAdaptor_Curve(theCurve);
   if (!Precision::IsInfinite(aFirst) && !Precision::IsInfinite(aLast))
   {
-    BndLib_Add3dCurve::Add(*myCurve, 0., myCurveBox);
+    Add3dCurve::Add(*myCurve, 0., myCurveBox);
   }
   Find();
 }
@@ -134,7 +134,7 @@ void BRepIntCurveSurface_Inter::Find()
     TopoShape aCurface = myFaces(i);
     if (myFaceBoxes.IsNull())
       myFaceBoxes = new Bnd_HArray1OfBox(1, myFaces.Length());
-    Bnd_Box& aFaceBox = myFaceBoxes->ChangeValue(i);
+    Box2& aFaceBox = myFaceBoxes->ChangeValue(i);
     if (aFaceBox.IsVoid())
     {
       BRepBndLib::Add(aCurface, aFaceBox);

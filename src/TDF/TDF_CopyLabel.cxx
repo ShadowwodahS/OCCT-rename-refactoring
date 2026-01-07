@@ -65,7 +65,7 @@ void TDF_CopyLabel::Load(const DataLabel& aSource, const DataLabel& aTarget)
 void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
                                        const DataLabel&     aLabel,
                                        TDF_AttributeMap&    aExternals,
-                                       const TDF_IDFilter&  aFilter,
+                                       const IDFilter&  aFilter,
                                        Handle(TDF_DataSet)& ds)
 {
   //  AsciiString1 entr1,entr2; //d
@@ -73,14 +73,14 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
   {
     itr.Value()->References(ds);
     const TDF_AttributeMap& attMap = ds->Attributes(); // attMap
-    //     TDF_Tool::Entry(itr.Value()->Label(), entr1);  //d
+    //     Tool3::Entry(itr.Value()->Label(), entr1);  //d
     //     std::cout<<"\tSource Attribute dynamic type = "<<itr.Value()->DynamicType()<<" Label =
     //     "<<entr1 <<std::endl;
     for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
     {
       const Handle(TDF_Attribute)& att = attMItr.Key();
 
-      //       TDF_Tool::Entry(att->Label(), entr1);
+      //       Tool3::Entry(att->Label(), entr1);
       //       std::cout<<"\t\tReferences attribute dynamic type = "<<att->DynamicType()<<" Label =
       //       "<<entr1 <<std::endl;
       if (!att.IsNull() && !att->Label().IsNull())
@@ -95,7 +95,7 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
 
     //     const TDF_LabelMap& labMap = ds->Labels();
     //     for (TDF_MapIteratorOfLabelMap labMItr(labMap);labMItr.More(); labMItr.Next()) {
-    //       TDF_Tool::Entry(labMItr.Key(), entr1);
+    //       Tool3::Entry(labMItr.Key(), entr1);
     // 	std::cout<<"\t\tLABELS from DS of Attr:: Lab = "<<entr1<<std::endl;
     //       if (!labMItr.Key().IsDescendant(aRefLabel) && labMItr.Key().IsDifferent(aRefLabel)) {
     // //	aExternals.Add(itr.Value()); // ??? LabelMap of Attribute has label which don't
@@ -103,8 +103,8 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
     // 	// Add this Attribute to the aExternals or add all attributes
     // 	// from this label ?
     // 	AsciiString1 entr1, entr2;
-    // 	TDF_Tool::Entry(labMItr.Key(), entr1);
-    // 	TDF_Tool::Entry(aRefLabel, entr2);
+    // 	Tool3::Entry(labMItr.Key(), entr1);
+    // 	Tool3::Entry(aRefLabel, entr2);
     // 	std::cout<<"\t\t\tNot descendant label:: Lab1 = "<<entr1<<" and RefLab =
     // "<<entr2<<std::endl;
     //       }
@@ -118,11 +118,11 @@ void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
 
 Standard_Boolean TDF_CopyLabel::ExternalReferences(const DataLabel&    L,
                                                    TDF_AttributeMap&   aExternals,
-                                                   const TDF_IDFilter& aFilter)
+                                                   const IDFilter& aFilter)
 {
   Handle(TDF_DataSet) ds = new TDF_DataSet();
   ExternalReferences(L, L, aExternals, aFilter, ds);
-  for (TDF_ChildIterator itr(L, Standard_True); itr.More(); itr.Next())
+  for (ChildIterator itr(L, Standard_True); itr.More(); itr.Next())
   {
     ExternalReferences(L, itr.Value(), aExternals, aFilter, ds);
   }
@@ -137,12 +137,12 @@ Standard_Boolean TDF_CopyLabel::ExternalReferences(const DataLabel&    L,
 static void PrintEntry(const DataLabel& label, const Standard_Boolean allLevels)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "\tShareable attribute on the label = " << entry << std::endl;
-  TDF_ChildIterator it(label, allLevels);
+  ChildIterator it(label, allLevels);
   for (; it.More(); it.Next())
   {
-    TDF_Tool::Entry(it.Value(), entry);
+    Tool3::Entry(it.Value(), entry);
     std::cout << "\tChildLabelEntry = " << entry << std::endl;
   }
 }
@@ -154,17 +154,17 @@ void TDF_CopyLabel::Perform()
   myIsDone = Standard_False;
   if (mySL.Data()->Root().IsDifferent(myTL.Data()->Root()) && // TDF_Data is not the same
                                                               // clang-format off
-     !TDF_Tool::IsSelfContained(mySL, myFilter)) return;               //source label isn't self-contained
+     !Tool3::IsSelfContained(mySL, myFilter)) return;               //source label isn't self-contained
   // clang-format on
 
   Standard_Boolean extReferers = ExternalReferences(mySL, myMapOfExt, myFilter);
 
   myRT                   = new TDF_RelocationTable(Standard_True);
   Handle(TDF_DataSet) ds = new TDF_DataSet();
-  TDF_ClosureMode     mode(Standard_True); // descendant plus reference
+  ClosureMode     mode(Standard_True); // descendant plus reference
   ds->AddLabel(mySL);
   myRT->SetRelocation(mySL, myTL);
-  TDF_ClosureTool::Closure(ds, myFilter, mode);
+  ClosureTool::Closure(ds, myFilter, mode);
   if (extReferers)
   {
     for (TDF_MapIteratorOfAttributeMap attMItr(myMapOfExt); attMItr.More(); attMItr.Next())
@@ -177,7 +177,7 @@ void TDF_CopyLabel::Perform()
     }
   }
 
-  TDF_CopyTool::Copy(ds, myRT);
+  CopyTool::Copy(ds, myRT);
   myIsDone = Standard_True;
 }
 
@@ -190,7 +190,7 @@ const Handle(TDF_RelocationTable)& TDF_CopyLabel::RelocationTable() const
 
 //=================================================================================================
 
-void TDF_CopyLabel::UseFilter(const TDF_IDFilter& aFilter)
+void TDF_CopyLabel::UseFilter(const IDFilter& aFilter)
 {
   myFilter.Assign(aFilter);
 }

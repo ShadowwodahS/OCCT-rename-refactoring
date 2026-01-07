@@ -23,19 +23,19 @@
 #include <Standard_Integer.hxx>
 
 //! Data structure of a set of Hiding Triangles.
-class HLRAlgo_PolyHidingData
+class PolyHidingData
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  struct TriangleIndices
+  struct TriangleIndices1
   {
     Standard_Integer Index, Min, Max;
   };
 
-  struct PlaneT
+  struct PlaneT1
   {
-    PlaneT()
+    PlaneT1()
         : D(0.0)
     {
     }
@@ -44,7 +44,7 @@ public:
     Standard_Real D;
   };
 
-  HLRAlgo_PolyHidingData() {}
+  PolyHidingData() {}
 
   void Set(const Standard_Integer Index,
            const Standard_Integer Minim,
@@ -61,13 +61,13 @@ public:
     myPlane.D       = D;
   }
 
-  TriangleIndices& Indices() { return myIndices; }
+  TriangleIndices1& Indices() { return myIndices; }
 
-  PlaneT& Plane() { return myPlane; }
+  PlaneT1& Plane() { return myPlane; }
 
 private:
-  TriangleIndices myIndices;
-  PlaneT          myPlane;
+  TriangleIndices1 myIndices;
+  PlaneT1          myPlane;
 };
 
 #endif // _HLRAlgo_PolyHidingData_HeaderFile

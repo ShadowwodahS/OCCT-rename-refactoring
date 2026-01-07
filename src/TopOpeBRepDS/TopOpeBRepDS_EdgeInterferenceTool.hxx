@@ -28,7 +28,7 @@ class TopoShape;
 class TopOpeBRepDS_Interference;
 class Point1;
 
-//! a tool computing complex transition on Edge.
+//! a tool computing complex1 transition on Edge.
 class TopOpeBRepDS_EdgeInterferenceTool
 {
 public:
@@ -52,7 +52,7 @@ protected:
 private:
   TopAbs_Orientation       myEdgeOrientation;
   Standard_Integer         myEdgeOriented;
-  TopTrans_CurveTransition myTool;
+  CurveTransition myTool;
 };
 
 #endif // _TopOpeBRepDS_EdgeInterferenceTool_HeaderFile

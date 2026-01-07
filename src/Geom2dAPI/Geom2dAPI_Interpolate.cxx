@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// 8-Aug-95 : xab : interpolation uses BSplCLib::Interpolate
+// 8-Aug-95 : xab : interpolation uses BSplCLib1::Interpolate
 
 #include <BSplCLib.hxx>
 #include <Geom2d_BSplineCurve.hxx>
@@ -139,7 +139,7 @@ static void BuildPeriodicTangent(const TColgp_Array1OfPnt2d& PointsArray,
     point_array     = (Standard_Real*)&PointsArray.Value(PointsArray.Lower());
     parameter_array = (Standard_Real*)&ParametersArray.Value(1);
     TangentFlags.SetValue(1, Standard_True);
-    PLib::EvalLagrange(ParametersArray.Value(1),
+    PLib1::EvalLagrange(ParametersArray.Value(1),
                        1,
                        degree,
                        2,
@@ -182,7 +182,7 @@ static void BuildTangents(const TColgp_Array1OfPnt2d& PointsArray,
     point_array     = (Standard_Real*)&PointsArray.Value(PointsArray.Lower());
     parameter_array = (Standard_Real*)&ParametersArray.Value(1);
     TangentFlags.SetValue(1, Standard_True);
-    PLib::EvalLagrange(ParametersArray.Value(1),
+    PLib1::EvalLagrange(ParametersArray.Value(1),
                        1,
                        degree,
                        2,
@@ -200,7 +200,7 @@ static void BuildTangents(const TColgp_Array1OfPnt2d& PointsArray,
     point_array = (Standard_Real*)&PointsArray.Value(PointsArray.Upper() - degree);
     TangentFlags.SetValue(TangentFlags.Upper(), Standard_True);
     parameter_array = (Standard_Real*)&ParametersArray.Value(ParametersArray.Upper() - degree);
-    PLib::EvalLagrange(ParametersArray.Value(ParametersArray.Upper()),
+    PLib1::EvalLagrange(ParametersArray.Value(ParametersArray.Upper()),
                        1,
                        degree,
                        2,
@@ -249,7 +249,7 @@ static void ScaleTangents(const TColgp_Array1OfPnt2d&    PointsArray,
     {
       point_array     = (Standard_Real*)&PointsArray.Value(index);
       parameter_array = (Standard_Real*)&ParametersArray.Value(index);
-      PLib::EvalLagrange(ParametersArray.Value(ii),
+      PLib1::EvalLagrange(ParametersArray.Value(ii),
                          1,
                          degree,
                          2,
@@ -594,7 +594,7 @@ void Geom2dAPI_Interpolate::PerformPeriodic()
 
     poles.SetValue(num_poles, myPoints->Value(1));
 
-    BSplCLib::Interpolate(degree,
+    BSplCLib1::Interpolate(degree,
                           flatknots,
                           parameters,
                           contact_order_array,
@@ -683,7 +683,7 @@ void Geom2dAPI_Interpolate::PerformNonPeriodic()
       {
         poles.SetValue(ii, myPoints->Value(ii));
       }
-      BSplCLib::Interpolate(degree,
+      BSplCLib1::Interpolate(degree,
                             flatknots,
                             myParameters->Array1(),
                             contact_order_array,
@@ -790,7 +790,7 @@ void Geom2dAPI_Interpolate::PerformNonPeriodic()
 
       poles.SetValue(num_poles, myPoints->Value(num_points));
 
-      BSplCLib::Interpolate(degree,
+      BSplCLib1::Interpolate(degree,
                             flatknots,
                             parameters,
                             contact_order_array,

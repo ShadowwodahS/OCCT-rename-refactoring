@@ -33,7 +33,7 @@ static const Standard_Real sinu6 = sin(6. * M_PI / 14.);
 
 //=================================================================================================
 
-void HLRAlgo::UpdateMinMax(const Standard_Real x,
+void HLRAlgo1::UpdateMinMax(const Standard_Real x,
                            const Standard_Real y,
                            const Standard_Real z,
                            Standard_Real       Min[16],
@@ -72,7 +72,7 @@ void HLRAlgo::UpdateMinMax(const Standard_Real x,
 
 //=================================================================================================
 
-void HLRAlgo::EnlargeMinMax(const Standard_Real tol, Standard_Real Min[16], Standard_Real Max[16])
+void HLRAlgo1::EnlargeMinMax(const Standard_Real tol, Standard_Real Min[16], Standard_Real Max[16])
 {
   Standard_Integer i = 0;
   while (i < 16)
@@ -85,7 +85,7 @@ void HLRAlgo::EnlargeMinMax(const Standard_Real tol, Standard_Real Min[16], Stan
 
 //=================================================================================================
 
-void HLRAlgo::InitMinMax(const Standard_Real Big, Standard_Real Min[16], Standard_Real Max[16])
+void HLRAlgo1::InitMinMax(const Standard_Real Big, Standard_Real Min[16], Standard_Real Max[16])
 {
   Standard_Integer i = 0;
   while (i < 16)
@@ -98,9 +98,9 @@ void HLRAlgo::InitMinMax(const Standard_Real Big, Standard_Real Min[16], Standar
 
 //=================================================================================================
 
-void HLRAlgo::EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices& Min,
-                           HLRAlgo_EdgesBlock::MinMaxIndices& Max,
-                           HLRAlgo_EdgesBlock::MinMaxIndices& MM)
+void HLRAlgo1::EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
+                           HLRAlgo_EdgesBlock::MinMaxIndices1& Max,
+                           HLRAlgo_EdgesBlock::MinMaxIndices1& MM)
 {
   MM.Min[0] = Min.Min[1] & 0x00007fff;
   MM.Max[0] = Max.Min[1] & 0x00007fff;
@@ -138,8 +138,8 @@ void HLRAlgo::EncodeMinMax(HLRAlgo_EdgesBlock::MinMaxIndices& Min,
 
 //=================================================================================================
 
-Standard_Real HLRAlgo::SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices& Min,
-                               HLRAlgo_EdgesBlock::MinMaxIndices& Max)
+Standard_Real HLRAlgo1::SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices1& Min,
+                               HLRAlgo_EdgesBlock::MinMaxIndices1& Max)
 {
   Standard_Real s = Max.Min[0] - Min.Min[0];
   for (Standard_Integer aI = 1; aI < 8; ++aI)
@@ -155,9 +155,9 @@ Standard_Real HLRAlgo::SizeBox(HLRAlgo_EdgesBlock::MinMaxIndices& Min,
 
 //=================================================================================================
 
-void HLRAlgo::DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices& MM,
-                           HLRAlgo_EdgesBlock::MinMaxIndices&       Min,
-                           HLRAlgo_EdgesBlock::MinMaxIndices&       Max)
+void HLRAlgo1::DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& MM,
+                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Min,
+                           HLRAlgo_EdgesBlock::MinMaxIndices1&       Max)
 {
   Min.Min[0] = (MM.Min[0] & 0x7fff0000) >> 16;
   Max.Min[0] = (MM.Max[0] & 0x7fff0000) >> 16;
@@ -195,10 +195,10 @@ void HLRAlgo::DecodeMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices& MM,
 
 //=================================================================================================
 
-void HLRAlgo::AddMinMax(HLRAlgo_EdgesBlock::MinMaxIndices& IMin,
-                        HLRAlgo_EdgesBlock::MinMaxIndices& IMax,
-                        HLRAlgo_EdgesBlock::MinMaxIndices& OMin,
-                        HLRAlgo_EdgesBlock::MinMaxIndices& OMax)
+void HLRAlgo1::AddMinMax(HLRAlgo_EdgesBlock::MinMaxIndices1& IMin,
+                        HLRAlgo_EdgesBlock::MinMaxIndices1& IMax,
+                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMin,
+                        HLRAlgo_EdgesBlock::MinMaxIndices1& OMax)
 {
   OMin.Minimize(IMin);
   OMax.Maximize(IMax);

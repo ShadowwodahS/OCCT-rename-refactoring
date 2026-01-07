@@ -50,7 +50,7 @@ GeomConvert_BSplineCurveKnotSplitting::GeomConvert_BSplineCurveKnotSplitting(
     Standard_Integer NbKnots = BasisCurve->NbKnots();
     Array1OfInteger  Mults(1, NbKnots);
     BasisCurve->Multiplicities(Mults);
-    Standard_Integer Mmax = BSplCLib::MaxKnotMult(Mults, FirstIndex, LastIndex);
+    Standard_Integer Mmax = BSplCLib1::MaxKnotMult(Mults, FirstIndex, LastIndex);
     if (Degree - Mmax >= ContinuityRange)
     {
       splitIndexes = new HArray1OfInteger(1, 2);

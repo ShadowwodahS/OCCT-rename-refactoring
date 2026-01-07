@@ -194,28 +194,28 @@ Standard_Real Geom2d_Parabola::Parameter() const
 
 void Geom2d_Parabola::D0(const Standard_Real U, Pnt2d& P) const
 {
-  P = ElCLib::ParabolaValue(U, pos, focalLength);
+  P = ElCLib1::ParabolaValue(U, pos, focalLength);
 }
 
 //=================================================================================================
 
 void Geom2d_Parabola::D1(const Standard_Real U, Pnt2d& P, Vec2d& V1) const
 {
-  ElCLib::ParabolaD1(U, pos, focalLength, P, V1);
+  ElCLib1::ParabolaD1(U, pos, focalLength, P, V1);
 }
 
 //=================================================================================================
 
 void Geom2d_Parabola::D2(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2) const
 {
-  ElCLib::ParabolaD2(U, pos, focalLength, P, V1, V2);
+  ElCLib1::ParabolaD2(U, pos, focalLength, P, V1, V2);
 }
 
 //=================================================================================================
 
 void Geom2d_Parabola::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, Vec2d& V3) const
 {
-  ElCLib::ParabolaD2(U, pos, focalLength, P, V1, V2);
+  ElCLib1::ParabolaD2(U, pos, focalLength, P, V1, V2);
   V3.SetCoord(0.0, 0.0);
 }
 
@@ -224,7 +224,7 @@ void Geom2d_Parabola::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, 
 Vec2d Geom2d_Parabola::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::ParabolaDN(U, pos, focalLength, N);
+  return ElCLib1::ParabolaDN(U, pos, focalLength, N);
 }
 
 //=================================================================================================

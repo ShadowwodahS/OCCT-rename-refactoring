@@ -262,10 +262,10 @@ Point3d Select3D_SensitiveGroup::CenterOfGeometry() const
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns bounding box of sensitive entity with index theIdx
 //=======================================================================
-Select3D_BndBox3d Select3D_SensitiveGroup::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_SensitiveGroup::Box1(const Standard_Integer theIdx) const
 {
   const Standard_Integer anElemIdx = myBVHPrimIndexes.Value(theIdx);
   return myEntities.FindKey(anElemIdx)->BoundingBox();

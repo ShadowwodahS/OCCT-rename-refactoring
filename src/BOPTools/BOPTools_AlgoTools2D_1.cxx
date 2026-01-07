@@ -91,7 +91,7 @@ Standard_Integer AlgoTools2D::AttachExistingPCurve(const TopoEdge& theE2, // old
   //
   Handle(GeomCurve3d) aCE1 = BRepInspector::Curve(aE1, aT11, aT12);
   //
-  GeomLib::SameRange(aTolPPC, aC2DT, aT21, aT22, aT11, aT12, aC2DT);
+  GeomLib1::SameRange(aTolPPC, aC2DT, aT21, aT22, aT11, aT12, aC2DT);
   //
   if (aC2DT.IsNull())
   {

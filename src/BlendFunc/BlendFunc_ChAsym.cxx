@@ -473,7 +473,7 @@ void BlendFunc_ChAsym::Section(const Standard_Real /*Param*/,
   C.SetDirection(dir);
 
   Pdeb = 0.;
-  Pfin = ElCLib::Parameter(C, Pt2);
+  Pfin = ElCLib1::Parameter(C, Pt2);
 }
 
 //=================================================================================================

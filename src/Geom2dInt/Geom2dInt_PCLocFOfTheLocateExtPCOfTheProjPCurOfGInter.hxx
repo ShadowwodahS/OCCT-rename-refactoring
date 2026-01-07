@@ -31,7 +31,7 @@ class Standard_OutOfRange;
 class Standard_TypeMismatch;
 class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
-class Extrema_POnCurv2d;
+class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -76,7 +76,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin(const Standard_Integer N) const;
 
   //! Returns the Nth extremum.
-  Standard_EXPORT const Extrema_POnCurv2d& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve2d& Point(const Standard_Integer N) const;
 
   //! Determines boundaries of subinterval for find of root.
   Standard_EXPORT void SubIntervalInitialize(const Standard_Real theUfirst,

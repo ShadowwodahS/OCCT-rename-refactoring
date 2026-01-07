@@ -429,7 +429,7 @@ void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
     //-----------------------------------------------------
     BRepMAT2d_Explorer Exp(WorkSpine);
     Locus.Compute(Exp, 1, MAT_Left);
-    BRepMAT2d_LinkTopoBilo Link(Exp, Locus);
+    BRepMAT2d_LinkTopoBilo Link1(Exp, Locus);
 
     for (WPIte.Initialize(WorkProf); WPIte.More(); WPIte.Next())
     {
@@ -441,15 +441,15 @@ void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
       BRepFill_Evolved Vevo;
       if (CSide == 1)
       {
-        Vevo.ElementaryPerform(WorkSpine, SP, Locus, Link, Join);
+        Vevo.ElementaryPerform(WorkSpine, SP, Locus, Link1, Join);
       }
       else if (CSide == 2)
       {
-        Vevo.PlanarPerform(WorkSpine, SP, Locus, Link, Join);
+        Vevo.PlanarPerform(WorkSpine, SP, Locus, Link1, Join);
       }
       else if (CSide == 3)
       {
-        Vevo.VerticalPerform(WorkSpine, SP, Locus, Link, Join);
+        Vevo.VerticalPerform(WorkSpine, SP, Locus, Link1, Join);
       }
       CutVevo.Add(Vevo, SP, Glue);
     }
@@ -476,7 +476,7 @@ void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
       Face = B.Face();
       BRepMAT2d_Explorer Exp(Face);
       Locus.Compute(Exp, 1, MAT_Left);
-      BRepMAT2d_LinkTopoBilo Link(Exp, Locus);
+      BRepMAT2d_LinkTopoBilo Link1(Exp, Locus);
 
       for (WPIte.Initialize(WorkProf); WPIte.More(); WPIte.Next())
       {
@@ -488,15 +488,15 @@ void BRepFill_Evolved::PrivatePerform(const TopoFace&     Spine,
         BRepFill_Evolved Vevo;
         if (CSide == 4)
         {
-          Vevo.ElementaryPerform(Face, SP, Locus, Link, Join);
+          Vevo.ElementaryPerform(Face, SP, Locus, Link1, Join);
         }
         else if (CSide == 5)
         {
-          Vevo.PlanarPerform(Face, SP, Locus, Link, Join);
+          Vevo.PlanarPerform(Face, SP, Locus, Link1, Join);
         }
         else if (CSide == 6)
         {
-          Vevo.VerticalPerform(Face, SP, Locus, Link, Join);
+          Vevo.VerticalPerform(Face, SP, Locus, Link1, Join);
         }
         CutVevo.Add(Vevo, SP, Glue);
       }
@@ -639,7 +639,7 @@ static Standard_Boolean ConcaveSide(const TopoShape& S, const TopoFace& F)
 void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
                                          const TopoWire&              Pr,
                                          const BRepMAT2d_BisectingLocus& Locus,
-                                         BRepMAT2d_LinkTopoBilo&         Link,
+                                         BRepMAT2d_LinkTopoBilo&         Link1,
                                          const GeomAbs_JoinType /*Join*/)
 {
 
@@ -701,7 +701,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
       TopoVertex      VFirst, VLast;
       EdgeVertices(CurrentEdge, VFirst, VLast);
 
-      for (Link.Init(VLast); Link.More(); Link.Next())
+      for (Link1.Init(VLast); Link1.More(); Link1.Next())
       {
         //----------------------------.
         // Construction of a Revolution
@@ -709,7 +709,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
         MakeRevol(CurrentEdge, VLast, AxeRef);
       }
 
-      for (Link.Init(CurrentEdge); Link.More(); Link.Next())
+      for (Link1.Init(CurrentEdge); Link1.More(); Link1.Next())
       {
         //------------------------.
         // Construction of a Tube
@@ -748,8 +748,8 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
     //------------------------------------------------------------------
     // Return elements of the spine corresponding to separate basicElts.
     //------------------------------------------------------------------
-    S[0] = Link.GeneratingShape(CurrentArc->FirstElement());
-    S[1] = Link.GeneratingShape(CurrentArc->SecondElement());
+    S[0] = Link1.GeneratingShape(CurrentArc->FirstElement());
+    S[1] = Link1.GeneratingShape(CurrentArc->SecondElement());
 
     Standard_Boolean Concave0 = ConcaveSide(S[0], mySpine);
     Standard_Boolean Concave1 = ConcaveSide(S[1], mySpine);
@@ -1289,7 +1289,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoFace&              Sp,
 void BRepFill_Evolved::PlanarPerform(const TopoFace&              Sp,
                                      const TopoWire&              Pr,
                                      const BRepMAT2d_BisectingLocus& Locus,
-                                     BRepMAT2d_LinkTopoBilo&         Link,
+                                     BRepMAT2d_LinkTopoBilo&         Link1,
                                      const GeomAbs_JoinType          Join)
 {
   TopoShape aLocalShapeOriented = Sp.Oriented(TopAbs_FORWARD);
@@ -1329,7 +1329,7 @@ void BRepFill_Evolved::PlanarPerform(const TopoFace&              Sp,
         //------------------------------------------------
         // Calculate parallel lines corresponding to vertices.
         //------------------------------------------------
-        Paral.PerformWithBiLo(mySpine, Offset[i], Locus, Link, Join, Alt);
+        Paral.PerformWithBiLo(mySpine, Offset[i], Locus, Link1, Join, Alt);
         OffAnc.Perform(Paral);
         MapVP.Bind(V[i], Paral.Shape());
 
@@ -1438,7 +1438,7 @@ void BRepFill_Evolved::PlanarPerform(const TopoFace&              Sp,
 void BRepFill_Evolved::VerticalPerform(const TopoFace&              Sp,
                                        const TopoWire&              Pr,
                                        const BRepMAT2d_BisectingLocus& Locus,
-                                       BRepMAT2d_LinkTopoBilo&         Link,
+                                       BRepMAT2d_LinkTopoBilo&         Link1,
                                        const GeomAbs_JoinType          Join)
 {
   TopoShape aLocalShape = Sp.Oriented(TopAbs_FORWARD);
@@ -1474,7 +1474,7 @@ void BRepFill_Evolved::VerticalPerform(const TopoFace&              Sp,
       {
         Offset = 0.;
       }
-      Paral.PerformWithBiLo(mySpine, Offset, Locus, Link, Join, Alt1);
+      Paral.PerformWithBiLo(mySpine, Offset, Locus, Link1, Join, Alt1);
       OffAnc.Perform(Paral);
       Base = Paral.Shape();
 
@@ -3149,8 +3149,8 @@ void CutEdgeProf(const TopoEdge&            E,
 
   // project it in the plane and return the associated PCurve
   Dir3d Normal = Plane->Pln().Axis().Direction();
-  C             = GeomProjLib::ProjectOnPlane(CT, Plane, Normal, Standard_False);
-  C2d           = GeomProjLib::Curve2d(C, Plane);
+  C             = GeomProjLib1::ProjectOnPlane(CT, Plane, Normal, Standard_False);
+  C2d           = GeomProjLib1::Curve2d(C, Plane);
 
   // Calculate the extrema with the straight line
   TColStd_SequenceOfReal Seq;
@@ -3162,7 +3162,7 @@ void CutEdgeProf(const TopoEdge&            E,
 
   Bnd_Box2d           B;
   Geom2dAdaptor_Curve AC2d(C2d);
-  BndLib_Add2dCurve::Add(AC2d, BRepFill_Confusion(), B);
+  Add2dCurve::Add(AC2d, BRepFill_Confusion(), B);
   Standard_Real xmin, xmax;
   B.Get(xmin, U1, xmax, U2);
 

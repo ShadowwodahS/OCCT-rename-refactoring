@@ -22,27 +22,27 @@
 #include <gp_Vec.hxx>
 #include <gp_Vec2d.hxx>
 
-Standard_Integer AppDef_MyLineTool::FirstPoint(const AppDef_MultiLine&)
+Standard_Integer MultiLineTool::FirstPoint(const AppDef_MultiLine&)
 {
   return 1;
 }
 
-Standard_Integer AppDef_MyLineTool::LastPoint(const AppDef_MultiLine& ML)
+Standard_Integer MultiLineTool::LastPoint(const AppDef_MultiLine& ML)
 {
   return ML.NbMultiPoints();
 }
 
-Standard_Integer AppDef_MyLineTool::NbP2d(const AppDef_MultiLine& ML)
+Standard_Integer MultiLineTool::NbP2d(const AppDef_MultiLine& ML)
 {
   return ML.Value(1).NbPoints2d();
 }
 
-Standard_Integer AppDef_MyLineTool::NbP3d(const AppDef_MultiLine& ML)
+Standard_Integer MultiLineTool::NbP3d(const AppDef_MultiLine& ML)
 {
   return ML.Value(1).NbPoints();
 }
 
-void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
+void MultiLineTool::Value(const AppDef_MultiLine& ML,
                               const Standard_Integer  MPointIndex,
                               TColgp_Array1OfPnt&     tabPt)
 {
@@ -54,7 +54,7 @@ void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
   }
 }
 
-void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
+void MultiLineTool::Value(const AppDef_MultiLine& ML,
                               const Standard_Integer  MPointIndex,
                               TColgp_Array1OfPnt2d&   tabPt2d)
 {
@@ -68,7 +68,7 @@ void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
   }
 }
 
-void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
+void MultiLineTool::Value(const AppDef_MultiLine& ML,
                               const Standard_Integer  MPointIndex,
                               TColgp_Array1OfPnt&     tabPt,
                               TColgp_Array1OfPnt2d&   tabPt2d)
@@ -86,7 +86,7 @@ void AppDef_MyLineTool::Value(const AppDef_MultiLine& ML,
   }
 }
 
-Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Tangency(const AppDef_MultiLine& ML,
                                              const Standard_Integer  MPointIndex,
                                              TColgp_Array1OfVec&     tabV)
 {
@@ -104,7 +104,7 @@ Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
     return Standard_False;
 }
 
-Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Tangency(const AppDef_MultiLine& ML,
                                              const Standard_Integer  MPointIndex,
                                              TColgp_Array1OfVec2d&   tabV2d)
 {
@@ -123,7 +123,7 @@ Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
     return Standard_False;
 }
 
-Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Tangency(const AppDef_MultiLine& ML,
                                              const Standard_Integer  MPointIndex,
                                              TColgp_Array1OfVec&     tabV,
                                              TColgp_Array1OfVec2d&   tabV2d)
@@ -147,7 +147,7 @@ Standard_Boolean AppDef_MyLineTool::Tangency(const AppDef_MultiLine& ML,
     return Standard_False;
 }
 
-AppDef_MultiLine AppDef_MyLineTool::MakeMLBetween(const AppDef_MultiLine& theML,
+AppDef_MultiLine MultiLineTool::MakeMLBetween(const AppDef_MultiLine& theML,
                                                   const Standard_Integer,
                                                   const Standard_Integer,
                                                   const Standard_Integer)
@@ -155,7 +155,7 @@ AppDef_MultiLine AppDef_MyLineTool::MakeMLBetween(const AppDef_MultiLine& theML,
   return theML; // stub
 }
 
-Standard_Boolean AppDef_MyLineTool::MakeMLOneMorePoint(const AppDef_MultiLine&,
+Standard_Boolean MultiLineTool::MakeMLOneMorePoint(const AppDef_MultiLine&,
                                                        const Standard_Integer,
                                                        const Standard_Integer,
                                                        const Standard_Integer,
@@ -164,14 +164,14 @@ Standard_Boolean AppDef_MyLineTool::MakeMLOneMorePoint(const AppDef_MultiLine&,
   return Standard_False;
 }
 
-Approx_Status AppDef_MyLineTool::WhatStatus(const AppDef_MultiLine&,
+Approx_Status MultiLineTool::WhatStatus(const AppDef_MultiLine&,
                                             const Standard_Integer,
                                             const Standard_Integer)
 {
   return Approx_NoPointsAdded;
 }
 
-Standard_Boolean AppDef_MyLineTool::Curvature(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Curvature(const AppDef_MultiLine& ML,
                                               const Standard_Integer  MPointIndex,
                                               TColgp_Array1OfVec&     tabV)
 {
@@ -189,7 +189,7 @@ Standard_Boolean AppDef_MyLineTool::Curvature(const AppDef_MultiLine& ML,
     return Standard_False;
 }
 
-Standard_Boolean AppDef_MyLineTool::Curvature(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Curvature(const AppDef_MultiLine& ML,
                                               const Standard_Integer  MPointIndex,
                                               TColgp_Array1OfVec2d&   tabV2d)
 {
@@ -208,7 +208,7 @@ Standard_Boolean AppDef_MyLineTool::Curvature(const AppDef_MultiLine& ML,
     return Standard_False;
 }
 
-Standard_Boolean AppDef_MyLineTool::Curvature(const AppDef_MultiLine& ML,
+Standard_Boolean MultiLineTool::Curvature(const AppDef_MultiLine& ML,
                                               const Standard_Integer  MPointIndex,
                                               TColgp_Array1OfVec&     tabV,
                                               TColgp_Array1OfVec2d&   tabV2d)

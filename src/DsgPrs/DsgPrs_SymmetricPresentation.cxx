@@ -50,8 +50,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  Point3d        ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
-  Point3d        PjAttachPnt1    = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
+  Point3d        ProjOffsetPoint = ElCLib1::Value(ElCLib1::Parameter(aAxis, OffsetPoint), aAxis);
+  Point3d        PjAttachPnt1    = ElCLib1::Value(ElCLib1::Parameter(aAxis, AttachmentPoint1), aAxis);
   Dir3d        aDirectionAxis  = aAxis.Direction();
   Standard_Real h =
     fabs(ProjOffsetPoint.Distance(PjAttachPnt1) / cos(aDirectionAxis.Angle(aDirection1)));
@@ -89,16 +89,16 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   gp_Lin        L3 = gce_MakeLin(P1, P2);
   Standard_Real parmin, parmax, parcur;
-  parmin             = ElCLib::Parameter(L3, P1);
+  parmin             = ElCLib1::Parameter(L3, P1);
   parmax             = parmin;
-  parcur             = ElCLib::Parameter(L3, P2);
+  parcur             = ElCLib1::Parameter(L3, P2);
   Standard_Real dist = Abs(parmin - parcur);
   if (parcur < parmin)
     parmin = parcur;
   if (parcur > parmax)
     parmax = parcur;
-  parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  Point3d offp = ElCLib::Value(parcur, L3);
+  parcur      = ElCLib1::Parameter(L3, OffsetPoint);
+  Point3d offp = ElCLib1::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -112,8 +112,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     outside = Standard_True;
   }
 
-  Point3d PointMin = ElCLib::Value(parmin, L3);
-  Point3d PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib1::Value(parmin, L3);
+  Point3d PointMax = ElCLib1::Value(parmax, L3);
 
   Standard_Real X, Y, Z;
   Standard_Real D1(aAxis.Distance(AttachmentPoint1)), coeff(.5);
@@ -160,7 +160,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPresentation->NewGroup();
     aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-    Pj_P1 = ElCLib::Value(ElCLib::Parameter(aAxis, P1), aAxis);
+    Pj_P1 = ElCLib1::Value(ElCLib1::Parameter(aAxis, P1), aAxis);
     Vector3d Vp(Pj_P1, P1);
     Vfix = Vp.Divided(Vp.Magnitude()).Multiplied(D1 * (1 + coeff));
     P1   = Pj_P1.Translated(Vfix);
@@ -174,16 +174,16 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     //=================================
 
     L3     = gce_MakeLin(P1, P2);
-    parmin = ElCLib::Parameter(L3, P1);
+    parmin = ElCLib1::Parameter(L3, P1);
     parmax = parmin;
-    parcur = ElCLib::Parameter(L3, P2);
+    parcur = ElCLib1::Parameter(L3, P2);
     dist   = Abs(parmin - parcur);
     if (parcur < parmin)
       parmin = parcur;
     if (parcur > parmax)
       parmax = parcur;
-    parcur  = ElCLib::Parameter(L3, OffsetPoint);
-    offp    = ElCLib::Value(parcur, L3);
+    parcur  = ElCLib1::Parameter(L3, OffsetPoint);
+    offp    = ElCLib1::Value(parcur, L3);
     outside = Standard_False;
     if (parcur < parmin)
     {
@@ -195,8 +195,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
       parmax  = parcur;
       outside = Standard_True;
     }
-    PointMin = ElCLib::Value(parmin, L3);
-    PointMax = ElCLib::Value(parmax, L3);
+    PointMin = ElCLib1::Value(parmin, L3);
+    PointMax = ElCLib1::Value(parmax, L3);
 
     Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(8, 3);
 
@@ -216,7 +216,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPrims->AddVertex(P1);
 
     //==== PROCESSING OF CALL 2 =====
-    Point3d Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
+    Point3d Pj_pint = ElCLib1::Value(ElCLib1::Parameter(aAxis, pint), aAxis);
     Vector3d V_int(pint, Pj_pint);
     Point3d Sym_pint = Pj_pint.Translated(V_int);
 
@@ -243,7 +243,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPresentation->NewGroup();
     aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-    Pj_P1 = ElCLib::Value(ElCLib::Parameter(aAxis, P1), aAxis);
+    Pj_P1 = ElCLib1::Value(ElCLib1::Parameter(aAxis, P1), aAxis);
     Vector3d VpInf(Pj_P1, P1);
     Vfix = VpInf.Divided(VpInf.Magnitude()).Multiplied(D1 * (1 - coeff));
     Pj_P1.Translated(Vfix).Coord(X, Y, Z);
@@ -258,16 +258,16 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     //        |          |
     //=================================
     L3     = gce_MakeLin(P1, P2);
-    parmin = ElCLib::Parameter(L3, P1);
+    parmin = ElCLib1::Parameter(L3, P1);
     parmax = parmin;
-    parcur = ElCLib::Parameter(L3, P2);
+    parcur = ElCLib1::Parameter(L3, P2);
     dist   = Abs(parmin - parcur);
     if (parcur < parmin)
       parmin = parcur;
     if (parcur > parmax)
       parmax = parcur;
-    parcur  = ElCLib::Parameter(L3, OffsetPoint);
-    offp    = ElCLib::Value(parcur, L3);
+    parcur  = ElCLib1::Parameter(L3, OffsetPoint);
+    offp    = ElCLib1::Value(parcur, L3);
     outside = Standard_False;
     if (parcur < parmin)
     {
@@ -279,8 +279,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
       parmax  = parcur;
       outside = Standard_True;
     }
-    PointMin = ElCLib::Value(parmin, L3);
-    PointMax = ElCLib::Value(parmax, L3);
+    PointMin = ElCLib1::Value(parmin, L3);
+    PointMax = ElCLib1::Value(parmax, L3);
 
     Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(8, 3);
 
@@ -300,7 +300,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPrims->AddVertex(P1);
 
     //==== PROCESSING OF CALL 2 =====
-    Point3d Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
+    Point3d Pj_pint = ElCLib1::Value(ElCLib1::Parameter(aAxis, pint), aAxis);
     Vector3d V_int(pint, Pj_pint);
     Point3d Sym_pint = Pj_pint.Translated(V_int);
 
@@ -381,7 +381,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   Point3d pm, pOff;
   if (VLa.Dot(VL1) == 0)
   {
-    Vector3d Vper(P1, ElCLib::Value(ElCLib::Parameter(aAxis, P1), aAxis));
+    Vector3d Vper(P1, ElCLib1::Value(ElCLib1::Parameter(aAxis, P1), aAxis));
     pm = P1.Translated(Vper);
   }
   else
@@ -468,8 +468,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   Point3d OffsetPnt(OffsetPoint.X(), OffsetPoint.Y(), OffsetPoint.Z());
   Point3d Center1         = aCircle1.Location();
-  Point3d ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPnt), aAxis);
-  Point3d ProjCenter1     = ElCLib::Value(ElCLib::Parameter(aAxis, Center1), aAxis);
+  Point3d ProjOffsetPoint = ElCLib1::Value(ElCLib1::Parameter(aAxis, OffsetPnt), aAxis);
+  Point3d ProjCenter1     = ElCLib1::Value(ElCLib1::Parameter(aAxis, Center1), aAxis);
   Vector3d Vp(ProjCenter1, Center1);
   if (Vp.Magnitude() <= Precision::Confusion())
     Vp = Vector3d(aAxis.Direction()) ^ aCircle1.Position().Direction();
@@ -491,15 +491,15 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   gp_Lin        L3 = gce_MakeLin(P1, P2);
   Standard_Real parmin, parmax, parcur;
-  parmin             = ElCLib::Parameter(L3, P1);
+  parmin             = ElCLib1::Parameter(L3, P1);
   parmax             = parmin;
-  parcur             = ElCLib::Parameter(L3, P2);
+  parcur             = ElCLib1::Parameter(L3, P2);
   Standard_Real dist = Abs(parmin - parcur);
   if (parcur < parmin)
     parmin = parcur;
   if (parcur > parmax)
     parmax = parcur;
-  parcur = ElCLib::Parameter(L3, OffsetPnt);
+  parcur = ElCLib1::Parameter(L3, OffsetPnt);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -512,8 +512,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     parmax  = parcur;
     outside = Standard_True;
   }
-  Point3d PointMin = ElCLib::Value(parmin, L3);
-  Point3d PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib1::Value(parmin, L3);
+  Point3d PointMax = ElCLib1::Value(parmax, L3);
 
   //==== PROCESSING OF FACE ===========
   Handle(Graphic3d_ArrayOfPrimitives) aPrims = new Graphic3d_ArrayOfSegments(2);
@@ -523,8 +523,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   //==== PROCESSING OF CALL 1 =====
   Standard_Integer nbp           = 10;
-  Standard_Real    ParamP1       = ElCLib::Parameter(aCircle1, P1);
-  Standard_Real    ParamPAttach1 = ElCLib::Parameter(aCircle1, AttachmentPoint1);
+  Standard_Real    ParamP1       = ElCLib1::Parameter(aCircle1, P1);
+  Standard_Real    ParamPAttach1 = ElCLib1::Parameter(aCircle1, AttachmentPoint1);
   Standard_Real    alpha, Dalpha, alphaIter;
 
   alpha = fabs(ParamP1 - ParamPAttach1);
@@ -563,7 +563,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   Point3d           PntIter;
   Standard_Integer i;
   for (i = 2; i <= nbp; i++, alphaIter += Dalpha)
-    aPrims->AddVertex(ElCLib::Value(ParamPAttach1 + alphaIter, aCircle1));
+    aPrims->AddVertex(ElCLib1::Value(ParamPAttach1 + alphaIter, aCircle1));
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   //==== PROCESSING OF CALL 2 =====
@@ -571,8 +571,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   Dir3d        DirC2   = aCircle1.Axis().Direction();
   Frame3d        AxeC2(Center2, DirC2);
   gp_Circ       aCircle2(AxeC2, aCircle1.Radius());
-  Standard_Real ParamP2       = ElCLib::Parameter(aCircle2, P2);
-  Standard_Real ParamPAttach2 = ElCLib::Parameter(aCircle2, AttachmentPoint2);
+  Standard_Real ParamP2       = ElCLib1::Parameter(aCircle2, P2);
+  Standard_Real ParamPAttach2 = ElCLib1::Parameter(aCircle2, AttachmentPoint2);
 
   alpha = fabs(ParamP2 - ParamPAttach2);
   if (alpha <= Precision::Confusion())
@@ -610,7 +610,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   aPrims->AddVertex(AttachmentPoint2);
   alphaIter = Dalpha;
   for (i = 2; i <= nbp; i++, alphaIter += Dalpha)
-    aPrims->AddVertex(ElCLib::Value(ParamPAttach2 + alphaIter, aCircle2));
+    aPrims->AddVertex(ElCLib1::Value(ParamPAttach2 + alphaIter, aCircle2));
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   //==== ARROWS ================
@@ -796,23 +796,23 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   else
   {
-    Point3d ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
-    Point3d ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
+    Point3d ProjOffsetPoint      = ElCLib1::Value(ElCLib1::Parameter(aAxis, OffsetPoint), aAxis);
+    Point3d ProjAttachmentPoint1 = ElCLib1::Value(ElCLib1::Parameter(aAxis, AttachmentPoint1), aAxis);
     Vector3d PjAtt1_Att1(ProjAttachmentPoint1, AttachmentPoint1);
     Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
     Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
 
     gp_Lin        L3 = gce_MakeLin(P1, P2);
     Standard_Real parmin, parmax, parcur;
-    parmin             = ElCLib::Parameter(L3, P1);
+    parmin             = ElCLib1::Parameter(L3, P1);
     parmax             = parmin;
-    parcur             = ElCLib::Parameter(L3, P2);
+    parcur             = ElCLib1::Parameter(L3, P2);
     Standard_Real dist = Abs(parmin - parcur);
     if (parcur < parmin)
       parmin = parcur;
     if (parcur > parmax)
       parmax = parcur;
-    parcur = ElCLib::Parameter(L3, OffsetPoint);
+    parcur = ElCLib1::Parameter(L3, OffsetPoint);
 
     Standard_Boolean outside = Standard_False;
     if (parcur < parmin)
@@ -825,8 +825,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
       parmax  = parcur;
       outside = Standard_True;
     }
-    Point3d PointMin = ElCLib::Value(parmin, L3);
-    Point3d PointMax = ElCLib::Value(parmax, L3);
+    Point3d PointMin = ElCLib1::Value(parmin, L3);
+    Point3d PointMax = ElCLib1::Value(parmax, L3);
 
     //==== PROCESSING OF FACE ===========
     aPresentation->NewGroup();

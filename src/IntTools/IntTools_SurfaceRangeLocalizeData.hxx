@@ -27,7 +27,7 @@
 #include <TColgp_HArray2OfPnt.hxx>
 #include <IntTools_ListOfSurfaceRangeSample.hxx>
 class IntTools_SurfaceRangeSample;
-class Bnd_Box;
+class Box2;
 class Point3d;
 
 class IntTools_SurfaceRangeLocalizeData
@@ -62,10 +62,10 @@ public:
 
   Standard_EXPORT void AddOutRange(const IntTools_SurfaceRangeSample& theRange);
 
-  Standard_EXPORT void AddBox(const IntTools_SurfaceRangeSample& theRange, const Bnd_Box& theBox);
+  Standard_EXPORT void AddBox(const IntTools_SurfaceRangeSample& theRange, const Box2& theBox);
 
   Standard_EXPORT Standard_Boolean FindBox(const IntTools_SurfaceRangeSample& theRange,
-                                           Bnd_Box&                           theBox) const;
+                                           Box2&                           theBox) const;
 
   Standard_EXPORT Standard_Boolean IsRangeOut(const IntTools_SurfaceRangeSample& theRange) const;
 

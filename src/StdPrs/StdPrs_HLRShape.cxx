@@ -37,7 +37,7 @@ void StdPrs_HLRShape::ComputeHLR(const Handle(Prs3d_Presentation)& thePresentati
   gp_Ax3  anAx3(theProjector->Center(), aBackDir, aXpers);
   Transform3d aTrsf;
   aTrsf.SetTransformation(anAx3);
-  const HLRAlgo_Projector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());
+  const HLRAlgoProjector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());
 
   StdPrs_HLRToolShape     aTool(theShape, aProj);
   Standard_Integer        aNbEdges = aTool.NbEdges();

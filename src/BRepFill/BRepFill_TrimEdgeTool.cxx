@@ -389,13 +389,13 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoEdge&     Edge1,
       //
       Standard_Real d = RealLast();
       AC1.D0(AC1.FirstParameter(), aP);
-      Standard_Real par = ElCLib::Parameter(anL, aP);
+      Standard_Real par = ElCLib1::Parameter(anL, aP);
       if (par >= myBis.FirstParameter() && par <= myBis.LastParameter())
       {
         d = anL.SquareDistance(aP);
       }
       AC1.D0(AC1.LastParameter(), aP);
-      par = ElCLib::Parameter(anL, aP);
+      par = ElCLib1::Parameter(anL, aP);
       if (par >= myBis.FirstParameter() && par <= myBis.LastParameter())
       {
         d = Min(anL.SquareDistance(aP), d);
@@ -404,13 +404,13 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoEdge&     Edge1,
       //
       d = RealLast();
       AC2.D0(AC2.FirstParameter(), aP);
-      par = ElCLib::Parameter(anL, aP);
+      par = ElCLib1::Parameter(anL, aP);
       if (par >= myBis.FirstParameter() && par <= myBis.LastParameter())
       {
         d = anL.SquareDistance(aP);
       }
       AC2.D0(AC2.LastParameter(), aP);
-      par = ElCLib::Parameter(anL, aP);
+      par = ElCLib1::Parameter(anL, aP);
       if (par >= myBis.FirstParameter() && par <= myBis.LastParameter())
       {
         d = Min(anL.SquareDistance(aP), d);

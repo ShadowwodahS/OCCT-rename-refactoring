@@ -48,7 +48,7 @@ void Contap_SurfFunction::Set(const Handle(Adaptor3d_Surface)& S)
 {
   mySurf = S;
   Standard_Integer i;
-  Standard_Integer nbs = Contap_HContTool::NbSamplePoints(S);
+  Standard_Integer nbs = HContTool::NbSamplePoints(S);
   Standard_Real    U, V;
   Vector3d           norm;
   if (nbs > 0)
@@ -56,10 +56,10 @@ void Contap_SurfFunction::Set(const Handle(Adaptor3d_Surface)& S)
     myMean = 0.;
     for (i = 1; i <= nbs; i++)
     {
-      Contap_HContTool::SamplePoint(S, i, U, V);
+      HContTool::SamplePoint(S, i, U, V);
       //      HSurfaceTool::D1(S,U,V,solpt,d1u,d1v);
       //      myMean = myMean + d1u.Crossed(d1v).Magnitude();
-      Contap_SurfProps::Normale(S, U, V, solpt, norm);
+      SurfaceProperties::Normale(S, U, V, solpt, norm);
       myMean = myMean + norm.Magnitude();
     }
     myMean = myMean / ((Standard_Real)nbs);
@@ -85,7 +85,7 @@ Standard_Boolean Contap_SurfFunction::Value(const math_Vector& X, math_Vector& F
   //  HSurfaceTool::D1(mySurf,Usol,Vsol,solpt,d1u,d1v);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm;
-  Contap_SurfProps::Normale(mySurf, Usol, Vsol, solpt, norm);
+  SurfaceProperties::Normale(mySurf, Usol, Vsol, solpt, norm);
   switch (myType)
   {
     case Contap_ContourStd: {
@@ -116,7 +116,7 @@ Standard_Boolean Contap_SurfFunction::Derivatives(const math_Vector& X, math_Mat
   //  HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
 
   Vector3d norm, dnu, dnv;
-  Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
+  SurfaceProperties::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
   switch (myType)
   {
@@ -166,7 +166,7 @@ Standard_Boolean Contap_SurfFunction::Values(const math_Vector& X,
   //  HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm, dnu, dnv;
-  Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
+  SurfaceProperties::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
   switch (myType)
   {
@@ -223,7 +223,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
       //      Vector3d d2u,d2v,d2uv;
       //      HSurfaceTool::D2(mySurf, Usol, Vsol, solpt, d1u, d1v, d2u, d2v, d2uv);
       Vector3d norm, dnu, dnv;
-      Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
+      SurfaceProperties::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
       switch (myType)
       {

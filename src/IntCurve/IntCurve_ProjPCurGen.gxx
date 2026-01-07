@@ -26,7 +26,7 @@ Standard_Real IntCurve_ProjPCurGen::FindParameter
   Standard_Real theparam,defaultparam;
   Standard_Integer NbPts = TheCurveTool::NbSamples(C);
   Standard_Real theEpsX  = TheCurveTool::EpsX(C);
-  Extrema_POnCurv2d POnC;
+  PointOnCurve2d POnC;
   
   IntCurve_TheCurveLocator::Locate(P,C,NbPts,LowParameter,HighParameter,POnC);
   defaultparam = POnC.Parameter();

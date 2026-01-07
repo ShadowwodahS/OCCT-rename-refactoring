@@ -342,11 +342,11 @@ static GCPnts_DeflectionType GetDefType(const TheCurve& theC)
     case GeomAbs_Circle:
       return GCPnts_Circular;
     case GeomAbs_BSplineCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BSplineCurve) aBS = theC.BSpline();
+      Handle(typename TCurveTypes<TheCurve>::BSplineCurve) aBS = theC.BSpline();
       return (aBS->NbPoles() == 2) ? GCPnts_Linear : GCPnts_Curved;
     }
     case GeomAbs_BezierCurve: {
-      Handle(typename GCPnts_TCurveTypes<TheCurve>::BezierCurve) aBZ = theC.Bezier();
+      Handle(typename TCurveTypes<TheCurve>::BezierCurve) aBZ = theC.Bezier();
       return (aBZ->NbPoles() == 2) ? GCPnts_Linear : GCPnts_Curved;
     }
     default:
@@ -435,7 +435,7 @@ static Standard_Boolean PerformComposite(TColStd_SequenceOfReal& theParameters,
   Standard_Integer       aPIndex      = 0;
   TColStd_Array1OfReal   aTI(1, aNbIntervals + 1);
   theC.Intervals(aTI, GeomAbs_C2);
-  BSplCLib::Hunt(aTI, theU1, aPIndex);
+  BSplCLib1::Hunt(aTI, theU1, aPIndex);
 
   // iterate by continuous segments
   Standard_Real aUa = theU1;
@@ -470,7 +470,7 @@ static Standard_Boolean PerformComposite(TColStd_SequenceOfReal& theParameters,
 
 //=================================================================================================
 
-Point3d GCPnts_QuasiUniformDeflection::Value(const Standard_Integer theIndex) const
+Point3d QuasiUniformDeflectionSampler::Value(const Standard_Integer theIndex) const
 {
   StdFail_NotDone_Raise_if(!myDone, "GCPnts_QuasiUniformAbscissa::Parameter()");
   return myPoints.Value(theIndex);
@@ -478,7 +478,7 @@ Point3d GCPnts_QuasiUniformDeflection::Value(const Standard_Integer theIndex) co
 
 //=================================================================================================
 
-GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection()
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler()
     : myDone(Standard_False),
       myDeflection(0.0),
       myCont(GeomAbs_C1)
@@ -488,7 +488,7 @@ GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection()
 
 //=================================================================================================
 
-GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor3d_Curve& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
                                                              const Standard_Real    theDeflection,
                                                              const Standard_Real    theU1,
                                                              const Standard_Real    theU2,
@@ -502,7 +502,7 @@ GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor3d_Cur
 
 //=================================================================================================
 
-GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor2d_Curve2d& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                                              const Standard_Real      theDeflection,
                                                              const Standard_Real      theU1,
                                                              const Standard_Real      theU2,
@@ -516,7 +516,7 @@ GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor2d_Cur
 
 //=================================================================================================
 
-GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor3d_Curve& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
                                                              const Standard_Real    theDeflection,
                                                              const GeomAbs_Shape    theContinuity)
     : myDone(Standard_False),
@@ -528,7 +528,7 @@ GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor3d_Cur
 
 //=================================================================================================
 
-GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor2d_Curve2d& theC,
+QuasiUniformDeflectionSampler::QuasiUniformDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                                              const Standard_Real      theDeflection,
                                                              const GeomAbs_Shape      theContinuity)
     : myDone(Standard_False),
@@ -540,7 +540,7 @@ GCPnts_QuasiUniformDeflection::GCPnts_QuasiUniformDeflection(const Adaptor2d_Cur
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor3d_Curve& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
                                                const Standard_Real    theDeflection,
                                                const GeomAbs_Shape    theContinuity)
 {
@@ -549,7 +549,7 @@ void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor3d_Curve& theC,
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor2d_Curve2d& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& theC,
                                                const Standard_Real      theDeflection,
                                                const GeomAbs_Shape      theContinuity)
 {
@@ -558,7 +558,7 @@ void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor3d_Curve& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Adaptor3d_Curve& theC,
                                                const Standard_Real    theDeflection,
                                                const Standard_Real    theU1,
                                                const Standard_Real    theU2,
@@ -569,7 +569,7 @@ void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor3d_Curve& theC,
 
 //=================================================================================================
 
-void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor2d_Curve2d& theC,
+void QuasiUniformDeflectionSampler::Initialize(const Adaptor2d_Curve2d& theC,
                                                const Standard_Real      theDeflection,
                                                const Standard_Real      theU1,
                                                const Standard_Real      theU2,
@@ -581,7 +581,7 @@ void GCPnts_QuasiUniformDeflection::Initialize(const Adaptor2d_Curve2d& theC,
 //=================================================================================================
 
 template <class TheCurve>
-void GCPnts_QuasiUniformDeflection::initialize(const TheCurve&     theC,
+void QuasiUniformDeflectionSampler::initialize(const TheCurve&     theC,
                                                const Standard_Real theDeflection,
                                                const Standard_Real theU1,
                                                const Standard_Real theU2,

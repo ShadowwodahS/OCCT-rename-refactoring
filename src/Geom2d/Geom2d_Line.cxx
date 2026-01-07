@@ -183,21 +183,21 @@ Standard_Boolean Geom2d_Line::IsCN(const Standard_Integer) const
 
 void Geom2d_Line::D0(const Standard_Real U, Pnt2d& P) const
 {
-  P = ElCLib::LineValue(U, pos);
+  P = ElCLib1::LineValue(U, pos);
 }
 
 //=================================================================================================
 
 void Geom2d_Line::D1(const Standard_Real U, Pnt2d& P, Vec2d& V1) const
 {
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
 }
 
 //=================================================================================================
 
 void Geom2d_Line::D2(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2) const
 {
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
   V2.SetCoord(0.0, 0.0);
 }
 
@@ -205,7 +205,7 @@ void Geom2d_Line::D2(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2) cons
 
 void Geom2d_Line::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, Vec2d& V3) const
 {
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
   V2.SetCoord(0.0, 0.0);
   V3.SetCoord(0.0, 0.0);
 }

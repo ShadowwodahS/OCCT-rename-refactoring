@@ -346,7 +346,7 @@ protected:
 
   GeomAbs_SurfaceType mySurfaceType;
   // clang-format off
-  Handle(GeomEvaluator_Surface) myNestedEvaluator; ///< Calculates values of nested complex surfaces (offset surface, surface of extrusion or revolution)
+  Handle(GeomEvaluator_Surface) myNestedEvaluator; ///< Calculates values of nested complex1 surfaces (offset surface, surface of extrusion or revolution)
   // clang-format on
 };
 

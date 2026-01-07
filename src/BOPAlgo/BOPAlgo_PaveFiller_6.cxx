@@ -123,7 +123,7 @@ public:
   }
 
   //
-  void SetBoxes(const Bnd_Box& theBox1, const Bnd_Box& theBox2)
+  void SetBoxes(const Box2& theBox1, const Box2& theBox2)
   {
     myBox1 = theBox1;
     myBox2 = theBox2;
@@ -220,8 +220,8 @@ protected:
   Standard_Real    myTolFF;
   TopoFace      myF1;
   TopoFace      myF2;
-  Bnd_Box          myBox1;
-  Bnd_Box          myBox2;
+  Box2          myBox1;
+  Box2          myBox2;
   Transform3d          myTrsf;
 };
 
@@ -418,7 +418,7 @@ void BooleanPaveFiller::PerformFF(const Message_ProgressRange& theRange)
       aFaceFace.SetRunParallel(myRunParallel);
       aFaceFace.SetIndices(nF1, nF2);
       aFaceFace.SetFaces(aFShifted1, aFShifted2);
-      aFaceFace.SetBoxes(myDS->ShapeInfo(nF1).Box(), myDS->ShapeInfo(nF2).Box());
+      aFaceFace.SetBoxes(myDS->ShapeInfo(nF1).Box1(), myDS->ShapeInfo(nF2).Box1());
       // Note: in case of faces with closed edges it should not be less than value of the shift
       Standard_Real aTolFF = Max(aShiftValue, ToleranceFF(aBAS1, aBAS2));
       aFaceFace.SetTolFF(aTolFF);
@@ -522,7 +522,7 @@ void BooleanPaveFiller::PerformFF(const Message_ProgressRange& theRange)
       {
         return;
       }
-      Bnd_Box               aBox;
+      Box2               aBox;
       const IntTools_Curve& aIC      = aCvsX(i);
       Standard_Boolean      bIsValid = Tools2::CheckCurve(aIC, aBox);
       if (bIsValid)
@@ -764,7 +764,7 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
         if (myDS->ShapeInfo(aPB->OriginalEdge()).HasFlag())
           continue;
 
-        aPBTree.Add(iPB, Bnd_Tools::Bnd2BVH(myDS->ShapeInfo(aPB->Edge()).Box()));
+        aPBTree.Add(iPB, Tools5::Bnd2BVH(myDS->ShapeInfo(aPB->Edge()).Box1()));
       }
     }
 
@@ -971,8 +971,8 @@ void BooleanPaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
       TV->Tolerance(aTol);
       // reset bnd box
       BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nV1);
-      Bnd_Box&         aBoxDS = aSIDS.ChangeBox();
-      aBoxDS                  = Bnd_Box();
+      Box2&         aBoxDS = aSIDS.ChangeBox();
+      aBoxDS                  = Box2();
       BRepBndLib::Add(aV, aBoxDS);
       aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
       //
@@ -1798,7 +1798,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingVertex(const Point3d&             
   Standard_Integer                  nV, iFlag;
   Standard_Real                     aTolCheck;
   Point3d                            aPV;
-  Bnd_Box                           aBoxP;
+  Box2                           aBoxP;
   TColStd_MapIteratorOfMapOfInteger aIt;
   //
   aTolCheck = theTolR3D + myFuzzyValue;
@@ -1813,7 +1813,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingVertex(const Point3d&             
     nV                           = aIt.Value();
     const BOPDS_ShapeInfo& aSIV  = myDS->ShapeInfo(nV);
     const TopoVertex&   aV    = (*(TopoVertex*)(&aSIV.Shape()));
-    const Bnd_Box&         aBoxV = aSIV.Box();
+    const Box2&         aBoxV = aSIV.Box1();
     //
     if (!aBoxP.IsOut(aBoxV))
     {
@@ -1841,7 +1841,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(const Handle(BOPDS_PaveB
   Standard_Real                       aT1, aT2, aTm, aTx, aTolE, aTolCheck, aTol, aDist;
   Standard_Integer                    nE, iFlag, nV1, nV2;
   Point3d                              aPm;
-  Bnd_Box                             aBoxPm;
+  Box2                             aBoxPm;
   TColStd_ListIteratorOfListOfInteger aItLI;
   //
   thePB->Range(aT1, aT2);
@@ -1864,7 +1864,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(const Handle(BOPDS_PaveB
     if (nE < 0)
       continue;
     const BOPDS_ShapeInfo& aSIE  = myDS->ChangeShapeInfo(nE);
-    const Bnd_Box&         aBoxE = aSIE.Box();
+    const Box2&         aBoxE = aSIE.Box1();
     if (!aBoxE.IsOut(aBoxPm))
     {
       const TopoEdge& aE = (*(TopoEdge*)(&aSIE.Shape()));
@@ -1903,7 +1903,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
   thePB->Indices(nV11, nV12);
 
   // first point
-  Bnd_Box aBoxP1;
+  Box2 aBoxP1;
   Point3d  aP1;
   aIC.D0(aT1, aP1);
   aBoxP1.Add(aP1);
@@ -1912,13 +1912,13 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
 
   // Find edges intersecting by AABB with the first point
   BOPTools_BoxTreeSelector aSelector;
-  aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBoxP1));
+  aSelector.SetBox(Tools5::Bnd2BVH(aBoxP1));
   aSelector.SetBVHSet(&thePBTree);
   if (!aSelector.Select())
     return Standard_False;
 
   // intermediate point
-  Bnd_Box                   aBoxPm;
+  Box2                   aBoxPm;
   Standard_Real             aTm = Tools2::IntermediatePoint(aT1, aT2);
   Point3d                    aPm;
   Vector3d                    aVTgt1;
@@ -1930,7 +1930,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
     aVTgt1.Normalize();
 
   // last point
-  Bnd_Box aBoxP2;
+  Box2 aBoxP2;
   Point3d  aP2;
   aIC.D0(aT2, aP2);
   aBoxP2.Add(aP2);
@@ -1964,7 +1964,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
 
     const BOPDS_ShapeInfo& aSISp  = myDS->ChangeShapeInfo(aPB->Edge());
     const TopoEdge&     aSp    = (*(TopoEdge*)(&aSISp.Shape()));
-    const Bnd_Box&         aBoxSp = aSISp.Box();
+    const Box2&         aBoxSp = aSISp.Box1();
 
     Standard_Integer iFlag1 = (nV11 == nV21 || nV11 == nV22) ? 2 : 1;
     Standard_Integer iFlag2 = (nV12 == nV21 || nV12 == nV22) ? 2 : (!aBoxSp.IsOut(aBoxP2) ? 1 : 0);
@@ -2028,7 +2028,7 @@ Standard_Boolean BooleanPaveFiller::IsExistingPaveBlock(
       }
     }
 
-    Bnd_Box aBoxTmp = aBoxPm;
+    Box2 aBoxTmp = aBoxPm;
     aBoxTmp.Enlarge(aRealTol);
 
     Standard_Real aDistToSp = 0.;
@@ -2172,7 +2172,7 @@ void BooleanPaveFiller::PutBoundPaveOnCurve(const TopoFace&     aF1,
       aSIVn.SetShapeType(TopAbs_VERTEX);
       aSIVn.SetShape(aVn);
 
-      Bnd_Box& aBox = aSIVn.ChangeBox();
+      Box2& aBox = aSIVn.ChangeBox();
       BRepBndLib::Add(aVn, aBox);
       aBox.SetGap(aBox.GetGap() + Precision::Confusion());
 
@@ -2201,7 +2201,7 @@ void BooleanPaveFiller::PutPavesOnCurve(const TColStd_MapOfInteger&            t
   Standard_Integer                  nV;
   TColStd_MapIteratorOfMapOfInteger aIt;
   //
-  const Bnd_Box&      aBoxC   = theNC.Box();
+  const Box2&      aBoxC   = theNC.Box1();
   const Standard_Real aTolR3D = Max(theNC.Tolerance(), theNC.TangentialTolerance());
   //
   // Put EF vertices first
@@ -2225,7 +2225,7 @@ void BooleanPaveFiller::PutPavesOnCurve(const TColStd_MapOfInteger&            t
     if (!theMVCommon.Contains(nV))
     {
       const BOPDS_ShapeInfo& aSIV  = myDS->ShapeInfo(nV);
-      const Bnd_Box&         aBoxV = aSIV.Box();
+      const Box2&         aBoxV = aSIV.Box1();
       //
       if (aBoxC.IsOut(aBoxV))
       {
@@ -2871,7 +2871,7 @@ void BooleanPaveFiller::PutPaveOnCurve(const Standard_Integer                 nV
         }
         //
         BOPDS_ShapeInfo& aSIDS  = myDS->ChangeShapeInfo(nV);
-        Bnd_Box&         aBoxDS = aSIDS.ChangeBox();
+        Box2&         aBoxDS = aSIDS.ChangeBox();
         BRepBndLib::Add(aV, aBoxDS);
         aBoxDS.SetGap(aBoxDS.GetGap() + Precision::Confusion());
       }
@@ -2895,11 +2895,11 @@ void BooleanPaveFiller::ProcessExistingPaveBlocks(
   BOPAlgo_DataMapOfPaveBlockListOfInteger&       thePBFacesMap,
   BOPDS_MapOfPaveBlock&                          theMPB)
 {
-  Bnd_Box aBoxES;
+  Box2 aBoxES;
   BRepBndLib::Add(theES, aBoxES, false);
 
   BOPTools_BoxTreeSelector aSelector;
-  aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBoxES));
+  aSelector.SetBox(Tools5::Bnd2BVH(aBoxES));
   aSelector.SetBVHSet(&thePBTree);
   if (!aSelector.Select())
     return;
@@ -3014,7 +3014,7 @@ void BooleanPaveFiller::ProcessExistingPaveBlocks(
     {
       nV                           = aItLI.Value();
       const BOPDS_ShapeInfo& aSIV  = myDS->ShapeInfo(nV);
-      const Bnd_Box&         aBoxV = aSIV.Box();
+      const Box2&         aBoxV = aSIV.Box1();
       const TopoVertex&   aV    = *(TopoVertex*)&aSIV.Shape();
       if (!aMVI.IsBound(aV))
       {
@@ -3022,7 +3022,7 @@ void BooleanPaveFiller::ProcessExistingPaveBlocks(
       }
       //
       BOPTools_BoxTreeSelector aSelector;
-      aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBoxV));
+      aSelector.SetBox(Tools5::Bnd2BVH(aBoxV));
       aSelector.SetBVHSet(&thePBTree);
       if (!aSelector.Select())
         continue;

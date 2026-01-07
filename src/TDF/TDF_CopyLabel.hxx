@@ -43,18 +43,18 @@ public:
   Standard_EXPORT void Load(const DataLabel& aSource, const DataLabel& aTarget);
 
   //! Sets  filter
-  Standard_EXPORT void UseFilter(const TDF_IDFilter& aFilter);
+  Standard_EXPORT void UseFilter(const IDFilter& aFilter);
 
   //! Check  external  references and  if  exist  fills  the  aExternals  Map
   Standard_EXPORT static Standard_Boolean ExternalReferences(const DataLabel&    Lab,
                                                              TDF_AttributeMap&   aExternals,
-                                                             const TDF_IDFilter& aFilter);
+                                                             const IDFilter& aFilter);
 
   //! Check  external  references and  if  exist  fills  the  aExternals  Map
   Standard_EXPORT static void ExternalReferences(const DataLabel&     aRefLab,
                                                  const DataLabel&     Lab,
                                                  TDF_AttributeMap&    aExternals,
-                                                 const TDF_IDFilter&  aFilter,
+                                                 const IDFilter&  aFilter,
                                                  Handle(TDF_DataSet)& aDataSet);
 
   //! performs  algorithm  of  selfcontained  copy
@@ -70,7 +70,7 @@ private:
   Handle(TDF_RelocationTable) myRT;
   DataLabel                   mySL;
   DataLabel                   myTL;
-  TDF_IDFilter                myFilter;
+  IDFilter                myFilter;
   TDF_AttributeMap            myMapOfExt;
   Standard_Boolean            myIsDone;
 };

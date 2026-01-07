@@ -34,7 +34,7 @@ class gp_Cylinder;
 //! cylinder's axis). The U parametrization range is U [0, 2PI].
 //! KeyWords :
 //! Convert, Cylinder, BSplineSurface.
-class Convert_CylinderToBSplineSurface : public Convert_ElementarySurfaceToBSplineSurface
+class Convert_CylinderToBSplineSurface : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC

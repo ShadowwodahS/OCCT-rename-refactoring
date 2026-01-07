@@ -20,7 +20,7 @@
 //! Identifies various topological shapes. This
 //! enumeration allows you to use dynamic typing of shapes.
 //! The values are listed in order of complexity, from the
-//! most complex to the most simple i.e.
+//! most complex1 to the most simple i.e.
 //! COMPOUND > COMPSOLID > SOLID > .... > VERTEX > SHAPE.
 //! Any shape can contain simpler shapes in its definition.
 //! Abstract topological data structure describes a basic

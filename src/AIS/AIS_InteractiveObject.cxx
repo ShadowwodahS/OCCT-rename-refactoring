@@ -80,7 +80,7 @@ void VisualEntity::SetContext(const Handle(VisualContext)& theCtx)
   myCTXPtr = theCtx.get();
   if (!theCtx.IsNull())
   {
-    myDrawer->Link(theCtx->DefaultDrawer());
+    myDrawer->Link1(theCtx->DefaultDrawer());
   }
 }
 

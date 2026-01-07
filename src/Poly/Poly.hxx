@@ -42,7 +42,7 @@ class Poly_Triangle;
 //! * 2D polygon.
 //!
 //! * Tools to dump, save and restore those objects.
-class Poly
+class Poly1
 {
 public:
   DEFINE_STANDARD_ALLOC

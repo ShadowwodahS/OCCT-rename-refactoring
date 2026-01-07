@@ -325,7 +325,7 @@ Standard_Boolean LProp_SLProps::IsNormalDefined()
   // status = UnDecided 
   // first try the standard computation of the normal.
   CSLib_DerivativeStatus aStatus = CSLib_Done;
-  CSLib::Normal(myD1u, myD1v, myLinTol, aStatus, myNormal);
+  CSLib1::Normal(myD1u, myD1v, myLinTol, aStatus, myNormal);
   if (aStatus == CSLib_Done)
   {
     myNormalStatus = LProp_Computed;

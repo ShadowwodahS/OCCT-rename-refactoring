@@ -526,13 +526,13 @@ TopoEdge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoFace& /*
   {
     the2dcurve1 = BRepInspector::CurveOnSurface(E1, F1, fp1, lp1);
     if (!the2dcurve1.IsNull() && fp1 != f && lp1 != l)
-      GeomLib::SameRange(Precision::Confusion(), the2dcurve1, fp1, lp1, f, l, thenew1);
+      GeomLib1::SameRange(Precision::Confusion(), the2dcurve1, fp1, lp1, f, l, thenew1);
   }
 
   /* if (!F2.IsNull())
      {
        the2dcurve2 = BRepInspector::CurveOnSurface(E2, F2, fp2, lp2);
-       if(!the2dcurve2.IsNull()) GeomLib::SameRange(Precision::Confusion(), the2dcurve2, fp2, lp2,
+       if(!the2dcurve2.IsNull()) GeomLib1::SameRange(Precision::Confusion(), the2dcurve2, fp2, lp2,
      f, l, thenew2);
      }*/
 
@@ -697,8 +697,8 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoFace&     F,
       // Create split edge
       TopoEdge        theSplitEdge;
       gp_Lin             lin(vp, Dir3d(Vector3d(vp, proj)));
-      Standard_Real      firstparam = ElCLib::Parameter(lin, vp);
-      Standard_Real      lastparam  = ElCLib::Parameter(lin, proj);
+      Standard_Real      firstparam = ElCLib1::Parameter(lin, vp);
+      Standard_Real      lastparam  = ElCLib1::Parameter(lin, proj);
       Handle(GeomLine)  L          = new GeomLine(vp, Vector3d(vp, proj));
       Handle(GeomCurve3d) the3dc     = L;
       theBuilder.MakeEdge(theSplitEdge, the3dc, Precision::Confusion());

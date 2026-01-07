@@ -30,7 +30,7 @@ class TDF_Attribute;
 class TDF_DataSet;
 DEFINE_STANDARD_HANDLE(TDF_DataSet, RefObject)
 
-//! This class is a set of TDF information like labels and attributes.
+//! This class is a set of TDF1 information like labels and attributes.
 class TDF_DataSet : public RefObject
 {
 

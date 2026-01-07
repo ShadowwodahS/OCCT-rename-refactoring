@@ -205,7 +205,7 @@ void BVH_RadixSorter<T, N>::Perform(BVH_Set<T, N>*         theSet,
   // Step 1 -- Assign Morton code to each primitive
   for (Standard_Integer aPrimIdx = theStart; aPrimIdx <= theFinal; ++aPrimIdx)
   {
-    const BVH_VecNt aCenter = theSet->Box(aPrimIdx).Center();
+    const BVH_VecNt aCenter = theSet->Box1(aPrimIdx).Center();
     const BVH_VecNt aVoxelF = (aCenter - aSceneMin) * aReverseSize;
 
     unsigned int aMortonCode = 0;

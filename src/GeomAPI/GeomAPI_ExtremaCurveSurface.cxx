@@ -144,8 +144,8 @@ void GeomAPI_ExtremaCurveSurface::Points(const Standard_Integer Index, Point3d& 
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbExtrema(),
                                "GeomAPI_ExtremaCurveCurve::Points");
 
-  Extrema_POnCurv PC;
-  Extrema_POnSurf PS;
+  PointOnCurve1 PC;
+  PointOnSurface1 PS;
   myExtCS.Points(Index, PC, PS);
 
   P1 = PC.Value();
@@ -162,8 +162,8 @@ void GeomAPI_ExtremaCurveSurface::Parameters(const Standard_Integer Index,
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbExtrema(),
                                "GeomAPI_ExtremaCurveCurve::Parameters");
 
-  Extrema_POnCurv PC;
-  Extrema_POnSurf PS;
+  PointOnCurve1 PC;
+  PointOnSurface1 PS;
   myExtCS.Points(Index, PC, PS);
 
   W = PC.Parameter();

@@ -102,7 +102,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
   Frame3d           AxeRef, Axe;
   Point3d           Pos;
   Standard_Boolean sing;
-  GeomLib::AxeOfInertia(Tab, AxeRef, sing);
+  GeomLib1::AxeOfInertia(Tab, AxeRef, sing);
 
   // si la section est une droite, ca ne marche pas
   if (sing)
@@ -140,7 +140,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
       if ((u - f) * (u - l) > 0.0)
         u = l;
     }
-    GeomLib::AxeOfInertia(Tab, Axe, sing);
+    GeomLib1::AxeOfInertia(Tab, Axe, sing);
 
     // si la section est une droite, ca ne marche pas
     if (sing)
@@ -984,7 +984,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Dir3d  V1(Vector3d(P0, P1));
     Dir3d  V2(Vector3d(P0, P2));
     gp_Circ Ci   = myAdpPath->Circle();
-    Vector3d  YRef = ElCLib::CircleDN(myAdpPath->FirstParameter(), A0, Ci.Radius(), 1);
+    Vector3d  YRef = ElCLib1::CircleDN(myAdpPath->FirstParameter(), A0, Ci.Radius(), 1);
     if (Abs(V1.Dot(YRef)) > Precision::Confusion() || Abs(V2.Dot(YRef)) > Precision::Confusion())
       return Ok;
 

@@ -30,7 +30,7 @@
 
 //=================================================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC()
+PointElCCurveExtrema::PointElCCurveExtrema()
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -44,7 +44,7 @@ Extrema_ExtPElC::Extrema_ExtPElC()
 
 //=================================================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
+PointElCCurveExtrema::PointElCCurveExtrema(const Point3d&       P,
                                  const gp_Lin&       L,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -55,7 +55,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
 
 //=================================================================================================
 
-void Extrema_ExtPElC::Perform(const Point3d&       P,
+void PointElCCurveExtrema::Perform(const Point3d&       P,
                               const gp_Lin&       L,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -71,7 +71,7 @@ void Extrema_ExtPElC::Perform(const Point3d&       P,
   {
 
     Point3d          MyP = OR.Translated(Mydist * V1);
-    Extrema_POnCurv MyPOnCurve(Mydist, MyP);
+    PointOnCurve1 MyPOnCurve(Mydist, MyP);
     mySqDist[0] = P.SquareDistance(MyP);
     myPoint[0]  = MyPOnCurve;
     myIsMin[0]  = Standard_True;
@@ -80,7 +80,7 @@ void Extrema_ExtPElC::Perform(const Point3d&       P,
   }
 }
 
-Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
+PointElCCurveExtrema::PointElCCurveExtrema(const Point3d&       P,
                                  const gp_Circ&      C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -89,7 +89,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const Point3d&       P,
+void PointElCCurveExtrema::Perform(const Point3d&       P,
                               const gp_Circ&      C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -155,8 +155,8 @@ Method:
     TolU = Tol / aR;
   }
   //
-  ElCLib::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, TolU, myuinf, Usol[0]);
-  ElCLib::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, TolU, myuinf, Usol[1]);
+  ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, TolU, myuinf, Usol[0]);
+  ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, TolU, myuinf, Usol[1]);
   if (((Usol[0] - 2 * M_PI - Uinf) < TolU) && ((Usol[0] - 2 * M_PI - Uinf) > -TolU))
     Usol[0] = Uinf;
   if (((Usol[1] - 2 * M_PI - Uinf) < TolU) && ((Usol[1] - 2 * M_PI - Uinf) > -TolU))
@@ -171,10 +171,10 @@ Method:
     Us = Usol[NoSol];
     if (((Uinf - Us) < TolU) && ((Us - Usup) < TolU))
     {
-      Cu                = ElCLib::Value(Us, C);
+      Cu                = ElCLib1::Value(Us, C);
       mySqDist[myNbExt] = Cu.SquareDistance(P);
       myIsMin[myNbExt]  = (NoSol == 0);
-      myPoint[myNbExt]  = Extrema_POnCurv(Us, Cu);
+      myPoint[myNbExt]  = PointOnCurve1(Us, Cu);
       myNbExt++;
     }
   }
@@ -183,7 +183,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
+PointElCCurveExtrema::PointElCCurveExtrema(const Point3d&       P,
                                  const gp_Elips&     C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -192,7 +192,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const Point3d&       P,
+void PointElCCurveExtrema::Perform(const Point3d&       P,
                               const gp_Elips&     C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -261,10 +261,10 @@ Method:
   for (NoSol = 1; NoSol <= NbSol; NoSol++)
   {
     Us                = Sol.Value(NoSol);
-    Cu                = ElCLib::Value(Us, C);
+    Cu                = ElCLib1::Value(Us, C);
     mySqDist[myNbExt] = Cu.SquareDistance(P);
-    myPoint[myNbExt]  = Extrema_POnCurv(Us, Cu);
-    Cu                = ElCLib::Value(Us + 0.1, C);
+    myPoint[myNbExt]  = PointOnCurve1(Us, Cu);
+    Cu                = ElCLib1::Value(Us + 0.1, C);
     myIsMin[myNbExt]  = mySqDist[myNbExt] < Cu.SquareDistance(P);
     myNbExt++;
   }
@@ -273,7 +273,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
+PointElCCurveExtrema::PointElCCurveExtrema(const Point3d&       P,
                                  const gp_Hypr&      C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -282,7 +282,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const Point3d&       P,
+void PointElCCurveExtrema::Perform(const Point3d&       P,
                               const gp_Hypr&      C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -355,7 +355,7 @@ Method:
       Us = Log(Vs);
       if ((Us >= Uinf) && (Us <= Usup))
       {
-        Cu      = ElCLib::Value(Us, C);
+        Cu      = ElCLib1::Value(Us, C);
         DejaEnr = Standard_False;
         for (NoExt = 0; NoExt < myNbExt; NoExt++)
         {
@@ -369,8 +369,8 @@ Method:
         {
           TbExt[myNbExt]    = Cu;
           mySqDist[myNbExt] = Cu.SquareDistance(P);
-          myIsMin[myNbExt]  = mySqDist[myNbExt] < P.SquareDistance(ElCLib::Value(Us + 1, C));
-          myPoint[myNbExt]  = Extrema_POnCurv(Us, Cu);
+          myIsMin[myNbExt]  = mySqDist[myNbExt] < P.SquareDistance(ElCLib1::Value(Us + 1, C));
+          myPoint[myNbExt]  = PointOnCurve1(Us, Cu);
           myNbExt++;
         }
       } // if ((Us >= Uinf) && (Us <= Usup))
@@ -381,7 +381,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
+PointElCCurveExtrema::PointElCCurveExtrema(const Point3d&       P,
                                  const gp_Parab&     C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -390,7 +390,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const Point3d&   P,
+void PointElCCurveExtrema::Perform(const Point3d&   P,
                               const gp_Parab& C,
                               //			      const Standard_Real Tol,
                               const Standard_Real,
@@ -448,7 +448,7 @@ Method:
     Us = Sol.Value(NoSol);
     if ((Us >= Uinf) && (Us <= Usup))
     {
-      Cu      = ElCLib::Value(Us, C);
+      Cu      = ElCLib1::Value(Us, C);
       DejaEnr = Standard_False;
       for (NoExt = 0; NoExt < myNbExt; NoExt++)
       {
@@ -462,8 +462,8 @@ Method:
       {
         TbExt[myNbExt]    = Cu;
         mySqDist[myNbExt] = Cu.SquareDistance(P);
-        myIsMin[myNbExt]  = mySqDist[myNbExt] < P.SquareDistance(ElCLib::Value(Us + 1, C));
-        myPoint[myNbExt]  = Extrema_POnCurv(Us, Cu);
+        myIsMin[myNbExt]  = mySqDist[myNbExt] < P.SquareDistance(ElCLib1::Value(Us + 1, C));
+        myPoint[myNbExt]  = PointOnCurve1(Us, Cu);
         myNbExt++;
       }
     } // if ((Us >= Uinf) && (Us <= Usup))
@@ -473,14 +473,14 @@ Method:
 
 //=============================================================================
 
-Standard_Boolean Extrema_ExtPElC::IsDone() const
+Standard_Boolean PointElCCurveExtrema::IsDone() const
 {
   return myDone;
 }
 
 //=============================================================================
 
-Standard_Integer Extrema_ExtPElC::NbExt() const
+Standard_Integer PointElCCurveExtrema::NbExt() const
 {
   if (!IsDone())
   {
@@ -491,7 +491,7 @@ Standard_Integer Extrema_ExtPElC::NbExt() const
 
 //=============================================================================
 
-Standard_Real Extrema_ExtPElC::SquareDistance(const Standard_Integer N) const
+Standard_Real PointElCCurveExtrema::SquareDistance(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -502,7 +502,7 @@ Standard_Real Extrema_ExtPElC::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-Standard_Boolean Extrema_ExtPElC::IsMin(const Standard_Integer N) const
+Standard_Boolean PointElCCurveExtrema::IsMin(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -513,7 +513,7 @@ Standard_Boolean Extrema_ExtPElC::IsMin(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnCurv& Extrema_ExtPElC::Point(const Standard_Integer N) const
+const PointOnCurve1& PointElCCurveExtrema::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {

@@ -148,7 +148,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
       {
         gp_Cylinder cyl   = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
         Axis3d      axcyl = cyl.Axis();
-        Cir               = ElSLib::CylinderVIso(cyl.Position(), cyl.Radius(), 0.);
+        Cir               = ElSLib1::CylinderVIso(cyl.Position(), cyl.Radius(), 0.);
         Vector3d VV(cyl.Location(), NeutralPlane.Location());
         Cir.Translate(VV.Dot(axcyl.Direction()) * axcyl.Direction());
       }
@@ -349,7 +349,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoFace&     F,
           else
           {
             gp_Lin              lin = aLocalGeom->Lin();
-            IntAna_IntConicQuad ilipl(lin, NeutralPlane, Precision::Angular());
+            ConicQuadIntersection ilipl(lin, NeutralPlane, Precision::Angular());
             if (ilipl.IsDone() && ilipl.NbPoints() != 0)
             {
               EInf.Tangent(ilipl.Point(1));
@@ -754,7 +754,7 @@ void Draft_Modification::Perform()
         }
         gp_Pln             pp1 = P1->Pln();
         gp_Pln             pp2 = P2->Pln();
-        IntAna_QuadQuadGeo i2p(pp1, pp2, Precision::Angular(), Precision::Confusion());
+        QuadQuadGeoIntersection i2p(pp1, pp2, Precision::Angular(), Precision::Confusion());
         if (!i2p.IsDone() || i2p.TypeInter() != IntAna_Line)
         {
           errStat  = Draft_FaceRecomputation;
@@ -949,7 +949,7 @@ void Draft_Modification::Perform()
             S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry();
 
             // PCurves are not calculated immediately for 2 reasons:
-            // 1 - If ProjLib should make an Approx, it is stupid to approximate the
+            // 1 - If ProjLib1 should make an Approx, it is stupid to approximate the
             //     entire intersection curve.
             // 2 - Additionally, if YaRev, there is a risk to not be SameRange.
             i2s.Perform(S1,
@@ -1036,19 +1036,19 @@ void Draft_Modification::Perform()
                         if (theSurf->DynamicType() == STANDARD_TYPE(GeomPlane))
                         {
                           gp_Pln pl = Handle(GeomPlane)::DownCast(S2)->Pln();
-                          ElSLib::Parameters(pl, plv, ul, vl);
-                          ElSLib::Parameters(pl, pfv, uf, vf);
-                          ElSLib::Parameters(pl, plvprim, ulprim, vlprim);
-                          ElSLib::Parameters(pl, pfvprim, ufprim, vfprim);
+                          ElSLib1::Parameters(pl, plv, ul, vl);
+                          ElSLib1::Parameters(pl, pfv, uf, vf);
+                          ElSLib1::Parameters(pl, plvprim, ulprim, vlprim);
+                          ElSLib1::Parameters(pl, pfvprim, ufprim, vfprim);
                         }
                         else if (theSurf->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
                         {
                           gp_Cylinder cy =
                             Handle(Geom_CylindricalSurface)::DownCast(S2)->Cylinder();
-                          ElSLib::Parameters(cy, plv, ul, vl);
-                          ElSLib::Parameters(cy, pfv, uf, vf);
-                          ElSLib::Parameters(cy, plvprim, ulprim, vlprim);
-                          ElSLib::Parameters(cy, pfvprim, ufprim, vfprim);
+                          ElSLib1::Parameters(cy, plv, ul, vl);
+                          ElSLib1::Parameters(cy, pfv, uf, vf);
+                          ElSLib1::Parameters(cy, plvprim, ulprim, vlprim);
+                          ElSLib1::Parameters(cy, pfvprim, ufprim, vfprim);
                         }
                         else
                           detrompeur = 4;
@@ -1335,7 +1335,7 @@ void Draft_Modification::Perform()
             Handle(GeomCircle) GCir = Handle(GeomCircle)::DownCast(SEL->BasisCurve());
             if (!GCir.IsNull())
             {
-              Standard_Real       U   = ElCLib::Parameter(GCir->Circ(), ptfixe);
+              Standard_Real       U   = ElCLib1::Parameter(GCir->Circ(), ptfixe);
               Handle(Geom2d_Line) PC1 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp::DY2d());
               Einf.ChangeFirstPC()    = PC1;
             }
@@ -1360,7 +1360,7 @@ void Draft_Modification::Perform()
             Handle(GeomCircle) GCir = Handle(GeomCircle)::DownCast(SEL->BasisCurve());
             if (!GCir.IsNull())
             {
-              Standard_Real       U   = ElCLib::Parameter(GCir->Circ(), ptfixe);
+              Standard_Real       U   = ElCLib1::Parameter(GCir->Circ(), ptfixe);
               Handle(Geom2d_Line) PC2 = new Geom2d_Line(gp_Pnt2d(U, 0.), gp::DY2d());
               Einf.ChangeSecondPC()   = PC2;
             }
@@ -1524,8 +1524,8 @@ void Draft_Modification::Perform()
 
         Standard_Real    disref = RealLast();
         Standard_Integer iref   = 0;
-        Extrema_POnCurv  Pc;
-        Extrema_POnSurf  Ps;
+        PointOnCurve1  Pc;
+        PointOnSurface1  Ps;
         for (Standard_Integer i = 1; i <= extr.NbExt(); i++)
         {
           extr.Points(i, Pc, Ps);
@@ -1764,7 +1764,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
     }
     if (Abs(Angle) > Precision::Angular())
     {
-      IntAna_QuadQuadGeo i2s;
+      QuadQuadGeoIntersection i2s;
       i2s.Perform(NeutralPlane, Cy, Precision::Angular(), Precision::Confusion());
       Standard_Boolean isIntDone = i2s.IsDone();
 
@@ -1797,7 +1797,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       {
         alpha = -alpha;
       }
-      Standard_Real Z   = ElCLib::LineParameter(Cy.Axis(), Center);
+      Standard_Real Z   = ElCLib1::LineParameter(Cy.Axis(), Center);
       Standard_Real Rad = Cy.Radius() + Z * Tan(alpha);
       if (Rad < 0.)
       {
@@ -1838,7 +1838,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       return NewS;
     }
 
-    IntAna_QuadQuadGeo i2s;
+    QuadQuadGeoIntersection i2s;
     i2s.Perform(NeutralPlane, Co1, Precision::Angular(), Precision::Confusion());
     if (!i2s.IsDone() || i2s.TypeInter() != IntAna_Circle)
     {
@@ -1863,7 +1863,7 @@ Handle(GeomSurface) Draft_Modification::NewSurface(const Handle(GeomSurface)& S,
       {
         alpha = -alpha;
       }
-      Standard_Real Z   = ElCLib::LineParameter(Co1.Axis(), Center);
+      Standard_Real Z   = ElCLib1::LineParameter(Co1.Axis(), Center);
       Standard_Real Rad = i2s.Circle(1).Radius() + Z * Tan(alpha);
       if (Rad < 0.)
       {
@@ -1948,8 +1948,8 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Vector3d        d1u, d1v;
     Point3d        pbid;
     gp_Cylinder   Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
-    ElSLib::Parameters(Cy, lin.Location(), U, V);
-    ElSLib::D1(U, V, Cy, pbid, d1u, d1v);
+    ElSLib1::Parameters(Cy, lin.Location(), U, V);
+    ElSLib1::D1(U, V, Cy, pbid, d1u, d1v);
     Norm = d1u.Crossed(d1v);
   }
   else if (TypeS == STANDARD_TYPE(Geom_ConicalSurface))
@@ -1958,12 +1958,12 @@ Handle(GeomCurve3d) Draft_Modification::NewCurve(const Handle(GeomCurve3d)&   C,
     Vector3d        d1u, d1v;
     Point3d        pbid;
     gp_Cone       Co = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
-    ElSLib::Parameters(Co, lin.Location(), U, V);
-    ElSLib::D1(U, V, Co, pbid, d1u, d1v);
+    ElSLib1::Parameters(Co, lin.Location(), U, V);
+    ElSLib1::D1(U, V, Co, pbid, d1u, d1v);
     Norm = d1u.Crossed(d1v);
   }
 
-  IntAna_IntConicQuad ilipl(lin, NeutralPlane, Precision::Angular());
+  ConicQuadIntersection ilipl(lin, NeutralPlane, Precision::Angular());
   if (ilipl.IsDone() && ilipl.NbPoints() != 0)
   {
     if (Oris == TopAbs_REVERSED)
@@ -2124,11 +2124,11 @@ static Standard_Real Parameter(const Handle(GeomCurve3d)& C, const Point3d& P, S
   Standard_Real param;
   if (ctyp == STANDARD_TYPE(GeomLine))
   {
-    param = ElCLib::Parameter(Handle(GeomLine)::DownCast(cbase)->Lin(), P);
+    param = ElCLib1::Parameter(Handle(GeomLine)::DownCast(cbase)->Lin(), P);
   }
   else if (ctyp == STANDARD_TYPE(GeomCircle))
   {
-    param = ElCLib::Parameter(Handle(GeomCircle)::DownCast(cbase)->Circ(), P);
+    param = ElCLib1::Parameter(Handle(GeomCircle)::DownCast(cbase)->Circ(), P);
     if (Abs(2. * M_PI - param) <= Epsilon(2. * M_PI))
     {
       param = 0.;
@@ -2136,7 +2136,7 @@ static Standard_Real Parameter(const Handle(GeomCurve3d)& C, const Point3d& P, S
   }
   else if (ctyp == STANDARD_TYPE(Geom_Ellipse))
   {
-    param = ElCLib::Parameter(Handle(Geom_Ellipse)::DownCast(cbase)->Elips(), P);
+    param = ElCLib1::Parameter(Handle(Geom_Ellipse)::DownCast(cbase)->Elips(), P);
     if (Abs(2. * M_PI - param) <= Epsilon(2. * M_PI))
     {
       param = 0.;
@@ -2144,11 +2144,11 @@ static Standard_Real Parameter(const Handle(GeomCurve3d)& C, const Point3d& P, S
   }
   else if (ctyp == STANDARD_TYPE(Geom_Parabola))
   {
-    param = ElCLib::Parameter(Handle(Geom_Parabola)::DownCast(cbase)->Parab(), P);
+    param = ElCLib1::Parameter(Handle(Geom_Parabola)::DownCast(cbase)->Parab(), P);
   }
   else if (ctyp == STANDARD_TYPE(Geom_Hyperbola))
   {
-    param = ElCLib::Parameter(Handle(Geom_Hyperbola)::DownCast(cbase)->Hypr(), P);
+    param = ElCLib1::Parameter(Handle(Geom_Hyperbola)::DownCast(cbase)->Hypr(), P);
   }
   else
   {
@@ -2222,7 +2222,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
   if (pcu1.IsNull())
   {
     Handle(GeomCurve3d) theCurve = Einf.Geometry();
-    pcu1                        = GeomProjLib::Curve2d(theCurve,
+    pcu1                        = GeomProjLib1::Curve2d(theCurve,
                                 theCurve->FirstParameter(),
                                 theCurve->LastParameter(),
                                 S1,
@@ -2232,7 +2232,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
   if (pcu2.IsNull())
   {
     Handle(GeomCurve3d) theCurve = Einf.Geometry();
-    pcu2                        = GeomProjLib::Curve2d(theCurve,
+    pcu2                        = GeomProjLib1::Curve2d(theCurve,
                                 theCurve->FirstParameter(),
                                 theCurve->LastParameter(),
                                 S2,
@@ -2254,7 +2254,7 @@ static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
   {
     Handle(Geom2d_BSplineCurve) BCurve;
     if (NewC2d->DynamicType() != STANDARD_TYPE(Geom2d_BSplineCurve))
-      BCurve = Geom2dConvert::CurveToBSplineCurve(NewC2d);
+      BCurve = Geom2dConvert1::CurveToBSplineCurve(NewC2d);
     else
       BCurve = Handle(Geom2d_BSplineCurve)::DownCast(NewC2d);
     if (sign == -1)
@@ -2332,7 +2332,7 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
                                      Axis3d&                  Axe,
                                      Standard_Real&           theta)
 {
-  IntAna_QuadQuadGeo i2pl(Pl, NeutralPlane, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection i2pl(Pl, NeutralPlane, Precision::Angular(), Precision::Confusion());
 
   if (i2pl.IsDone() && i2pl.TypeInter() == IntAna_Line)
   {

@@ -140,7 +140,7 @@ void GCPnts_QuasiUniformAbscissa::initialize(const TheCurve&        theC,
   const Standard_Real dU      = (theU2 - theU1) / (2 * theNbPoints - 1);
 
   TColgp_Array1OfPnt2d                         aLP(1, 2 * theNbPoints); // table Length <-> Param
-  typename GCPnts_TCurveTypes<TheCurve>::Point aP1, aP2;
+  typename TCurveTypes<TheCurve>::Point aP1, aP2;
   aP1 = theC.Value(theU1);
 
   // On additionne toutes les distances

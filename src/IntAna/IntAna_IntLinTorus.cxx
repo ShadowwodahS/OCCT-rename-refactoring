@@ -26,7 +26,7 @@
 #include <IntAna_IntLinTorus.hxx>
 #include <math_DirectPolynomialRoots.hxx>
 
-IntAna_IntLinTorus::IntAna_IntLinTorus()
+LineTorusIntersection::LineTorusIntersection()
     : done(Standard_False),
       nbpt(0)
 {
@@ -35,12 +35,12 @@ IntAna_IntLinTorus::IntAna_IntLinTorus()
   memset(theTheta, 0, sizeof(theTheta));
 }
 
-IntAna_IntLinTorus::IntAna_IntLinTorus(const gp_Lin& L, const gp_Torus& T)
+LineTorusIntersection::LineTorusIntersection(const gp_Lin& L, const gp_Torus& T)
 {
   Perform(L, T);
 }
 
-void IntAna_IntLinTorus::Perform(const gp_Lin& L, const gp_Torus& T)
+void LineTorusIntersection::Perform(const gp_Lin& L, const gp_Torus& T)
 {
   Point3d PL = L.Location();
   Dir3d DL = L.Direction();
@@ -95,9 +95,9 @@ void IntAna_IntLinTorus::Perform(const gp_Lin& L, const gp_Torus& T)
     {
       Standard_Real t = mdpr.Value(i);
       t += ParamOfNewPL;
-      Point3d PSolL(ElCLib::Value(t, L));
-      ElSLib::Parameters(T, PSolL, u, v);
-      Point3d PSolT(ElSLib::Value(u, v, T));
+      Point3d PSolL(ElCLib1::Value(t, L));
+      ElSLib1::Parameters(T, PSolL, u, v);
+      Point3d PSolT(ElSLib1::Value(u, v, T));
       a0 = PSolT.SquareDistance(PSolL);
 
       if (a0 > 0.0000000001)
@@ -189,7 +189,7 @@ static void MULT_A2_B1(Standard_Real& c3,
   c0 =                     a0 * b0;
 }
 
-void IntAna_IntLinTorus::Perform (const gp_Lin& L, const gp_Torus& T) {
+void LineTorusIntersection::Perform (const gp_Lin& L, const gp_Torus& T) {
   TColStd_Array1OfReal C(1,31);
   T.Coefficients(C);
   const Point3d& PL=L.Location();
@@ -384,8 +384,8 @@ void IntAna_IntLinTorus::Perform (const gp_Lin& L, const gp_Torus& T) {
      for(Standard_Integer i = 1; i<=n ; i++) { 
 	Standard_Real t = mdpr.Value(i);
         Point3d PSolL(ax0+ax1*t, ay0+ay1*t, az0+az1*t);
-        ElSLib::Parameters(T,PSolL,u,v);
-	Point3d PSolT(ElSLib::Value(u,v,T));
+        ElSLib1::Parameters(T,PSolL,u,v);
+	Point3d PSolT(ElSLib1::Value(u,v,T));
         
         a0 = PSolT.SquareDistance(PSolL); 
 	if(a0>0.0000000001) { 

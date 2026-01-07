@@ -49,9 +49,9 @@ Standard_Boolean GeomConvert_FuncConeLSDist::Value(const math_Vector& X, Standar
   {
     Standard_Real u, v;
     Point3d        aPi(myPoints->Value(i));
-    ElSLib::ConeParameters(aPos, anR, aSemiAngle, aPi, u, v);
+    ElSLib1::ConeParameters(aPos, anR, aSemiAngle, aPi, u, v);
     Point3d aPp;
-    ElSLib::ConeD0(u, v, aPos, anR, aSemiAngle, aPp);
+    ElSLib1::ConeD0(u, v, aPos, anR, aSemiAngle, aPp);
     F += aPi.SquareDistance(aPp);
   }
 

@@ -30,20 +30,20 @@ class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_ConstructionError;
 class Adaptor3d_HVertex;
-class Contap_HCurve2dTool;
-class Contap_HContTool;
+class HCurve2dTool2;
+class HContTool;
 class Adaptor3d_TopolTool;
 class Contap_ArcFunction;
 class Contap_ThePathPointOfTheSearch;
 class Contap_TheSegmentOfTheSearch;
 
-class Contap_TheSearch
+class ContourSearch
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT Contap_TheSearch();
+  Standard_EXPORT ContourSearch();
 
   //! Algorithm to find the points and parts of curves of Domain
   //! (domain of of restriction of a surface) which verify
@@ -98,9 +98,9 @@ private:
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>
-#define TheArcTool Contap_HCurve2dTool
+#define TheArcTool HCurve2dTool2
 #define TheArcTool_hxx <Contap_HCurve2dTool.hxx>
-#define TheSOBTool Contap_HContTool
+#define TheSOBTool HContTool
 #define TheSOBTool_hxx <Contap_HContTool.hxx>
 #define Handle_TheTopolTool Handle(Adaptor3d_TopolTool)
 #define TheTopolTool Adaptor3d_TopolTool
@@ -115,7 +115,7 @@ private:
 #define IntStart_TheSegment_hxx <Contap_TheSegmentOfTheSearch.hxx>
 #define IntStart_SequenceOfSegment Contap_SequenceOfSegmentOfTheSearch
 #define IntStart_SequenceOfSegment_hxx <Contap_SequenceOfSegmentOfTheSearch.hxx>
-#define IntStart_SearchOnBoundaries Contap_TheSearch
+#define IntStart_SearchOnBoundaries ContourSearch
 #define IntStart_SearchOnBoundaries_hxx <Contap_TheSearch.hxx>
 
 #include <IntStart_SearchOnBoundaries.lxx>

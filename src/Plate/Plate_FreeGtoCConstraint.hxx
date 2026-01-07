@@ -23,44 +23,44 @@
 #include <gp_XY.hxx>
 #include <Standard_Integer.hxx>
 #include <Plate_LinearScalarConstraint.hxx>
-class Plate_D1;
-class Plate_D2;
-class Plate_D3;
+class D1;
+class D2;
+class D3;
 
 //! define a G1, G2 or G3 constraint on the Plate using weaker
 //! constraint than GtoCConstraint
-class Plate_FreeGtoCConstraint
+class FreeGtoCConstraint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                           const Plate_D1&        D1S,
-                                           const Plate_D1&        D1T,
+  Standard_EXPORT FreeGtoCConstraint(const Coords2d&           point2d,
+                                           const D1&        D1S,
+                                           const D1&        D1T,
                                            const Standard_Real    IncrementalLoad = 1.0,
                                            const Standard_Integer orientation     = 0);
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                           const Plate_D1&        D1S,
-                                           const Plate_D1&        D1T,
-                                           const Plate_D2&        D2S,
-                                           const Plate_D2&        D2T,
+  Standard_EXPORT FreeGtoCConstraint(const Coords2d&           point2d,
+                                           const D1&        D1S,
+                                           const D1&        D1T,
+                                           const D2&        D2S,
+                                           const D2&        D2T,
                                            const Standard_Real    IncrementalLoad = 1.0,
                                            const Standard_Integer orientation     = 0);
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
-                                           const Plate_D1&        D1S,
-                                           const Plate_D1&        D1T,
-                                           const Plate_D2&        D2S,
-                                           const Plate_D2&        D2T,
-                                           const Plate_D3&        D3S,
-                                           const Plate_D3&        D3T,
+  Standard_EXPORT FreeGtoCConstraint(const Coords2d&           point2d,
+                                           const D1&        D1S,
+                                           const D1&        D1T,
+                                           const D2&        D2S,
+                                           const D2&        D2T,
+                                           const D3&        D3S,
+                                           const D3&        D3T,
                                            const Standard_Real    IncrementalLoad = 1.0,
                                            const Standard_Integer orientation     = 0);
 
   const Standard_Integer& nb_PPC() const;
 
-  const Plate_PinpointConstraint& GetPPC(const Standard_Integer Index) const;
+  const PinpointConstraint& GetPPC(const Standard_Integer Index) const;
 
   const Standard_Integer& nb_LSC() const;
 
@@ -71,7 +71,7 @@ private:
   Coords2d                        pnt2d;
   Standard_Integer             nb_PPConstraints;
   Standard_Integer             nb_LSConstraints;
-  Plate_PinpointConstraint     myPPC[5];
+  PinpointConstraint     myPPC[5];
   Plate_LinearScalarConstraint myLSC[4];
 };
 

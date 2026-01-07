@@ -310,7 +310,7 @@ void BinLDrivers_DocumentStorageDriver::WriteSubTree(const DataLabel&           
   theOS.write((char*)&anEndAttr, sizeof(anEndAttr));
 
   // Process sub-labels
-  TDF_ChildIterator itChld(theLabel);
+  ChildIterator itChld(theLabel);
   for (; itChld.More(); itChld.Next())
   {
     const DataLabel& aChildLab = itChld.Value();
@@ -369,7 +369,7 @@ Standard_Boolean BinLDrivers_DocumentStorageDriver::FirstPassSubTree(const DataL
   // are there writable attributes on sub-labels ?
   Standard_Boolean  hasChildAttr = Standard_False;
   TDF_LabelList     emptyChildrenList;
-  TDF_ChildIterator itChld(L);
+  ChildIterator itChld(L);
   for (; itChld.More(); itChld.Next())
   {
     if (FirstPassSubTree(itChld.Value(), emptyChildrenList))

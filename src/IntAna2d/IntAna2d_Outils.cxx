@@ -18,7 +18,7 @@
 #include <IntAna2d_Outils.hxx>
 #include <math_DirectPolynomialRoots.hxx>
 
-MyDirectPolynomialRoots::MyDirectPolynomialRoots(const Standard_Real A4,
+MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A4,
                                                  const Standard_Real A3,
                                                  const Standard_Real A2,
                                                  const Standard_Real A1,
@@ -220,7 +220,7 @@ MyDirectPolynomialRoots::MyDirectPolynomialRoots(const Standard_Real A4,
   }
 }
 
-MyDirectPolynomialRoots::MyDirectPolynomialRoots(const Standard_Real A2,
+MyDirectPolynomialRoots1::MyDirectPolynomialRoots1(const Standard_Real A2,
                                                  const Standard_Real A1,
                                                  const Standard_Real A0)
 {
@@ -274,7 +274,7 @@ Standard_Boolean Points_Confondus(const Standard_Real x1,
 //--- Les points confondus sont supprimes
 //--- Le nombre de points est mis a jour
 
-void Traitement_Points_Confondus(Standard_Integer& nb_pts, IntAna2d_IntPoint* pts)
+void Traitement_Points_Confondus(Standard_Integer& nb_pts, IntersectionPoint2d* pts)
 {
   Standard_Integer i, j;
   for (i = nb_pts; i > 1; i--)

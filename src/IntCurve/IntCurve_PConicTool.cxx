@@ -27,19 +27,19 @@ gp_Pnt2d ParametricConicTool::Value(const ParametricConic& PConic, const Standar
   {
 
     case GeomAbs_Line:
-      return (ElCLib::LineValue(X, PConic.Axis2().XAxis()));
+      return (ElCLib1::LineValue(X, PConic.Axis2().XAxis()));
 
     case GeomAbs_Circle:
-      return (ElCLib::CircleValue(X, PConic.Axis2(), PConic.Param1()));
+      return (ElCLib1::CircleValue(X, PConic.Axis2(), PConic.Param1()));
 
     case GeomAbs_Ellipse:
-      return (ElCLib::EllipseValue(X, PConic.Axis2(), PConic.Param1(), PConic.Param2()));
+      return (ElCLib1::EllipseValue(X, PConic.Axis2(), PConic.Param1(), PConic.Param2()));
 
     case GeomAbs_Parabola:
-      return (ElCLib::ParabolaValue(X, PConic.Axis2(), PConic.Param1()));
+      return (ElCLib1::ParabolaValue(X, PConic.Axis2(), PConic.Param1()));
 
     default: //-- case GeomAbs_Hyperbola:
-      return (ElCLib::HyperbolaValue(X, PConic.Axis2(), PConic.Param1(), PConic.Param2()));
+      return (ElCLib1::HyperbolaValue(X, PConic.Axis2(), PConic.Param1(), PConic.Param2()));
   }
 }
 
@@ -54,23 +54,23 @@ void ParametricConicTool::D1(const ParametricConic& PConic,
   {
 
     case GeomAbs_Line:
-      ElCLib::LineD1(U, PConic.Axis2().XAxis(), Pt, Tan);
+      ElCLib1::LineD1(U, PConic.Axis2().XAxis(), Pt, Tan);
       break;
 
     case GeomAbs_Circle:
-      ElCLib::CircleD1(U, PConic.Axis2(), PConic.Param1(), Pt, Tan);
+      ElCLib1::CircleD1(U, PConic.Axis2(), PConic.Param1(), Pt, Tan);
       break;
 
     case GeomAbs_Ellipse:
-      ElCLib::EllipseD1(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan);
+      ElCLib1::EllipseD1(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan);
       break;
 
     case GeomAbs_Parabola:
-      ElCLib::ParabolaD1(U, PConic.Axis2(), PConic.Param1(), Pt, Tan);
+      ElCLib1::ParabolaD1(U, PConic.Axis2(), PConic.Param1(), Pt, Tan);
       break;
 
     case GeomAbs_Hyperbola:
-      ElCLib::HyperbolaD1(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan);
+      ElCLib1::HyperbolaD1(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan);
       break;
     default:
       break;
@@ -90,23 +90,23 @@ void ParametricConicTool::D2(const ParametricConic& PConic,
 
     case GeomAbs_Line:
       Tan.SetCoord(0.0, 0.0);
-      ElCLib::LineD1(U, PConic.Axis2().XAxis(), Pt, Tan);
+      ElCLib1::LineD1(U, PConic.Axis2().XAxis(), Pt, Tan);
       break;
 
     case GeomAbs_Circle:
-      ElCLib::CircleD2(U, PConic.Axis2(), PConic.Param1(), Pt, Tan, Norm);
+      ElCLib1::CircleD2(U, PConic.Axis2(), PConic.Param1(), Pt, Tan, Norm);
       break;
 
     case GeomAbs_Ellipse:
-      ElCLib::EllipseD2(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan, Norm);
+      ElCLib1::EllipseD2(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan, Norm);
       break;
 
     case GeomAbs_Parabola:
-      ElCLib::ParabolaD2(U, PConic.Axis2(), PConic.Param1(), Pt, Tan, Norm);
+      ElCLib1::ParabolaD2(U, PConic.Axis2(), PConic.Param1(), Pt, Tan, Norm);
       break;
 
     case GeomAbs_Hyperbola:
-      ElCLib::HyperbolaD2(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan, Norm);
+      ElCLib1::HyperbolaD2(U, PConic.Axis2(), PConic.Param1(), PConic.Param2(), Pt, Tan, Norm);
       break;
     default:
       break;

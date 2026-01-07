@@ -89,7 +89,7 @@ AsciiString1 XCAFPrs_DocumentExplorer::DefineChildId(
   const AsciiString1& theParentId)
 {
   AsciiString1 anEntryId;
-  TDF_Tool::Entry(theLabel, anEntryId);
+  Tool3::Entry(theLabel, anEntryId);
   return !theParentId.IsEmpty() ? theParentId + "/" + anEntryId + "." : anEntryId + ".";
 }
 
@@ -108,7 +108,7 @@ DataLabel XCAFPrs_DocumentExplorer::FindLabelFromPathId(const Handle(AppDocument
     DataLabel aSubLabel;
     {
       const AsciiString1& anOcafId = anPathIter.Value();
-      TDF_Tool::Label(theDocument->Main().Data(), anOcafId, aSubLabel);
+      Tool3::Label(theDocument->Main().Data(), anOcafId, aSubLabel);
       if (aSubLabel.IsNull())
       {
         return DataLabel();
@@ -351,7 +351,7 @@ void XCAFPrs_DocumentExplorer::Next()
     aNodeInStack.IsAssembly = Standard_True;
     aNodeInStack.Label      = aRootLab;
     aNodeInStack.RefLabel   = aRefLabel;
-    aNodeInStack.ChildIter  = TDF_ChildIterator(aNodeInStack.RefLabel);
+    aNodeInStack.ChildIter  = ChildIterator(aNodeInStack.RefLabel);
     aNodeInStack.LocalTrsf  = XCAFDoc_ShapeTool::GetLocation(aNodeInStack.Label);
     aNodeInStack.Location   = aNodeInStack.LocalTrsf;
     aNodeInStack.Style =
@@ -408,7 +408,7 @@ void XCAFPrs_DocumentExplorer::Next()
                                          aNodeInStack.Label,
                                          aNodeInStack.RefLabel);
         aNodeInStack.Id         = DefineChildId(aNodeInStack.Label, aParent.Id);
-        aNodeInStack.ChildIter  = TDF_ChildIterator(aNodeInStack.RefLabel);
+        aNodeInStack.ChildIter  = ChildIterator(aNodeInStack.RefLabel);
         myNodeStack.SetValue(myTop, aNodeInStack);
         if ((myFlags & XCAFPrs_DocumentExplorerFlags_OnlyLeafNodes) == 0)
         {

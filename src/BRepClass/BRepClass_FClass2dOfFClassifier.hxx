@@ -77,7 +77,7 @@ private:
   gp_Lin2d                 myLin;
   Standard_Real            myParam;
   Standard_Real            myTolerance;
-  TopTrans_CurveTransition myTrans;
+  CurveTransition myTrans;
   BRepClass_Intersector    myIntersector;
   Standard_Integer         myClosest;
   TopAbs_State             myState;

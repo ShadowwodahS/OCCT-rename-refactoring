@@ -77,11 +77,11 @@ public: //! @name Clearing the elements and boxes
   }
 
 public: //! @name Necessary overrides for BVH construction
-  //! Make inherited method Box() visible to avoid CLang warning
-  using BVH_PrimitiveSet<NumType, Dimension>::Box;
+  //! Make inherited method Box1() visible to avoid CLang warning
+  using BVH_PrimitiveSet<NumType, Dimension>::Box1;
 
   //! Returns the bounding box with the given index.
-  virtual BVH_Box<NumType, Dimension> Box(const Standard_Integer theIndex) const Standard_OVERRIDE
+  virtual BVH_Box<NumType, Dimension> Box1(const Standard_Integer theIndex) const Standard_OVERRIDE
   {
     return myBoxes[theIndex];
   }
@@ -90,7 +90,7 @@ public: //! @name Necessary overrides for BVH construction
   virtual Standard_Real Center(const Standard_Integer theIndex,
                                const Standard_Integer theAxis) const Standard_OVERRIDE
   {
-    return Box(theIndex).Center(theAxis);
+    return Box1(theIndex).Center(theAxis);
   }
 
   //! Returns the number of boxes.

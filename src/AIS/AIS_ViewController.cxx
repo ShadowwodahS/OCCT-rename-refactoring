@@ -1907,7 +1907,7 @@ Point3d AIS_ViewController::GravityPoint(const Handle(VisualContext)& theCtx,
       return aCam->Center();
     }
     case AIS_RotationMode_BndBoxScene: {
-      Bnd_Box aBndBox = theView->View()->MinMaxValues(false);
+      Box2 aBndBox = theView->View()->MinMaxValues(false);
       if (!aBndBox.IsVoid())
       {
         return (aBndBox.CornerMin().XYZ() + aBndBox.CornerMax().XYZ()) * 0.5;
@@ -1926,7 +1926,7 @@ Point3d AIS_ViewController::GravityPoint(const Handle(VisualContext)& theCtx,
 void AIS_ViewController::FitAllAuto(const Handle(VisualContext)& theCtx,
                                     const Handle(ViewWindow)&               theView)
 {
-  const Bnd_Box aBoxSel    = theCtx->BoundingBoxOfSelection(theView);
+  const Box2 aBoxSel    = theCtx->BoundingBoxOfSelection(theView);
   const double  aFitMargin = 0.01;
   if (aBoxSel.IsVoid())
   {
@@ -1937,7 +1937,7 @@ void AIS_ViewController::FitAllAuto(const Handle(VisualContext)& theCtx,
   // fit all algorithm is not 100% stable - so compute some precision to compare equal camera values
   const double aFitTol =
     (aBoxSel.CornerMax().XYZ() - aBoxSel.CornerMin().XYZ()).Modulus() * 0.000001;
-  const Bnd_Box aBoxAll = theView->View()->MinMaxValues();
+  const Box2 aBoxAll = theView->View()->MinMaxValues();
 
   const Handle(CameraOn3d)& aCam       = theView->Camera();
   Handle(CameraOn3d)        aCameraSel = new CameraOn3d(aCam);
@@ -2082,7 +2082,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContex
   }
 
   gp_XYZ        aMin, aMax;
-  const Bnd_Box aBndBox = theView->View()->MinMaxValues();
+  const Box2 aBndBox = theView->View()->MinMaxValues();
   if (!aBndBox.IsVoid())
   {
     aMin = aBndBox.CornerMin().XYZ();
@@ -3362,7 +3362,7 @@ void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theC
                     : myXRLastPickDepthRight;
       if (Precision::IsInfinite(aLaserLen))
       {
-        const Bnd_Box aViewBox = theView->View()->MinMaxValues(true);
+        const Box2 aViewBox = theView->View()->MinMaxValues(true);
         if (!aViewBox.IsVoid())
         {
           aLaserLen = Sqrt(aViewBox.SquareExtent());
@@ -3381,7 +3381,7 @@ void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theC
                     : myXRLastPickDepthRight;
       if (Precision::IsInfinite(aLaserLen))
       {
-        const Bnd_Box aViewBox = theView->View()->MinMaxValues(true);
+        const Box2 aViewBox = theView->View()->MinMaxValues(true);
         if (!aViewBox.IsVoid())
         {
           aLaserLen = Sqrt(aViewBox.SquareExtent());

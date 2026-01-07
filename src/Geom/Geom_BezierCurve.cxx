@@ -146,7 +146,7 @@ void BezierCurve3d::Increase(const Standard_Integer Deg)
   if (IsRational())
   {
     nweights = new TColStd_HArray1OfReal(1, Deg + 1);
-    BSplCLib::IncreaseDegree(Degree(),
+    BSplCLib1::IncreaseDegree(Degree(),
                              Deg,
                              0,
                              poles->Array1(),
@@ -160,15 +160,15 @@ void BezierCurve3d::Increase(const Standard_Integer Deg)
   }
   else
   {
-    BSplCLib::IncreaseDegree(Degree(),
+    BSplCLib1::IncreaseDegree(Degree(),
                              Deg,
                              0,
                              poles->Array1(),
-                             BSplCLib::NoWeights(),
+                             BSplCLib1::NoWeights(),
                              bidknots,
                              bidmults,
                              npoles->ChangeArray1(),
-                             BSplCLib::NoWeights(),
+                             BSplCLib1::NoWeights(),
                              bidknots,
                              bidmults);
   }
@@ -180,7 +180,7 @@ void BezierCurve3d::Increase(const Standard_Integer Deg)
 
 Standard_Integer BezierCurve3d::MaxDegree()
 {
-  return BSplCLib::MaxDegree();
+  return BSplCLib1::MaxDegree();
 }
 
 //=================================================================================================
@@ -351,12 +351,12 @@ void BezierCurve3d::Segment(const Standard_Real U1, const Standard_Real U2)
 {
   closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision::Confusion());
 
-  TColStd_Array1OfReal bidflatknots(BSplCLib::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
+  TColStd_Array1OfReal bidflatknots(BSplCLib1::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
   TColgp_HArray1OfPnt  coeffs(1, poles->Size());
   if (IsRational())
   {
     TColStd_Array1OfReal wcoeffs(1, poles->Size());
-    BSplCLib::BuildCache(0.0,
+    BSplCLib1::BuildCache(0.0,
                          1.0,
                          0,
                          Degree(),
@@ -365,22 +365,22 @@ void BezierCurve3d::Segment(const Standard_Real U1, const Standard_Real U2)
                          &weights->Array1(),
                          coeffs,
                          &wcoeffs);
-    PLib::Trimming(U1, U2, coeffs, &wcoeffs);
-    PLib::CoefficientsPoles(coeffs, &wcoeffs, poles->ChangeArray1(), &weights->ChangeArray1());
+    PLib1::Trimming(U1, U2, coeffs, &wcoeffs);
+    PLib1::CoefficientsPoles(coeffs, &wcoeffs, poles->ChangeArray1(), &weights->ChangeArray1());
   }
   else
   {
-    BSplCLib::BuildCache(0.0,
+    BSplCLib1::BuildCache(0.0,
                          1.0,
                          0,
                          Degree(),
                          bidflatknots,
                          poles->Array1(),
-                         BSplCLib::NoWeights(),
+                         BSplCLib1::NoWeights(),
                          coeffs,
-                         BSplCLib::NoWeights());
-    PLib::Trimming(U1, U2, coeffs, PLib::NoWeights());
-    PLib::CoefficientsPoles(coeffs, PLib::NoWeights(), poles->ChangeArray1(), PLib::NoWeights());
+                         BSplCLib1::NoWeights());
+    PLib1::Trimming(U1, U2, coeffs, PLib1::NoWeights());
+    PLib1::CoefficientsPoles(coeffs, PLib1::NoWeights(), poles->ChangeArray1(), PLib1::NoWeights());
   }
 }
 
@@ -488,21 +488,21 @@ Standard_Integer BezierCurve3d::Degree() const
 
 void BezierCurve3d::D0(const Standard_Real U, Point3d& P) const
 {
-  BSplCLib::D0(U, Poles(), Weights(), P);
+  BSplCLib1::D0(U, Poles(), Weights(), P);
 }
 
 //=================================================================================================
 
 void BezierCurve3d::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
-  BSplCLib::D1(U, Poles(), Weights(), P, V1);
+  BSplCLib1::D1(U, Poles(), Weights(), P, V1);
 }
 
 //=================================================================================================
 
 void BezierCurve3d::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
-  BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
+  BSplCLib1::D2(U, Poles(), Weights(), P, V1, V2);
 }
 
 //=================================================================================================
@@ -513,7 +513,7 @@ void BezierCurve3d::D3(const Standard_Real U,
                           Vector3d&             V2,
                           Vector3d&             V3) const
 {
-  BSplCLib::D3(U, Poles(), Weights(), P, V1, V2, V3);
+  BSplCLib1::D3(U, Poles(), Weights(), P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -531,8 +531,8 @@ Vector3d BezierCurve3d::DN(const Standard_Real U, const Standard_Integer N) cons
   bidmults.Init(Degree() + 1);
 
   if (IsRational())
-    //    BSplCLib::DN(U,N,0,Degree(),0.,
-    BSplCLib::DN(U,
+    //    BSplCLib1::DN(U,N,0,Degree(),0.,
+    BSplCLib1::DN(U,
                  N,
                  0,
                  Degree(),
@@ -543,14 +543,14 @@ Vector3d BezierCurve3d::DN(const Standard_Real U, const Standard_Integer N) cons
                  &bidmults,
                  V);
   else
-    //    BSplCLib::DN(U,N,0,Degree(),0.,
-    BSplCLib::DN(U,
+    //    BSplCLib1::DN(U,N,0,Degree(),0.,
+    BSplCLib1::DN(U,
                  N,
                  0,
                  Degree(),
                  Standard_False,
                  poles->Array1(),
-                 BSplCLib::NoWeights(),
+                 BSplCLib1::NoWeights(),
                  bidknots,
                  &bidmults,
                  V);
@@ -664,11 +664,11 @@ void BezierCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& U
 {
   if (!maxderivinvok)
   {
-    TColStd_Array1OfReal bidflatknots(BSplCLib::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
+    TColStd_Array1OfReal bidflatknots(BSplCLib1::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
 
     if (IsRational())
     {
-      BSplCLib::Resolution(poles->Array1(),
+      BSplCLib1::Resolution(poles->Array1(),
                            &weights->Array1(),
                            poles->Length(),
                            bidflatknots,
@@ -678,8 +678,8 @@ void BezierCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& U
     }
     else
     {
-      BSplCLib::Resolution(poles->Array1(),
-                           BSplCLib::NoWeights(),
+      BSplCLib1::Resolution(poles->Array1(),
+                           BSplCLib1::NoWeights(),
                            poles->Length(),
                            bidflatknots,
                            Degree(),

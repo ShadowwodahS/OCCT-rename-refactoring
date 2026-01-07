@@ -59,7 +59,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Ellipse, Geom2d_Conic)
 //! is 2.*Pi and the parameter range is [ 0,2.*Pi [.
 //! See Also
 //! GCE2d_MakeEllipse which provides functions for
-//! more complex ellipse constructions
+//! more complex1 ellipse constructions
 //! gp_Ax22d
 //! gp_Elips2d for an equivalent, non-parameterized data structure
 class Geom2d_Ellipse : public Geom2d_Conic

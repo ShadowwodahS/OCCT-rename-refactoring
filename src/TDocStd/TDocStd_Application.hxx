@@ -164,7 +164,7 @@ public:
   //! Handle(AppManager)
   //! anApp;
   //! if (!CafTest::Find(A)) return 1;
-  //! Handle(TDocStd) aDoc;
+  //! Handle(TDocStd1) aDoc;
   //! Standard_Integer nbdoc = anApp->NbDocuments();
   //! for (Standard_Integer i = 1; i <= nbdoc; i++) {
   //! aApp->GetDocument(i,aDoc);

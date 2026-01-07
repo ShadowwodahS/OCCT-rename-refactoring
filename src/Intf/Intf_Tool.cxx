@@ -227,7 +227,7 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
 
     for (npi = 0; npi < nbPi; npi++)
     {
-      ElCLib::D1(parint[npi], theHypr2d, Pn, Tan);
+      ElCLib1::D1(parint[npi], theHypr2d, Pn, Tan);
       switch (bord[npi])
       {
         case 1:
@@ -282,7 +282,7 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
           Standard_Integer ip, pas = 1;
           for (ip = ipmin; ip <= ipmax; ip += pas)
           {
-            boxHypr2d.Add(ElCLib::Value(Standard_Real(ip) / 10., theHypr2d));
+            boxHypr2d.Add(ElCLib1::Value(Standard_Real(ip) / 10., theHypr2d));
             if (Abs(ip) <= 10)
               pas = 1;
             else
@@ -292,7 +292,7 @@ void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_B
       }
     }
   }
-  else if (!domain.IsOut(ElCLib::Value(0., theHypr2d)))
+  else if (!domain.IsOut(ElCLib1::Value(0., theHypr2d)))
   {
     boxHypr2d       = domain;
     beginOnCurve[0] = -Precision::Infinite();
@@ -314,7 +314,7 @@ Standard_Integer Tool1::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Doma
   if (!Domain.IsOpenYmax())
   {
     gp_Lin2d                 L1(gp_Pnt2d(0., ymax), gp_Dir2d(-1., 0.));
-    IntAna2d_AnaIntersection Inters1(theCurv, IntAna2d_Conic(L1));
+    AnalyticIntersection2d Inters1(theCurv, Conic2d(L1));
     if (Inters1.IsDone())
     {
       if (!Inters1.IsEmpty())
@@ -337,7 +337,7 @@ Standard_Integer Tool1::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Doma
   if (!Domain.IsOpenXmin())
   {
     gp_Lin2d                 L2(gp_Pnt2d(xmin, 0.), gp_Dir2d(0., -1.));
-    IntAna2d_AnaIntersection Inters2(theCurv, IntAna2d_Conic(L2));
+    AnalyticIntersection2d Inters2(theCurv, Conic2d(L2));
     if (Inters2.IsDone())
     {
       if (!Inters2.IsEmpty())
@@ -360,7 +360,7 @@ Standard_Integer Tool1::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Doma
   if (!Domain.IsOpenYmin())
   {
     gp_Lin2d                 L3(gp_Pnt2d(0., ymin), gp_Dir2d(1., 0.));
-    IntAna2d_AnaIntersection Inters3(theCurv, IntAna2d_Conic(L3));
+    AnalyticIntersection2d Inters3(theCurv, Conic2d(L3));
     if (Inters3.IsDone())
     {
       if (!Inters3.IsEmpty())
@@ -383,7 +383,7 @@ Standard_Integer Tool1::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Doma
   if (!Domain.IsOpenXmax())
   {
     gp_Lin2d                 L4(gp_Pnt2d(xmax, 0.), gp_Dir2d(0., 1.));
-    IntAna2d_AnaIntersection Inters4(theCurv, IntAna2d_Conic(L4));
+    AnalyticIntersection2d Inters4(theCurv, Conic2d(L4));
     if (Inters4.IsDone())
     {
       if (!Inters4.IsEmpty())
@@ -468,7 +468,7 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
 
     for (npi = 0; npi < nbPi; npi++)
     {
-      ElCLib::D1(parint[npi], theParab2d, Pn, Tan);
+      ElCLib1::D1(parint[npi], theParab2d, Pn, Tan);
       switch (bord[npi])
       {
         case 1:
@@ -523,7 +523,7 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
           Standard_Integer ip, pas = 1;
           for (ip = ipmin; ip <= ipmax; ip += pas)
           {
-            boxParab2d.Add(ElCLib::Value(Standard_Real(ip) / 10., theParab2d));
+            boxParab2d.Add(ElCLib1::Value(Standard_Real(ip) / 10., theParab2d));
             if (Abs(ip) <= 10)
               pas = 1;
             else
@@ -533,7 +533,7 @@ void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
       }
     }
   }
-  else if (!domain.IsOut(ElCLib::Value(0., theParab2d)))
+  else if (!domain.IsOut(ElCLib1::Value(0., theParab2d)))
   {
     boxParab2d      = domain;
     beginOnCurve[0] = -Precision::Infinite();
@@ -555,7 +555,7 @@ Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Dom
   if (!Domain.IsOpenYmax())
   {
     gp_Lin2d                 L1(gp_Pnt2d(0., ymax), gp_Dir2d(-1., 0.));
-    IntAna2d_AnaIntersection Inters1(theCurv, IntAna2d_Conic(L1));
+    AnalyticIntersection2d Inters1(theCurv, Conic2d(L1));
     if (Inters1.IsDone())
     {
       if (!Inters1.IsEmpty())
@@ -578,7 +578,7 @@ Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Dom
   if (!Domain.IsOpenXmin())
   {
     gp_Lin2d                 L2(gp_Pnt2d(xmin, 0.), gp_Dir2d(0., -1.));
-    IntAna2d_AnaIntersection Inters2(theCurv, IntAna2d_Conic(L2));
+    AnalyticIntersection2d Inters2(theCurv, Conic2d(L2));
     if (Inters2.IsDone())
     {
       if (!Inters2.IsEmpty())
@@ -601,7 +601,7 @@ Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Dom
   if (!Domain.IsOpenYmin())
   {
     gp_Lin2d                 L3(gp_Pnt2d(0., ymin), gp_Dir2d(1., 0.));
-    IntAna2d_AnaIntersection Inters3(theCurv, IntAna2d_Conic(L3));
+    AnalyticIntersection2d Inters3(theCurv, Conic2d(L3));
     if (Inters3.IsDone())
     {
       if (!Inters3.IsEmpty())
@@ -624,7 +624,7 @@ Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Dom
   if (!Domain.IsOpenXmax())
   {
     gp_Lin2d                 L4(gp_Pnt2d(xmax, 0.), gp_Dir2d(0., 1.));
-    IntAna2d_AnaIntersection Inters4(theCurv, IntAna2d_Conic(L4));
+    AnalyticIntersection2d Inters4(theCurv, Conic2d(L4));
     if (Inters4.IsDone())
     {
       if (!Inters4.IsEmpty())
@@ -648,7 +648,7 @@ Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Dom
 
 //=================================================================================================
 
-void Tool1::LinBox(const gp_Lin& L, const Bnd_Box& domain, Bnd_Box& boxLin)
+void Tool1::LinBox(const gp_Lin& L, const Box2& domain, Box2& boxLin)
 {
   nbSeg = 0;
   boxLin.SetVoid();
@@ -813,7 +813,7 @@ void Tool1::LinBox(const gp_Lin& L, const Bnd_Box& domain, Bnd_Box& boxLin)
 
 //=================================================================================================
 
-void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxHypr)
+void Tool1::HyprBox(const gp_Hypr& theHypr, const Box2& domain, Box2& boxHypr)
 {
   nbSeg = 0;
   boxHypr.SetVoid();
@@ -861,7 +861,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxH
 
     for (npi = 0; npi < nbPi; npi++)
     {
-      ElCLib::D1(parint[npi], theHypr, Pn, Tan);
+      ElCLib1::D1(parint[npi], theHypr, Pn, Tan);
       switch (bord[npi])
       {
         case 1:
@@ -926,7 +926,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxH
           pas = 1.;
           for (ip = ipmin; ip <= ipmax; ip += pas)
           {
-            boxHypr.Add(ElCLib::Value(ip / 10., theHypr));
+            boxHypr.Add(ElCLib1::Value(ip / 10., theHypr));
             pas = 10.;
             if (fabs(ip) <= 10.)
             {
@@ -941,7 +941,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxH
           ipmax=ipmax*10-1;
           Standard_Integer ip, pas=1;
           for (ip=ipmin; ip<=ipmax; ip+=pas) {
-            boxHypr.Add(ElCLib::Value(Standard_Real(ip)/10., theHypr));
+            boxHypr.Add(ElCLib1::Value(Standard_Real(ip)/10., theHypr));
 
             if (Abs(ip)<=10) {
               pas=1;
@@ -956,7 +956,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxH
       }
     }
   } // if (nbPi>0) {
-  else if (!domain.IsOut(ElCLib::Value(0., theHypr)))
+  else if (!domain.IsOut(ElCLib1::Value(0., theHypr)))
   {
     boxHypr = domain;
     // beginOnCurve[0]=-Precision::Infinite();
@@ -969,7 +969,7 @@ void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxH
 
 //=================================================================================================
 
-Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
+Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Box2& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -979,7 +979,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenXmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1002,7 +1002,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenYmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1025,7 +1025,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenZmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1048,7 +1048,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenXmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1071,7 +1071,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenYmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1094,7 +1094,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenZmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1152,7 +1152,7 @@ Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 
 //=================================================================================================
 
-Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
+Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Box2& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -1162,7 +1162,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenXmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(1., 0., 0., -xmin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1185,7 +1185,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenYmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 1., 0., -ymin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1208,7 +1208,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenZmin())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., 1., -zmin), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1231,7 +1231,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenXmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(-1., 0., 0., xmax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1254,7 +1254,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenYmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., -1., 0., ymax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1277,7 +1277,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
   if (!Domain.IsOpenZmax())
   {
-    IntAna_IntConicQuad Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
+    ConicQuadIntersection Inters1(theCurv, gp_Pln(0., 0., -1., zmax), Precision::Angular());
     if (Inters1.IsDone())
     {
       if (!Inters1.IsInQuadric())
@@ -1335,7 +1335,7 @@ Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 
 //=================================================================================================
 
-void Tool1::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& boxParab)
+void Tool1::ParabBox(const gp_Parab& theParab, const Box2& domain, Box2& boxParab)
 {
   nbSeg = 0;
   boxParab.SetVoid();
@@ -1378,7 +1378,7 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& b
 
     for (npi = 0; npi < nbPi; npi++)
     {
-      ElCLib::D1(parint[npi], theParab, Pn, Tan);
+      ElCLib1::D1(parint[npi], theParab, Pn, Tan);
       switch (bord[npi])
       {
         case 1:
@@ -1435,7 +1435,7 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& b
           Standard_Integer ip, pas = 1;
           for (ip = ipmin; ip <= ipmax; ip += pas)
           {
-            boxParab.Add(ElCLib::Value(Standard_Real(ip) / 10., theParab));
+            boxParab.Add(ElCLib1::Value(Standard_Real(ip) / 10., theParab));
             if (Abs(ip) <= 10)
               pas = 1;
             else
@@ -1445,7 +1445,7 @@ void Tool1::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& b
       }
     }
   }
-  else if (!domain.IsOut(ElCLib::Value(0., theParab)))
+  else if (!domain.IsOut(ElCLib1::Value(0., theParab)))
   {
     boxParab        = domain;
     beginOnCurve[0] = -Precision::Infinite();

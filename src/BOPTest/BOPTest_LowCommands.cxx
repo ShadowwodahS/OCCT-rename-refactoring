@@ -66,7 +66,7 @@ void BOPTest::LowCommands(DrawInterpreter& theCommands)
     "b2dclassify",
     "use b2dclassify Face Point2d [Tol] [UseBox] [GapCheckTol]\n"
     "Classify  the Point  Point2d  with  Tolerance <Tol> on the face described by <Face>.\n"
-    "<UseBox> == 1/0 (default <UseBox> = 0): switch on/off the use Bnd_Box in the classification.\n"
+    "<UseBox> == 1/0 (default <UseBox> = 0): switch on/off the use Box2 in the classification.\n"
     "<GapCheckTol> (default <GapCheckTol> = 0.1): this is for additional verification of\n"
     "the vertex with a tolerance >= <GapCheckTol>.",
     __FILE__,

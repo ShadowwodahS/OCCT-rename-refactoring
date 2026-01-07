@@ -39,10 +39,10 @@ void AnalyticCurveInfo::Perform(const GeomAbs_CurveType CType,
       Standard_Real U1, U2, U3, U4;
       Standard_Real UFPlus2PI = UFirst + 2 * M_PI;
 
-      U1 = ElCLib::InPeriod(0.0, UFirst, UFPlus2PI);
-      U2 = ElCLib::InPeriod(M_PI / 2., UFirst, UFPlus2PI);
-      U3 = ElCLib::InPeriod(M_PI, UFirst, UFPlus2PI);
-      U4 = ElCLib::InPeriod(3. * M_PI / 2., UFirst, UFPlus2PI);
+      U1 = ElCLib1::InPeriod(0.0, UFirst, UFPlus2PI);
+      U2 = ElCLib1::InPeriod(M_PI / 2., UFirst, UFPlus2PI);
+      U3 = ElCLib1::InPeriod(M_PI, UFirst, UFPlus2PI);
+      U4 = ElCLib1::InPeriod(3. * M_PI / 2., UFirst, UFPlus2PI);
 
       if (UFirst <= U1 && U1 <= ULast)
       {

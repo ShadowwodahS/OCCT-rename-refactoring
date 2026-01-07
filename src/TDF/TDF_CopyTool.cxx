@@ -32,30 +32,30 @@
 
 //=================================================================================================
 
-void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
+void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
                         const Handle(TDF_RelocationTable)& aRelocationTable)
 {
-  TDF_IDFilter privilegeFilter; // Ignore the target attribute's privilege!
-  TDF_IDFilter refFilter;       // Will not be used.
-  TDF_CopyTool::Copy(aSourceDataSet, aRelocationTable, privilegeFilter, refFilter, Standard_False);
+  IDFilter privilegeFilter; // Ignore the target attribute's privilege!
+  IDFilter refFilter;       // Will not be used.
+  CopyTool::Copy(aSourceDataSet, aRelocationTable, privilegeFilter, refFilter, Standard_False);
 }
 
 //=================================================================================================
 
-void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
+void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
                         const Handle(TDF_RelocationTable)& aRelocationTable,
-                        const TDF_IDFilter&                aPrivilegeFilter)
+                        const IDFilter&                aPrivilegeFilter)
 {
-  TDF_IDFilter refFilter; // Will not be used.
-  TDF_CopyTool::Copy(aSourceDataSet, aRelocationTable, aPrivilegeFilter, refFilter, Standard_False);
+  IDFilter refFilter; // Will not be used.
+  CopyTool::Copy(aSourceDataSet, aRelocationTable, aPrivilegeFilter, refFilter, Standard_False);
 }
 
 //=================================================================================================
 
-void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
+void CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
                         const Handle(TDF_RelocationTable)& aRelocationTable,
-                        const TDF_IDFilter&                aPrivilegeFilter,
-                        const TDF_IDFilter& /* aRefFilter */,
+                        const IDFilter&                aPrivilegeFilter,
+                        const IDFilter& /* aRefFilter */,
                         const Standard_Boolean /* setSelfContained */)
 {
   if (aSourceDataSet->IsEmpty())
@@ -83,7 +83,7 @@ void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
     if (theLabMap.IsBound(sLab))
     {
       DataLabel tIns(theLabMap.Find(sLab));
-      TDF_CopyTool::CopyLabels(sLab, tIns, theLabMap, theAttMap, srcLabs, srcAtts);
+      CopyTool::CopyLabels(sLab, tIns, theLabMap, theAttMap, srcLabs, srcAtts);
     }
     // if not bound : do nothing!
   }
@@ -114,17 +114,17 @@ void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
 // purpose  : Internal root label copy recursive method.
 //=======================================================================
 
-void TDF_CopyTool::CopyLabels(const DataLabel&        aSLabel,
+void CopyTool::CopyLabels(const DataLabel&        aSLabel,
                               DataLabel&              aTargetLabel,
                               TDF_LabelDataMap&       aLabMap,
                               TDF_AttributeDataMap&   aAttMap,
                               const TDF_LabelMap&     aSrcLabelMap,
                               const TDF_AttributeMap& aSrcAttributeMap)
 {
-  TDF_CopyTool::CopyAttributes(aSLabel, aTargetLabel, aAttMap, aSrcAttributeMap);
+  CopyTool::CopyAttributes(aSLabel, aTargetLabel, aAttMap, aSrcAttributeMap);
 
   // Does the same for the children.
-  for (TDF_ChildIterator childItr(aSLabel); childItr.More(); childItr.Next())
+  for (ChildIterator childItr(aSLabel); childItr.More(); childItr.Next())
   {
     const DataLabel& childSLab = childItr.Value();
     if (aSrcLabelMap.Contains(childSLab))
@@ -140,7 +140,7 @@ void TDF_CopyTool::CopyLabels(const DataLabel&        aSLabel,
         aLabMap.Bind(childSLab, childTIns);
       }
 
-      TDF_CopyTool::CopyLabels(childSLab,
+      CopyTool::CopyLabels(childSLab,
                                childTIns,
                                aLabMap,
                                aAttMap,
@@ -155,7 +155,7 @@ void TDF_CopyTool::CopyLabels(const DataLabel&        aSLabel,
 // purpose  : Internal attribute copy method.
 //=======================================================================
 
-void TDF_CopyTool::CopyAttributes(const DataLabel&        aSLabel,
+void CopyTool::CopyAttributes(const DataLabel&        aSLabel,
                                   DataLabel&              aTargetLabel,
                                   TDF_AttributeDataMap&   aAttMap,
                                   const TDF_AttributeMap& aSrcAttributeMap)
@@ -184,7 +184,7 @@ void TDF_CopyTool::CopyAttributes(const DataLabel&        aSLabel,
         if (tAtt->IsInstance(sAtt->DynamicType()))
           aAttMap.Bind(sAtt, tAtt);
         else
-          throw Standard_TypeMismatch("TDF_CopyTool: Cannot paste to a different type attribute.");
+          throw Standard_TypeMismatch("CopyTool: Cannot paste to a different type attribute.");
       }
     }
   }

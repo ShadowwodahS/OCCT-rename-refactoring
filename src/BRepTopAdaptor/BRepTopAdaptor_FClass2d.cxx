@@ -289,8 +289,8 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
           //  Modified by Sergey KHROMOV - Fri Apr 19 09:46:13 2002 End
           {
             gp_Lin2d      Lin(SeqPnt2d(ii - 2), gp_Dir2d(gp_Vec2d(SeqPnt2d(ii - 2), SeqPnt2d(ii))));
-            Standard_Real ul = ElCLib::Parameter(Lin, SeqPnt2d(ii - 1));
-            gp_Pnt2d      Pp = ElCLib::Value(ul, Lin);
+            Standard_Real ul = ElCLib1::Parameter(Lin, SeqPnt2d(ii - 1));
+            gp_Pnt2d      Pp = ElCLib1::Value(ul, Lin);
             Standard_Real dU = Abs(Pp.X() - SeqPnt2d(ii - 1).X());
             Standard_Real dV = Abs(Pp.Y() - SeqPnt2d(ii - 1).Y());
             //-- printf(" (du=%7.5g   dv=%7.5g)",dU,dV);
@@ -321,7 +321,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
       //// modified by jgv, 28.04.2009 ////
       PClass.Init(gp_Pnt2d(0., 0.));
       /////////////////////////////////////
-      TabClass.Append((void*)new CSLib_Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+      TabClass.Append((void*)new Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
       BadWire = 1;
       TabOrien.Append(-1);
     }
@@ -390,7 +390,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
               if (Abs(plbid - pfbid) < 1.e-9)
                 continue;
               BRepAdaptor_Curve2d           C(edge, Face);
-              GCPnts_QuasiUniformDeflection aDiscr(C, aDiscrDefl);
+              QuasiUniformDeflectionSampler aDiscr(C, aDiscrDefl);
               if (!aDiscr.IsDone())
                 break;
               Standard_Integer nbp   = aDiscr.NbPoints();
@@ -412,8 +412,8 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
               {
                 Standard_Integer ii = SeqPnt2d.Length();
                 gp_Lin2d Lin(SeqPnt2d(ii - 2), gp_Dir2d(gp_Vec2d(SeqPnt2d(ii - 2), SeqPnt2d(ii))));
-                Standard_Real ul = ElCLib::Parameter(Lin, SeqPnt2d(ii - 1));
-                gp_Pnt2d      Pp = ElCLib::Value(ul, Lin);
+                Standard_Real ul = ElCLib1::Parameter(Lin, SeqPnt2d(ii - 1));
+                gp_Pnt2d      Pp = ElCLib1::Value(ul, Lin);
                 Standard_Real dU = Abs(Pp.X() - SeqPnt2d(ii - 1).X());
                 Standard_Real dV = Abs(Pp.Y() - SeqPnt2d(ii - 1).Y());
                 if (dU > FlecheU)
@@ -463,7 +463,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
         if (FlecheV < Toluv)
           FlecheV = Toluv;
         //-- std::cout<<" U:"<<FlecheU<<" V:"<<FlecheV<<std::endl;
-        TabClass.Append((void*)new CSLib_Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+        TabClass.Append((void*)new Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
 
         //	      if((angle<2 && angle>-2)||(angle>10)||(angle<-10))
         //		{
@@ -492,7 +492,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
         xPClass(1) = SeqPnt2d(1);
         xPClass(2) = SeqPnt2d(2);
         TabClass.Append(
-          (void*)new CSLib_Class2d(xPClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+          (void*)new Class2d(xPClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
       }
     } // else if(WareIsNotEmpty
   } // for(FaceExplorer
@@ -616,7 +616,7 @@ TopAbs_State BRepTopAdaptor_FClass2d::Perform(const gp_Pnt2d&        _Puv,
     {
       for (Standard_Integer n = 1; n <= nbtabclass; n++)
       {
-        Standard_Integer cur = ((CSLib_Class2d*)TabClass(n))->SiDans(Puv);
+        Standard_Integer cur = ((Class2d*)TabClass(n))->SiDans(Puv);
         if (cur == 1)
         {
           if (TabOrien(n) == 0)
@@ -761,7 +761,7 @@ TopAbs_State BRepTopAdaptor_FClass2d::TestOnRestriction(
     {
       for (Standard_Integer n = 1; n <= nbtabclass; n++)
       {
-        Standard_Integer cur = ((CSLib_Class2d*)TabClass(n))->SiDans_OnMode(Puv, Tol);
+        Standard_Integer cur = ((Class2d*)TabClass(n))->SiDans_OnMode(Puv, Tol);
         if (cur == 1)
         {
           if (TabOrien(n) == 0)
@@ -845,7 +845,7 @@ void BRepTopAdaptor_FClass2d::Destroy()
   {
     if (TabClass(d))
     {
-      delete ((CSLib_Class2d*)TabClass(d));
+      delete ((Class2d*)TabClass(d));
       TabClass(d) = NULL;
     }
   }

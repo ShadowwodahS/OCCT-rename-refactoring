@@ -75,7 +75,7 @@ public:
   Handle(BOPDS_PaveBlock)& PaveBlock2() { return myPB2; }
 
   //
-  void SetBoxes(const Bnd_Box& theBox1, const Bnd_Box& theBox2)
+  void SetBoxes(const Box2& theBox1, const Box2& theBox2)
   {
     myBox1 = theBox1;
     myBox2 = theBox2;
@@ -133,8 +133,8 @@ public:
 protected:
   Handle(BOPDS_PaveBlock) myPB1;
   Handle(BOPDS_PaveBlock) myPB2;
-  Bnd_Box                 myBox1;
-  Bnd_Box                 myBox2;
+  Box2                 myBox1;
+  Box2                 myBox2;
 };
 
 //
@@ -217,7 +217,7 @@ void BooleanPaveFiller::PerformEE(const Message_ProgressRange& theRange)
       {
         return;
       }
-      Bnd_Box aBB1;
+      Box2 aBB1;
       //
       Handle(BOPDS_PaveBlock)& aPB1 = aIt1.ChangeValue();
       //
@@ -231,7 +231,7 @@ void BooleanPaveFiller::PerformEE(const Message_ProgressRange& theRange)
       aIt2.Initialize(aLPB2);
       for (; aIt2.More(); aIt2.Next())
       {
-        Bnd_Box aBB2;
+        Box2 aBB2;
         //
         Handle(BOPDS_PaveBlock)& aPB2 = aIt2.ChangeValue();
         //
@@ -286,7 +286,7 @@ void BooleanPaveFiller::PerformEE(const Message_ProgressRange& theRange)
     {
       return;
     }
-    Bnd_Box aBB1, aBB2;
+    Box2 aBB1, aBB2;
     //
     BOPAlgo_EdgeEdge& anEdgeEdge = aVEdgeEdge(k);
     if (!anEdgeEdge.IsDone() || anEdgeEdge.HasErrors())
@@ -625,7 +625,7 @@ void BooleanPaveFiller::PerformNewVertices(BOPDS_IndexedDataMapOfShapeCoupleOfPa
     Standard_Integer iV = myDS->Append(aSI);
     //
     BOPDS_ShapeInfo& aSIDS = myDS->ChangeShapeInfo(iV);
-    Bnd_Box&         aBox  = aSIDS.ChangeBox();
+    Box2&         aBox  = aSIDS.ChangeBox();
     aBox.Add(BRepInspector::Pnt(aV));
     aBox.SetGap(BRepInspector::Tolerance(aV) + aTolAdd);
     //
@@ -782,7 +782,7 @@ void BooleanPaveFiller::AnalyzeShrunkData(const Handle(BOPDS_PaveBlock)& thePB,
         AddWarning(new BOPAlgo_AlertBadPositioning(aWarnShape));
       Standard_Real aTS1, aTS2;
       theSR.ShrunkRange(aTS1, aTS2);
-      thePB->SetShrunkData(aTS1, aTS2, Bnd_Box(), Standard_False);
+      thePB->SetShrunkData(aTS1, aTS2, Box2(), Standard_False);
       return;
     }
     //
@@ -794,7 +794,7 @@ void BooleanPaveFiller::AnalyzeShrunkData(const Handle(BOPDS_PaveBlock)& thePB,
   //
   Standard_Real aTS1, aTS2;
   theSR.ShrunkRange(aTS1, aTS2);
-  Bnd_Box aBox = theSR.BndBox();
+  Box2 aBox = theSR.BndBox();
   aBox.SetGap(aBox.GetGap() + myFuzzyValue / 2.);
   thePB->SetShrunkData(aTS1, aTS2, aBox, theSR.IsSplittable());
 }
@@ -894,7 +894,7 @@ Standard_Boolean BooleanPaveFiller::GetPBBox(const TopoEdge&                theE
                                               Standard_Real&                    theLast,
                                               Standard_Real&                    theSFirst,
                                               Standard_Real&                    theSLast,
-                                              Bnd_Box&                          theBox)
+                                              Box2&                          theBox)
 {
   thePB->Range(theFirst, theLast);
   // check the validity of PB's range
@@ -924,7 +924,7 @@ Standard_Boolean BooleanPaveFiller::GetPBBox(const TopoEdge&                theE
     // build bounding box
     BRepAdaptor_Curve aBAC(theE);
     Standard_Real     aTol = BRepInspector::Tolerance(theE) + Precision::Confusion();
-    BndLib_Add3dCurve::Add(aBAC, theSFirst, theSLast, aTol, theBox);
+    Add3dCurve::Add(aBAC, theSFirst, theSLast, aTol, theBox);
     thePBBox.Bind(thePB, theBox);
   }
   return bValid;
@@ -1151,7 +1151,7 @@ void BooleanPaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
         anEdgeEdge.SetPaveBlock2(aPB2);
         anEdgeEdge.SetEdge1(aE1, aT11, aT12);
         anEdgeEdge.SetEdge2(aE2, aT21, aT22);
-        anEdgeEdge.SetBoxes(myDS->ShapeInfo(nE1).Box(), myDS->ShapeInfo(nE2).Box());
+        anEdgeEdge.SetBoxes(myDS->ShapeInfo(nE1).Box1(), myDS->ShapeInfo(nE2).Box1());
         if (bUseAddTol)
         {
           anEdgeEdge.SetFuzzyValue(myFuzzyValue + aTolAdd);

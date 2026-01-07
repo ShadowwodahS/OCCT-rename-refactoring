@@ -80,7 +80,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
   if (aShapeTool->Expand(aCompoundPartL))
   {
     // move attributes
-    for (TDF_ChildIterator aPartIter(aCompoundPartL, Standard_True); aPartIter.More();
+    for (ChildIterator aPartIter(aCompoundPartL, Standard_True); aPartIter.More();
          aPartIter.Next())
     {
       DataLabel aChild = aPartIter.Value();
@@ -126,7 +126,7 @@ Standard_Boolean XCAFDoc_Editor::Expand(const DataLabel&       theDoc,
     // if assembly contains compound, expand it recursively(if flag theRecursively is true)
     if (theRecursively)
     {
-      for (TDF_ChildIterator aPartIter(aCompoundPartL); aPartIter.More(); aPartIter.Next())
+      for (ChildIterator aPartIter(aCompoundPartL); aPartIter.More(); aPartIter.Next())
       {
         DataLabel aPart = aPartIter.Value();
         if (aShapeTool->GetReferredShape(aPart, aPart))
@@ -501,7 +501,7 @@ void XCAFDoc_Editor::CloneMetaData(
     else if (aDstShapeTool->GetReferredShape(theDstLabel, aRefLabel))
     {
       AsciiString1 aRefName;
-      TDF_Tool::Entry(aRefLabel, aRefName);
+      Tool3::Entry(aRefLabel, aRefName);
       aRefName.Insert(1, "=>");
       NameAttribute::Set(theDstLabel, aRefName);
     }
@@ -583,7 +583,7 @@ static Standard_Boolean shouldRescaleAndCheckRefLabels(
         continue;
       }
       DataLabel aLRef;
-      TDF_Tool::Label(theData, anItemId.GetPath().Last(), aLRef, Standard_False);
+      Tool3::Label(theData, anItemId.GetPath().Last(), aLRef, Standard_False);
       if (aLRef.IsNull() || !theGraph->GetNodes().Contains(aLRef))
       {
         theAllInG = Standard_False;
@@ -609,7 +609,7 @@ void XCAFDoc_Editor::GetChildShapeLabels(const DataLabel& theLabel, TDF_LabelMap
   }
   if (XCAFDoc_ShapeTool::IsAssembly(theLabel) || XCAFDoc_ShapeTool::IsSimpleShape(theLabel))
   {
-    for (TDF_ChildIterator aChildIter(theLabel); aChildIter.More(); aChildIter.Next())
+    for (ChildIterator aChildIter(theLabel); aChildIter.More(); aChildIter.Next())
     {
       const DataLabel& aChildLabel = aChildIter.Value();
       GetChildShapeLabels(aChildLabel, theRelatedLabels);
@@ -677,7 +677,7 @@ bool XCAFDoc_Editor::FilterShapeTree(const Handle(XCAFDoc_ShapeTool)& theShapeTo
     NCollection_MapAlgo::Unite(aLabelsToKeep, aInternalLabels);
     aInternalLabels.Clear(false);
   }
-  for (TDF_ChildIterator aLabelIter(theShapeTool->Label(), true); aLabelIter.More();
+  for (ChildIterator aLabelIter(theShapeTool->Label(), true); aLabelIter.More();
        aLabelIter.Next())
   {
     const DataLabel& aLabel = aLabelIter.Value();
@@ -734,7 +734,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
     if (!aFound)
     {
       AsciiString1 anEntry;
-      TDF_Tool::Entry(theLabel, anEntry);
+      Tool3::Entry(theLabel, anEntry);
       Standard_SStream aSS;
       aSS << "Label " << anEntry << " is not a root. Set ForceIfNotRoot true to rescale forcibly.";
       Message::SendFail(aSS.str().c_str());
@@ -776,7 +776,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
         {
           Standard_SStream        aSS;
           AsciiString1 anEntry;
-          TDF_Tool::Entry(aLabel, anEntry);
+          Tool3::Entry(aLabel, anEntry);
           aSS << "Shape " << anEntry << " is not scaled!";
           Message::SendFail(aSS.str().c_str());
           anIsDone = Standard_False;
@@ -842,7 +842,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
       const DataLabel& aDimension = anItD.Value();
 
       AsciiString1 anEntryDimension;
-      TDF_Tool::Entry(aDimension, anEntryDimension);
+      Tool3::Entry(aDimension, anEntryDimension);
 
       Handle(XCAFDoc_Dimension) aDimAttr;
       if (aDimension.FindAttribute(XCAFDoc_Dimension::GetID(), aDimAttr))
@@ -1003,7 +1003,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
       const DataLabel& aDatum = anIt.Value();
 
       AsciiString1 anEntryDatum;
-      TDF_Tool::Entry(aDatum, anEntryDatum);
+      Tool3::Entry(aDatum, anEntryDatum);
 
       Handle(XCAFDoc_Datum) aDatumAttr;
       if (aDatum.FindAttribute(XCAFDoc_Datum::GetID(), aDatumAttr))
@@ -1051,7 +1051,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const DataLabel&       theLabel
       const DataLabel& aDimTol = anIt.Value();
 
       AsciiString1 anEntryDimTol;
-      TDF_Tool::Entry(aDimTol, anEntryDimTol);
+      Tool3::Entry(aDimTol, anEntryDimTol);
 
       Handle(XCAFDoc_DimTol) aDimTolAttr;
       if (aDimTol.FindAttribute(XCAFDoc_DimTol::GetID(), aDimTolAttr))

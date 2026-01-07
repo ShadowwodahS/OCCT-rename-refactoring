@@ -79,7 +79,7 @@ AppParCurves_ResolConstraint::
   gp_Vec2d V2d;
   Point3d Poi;
   gp_Pnt2d Poi2d;
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint FC = AppParCurves_NoConstraint, 
                           LC = AppParCurves_NoConstraint, Cons;
 
@@ -612,7 +612,7 @@ const math_Matrix& AppParCurves_ResolConstraint::
 	  Tmax = Abs(T3);
 	  Ibont(k, i) = 3;
 	}
-        AppParCurves::SecondDerivativeBernstein(Parameters(Npt), DDA);
+        AppParCurves1::SecondDerivativeBernstein(Parameters(Npt), DDA);
 	if (Ibont(k, i) == 3) {
 	  for (j = 1; j <= Npol; j++) {
 	    DDaij = DDA(j);
@@ -647,7 +647,7 @@ const math_Matrix& AppParCurves_ResolConstraint::
     else {
       for (i = 1; i <= IncTan; i++) {
 	Npt = ITan(i);
-	AppParCurves::SecondDerivativeBernstein(Parameters(Npt), DDA);
+	AppParCurves1::SecondDerivativeBernstein(Parameters(Npt), DDA);
 	ToolLine::Tangency(SSP, Npt, tabV2d);
 	V2d = tabV2d(k);
 	V2d.Coord(T1, T2);
@@ -674,7 +674,7 @@ const math_Matrix& AppParCurves_ResolConstraint::
   for (i =1; i <= IncTan; i++) {
     IncCol = 0;
     Npt = ITan(i);
-    AppParCurves::SecondDerivativeBernstein(Parameters(Npt), DDA);
+    AppParCurves1::SecondDerivativeBernstein(Parameters(Npt), DDA);
 //    MultiPoint MP = ToolLine::Value(SSP, Npt);
     for (k = 1; k <= NbCu-1; k++) {
       Inc3 = Inc3 + 1;

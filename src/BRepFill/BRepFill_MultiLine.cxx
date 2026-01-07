@@ -215,7 +215,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
 
   if (UU1->IsPeriodic())
   {
-    ElCLib::AdjustPeriodic(UU1->FirstParameter(),
+    ElCLib1::AdjustPeriodic(UU1->FirstParameter(),
                            UU1->LastParameter(),
                            Precision::PConfusion(),
                            Umin,
@@ -223,7 +223,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   }
   if (VV1->IsPeriodic())
   {
-    ElCLib::AdjustPeriodic(VV1->FirstParameter(),
+    ElCLib1::AdjustPeriodic(VV1->FirstParameter(),
                            VV1->LastParameter(),
                            Precision::PConfusion(),
                            Vmin,
@@ -231,12 +231,12 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   }
   // end try duplication
 
-  myU1 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(UU1, BasisPlane), Umin, Umax);
+  myU1 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(UU1, BasisPlane), Umin, Umax);
 
   UU1->D1(Umin, P, DZ);
   RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
 
-  myV1 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(VV1, RefPlane), Vmin, Vmax);
+  myV1 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(VV1, RefPlane), Vmin, Vmax);
 
   First = Standard_True;
   for (Exp.Init(myFace2, TopAbs_EDGE); Exp.More(); Exp.Next())
@@ -332,7 +332,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
 
   if (UU2->IsPeriodic())
   {
-    ElCLib::AdjustPeriodic(UU2->FirstParameter(),
+    ElCLib1::AdjustPeriodic(UU2->FirstParameter(),
                            UU2->LastParameter(),
                            Precision::PConfusion(),
                            Umin,
@@ -340,7 +340,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   }
   if (VV2->IsPeriodic())
   {
-    ElCLib::AdjustPeriodic(VV2->FirstParameter(),
+    ElCLib1::AdjustPeriodic(VV2->FirstParameter(),
                            VV2->LastParameter(),
                            Precision::PConfusion(),
                            Vmin,
@@ -348,11 +348,11 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
   }
   // end try duplication
 
-  myU2 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(UU2, BasisPlane), Umin, Umax);
+  myU2 = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(UU2, BasisPlane), Umin, Umax);
 
   UU2->D1(Umin, P, DZ);
   RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
-  myV2     = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(VV2, RefPlane), Vmin, Vmax);
+  myV2     = Geom2dAdaptor_Curve(GeomProjLib1::Curve2d(VV2, RefPlane), Vmin, Vmax);
 
   // eval if in a particular case.
   // Particular case if :
@@ -496,7 +496,7 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
     Handle(GeomLine) Line = new GeomLine(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
-    Curve = GeomProjLib::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
+    Curve = GeomProjLib1::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
 
 #ifdef DRAW
     if (AffichCurve)
@@ -513,7 +513,7 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
 #endif
 
     // eval PCurve1
-    PCurve1 = GeomProjLib::Curve2d(Curve, Plane);
+    PCurve1 = GeomProjLib1::Curve2d(Curve, Plane);
 
     // eval PCurve2
     S = BRepInspector::Surface(myFace2, L);
@@ -522,7 +522,7 @@ void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
     if (S->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
       S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
     Plane   = Handle(GeomPlane)::DownCast(S);
-    PCurve2 = GeomProjLib::Curve2d(Curve, Plane);
+    PCurve2 = GeomProjLib1::Curve2d(Curve, Plane);
   }
 }
 
@@ -605,7 +605,7 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
         Standard_Real Ang  = Axis.Angle(D12d);
         if (!TheU.Circle().IsDirect())
           Ang = -Ang;
-        UU   = ElCLib::InPeriod(Ang, TheU.FirstParameter(), TheU.FirstParameter() + 2 * M_PI);
+        UU   = ElCLib1::InPeriod(Ang, TheU.FirstParameter(), TheU.FirstParameter() + 2 * M_PI);
         Dist = TheU.Circle().Radius();
       }
       else

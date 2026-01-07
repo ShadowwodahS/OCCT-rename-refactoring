@@ -166,7 +166,7 @@ Ax1 Geom_Parabola::Directrix() const
 void Geom_Parabola::D0(const Standard_Real U, Pnt& P) const
 {
 
-  P = ElCLib::ParabolaValue(U, pos, focalLength);
+  P = ElCLib1::ParabolaValue(U, pos, focalLength);
 }
 
 //=================================================================================================
@@ -174,7 +174,7 @@ void Geom_Parabola::D0(const Standard_Real U, Pnt& P) const
 void Geom_Parabola::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 {
 
-  ElCLib::ParabolaD1(U, pos, focalLength, P, V1);
+  ElCLib1::ParabolaD1(U, pos, focalLength, P, V1);
 }
 
 //=================================================================================================
@@ -182,7 +182,7 @@ void Geom_Parabola::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 void Geom_Parabola::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 {
 
-  ElCLib::ParabolaD2(U, pos, focalLength, P, V1, V2);
+  ElCLib1::ParabolaD2(U, pos, focalLength, P, V1, V2);
 }
 
 //=================================================================================================
@@ -190,7 +190,7 @@ void Geom_Parabola::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 void Geom_Parabola::D3(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2, Vec& V3) const
 {
 
-  ElCLib::ParabolaD2(U, pos, focalLength, P, V1, V2);
+  ElCLib1::ParabolaD2(U, pos, focalLength, P, V1, V2);
   V3.SetCoord(0.0, 0.0, 0.0);
 }
 
@@ -200,7 +200,7 @@ Vec Geom_Parabola::DN(const Standard_Real U, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::ParabolaDN(U, pos, focalLength, N);
+  return ElCLib1::ParabolaDN(U, pos, focalLength, N);
 }
 
 //=================================================================================================

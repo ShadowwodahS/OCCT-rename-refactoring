@@ -30,13 +30,13 @@
 #include <GeomAbs_Shape.hxx>
 class math_Matrix;
 
-//! PLib means Polynomial  functions library.  This pk
+//! PLib1 means Polynomial  functions library.  This pk
 //! provides  basic       computation    functions for
 //! polynomial functions.
 //! Note: weight arrays can be passed by pointer for
 //! some functions so that NULL pointer is valid.
 //! That means no weights passed.
-class PLib
+class PLib1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -79,7 +79,7 @@ public:
                                        TColgp_Array1OfPnt2d&       Poles,
                                        TColStd_Array1OfReal&       Weights);
 
-  //! Returns the Binomial Cnp. N should be <= BSplCLib::MaxDegree().
+  //! Returns the Binomial Cnp. N should be <= BSplCLib1::MaxDegree().
   Standard_EXPORT static Standard_Real Bin(const Standard_Integer N, const Standard_Integer P);
 
   //! Computes the derivatives of a ratio at order

@@ -451,7 +451,7 @@ static void SetMinMaxValuesCallback(Graphic3d_CView* theView)
   if (aView == NULL)
     return;
 
-  Bnd_Box aBox = theView->MinMaxValues();
+  Box2 aBox = theView->MinMaxValues();
   if (!aBox.IsVoid())
   {
     Point3d aMin = aBox.CornerMin();
@@ -867,20 +867,20 @@ Handle(Graphic3d_Layer) OpenGl_View::Layer(const Graphic3d_ZLayerId theLayerId) 
 
 //=================================================================================================
 
-Bnd_Box OpenGl_View::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
+Box2 OpenGl_View::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
 {
   if (!IsDefined())
   {
-    return Bnd_Box();
+    return Box2();
   }
 
-  Bnd_Box aBox = base_type::MinMaxValues(theToIncludeAuxiliary);
+  Box2 aBox = base_type::MinMaxValues(theToIncludeAuxiliary);
 
   // make sure that stats overlay isn't clamped on hardware with unavailable depth clamping
   if (theToIncludeAuxiliary && myRenderParams.ToShowStats
       && !myWorkspace->GetGlContext()->arbDepthClamp)
   {
-    Bnd_Box aStatsBox(Point3d(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0),
+    Box2 aStatsBox(Point3d(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0),
                       Point3d(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0));
     myRenderParams.StatsPosition->Apply(myCamera,
                                         myCamera->ProjectionMatrix(),

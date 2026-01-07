@@ -300,7 +300,7 @@ Standard_Integer GeomFill_GuideTrihedronAC::NbIntervals(const GeomAbs_Shape S) c
   myGuideAC->Intervals(DiscG, S);
 
   TColStd_SequenceOfReal Seq;
-  GeomLib::FuseIntervals(DiscC, DiscG, Seq);
+  GeomLib1::FuseIntervals(DiscC, DiscG, Seq);
 
   return Seq.Length() - 1;
 }
@@ -318,7 +318,7 @@ void GeomFill_GuideTrihedronAC::Intervals(TColStd_Array1OfReal& TT, const GeomAb
   myGuideAC->Intervals(DiscG, S);
 
   TColStd_SequenceOfReal Seq;
-  GeomLib::FuseIntervals(DiscC, DiscG, Seq);
+  GeomLib1::FuseIntervals(DiscC, DiscG, Seq);
   Nb = Seq.Length();
 
   for (ii = 1; ii <= Nb; ii++)

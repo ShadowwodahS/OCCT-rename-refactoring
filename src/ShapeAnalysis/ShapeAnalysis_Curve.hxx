@@ -135,13 +135,13 @@ public:
   //! Computes a boundary box on segment of curve C2d from First
   //! to Last. This is done by taking NPoints points from the
   //! curve and, if Exact is True, by searching for exact
-  //! extrema. All these points are added to Box.
+  //! extrema. All these points are added to Box1.
   Standard_EXPORT void FillBndBox(const Handle(GeomCurve2d)& C2d,
                                   const Standard_Real         First,
                                   const Standard_Real         Last,
                                   const Standard_Integer      NPoints,
                                   const Standard_Boolean      Exact,
-                                  Bnd_Box2d&                  Box) const;
+                                  Bnd_Box2d&                  Box1) const;
 
   //! Defines which pcurve (C1 or C2) should be chosen for FORWARD
   //! seam edge.

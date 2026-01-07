@@ -99,8 +99,8 @@ void GeomFill_GuideTrihedronPlan::Init()
 {
   myStatus = GeomFill_PipeOk;
   Point3d P;
-  //  Bnd_Box2d Box;
-  //  Box.Update(-0.1, -0.1, 0.1, 0.1); // Taille minimal
+  //  Bnd_Box2d Box1;
+  //  Box1.Update(-0.1, -0.1, 0.1, 0.1); // Taille minimal
   Vector3d           Tangent, Normal, BiNormal;
   Standard_Integer ii;
   Standard_Real    t, DeltaG, w = 0.;
@@ -652,6 +652,6 @@ void GeomFill_GuideTrihedronPlan::InitX(const Standard_Real Param)
   }
   if (myGuide->IsPeriodic())
   {
-    X(1) = ElCLib::InPeriod(X(1), myGuide->FirstParameter(), myGuide->LastParameter());
+    X(1) = ElCLib1::InPeriod(X(1), myGuide->FirstParameter(), myGuide->LastParameter());
   }
 }

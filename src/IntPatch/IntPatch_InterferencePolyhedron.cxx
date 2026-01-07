@@ -213,8 +213,8 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
                                                 const Standard_Integer     Tri2,
                                                 const IntPatch_Polyhedron& SeconPol)
 {
-  PolyhedronTool::Triangle(FirstPol, Tri1, OI[0], OI[1], OI[2]);
-  PolyhedronTool::Triangle(SeconPol, Tri2, TI[0], TI[1], TI[2]);
+  PolyhedronTool::Triangle1(FirstPol, Tri1, OI[0], OI[1], OI[2]);
+  PolyhedronTool::Triangle1(SeconPol, Tri2, TI[0], TI[1], TI[2]);
 
   // If there is an intersection of a polyhedron with itself, the
   // intersections are excluded

@@ -20,6 +20,6 @@
 #include <Extrema_POnSurf.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Extrema_POnSurf> Extrema_SequenceOfPOnSurf;
+typedef NCollection_Sequence<PointOnSurface1> Extrema_SequenceOfPOnSurf;
 
 #endif

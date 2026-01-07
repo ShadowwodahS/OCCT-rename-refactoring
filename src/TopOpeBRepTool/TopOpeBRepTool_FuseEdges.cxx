@@ -348,8 +348,8 @@ void TopOpeBRepTool_FuseEdges::BuildListResultEdges()
         {
           Point3d PF = BRepInspector::Pnt(VF);
           Point3d PL = BRepInspector::Pnt(VL);
-          GeomLib::ExtendCurveToPoint(ExtC, PF, 1, 0);
-          GeomLib::ExtendCurveToPoint(ExtC, PL, 1, 1);
+          GeomLib1::ExtendCurveToPoint(ExtC, PF, 1, 0);
+          GeomLib1::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
           ME.Init(ExtC, VF, VL);
           if (!ME.IsDone())
@@ -990,7 +990,7 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::UpdatePCurve(const TopoEdge&         
             Handle(Geom2d_BSplineCurve) bc = Handle(Geom2d_BSplineCurve)::DownCast(Curv2d);
             TColStd_Array1OfReal        Knots(1, bc->NbKnots());
             bc->Knots(Knots);
-            BSplCLib::Reparametrize(ef, el, Knots);
+            BSplCLib1::Reparametrize(ef, el, Knots);
             bc->SetKnots(Knots);
           }
           pcurveRebuilt = Standard_True;

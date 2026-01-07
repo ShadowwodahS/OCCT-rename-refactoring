@@ -1279,7 +1279,7 @@ void CameraOn3d::LookOrientation(const NCollection_Vec3<Elem_t>& theEye,
 
 //=================================================================================================
 
-bool CameraOn3d::FitMinMax(const Bnd_Box&      theBox,
+bool CameraOn3d::FitMinMax(const Box2&      theBox,
                                  const Standard_Real theResolution,
                                  const bool          theToEnlargeIfLine)
 {
@@ -1441,8 +1441,8 @@ bool CameraOn3d::FitMinMax(const Bnd_Box&      theBox,
 //=================================================================================================
 
 bool CameraOn3d::ZFitAll(const Standard_Real theScaleFactor,
-                               const Bnd_Box&      theMinMax,
-                               const Bnd_Box&      theGraphicBB,
+                               const Box2&      theMinMax,
+                               const Box2&      theGraphicBB,
                                Standard_Real&      theZNear,
                                Standard_Real&      theZFar) const
 {

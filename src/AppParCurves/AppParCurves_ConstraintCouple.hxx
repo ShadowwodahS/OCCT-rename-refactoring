@@ -25,17 +25,17 @@
 
 //! associates an index and a constraint for an object.
 //! This couple is used by AppDef_TheVariational when performing approximations.
-class AppParCurves_ConstraintCouple
+class ConstraintCouple
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! returns an indefinite ConstraintCouple.
-  Standard_EXPORT AppParCurves_ConstraintCouple();
+  Standard_EXPORT ConstraintCouple();
 
   //! Create a couple the object <Index> will have the
   //! constraint <Cons>.
-  Standard_EXPORT AppParCurves_ConstraintCouple(const Standard_Integer        TheIndex,
+  Standard_EXPORT ConstraintCouple(const Standard_Integer        TheIndex,
                                                 const AppParCurves_Constraint Cons);
 
   //! returns the index of the constraint object.

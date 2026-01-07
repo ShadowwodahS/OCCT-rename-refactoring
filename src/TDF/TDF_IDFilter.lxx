@@ -21,12 +21,12 @@
 
 #include <TDF_Attribute.hxx>
 
-inline Standard_Boolean TDF_IDFilter::IgnoreAll() const
+inline Standard_Boolean IDFilter::IgnoreAll() const
 {
   return myIgnore;
 }
 
-inline Standard_Boolean TDF_IDFilter::IsKept(const Standard_GUID& anID) const
+inline Standard_Boolean IDFilter::IsKept(const Standard_GUID& anID) const
 {
   return (myIgnore == myIDMap.Contains(anID));
 }
@@ -35,17 +35,17 @@ inline Standard_Boolean TDF_IDFilter::IsKept(const Standard_GUID& anID) const
 // Standard_Boolean IsBound = myIDMap.Contains(anID);
 // return myIgnore ? IsBound : !IsBound;
 
-inline Standard_Boolean TDF_IDFilter::IsKept(const Handle(TDF_Attribute)& anAtt) const
+inline Standard_Boolean IDFilter::IsKept(const Handle(TDF_Attribute)& anAtt) const
 {
   return IsKept(anAtt->ID());
 }
 
-inline Standard_Boolean TDF_IDFilter::IsIgnored(const Standard_GUID& anID) const
+inline Standard_Boolean IDFilter::IsIgnored(const Standard_GUID& anID) const
 {
   return (myIgnore != myIDMap.Contains(anID));
 }
 
-inline Standard_Boolean TDF_IDFilter::IsIgnored(const Handle(TDF_Attribute)& anAtt) const
+inline Standard_Boolean IDFilter::IsIgnored(const Handle(TDF_Attribute)& anAtt) const
 {
   return IsIgnored(anAtt->ID());
 }

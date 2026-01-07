@@ -455,7 +455,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     Standard_Real aShapeVOffset = aCenterVOffset - aTextHeight / 2.0;
 
     // center shape in its bounding box (suppress border spacing added by FT_Font)
-    Bnd_Box aShapeBnd;
+    Box2 aShapeBnd;
     BRepBndLib::AddClose(aTextShape, aShapeBnd);
 
     Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
@@ -564,7 +564,7 @@ void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresen
   if (hasLabel && (theMode == ComputeMode_All || theMode == ComputeMode_Text))
   {
     // compute text primitives; get its model width
-    Point3d aTextPos = ElCLib::Value(theExtensionSize, anExtensionLine);
+    Point3d aTextPos = ElCLib1::Value(theExtensionSize, anExtensionLine);
     Dir3d aTextDir = theExtensionDir;
 
     Handle(Graphic3d_Group) aGroup = thePresentation->NewGroup();
@@ -582,8 +582,8 @@ void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresen
   // compute graphical primitives and sensitives for extension line
   Point3d anExtStart = theExtensionStart;
   Point3d anExtEnd   = !hasLabel || isShortLine
-                        ? ElCLib::Value(theExtensionSize, anExtensionLine)
-                        : ElCLib::Value(theExtensionSize + theLabelWidth, anExtensionLine);
+                        ? ElCLib1::Value(theExtensionSize, anExtensionLine)
+                        : ElCLib1::Value(theExtensionSize + theLabelWidth, anExtensionLine);
 
   // add graphical primitives
   Handle(Graphic3d_ArrayOfSegments) anExtPrimitive = new Graphic3d_ArrayOfSegments(2);
@@ -735,10 +735,10 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
         // compute continuous or sectioned main line segments
         if (isLineBreak)
         {
-          Standard_Real aPTextPosition = ElCLib::Parameter(aDimensionLine, aTextPos);
+          Standard_Real aPTextPosition = ElCLib1::Parameter(aDimensionLine, aTextPos);
           Point3d        aSection1Beg   = aCenterLineBegin;
-          Point3d aSection1End = ElCLib::Value(aPTextPosition - (aLabelWidth * 0.5), aDimensionLine);
-          Point3d aSection2Beg = ElCLib::Value(aPTextPosition + (aLabelWidth * 0.5), aDimensionLine);
+          Point3d aSection1End = ElCLib1::Value(aPTextPosition - (aLabelWidth * 0.5), aDimensionLine);
+          Point3d aSection2Beg = ElCLib1::Value(aPTextPosition + (aLabelWidth * 0.5), aDimensionLine);
           Point3d aSection2End = aCenterLineEnd;
 
           aPrimSegments->AddVertex(aSection1Beg);
@@ -1005,8 +1005,8 @@ void PrsDim_Dimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
   gp_Lin aLine2(theSecondPoint, aFlyoutVector);
 
   // Get flyout end points
-  theLineBegPoint = ElCLib::Value(ElCLib::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
-  theLineEndPoint = ElCLib::Value(ElCLib::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
+  theLineBegPoint = ElCLib1::Value(ElCLib1::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
+  theLineEndPoint = ElCLib1::Value(ElCLib1::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
 }
 
 //=================================================================================================
@@ -1029,9 +1029,9 @@ void PrsDim_Dimension::ComputeLinearFlyouts(const Handle(SelectionContainer)&   
 
   // get flyout end points
   Point3d aFlyoutEnd1 =
-    ElCLib::Value(ElCLib::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
+    ElCLib1::Value(ElCLib1::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
   Point3d aFlyoutEnd2 =
-    ElCLib::Value(ElCLib::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
+    ElCLib1::Value(ElCLib1::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
 
   // fill sensitive entity for flyouts
   Handle(Select3D_SensitiveGroup) aSensitiveEntity = new Select3D_SensitiveGroup(theOwner);
@@ -1202,8 +1202,8 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theSha
           theCircle = aMkCirc.Value()->Circ();
         }
 
-        aFirstPoint = ElCLib::Value(aFirstU, theCircle);
-        aLastPoint  = ElCLib::Value(aLastU, theCircle);
+        aFirstPoint = ElCLib1::Value(aFirstU, theCircle);
+        aLastPoint  = ElCLib1::Value(aLastU, theCircle);
       }
       break;
     }
@@ -1249,8 +1249,8 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theSha
   }
   else // Arc
   {
-    aFirstParam = ElCLib::Parameter(theCircle, aFirstPoint);
-    aLastParam  = ElCLib::Parameter(theCircle, aLastPoint);
+    aFirstParam = ElCLib1::Parameter(theCircle, aFirstPoint);
+    aLastParam  = ElCLib1::Parameter(theCircle, aLastPoint);
     if (aFirstParam > aLastParam)
     {
       aFirstParam -= 2.0 * M_PI;
@@ -1258,7 +1258,7 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theSha
 
     Standard_Real aParCurPos = (aFirstParam + aLastParam) * 0.5;
     Vector3d        aVec =
-      Vector3d(aCenter, ElCLib::Value(aParCurPos, theCircle)).Normalized() * theCircle.Radius();
+      Vector3d(aCenter, ElCLib1::Value(aParCurPos, theCircle)).Normalized() * theCircle.Radius();
     theMiddleArcPoint = aCenter.Translated(aVec);
   }
 
@@ -1417,13 +1417,13 @@ void PrsDim_Dimension::PointsForArrow(const Point3d&       thePeakPnt,
                                       Point3d&             theSidePnt2)
 {
   gp_Lin anArrowLin(thePeakPnt, theDirection.Reversed());
-  Point3d anArrowEnd = ElCLib::Value(theArrowLength, anArrowLin);
+  Point3d anArrowEnd = ElCLib1::Value(theArrowLength, anArrowLin);
   gp_Lin anEdgeLin(anArrowEnd, theDirection.Crossed(thePlane));
 
   Standard_Real anEdgeLength = Tan(theArrowAngle) * theArrowLength;
 
-  theSidePnt1 = ElCLib::Value(anEdgeLength, anEdgeLin);
-  theSidePnt2 = ElCLib::Value(-anEdgeLength, anEdgeLin);
+  theSidePnt1 = ElCLib1::Value(anEdgeLength, anEdgeLin);
+  theSidePnt2 = ElCLib1::Value(-anEdgeLength, anEdgeLin);
 }
 
 //=================================================================================================
@@ -1463,9 +1463,9 @@ Point3d PrsDim_Dimension::GetTextPositionForLinear(const Point3d&          theFi
   gp_Lin aLine2(theSecondPoint, aFlyoutVector);
   // Get flyout end points
   Point3d aLineBegPoint =
-    ElCLib::Value(ElCLib::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
+    ElCLib1::Value(ElCLib1::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
   Point3d aLineEndPoint =
-    ElCLib::Value(ElCLib::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
+    ElCLib1::Value(ElCLib1::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
 
   // Get text position.
   switch (aLabelPosition & LabelPosition_HMask)
@@ -1609,9 +1609,9 @@ void PrsDim_Dimension::FitTextAlignmentForLinear(
 
   // Get flyout end points
   Point3d aLineBegPoint =
-    ElCLib::Value(ElCLib::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
+    ElCLib1::Value(ElCLib1::Parameter(aLine1, theFirstPoint) + GetFlyout(), aLine1);
   Point3d aLineEndPoint =
-    ElCLib::Value(ElCLib::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
+    ElCLib1::Value(ElCLib1::Parameter(aLine2, theSecondPoint) + GetFlyout(), aLine2);
 
   Handle(Prs3d_DimensionAspect) aDimensionAspect = myDrawer->DimensionAspect();
 

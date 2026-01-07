@@ -20,9 +20,9 @@
 #include <Bnd_Box.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<IntTools_SurfaceRangeSample, Bnd_Box>
+typedef NCollection_DataMap<IntTools_SurfaceRangeSample, Box2>
   IntTools_DataMapOfSurfaceSampleBox;
-typedef NCollection_DataMap<IntTools_SurfaceRangeSample, Bnd_Box>::Iterator
+typedef NCollection_DataMap<IntTools_SurfaceRangeSample, Box2>::Iterator
   IntTools_DataMapIteratorOfDataMapOfSurfaceSampleBox;
 
 #endif

@@ -40,7 +40,7 @@
 //! twice the focal length).
 //! See Also
 //! GCE2d_MakeParab2d which provides functions for
-//! more complex parabola constructions
+//! more complex1 parabola constructions
 //! Geom2d_Parabola which provides additional functions
 //! for constructing parabolas and works, in particular, with
 //! the parametric equations of parabolas

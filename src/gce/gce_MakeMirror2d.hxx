@@ -33,20 +33,20 @@ class gp_Dir2d;
 //! A MakeMirror2d object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and consulting the result.
-class gce_MakeMirror2d
+class MirrorBuilder2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT gce_MakeMirror2d(const gp_Pnt2d& Point);
+  Standard_EXPORT MirrorBuilder2d(const gp_Pnt2d& Point);
 
-  Standard_EXPORT gce_MakeMirror2d(const gp_Ax2d& Axis);
+  Standard_EXPORT MirrorBuilder2d(const gp_Ax2d& Axis);
 
-  Standard_EXPORT gce_MakeMirror2d(const gp_Lin2d& Line);
+  Standard_EXPORT MirrorBuilder2d(const gp_Lin2d& Line);
 
   //! Makes a symmetry transformation af axis defined by
   //! <Point> and <Direc>.
-  Standard_EXPORT gce_MakeMirror2d(const gp_Pnt2d& Point, const gp_Dir2d& Direc);
+  Standard_EXPORT MirrorBuilder2d(const gp_Pnt2d& Point, const gp_Dir2d& Direc);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const gp_Trsf2d& Value() const;

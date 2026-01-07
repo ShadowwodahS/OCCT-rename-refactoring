@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-Convert_ElementarySurfaceToBSplineSurface::Convert_ElementarySurfaceToBSplineSurface(
+ElementaryToBSplineSurface::ElementaryToBSplineSurface(
   const Standard_Integer NbUPoles,
   const Standard_Integer NbVPoles,
   const Standard_Integer NbUKnots,
@@ -47,63 +47,63 @@ Convert_ElementarySurfaceToBSplineSurface::Convert_ElementarySurfaceToBSplineSur
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::UDegree() const
+Standard_Integer ElementaryToBSplineSurface::UDegree() const
 {
   return udegree;
 }
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::VDegree() const
+Standard_Integer ElementaryToBSplineSurface::VDegree() const
 {
   return vdegree;
 }
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::NbUPoles() const
+Standard_Integer ElementaryToBSplineSurface::NbUPoles() const
 {
   return nbUPoles;
 }
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::NbVPoles() const
+Standard_Integer ElementaryToBSplineSurface::NbVPoles() const
 {
   return nbVPoles;
 }
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::NbUKnots() const
+Standard_Integer ElementaryToBSplineSurface::NbUKnots() const
 {
   return nbUKnots;
 }
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::NbVKnots() const
+Standard_Integer ElementaryToBSplineSurface::NbVKnots() const
 {
   return nbVKnots;
 }
 
 //=================================================================================================
 
-Standard_Boolean Convert_ElementarySurfaceToBSplineSurface::IsUPeriodic() const
+Standard_Boolean ElementaryToBSplineSurface::IsUPeriodic() const
 {
   return isuperiodic;
 }
 
 //=================================================================================================
 
-Standard_Boolean Convert_ElementarySurfaceToBSplineSurface::IsVPeriodic() const
+Standard_Boolean ElementaryToBSplineSurface::IsVPeriodic() const
 {
   return isvperiodic;
 }
 
 //=================================================================================================
 
-Point3d Convert_ElementarySurfaceToBSplineSurface::Pole(const Standard_Integer UIndex,
+Point3d ElementaryToBSplineSurface::Pole(const Standard_Integer UIndex,
                                                        const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > nbUPoles || VIndex < 1 || VIndex > nbVPoles,
@@ -113,7 +113,7 @@ Point3d Convert_ElementarySurfaceToBSplineSurface::Pole(const Standard_Integer U
 
 //=================================================================================================
 
-Standard_Real Convert_ElementarySurfaceToBSplineSurface::Weight(const Standard_Integer UIndex,
+Standard_Real ElementaryToBSplineSurface::Weight(const Standard_Integer UIndex,
                                                                 const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > nbUPoles || VIndex < 1 || VIndex > nbVPoles,
@@ -123,7 +123,7 @@ Standard_Real Convert_ElementarySurfaceToBSplineSurface::Weight(const Standard_I
 
 //=================================================================================================
 
-Standard_Real Convert_ElementarySurfaceToBSplineSurface::UKnot(const Standard_Integer UIndex) const
+Standard_Real ElementaryToBSplineSurface::UKnot(const Standard_Integer UIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > nbUKnots, " ");
   return uknots(UIndex);
@@ -131,7 +131,7 @@ Standard_Real Convert_ElementarySurfaceToBSplineSurface::UKnot(const Standard_In
 
 //=================================================================================================
 
-Standard_Real Convert_ElementarySurfaceToBSplineSurface::VKnot(const Standard_Integer VIndex) const
+Standard_Real ElementaryToBSplineSurface::VKnot(const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(VIndex < 1 || VIndex > nbVKnots, " ");
   return vknots(VIndex);
@@ -139,7 +139,7 @@ Standard_Real Convert_ElementarySurfaceToBSplineSurface::VKnot(const Standard_In
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::UMultiplicity(
+Standard_Integer ElementaryToBSplineSurface::UMultiplicity(
   const Standard_Integer UIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > nbUKnots, " ");
@@ -148,7 +148,7 @@ Standard_Integer Convert_ElementarySurfaceToBSplineSurface::UMultiplicity(
 
 //=================================================================================================
 
-Standard_Integer Convert_ElementarySurfaceToBSplineSurface::VMultiplicity(
+Standard_Integer ElementaryToBSplineSurface::VMultiplicity(
   const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(VIndex < 1 || VIndex > nbVKnots, " ");

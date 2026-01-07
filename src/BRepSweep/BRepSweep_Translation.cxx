@@ -337,7 +337,7 @@ void BRepSweep_Translation::SetGeneratingPCurve(const TopoShape& aNewFace,
         Point3d pnt = gl.Location();
         Dir3d dir = gl.Direction();
         Standard_Real u,v;
-        ElSLib::PlaneParameters(ax3,pnt,u,v);
+        ElSLib1::PlaneParameters(ax3,pnt,u,v);
         gp_Pnt2d pnt2d(u,v);
         gp_Dir2d dir2d(dir.Dot(ax3.XDirection()),dir.Dot(ax3.YDirection()));
         L.SetLocation(pnt2d);
@@ -382,7 +382,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoShape& aNewFace,
         Point3d pv = BRepInspector::Pnt(TopoDS::Vertex(aGenV));
         Dir3d dir(myVec);
         Standard_Real u,v;
-        ElSLib::PlaneParameters(ax3,pv,u,v);
+        ElSLib1::PlaneParameters(ax3,pv,u,v);
         gp_Pnt2d pnt2d(u,v);
         gp_Dir2d dir2d(dir.Dot(ax3.XDirection()),dir.Dot(ax3.YDirection()));
         L.SetLocation(pnt2d);

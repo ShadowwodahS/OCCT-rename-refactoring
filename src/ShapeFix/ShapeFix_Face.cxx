@@ -373,7 +373,7 @@ Standard_Boolean ShapeFix_Face::Perform()
       Standard_Real first,last;
       Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, first, last);
       if(!c3d.IsNull()) {
-        Bnd_Box bb;
+        Box2 bb;
         bb.Add(c3d->Value(first));
         bb.Add(c3d->Value(last));
         bb.Add(c3d->Value((last+first)/2.));
@@ -1203,7 +1203,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
       done = Standard_True;
     }
   }
-  // in case of several wires, perform complex analysis
+  // in case of several wires, perform complex1 analysis
   //  ATTENTION ESSAI
   //  Plusieurs wires : orientations relatives
   //  Chaque wire doit "contenir" tous les autres
@@ -1260,12 +1260,12 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         Standard_Real       aLast  = cw->LastParameter();
         if (cw->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
         {
-          // avoiding problems with segment in Bnd_Box
+          // avoiding problems with segment in Box2
           gac.Load(cw);
         }
         else
           gac.Load(cw, cf, cl);
-        BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), aBox);
+        Add2dCurve::Add(gac, ::Precision::Confusion(), aBox);
       }
 
       Standard_Real aXMin, aXMax, aYMin, aYMax;
@@ -2520,12 +2520,12 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       Standard_Real       aLast  = c2d->LastParameter();
       if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
       {
-        // pdn avoiding problems with segment in Bnd_Box
+        // pdn avoiding problems with segment in Box2
         gac.Load(c2d);
       }
       else
         gac.Load(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes.Bind(newE1, box);
     }
     if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -2536,12 +2536,12 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       Standard_Real       aLast  = c2d->LastParameter();
       if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
       {
-        // pdn avoiding problems with segment in Bnd_Box
+        // pdn avoiding problems with segment in Box2
         gac.Load(c2d);
       }
       else
         gac.Load(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes.Bind(newE2, box);
     }
     return Standard_True;
@@ -2597,12 +2597,12 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       Standard_Real       aLast  = c2d->LastParameter();
       if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
       {
-        // pdn avoiding problems with segment in Bnd_Box
+        // pdn avoiding problems with segment in Box2
         gac.Load(c2d);
       }
       else
         gac.Load(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes.Bind(newE1, box);
     }
     if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -2613,12 +2613,12 @@ Standard_Boolean ShapeFix_Face::SplitEdge(const Handle(ShapeExtend_WireData)& se
       Standard_Real       aLast  = c2d->LastParameter();
       if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
       {
-        // pdn avoiding problems with segment in Bnd_Box
+        // pdn avoiding problems with segment in Box2
         gac.Load(c2d);
       }
       else
         gac.Load(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes.Bind(newE2, box);
     }
     return Standard_True;

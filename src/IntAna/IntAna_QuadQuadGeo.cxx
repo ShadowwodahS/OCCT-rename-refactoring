@@ -274,14 +274,14 @@ Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2)
   const gp_Pln& aPln = aMkPln.Value();
 
   gp_Lin        anAx1(aPA1, theCon1.Position().Direction());
-  gp_Lin2d      anAx12d = ProjLib::Project(aPln, anAx1);
+  gp_Lin2d      anAx12d = ProjLib1::Project(aPln, anAx1);
   gp_Lin2d      Lines1[2];
   Standard_Real anAng1 = theCon1.SemiAngle();
   Lines1[0]            = anAx12d.Rotated(anAx12d.Location(), anAng1);
   Lines1[1]            = anAx12d.Rotated(anAx12d.Location(), -anAng1);
   //
   gp_Lin        anAx2(aPA2, theCon2.Position().Direction());
-  gp_Lin2d      anAx22d = ProjLib::Project(aPln, anAx2);
+  gp_Lin2d      anAx22d = ProjLib1::Project(aPln, anAx2);
   gp_Lin2d      Lines2[2];
   Standard_Real anAng2 = theCon2.SemiAngle();
   Lines2[0]            = anAx22d.Rotated(anAx22d.Location(), anAng2);
@@ -296,7 +296,7 @@ Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2)
 
   Standard_Real            aMinDist[2] = {Precision::Infinite(), Precision::Infinite()};
   Standard_Integer         i, j, k;
-  IntAna2d_AnaIntersection anInter;
+  AnalyticIntersection2d anInter;
   for (i = 0; i < 2; ++i)
   {
     for (j = 0; j < 2; ++j)
@@ -307,7 +307,7 @@ Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2)
         Standard_Integer aNbPoints = anInter.NbPoints();
         for (k = 1; k <= aNbPoints; ++k)
         {
-          const IntAna2d_IntPoint& anIntP = anInter.Point(k);
+          const IntersectionPoint2d& anIntP = anInter.Point(k);
           Standard_Real            aPar1  = Abs(anIntP.ParamOnFirst());
           aMinDist[0]                     = Min(aPar1, aMinDist[0]);
           Standard_Real aPar2             = Abs(anIntP.ParamOnSecond());
@@ -322,10 +322,10 @@ Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2)
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Empty constructor
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(void)
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(void)
     : done(Standard_False),
       nbint(0),
       typeres(IntAna_Empty),
@@ -347,7 +347,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(void)
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::InitTolerances()
+void QuadQuadGeoIntersection::InitTolerances()
 {
   myEPSILON_DISTANCE                = 1.0e-14;
   myEPSILON_ANGLE_CONE              = Precision::Angular();
@@ -359,7 +359,7 @@ void IntAna_QuadQuadGeo::InitTolerances()
 
 //=================================================================================================
 
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P1,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P1,
                                        const gp_Pln&       P2,
                                        const Standard_Real TolAng,
                                        const Standard_Real Tol)
@@ -385,7 +385,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P1,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
+void QuadQuadGeoIntersection::Perform(const gp_Pln&       P1,
                                  const gp_Pln&       P2,
                                  const Standard_Real TolAng,
                                  const Standard_Real Tol)
@@ -469,7 +469,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
       if (fabs(aDist1) > aTreshDist || fabs(aDist2) > aTreshDist)
       {
         Standard_Boolean    bIsDone, bIsParallel;
-        IntAna_IntConicQuad aICQ;
+        ConicQuadIntersection aICQ;
         //
         // 1.
         Dir3d aDN1(aVN1);
@@ -512,7 +512,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
 
 //=================================================================================================
 
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
                                        const gp_Cylinder&  Cl,
                                        const Standard_Real Tolang,
                                        const Standard_Real Tol,
@@ -539,7 +539,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
+void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
                                  const gp_Cylinder&  Cl,
                                  const Standard_Real Tolang,
                                  const Standard_Real Tol,
@@ -586,7 +586,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
   }
 
   nbint = 0;
-  IntAna_IntConicQuad inter(axec, P, tolang, Tol, H);
+  ConicQuadIntersection inter(axec, P, tolang, Tol, H);
 
   if (inter.IsParallel())
   {
@@ -710,7 +710,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
 
 //=================================================================================================
 
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       P,
                                        const gp_Cone&      Co,
                                        const Standard_Real Tolang,
                                        const Standard_Real Tol)
@@ -736,7 +736,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       P,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
+void QuadQuadGeoIntersection::Perform(const gp_Pln&       P,
                                  const gp_Cone&      Co,
                                  const Standard_Real Tolang,
                                  const Standard_Real Tol)
@@ -840,7 +840,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
     else
     {
 
-      IntAna_IntConicQuad inter(axec, P, Tolang); // on a necessairement 1 point.
+      ConicQuadIntersection inter(axec, P, Tolang); // on a necessairement 1 point.
 
       Point3d center(inter.Point(1));
 
@@ -906,7 +906,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
     }
   }
 
-  //-- On a du mal a gerer plus loin (Value ProjLib, Params ... )
+  //-- On a du mal a gerer plus loin (Value ProjLib1, Params ... )
   //-- des hyperboles trop bizarres
   //-- On retourne False -> Traitement par biparametree
   static Standard_Real EllipseLimit   = 1.0E+9; // OCC513(apo) 1000000
@@ -941,7 +941,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
 
 //=================================================================================================
 
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln& P, const gp_Sphere& S)
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln& P, const gp_Sphere& S)
     : done(Standard_False),
       nbint(0),
       typeres(IntAna_Empty),
@@ -964,7 +964,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln& P, const gp_Sphere& S)
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Pln& P, const gp_Sphere& S)
+void QuadQuadGeoIntersection::Perform(const gp_Pln& P, const gp_Sphere& S)
 {
 
   done = Standard_False;
@@ -1006,10 +1006,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln& P, const gp_Sphere& S)
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Cylinder
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl1,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl1,
                                        const gp_Cylinder&  Cyl2,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1034,7 +1034,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl1,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
+void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl1,
                                  const gp_Cylinder&  Cyl2,
                                  const Standard_Real Tol)
 {
@@ -1284,10 +1284,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Cone
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
                                        const gp_Cone&      Con,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1312,7 +1312,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, const Standard_Real)
 {
   done = Standard_True;
   AxeOperator A1A2(Cyl.Axis(), Con.Axis());
@@ -1338,7 +1338,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, con
 // function :
 // purpose  : Cylinder - Sphere
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
                                        const gp_Sphere&    Sph,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1363,7 +1363,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Sphere& Sph, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const gp_Cylinder& Cyl, const gp_Sphere& Sph, const Standard_Real)
 {
   done           = Standard_True;
   Point3d      Pt = Sph.Location();
@@ -1398,10 +1398,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Sphere& Sph, c
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Cone - Cone
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cone&      Con1,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con1,
                                        const gp_Cone&      Con2,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1427,7 +1427,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cone&      Con1,
 //
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -1549,7 +1549,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     Dir3d DA1_X_DB1 = DA1.Crossed(DB1);
     Dir3d OrthoPln  = DA1_X_DB1.Crossed(Dir3d(P1MO1O2));
 
-    IntAna_QuadQuadGeo INTER_QUAD_PLN(gp_Pln(P1, OrthoPln), Con1, Tol, Tol);
+    QuadQuadGeoIntersection INTER_QUAD_PLN(gp_Pln(P1, OrthoPln), Con1, Tol, Tol);
     if (INTER_QUAD_PLN.IsDone())
     {
       switch (INTER_QUAD_PLN.TypeInter())
@@ -1682,7 +1682,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     Point3d             aQApex1, aQA1, aQA2, aQX, aQX1, aQX2;
     Dir3d             aD3Ax1, aD3Ax2;
     gp_Lin             aLin;
-    IntAna_QuadQuadGeo aIntr;
+    QuadQuadGeoIntersection aIntr;
     //
     aQApex1 = Con1.Apex();
     aD3Ax1  = aAx1.Direction();
@@ -1762,16 +1762,16 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
   {
     // Check if apex of one cone belongs another one
     Standard_Real u, v, tol2 = Tol * Tol;
-    ElSLib::Parameters(Con2, aPApex1, u, v);
-    Point3d p = ElSLib::Value(u, v, Con2);
+    ElSLib1::Parameters(Con2, aPApex1, u, v);
+    Point3d p = ElSLib1::Value(u, v, Con2);
     if (aPApex1.SquareDistance(p) > tol2)
     {
       typeres = IntAna_NoGeometricSolution;
       return;
     }
     //
-    ElSLib::Parameters(Con1, aPApex2, u, v);
-    p = ElSLib::Value(u, v, Con1);
+    ElSLib1::Parameters(Con1, aPApex2, u, v);
+    p = ElSLib1::Value(u, v, Con1);
     if (aPApex2.SquareDistance(p) > tol2)
     {
       typeres = IntAna_NoGeometricSolution;
@@ -1788,8 +1788,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     Point3d aPAxeInt = A1A2.PtIntersect();
 
     // Characteristic point of intersection curve
-    u       = ElCLib::Parameter(aGen, aPAxeInt);
-    myPChar = ElCLib::Value(u, aGen);
+    u       = ElCLib1::Parameter(aGen, aPAxeInt);
+    myPChar = ElCLib1::Value(u, aGen);
 
     // Other generatrixes of cones laying in maximal plane
     gp_Lin aGen1 = aGen.Rotated(Con1.Axis(), M_PI);
@@ -1822,7 +1822,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
       Vector3d        O1O2(O1, O2);
       Standard_Real U2 = (D1.XYZ() * (O1O2.Dot(D1)) - (O1O2.XYZ())).Dot(D2.XYZ());
       U2 /= aSin;
-      Point3d aPGint(ElCLib::Value(U2, aGen2));
+      Point3d aPGint(ElCLib1::Value(U2, aGen2));
 
       aD1 = Dir3d(Vector3d(aPGint, myPChar));
       aN  = aD1.Crossed(aD2);
@@ -1830,7 +1830,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     // Plane that must contain intersection curves
     gp_Pln anIntPln(myPChar, aN);
 
-    IntAna_QuadQuadGeo INTER_QUAD_PLN(anIntPln, Con1, Tol, Tol);
+    QuadQuadGeoIntersection INTER_QUAD_PLN(anIntPln, Con1, Tol, Tol);
 
     if (INTER_QUAD_PLN.IsDone())
     {
@@ -1891,10 +1891,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Sphere - Cone
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
                                        const gp_Cone&      Con,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -1919,7 +1919,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Cone& Con, const Standard_Real)
+void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const gp_Cone& Con, const Standard_Real)
 {
 
   //
@@ -2010,10 +2010,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Cone& Con, const
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Sphere - Sphere
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph1,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph1,
                                        const gp_Sphere&    Sph2,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2038,7 +2038,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph1,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Sphere&    Sph1,
+void QuadQuadGeoIntersection::Perform(const gp_Sphere&    Sph1,
                                  const gp_Sphere&    Sph2,
                                  const Standard_Real Tol)
 {
@@ -2141,10 +2141,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere&    Sph1,
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Plane - Torus
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       Pln,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Pln&       Pln,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2169,7 +2169,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Pln&       Pln,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Pln& Pln, const gp_Torus& Tor, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const gp_Pln& Pln, const gp_Torus& Tor, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -2258,10 +2258,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln& Pln, const gp_Torus& Tor, const S
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Cylinder - Torus
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cylinder&  Cyl,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2286,7 +2286,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cylinder&  Cyl,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl,
+void QuadQuadGeoIntersection::Perform(const gp_Cylinder&  Cyl,
                                  const gp_Torus&     Tor,
                                  const Standard_Real Tol)
 {
@@ -2343,10 +2343,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl,
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Cone - Torus
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cone&      Con,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Cone&      Con,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2371,7 +2371,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Cone&      Con,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con, const gp_Torus& Tor, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const gp_Cone& Con, const gp_Torus& Tor, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -2486,10 +2486,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con, const gp_Torus& Tor, const 
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Sphere - Torus
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Sphere&    Sph,
                                        const gp_Torus&     Tor,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2514,7 +2514,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Sphere&    Sph,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, const Standard_Real Tol)
+void QuadQuadGeoIntersection::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, const Standard_Real Tol)
 {
   done = Standard_True;
   //
@@ -2582,10 +2582,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, cons
 }
 
 //=======================================================================
-// function : IntAna_QuadQuadGeo
+// function : QuadQuadGeoIntersection
 // purpose  : Torus - Torus
 //=======================================================================
-IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Torus&     Tor1,
+QuadQuadGeoIntersection::QuadQuadGeoIntersection(const gp_Torus&     Tor1,
                                        const gp_Torus&     Tor2,
                                        const Standard_Real Tol)
     : done(Standard_False),
@@ -2610,7 +2610,7 @@ IntAna_QuadQuadGeo::IntAna_QuadQuadGeo(const gp_Torus&     Tor1,
 
 //=================================================================================================
 
-void IntAna_QuadQuadGeo::Perform(const gp_Torus&     Tor1,
+void QuadQuadGeoIntersection::Perform(const gp_Torus&     Tor1,
                                  const gp_Torus&     Tor2,
                                  const Standard_Real Tol)
 {
@@ -2695,7 +2695,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Torus&     Tor1,
 // function : Point
 // purpose  : Returns a Point
 //=======================================================================
-Point3d IntAna_QuadQuadGeo::Point(const Standard_Integer n) const
+Point3d QuadQuadGeoIntersection::Point(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2730,7 +2730,7 @@ Point3d IntAna_QuadQuadGeo::Point(const Standard_Integer n) const
 // function : Line
 // purpose  : Returns a Line
 //=======================================================================
-gp_Lin IntAna_QuadQuadGeo::Line(const Standard_Integer n) const
+gp_Lin QuadQuadGeoIntersection::Line(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2754,7 +2754,7 @@ gp_Lin IntAna_QuadQuadGeo::Line(const Standard_Integer n) const
 // function : Circle
 // purpose  : Returns a Circle
 //=======================================================================
-gp_Circ IntAna_QuadQuadGeo::Circle(const Standard_Integer n) const
+gp_Circ QuadQuadGeoIntersection::Circle(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2796,7 +2796,7 @@ gp_Circ IntAna_QuadQuadGeo::Circle(const Standard_Integer n) const
 // function : Ellipse
 // purpose  : Returns a Elips
 //=======================================================================
-gp_Elips IntAna_QuadQuadGeo::Ellipse(const Standard_Integer n) const
+gp_Elips QuadQuadGeoIntersection::Ellipse(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2839,7 +2839,7 @@ gp_Elips IntAna_QuadQuadGeo::Ellipse(const Standard_Integer n) const
 // function : Parabola
 // purpose  : Returns a Parabola
 //=======================================================================
-gp_Parab IntAna_QuadQuadGeo::Parabola(const Standard_Integer n) const
+gp_Parab QuadQuadGeoIntersection::Parabola(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2860,7 +2860,7 @@ gp_Parab IntAna_QuadQuadGeo::Parabola(const Standard_Integer n) const
 // function : Hyperbola
 // purpose  : Returns a Hyperbola
 //=======================================================================
-gp_Hypr IntAna_QuadQuadGeo::Hyperbola(const Standard_Integer n) const
+gp_Hypr QuadQuadGeoIntersection::Hyperbola(const Standard_Integer n) const
 {
   if (!done)
   {
@@ -2882,14 +2882,14 @@ gp_Hypr IntAna_QuadQuadGeo::Hyperbola(const Standard_Integer n) const
 
 //=================================================================================================
 
-Standard_Boolean IntAna_QuadQuadGeo::HasCommonGen() const
+Standard_Boolean QuadQuadGeoIntersection::HasCommonGen() const
 {
   return myCommonGen;
 }
 
 //=================================================================================================
 
-const Point3d& IntAna_QuadQuadGeo::PChar() const
+const Point3d& QuadQuadGeoIntersection::PChar() const
 {
   return myPChar;
 }

@@ -36,7 +36,7 @@
 //            f             f
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector()
+HLRAlgoProjector::HLRAlgoProjector()
     : myPersp(Standard_False),
       myFocus(0)
 {
@@ -45,7 +45,7 @@ HLRAlgo_Projector::HLRAlgo_Projector()
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS)
+HLRAlgoProjector::HLRAlgoProjector(const Frame3d& CS)
     : myPersp(Standard_False),
       myFocus(0)
 {
@@ -56,7 +56,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS)
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS, const Standard_Real Focus)
+HLRAlgoProjector::HLRAlgoProjector(const Frame3d& CS, const Standard_Real Focus)
     : myPersp(Standard_True),
       myFocus(Focus)
 {
@@ -67,7 +67,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS, const Standard_Real Focu
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
+HLRAlgoProjector::HLRAlgoProjector(const Transform3d&         T,
                                      const Standard_Boolean Persp,
                                      const Standard_Real    Focus)
     : myPersp(Persp),
@@ -80,7 +80,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
+HLRAlgoProjector::HLRAlgoProjector(const Transform3d&         T,
                                      const Standard_Boolean Persp,
                                      const Standard_Real    Focus,
                                      const gp_Vec2d&        v1,
@@ -98,7 +98,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Set(const Transform3d&         T,
+void HLRAlgoProjector::Set(const Transform3d&         T,
                             const Standard_Boolean Persp,
                             const Standard_Real    Focus)
 {
@@ -151,7 +151,7 @@ static Standard_Integer TrsfType(const Transform3d& Trsf)
   return (-1);
 }
 
-void HLRAlgo_Projector::Scaled(const Standard_Boolean On)
+void HLRAlgoProjector::Scaled(const Standard_Boolean On)
 {
   myType = -1;
   myTrsf = myScaledTrsf;
@@ -170,7 +170,7 @@ void HLRAlgo_Projector::Scaled(const Standard_Boolean On)
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Project(const Point3d& P, gp_Pnt2d& Pout) const
+void HLRAlgoProjector::Project(const Point3d& P, gp_Pnt2d& Pout) const
 {
   if (myType != -1)
   {
@@ -257,7 +257,7 @@ void HLRAlgo_Projector::Project(const Point3d& P, gp_Pnt2d& Pout) const
 (-0.5               , 0.5000000000000001, 0.7071067811865475)
 ( 0.4999999999999999, -0.5              , 0.7071067811865476)
 */
-void HLRAlgo_Projector::Project(const Point3d&  P,
+void HLRAlgoProjector::Project(const Point3d&  P,
                                 Standard_Real& X,
                                 Standard_Real& Y,
                                 Standard_Real& Z) const
@@ -319,7 +319,7 @@ void HLRAlgo_Projector::Project(const Point3d&  P,
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Project(const Point3d& P,
+void HLRAlgoProjector::Project(const Point3d& P,
                                 const Vector3d& D1,
                                 gp_Pnt2d&     Pout,
                                 gp_Vec2d&     D1out) const
@@ -344,7 +344,7 @@ void HLRAlgo_Projector::Project(const Point3d& P,
 
 //=================================================================================================
 
-gp_Lin HLRAlgo_Projector::Shoot(const Standard_Real X, const Standard_Real Y) const
+gp_Lin HLRAlgoProjector::Shoot(const Standard_Real X, const Standard_Real Y) const
 {
   gp_Lin L;
   if (myPersp)
@@ -361,7 +361,7 @@ gp_Lin HLRAlgo_Projector::Shoot(const Standard_Real X, const Standard_Real Y) co
 
 //=================================================================================================
 
-void HLRAlgo_Projector::SetDirection()
+void HLRAlgoProjector::SetDirection()
 {
   Vector3d V1(1, 0, 0);
   V1.Transform(myTrsf);
@@ -385,7 +385,7 @@ void HLRAlgo_Projector::SetDirection()
 
 //=================================================================================================
 
-const Transform3d& HLRAlgo_Projector::Transformation() const
+const Transform3d& HLRAlgoProjector::Transformation() const
 {
   return myTrsf;
 }

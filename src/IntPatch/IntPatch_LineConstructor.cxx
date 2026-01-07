@@ -1583,23 +1583,23 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
         Point3d        Pmid;
         if (typl == IntPatch_Lin)
         {
-          Pmid = ElCLib::Value(pmid, GLine->Line());
+          Pmid = ElCLib1::Value(pmid, GLine->Line());
         }
         else if (typl == IntPatch_Circle)
         {
-          Pmid = ElCLib::Value(pmid, GLine->Circle());
+          Pmid = ElCLib1::Value(pmid, GLine->Circle());
         }
         else if (typl == IntPatch_Ellipse)
         {
-          Pmid = ElCLib::Value(pmid, GLine->Ellipse());
+          Pmid = ElCLib1::Value(pmid, GLine->Ellipse());
         }
         else if (typl == IntPatch_Hyperbola)
         {
-          Pmid = ElCLib::Value(pmid, GLine->Hyperbola());
+          Pmid = ElCLib1::Value(pmid, GLine->Hyperbola());
         }
         else if (typl == IntPatch_Parabola)
         {
-          Pmid = ElCLib::Value(pmid, GLine->Parabola());
+          Pmid = ElCLib1::Value(pmid, GLine->Parabola());
         }
         Parameters(mySurf1, mySurf2, Pmid, u1, v1, u2, v2);
         Recadre(mySurf1, mySurf2, u1, v1, u2, v2);
@@ -1666,11 +1666,11 @@ void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
           Point3d        Pmid;
           if (typl == IntPatch_Circle)
           {
-            Pmid = ElCLib::Value(pmid, GLine->Circle());
+            Pmid = ElCLib1::Value(pmid, GLine->Circle());
           }
           else
           {
-            Pmid = ElCLib::Value(pmid, GLine->Ellipse());
+            Pmid = ElCLib1::Value(pmid, GLine->Ellipse());
           }
           Parameters(mySurf1, mySurf2, Pmid, u1, v1, u2, v2);
           Recadre(mySurf1, mySurf2, u1, v1, u2, v2);

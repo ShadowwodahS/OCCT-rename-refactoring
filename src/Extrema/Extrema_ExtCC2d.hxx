@@ -26,9 +26,9 @@
 #include <gp_Pnt2d.hxx>
 
 class Adaptor2d_Curve2d;
-class Extrema_POnCurv2d;
-class Extrema_ExtElC2d;
-class Extrema_ECC2d;
+class PointOnCurve2d;
+class ExtElC2d;
+class CurveCurveExtrema2d1;
 
 //! It calculates all the distance between two curves.
 //! These distances can be maximum or minimum.
@@ -81,8 +81,8 @@ public:
   //! Returns the points of the Nth extremum distance.
   //! P1 is on the first curve, P2 on the second one.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv2d&     P1,
-                              Extrema_POnCurv2d&     P2) const;
+                              PointOnCurve2d&     P1,
+                              PointOnCurve2d&     P2) const;
 
   //! if the curve is a trimmed curve,
   //! dist11 is a square distance between the point on C1
@@ -104,7 +104,7 @@ public:
   Standard_EXPORT Standard_Boolean GetSingleSolutionFlag() const;
 
 protected:
-  Standard_EXPORT void Results(const Extrema_ExtElC2d& AlgExt,
+  Standard_EXPORT void Results(const ExtElC2d& AlgExt,
                                const Standard_Real     Ut11,
                                const Standard_Real     Ut12,
                                const Standard_Real     Ut21,
@@ -112,7 +112,7 @@ protected:
                                const Standard_Real     Period1 = 0.0,
                                const Standard_Real     Period2 = 0.0);
 
-  Standard_EXPORT void Results(const Extrema_ECC2d& AlgExt,
+  Standard_EXPORT void Results(const CurveCurveExtrema2d1& AlgExt,
                                const Standard_Real  Ut11,
                                const Standard_Real  Ut12,
                                const Standard_Real  Ut21,

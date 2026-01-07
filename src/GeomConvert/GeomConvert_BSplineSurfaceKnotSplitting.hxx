@@ -66,7 +66,7 @@ public:
   //! Use the available interrogation functions to access
   //! computed values, followed by the global function
   //! SplitBSplineSurface (provided by the package
-  //! GeomConvert) to split the surface.
+  //! GeomConvert1) to split the surface.
   //! Exceptions
   //! Standard_RangeError if UContinuityRange or
   //! VContinuityRange is less than zero.
@@ -108,7 +108,7 @@ public:
   //! two consecutive values from the VSplit table as
   //! arguments of the global function
   //! SplitBSplineSurface (provided by the package
-  //! GeomConvert) to split the surface.
+  //! GeomConvert1) to split the surface.
   //! Exceptions
   //! Standard_DimensionError if:
   //! -   the array USplit was not created with the following bounds:

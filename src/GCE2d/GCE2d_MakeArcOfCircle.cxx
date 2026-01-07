@@ -35,8 +35,8 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
   if (TheError == gce_Done)
   {
     gp_Circ2d             C(Cir.Value());
-    Standard_Real         Alpha1 = ElCLib::Parameter(C, P1);
-    Standard_Real         Alpha2 = ElCLib::Parameter(C, P3);
+    Standard_Real         Alpha1 = ElCLib1::Parameter(C, P1);
+    Standard_Real         Alpha2 = ElCLib1::Parameter(C, P3);
     Handle(Geom2d_Circle) Circ   = new Geom2d_Circle(C);
     TheArc                       = new Geom2d_TrimmedCurve(Circ, Alpha1, Alpha2, Standard_True);
   }
@@ -55,7 +55,7 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
   gp_Lin2d         norm(P1, gp_Dir2d(-V.Y(), V.X()));
   TheError = gce_ConfusedPoints;
 
-  IntAna2d_AnaIntersection Intp(bis, norm);
+  AnalyticIntersection2d Intp(bis, norm);
 
   if (Intp.IsDone())
   {
@@ -70,8 +70,8 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Pnt2d& P1,
 
   if (TheError == gce_Done)
   {
-    Standard_Real         Alpha1 = ElCLib::Parameter(cir, P1);
-    Standard_Real         Alpha2 = ElCLib::Parameter(cir, P2);
+    Standard_Real         Alpha1 = ElCLib1::Parameter(cir, P1);
+    Standard_Real         Alpha2 = ElCLib1::Parameter(cir, P2);
     Handle(Geom2d_Circle) Circ   = new Geom2d_Circle(cir);
     gp_Vec2d              vv(dir);
     Standard_Real         cross = V ^ vv;
@@ -85,8 +85,8 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Circ2d&       Circ,
                                              const gp_Pnt2d&        P2,
                                              const Standard_Boolean Sense)
 {
-  Standard_Real         Alpha1 = ElCLib::Parameter(Circ, P1);
-  Standard_Real         Alpha2 = ElCLib::Parameter(Circ, P2);
+  Standard_Real         Alpha1 = ElCLib1::Parameter(Circ, P1);
+  Standard_Real         Alpha2 = ElCLib1::Parameter(Circ, P2);
   Handle(Geom2d_Circle) C      = new Geom2d_Circle(Circ);
   TheArc                       = new Geom2d_TrimmedCurve(C, Alpha1, Alpha2, Sense);
   TheError                     = gce_Done;
@@ -97,7 +97,7 @@ GCE2d_MakeArcOfCircle::GCE2d_MakeArcOfCircle(const gp_Circ2d&       Circ,
                                              const Standard_Real    Alpha,
                                              const Standard_Boolean Sense)
 {
-  Standard_Real         Alphafirst = ElCLib::Parameter(Circ, P);
+  Standard_Real         Alphafirst = ElCLib1::Parameter(Circ, P);
   Handle(Geom2d_Circle) C          = new Geom2d_Circle(Circ);
   TheArc                           = new Geom2d_TrimmedCurve(C, Alphafirst, Alpha, Sense);
   TheError                         = gce_Done;

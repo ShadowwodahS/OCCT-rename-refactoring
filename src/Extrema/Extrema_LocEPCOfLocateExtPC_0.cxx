@@ -29,9 +29,9 @@
 
 #define Curve Adaptor3d_Curve
 #define Curve_hxx <Adaptor3d_Curve.hxx>
-#define Tool Extrema_CurveTool
+#define Tool CurveTool4
 #define Tool_hxx <Extrema_CurveTool.hxx>
-#define POnC Extrema_POnCurv
+#define POnC PointOnCurve1
 #define POnC_hxx <Extrema_POnCurv.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>

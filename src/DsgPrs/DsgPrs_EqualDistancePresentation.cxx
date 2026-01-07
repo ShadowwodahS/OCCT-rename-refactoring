@@ -134,8 +134,8 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
 
   gp_Lin L1(aPoint1, aDirection);
   gp_Lin L2(aPoint2, aDirection);
-  aProj1 = ElCLib::Value(ElCLib::Parameter(L1, aPosition), L1);
-  aProj2 = ElCLib::Value(ElCLib::Parameter(L2, aPosition), L2);
+  aProj1 = ElCLib1::Value(ElCLib1::Parameter(L1, aPosition), L1);
+  aProj2 = ElCLib1::Value(ElCLib1::Parameter(L2, aPosition), L2);
 
   Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(4);
   aPrims->AddVertex(aPoint1);
@@ -172,8 +172,8 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   Standard_Real aPar11, aPar12, aPar21, aPar22;
   if (aCirc1.Radius() > Precision::Confusion())
   {
-    aPar11 = ElCLib::Parameter(aCirc1, aPoint1);
-    aPar12 = ElCLib::Parameter(aCirc1, aPoint2);
+    aPar11 = ElCLib1::Parameter(aCirc1, aPoint1);
+    aPar12 = ElCLib1::Parameter(aCirc1, aPoint2);
   }
   else
   {
@@ -182,8 +182,8 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   }
   if (aCirc2.Radius() > Precision::Confusion())
   {
-    aPar21 = ElCLib::Parameter(aCirc2, aPoint3);
-    aPar22 = ElCLib::Parameter(aCirc2, aPoint4);
+    aPar21 = ElCLib1::Parameter(aCirc2, aPoint3);
+    aPar22 = ElCLib1::Parameter(aCirc2, aPoint4);
   }
   else
   {
@@ -208,7 +208,7 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
 
     aPrims = new Graphic3d_ArrayOfPolylines(aNodeNb + 1);
     for (i = 1; i <= aNodeNb; aCurPar += aDelta, i++)
-      aPrims->AddVertex(ElCLib::Value(aCurPar, aCirc1));
+      aPrims->AddVertex(ElCLib1::Value(aCurPar, aCirc1));
     aPrims->AddVertex(aPoint2);
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }
@@ -222,7 +222,7 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
 
     aPrims = new Graphic3d_ArrayOfPolylines(aNodeNb + 1);
     for (i = 1; i <= aNodeNb; aCurPar += aDelta, i++)
-      aPrims->AddVertex(ElCLib::Value(aCurPar, aCirc2));
+      aPrims->AddVertex(ElCLib1::Value(aCurPar, aCirc2));
     aPrims->AddVertex(aPoint4);
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }

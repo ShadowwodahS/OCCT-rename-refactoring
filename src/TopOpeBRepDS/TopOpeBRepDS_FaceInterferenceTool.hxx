@@ -30,7 +30,7 @@
 class TopOpeBRepDS_Interference;
 class TopOpeBRepDS_Curve;
 
-//! a tool computing complex transition on Face.
+//! a tool computing complex1 transition on Face.
 class TopOpeBRepDS_FaceInterferenceTool
 {
 public:
@@ -71,7 +71,7 @@ private:
   Standard_Boolean            myrefdef;
   TopAbs_Orientation          myFaceOrientation;
   Standard_Integer            myFaceOriented;
-  TopTrans_SurfaceTransition  myTool;
+  SurfaceTransition  myTool;
   TopoShape                myEdge;
   Standard_Boolean            isLine;
   Point3d                      myPntOnEd;

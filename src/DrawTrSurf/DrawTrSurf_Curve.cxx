@@ -202,14 +202,14 @@ Handle(Draw_Drawable3D) DrawTrSurf_Curve::Copy() const
 
 void DrawTrSurf_Curve::Dump(Standard_OStream& S) const
 {
-  GeomTools_CurveSet::PrintCurve(curv, S);
+  CurveSet1::PrintCurve(curv, S);
 }
 
 //=================================================================================================
 
 void DrawTrSurf_Curve::Save(Standard_OStream& theOs) const
 {
-  GeomTools_CurveSet::PrintCurve(GetCurve(), theOs, true);
+  CurveSet1::PrintCurve(GetCurve(), theOs, true);
 }
 
 //=================================================================================================
@@ -217,7 +217,7 @@ void DrawTrSurf_Curve::Save(Standard_OStream& theOs) const
 Handle(Draw_Drawable3D) DrawTrSurf_Curve::Restore(Standard_IStream& theStream)
 {
   const DrawTrSurf_Params& aParams    = DrawTrSurf1::Parameters();
-  Handle(GeomCurve3d)       aGeomCurve = GeomTools_CurveSet::ReadCurve(theStream);
+  Handle(GeomCurve3d)       aGeomCurve = CurveSet1::ReadCurve(theStream);
   Handle(DrawTrSurf_Curve) aDrawCurve = new DrawTrSurf_Curve(aGeomCurve,
                                                              aParams.CurvColor,
                                                              aParams.Discret,

@@ -70,7 +70,7 @@ void BSplCLib_Cache::BuildCache(const Standard_Real&        theParameter,
   myParams.LocateParameter(aNewParam, theFlatKnots);
 
   // Calculate new cache data
-  BSplCLib::BuildCache(myParams.SpanStart,
+  BSplCLib1::BuildCache(myParams.SpanStart,
                        myParams.SpanLength,
                        myParams.IsPeriodic,
                        myParams.Degree,
@@ -91,7 +91,7 @@ void BSplCLib_Cache::BuildCache(const Standard_Real&        theParameter,
   myParams.LocateParameter(aNewParam, theFlatKnots);
 
   // Calculate new cache data
-  BSplCLib::BuildCache(myParams.SpanStart,
+  BSplCLib1::BuildCache(myParams.SpanStart,
                        myParams.SpanLength,
                        myParams.IsPeriodic,
                        myParams.Degree,
@@ -117,7 +117,7 @@ void BSplCLib_Cache::CalculateDerivative(const Standard_Real&    theParameter,
   //    2) and maximal dimension of the point, which is 3, plus one column for weights.
   Standard_Real aTmpContainer[16];
 
-  // When the PLib::RationaDerivative needs to be called, use temporary container
+  // When the PLib1::RationaDerivative needs to be called, use temporary container
   Standard_Real* aPntDeriv = myIsRational ? aTmpContainer : &theDerivArray;
 
   // When the degree of curve is lesser than the requested derivative,
@@ -137,7 +137,7 @@ void BSplCLib_Cache::CalculateDerivative(const Standard_Real&    theParameter,
     }
   }
 
-  PLib::EvalPolynomial(aNewParameter,
+  PLib1::EvalPolynomial(aNewParameter,
                        aDerivative,
                        myParams.Degree,
                        aDimension,
@@ -153,7 +153,7 @@ void BSplCLib_Cache::CalculateDerivative(const Standard_Real&    theParameter,
   }
 
   if (myIsRational) // calculate derivatives divided by weights derivatives
-    PLib::RationalDerivative(aDerivative, aDerivative, aDimension - 1, aPntDeriv[0], theDerivArray);
+    PLib1::RationalDerivative(aDerivative, aDerivative, aDimension - 1, aPntDeriv[0], theDerivArray);
 }
 
 void BSplCLib_Cache::D0(const Standard_Real& theParameter, gp_Pnt2d& thePoint) const
@@ -165,7 +165,7 @@ void BSplCLib_Cache::D0(const Standard_Real& theParameter, gp_Pnt2d& thePoint) c
   Standard_Real    aPoint[4];
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
 
-  PLib::NoDerivativeEvalPolynomial(aNewParameter,
+  PLib1::NoDerivativeEvalPolynomial(aNewParameter,
                                    myParams.Degree,
                                    aDimension,
                                    myParams.Degree * aDimension,
@@ -186,7 +186,7 @@ void BSplCLib_Cache::D0(const Standard_Real& theParameter, Point3d& thePoint) co
   Standard_Real    aPoint[4];
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
 
-  PLib::NoDerivativeEvalPolynomial(aNewParameter,
+  PLib1::NoDerivativeEvalPolynomial(aNewParameter,
                                    myParams.Degree,
                                    aDimension,
                                    myParams.Degree * aDimension,
@@ -206,7 +206,7 @@ void BSplCLib_Cache::D1(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[8]; // result storage (point and derivative coordinates)
 
   this->CalculateDerivative(theParameter, 1, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1]);
@@ -221,7 +221,7 @@ void BSplCLib_Cache::D1(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[8]; // result storage (point and derivative coordinates)
 
   this->CalculateDerivative(theParameter, 1, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1], aPntDeriv[2]);
@@ -237,7 +237,7 @@ void BSplCLib_Cache::D2(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[12]; // result storage (point and derivatives coordinates)
 
   this->CalculateDerivative(theParameter, 2, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1]);
@@ -254,7 +254,7 @@ void BSplCLib_Cache::D2(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[12]; // result storage (point and derivatives coordinates)
 
   this->CalculateDerivative(theParameter, 2, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1], aPntDeriv[2]);
@@ -274,7 +274,7 @@ void BSplCLib_Cache::D3(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[16]; // result storage (point and derivatives coordinates)
 
   this->CalculateDerivative(theParameter, 3, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1]);
@@ -295,7 +295,7 @@ void BSplCLib_Cache::D3(const Standard_Real& theParameter,
   Standard_Real    aPntDeriv[16]; // result storage (point and derivatives coordinates)
 
   this->CalculateDerivative(theParameter, 3, aPntDeriv[0]);
-  if (myIsRational) // the size of aPntDeriv was changed by PLib::RationalDerivative
+  if (myIsRational) // the size of aPntDeriv was changed by PLib1::RationalDerivative
     aDimension -= 1;
 
   thePoint.SetCoord(aPntDeriv[0], aPntDeriv[1], aPntDeriv[2]);

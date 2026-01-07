@@ -101,7 +101,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
   gp_Lin L2(Point3d((P3.XYZ() + P2.XYZ()) / 2.), dir);
 
   constexpr Standard_Real Tol = Precision::PConfusion();
-  Extrema_ExtElC          distmin(L1, L2, Tol);
+  ExtElC          distmin(L1, L2, Tol);
 
   if (!distmin.IsDone())
   {
@@ -129,7 +129,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
       Standard_Real    TheDist = RealLast();
       Point3d           pInt, pon1, pon2;
       Standard_Integer i = 1;
-      Extrema_POnCurv  Pon1, Pon2;
+      PointOnCurve1  Pon1, Pon2;
       while (i <= nbext)
       {
         if (distmin.SquareDistance(i) < TheDist)

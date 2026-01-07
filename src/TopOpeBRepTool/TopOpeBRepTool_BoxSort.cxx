@@ -123,7 +123,7 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoShape&    S,
     if (!hb)
       myHBT->AddBox(ss);
     Standard_Integer im = myHBT->Index(ss);
-    const Bnd_Box&   B  = myHBT->Box(ss);
+    const Box2&   B  = myHBT->Box1(ss);
     AI.ChangeValue(i)   = im;
     AB.ChangeValue(i)   = B;
   }
@@ -148,14 +148,14 @@ const Handle(Bnd_HArray1OfBox)& TopOpeBRepTool_BoxSort::HAB() const
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Bnd_Box& COB)
+void TopOpeBRepTool_BoxSort::MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Box2& COB)
 {
   COB.SetVoid();
   Standard_Integer       n  = HAB->Upper();
   const Bnd_Array1OfBox& AB = HAB->Array1();
   for (Standard_Integer i = 1; i <= n; i++)
   {
-    const Bnd_Box& B = AB(i);
+    const Box2& B = AB(i);
     COB.Add(B);
   }
 }
@@ -234,12 +234,12 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoShape& S)
         P = GAS.Plane();
       else
       {
-        myLastCompareShapeBox = myHBT->Box(F);
+        myLastCompareShapeBox = myHBT->Box1(F);
       }
     }
     else
     {
-      myLastCompareShapeBox = myHBT->Box(F);
+      myLastCompareShapeBox = myHBT->Box1(F);
     }
   }
   else if (t == TopAbs_EDGE)
@@ -254,7 +254,7 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoShape& S)
     }
     else
     {
-      myLastCompareShapeBox = myHBT->Box(E);
+      myLastCompareShapeBox = myHBT->Box1(E);
     }
   }
 
@@ -299,7 +299,7 @@ const TopoShape& TopOpeBRepTool_BoxSort::TouchedShape(const MTClioloi& LI) const
 
 //=================================================================================================
 
-const Bnd_Box& TopOpeBRepTool_BoxSort::Box(const TopoShape& S) const
+const Box2& TopOpeBRepTool_BoxSort::Box1(const TopoShape& S) const
 {
   if (myHBT.IsNull())
   {
@@ -308,7 +308,7 @@ const Bnd_Box& TopOpeBRepTool_BoxSort::Box(const TopoShape& S) const
 
   if (myHBT->HasBox(S))
   {
-    const Bnd_Box& B = myHBT->Box(S);
+    const Box2& B = myHBT->Box1(S);
     return B;
   }
   else if (!myLastCompareShape.IsNull())
@@ -322,6 +322,6 @@ const Bnd_Box& TopOpeBRepTool_BoxSort::Box(const TopoShape& S) const
     }
   }
 
-  const Bnd_Box& B = myHBT->Box(S);
+  const Box2& B = myHBT->Box1(S);
   return B;
 }

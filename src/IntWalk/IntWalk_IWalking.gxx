@@ -231,21 +231,21 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
   if (mySRangeU.Delta() > Max(tolerance(1), Precision::PConfusion()))
   {
     mySRangeU.Enlarge(mySRangeU.Delta());
-    mySRangeU.Common(Bnd_Range(Um, UM));
+    mySRangeU.Common(Range1(Um, UM));
   }
   else
   {
-    mySRangeU = Bnd_Range(Um, UM);
+    mySRangeU = Range1(Um, UM);
   }
 
   if (mySRangeV.Delta() > Max(tolerance(2), Precision::PConfusion()))
   {
     mySRangeV.Enlarge(mySRangeV.Delta());
-    mySRangeV.Common(Bnd_Range(Vm, VM));
+    mySRangeV.Common(Range1(Vm, VM));
   }
   else
   {
-    mySRangeV = Bnd_Range(Vm, VM);
+    mySRangeV = Range1(Vm, VM);
   }
 
   // calculation of all open lines

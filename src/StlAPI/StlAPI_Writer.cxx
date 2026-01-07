@@ -90,7 +90,7 @@ Standard_Boolean StlWriter::Write(const TopoShape&          theShape,
     const TopAbs_Orientation anOrientation = anExpSF.Current().Orientation();
     for (Standard_Integer aTriIter = 1; aTriIter <= aTriangulation->NbTriangles(); ++aTriIter)
     {
-      Poly_Triangle aTri = aTriangulation->Triangle(aTriIter);
+      Poly_Triangle aTri = aTriangulation->Triangle1(aTriIter);
 
       Standard_Integer anId[3];
       aTri.Get(anId[0], anId[1], anId[2]);

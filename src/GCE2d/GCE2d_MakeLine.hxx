@@ -34,7 +34,7 @@ class gp_Dir2d;
 //! * Create a Line parallel to another and passing
 //! through a point.
 //! * Create a Line passing through 2 points.
-class GCE2d_MakeLine : public GCE2d_Root
+class GCE2d_MakeLine : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

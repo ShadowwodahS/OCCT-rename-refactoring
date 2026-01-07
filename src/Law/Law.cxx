@@ -66,7 +66,7 @@ Handle(TColStd_HArray1OfReal) Law1::MixBnd(const Standard_Integer         Degree
   }
   nbpol = nbfk - Degree - 1;
   TColStd_Array1OfReal par(1, nbpol);
-  BSplCLib::BuildSchoenbergPoints(Degree, fk, par);
+  BSplCLib1::BuildSchoenbergPoints(Degree, fk, par);
   Handle(TColStd_HArray1OfReal) res = new TColStd_HArray1OfReal(1, nbpol);
   TColStd_Array1OfReal&         pol = res->ChangeArray1();
   for (i = 1; i <= nbpol; i++)
@@ -75,7 +75,7 @@ Handle(TColStd_HArray1OfReal) Law1::MixBnd(const Standard_Integer         Degree
   }
   TColStd_Array1OfInteger ord(1, nbpol);
   ord.Init(0);
-  BSplCLib::Interpolate(Degree, fk, par, ord, 1, pol(1), i);
+  BSplCLib1::Interpolate(Degree, fk, par, ord, 1, pol(1), i);
   if (nbpol >= 4)
   {
     pol(2)         = pol(1);
@@ -142,7 +142,7 @@ Handle(TColStd_HArray1OfReal) Law1::MixTgt(const Standard_Integer         Degree
   }
   nbpol = nbfk - Degree - 1;
   TColStd_Array1OfReal par(1, nbpol);
-  BSplCLib::BuildSchoenbergPoints(Degree, fk, par);
+  BSplCLib1::BuildSchoenbergPoints(Degree, fk, par);
   Handle(TColStd_HArray1OfReal) res = new TColStd_HArray1OfReal(1, nbpol);
   TColStd_Array1OfReal&         pol = res->ChangeArray1();
   for (i = 1; i <= nbpol; i++)
@@ -151,7 +151,7 @@ Handle(TColStd_HArray1OfReal) Law1::MixTgt(const Standard_Integer         Degree
   }
   TColStd_Array1OfInteger ord(1, nbpol);
   ord.Init(0);
-  BSplCLib::Interpolate(Degree, fk, par, ord, 1, pol(1), i);
+  BSplCLib1::Interpolate(Degree, fk, par, ord, 1, pol(1), i);
   return res;
 }
 
@@ -320,14 +320,14 @@ Handle(Law_BSpline) Law1::Scale(const Standard_Real    First,
 
   TColStd_Array1OfReal pol(1, 6);
   TColStd_Array1OfReal par(1, 6);
-  BSplCLib::BuildSchoenbergPoints(3, fknot, par);
+  BSplCLib1::BuildSchoenbergPoints(3, fknot, par);
   for (i = 1; i <= 6; i++)
   {
     pol(i) = eval2(par(i), First, Last, Milieu, HasF, HasL, bs1, bs2);
   }
   TColStd_Array1OfInteger ord(1, 6);
   ord.Init(0);
-  BSplCLib::Interpolate(3, fknot, par, ord, 1, pol(1), i);
+  BSplCLib1::Interpolate(3, fknot, par, ord, 1, pol(1), i);
   bs1 = new Law_BSpline(pol, knot, mult, 3);
   return bs1;
 }

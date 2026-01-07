@@ -36,7 +36,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 
 static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C);
 
-static void PerformExtPElC(Extrema_ExtPElC&               E,
+static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
                            const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            Tol);
@@ -65,7 +65,7 @@ static Point3d ProjectPnt(const Frame3d& ThePlane, const Dir3d& TheDir, const Po
 //=================================================================================================
 
 static Standard_Boolean IsOriginalPnt(const Point3d&          P,
-                                      const Extrema_POnSurf* Points,
+                                      const PointOnSurface1* Points,
                                       const Standard_Integer NbPoints)
 {
   for (Standard_Integer i = 1; i <= NbPoints; i++)
@@ -278,7 +278,7 @@ void Extrema_ExtPExtS::Perform(const Point3d& P)
   }
 
   Point3d          Pe, Pp = ProjectPnt(myPosition, myDirection, P);
-  Extrema_ExtPElC anExt;
+  PointElCCurveExtrema anExt;
   PerformExtPElC(anExt, Pp, myC, mytolu);
   if (!anExt.IsDone())
     return;
@@ -298,13 +298,13 @@ void Extrema_ExtPExtS::Perform(const Point3d& P)
 
   for (i = 1; i <= aNbExt; i++)
   {
-    Extrema_POnCurv POC = anExt.Point(i);
+    PointOnCurve1 POC = anExt.Point(i);
     U                   = POC.Parameter();
     //// modified by jgv, 23.12.2008 for OCC17194 ////
     if (myC->IsPeriodic())
     {
       Standard_Real U2 = U;
-      ElCLib::AdjustPeriodic(myuinf, myuinf + 2. * M_PI, Precision::PConfusion(), U, U2);
+      ElCLib1::AdjustPeriodic(myuinf, myuinf + 2. * M_PI, Precision::PConfusion(), U, U2);
     }
     //////////////////////////////////////////////////
     Point3d E = POC.Value();
@@ -314,9 +314,9 @@ void Extrema_ExtPExtS::Perform(const Point3d& P)
     {
       V = Vector3d(E, Pe) * Vector3d(myDirection);
       // modified by NIZHNY-MKK  Thu Sep 18 14:46:14 2003.BEGIN
-      //       myPoint[++myNbExt] = Extrema_POnSurf(U, V, Pe);
+      //       myPoint[++myNbExt] = PointOnSurface1(U, V, Pe);
       //       myValue[myNbExt] = anExt.Value(i);
-      myPoint[myNbExt]  = Extrema_POnSurf(U, V, Pe);
+      myPoint[myNbExt]  = PointOnSurface1(U, V, Pe);
       mySqDist[myNbExt] = anExt.SquareDistance(i);
       myNbExt++;
       if (myNbExt == NbExtMax)
@@ -379,7 +379,7 @@ void Extrema_ExtPExtS::Perform(const Point3d& P)
           // when starting point is far from solution.
           Standard_Real          dist = Sqrt(myF.SquareDistance(k));
           math_Vector            Vals(1, 2);
-          const Extrema_POnSurf& PonS = myF.Point(k);
+          const PointOnSurface1& PonS = myF.Point(k);
           Standard_Real          u, v;
           PonS.Parameter(u, v);
           UV(1) = u;
@@ -471,7 +471,7 @@ Standard_Real Extrema_ExtPExtS::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnSurf& Extrema_ExtPExtS::Point(const Standard_Integer N) const
+const PointOnSurface1& Extrema_ExtPExtS::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -519,7 +519,7 @@ static Frame3d GetPosition(const Handle(Adaptor3d_Curve)& C)
 
 //=============================================================================
 
-static void PerformExtPElC(Extrema_ExtPElC&               E,
+static void PerformExtPElC(PointElCCurveExtrema&               E,
                            const Point3d&                  P,
                            const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            Tol)
@@ -578,15 +578,15 @@ static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
   switch (C->GetType())
   {
     case GeomAbs_Line:
-      return ElCLib::Value(U, C->Line());
+      return ElCLib1::Value(U, C->Line());
     case GeomAbs_Circle:
-      return ElCLib::Value(U, C->Circle());
+      return ElCLib1::Value(U, C->Circle());
     case GeomAbs_Ellipse:
-      return ElCLib::Value(U, C->Ellipse());
+      return ElCLib1::Value(U, C->Ellipse());
     case GeomAbs_Hyperbola:
-      return ElCLib::Value(U, C->Hyperbola());
+      return ElCLib1::Value(U, C->Hyperbola());
     case GeomAbs_Parabola:
-      return ElCLib::Value(U, C->Parabola());
+      return ElCLib1::Value(U, C->Parabola());
     default:
       return Point3d();
   }
@@ -601,15 +601,15 @@ static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
 //{
 //  switch (C->GetType()) {
 //  case GeomAbs_Line:
-//    return ElCLib::Parameter(C->Line().Translated(vec), P);
+//    return ElCLib1::Parameter(C->Line().Translated(vec), P);
 //  case GeomAbs_Circle:
-//    return ElCLib::Parameter(C->Circle().Translated(vec), P);
+//    return ElCLib1::Parameter(C->Circle().Translated(vec), P);
 //  case GeomAbs_Ellipse:
-//    return ElCLib::Parameter(C->Ellipse().Translated(vec), P);
+//    return ElCLib1::Parameter(C->Ellipse().Translated(vec), P);
 //  case GeomAbs_Hyperbola:
-//    return ElCLib::Parameter(C->Hyperbola().Translated(vec), P);
+//    return ElCLib1::Parameter(C->Hyperbola().Translated(vec), P);
 //  case GeomAbs_Parabola:
-//    return ElCLib::Parameter(C->Parabola().Translated(vec), P);
+//    return ElCLib1::Parameter(C->Parabola().Translated(vec), P);
 //  default:
 //    return 0;
 //  }

@@ -43,28 +43,28 @@ void DDataStd1::AllCommands(DrawInterpreter& theCommands)
 void DDataStd1::DumpConstraint(const Handle(TDataXtd_Constraint)& CTR, Standard_OStream& anOS)
 {
   AsciiString1 S;
-  TDF_Tool::Entry(CTR->Label(), S);
+  Tool3::Entry(CTR->Label(), S);
   anOS << S << " ";
   TDataXtd1::Print(CTR->GetType(), anOS);
   for (Standard_Integer i = 1; i <= CTR->NbGeometries(); i++)
   {
     anOS << " G_" << i << " (";
-    TDF_Tool::Entry(CTR->GetGeometry(i)->Label(), S);
+    Tool3::Entry(CTR->GetGeometry(i)->Label(), S);
     anOS << S << ") ";
   }
   if (CTR->IsPlanar())
   {
     anOS << " P (";
-    TDF_Tool::Entry(CTR->GetPlane()->Label(), S);
+    Tool3::Entry(CTR->GetPlane()->Label(), S);
     anOS << S << ") ";
   }
   if (CTR->IsDimension())
   {
     anOS << " V (";
-    TDF_Tool::Entry(CTR->GetValue()->Label(), S);
+    Tool3::Entry(CTR->GetValue()->Label(), S);
     anOS << S << ") ";
     Standard_DISABLE_DEPRECATION_WARNINGS TDataStd_RealEnum t = CTR->GetValue()->GetDimension();
-    TDataStd::Print(t, anOS);
+    TDataStd1::Print(t, anOS);
     Standard_Real val = CTR->GetValue()->Get();
     if (t == TDataStd_ANGULAR)
       val = (180. * val) / M_PI;

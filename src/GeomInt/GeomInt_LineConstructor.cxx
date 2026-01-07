@@ -55,7 +55,7 @@ public:
   void SetVertex(const IntPatch_Point& theOther)
   {
     myVertex                      = theOther;
-    const Standard_Real aNewParam = ElCLib::InPeriod(theOther.ParameterOnLine(), 0.0, TwoPI);
+    const Standard_Real aNewParam = ElCLib1::InPeriod(theOther.ParameterOnLine(), 0.0, TwoPI);
     SetParameter(aNewParam);
   }
 
@@ -867,19 +867,19 @@ void GLinePoint(const IntPatch_IType          typl,
   switch (typl)
   {
     case IntPatch_Lin:
-      aP = ElCLib::Value(aT, GLine->Line());
+      aP = ElCLib1::Value(aT, GLine->Line());
       break;
     case IntPatch_Circle:
-      aP = ElCLib::Value(aT, GLine->Circle());
+      aP = ElCLib1::Value(aT, GLine->Circle());
       break;
     case IntPatch_Ellipse:
-      aP = ElCLib::Value(aT, GLine->Ellipse());
+      aP = ElCLib1::Value(aT, GLine->Ellipse());
       break;
     case IntPatch_Hyperbola:
-      aP = ElCLib::Value(aT, GLine->Hyperbola());
+      aP = ElCLib1::Value(aT, GLine->Hyperbola());
       break;
     case IntPatch_Parabola:
-      aP = ElCLib::Value(aT, GLine->Parabola());
+      aP = ElCLib1::Value(aT, GLine->Parabola());
       break;
     default:
       throw Standard_ConstructionError("GeomInt_LineConstructor::Parameters");

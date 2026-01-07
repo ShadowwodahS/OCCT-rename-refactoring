@@ -24,8 +24,8 @@
 #include <TopOpeBRepTool_box.hxx>
 #include <TopOpeBRepTool_define.hxx>
 
-Standard_EXPORT void FTOL_FaceTolerances(const Bnd_Box&             B1,
-                                         const Bnd_Box&             B2,
+Standard_EXPORT void FTOL_FaceTolerances(const Box2&             B1,
+                                         const Box2&             B2,
                                          const TopoFace&         myFace1,
                                          const TopoFace&         myFace2,
                                          const BRepAdaptor_Surface& mySurface1,
@@ -189,10 +189,10 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const TopoFace& myFace1,
                                            Standard_Real&     Tol)
 {
   const Handle(TopOpeBRepTool_HBoxTool)& hbt = FBOX_GetHBoxTool();
-  Bnd_Box                                B1, B2;
+  Box2                                B1, B2;
   if (hbt->HasBox(myFace1))
   {
-    B1 = hbt->Box(myFace1);
+    B1 = hbt->Box1(myFace1);
   }
   else
   {
@@ -200,7 +200,7 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const TopoFace& myFace1,
   }
   if (hbt->HasBox(myFace2))
   {
-    B2 = hbt->Box(myFace2);
+    B2 = hbt->Box1(myFace2);
   }
   else
   {
@@ -227,8 +227,8 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const TopoFace& myFace1,
   Tol    = Max(myTol1, myTol2);
 }
 
-Standard_EXPORT void FTOL_FaceTolerances3d(const Bnd_Box&             B1,
-                                           const Bnd_Box&             B2,
+Standard_EXPORT void FTOL_FaceTolerances3d(const Box2&             B1,
+                                           const Box2&             B2,
                                            const TopoFace&         myFace1,
                                            const TopoFace&         myFace2,
                                            const BRepAdaptor_Surface& mySurface1,
@@ -250,8 +250,8 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const Bnd_Box&             B1,
                       MaxUV);
 }
 
-Standard_EXPORT void FTOL_FaceTolerances2d(const Bnd_Box&             B1,
-                                           const Bnd_Box&             B2,
+Standard_EXPORT void FTOL_FaceTolerances2d(const Box2&             B1,
+                                           const Box2&             B2,
                                            const TopoFace&         myFace1,
                                            const TopoFace&         myFace2,
                                            const BRepAdaptor_Surface& mySurface1,

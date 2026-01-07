@@ -25,9 +25,9 @@
 #include <Intf_Interference.hxx>
 #include <Intf_Array1OfLin.hxx>
 class HLRBRep_ThePolygonOfInterCSurf;
-class HLRBRep_ThePolygonToolOfInterCSurf;
+class PolygonToolInterCSurf;
 class HLRBRep_ThePolyhedronOfInterCSurf;
-class HLRBRep_ThePolyhedronToolOfInterCSurf;
+class PolyhedronToolInterCSurf;
 class gp_Lin;
 class Bnd_BoundSortBox;
 class Point3d;

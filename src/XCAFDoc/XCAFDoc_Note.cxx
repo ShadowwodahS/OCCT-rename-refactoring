@@ -135,7 +135,7 @@ void XCAFDoc_Note::SetObject(const Handle(XCAFNoteObjects_NoteObject)& theObject
 {
   Backup();
 
-  for (TDF_ChildIterator anIter(Label()); anIter.More(); anIter.Next())
+  for (ChildIterator anIter(Label()); anIter.More(); anIter.Next())
   {
     anIter.Value().ForgetAllAttributes();
   }

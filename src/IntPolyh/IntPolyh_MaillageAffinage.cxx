@@ -167,7 +167,7 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer theID1,
                                   const Standard_Integer theID2) Standard_OVERRIDE
   {
-    if (!myBVHSet1->Box(theID1).IsOut(myBVHSet2->Box(theID2)))
+    if (!myBVHSet1->Box1(theID1).IsOut(myBVHSet2->Box1(theID2)))
     {
       myPairs.push_back(PairIDs(myBVHSet1->Element(theID1), myBVHSet2->Element(theID2)));
       return Standard_True;
@@ -218,7 +218,7 @@ static void GetInterferingTriangles(IntPolyh_ArrayOfTriangles&                  
       if (!aT.IsIntersectionPossible() || aT.IsDegenerated())
         continue;
 
-      aBBTree.Add(j, Bnd_Tools::Bnd2BVH(aT.BoundingBox(aPoints)));
+      aBBTree.Add(j, Tools5::Bnd2BVH(aT.BoundingBox(aPoints)));
     }
 
     if (!aBBTree.Size())
@@ -356,7 +356,7 @@ void IntPolyh_MaillageAffinage::FillArrayOfPnt(const Standard_Integer      SurfI
   //
   aNbU                               = (SurfID == 1) ? NbSamplesU1 : NbSamplesU2;
   aNbV                               = (SurfID == 1) ? NbSamplesV1 : NbSamplesV2;
-  Bnd_Box&                   aBox    = (SurfID == 1) ? MyBox1 : MyBox2;
+  Box2&                   aBox    = (SurfID == 1) ? MyBox1 : MyBox2;
   Handle(Adaptor3d_Surface)& aS      = (SurfID == 1) ? MaSurface1 : MaSurface2;
   IntPolyh_ArrayOfPoints&    TPoints = (SurfID == 1) ? TPoints1 : TPoints2;
   //
@@ -419,7 +419,7 @@ void IntPolyh_MaillageAffinage::FillArrayOfPnt(const Standard_Integer           
   IntPolyh_ArrayOfPoints&   TPoints = (SurfID == 1) ? TPoints1 : TPoints2;
   Standard_Integer          aNbU    = (SurfID == 1) ? NbSamplesU1 : NbSamplesU2;
   Standard_Integer          aNbV    = (SurfID == 1) ? NbSamplesV1 : NbSamplesV2;
-  Bnd_Box&                  aBox    = (SurfID == 1) ? MyBox1 : MyBox2;
+  Box2&                  aBox    = (SurfID == 1) ? MyBox1 : MyBox2;
 
   Standard_Integer aJD1(0), aJD2(0), aID1(0), aID2(0);
   DegeneratedIndex(theVPars, aNbV, aS, 1, aJD1, aJD2);
@@ -506,8 +506,8 @@ void IntPolyh_MaillageAffinage::CommonBox()
 //           REJECTION BOUNDING BOXES
 //           DETERMINATION OF THE COMMON BOX
 //=======================================================================
-void IntPolyh_MaillageAffinage::CommonBox(const Bnd_Box&,
-                                          const Bnd_Box&,
+void IntPolyh_MaillageAffinage::CommonBox(const Box2&,
+                                          const Box2&,
                                           Standard_Real& XMin,
                                           Standard_Real& YMin,
                                           Standard_Real& ZMin,
@@ -1132,7 +1132,7 @@ static void LargeTrianglesDeflectionsRefinement(const Handle(Adaptor3d_Surface)&
                                                 IntPolyh_ArrayOfTriangles&       theTriangles,
                                                 IntPolyh_ArrayOfEdges&           theEdges,
                                                 IntPolyh_ArrayOfPoints&          thePoints,
-                                                const Bnd_Box&                   theOppositeBox)
+                                                const Box2&                   theOppositeBox)
 {
   // Find all triangles of the bigger surface with bounding boxes
   // overlapping the bounding box the other surface
@@ -1146,7 +1146,7 @@ static void LargeTrianglesDeflectionsRefinement(const Handle(Adaptor3d_Surface)&
       continue;
     }
     //
-    const Bnd_Box& aBox = aTriangle.BoundingBox(thePoints);
+    const Box2& aBox = aTriangle.BoundingBox(thePoints);
     if (aBox.IsVoid())
     {
       continue;
@@ -3423,7 +3423,7 @@ const IntPolyh_ArrayOfTriangles& IntPolyh_MaillageAffinage::GetArrayOfTriangles(
 
 //=================================================================================================
 
-Bnd_Box IntPolyh_MaillageAffinage::GetBox(const Standard_Integer SurfID) const
+Box2 IntPolyh_MaillageAffinage::GetBox(const Standard_Integer SurfID) const
 {
   if (SurfID == 1)
     return (MyBox1);

@@ -137,16 +137,16 @@ public:
                            Standard_Real& aXmax,
                            Standard_Real& aYmax) const;
 
-  //! The Box will be infinitely long in the Xmin direction.
+  //! The Box1 will be infinitely long in the Xmin direction.
   void OpenXmin() { Flags |= XminMask; }
 
-  //! The Box will be infinitely long in the Xmax direction.
+  //! The Box1 will be infinitely long in the Xmax direction.
   void OpenXmax() { Flags |= XmaxMask; }
 
-  //! The Box will be infinitely long in the Ymin direction.
+  //! The Box1 will be infinitely long in the Ymin direction.
   void OpenYmin() { Flags |= YminMask; }
 
-  //! The Box will be infinitely long in the Ymax direction.
+  //! The Box1 will be infinitely long in the Ymax direction.
   void OpenYmax() { Flags |= YmaxMask; }
 
   //! Returns true if this bounding box is open in the Xmin direction.
@@ -189,7 +189,7 @@ public:
     Add(theDir);
   }
 
-  //! Extends the Box  in the given Direction, i.e. adds
+  //! Extends the Box1  in the given Direction, i.e. adds
   //! a half-line. The box may become infinite in 1 or 2
   //! directions.
   Standard_EXPORT void Add(const gp_Dir2d& D);

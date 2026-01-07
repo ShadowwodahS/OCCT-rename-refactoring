@@ -92,13 +92,13 @@ void GeomPlate_PlateG1Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Con
       //   u,v recadres sur (-1,1)
       up = (2 * P2d.X() - UInt[0] - UInt[1]) / (UInt[1] - UInt[0]);
       vp = (2 * P2d.Y() - VInt[0] - VInt[1]) / (VInt[1] - VInt[0]);
-      PLib::EvalPoly2Var(up, vp, 1, 0, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
+      PLib1::EvalPoly2Var(up, vp, 1, 0, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
 
       v1s.SetCoord(1, Digit[0]);
       v1s.SetCoord(2, Digit[1]);
       v1s.SetCoord(3, Digit[2]);
 
-      PLib::EvalPoly2Var(up, vp, 0, 1, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
+      PLib1::EvalPoly2Var(up, vp, 0, 1, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
 
       v2s.SetCoord(1, Digit[0]);
       v2s.SetCoord(2, Digit[1]);

@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, RefObject)
 //!    WARNING! Particular primitive types might be unsupported by specific hardware/graphics API
 //!    (like quads and polygons).
 //!             It is always preferred using one of basic types having maximum compatibility:
-//!             Point, Triangle (or Triangle strip), Segment aka Lines (or Polyline aka Line Strip).
+//!             Point, Triangle1 (or Triangle1 strip), Segment aka Lines (or Polyline aka Line Strip).
 //!    Primitive strip types can be used to reduce memory usage as alternative to Indexed arrays.
 //! 2) Vertex array.
 //!    - Specifying the (maximum) number of vertexes within array.

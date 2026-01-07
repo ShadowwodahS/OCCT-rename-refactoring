@@ -52,7 +52,7 @@ bool IsEmptyLabel(const DataLabel& theLabel)
   if (theLabel.NbAttributes() > 0)
     return false;
 
-  for (TDF_ChildIterator aChildIt(theLabel); aChildIt.More(); aChildIt.Next())
+  for (ChildIterator aChildIt(theLabel); aChildIt.More(); aChildIt.Next())
   {
     if (!IsEmptyLabel(aChildIt.Value()))
       return false;

@@ -193,21 +193,21 @@ static void Translate(const Handle(TopTools_HArray2OfShape)& ArrayIn,
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Bounding box of a section.
 //=======================================================================
-static void Box(Handle(GeomFill_SectionLaw)& Sec, const Standard_Real U, Bnd_Box& Box)
+static void Box1(Handle(GeomFill_SectionLaw)& Sec, const Standard_Real U, Box2& Box1)
 
 {
   Standard_Integer NbPoles, bid;
-  Box.SetVoid();
+  Box1.SetVoid();
   Sec->SectionShape(NbPoles, bid, bid);
   TColgp_Array1OfPnt   Poles(1, NbPoles);
   TColStd_Array1OfReal W(1, NbPoles);
   Sec->D0(U, Poles, W);
   for (Standard_Integer ii = 1; ii <= NbPoles; ii++)
   {
-    Box.Add(Poles(ii));
+    Box1.Add(Poles(ii));
   }
 }
 
@@ -357,7 +357,7 @@ static Standard_Boolean SameParameter(TopoEdge&                E,
   }
 
   const Handle(Adaptor3d_Curve)& aHCurve = HC3d; // to avoid ambiguity
-  Approx_SameParameter           sp(aHCurve, Pcurv, S, tol3d);
+  SameParameterTool           sp(aHCurve, Pcurv, S, tol3d);
   if (sp.IsDone() && !sp.IsSameParameter())
     Pcurv = sp.Curve2d();
   else if (!sp.IsDone() && !sp.IsSameParameter())
@@ -540,7 +540,7 @@ static void BuildFace(const Handle(GeomSurface)&   S,
 
   if (!E1.IsSame(E3) && !E2.IsSame(E4)) // exclude cases with seam edges: they are not planar
   {
-    GeomLib_IsPlanarSurface IsP(S, Tol);
+    PlanarSurfaceChecker IsP(S, Tol);
     if (IsP.IsPlanar())
     {
       IsPlan   = Standard_True;
@@ -1024,7 +1024,7 @@ static Standard_Boolean Filling(const TopoShape&           EF,
     V2  = V1;
     V1  = aux;
   }
-  GeomLib::SameRange(Precision::PConfusion(),
+  GeomLib1::SameRange(Precision::PConfusion(),
                      C2,
                      C2->FirstParameter(),
                      C2->LastParameter(),
@@ -1736,7 +1736,7 @@ static void UpdateEdge(TopoEdge&                E,
   if (First != F2d || Last != L2d)
   {
     Handle(GeomCurve2d) C2d;
-    GeomLib::SameRange(Precision::PConfusion(), CL, F2d, L2d, First, Last, C2d);
+    GeomLib1::SameRange(Precision::PConfusion(), CL, F2d, L2d, First, Last, C2d);
     CL = new (Geom2d_TrimmedCurve)(C2d, First, Last);
   }
 
@@ -2278,14 +2278,14 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
       {
         Handle(Geom_BoundedSurface) BndS;
         BndS = Handle(Geom_BoundedSurface)::DownCast(TabS(isec, ipath));
-        GeomLib::ExtendSurfByLength(BndS, ExtendFirst, 1, Sweep.ExchangeUV(), Standard_False);
+        GeomLib1::ExtendSurfByLength(BndS, ExtendFirst, 1, Sweep.ExchangeUV(), Standard_False);
         TabS(isec, ipath) = BndS;
       }
       if ((ipath == NbPath) && (ExtendLast > 0))
       {
         Handle(Geom_BoundedSurface) BndS;
         BndS = Handle(Geom_BoundedSurface)::DownCast(TabS(isec, ipath));
-        GeomLib::ExtendSurfByLength(BndS, ExtendLast, 1, Sweep.ExchangeUV(), Standard_True);
+        GeomLib1::ExtendSurfByLength(BndS, ExtendLast, 1, Sweep.ExchangeUV(), Standard_True);
         TabS(isec, ipath) = BndS;
       }
 
@@ -3737,9 +3737,9 @@ Standard_Real BRepFill_Sweep::EvalExtrapol(const Standard_Integer         Index,
     myLoc->CurvilinearBounds(I1, Lf, Ll);
     U = SecFirst + (Ll / Length) * SecLen;
 
-    Bnd_Box box;
-    // Box(Sec, 0., box);
-    Box(Sec, U, box);
+    Box2 box;
+    // Box1(Sec, 0., box);
+    Box1(Sec, U, box);
     box.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
 
     R = Max(Max(Abs(Xmin), Abs(Xmax)), Max(Abs(Ymin), Abs(Ymax)));

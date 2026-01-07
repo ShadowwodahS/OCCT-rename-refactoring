@@ -24,24 +24,24 @@
 #include <TColgp_Array2OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class gp_Lin;
-class HLRBRep_LineTool;
-class HLRBRep_SurfaceTool;
+class LineTool3;
+class SurfaceTool3;
 class HLRBRep_ThePolygonOfInterCSurf;
-class HLRBRep_ThePolygonToolOfInterCSurf;
+class PolygonToolInterCSurf;
 class HLRBRep_ThePolyhedronOfInterCSurf;
-class HLRBRep_ThePolyhedronToolOfInterCSurf;
+class PolyhedronToolInterCSurf;
 class HLRBRep_TheInterferenceOfInterCSurf;
 class HLRBRep_TheCSFunctionOfInterCSurf;
 class HLRBRep_TheExactInterCSurf;
-class HLRBRep_TheQuadCurvExactInterCSurf;
+class QuadCurvExactInterCSurf;
 class HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf;
 class Bnd_BoundSortBox;
 class gp_Circ;
 class gp_Elips;
 class gp_Parab;
 class gp_Hypr;
-class IntAna_IntConicQuad;
-class Bnd_Box;
+class ConicQuadIntersection;
+class Box2;
 
 class HLRBRep_InterCSurf : public CurveSurfaceIntersection1
 {
@@ -170,7 +170,7 @@ protected:
 
   Standard_EXPORT void AppendIntAna(const gp_Lin&              Curve,
                                     const Standard_Address&    Surface,
-                                    const IntAna_IntConicQuad& InterAna);
+                                    const ConicQuadIntersection& InterAna);
 
   Standard_EXPORT void AppendPoint(const gp_Lin&           Curve,
                                    const Standard_Real     w,
@@ -190,7 +190,7 @@ private:
                                  const Standard_Real     v0,
                                  const Standard_Real     v1,
                                  TColgp_Array2OfPnt&     pntsOnSurface,
-                                 Bnd_Box&                boxSurface,
+                                 Box2&                boxSurface,
                                  Standard_Real&          gap);
 
   Standard_EXPORT void DoNewBounds(const Standard_Address&     surface,

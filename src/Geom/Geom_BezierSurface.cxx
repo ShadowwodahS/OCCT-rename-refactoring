@@ -487,7 +487,7 @@ Geom_BezierSurface::Geom_BezierSurface(const Handle(TColgp_HArray2OfPnt)&   Surf
 
 Standard_Integer Geom_BezierSurface::MaxDegree()
 {
-  return BSplCLib::MaxDegree();
+  return BSplCLib1::MaxDegree();
 }
 
 //=================================================================================================
@@ -566,7 +566,7 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
     {
       nweights = new TColStd_HArray2OfReal(1, UDeg + 1, 1, VDegree() + 1);
 
-      BSplSLib::IncreaseDegree(1,
+      BSplSLib1::IncreaseDegree(1,
                                oldUDeg,
                                UDeg,
                                0,
@@ -582,16 +582,16 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
     }
     else
     {
-      BSplSLib::IncreaseDegree(1,
+      BSplSLib1::IncreaseDegree(1,
                                oldUDeg,
                                UDeg,
                                0,
                                poles->Array2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                biduknots,
                                bidumults,
                                npoles->ChangeArray2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                biduknots,
                                bidumults);
     }
@@ -605,7 +605,7 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
     {
       nweights = new TColStd_HArray2OfReal(1, UDeg + 1, 1, VDeg + 1);
 
-      BSplSLib::IncreaseDegree(0,
+      BSplSLib1::IncreaseDegree(0,
                                oldVDeg,
                                VDeg,
                                0,
@@ -621,16 +621,16 @@ void Geom_BezierSurface::Increase(const Standard_Integer UDeg, const Standard_In
     }
     else
     {
-      BSplSLib::IncreaseDegree(0,
+      BSplSLib1::IncreaseDegree(0,
                                oldVDeg,
                                VDeg,
                                0,
                                poles->Array2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                bidvknots,
                                bidvmults,
                                npoles->ChangeArray2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                bidvknots,
                                bidvmults);
     }
@@ -929,8 +929,8 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
   if (rat)
     WCoefs = new TColStd_HArray2OfReal(1, aMaxDegree + 1, 1, aMinDegree + 1);
 
-  TColStd_Array1OfReal biduflatknots(BSplCLib::FlatBezierKnots(UDegree()), 1, 2 * (UDegree() + 1));
-  TColStd_Array1OfReal bidvflatknots(BSplCLib::FlatBezierKnots(VDegree()), 1, 2 * (VDegree() + 1));
+  TColStd_Array1OfReal biduflatknots(BSplCLib1::FlatBezierKnots(UDegree()), 1, 2 * (UDegree() + 1));
+  TColStd_Array1OfReal bidvflatknots(BSplCLib1::FlatBezierKnots(VDegree()), 1, 2 * (VDegree() + 1));
 
   Standard_Real uparameter_11  = 0.5;
   Standard_Real uspanlenght_11 = 0.5;
@@ -939,7 +939,7 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
 
   if (urational || vrational)
   {
-    BSplSLib::BuildCache(uparameter_11,
+    BSplSLib1::BuildCache(uparameter_11,
                          vparameter_11,
                          uspanlenght_11,
                          vspanlenght_11,
@@ -958,7 +958,7 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
   }
   else
   {
-    BSplSLib::BuildCache(uparameter_11,
+    BSplSLib1::BuildCache(uparameter_11,
                          vparameter_11,
                          uspanlenght_11,
                          vspanlenght_11,
@@ -971,9 +971,9 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
                          biduflatknots,
                          bidvflatknots,
                          poles->Array2(),
-                         BSplSLib::NoWeights(),
+                         BSplSLib1::NoWeights(),
                          Coefs->ChangeArray2(),
-                         BSplSLib::NoWeights());
+                         BSplSLib1::NoWeights());
   }
 
   // Attention si udeg <= vdeg u et v sont intervertis
@@ -1004,21 +1004,21 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
                 vlast = 2 * (V2 - 0.5);
   if (rat)
   {
-    PLib::UTrimming(ufirst, ulast, Coefs->ChangeArray2(), &WCoefs->ChangeArray2());
-    PLib::VTrimming(vfirst, vlast, Coefs->ChangeArray2(), &WCoefs->ChangeArray2());
-    PLib::CoefficientsPoles(Coefs->Array2(),
+    PLib1::UTrimming(ufirst, ulast, Coefs->ChangeArray2(), &WCoefs->ChangeArray2());
+    PLib1::VTrimming(vfirst, vlast, Coefs->ChangeArray2(), &WCoefs->ChangeArray2());
+    PLib1::CoefficientsPoles(Coefs->Array2(),
                             &WCoefs->Array2(),
                             poles->ChangeArray2(),
                             &weights->ChangeArray2());
   }
   else
   {
-    PLib::UTrimming(ufirst, ulast, Coefs->ChangeArray2(), PLib::NoWeights2());
-    PLib::VTrimming(vfirst, vlast, Coefs->ChangeArray2(), PLib::NoWeights2());
-    PLib::CoefficientsPoles(Coefs->Array2(),
-                            PLib::NoWeights2(),
+    PLib1::UTrimming(ufirst, ulast, Coefs->ChangeArray2(), PLib1::NoWeights2());
+    PLib1::VTrimming(vfirst, vlast, Coefs->ChangeArray2(), PLib1::NoWeights2());
+    PLib1::CoefficientsPoles(Coefs->Array2(),
+                            PLib1::NoWeights2(),
                             poles->ChangeArray2(),
-                            PLib::NoWeights2());
+                            PLib1::NoWeights2());
   }
 }
 
@@ -1384,7 +1384,7 @@ void Geom_BezierSurface::D0(const Standard_Real U, const Standard_Real V, Point3
   TColStd_Array1OfInteger bidvmults(mult_v[0], 1, 2);
   if (urational || vrational)
   {
-    BSplSLib::D0(U,
+    BSplSLib1::D0(U,
                  V,
                  1,
                  1,
@@ -1405,12 +1405,12 @@ void Geom_BezierSurface::D0(const Standard_Real U, const Standard_Real V, Point3
   else
   {
 
-    BSplSLib::D0(U,
+    BSplSLib1::D0(U,
                  V,
                  1,
                  1,
                  poles->Array2(),
-                 BSplSLib::NoWeights(),
+                 BSplSLib1::NoWeights(),
                  biduknots,
                  bidvknots,
                  &bidumults,
@@ -1443,7 +1443,7 @@ void Geom_BezierSurface::D1(const Standard_Real U,
   TColStd_Array1OfInteger bidvmults(mult_v[0], 1, 2);
   if (urational || vrational)
   {
-    BSplSLib::D1(U,
+    BSplSLib1::D1(U,
                  V,
                  1,
                  1,
@@ -1465,12 +1465,12 @@ void Geom_BezierSurface::D1(const Standard_Real U,
   }
   else
   {
-    BSplSLib::D1(U,
+    BSplSLib1::D1(U,
                  V,
                  1,
                  1,
                  poles->Array2(),
-                 BSplSLib::NoWeights(),
+                 BSplSLib1::NoWeights(),
                  biduknots,
                  bidvknots,
                  &bidumults,
@@ -1509,7 +1509,7 @@ void Geom_BezierSurface::D2(const Standard_Real U,
   if (urational || vrational)
   {
     //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB
-    BSplSLib::D2(U,
+    BSplSLib1::D2(U,
                  V,
                  1,
                  1,
@@ -1535,12 +1535,12 @@ void Geom_BezierSurface::D2(const Standard_Real U,
   else
   {
     //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB
-    BSplSLib::D2(U,
+    BSplSLib1::D2(U,
                  V,
                  1,
                  1,
                  poles->Array2(),
-                 BSplSLib::NoWeights(),
+                 BSplSLib1::NoWeights(),
                  biduknots,
                  bidvknots,
                  &bidumults,
@@ -1587,7 +1587,7 @@ void Geom_BezierSurface::D3(const Standard_Real U,
   bidvmults.Init(VDegree() + 1);
   if (urational || vrational)
   {
-    BSplSLib::D3(U,
+    BSplSLib1::D3(U,
                  V,
                  0,
                  0,
@@ -1616,12 +1616,12 @@ void Geom_BezierSurface::D3(const Standard_Real U,
   }
   else
   {
-    BSplSLib::D3(U,
+    BSplSLib1::D3(U,
                  V,
                  0,
                  0,
                  poles->Array2(),
-                 BSplSLib::NoWeights(),
+                 BSplSLib1::NoWeights(),
                  biduknots,
                  bidvknots,
                  &bidumults,
@@ -1666,7 +1666,7 @@ Vector3d Geom_BezierSurface::DN(const Standard_Real    U,
   bidvmults.Init(VDegree() + 1);
   if (urational || vrational)
   {
-    BSplSLib::DN(U,
+    BSplSLib1::DN(U,
                  V,
                  Nu,
                  Nv,
@@ -1688,14 +1688,14 @@ Vector3d Geom_BezierSurface::DN(const Standard_Real    U,
   }
   else
   {
-    BSplSLib::DN(U,
+    BSplSLib1::DN(U,
                  V,
                  Nu,
                  Nv,
                  0,
                  0,
                  poles->Array2(),
-                 BSplSLib::NoWeights(),
+                 BSplSLib1::NoWeights(),
                  biduknots,
                  bidvknots,
                  &bidumults,
@@ -1770,7 +1770,7 @@ Handle(GeomCurve3d) Geom_BezierSurface::UIso(const Standard_Real U) const
   {
     const TColStd_Array2OfReal& Weights = weights->Array2();
     TColStd_Array1OfReal        VCurveWeights(Weights.LowerCol(), Weights.UpperCol());
-    BSplSLib::Iso(U,
+    BSplSLib1::Iso(U,
                   1,
                   Poles,
                   &Weights,
@@ -1787,16 +1787,16 @@ Handle(GeomCurve3d) Geom_BezierSurface::UIso(const Standard_Real U) const
   }
   else
   {
-    BSplSLib::Iso(U,
+    BSplSLib1::Iso(U,
                   1,
                   Poles,
-                  BSplSLib::NoWeights(),
+                  BSplSLib1::NoWeights(),
                   biduknots,
                   &bidumults,
                   UDegree(),
                   0,
                   VCurvePoles,
-                  PLib::NoWeights());
+                  PLib1::NoWeights());
     UIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   return UIsoCurve;
@@ -1826,7 +1826,7 @@ Handle(GeomCurve3d) Geom_BezierSurface::VIso(const Standard_Real V) const
   {
     const TColStd_Array2OfReal& Weights = weights->Array2();
     TColStd_Array1OfReal        VCurveWeights(Weights.LowerRow(), Weights.UpperRow());
-    BSplSLib::Iso(V,
+    BSplSLib1::Iso(V,
                   0,
                   Poles,
                   &Weights,
@@ -1843,16 +1843,16 @@ Handle(GeomCurve3d) Geom_BezierSurface::VIso(const Standard_Real V) const
   }
   else
   {
-    BSplSLib::Iso(V,
+    BSplSLib1::Iso(V,
                   0,
                   Poles,
-                  BSplSLib::NoWeights(),
+                  BSplSLib1::NoWeights(),
                   bidvknots,
                   &bidvmults,
                   VDegree(),
                   0,
                   VCurvePoles,
-                  PLib::NoWeights());
+                  PLib1::NoWeights());
     VIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   return VIsoCurve;
@@ -2001,7 +2001,7 @@ void Geom_BezierSurface::Resolution(const Standard_Real Tolerance3D,
     bidvmults.Init(VDegree() + 1);
     if (urational || vrational)
     {
-      BSplSLib::Resolution(poles->Array2(),
+      BSplSLib1::Resolution(poles->Array2(),
                            &weights->Array2(),
                            biduknots,
                            bidvknots,
@@ -2019,8 +2019,8 @@ void Geom_BezierSurface::Resolution(const Standard_Real Tolerance3D,
     }
     else
     {
-      BSplSLib::Resolution(poles->Array2(),
-                           BSplSLib::NoWeights(),
+      BSplSLib1::Resolution(poles->Array2(),
+                           BSplSLib1::NoWeights(),
                            biduknots,
                            bidvknots,
                            bidumults,

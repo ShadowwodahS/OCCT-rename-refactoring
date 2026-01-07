@@ -23,7 +23,7 @@ class XmlMDF_ADriverTable;
 class Message_Messenger;
 
 //! Storage and Retrieval drivers for modelling attributes.
-//! Transient attributes are defined in package TDataStd.
+//! Transient attributes are defined in package TDataStd1.
 class XmlMDataStd
 {
 public:

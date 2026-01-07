@@ -41,11 +41,11 @@ public:
   //! is available.
   Standard_EXPORT virtual Standard_Integer VersionNumber() const;
 
-  //! Creates a new attribute from TDF.
+  //! Creates a new attribute from TDF1.
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const = 0;
 
   //! Returns the type of source object,
-  //! inheriting from Attribute from TDF.
+  //! inheriting from Attribute from TDF1.
   Standard_EXPORT virtual Handle(TypeInfo) SourceType() const;
 
   //! Returns the full XML tag name (including NS prefix)

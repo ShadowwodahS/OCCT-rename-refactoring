@@ -632,7 +632,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                       C = Handle(Geom_TrimmedCurve)::DownCast(C)->BasisCurve();
                     }
 
-                    Handle(GeomCurve2d) C2d = GeomProjLib::Curve2d(C, f, l, S, tol);
+                    Handle(GeomCurve2d) C2d = GeomProjLib1::Curve2d(C, f, l, S, tol);
 
                     // Tentative de recalage dans la facette
                     pf                            = C2d->Value(f);
@@ -845,7 +845,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                 {
                   // on met les courbes 2d si on n`est pas sur un plan
                   // C est la courbe de edgbis, f et l s`y rapportent
-                  Handle(GeomCurve2d) PTC = GeomProjLib::Curve2d(C, f, l, S, tol);
+                  Handle(GeomCurve2d) PTC = GeomProjLib1::Curve2d(C, f, l, S, tol);
                   if (S->IsUPeriodic())
                   {
                     Standard_Real Uref;
@@ -1015,7 +1015,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                     C = Handle(Geom_TrimmedCurve)::DownCast(C)->BasisCurve();
                   }
 
-                  C2d = GeomProjLib::Curve2d(C, f, l, S, tol);
+                  C2d = GeomProjLib1::Curve2d(C, f, l, S, tol);
 
                   // Tentative de recalage dans la facette
                   pf                            = C2d->Value(f);
@@ -1387,11 +1387,11 @@ Standard_Real NewParameter(const TopoEdge&   Edg,
 
   if (typC == STANDARD_TYPE(GeomLine))
   {
-    return ElCLib::Parameter(Handle(GeomLine)::DownCast(C)->Lin(), P);
+    return ElCLib1::Parameter(Handle(GeomLine)::DownCast(C)->Lin(), P);
   }
   else if (typC == STANDARD_TYPE(GeomCircle))
   {
-    Standard_Real prm = ElCLib::Parameter(Handle(GeomCircle)::DownCast(C)->Circ(), P);
+    Standard_Real prm = ElCLib1::Parameter(Handle(GeomCircle)::DownCast(C)->Circ(), P);
     // Vtx vient d`une exploration de Edg orientee FORWARD
 
     TopAbs_Orientation orient = TopAbs1::Reverse(Vtx.Orientation());

@@ -91,7 +91,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
                                                              const Standard_Real U2,
                                                              const Standard_Real V1,
                                                              const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,
@@ -173,7 +173,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
                                                              const Standard_Real    Param1,
                                                              const Standard_Real    Param2,
                                                              const Standard_Boolean UTrim)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,
@@ -284,7 +284,7 @@ Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus&    
 //=================================================================================================
 
 Convert_TorusToBSplineSurface::Convert_TorusToBSplineSurface(const gp_Torus& T)
-    : Convert_ElementarySurfaceToBSplineSurface(MaxNbUPoles,
+    : ElementaryToBSplineSurface(MaxNbUPoles,
                                                 MaxNbVPoles,
                                                 MaxNbUKnots,
                                                 MaxNbVKnots,

@@ -34,7 +34,7 @@ class TDF_DeltaOnModification;
 class TDF_DeltaOnRemoval;
 class TDF_RelocationTable;
 class TDF_DataSet;
-class TDF_IDFilter;
+class IDFilter;
 
 class TDF_Attribute;
 DEFINE_STANDARD_HANDLE(TDF_Attribute, RefObject)
@@ -356,7 +356,7 @@ public:
   //! Use the map rank instead of dumping each attribute
   //! field.
   Standard_EXPORT virtual void ExtendedDump(Standard_OStream&        anOS,
-                                            const TDF_IDFilter&      aFilter,
+                                            const IDFilter&      aFilter,
                                             TDF_AttributeIndexedMap& aMap) const;
 
   //! Forgets the attribute. <aTransaction> is the

@@ -36,13 +36,13 @@ public:
   virtual ~BVH_Set() {}
 
   //! Returns AABB of the entire set of objects.
-  virtual BVH_Box<T, N> Box() const
+  virtual BVH_Box<T, N> Box1() const
   {
     BVH_Box<T, N>          aBox;
     const Standard_Integer aSize = Size();
     for (Standard_Integer anIndex = 0; anIndex < aSize; ++anIndex)
     {
-      aBox.Combine(Box(anIndex));
+      aBox.Combine(Box1(anIndex));
     }
     return aBox;
   }
@@ -52,7 +52,7 @@ public:
   virtual Standard_Integer Size() const = 0;
 
   //! Returns AABB of the given object.
-  virtual BVH_Box<T, N> Box(const Standard_Integer theIndex) const = 0;
+  virtual BVH_Box<T, N> Box1(const Standard_Integer theIndex) const = 0;
 
   //! Returns centroid position along the given axis.
   virtual T Center(const Standard_Integer theIndex, const Standard_Integer theAxis) const = 0;

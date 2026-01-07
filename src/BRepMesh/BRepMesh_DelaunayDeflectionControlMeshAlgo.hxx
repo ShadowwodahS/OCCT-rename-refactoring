@@ -359,8 +359,8 @@ private:
     Dir3d                      aNorm1, aNorm2;
     const Handle(GeomSurface)& aSurf = this->getDFace()->GetSurface()->Surface().Surface();
 
-    if ((GeomLib::NormEstim(aSurf, theNodeInfo1.Point2d, Precision::Confusion(), aNorm1) == 0)
-        && (GeomLib::NormEstim(aSurf, theNodeInfo2.Point2d, Precision::Confusion(), aNorm2) == 0))
+    if ((GeomLib1::NormEstim(aSurf, theNodeInfo1.Point2d, Precision::Confusion(), aNorm1) == 0)
+        && (GeomLib1::NormEstim(aSurf, theNodeInfo2.Point2d, Precision::Confusion(), aNorm2) == 0))
     {
       Standard_Real anAngle = aNorm1.Angle(aNorm2);
       if (anAngle > this->getParameters().AngleInterior)
@@ -369,7 +369,7 @@ private:
       }
     }
 #if 0
-    else if (GeomLib::NormEstim(aSurf, theMidPoint, Precision::Confusion(), aNorm1) != 0)
+    else if (GeomLib1::NormEstim(aSurf, theMidPoint, Precision::Confusion(), aNorm1) != 0)
     {
       // It is better to consider the singular point as a node of triangulation.
       // However, it leads to hangs up meshing some faces (including faces with

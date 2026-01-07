@@ -81,7 +81,7 @@ static void NormalD0(const Standard_Real              U,
   Surf->D1(U, V, P, D1U, D1V);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(D1U, D1V, MagTol, NStatus, Normal);
+  CSLib1::Normal(D1U, D1V, MagTol, NStatus, Normal);
 
   if (NStatus != CSLib_Defined)
   {
@@ -112,10 +112,10 @@ static void NormalD0(const Standard_Real              U,
     for (i = 0; i <= MaxOrder; i++)
       for (j = 0; j <= MaxOrder; j++)
       {
-        DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
+        DerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurf));
       }
 
-    CSLib::Normal(MaxOrder,
+    CSLib1::Normal(MaxOrder,
                   DerNUV,
                   MagTol,
                   U,
@@ -170,7 +170,7 @@ static void NormalD1(const Standard_Real              U,
   Surf->D2(U, V, P, D1UNormal, D1VNormal, d2u, d2v, d2uv);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(D1UNormal, D1VNormal, MagTol, NStatus, Normal);
+  CSLib1::Normal(D1UNormal, D1VNormal, MagTol, NStatus, Normal);
   Standard_Integer MaxOrder;
   if (NStatus == CSLib_Defined)
     MaxOrder = 0;
@@ -203,10 +203,10 @@ static void NormalD1(const Standard_Real              U,
   for (i = 0; i <= MaxOrder + 1; i++)
     for (j = 0; j <= MaxOrder + 1; j++)
     {
-      DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
+      DerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurf));
     }
 
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 MagTol,
                 U,
@@ -222,8 +222,8 @@ static void NormalD1(const Standard_Real              U,
   if (NStatus != CSLib_Defined)
     throw Geom_UndefinedValue();
 
-  D1UNormal = CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-  D1VNormal = CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+  D1UNormal = CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+  D1VNormal = CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
 }
 
 //=======================================================================
@@ -254,7 +254,7 @@ static void NormalD2(const Standard_Real              U,
   Surf->D3(U, V, P, D1UNormal, D1VNormal, D2UNormal, D2VNormal, D2UVNormal, d3u, d3v, d3uuv, d3uvv);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
-  CSLib::Normal(D1UNormal, D1VNormal, MagTol, NStatus, Normal);
+  CSLib1::Normal(D1UNormal, D1VNormal, MagTol, NStatus, Normal);
   Standard_Integer MaxOrder;
   if (NStatus == CSLib_Defined)
     MaxOrder = 0;
@@ -292,10 +292,10 @@ static void NormalD2(const Standard_Real              U,
   for (i = 0; i <= MaxOrder + 2; i++)
     for (j = 0; j <= MaxOrder + 2; j++)
     {
-      DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
+      DerNUV.SetValue(i, j, CSLib1::DNNUV(i, j, DerSurf));
     }
 
-  CSLib::Normal(MaxOrder,
+  CSLib1::Normal(MaxOrder,
                 DerNUV,
                 MagTol,
                 U,
@@ -311,11 +311,11 @@ static void NormalD2(const Standard_Real              U,
   if (NStatus != CSLib_Defined)
     throw Geom_UndefinedValue();
 
-  D1UNormal  = CSLib::DNNormal(1, 0, DerNUV, OrderU, OrderV);
-  D1VNormal  = CSLib::DNNormal(0, 1, DerNUV, OrderU, OrderV);
-  D2UNormal  = CSLib::DNNormal(2, 0, DerNUV, OrderU, OrderV);
-  D2VNormal  = CSLib::DNNormal(0, 2, DerNUV, OrderU, OrderV);
-  D2UVNormal = CSLib::DNNormal(1, 1, DerNUV, OrderU, OrderV);
+  D1UNormal  = CSLib1::DNNormal(1, 0, DerNUV, OrderU, OrderV);
+  D1VNormal  = CSLib1::DNNormal(0, 1, DerNUV, OrderU, OrderV);
+  D2UNormal  = CSLib1::DNNormal(2, 0, DerNUV, OrderU, OrderV);
+  D2VNormal  = CSLib1::DNNormal(0, 2, DerNUV, OrderU, OrderV);
+  D2UVNormal = CSLib1::DNNormal(1, 1, DerNUV, OrderU, OrderV);
 }
 
 GeomFill_Darboux::GeomFill_Darboux() {}

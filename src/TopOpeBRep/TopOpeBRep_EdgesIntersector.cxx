@@ -134,7 +134,7 @@ TopOpeBRep_EdgesIntersector::~TopOpeBRep_EdgesIntersector() {}
 
 void TopOpeBRep_EdgesIntersector::SetFaces(const TopoShape& F1, const TopoShape& F2)
 {
-  Bnd_Box B1, B2;
+  Box2 B1, B2;
   SetFaces(F1, F2, B1, B2);
 }
 
@@ -142,8 +142,8 @@ void TopOpeBRep_EdgesIntersector::SetFaces(const TopoShape& F1, const TopoShape&
 
 void TopOpeBRep_EdgesIntersector::SetFaces(const TopoShape& F1,
                                            const TopoShape& F2,
-                                           const Bnd_Box&      B1,
-                                           const Bnd_Box&      B2)
+                                           const Box2&      B1,
+                                           const Box2&      B2)
 {
   Standard_Boolean computerestriction = Standard_False;
 
@@ -498,12 +498,12 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoShape&    E1,
       {
         std::cout << "------------ projection de curve" << std::endl;
         std::cout << "--- Curve : " << std::endl;
-        GeomTools_CurveSet::PrintCurve(NC, std::cout);
+        CurveSet1::PrintCurve(NC, std::cout);
         std::cout << "--- nouvelle PCurve : " << std::endl;
-        GeomTools_Curve2dSet::PrintCurve2d(PC2on1, std::cout);
+        Curve2dSet1::PrintCurve2d(PC2on1, std::cout);
         Handle(GeomSurface) aS1 = BRepInspector::Surface(myFace1);
         std::cout << "--- sur surface : " << std::endl;
-        GeomTools_SurfaceSet::PrintSurface(aS1, std::cout);
+        SurfaceSet1::PrintSurface(aS1, std::cout);
         std::cout << std::endl;
       }
 #endif

@@ -27,7 +27,7 @@
 #include <Standard_Boolean.hxx>
 class Standard_ConstructionError;
 class ConicTool;
-class HLRBRep_CurveTool;
+class CurveTool5;
 class HLRBRep_TheIntConicCurveOfCInter;
 class gp_Lin2d;
 class Domain2;

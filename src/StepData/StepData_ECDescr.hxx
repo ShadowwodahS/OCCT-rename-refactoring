@@ -58,7 +58,7 @@ public:
   //! Returns True
   Standard_EXPORT Standard_Boolean IsComplex() const Standard_OVERRIDE;
 
-  //! Creates a described entity (i.e. a complex one, made of one
+  //! Creates a described entity (i.e. a complex1 one, made of one
   //! simple entity per member)
   Standard_EXPORT Handle(StepData_Described) NewEntity() const Standard_OVERRIDE;
 

@@ -513,7 +513,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
   //             100 is better than 10 but it is too much !
   //             finally, nothing is better than a blocking box
   //  Standard_Real dernierparam = 100 * P1.Distance(P2);
-  Bnd_Box B;
+  Box2 B;
   BRepBndLib::Add(W, B);
   Standard_Real x1, x2, y1, y2, z1, z2;
   B.Get(x1, y1, z1, x2, y2, z2);

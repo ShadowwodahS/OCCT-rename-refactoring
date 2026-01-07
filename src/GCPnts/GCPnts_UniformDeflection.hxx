@@ -30,23 +30,23 @@ class Point3d;
 //! The algorithm respects a criterion of maximum deflection between
 //! the curve and the polygon that results from the computed points.
 //! Note: This algorithm is relatively time consuming.
-//! A GCPnts_QuasiUniformDeflection algorithm is quicker;
+//! A QuasiUniformDeflectionSampler algorithm is quicker;
 //! it can also work with non-'C2' continuous curves,
 //! but it generates more points in the distribution.
-class GCPnts_UniformDeflection
+class UniformDeflection1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty algorithm.
   //! To define the problem to be solved, use the function Initialize.
-  Standard_EXPORT GCPnts_UniformDeflection();
+  Standard_EXPORT UniformDeflection1();
 
   //! Computes a uniform Deflection distribution of points on the curve.
   //! @param[in] theC  input 3D curve
   //! @param[in] theDeflection  target deflection
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT GCPnts_UniformDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT UniformDeflection1(const Adaptor3d_Curve& theC,
                                            const Standard_Real    theDeflection,
                                            const Standard_Boolean theWithControl = Standard_True);
 
@@ -54,7 +54,7 @@ public:
   //! @param[in] theC  input 2D curve
   //! @param[in] theDeflection  target deflection
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT GCPnts_UniformDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT UniformDeflection1(const Adaptor2d_Curve2d& theC,
                                            const Standard_Real      theDeflection,
                                            const Standard_Boolean   theWithControl = Standard_True);
 
@@ -64,7 +64,7 @@ public:
   //! @param[in] theU1  first parameter on curve
   //! @param[in] theU2  last  parameter on curve
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT GCPnts_UniformDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT UniformDeflection1(const Adaptor3d_Curve& theC,
                                            const Standard_Real    theDeflection,
                                            const Standard_Real    theU1,
                                            const Standard_Real    theU2,
@@ -76,7 +76,7 @@ public:
   //! @param[in] theU1  first parameter on curve
   //! @param[in] theU2  last  parameter on curve
   //! @param[in] theWithControl  when TRUE, the algorithm controls the estimate deflection
-  Standard_EXPORT GCPnts_UniformDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT UniformDeflection1(const Adaptor2d_Curve2d& theC,
                                            const Standard_Real      theDeflection,
                                            const Standard_Real      theU1,
                                            const Standard_Real      theU2,
@@ -156,7 +156,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Integer NbPoints() const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_UniformDeflection::NbPoints()");
+    StdFail_NotDone_Raise_if(!myDone, "UniformDeflection1::NbPoints()");
     return myParams.Length();
   }
 
@@ -172,7 +172,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Real Parameter(const Standard_Integer Index) const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_UniformDeflection::Parameter()");
+    StdFail_NotDone_Raise_if(!myDone, "UniformDeflection1::Parameter()");
     return myParams(Index);
   }
 
@@ -198,7 +198,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Real Deflection() const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_UniformDeflection::Deflection()");
+    StdFail_NotDone_Raise_if(!myDone, "UniformDeflection1::Deflection()");
     return myDeflection;
   }
 

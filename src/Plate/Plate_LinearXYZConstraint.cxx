@@ -54,7 +54,7 @@ Plate_LinearXYZConstraint::Plate_LinearXYZConstraint(const Standard_Integer ColL
 }
 
 void Plate_LinearXYZConstraint::SetPPC(const Standard_Integer          Index,
-                                       const Plate_PinpointConstraint& Value)
+                                       const PinpointConstraint& Value)
 {
   myPPC->ChangeValue(Index) = Value;
 }

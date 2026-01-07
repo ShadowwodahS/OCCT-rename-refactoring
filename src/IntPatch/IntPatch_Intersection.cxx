@@ -190,7 +190,7 @@ void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
       Handle(GeomAdaptor_Surface) aGAHsurf   = new GeomAdaptor_Surface(aPlane);
       ProjLib_ProjectedCurve      aProjectedCurve(aGAHsurf, aProjCurve);
       Handle(GeomCurve2d)        aPCurve;
-      ProjLib::MakePCurveOfType(aProjectedCurve, aPCurve);
+      ProjLib1::MakePCurveOfType(aProjectedCurve, aPCurve);
       Geom2dAdaptor_Curve AC(aPCurve,
                              aProjectedCurve.FirstParameter(),
                              aProjectedCurve.LastParameter());
@@ -294,7 +294,7 @@ static void FUN_TrimInfSurf(const Point3d&                    Pmin,
     {
       for (Standard_Integer i = 1; i <= ext1.NbExt(); i++)
       {
-        const Extrema_POnSurf& pons = ext1.Point(i);
+        const PointOnSurface1& pons = ext1.Point(i);
         pons.Parameter(cU, cV);
         if (cU > Umax)
           Umax = cU;
@@ -310,7 +310,7 @@ static void FUN_TrimInfSurf(const Point3d&                    Pmin,
     {
       for (Standard_Integer i = 1; i <= ext2.NbExt(); i++)
       {
-        const Extrema_POnSurf& pons = ext2.Point(i);
+        const PointOnSurface1& pons = ext2.Point(i);
         pons.Parameter(cU, cV);
         if (cU > Umax)
           Umax = cU;
@@ -756,19 +756,19 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     return;
   DV                       = derS1[iso];
   Handle(GeomPlane) GPln  = new GeomPlane(gp_Pln(puvS1, Dir3d(DV)));
-  Handle(GeomCurve3d) C1Prj = GeomProjLib::ProjectOnPlane(C1, GPln, Dir3d(DV), Standard_True);
-  Handle(GeomCurve3d) C2Prj = GeomProjLib::ProjectOnPlane(C2, GPln, Dir3d(DV), Standard_True);
+  Handle(GeomCurve3d) C1Prj = GeomProjLib1::ProjectOnPlane(C1, GPln, Dir3d(DV), Standard_True);
+  Handle(GeomCurve3d) C2Prj = GeomProjLib1::ProjectOnPlane(C2, GPln, Dir3d(DV), Standard_True);
   if (C1Prj.IsNull() || C2Prj.IsNull())
     return;
-  Handle(GeomCurve2d)      C1Prj2d = GeomProjLib::Curve2d(C1Prj, GPln);
-  Handle(GeomCurve2d)      C2Prj2d = GeomProjLib::Curve2d(C2Prj, GPln);
+  Handle(GeomCurve2d)      C1Prj2d = GeomProjLib1::Curve2d(C1Prj, GPln);
+  Handle(GeomCurve2d)      C2Prj2d = GeomProjLib1::Curve2d(C2Prj, GPln);
   Geom2dAPI_InterCurveCurve ICC(C1Prj2d, C2Prj2d, 1.0e-7);
   if (ICC.NbPoints() > 0)
   {
     for (Standard_Integer ip = 1; ip <= ICC.NbPoints(); ip++)
     {
       gp_Pnt2d P   = ICC.Point(ip);
-      Point3d   P3d = ElCLib::To3d(Frame3d(puvS1, Dir3d(DV)), P);
+      Point3d   P3d = ElCLib1::To3d(Frame3d(puvS1, Dir3d(DV)), P);
       SP.Append(P3d);
     }
   }

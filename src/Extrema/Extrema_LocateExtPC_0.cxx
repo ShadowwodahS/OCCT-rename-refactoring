@@ -31,15 +31,15 @@
 
 #define TheCurve Adaptor3d_Curve
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool Extrema_CurveTool
+#define TheCurveTool CurveTool4
 #define TheCurveTool_hxx <Extrema_CurveTool.hxx>
-#define TheExtPElC Extrema_ExtPElC
+#define TheExtPElC PointElCCurveExtrema
 #define TheExtPElC_hxx <Extrema_ExtPElC.hxx>
 #define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define TheVector Vector3d
 #define TheVector_hxx <gp_Vec.hxx>
-#define ThePOnC Extrema_POnCurv
+#define ThePOnC PointOnCurve1
 #define ThePOnC_hxx <Extrema_POnCurv.hxx>
 #define TheSequenceOfPOnC Extrema_SequenceOfPOnCurv
 #define TheSequenceOfPOnC_hxx <Extrema_SequenceOfPOnCurv.hxx>

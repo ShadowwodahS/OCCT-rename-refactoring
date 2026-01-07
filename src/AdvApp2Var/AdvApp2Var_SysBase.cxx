@@ -84,7 +84,7 @@ static struct
 
 //=================================================================================================
 
-AdvApp2Var_SysBase::AdvApp2Var_SysBase()
+SystemBase::SystemBase()
 {
   mainial_();
   memset(&mcrstac_, 0, sizeof(mcrstac_));
@@ -92,14 +92,14 @@ AdvApp2Var_SysBase::AdvApp2Var_SysBase()
 
 //=================================================================================================
 
-AdvApp2Var_SysBase::~AdvApp2Var_SysBase()
+SystemBase::~SystemBase()
 {
   assert(mcrgene_.ncore == 0); // otherwise memory leaking
 }
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macinit_(integer* imode, integer* ival)
+int SystemBase::macinit_(integer* imode, integer* ival)
 
 {
 
@@ -181,7 +181,7 @@ int AdvApp2Var_SysBase::macinit_(integer* imode, integer* ival)
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macrai4_(integer*  nbelem,
+int SystemBase::macrai4_(integer*  nbelem,
                                  integer*  maxelm,
                                  integer*  itablo,
                                  intptr_t* iofset,
@@ -239,7 +239,7 @@ int AdvApp2Var_SysBase::macrai4_(integer*  nbelem,
   /* Function Body */
   if (*nbelem > *maxelm)
   {
-    /*AdvApp2Var_SysBase::*/ mcrrqst_(&iunit, nbelem, itablo, iofset, iercod);
+    /*SystemBase::*/ mcrrqst_(&iunit, nbelem, itablo, iofset, iercod);
   }
   else
   {
@@ -251,7 +251,7 @@ int AdvApp2Var_SysBase::macrai4_(integer*  nbelem,
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macrar8_(integer*    nbelem,
+int SystemBase::macrar8_(integer*    nbelem,
                                  integer*    maxelm,
                                  doublereal* xtablo,
                                  intptr_t*   iofset,
@@ -308,7 +308,7 @@ int AdvApp2Var_SysBase::macrar8_(integer*    nbelem,
   /* Function Body */
   if (*nbelem > *maxelm)
   {
-    /*AdvApp2Var_SysBase::*/ mcrrqst_(&c__8, nbelem, xtablo, iofset, iercod);
+    /*SystemBase::*/ mcrrqst_(&c__8, nbelem, xtablo, iofset, iercod);
   }
   else
   {
@@ -327,7 +327,7 @@ int macrbrk_()
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macrchk_()
+int SystemBase::macrchk_()
 {
   /* System generated locals */
   integer i__1;
@@ -462,7 +462,7 @@ int macrclw_(intptr_t*, // iadfld,
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macrdi4_(integer* nbelem,
+int SystemBase::macrdi4_(integer* nbelem,
                                  integer*, // maxelm,
                                  integer*  itablo,
                                  intptr_t* iofset, /* Offset long (pmn) */
@@ -514,7 +514,7 @@ int AdvApp2Var_SysBase::macrdi4_(integer* nbelem,
   /* Function Body */
   if (*iofset != 0)
   {
-    AdvApp2Var_SysBase::mcrdelt_(&iunit, nbelem, itablo, iofset, iercod);
+    SystemBase::mcrdelt_(&iunit, nbelem, itablo, iofset, iercod);
   }
   else
   {
@@ -525,7 +525,7 @@ int AdvApp2Var_SysBase::macrdi4_(integer* nbelem,
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::macrdr8_(integer* nbelem,
+int SystemBase::macrdr8_(integer* nbelem,
                                  integer*, // maxelm,
                                  doublereal* xtablo,
                                  intptr_t*   iofset,
@@ -578,7 +578,7 @@ int AdvApp2Var_SysBase::macrdr8_(integer* nbelem,
   /* Function Body */
   if (*iofset != 0)
   {
-    AdvApp2Var_SysBase::mcrdelt_(&c__8, nbelem, xtablo, iofset, iercod);
+    SystemBase::mcrdelt_(&c__8, nbelem, xtablo, iofset, iercod);
   }
   else
   {
@@ -598,7 +598,7 @@ int macrerr_(intptr_t*, // iad,
   // integer /*do__fio(),*/;
 
   /* Fortran I/O blocks */
-  // cilist io___1 = { 0, 6, 0, "(X,A,I9,A,I3)", 0 };
+  // cilist1 io___1 = { 0, 6, 0, "(X,A,I9,A,I3)", 0 };
 
   /* ***********************************************************************
    */
@@ -1062,7 +1062,7 @@ int madbtbk_(integer* indice)
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::maermsg_(const char*, // cnompg,
+int SystemBase::maermsg_(const char*, // cnompg,
                                  integer*,    // icoder,
                                  ftnlen)      // cnompg_len)
 
@@ -1209,7 +1209,7 @@ L9999:
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mainial_()
+int SystemBase::mainial_()
 {
   mcrgene_.ncore = 0;
   mcrgene_.lprot = 0;
@@ -1218,7 +1218,7 @@ int AdvApp2Var_SysBase::mainial_()
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* xval)
+int SystemBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* xval)
 
 {
   integer c__504 = 504;
@@ -1299,7 +1299,7 @@ int AdvApp2Var_SysBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* 
       i__1 = nbfois;
       for (nufois = 1; nufois <= i__1; ++nufois)
       {
-        AdvApp2Var_SysBase::mcrfill_(&c__504, buff0, &xtab[(nufois - 1) * 63 + 1]);
+        SystemBase::mcrfill_(&c__504, buff0, &xtab[(nufois - 1) * 63 + 1]);
         /* L1000: */
       }
     }
@@ -1307,7 +1307,7 @@ int AdvApp2Var_SysBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* 
     if (nreste >= 1)
     {
       i__1 = nreste << 3;
-      AdvApp2Var_SysBase::mcrfill_(&i__1, buff0, &xtab[noffst + 1]);
+      SystemBase::mcrfill_(&i__1, buff0, &xtab[noffst + 1]);
     }
   }
   else
@@ -1322,7 +1322,7 @@ int AdvApp2Var_SysBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* 
       i__1 = nbfois;
       for (nufois = 1; nufois <= i__1; ++nufois)
       {
-        AdvApp2Var_SysBase::mcrfill_(&c__504, buffx, &xtab[(nufois - 1) * 63 + 1]);
+        SystemBase::mcrfill_(&c__504, buffx, &xtab[(nufois - 1) * 63 + 1]);
         /* L3000: */
       }
     }
@@ -1330,7 +1330,7 @@ int AdvApp2Var_SysBase::maitbr8_(integer* itaill, doublereal* xtab, doublereal* 
     if (nreste >= 1)
     {
       i__1 = nreste << 3;
-      AdvApp2Var_SysBase::mcrfill_(&i__1, buffx, &xtab[noffst + 1]);
+      SystemBase::mcrfill_(&i__1, buffx, &xtab[noffst + 1]);
     }
   }
 
@@ -1691,14 +1691,14 @@ int maoverf_(integer* nbentr, doublereal* dtable)
   if (*nbentr < 63)
   {
     nrest = *nbentr << 3;
-    AdvApp2Var_SysBase::mcrfill_(&nrest, buff, &dtable[1]);
+    SystemBase::mcrfill_(&nrest, buff, &dtable[1]);
   }
   else
   {
 
     /* Start & initialization */
     ioct = 504;
-    AdvApp2Var_SysBase::mcrfill_(&ioct, buff, &dtable[1]);
+    SystemBase::mcrfill_(&ioct, buff, &dtable[1]);
     indic = 63;
 
     /* Loop. The upper limit is the integer value of the logarithm of base 2
@@ -1708,7 +1708,7 @@ int maoverf_(integer* nbentr, doublereal* dtable)
     for (ibid = 1; ibid <= i__1; ++ibid)
     {
 
-      AdvApp2Var_SysBase::mcrfill_(&ioct, &dtable[1], &dtable[indic + 1]);
+      SystemBase::mcrfill_(&ioct, &dtable[1], &dtable[indic + 1]);
       ioct += ioct;
       indic += indic;
 
@@ -1719,7 +1719,7 @@ int maoverf_(integer* nbentr, doublereal* dtable)
 
     if (nrest > 0)
     {
-      AdvApp2Var_SysBase::mcrfill_(&nrest, &dtable[1], &dtable[indic + 1]);
+      SystemBase::mcrfill_(&nrest, &dtable[1], &dtable[indic + 1]);
     }
   }
   return 0;
@@ -1727,7 +1727,7 @@ int maoverf_(integer* nbentr, doublereal* dtable)
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::maovsr8_(integer* ivalcs)
+int SystemBase::maovsr8_(integer* ivalcs)
 {
   *ivalcs = maovpar_.r8ncs;
   return 0;
@@ -2029,7 +2029,7 @@ L9900:
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mcrdelt_(integer*  iunit,
+int SystemBase::mcrdelt_(integer*  iunit,
                                  integer*  isize,
                                  void*     t,
                                  intptr_t* iofset,
@@ -2233,7 +2233,7 @@ L1100:
   if (n < MAX_ALLOC_NB - 1)
   {
     noct = (mcrgene_.ncore - (n + 1)) * sizeof(mcrgene_.icore[0]);
-    AdvApp2Var_SysBase::mcrfill_(&noct, &mcrgene_.icore[n + 1], &mcrgene_.icore[n]);
+    SystemBase::mcrfill_(&noct, &mcrgene_.icore[n + 1], &mcrgene_.icore[n]);
   }
   --mcrgene_.ncore;
 
@@ -2254,14 +2254,14 @@ L1100:
 L9001:
   /*  REFUSE DE-ALLOCATION BY ROUTINE 'MCRCOMM' (ALLOC DS COMMON) */
   *iercod = 1;
-  AdvApp2Var_SysBase::maermsg_("MCRDELT", iercod, 7L);
+  SystemBase::maermsg_("MCRDELT", iercod, 7L);
   maostrd_();
   goto L9900;
 
 /*  REFUSE DE-ALLOCATION BY THE SYSTEM */
 L9002:
   *iercod = 2;
-  AdvApp2Var_SysBase::maermsg_("MCRDELT", iercod, 7L);
+  SystemBase::maermsg_("MCRDELT", iercod, 7L);
   macrmsg_("MCRDELT", iercod, &ibid, &xbid, " ", 7L, 1L);
   maostrd_();
   goto L9900;
@@ -2269,7 +2269,7 @@ L9002:
 /* ALLOCATION DOES NOT EXIST */
 L9003:
   *iercod = 3;
-  AdvApp2Var_SysBase::maermsg_("MCRDELT", iercod, 7L);
+  SystemBase::maermsg_("MCRDELT", iercod, 7L);
   maostrd_();
   goto L9900;
 
@@ -2316,7 +2316,7 @@ C**********************************************************************
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mcrfill_(integer* size, void* tin, void* tout)
+int SystemBase::mcrfill_(integer* size, void* tin, void* tout)
 
 {
   char* jmin  = static_cast<char*>(tin);
@@ -2417,7 +2417,7 @@ int mcrgetv_(integer* sz, intptr_t* iad, integer* ier)
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mcrlist_(integer* ier) const
+int SystemBase::mcrlist_(integer* ier) const
 
 {
   /* System generated locals */
@@ -2552,7 +2552,7 @@ int AdvApp2Var_SysBase::mcrlist_(integer* ier) const
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mcrrqst_(integer*  iunit,
+int SystemBase::mcrrqst_(integer*  iunit,
                                  integer*  isize,
                                  void*     t,
                                  intptr_t* iofset,
@@ -2885,7 +2885,7 @@ L9900:
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mgenmsg_(const char*, // nomprg,
+int SystemBase::mgenmsg_(const char*, // nomprg,
                                  ftnlen)      // nomprg_len)
 
 {
@@ -2894,7 +2894,7 @@ int AdvApp2Var_SysBase::mgenmsg_(const char*, // nomprg,
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mgsomsg_(const char*, // nomprg,
+int SystemBase::mgsomsg_(const char*, // nomprg,
                                  ftnlen)      // nomprg_len)
 
 {
@@ -2939,7 +2939,7 @@ C***********************************************************************
 */
 //=================================================================================================
 
-void AdvApp2Var_SysBase::miraz_(integer* taille, void* adt)
+void SystemBase::miraz_(integer* taille, void* adt)
 
 {
   memset(adt, '\0', *taille);
@@ -2947,7 +2947,7 @@ void AdvApp2Var_SysBase::miraz_(integer* taille, void* adt)
 
 //=================================================================================================
 
-integer AdvApp2Var_SysBase::mnfndeb_()
+integer SystemBase::mnfndeb_()
 {
   integer ret_val;
   ret_val = 0;
@@ -2956,7 +2956,7 @@ integer AdvApp2Var_SysBase::mnfndeb_()
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::msifill_(integer* nbintg, integer* ivecin, integer* ivecou)
+int SystemBase::msifill_(integer* nbintg, integer* ivecin, integer* ivecou)
 {
   integer nocte;
 
@@ -3001,13 +3001,13 @@ int AdvApp2Var_SysBase::msifill_(integer* nbintg, integer* ivecin, integer* ivec
 
   /* Function Body */
   nocte = *nbintg * sizeof(integer);
-  AdvApp2Var_SysBase::mcrfill_(&nocte, &ivecin[1], &ivecou[1]);
+  SystemBase::mcrfill_(&nocte, &ivecin[1], &ivecou[1]);
   return 0;
 } /* msifill_ */
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::msrfill_(integer* nbreel, doublereal* vecent, doublereal* vecsor)
+int SystemBase::msrfill_(integer* nbreel, doublereal* vecent, doublereal* vecsor)
 {
   integer nocte;
 
@@ -3052,13 +3052,13 @@ int AdvApp2Var_SysBase::msrfill_(integer* nbreel, doublereal* vecent, doublereal
 
   /* Function Body */
   nocte = *nbreel * sizeof(doublereal);
-  AdvApp2Var_SysBase::mcrfill_(&nocte, &vecent[1], &vecsor[1]);
+  SystemBase::mcrfill_(&nocte, &vecent[1], &vecsor[1]);
   return 0;
 } /* msrfill_ */
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::mswrdbg_(const char*, // ctexte,
+int SystemBase::mswrdbg_(const char*, // ctexte,
                                  ftnlen)      // ctexte_len)
 
 {
@@ -3104,7 +3104,7 @@ int AdvApp2Var_SysBase::mswrdbg_(const char*, // ctexte,
   /* ***********************************************************************
    */
 
-  if (AdvApp2Var_SysBase::mnfndeb_() >= 1)
+  if (SystemBase::mnfndeb_() >= 1)
   {
     // do__lio(&c__9, &c__1, "Dbg ", 4L);
     // do__lio(&c__9, &c__1, ctexte, ctexte_len);
@@ -3124,14 +3124,14 @@ int __s__cmp()
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::do__fio()
+int SystemBase::do__fio()
 {
   return 0;
 }
 
 //=================================================================================================
 
-int AdvApp2Var_SysBase::do__lio()
+int SystemBase::do__lio()
 {
   return 0;
 }
@@ -3171,7 +3171,7 @@ C***********************************************************************
 */
 //=================================================================================================
 
-void AdvApp2Var_SysBase::mvriraz_(integer* taille, void* adt)
+void SystemBase::mvriraz_(integer* taille, void* adt)
 
 {
   integer offset;

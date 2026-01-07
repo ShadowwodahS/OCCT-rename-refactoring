@@ -1056,7 +1056,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
     if (approx.HasResult())
       aBSpline = approx.Curve();
     else
-      aBSpline = GeomConvert::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
+      aBSpline = GeomConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
 
     Standard_Real Shift = First - aBSpline->FirstParameter();
     if (Abs(Shift) > Precision::PConfusion())
@@ -1084,7 +1084,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(GeomC
 
   if (aCurve->IsKind(STANDARD_TYPE(BezierCurve3d)) && myParameters->ConvertCurve3d())
   {
-    Handle(GeomCurve3d) aBSpline = GeomConvert::CurveToBSplineCurve(aCurve, Convert_QuasiAngular);
+    Handle(GeomCurve3d) aBSpline = GeomConvert1::CurveToBSplineCurve(aCurve, Convert_QuasiAngular);
     Handle(GeomCurve3d) ResCurve;
     if (ConvertCurve(aBSpline, ResCurve, IsConvert, First, Last, TolCur, Standard_False))
     {
@@ -1428,7 +1428,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
     if (approx.HasResult())
       aBSpline2d = approx.Curve();
     else
-      aBSpline2d = Geom2dConvert::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
+      aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
 
     Standard_Real Shift = First - aBSpline2d->FirstParameter();
     if (Abs(Shift) > Precision::PConfusion())
@@ -1457,7 +1457,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)) && myParameters->ConvertCurve2d())
   {
     Handle(GeomCurve2d) aBSpline2d =
-      Geom2dConvert::CurveToBSplineCurve(aCurve, Convert_QuasiAngular);
+      Geom2dConvert1::CurveToBSplineCurve(aCurve, Convert_QuasiAngular);
     Handle(GeomCurve2d) ResCurve;
     if (ConvertCurve2d(aBSpline2d, ResCurve, IsConvert, First, Last, TolCur, Standard_False))
     {

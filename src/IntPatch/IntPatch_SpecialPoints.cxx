@@ -603,7 +603,7 @@ Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
     else
       thePtIso.ParametersOnS1(aUIso, aVIso);
 
-    aUIso = ElCLib::InPeriod(aUIso, 0.0, aPeriod);
+    aUIso = ElCLib1::InPeriod(aUIso, 0.0, aPeriod);
 
     // Sought U-parameter in the apex point
 
@@ -647,7 +647,7 @@ Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
       }
 
       // Select the parameter the nearest to aUIso
-      anUq                 = ElCLib::InPeriod(anUq, 0.0, aPeriod);
+      anUq                 = ElCLib1::InPeriod(anUq, 0.0, aPeriod);
       Standard_Real aDelta = Abs(anUq - aUIso);
       if (aDelta > M_PI)
         aDelta = aPeriod - aDelta;

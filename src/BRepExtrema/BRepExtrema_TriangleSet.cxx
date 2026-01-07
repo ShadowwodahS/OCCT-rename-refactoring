@@ -65,10 +65,10 @@ Standard_Integer BRepExtrema_TriangleSet::Size() const
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns AABB of the given triangle
 //=======================================================================
-BVH_Box<Standard_Real, 3> BRepExtrema_TriangleSet::Box(const Standard_Integer theIndex) const
+BVH_Box<Standard_Real, 3> BRepExtrema_TriangleSet::Box1(const Standard_Integer theIndex) const
 {
   const BVH_Vec4i& aTriangle = myTriangles[theIndex];
 
@@ -282,7 +282,7 @@ Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoFace&     theFace,
     Standard_Integer aVertex2;
     Standard_Integer aVertex3;
 
-    aTriangulation->Triangle(aTriIdx).Get(aVertex1, aVertex2, aVertex3);
+    aTriangulation->Triangle1(aTriIdx).Get(aVertex1, aVertex2, aVertex3);
 
     myTriangles.push_back(
       BVH_Vec4i(aVertex1 + aVertOffset, aVertex2 + aVertOffset, aVertex3 + aVertOffset, theIndex));

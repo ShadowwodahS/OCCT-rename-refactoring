@@ -26,7 +26,7 @@ class Point3d;
 
 //! Tool for the intersection between 2 surfaces.
 //! Regroupe pour l instant les methodes hors Adaptor3d...
-class Contap_HContTool
+class HContTool
 {
 public:
   DEFINE_STANDARD_ALLOC

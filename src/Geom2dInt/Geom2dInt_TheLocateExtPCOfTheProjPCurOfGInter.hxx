@@ -28,7 +28,7 @@ class Standard_TypeMismatch;
 class StdFail_NotDone;
 class Adaptor2d_Curve2d;
 class Geom2dCurveTool;
-class Extrema_POnCurv2d;
+class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -91,7 +91,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin() const;
 
   //! Returns the point of the extremum distance.
-  Standard_EXPORT const Extrema_POnCurv2d& Point() const;
+  Standard_EXPORT const PointOnCurve2d& Point() const;
 
 protected:
 private:

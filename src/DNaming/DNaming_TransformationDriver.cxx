@@ -63,7 +63,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DNaming_TransformationDriver, TFunction_Driver)
 void PrintE(const DataLabel& label)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
 }
 #endif
@@ -159,7 +159,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
         throw ExceptionBase();
       TopoFace             aFace = TopoDS::Face(aNS->Get());
       Handle(GeomSurface)    aSurf = BRepInspector::Surface(aFace);
-      GeomLib_IsPlanarSurface isPlanarSurface(aSurf);
+      PlanarSurfaceChecker isPlanarSurface(aSurf);
       if (!isPlanarSurface.IsPlanar())
         throw ExceptionBase();
       gp_Pln aPlane     = isPlanarSurface.Plan();

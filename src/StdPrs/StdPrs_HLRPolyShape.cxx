@@ -50,7 +50,7 @@ void StdPrs_HLRPolyShape::ComputeHLR(const Handle(Prs3d_Presentation)& aPresenta
   gp_Ax3  anAx3(theProjector->Center(), aBackDir, aXpers);
   Transform3d aTrsf;
   aTrsf.SetTransformation(anAx3);
-  const HLRAlgo_Projector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());
+  const HLRAlgoProjector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());
 
   Handle(Graphic3d_Group) aGroup = aPresentation->CurrentGroup();
 

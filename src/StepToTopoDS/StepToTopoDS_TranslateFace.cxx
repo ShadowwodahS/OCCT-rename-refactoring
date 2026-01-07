@@ -255,7 +255,7 @@ static void GetSimpleFaceElements(Type                              theFace,
 
 // ============================================================================
 // Method  : GetComplexFaceElements
-// Purpose : Get elements from complex face
+// Purpose : Get elements from complex1 face
 // ============================================================================
 template <class Type>
 static void GetComplexFaceElements(Type                                theFace,
@@ -825,7 +825,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedFace)& 
 
   if (aMesh.IsNull())
   {
-    aTP->AddWarning(theTF, " Poly triangulation is not set to TopoDS face.");
+    aTP->AddWarning(theTF, " Poly1 triangulation is not set to TopoDS face.");
     return;
   }
 
@@ -875,7 +875,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedSurface
   }
   if (aMesh.IsNull())
   {
-    aTP->AddWarning(theTSS, " Poly triangulation is not set to TopoDS face.");
+    aTP->AddWarning(theTSS, " Poly1 triangulation is not set to TopoDS face.");
     return;
   }
   aB.UpdateFace(aF, aMesh);
@@ -889,7 +889,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedSurface
 
 // ============================================================================
 // Method  : createMesh
-// Purpose : creates a MeshTriangulation from simple/complex
+// Purpose : creates a MeshTriangulation from simple/complex1
 //           TriangulatedFace or TriangulatedSurfaceSet
 // ============================================================================
 Handle(MeshTriangulation) StepToTopoDS_TranslateFace::createMesh(

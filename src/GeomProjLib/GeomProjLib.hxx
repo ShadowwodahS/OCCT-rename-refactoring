@@ -30,7 +30,7 @@ class GeomPlane;
 class Dir3d;
 
 //! Projection of a curve on a surface.
-class GeomProjLib
+class GeomProjLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

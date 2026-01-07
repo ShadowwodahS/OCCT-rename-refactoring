@@ -77,9 +77,9 @@ void ShadedShapeConverter::Add(Standard_OStream&                   anOStream,
     for (nt = 1; nt <= nnn; nt++)
     {
       if (F.Orientation() == TopAbs_REVERSED)
-        T->Triangle(nt).Get(n1, n3, n2);
+        T->Triangle1(nt).Get(n1, n3, n2);
       else
-        T->Triangle(nt).Get(n1, n2, n3);
+        T->Triangle1(nt).Get(n1, n2, n3);
 
       const Point3d P1 = T->Node(n1);
       const Point3d P2 = T->Node(n2);
@@ -185,9 +185,9 @@ void ShadedShapeConverter::Add(Standard_OStream&                   anOStream,
         {
           pc.Triangles(i, t[0], t[1], t[2]);
           if (F.Orientation() == TopAbs_REVERSED)
-            T->Triangle(i).Get(n[0], n[2], n[1]);
+            T->Triangle1(i).Get(n[0], n[2], n[1]);
           else
-            T->Triangle(i).Get(n[0], n[1], n[2]);
+            T->Triangle1(i).Get(n[0], n[1], n[2]);
           const Point3d P1 = T->Node(n[0]);
           const Point3d P2 = T->Node(n[1]);
           const Point3d P3 = T->Node(n[2]);
@@ -396,11 +396,11 @@ void ShadedShapeConverter::ComputeNormal(const TopoFace&  aFace,
       U = T->UVNode(i).X();
       V = T->UVNode(i).Y();
       S.D1(U, V, P, D1U, D1V);
-      CSLib::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor(i));
+      CSLib1::Normal(D1U, D1V, Precision::Angular(), aStatus, Nor(i));
       if (aStatus != CSLib_Done)
       {
         S.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
-        CSLib::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor(i));
+        CSLib1::Normal(D1U, D1V, D2U, D2V, D2UV, Precision::Angular(), OK, NStat, Nor(i));
       }
       if (aFace.Orientation() == TopAbs_REVERSED)
         (Nor(i)).Reverse();
@@ -415,7 +415,7 @@ void ShadedShapeConverter::ComputeNormal(const TopoFace&  aFace,
       gp_XYZ eqPlan(0, 0, 0);
       for (pc.Initialize(i); pc.More(); pc.Next())
       {
-        T->Triangle(pc.Value()).Get(n[0], n[1], n[2]);
+        T->Triangle1(pc.Value()).Get(n[0], n[1], n[2]);
         gp_XYZ v1(T->Node(n[1]).Coord() - T->Node(n[0]).Coord());
         gp_XYZ v2(T->Node(n[2]).Coord() - T->Node(n[1]).Coord());
         eqPlan += (v1 ^ v2).Normalized();

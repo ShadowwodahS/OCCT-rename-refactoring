@@ -74,14 +74,14 @@ Standard_Boolean XmlTObjDrivers_ReferenceDriver::Paste(
 
   // master label
   DataLabel aLabel, aMasterLabel;
-  TDF_Tool::Label(Target->Label().Data(), MasterEntry, aMasterLabel);
+  Tool3::Label(Target->Label().Data(), MasterEntry, aMasterLabel);
   // referred label
   if (InHolderEntry.IsEmpty())
-    TDF_Tool::Label(Target->Label().Data(), RefEntry, aLabel, Standard_True);
+    Tool3::Label(Target->Label().Data(), RefEntry, aLabel, Standard_True);
   else
   {
     Handle(TObj_Model) aModel = TObj_Assistant::FindModel(InHolderEntry.ToCString());
-    TDF_Tool::Label(aModel->GetLabel().Data(), RefEntry, aLabel, Standard_True);
+    Tool3::Label(aModel->GetLabel().Data(), RefEntry, aLabel, Standard_True);
   }
   Handle(TObj_TReference) aTarget = Handle(TObj_TReference)::DownCast(Target);
   aTarget->Set(aLabel, aMasterLabel);
@@ -111,13 +111,13 @@ void XmlTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& Source,
   // referred entry
   AsciiString1 entry;
   DataLabel               aLabel = aLObject->GetLabel();
-  TDF_Tool::Entry(aLabel, entry);
+  Tool3::Entry(aLabel, entry);
   Target.Element().setAttribute(::ReferredEntry(), entry.ToCString());
 
   // master entry
   entry.Clear();
   DataLabel aMasterLabel = aSource->GetMasterLabel();
-  TDF_Tool::Entry(aMasterLabel, entry);
+  Tool3::Entry(aMasterLabel, entry);
   Target.Element().setAttribute(::MasterEntry(), entry.ToCString());
 
   // is reference to other document

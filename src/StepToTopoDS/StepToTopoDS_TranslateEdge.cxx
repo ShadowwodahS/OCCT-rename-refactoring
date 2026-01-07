@@ -555,7 +555,7 @@ Handle(GeomCurve2d) StepToTopoDS_TranslateEdge::MakePCurve(
     {
       // -- if the surface is a RectangularTrimmedSurface,
       // -- send the BasisSurface.
-      C2d = GeomConvert_Units::DegreeToRadian(C2d,
+      C2d = Units1::DegreeToRadian(C2d,
                                               ConvSurf,
                                               theLocalFactors.LengthFactor(),
                                               theLocalFactors.FactorDegreeRadian());

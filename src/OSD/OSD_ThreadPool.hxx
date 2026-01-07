@@ -328,8 +328,8 @@ protected:
     Job& operator=(const Job& theCopy);
 
   private:                       //! @name private fields
-    const FunctorT& myPerformer; //!< Link on functor
-    const JobRange& myRange;     //!< Link on processed data block
+    const FunctorT& myPerformer; //!< Link1 on functor
+    const JobRange& myRange;     //!< Link1 on processed data block
   };
 
   //! Release threads.

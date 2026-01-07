@@ -231,7 +231,7 @@ static Standard_Boolean OnPlane_D3(const Standard_Real            U,
 // purpose  : Use to approximate the projection on a plane
 //=======================================================================
 
-class ProjLib_OnPlane : public AppCont_Function
+class ProjLib_OnPlane : public ContinuityFunction
 
 {
   Handle(Adaptor3d_Curve) myCurve;
@@ -374,11 +374,11 @@ static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
     // Augmentation eventuelle du degre
     if (MaxDeg > MC.Degree())
     {
-      BSplCLib::IncreaseDegree(MaxDeg,
+      BSplCLib1::IncreaseDegree(MaxDeg,
                                LocalPoles,
-                               BSplCLib::NoWeights(),
+                               BSplCLib1::NoWeights(),
                                TempPoles,
-                               BSplCLib::NoWeights());
+                               BSplCLib1::NoWeights());
       // mise a jour des poles de la PCurve
       for (Standard_Integer j = 1; j <= MaxDeg + 1; j++)
       {
@@ -637,12 +637,12 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
           Handle(Geom_TrimmedCurve) NewTrimCurvePtr =
             new Geom_TrimmedCurve(GeomLinePtr, myFirstPar, myLastPar);
 
-          Handle(BSplineCurve3d) NewCurvePtr = GeomConvert::CurveToBSplineCurve(NewTrimCurvePtr);
+          Handle(BSplineCurve3d) NewCurvePtr = GeomConvert1::CurveToBSplineCurve(NewTrimCurvePtr);
           num_knots                             = NewCurvePtr->NbKnots();
           TColStd_Array1OfReal BsplineKnots(1, num_knots);
           NewCurvePtr->Knots(BsplineKnots);
 
-          BSplCLib::Reparametrize(myCurve->FirstParameter(),
+          BSplCLib1::Reparametrize(myCurve->FirstParameter(),
                                   myCurve->LastParameter(),
                                   BsplineKnots);
 
@@ -812,8 +812,8 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         Standard_Real aParLast  = myCurve->LastParameter();
         Point3d        aPntFirst = ProjectPnt(myPlane, myDirection, myCurve->Value(aParFirst));
         Point3d        aPntLast  = ProjectPnt(myPlane, myDirection, myCurve->Value(aParLast));
-        GeomLib_Tool::Parameter(aResultCurve, aPntFirst, Precision::Confusion(), myFirstPar);
-        GeomLib_Tool::Parameter(aResultCurve, aPntLast, Precision::Confusion(), myLastPar);
+        Tool2::Parameter(aResultCurve, aPntFirst, Precision::Confusion(), myFirstPar);
+        Tool2::Parameter(aResultCurve, aPntLast, Precision::Confusion(), myLastPar);
         while (myLastPar <= myFirstPar)
           myLastPar += myResult->Period();
       }
@@ -1361,19 +1361,19 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProj
     aP        = ProjectPnt(myPlane, myDirection, aP);
     if (myType == GeomAbs_Line)
     {
-      myFirstPar = ElCLib::Parameter(aLin, aP);
+      myFirstPar = ElCLib1::Parameter(aLin, aP);
     }
     else if (myType == GeomAbs_Parabola)
     {
-      myFirstPar = ElCLib::Parameter(aParab, aP);
+      myFirstPar = ElCLib1::Parameter(aParab, aP);
     }
     else if (myType == GeomAbs_Hyperbola)
     {
-      myFirstPar = ElCLib::Parameter(aHypr, aP);
+      myFirstPar = ElCLib1::Parameter(aHypr, aP);
     }
     else
     {
-      GeomLib_Tool::Parameter(theProjCurve, aP, Precision::Confusion(), myFirstPar);
+      Tool2::Parameter(theProjCurve, aP, Precision::Confusion(), myFirstPar);
     }
   }
   if (!Precision::IsInfinite(myCurve->LastParameter()))
@@ -1382,19 +1382,19 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProj
     aP        = ProjectPnt(myPlane, myDirection, aP);
     if (myType == GeomAbs_Line)
     {
-      myLastPar = ElCLib::Parameter(aLin, aP);
+      myLastPar = ElCLib1::Parameter(aLin, aP);
     }
     else if (myType == GeomAbs_Parabola)
     {
-      myLastPar = ElCLib::Parameter(aParab, aP);
+      myLastPar = ElCLib1::Parameter(aParab, aP);
     }
     else if (myType == GeomAbs_Hyperbola)
     {
-      myLastPar = ElCLib::Parameter(aHypr, aP);
+      myLastPar = ElCLib1::Parameter(aHypr, aP);
     }
     else
     {
-      GeomLib_Tool::Parameter(theProjCurve, aP, Precision::Confusion(), myLastPar);
+      Tool2::Parameter(theProjCurve, aP, Precision::Confusion(), myLastPar);
     }
   }
   myResult = new GeomAdaptor_Curve(theProjCurve, myFirstPar, myLastPar);
@@ -1439,7 +1439,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)
   gp_Lin anXLine(aP0, anXDir);
   Point3d aP1 = Value(aT + 10. * aF);
   //
-  Standard_Real anX   = ElCLib::LineParameter(anXLine.Position(), aP1);
+  Standard_Real anX   = ElCLib1::LineParameter(anXLine.Position(), aP1);
   Standard_Real anY   = anXLine.Distance(aP1);
   Standard_Real aNewF = anY * anY / 4. / anX;
   Dir3d        anN   = anXDir ^ anYDir;

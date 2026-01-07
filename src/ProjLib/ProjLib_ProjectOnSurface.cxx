@@ -78,7 +78,7 @@ static Standard_Boolean OnSurface_D1(const Standard_Real,            // U,
 // purpose  : Use to approximate the projection on a plane
 //=======================================================================
 
-class ProjLib_OnSurface : public AppCont_Function
+class ProjLib_OnSurface : public ContinuityFunction
 
 {
 public:
@@ -211,11 +211,11 @@ void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Curve)& C, const Stan
       Standard_Integer Inc = MaxDeg - MC.Degree();
       if (Inc > 0)
       {
-        BSplCLib::IncreaseDegree(Inc,
+        BSplCLib1::IncreaseDegree(Inc,
                                  LocalPoles,
-                                 BSplCLib::NoWeights(),
+                                 BSplCLib1::NoWeights(),
                                  TempPoles,
-                                 BSplCLib::NoWeights());
+                                 BSplCLib1::NoWeights());
         // mise a jour des poles de la PCurve
         for (Standard_Integer j = 1; j <= MaxDeg + 1; j++)
         {

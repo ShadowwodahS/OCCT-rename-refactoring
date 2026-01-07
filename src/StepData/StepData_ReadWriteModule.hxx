@@ -88,8 +88,8 @@ public:
   Standard_EXPORT virtual AsciiString1 ShortType(const Standard_Integer CN) const;
 
   //! Function specific to STEP, which delivers the list of types
-  //! which corresponds to a complex type. If <CN> is not for a
-  //! complex type, this method returns False. Else it returns True
+  //! which corresponds to a complex1 type. If <CN> is not for a
+  //! complex1 type, this method returns False. Else it returns True
   //! and fills the list in alphabetic order.
   //! The default returns False. To be redefined as required.
   Standard_EXPORT virtual Standard_Boolean ComplexType(const Standard_Integer         CN,

@@ -1010,7 +1010,7 @@ static void copyTagSources(const DataLabel& theSourceLabel, const DataLabel& the
 
   // copy recursively to sub-labels; note that iteration is made by target label,
   // to avoid copying tag sources where data are not copied
-  TDF_ChildIterator aLI(theTargetLabel);
+  ChildIterator aLI(theTargetLabel);
   for (; aLI.More(); aLI.Next())
   {
     DataLabel aSourceLabel = theSourceLabel.FindChild(aLI.Value().Tag(), Standard_False);
@@ -1175,7 +1175,7 @@ void TObj_Object::copyReferences(const DataLabel&                   theSourceLab
     theTargetLabel.AddAttribute(anAttr);
     anIter.Value()->Paste(anAttr, theRelocTable);
   }
-  TDF_ChildIterator aLI(theSourceLabel);
+  ChildIterator aLI(theSourceLabel);
   DataLabel         aTargetLabel;
   for (; aLI.More(); aLI.Next())
   {
@@ -1360,7 +1360,7 @@ Standard_Boolean TObj_Object::RelocateReferences(const DataLabel&       theFromR
     if (aLabel.Data() != theFromRoot.Data() || aLabel.IsDescendant(theToRoot))
       continue; // need not to relocate
 
-    TDF_Tool::RelocateLabel(aLabel, theFromRoot, theToRoot, aNewLabel);
+    Tool3::RelocateLabel(aLabel, theFromRoot, theToRoot, aNewLabel);
     if (aNewLabel.IsNull() || !TObj_Object::GetObj(aNewLabel, anObj))
       return Standard_False;
 

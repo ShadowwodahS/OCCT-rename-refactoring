@@ -49,7 +49,7 @@ Line2dBisector::Line2dBisector(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
   WellDone = Standard_False;
   NbrSol   = 0;
 
-  IntAna2d_AnaIntersection Intp(Lin1, Lin2);
+  AnalyticIntersection2d Intp(Lin1, Lin2);
   if (Intp.IsDone())
   {
 
@@ -113,10 +113,10 @@ Line2dBisector::Line2dBisector(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
   {
     pntint1sol(i) = linsol(i).Location();
     pntint2sol(i) = pntint1sol(i);
-    par1sol(i)    = ElCLib::Parameter(linsol(i), pntint1sol(i));
-    par2sol(i)    = ElCLib::Parameter(linsol(i), pntint2sol(i));
-    pararg1(i)    = ElCLib::Parameter(Lin1, pntint1sol(i));
-    pararg2(i)    = ElCLib::Parameter(Lin2, pntint2sol(i));
+    par1sol(i)    = ElCLib1::Parameter(linsol(i), pntint1sol(i));
+    par2sol(i)    = ElCLib1::Parameter(linsol(i), pntint2sol(i));
+    pararg1(i)    = ElCLib1::Parameter(Lin1, pntint1sol(i));
+    pararg2(i)    = ElCLib1::Parameter(Lin2, pntint2sol(i));
   }
 }
 

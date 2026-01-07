@@ -23,7 +23,7 @@
 #include <IntAna2d_Outils.hxx>
 #include <StdFail_NotDone.hxx>
 
-void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L, const IntAna2d_Conic& Conic)
+void AnalyticIntersection2d::Perform(const gp_Lin2d& L, const Conic2d& Conic)
 {
   Standard_Real    A, B, C, D, E, F;
   Standard_Real    px0, px1, px2;
@@ -48,7 +48,7 @@ void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L, const IntAna2d_Conic& 
   px1 = 2.0 * (E * DR_A - D * DR_B + X0 * (C * DR_A - A * DR_B) + Y0 * (B * DR_A - C * DR_B));
   px2 = DR_A * (B * DR_A - 2.0 * C * DR_B) + A * (DR_B * DR_B);
 
-  MyDirectPolynomialRoots Sol(px2, px1, px0);
+  MyDirectPolynomialRoots1 Sol(px2, px1, px0);
 
   if (!Sol.IsDone())
   {

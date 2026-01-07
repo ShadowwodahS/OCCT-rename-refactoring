@@ -142,7 +142,7 @@ static Standard_Integer polelaw(DrawInterpreter&, Standard_Integer n, const char
 
   TColgp_Array1OfPnt2d poles(1, np);
   TColStd_Array1OfReal schoenberg_points(1, np);
-  BSplCLib::BuildSchoenbergPoints(deg, flat_knots, schoenberg_points);
+  BSplCLib1::BuildSchoenbergPoints(deg, flat_knots, schoenberg_points);
   for (i = 1; i <= np; i++)
   {
     poles(i).SetCoord(schoenberg_points(i), Draw1::Atof(a[k]));
@@ -413,7 +413,7 @@ static Standard_Integer project(DrawInterpreter& di, Standard_Integer n, const c
     index += 2;
   }
 
-  Handle(GeomCurve2d) G2d = GeomProjLib::Curve2d(GC, GS, U1, U2, V1, V2, tolerance);
+  Handle(GeomCurve2d) G2d = GeomProjLib1::Curve2d(GC, GS, U1, U2, V1, V2, tolerance);
 
   if (G2d.IsNull())
   {
@@ -493,7 +493,7 @@ Standard_Integer projonplane(DrawInterpreter& di, Standard_Integer n, const char
     D = Pl->Pln().Position().Direction();
   }
 
-  Handle(GeomCurve3d) Res = GeomProjLib::ProjectOnPlane(C, Pl, D, Param);
+  Handle(GeomCurve3d) Res = GeomProjLib1::ProjectOnPlane(C, Pl, D, Param);
 
   DrawTrSurf1::Set(a[1], Res);
   return 0;
@@ -949,7 +949,7 @@ static Standard_Integer crvpoints(DrawInterpreter& di, Standard_Integer /*n*/, c
 
   defl = Draw1::Atof(a[3]);
 
-  GCPnts_QuasiUniformDeflection PntGen(*aHCurve, defl);
+  QuasiUniformDeflectionSampler PntGen(*aHCurve, defl);
 
   if (!PntGen.IsDone())
   {
@@ -1027,7 +1027,7 @@ static Standard_Integer crvtpoints(DrawInterpreter& di, Standard_Integer n, cons
   if (n > 5)
     aMinPntsNb = Draw1::Atoi(a[5]);
 
-  GCPnts_TangentialDeflection PntGen(*aHCurve, angle, defl, aMinPntsNb);
+  TangentialDeflectionSampler PntGen(*aHCurve, angle, defl, aMinPntsNb);
 
   nbp = PntGen.NbPoints();
   di << "Nb points : " << nbp << "\n";

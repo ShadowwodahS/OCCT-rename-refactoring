@@ -29,9 +29,9 @@
 class Standard_OutOfRange;
 class StdFail_NotDone;
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_ParLeastSquareOfTheGradient;
-class AppDef_ResConstraintOfTheGradient;
+class ResConstraintGradient;
 class AppDef_ParFunctionOfTheGradient;
 class AppDef_Gradient_BFGSOfTheGradient;
 class AppParCurves_MultiCurve;

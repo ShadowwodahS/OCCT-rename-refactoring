@@ -158,7 +158,7 @@ public:
   //! Return triangle with specified index.
   Poly_Triangle triangle(Standard_Integer theElemIndex) const
   {
-    return myPolyTriang->Triangle(theElemIndex);
+    return myPolyTriang->Triangle1(theElemIndex);
   }
 
 private:

@@ -26,12 +26,12 @@
 #include <TColgp_HArray1OfPnt.hxx>
 
 class Adaptor3d_Curve;
-class Extrema_CurveTool;
-class Extrema_POnCurv;
+class CurveTool4;
+class PointOnCurve1;
 class Point3d;
 class Vector3d;
 
-class Extrema_ECC
+class CurveCurveExtrema1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,18 +39,18 @@ public:
   //! Calculates all the distances as above
   //! between Uinf and Usup for C1 and  between Vinf and Vsup
   //! for C2.
-  Standard_EXPORT Extrema_ECC();
+  Standard_EXPORT CurveCurveExtrema1();
 
   //! It calculates all the distances.
   //! The function F(u,v)=distance(C1(u),C2(v)) has an
   //! extremum when gradient(f)=0. The algorithm uses
   //! Evtushenko's global optimization solver.
-  Standard_EXPORT Extrema_ECC(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);
+  Standard_EXPORT CurveCurveExtrema1(const Adaptor3d_Curve& C1, const Adaptor3d_Curve& C2);
 
   //! Calculates all the distances as above
   //! between Uinf and Usup for C1 and  between Vinf and Vsup
   //! for C2.
-  Standard_EXPORT Extrema_ECC(const Adaptor3d_Curve& C1,
+  Standard_EXPORT CurveCurveExtrema1(const Adaptor3d_Curve& C1,
                               const Adaptor3d_Curve& C2,
                               const Standard_Real    Uinf,
                               const Standard_Real    Usup,
@@ -91,8 +91,8 @@ public:
   //! Returns the points of the Nth extremum distance.
   //! P1 is on the first curve, P2 on the second one.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv&       P1,
-                              Extrema_POnCurv&       P2) const;
+                              PointOnCurve1&       P1,
+                              PointOnCurve1&       P2) const;
 
 protected:
 private:

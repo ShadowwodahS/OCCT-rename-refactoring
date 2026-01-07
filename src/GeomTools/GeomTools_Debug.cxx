@@ -43,7 +43,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
     if (!GS.IsNull())
     {
       std::cout << "\n\n";
-      GeomTools_SurfaceSet::PrintSurface(GS, std::cout);
+      SurfaceSet1::PrintSurface(GS, std::cout);
       std::cout << std::endl;
       return "Found GeomSurface, see dump in std::cout";
     }
@@ -52,7 +52,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
     if (!GC.IsNull())
     {
       std::cout << "\n\n";
-      GeomTools_CurveSet::PrintCurve(GC, std::cout);
+      CurveSet1::PrintCurve(GC, std::cout);
       std::cout << std::endl;
       return "Found GeomCurve3d, see dump in std::cout";
     }
@@ -61,7 +61,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
     if (!GC2d.IsNull())
     {
       std::cout << "\n\n";
-      GeomTools_Curve2dSet::PrintCurve2d(GC2d, std::cout);
+      Curve2dSet1::PrintCurve2d(GC2d, std::cout);
       std::cout << std::endl;
       return "Found GeomCurve2d, see dump in std::cout";
     }

@@ -235,7 +235,7 @@ void Geom_RectangularTrimmedSurface::SetTrim(const Standard_Real    U1,
       // set uTrim2 in the range uTrim1 , uTrim1 + Period()
       utrim1 = U1;
       utrim2 = U2;
-      ElCLib::AdjustPeriodic(Udeb,
+      ElCLib1::AdjustPeriodic(Udeb,
                              Ufin,
                              Min(Abs(utrim2 - utrim1) / 2, Precision::PConfusion()),
                              utrim1,
@@ -282,7 +282,7 @@ void Geom_RectangularTrimmedSurface::SetTrim(const Standard_Real    U1,
       // set vTrim2 in the range vTrim1 , vTrim1 + Period()
       vtrim1 = V1;
       vtrim2 = V2;
-      ElCLib::AdjustPeriodic(Vdeb,
+      ElCLib1::AdjustPeriodic(Vdeb,
                              Vfin,
                              Min(Abs(vtrim2 - vtrim1) / 2, Precision::PConfusion()),
                              vtrim1,

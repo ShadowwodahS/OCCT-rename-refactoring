@@ -35,7 +35,7 @@ public:
   //! Tells if a ESDescr matches a step type : exact or super type
   Standard_EXPORT virtual Standard_Boolean Matches(const Standard_CString steptype) const = 0;
 
-  //! Tells if a EDescr is complex (ECDescr) or simple (ESDescr)
+  //! Tells if a EDescr is complex1 (ECDescr) or simple (ESDescr)
   Standard_EXPORT virtual Standard_Boolean IsComplex() const = 0;
 
   //! Creates a described entity (i.e. a simple one)

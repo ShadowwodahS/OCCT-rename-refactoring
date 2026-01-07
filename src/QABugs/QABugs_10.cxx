@@ -746,7 +746,7 @@ static Standard_Integer OCC825(DrawInterpreter& di, Standard_Integer argc, const
   poles(2, 2).SetCoord(size, 0, size);
 
   Handle(Geom_BezierSurface)  BezSurf = new Geom_BezierSurface(poles);
-  Handle(Geom_BSplineSurface) BSpSurf = GeomConvert::SurfaceToBSplineSurface(BezSurf);
+  Handle(Geom_BSplineSurface) BSpSurf = GeomConvert1::SurfaceToBSplineSurface(BezSurf);
   FaceMaker     faceMaker(BSpSurf, Precision::Confusion());
   const TopoFace&          face = faceMaker.Face();
 

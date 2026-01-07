@@ -39,10 +39,10 @@ public:
   {
   }
 
-  //! Returns movability flag of the Link.
+  //! Returns movability flag of the Link1.
   BRepMesh_DegreeOfFreedom Movability() const { return myMovability; }
 
-  //! Sets movability flag of the Link.
+  //! Sets movability flag of the Link1.
   //! @param theMovability flag to be set.
   void SetMovability(const BRepMesh_DegreeOfFreedom theMovability) { myMovability = theMovability; }
 

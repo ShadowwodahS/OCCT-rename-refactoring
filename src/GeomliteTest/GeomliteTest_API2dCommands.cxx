@@ -461,7 +461,7 @@ static Standard_Integer intersect_ana(DrawInterpreter& di, Standard_Integer n, c
     return 1;
   }
 
-  IntAna2d_AnaIntersection Intersector(aCir1->Circ2d(), aCir2->Circ2d());
+  AnalyticIntersection2d Intersector(aCir1->Circ2d(), aCir2->Circ2d());
   for (Standard_Integer i = 1; i <= Intersector.NbPoints(); i++)
   {
     gp_Pnt2d P = Intersector.Point(i).Value();
@@ -501,27 +501,27 @@ static Standard_Integer intconcon(DrawInterpreter& di, Standard_Integer n, const
 
   Geom2dAdaptor_Curve                        AC1(C1), AC2(C2);
   GeomAbs_CurveType                          T1 = AC1.GetType(), T2 = AC2.GetType();
-  Handle(NCollection_Shared<IntAna2d_Conic>) pCon;
+  Handle(NCollection_Shared<Conic2d>) pCon;
   switch (T2)
   {
     case GeomAbs_Line: {
-      pCon.reset(new NCollection_Shared<IntAna2d_Conic>(AC2.Line()));
+      pCon.reset(new NCollection_Shared<Conic2d>(AC2.Line()));
       break;
     }
     case GeomAbs_Circle: {
-      pCon.reset(new NCollection_Shared<IntAna2d_Conic>(AC2.Circle()));
+      pCon.reset(new NCollection_Shared<Conic2d>(AC2.Circle()));
       break;
     }
     case GeomAbs_Ellipse: {
-      pCon.reset(new NCollection_Shared<IntAna2d_Conic>(AC2.Ellipse()));
+      pCon.reset(new NCollection_Shared<Conic2d>(AC2.Ellipse()));
       break;
     }
     case GeomAbs_Hyperbola: {
-      pCon.reset(new NCollection_Shared<IntAna2d_Conic>(AC2.Hyperbola()));
+      pCon.reset(new NCollection_Shared<Conic2d>(AC2.Hyperbola()));
       break;
     }
     case GeomAbs_Parabola: {
-      pCon.reset(new NCollection_Shared<IntAna2d_Conic>(AC2.Parabola()));
+      pCon.reset(new NCollection_Shared<Conic2d>(AC2.Parabola()));
       break;
     }
     default: {
@@ -530,7 +530,7 @@ static Standard_Integer intconcon(DrawInterpreter& di, Standard_Integer n, const
     }
   }
 
-  IntAna2d_AnaIntersection Intersector;
+  AnalyticIntersection2d Intersector;
   switch (T1)
   {
     case GeomAbs_Line:
@@ -645,7 +645,7 @@ static Standard_Integer deviation(DrawInterpreter& theDI,
 
   if (aU0 == RealLast() || anIsApproxOnly)
   {
-    aDefl = GeomLib_Tool::ComputeDeviation(anAC, aU1, aU2, aNbInterv, aNbApprox, &aU0);
+    aDefl = Tool2::ComputeDeviation(anAC, aU1, aU2, aNbInterv, aNbApprox, &aU0);
 
     if (aDefl < 0.0)
     {
@@ -655,7 +655,7 @@ static Standard_Integer deviation(DrawInterpreter& theDI,
   }
   if (!anIsApproxOnly)
   {
-    aDefl = GeomLib_Tool::ComputeDeviation(anAC,
+    aDefl = Tool2::ComputeDeviation(anAC,
                                            aU1,
                                            aU2,
                                            aU0,
@@ -735,13 +735,13 @@ void GeomliteTest::API2dCommands(DrawInterpreter& theCommands)
 
   theCommands.Add("2dintanalytical",
                   "2dintanalytical circle1 circle2"
-                  "Intersect circle1 and circle2 using IntAna2d_AnaIntersection.",
+                  "Intersect circle1 and circle2 using AnalyticIntersection2d.",
                   __FILE__,
                   intersect_ana,
                   g);
   theCommands.Add("intconcon",
                   "intconcon curve1 curve2"
-                  "Intersect conic curve1 and conic curve2 using IntAna2d_AnaIntersection",
+                  "Intersect conic curve1 and conic curve2 using AnalyticIntersection2d",
                   __FILE__,
                   intconcon,
                   g);

@@ -2515,8 +2515,8 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       BB.Add(CurEdge, EndVert.Oriented(TopAbs_REVERSED));
       // take the curve from sphere an put it to the edge
       Standard_Real Uf, Vf, Ul, Vl;
-      ElSLib::Parameters(theSphere, fPnt, Uf, Vf);
-      ElSLib::Parameters(theSphere, lPnt, Ul, Vl);
+      ElSLib1::Parameters(theSphere, fPnt, Uf, Vf);
+      ElSLib1::Parameters(theSphere, lPnt, Ul, Vl);
       if (Abs(Ul) <= Precision::Confusion())
         Ul = 2. * M_PI;
       Handle(GeomCurve3d) aCurv = aSphSurf->VIso(Vf);
@@ -3175,7 +3175,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           Point3d aPntOL = BRepInspector::Pnt(V3);
           if (aPntOF.SquareDistance(aPntOL) > gp::Resolution())
           {
-            // To avoid computation of complex analytical continuation of Sin / ArcSin.
+            // To avoid computation of complex1 analytical continuation of Sin / ArcSin.
             Standard_Real aSinValue     = Min(2 * anEdgeTol / aPntOF.Distance(aPntOL), 1.0);
             Standard_Real aMaxAngle     = Min(Abs(ASin(aSinValue)), M_PI_4); // Maximal angle.
             Standard_Real aCurrentAngle = Vector3d(aPntF, aPntL).Angle(Vector3d(aPntOF, aPntOL));
@@ -3481,7 +3481,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           Handle(GeomAdaptor_Surface) HSurf = new GeomAdaptor_Surface(GAsurf);
           Adaptor3d_CurveOnSurface    ConS(HC2d, HSurf);
           Standard_Real               max_deviation = 0., average_deviation;
-          GeomLib::BuildCurve3d(Precision::Confusion(),
+          GeomLib1::BuildCurve3d(Precision::Confusion(),
                                 ConS,
                                 FirstPar,
                                 LastPar,
@@ -3506,7 +3506,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           Handle(GeomAdaptor_Surface) HSurf = new GeomAdaptor_Surface(GAsurf);
           Adaptor3d_CurveOnSurface    ConS(HC2d, HSurf);
           Standard_Real               max_deviation = 0., average_deviation;
-          GeomLib::BuildCurve3d(Precision::Confusion(),
+          GeomLib1::BuildCurve3d(Precision::Confusion(),
                                 ConS,
                                 FirstPar,
                                 LastPar,
@@ -5308,7 +5308,7 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
 
       // try to linearize
       Handle(GeomSurface)    aSurf = BRepInspector::Surface(aF);
-      GeomLib_IsPlanarSurface aPlanarityChecker(aSurf, Precision::Confusion());
+      PlanarSurfaceChecker aPlanarityChecker(aSurf, Precision::Confusion());
       if (aPlanarityChecker.IsPlanar())
       {
         gp_Pln        aPln = aPlanarityChecker.Plan();

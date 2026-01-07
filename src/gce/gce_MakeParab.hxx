@@ -54,7 +54,7 @@ class Point3d;
 //! * Creates a parabola with its local coordinate system "A2"
 //! and it's focal length "Focal".
 //! * Create a parabola with its directrix and its focus point.
-class gce_MakeParab : public gce_Root
+class gce_MakeParab : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

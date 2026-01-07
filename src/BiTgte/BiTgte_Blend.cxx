@@ -247,7 +247,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           {
             gp_Sphere Sph  = S.Sphere();
             gp_Ax3    Axis = Sph.Position();
-            gp_Circ   Ci   = ElSLib::SphereVIso(Axis, Sph.Radius(), P.Y());
+            gp_Circ   Ci   = ElSLib1::SphereVIso(Axis, Sph.Radius(), P.Y());
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
@@ -262,7 +262,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           gp_Cylinder Cyl  = S.Cylinder();
           gp_Pnt2d    P    = C.Line().Location();
           gp_Ax3      Axis = Cyl.Position();
-          gp_Circ     Ci   = ElSLib::CylinderVIso(Axis, Cyl.Radius(), P.Y());
+          gp_Circ     Ci   = ElSLib1::CylinderVIso(Axis, Cyl.Radius(), P.Y());
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -276,7 +276,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Cone.Position();
-          gp_Circ  Ci   = ElSLib::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
+          gp_Circ  Ci   = ElSLib1::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -290,7 +290,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           gp_Torus Tore = S.Torus();
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Tore.Position();
-          gp_Circ  Ci   = ElSLib::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
+          gp_Circ  Ci   = ElSLib1::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
@@ -308,7 +308,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
           gp_Pnt2d  P    = C.Line().Location();
           gp_Ax3    Axis = Sph.Position();
           // calculate iso 0.
-          gp_Circ Ci = ElSLib::SphereUIso(Axis, Sph.Radius(), 0.);
+          gp_Circ Ci = ElSLib1::SphereUIso(Axis, Sph.Radius(), 0.);
 
           // set to sameparameter (rotation of the circle - offset from Y)
           Dir3d DRev = Axis.XDirection().Crossed(Axis.Direction());
@@ -329,7 +329,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           gp_Cylinder Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
-          gp_Lin      L   = ElSLib::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
+          gp_Lin      L   = ElSLib1::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -342,7 +342,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
         {
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
-          gp_Lin   L = ElSLib::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
+          gp_Lin   L = ElSLib1::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
@@ -366,7 +366,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
 
 //=================================================================================================
 
-class MakeCurve_Function : public AppCont_Function
+class MakeCurve_Function : public ContinuityFunction
 {
   BiTgte_CurveOnEdge myCurve;
 
@@ -422,7 +422,7 @@ Handle(GeomCurve3d) MakeCurve(const BiTgte_CurveOnEdge& HC)
     Standard_Integer        i;
     Standard_Integer        NbCurves = Fit.NbMultiCurves();
     // it is attempted to make the curve at least C1
-    Convert_CompBezierCurvesToBSplineCurve Conv;
+    BezierToBSpline Conv;
 
     for (i = 1; i <= NbCurves; i++)
     {
@@ -444,7 +444,7 @@ Handle(GeomCurve3d) MakeCurve(const BiTgte_CurveOnEdge& HC)
     Conv.KnotsAndMults(NewKnots, NewMults);
     Conv.Poles(NewPoles);
 
-    BSplCLib::Reparametrize(HC.FirstParameter(), HC.LastParameter(), NewKnots);
+    BSplCLib1::Reparametrize(HC.FirstParameter(), HC.LastParameter(), NewKnots);
 
     C = new BSplineCurve3d(NewPoles, NewKnots, NewMults, Conv.Degree());
   }
@@ -1551,7 +1551,7 @@ void BiTgte_Blend::ComputeCenters()
         myInitOffsetFace.SetRoot(AS);
         myInitOffsetFace.Bind(AS, F1);
 
-        Bnd_Box Box1;
+        Box2 Box1;
         BRepBndLib::Add(F1, Box1);
         MapSBox.Bind(F1, Box1);
 
@@ -1641,7 +1641,7 @@ void BiTgte_Blend::ComputeCenters()
           myInitOffsetFace.SetRoot(E);
           myInitOffsetFace.Bind(E, F1);
 
-          Bnd_Box Box1;
+          Box2 Box1;
           BRepBndLib::Add(F1, Box1);
           MapSBox.Bind(F1, Box1);
 
@@ -2582,7 +2582,7 @@ Standard_Boolean BiTgte_Blend::Intersect(const TopoShape&               Init,
 {
   Standard_Boolean JenRajoute = Standard_False;
 
-  const Bnd_Box& Box1 = MapSBox(Face);
+  const Box2& Box1 = MapSBox(Face);
 
   // -----------------------------------------------
   // intersection with all already created faces.

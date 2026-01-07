@@ -659,7 +659,7 @@ void XCAFDoc_ColorTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
        aColorLabelIt.Next())
   {
     AsciiString1 aColorLabel;
-    TDF_Tool::Entry(aColorLabelIt.Value(), aColorLabel);
+    Tool3::Entry(aColorLabelIt.Value(), aColorLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aColorLabel)
   }
 }

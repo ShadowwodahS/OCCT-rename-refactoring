@@ -75,7 +75,7 @@ void XCAFDoc_View::SetObject(const Handle(XCAFView_Object)& theObject)
 {
   Backup();
 
-  TDF_ChildIterator anIter(Label());
+  ChildIterator anIter(Label());
   for (; anIter.More(); anIter.Next())
   {
     anIter.Value().ForgetAllAttributes();
@@ -262,7 +262,7 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
     // Find out the number of stored GDT-points in Ocaf tree.
     Standard_Integer       aNbGDTPoints = 0;
     Handle(TDataXtd_Point) aGDTPointAttr;
-    TDF_ChildIterator      anItrPnts(aPointsLabel, Standard_False);
+    ChildIterator      anItrPnts(aPointsLabel, Standard_False);
     for (; anItrPnts.More(); anItrPnts.Next())
     {
       if (anItrPnts.Value().FindAttribute(TDataXtd_Point::GetID(), aGDTPointAttr))

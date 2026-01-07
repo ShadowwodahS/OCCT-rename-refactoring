@@ -35,7 +35,7 @@ class IntTools_Context;
 class TopoEdge;
 class TopoFace;
 class IntTools_CurveRangeSample;
-class Bnd_Box;
+class Box2;
 class IntTools_SurfaceRangeSample;
 class CurveRangeLocalizeData;
 class IntTools_SurfaceRangeLocalizeData;
@@ -179,9 +179,9 @@ private:
 
   Standard_EXPORT Standard_Boolean
     LocalizeSolutions(const IntTools_CurveRangeSample&   theCurveRange,
-                      const Bnd_Box&                     theBoxCurve,
+                      const Box2&                     theBoxCurve,
                       const IntTools_SurfaceRangeSample& theSurfaceRange,
-                      const Bnd_Box&                     theBoxSurface,
+                      const Box2&                     theBoxSurface,
                       CurveRangeLocalizeData&   theCurveData,
                       IntTools_SurfaceRangeLocalizeData& theSurfaceData,
                       IntTools_ListOfCurveRangeSample&   theListCurveRange,

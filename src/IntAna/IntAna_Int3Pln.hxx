@@ -26,16 +26,16 @@ class gp_Pln;
 //! Intersection between 3 planes. The algorithm searches
 //! for an intersection point. If two of the planes are
 //! parallel or identical, IsEmpty returns TRUE.
-class IntAna_Int3Pln
+class Int3Planes
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntAna_Int3Pln();
+  Standard_EXPORT Int3Planes();
 
   //! Determination of the intersection point between
   //! 3 planes.
-  Standard_EXPORT IntAna_Int3Pln(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3);
+  Standard_EXPORT Int3Planes(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3);
 
   //! Determination of the intersection point between
   //! 3 planes.

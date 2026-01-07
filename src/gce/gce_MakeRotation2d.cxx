@@ -22,22 +22,22 @@
 //   Creation d une rotation 2d de gp d angle Angle par rapport a un      +
 //   point Point.                                                         +
 //=========================================================================
-gce_MakeRotation2d::gce_MakeRotation2d(const gp_Pnt2d& Point, const Standard_Real Angle)
+RotationBuilder2d::RotationBuilder2d(const gp_Pnt2d& Point, const Standard_Real Angle)
 {
   TheRotation2d.SetRotation(Point, Angle);
 }
 
-const gp_Trsf2d& gce_MakeRotation2d::Value() const
+const gp_Trsf2d& RotationBuilder2d::Value() const
 {
   return TheRotation2d;
 }
 
-const gp_Trsf2d& gce_MakeRotation2d::Operator() const
+const gp_Trsf2d& RotationBuilder2d::Operator() const
 {
   return TheRotation2d;
 }
 
-gce_MakeRotation2d::operator gp_Trsf2d() const
+RotationBuilder2d::operator gp_Trsf2d() const
 {
   return TheRotation2d;
 }

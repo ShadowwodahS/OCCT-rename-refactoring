@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
-class HLRAlgo_Projector;
+class HLRAlgoProjector;
 class TopoShape;
 class HLRTopoBRep_OutLiner;
 
@@ -37,12 +37,12 @@ public:
 
   //! Draw1 Variable Outliner to test
   //! Set a Projector Variable
-  Standard_EXPORT static void Set(const Standard_CString Name, const HLRAlgo_Projector& P);
+  Standard_EXPORT static void Set(const Standard_CString Name, const HLRAlgoProjector& P);
 
   //! Get a projector variable
   //! Returns false if the variable is not a projector
   Standard_EXPORT static Standard_Boolean GetProjector(Standard_CString&  Name,
-                                                       HLRAlgo_Projector& P);
+                                                       HLRAlgoProjector& P);
 
   //! Set a OutLiner Variable
   Standard_EXPORT static void Set(const Standard_CString Name, const TopoShape& S);

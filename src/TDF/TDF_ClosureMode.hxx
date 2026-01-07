@@ -23,13 +23,13 @@
 #include <Standard_Boolean.hxx>
 
 //! This class provides options closure management.
-class TDF_ClosureMode
+class ClosureMode
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an object with all modes set to <aMode>.
-  Standard_EXPORT TDF_ClosureMode(const Standard_Boolean aMode = Standard_True);
+  Standard_EXPORT ClosureMode(const Standard_Boolean aMode = Standard_True);
 
   //! Sets the mode "Descendants" to <aStatus>.
   //!

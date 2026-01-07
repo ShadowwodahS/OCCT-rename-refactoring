@@ -85,7 +85,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
 
   //! Returns bounding box of triangle/edge with index theIdx
-  Standard_EXPORT virtual Select3D_BndBox3d Box(const Standard_Integer theIdx) const
+  Standard_EXPORT virtual Select3D_BndBox3d Box1(const Standard_Integer theIdx) const
     Standard_OVERRIDE;
 
   //! Returns geometry center of triangle/edge with index theIdx

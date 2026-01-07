@@ -340,7 +340,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
     for (; ex.More(); ex.Next())
     {
       Handle(GeomCurve3d)        C1 = BRepInspector::Curve(TopoDS::Edge(ex.Current()), p1, p2);
-      Handle(BSplineCurve3d) C  = GeomConvert::CurveToBSplineCurve(C1);
+      Handle(BSplineCurve3d) C  = GeomConvert1::CurveToBSplineCurve(C1);
       if (C.IsNull())
       {
         continue;
@@ -354,7 +354,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
       Standard_Integer     Nbkn = C->NbKnots();
       TColStd_Array1OfReal Tkn(1, Nbkn);
       C->Knots(Tkn);
-      BSplCLib::Reparametrize(seq.Length(), seq.Length() + 1, Tkn);
+      BSplCLib1::Reparametrize(seq.Length(), seq.Length() + 1, Tkn);
       C->SetKnots(Tkn);
       seq.Append(C);
     }
@@ -468,7 +468,7 @@ Handle(GeomCurve3d) LocOpe_Pipe::BarycCurve()
   for (; ex.More(); ex.Next())
   {
     Handle(GeomCurve3d)        C1 = BRepInspector::Curve(TopoDS::Edge(ex.Current()), p1, p2);
-    Handle(BSplineCurve3d) C  = GeomConvert::CurveToBSplineCurve(C1);
+    Handle(BSplineCurve3d) C  = GeomConvert1::CurveToBSplineCurve(C1);
 
     if (C.IsNull())
     {
@@ -483,7 +483,7 @@ Handle(GeomCurve3d) LocOpe_Pipe::BarycCurve()
     Standard_Integer     Nbkn = C->NbKnots();
     TColStd_Array1OfReal Tkn(1, Nbkn);
     C->Knots(Tkn);
-    BSplCLib::Reparametrize(seq.Length(), seq.Length() + 1, Tkn);
+    BSplCLib1::Reparametrize(seq.Length(), seq.Length() + 1, Tkn);
     C->SetKnots(Tkn);
     seq.Append(C);
   }

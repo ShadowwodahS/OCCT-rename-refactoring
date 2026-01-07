@@ -214,7 +214,7 @@ gp_Cylinder Geom_CylindricalSurface::Cylinder() const
 
 void Geom_CylindricalSurface::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
-  ElSLib::CylinderD0(U, V, pos, radius, P);
+  ElSLib1::CylinderD0(U, V, pos, radius, P);
 }
 
 //=================================================================================================
@@ -225,7 +225,7 @@ void Geom_CylindricalSurface::D1(const Standard_Real U,
                                  Vec&                D1U,
                                  Vec&                D1V) const
 {
-  ElSLib::CylinderD1(U, V, pos, radius, P, D1U, D1V);
+  ElSLib1::CylinderD1(U, V, pos, radius, P, D1U, D1V);
 }
 
 //=================================================================================================
@@ -239,7 +239,7 @@ void Geom_CylindricalSurface::D2(const Standard_Real U,
                                  Vec&                D2V,
                                  Vec&                D2UV) const
 {
-  ElSLib::CylinderD2(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV);
+  ElSLib1::CylinderD2(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV);
 }
 
 //=================================================================================================
@@ -257,7 +257,7 @@ void Geom_CylindricalSurface::D3(const Standard_Real U,
                                  Vec&                D3UUV,
                                  Vec&                D3UVV) const
 {
-  ElSLib::CylinderD3(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
+  ElSLib1::CylinderD3(U, V, pos, radius, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
 }
 
 //=================================================================================================
@@ -275,7 +275,7 @@ Vec Geom_CylindricalSurface::DN(const Standard_Real    U,
   }
   else
   {
-    return ElSLib::CylinderDN(U, V, pos, radius, Nu, Nv);
+    return ElSLib1::CylinderDN(U, V, pos, radius, Nu, Nv);
   }
 }
 
@@ -283,7 +283,7 @@ Vec Geom_CylindricalSurface::DN(const Standard_Real    U,
 
 Handle(GeomCurve3d) Geom_CylindricalSurface::UIso(const Standard_Real U) const
 {
-  Handle(GeomLine) GL = new GeomLine(ElSLib::CylinderUIso(pos, radius, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib1::CylinderUIso(pos, radius, U));
   return GL;
 }
 
@@ -291,7 +291,7 @@ Handle(GeomCurve3d) Geom_CylindricalSurface::UIso(const Standard_Real U) const
 
 Handle(GeomCurve3d) Geom_CylindricalSurface::VIso(const Standard_Real V) const
 {
-  Handle(GeomCircle) GC = new GeomCircle(ElSLib::CylinderVIso(pos, radius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib1::CylinderVIso(pos, radius, V));
   return GC;
 }
 

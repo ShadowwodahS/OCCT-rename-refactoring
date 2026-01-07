@@ -195,9 +195,9 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
                                           const Standard_Integer ResolutionOrder,
                                           const Standard_Real    IncrementalLoading)
 {
-  Plate_Plate EmptyPlate;
+  PlateSurface EmptyPlate;
   mySOP.Prepend(EmptyPlate);
-  Plate_Plate& TopP = mySOP.First();
+  PlateSurface& TopP = mySOP.First();
   for (Standard_Integer index = 1; index <= myHGPPConstraints.Length(); index++)
   {
     const Handle(NLPlate_HGPPConstraint)& HGPP  = myHGPPConstraints(index);
@@ -210,9 +210,9 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
     {
       if (HGPP->IncrementalLoadAllowed())
         TopP.Load(
-          Plate_PinpointConstraint(UV, (HGPP->G0Target() - Evaluate(UV)) * IncrementalLoading));
+          PinpointConstraint(UV, (HGPP->G0Target() - Evaluate(UV)) * IncrementalLoading));
       else
-        TopP.Load(Plate_PinpointConstraint(UV, HGPP->G0Target() - Evaluate(UV)));
+        TopP.Load(PinpointConstraint(UV, HGPP->G0Target() - Evaluate(UV)));
     }
 
     if ((IncrementalLoading != 1.) && HGPP->IncrementalLoadAllowed() && (Order >= 1))
@@ -220,8 +220,8 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
       switch (Order)
       {
         case 1: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          TopP.Load(Plate_FreeGtoCConstraint(UV,
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          TopP.Load(FreeGtoCConstraint(UV,
                                              D1S,
                                              HGPP->G1Target(),
                                              IncrementalLoading,
@@ -229,11 +229,11 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
         }
         break;
         case 2: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          Plate_D2 D2S(EvaluateDerivative(UV, 2, 0),
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          D2 D2S(EvaluateDerivative(UV, 2, 0),
                        EvaluateDerivative(UV, 1, 1),
                        EvaluateDerivative(UV, 0, 2));
-          TopP.Load(Plate_FreeGtoCConstraint(UV,
+          TopP.Load(FreeGtoCConstraint(UV,
                                              D1S,
                                              HGPP->G1Target(),
                                              D2S,
@@ -243,15 +243,15 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
         }
         break;
         case 3: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          Plate_D2 D2S(EvaluateDerivative(UV, 2, 0),
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          D2 D2S(EvaluateDerivative(UV, 2, 0),
                        EvaluateDerivative(UV, 1, 1),
                        EvaluateDerivative(UV, 0, 2));
-          Plate_D3 D3S(EvaluateDerivative(UV, 3, 0),
+          D3 D3S(EvaluateDerivative(UV, 3, 0),
                        EvaluateDerivative(UV, 2, 1),
                        EvaluateDerivative(UV, 1, 2),
                        EvaluateDerivative(UV, 0, 3));
-          TopP.Load(Plate_FreeGtoCConstraint(UV,
+          TopP.Load(FreeGtoCConstraint(UV,
                                              D1S,
                                              HGPP->G1Target(),
                                              D2S,
@@ -271,28 +271,28 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
       switch (Order)
       {
         case 1: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          TopP.Load(Plate_FreeGtoCConstraint(UV, D1S, HGPP->G1Target()));
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          TopP.Load(FreeGtoCConstraint(UV, D1S, HGPP->G1Target()));
         }
         break;
         case 2: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          Plate_D2 D2S(EvaluateDerivative(UV, 2, 0),
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          D2 D2S(EvaluateDerivative(UV, 2, 0),
                        EvaluateDerivative(UV, 1, 1),
                        EvaluateDerivative(UV, 0, 2));
-          TopP.Load(Plate_FreeGtoCConstraint(UV, D1S, HGPP->G1Target(), D2S, HGPP->G2Target()));
+          TopP.Load(FreeGtoCConstraint(UV, D1S, HGPP->G1Target(), D2S, HGPP->G2Target()));
         }
         break;
         case 3: {
-          Plate_D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
-          Plate_D2 D2S(EvaluateDerivative(UV, 2, 0),
+          D1 D1S(EvaluateDerivative(UV, 1, 0), EvaluateDerivative(UV, 0, 1));
+          D2 D2S(EvaluateDerivative(UV, 2, 0),
                        EvaluateDerivative(UV, 1, 1),
                        EvaluateDerivative(UV, 0, 2));
-          Plate_D3 D3S(EvaluateDerivative(UV, 3, 0),
+          D3 D3S(EvaluateDerivative(UV, 3, 0),
                        EvaluateDerivative(UV, 2, 1),
                        EvaluateDerivative(UV, 1, 2),
                        EvaluateDerivative(UV, 0, 3));
-          TopP.Load(Plate_FreeGtoCConstraint(UV,
+          TopP.Load(FreeGtoCConstraint(UV,
                                              D1S,
                                              HGPP->G1Target(),
                                              D2S,

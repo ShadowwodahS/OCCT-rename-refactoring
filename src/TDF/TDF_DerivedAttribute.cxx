@@ -24,7 +24,7 @@ namespace TDF_DerivedAttributeGlobals
 //! Data for the derived attribute correct creation
 struct CreatorData
 {
-  TDF_DerivedAttribute::NewDerived myCreator;
+  DerivedAttribute::NewDerived myCreator;
   Standard_CString                 myNameSpace;
   Standard_CString                 myTypeName;
 };
@@ -67,7 +67,7 @@ static Standard_Mutex& Mutex()
 // purpose  : Registers a derived by the pointer to a method that creates a new derived attribute
 // instance
 //=======================================================================
-TDF_DerivedAttribute::NewDerived TDF_DerivedAttribute::Register(NewDerived theNewAttributeFunction,
+DerivedAttribute::NewDerived DerivedAttribute::Register(NewDerived theNewAttributeFunction,
                                                                 Standard_CString theNameSpace,
                                                                 Standard_CString theTypeName)
 {
@@ -125,7 +125,7 @@ static void Initialize()
 
 //=================================================================================================
 
-Handle(TDF_Attribute) TDF_DerivedAttribute::Attribute(Standard_CString theType)
+Handle(TDF_Attribute) DerivedAttribute::Attribute(Standard_CString theType)
 {
   Standard_Mutex::Sentry aSentry(TDF_DerivedAttributeGlobals::Mutex());
   Initialize();
@@ -141,7 +141,7 @@ Handle(TDF_Attribute) TDF_DerivedAttribute::Attribute(Standard_CString theType)
 
 //=================================================================================================
 
-const AsciiString1& TDF_DerivedAttribute::TypeName(Standard_CString theType)
+const AsciiString1& DerivedAttribute::TypeName(Standard_CString theType)
 {
   Standard_Mutex::Sentry aSentry(TDF_DerivedAttributeGlobals::Mutex());
   Initialize();
@@ -156,7 +156,7 @@ const AsciiString1& TDF_DerivedAttribute::TypeName(Standard_CString theType)
 
 //=================================================================================================
 
-void TDF_DerivedAttribute::Attributes(NCollection_List<Handle(TDF_Attribute)>& theList)
+void DerivedAttribute::Attributes(NCollection_List<Handle(TDF_Attribute)>& theList)
 {
   Standard_Mutex::Sentry aSentry(TDF_DerivedAttributeGlobals::Mutex());
   Initialize();

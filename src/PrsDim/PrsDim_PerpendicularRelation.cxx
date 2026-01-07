@@ -226,7 +226,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   Handle(Geom2d_Line)  lin1_2d      = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);
   aGeom2dCurve                      = GeomAPI1::To2d(geom_lin2, myPlane->Pln());
   Handle(Geom2d_Line)      lin2_2d  = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);
-  IntAna2d_AnaIntersection inter(lin1_2d->Lin2d(), lin2_2d->Lin2d());
+  AnalyticIntersection2d inter(lin1_2d->Lin2d(), lin2_2d->Lin2d());
   if (!inter.IsDone())
     return;
   if (!inter.NbPoints())
@@ -242,21 +242,21 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
 
   if (isInfinite1 && isInfinite2)
   {
-    Standard_Real curpar1 = ElCLib::Parameter(geom_lin1->Lin(), pint3d);
-    Standard_Real curpar2 = ElCLib::Parameter(geom_lin2->Lin(), pint3d);
+    Standard_Real curpar1 = ElCLib1::Parameter(geom_lin1->Lin(), pint3d);
+    Standard_Real curpar2 = ElCLib1::Parameter(geom_lin2->Lin(), pint3d);
     par1 = par2 = 50.;
     p1 = p2   = pint3d;
-    myFAttach = ElCLib::Value(curpar1 + par1, geom_lin1->Lin());
-    mySAttach = ElCLib::Value(curpar2 + par2, geom_lin2->Lin());
+    myFAttach = ElCLib1::Value(curpar1 + par1, geom_lin1->Lin());
+    mySAttach = ElCLib1::Value(curpar2 + par2, geom_lin2->Lin());
   }
   else
   {
     Standard_Boolean lengthComputed(Standard_False);
     if (!isInfinite1)
     {
-      curpar = ElCLib::Parameter(geom_lin1->Lin(), pint3d);
-      par1   = ElCLib::Parameter(geom_lin1->Lin(), ptat11);
-      par2   = ElCLib::Parameter(geom_lin1->Lin(), ptat12);
+      curpar = ElCLib1::Parameter(geom_lin1->Lin(), pint3d);
+      par1   = ElCLib1::Parameter(geom_lin1->Lin(), ptat11);
+      par2   = ElCLib1::Parameter(geom_lin1->Lin(), ptat12);
       pmin   = Min(par1, par2);
       pmax   = Max(par1, par2);
 
@@ -280,9 +280,9 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
     }
     if (!isInfinite2)
     {
-      curpar = ElCLib::Parameter(geom_lin2->Lin(), pint3d);
-      par1   = ElCLib::Parameter(geom_lin2->Lin(), ptat21);
-      par2   = ElCLib::Parameter(geom_lin2->Lin(), ptat22);
+      curpar = ElCLib1::Parameter(geom_lin2->Lin(), pint3d);
+      par1   = ElCLib1::Parameter(geom_lin2->Lin(), ptat21);
+      par2   = ElCLib1::Parameter(geom_lin2->Lin(), ptat22);
       pmin   = Min(par1, par2);
       pmax   = Max(par1, par2);
 

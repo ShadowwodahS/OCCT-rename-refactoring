@@ -2502,7 +2502,7 @@ static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoShape& aWire,
   }
 
   Frame3d Axe;
-  GeomLib::AxeOfInertia(Pnts, Axe, IsSingular);
+  GeomLib1::AxeOfInertia(Pnts, Axe, IsSingular);
   if (IsSingular)
     return -1;
 

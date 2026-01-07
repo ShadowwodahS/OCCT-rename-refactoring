@@ -1342,10 +1342,10 @@ Standard_Integer AppParCurves_LeastSquare::
 void AppParCurves_LeastSquare::ComputeFunction(const math_Vector& Parameters) 
 {
   if (myknots.IsNull()) {
-    AppParCurves::Bernstein(nbpoles, Parameters, A, DA);  
+    AppParCurves1::Bernstein(nbpoles, Parameters, A, DA);  
   }
   else {
-    AppParCurves::SplineFunction(nbpoles, deg, Parameters,
+    AppParCurves1::SplineFunction(nbpoles, deg, Parameters,
 				 Vflatknots, A, DA, myindex);
   }
 }

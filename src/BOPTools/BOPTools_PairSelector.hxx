@@ -90,7 +90,7 @@ public: //! @name Rejection/Acceptance rules
   Standard_Boolean RejectElement(const Standard_Integer theID1, const Standard_Integer theID2)
   {
     return (mySameBVHs && theID1 >= theID2)
-           || this->myBVHSet1->Box(theID1).IsOut(this->myBVHSet2->Box(theID2));
+           || this->myBVHSet1->Box1(theID1).IsOut(this->myBVHSet2->Box1(theID2));
   }
 
   //! Checks and accepts the pair of elements.

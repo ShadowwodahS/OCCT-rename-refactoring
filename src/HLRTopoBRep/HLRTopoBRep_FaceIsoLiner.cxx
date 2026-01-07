@@ -51,9 +51,9 @@ const Standard_Real Infinite             = 100.;
 // Purpose  : Builds isoparametric curves with a hatcher.
 //=======================================================================
 
-void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
+void FaceIsoLiner::Perform(const Standard_Integer FI,
                                        const TopoFace&     F,
-                                       HLRTopoBRep_Data&      DS,
+                                       Data1&      DS,
                                        const Standard_Integer nbIsos)
 {
   (void)FI; // avoid compiler warning
@@ -243,7 +243,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
               const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
-              V1U = HLRTopoBRep_FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
+              V1U = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P1,
                                                          PntE.Parameter(),
                                                          Tolerance,
@@ -259,7 +259,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
               const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
-              V2U = HLRTopoBRep_FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
+              V2U = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P2,
                                                          PntE.Parameter(),
                                                          Tolerance,
@@ -269,7 +269,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             }
           }
           if (!V1U.IsNull() && !V2U.IsNull())
-            HLRTopoBRep_FaceIsoLiner::MakeIsoLine(F, IsoLine, V1U, V2U, U11, U21, Tolerance, DS);
+            FaceIsoLiner::MakeIsoLine(F, IsoLine, V1U, V2U, U11, U21, Tolerance, DS);
         }
       }
 
@@ -347,7 +347,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
               const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
-              V1V = HLRTopoBRep_FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
+              V1V = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P1,
                                                          PntE.Parameter(),
                                                          Tolerance,
@@ -364,7 +364,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             for (Standard_Integer IPntE = 1; IPntE <= PntH.NbPoints(); IPntE++)
             {
               const HatchGen_PointOnElement& PntE = PntH.Point(IPntE);
-              V2V = HLRTopoBRep_FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
+              V2V = FaceIsoLiner::MakeVertex(TopoDS::Edge(SH(PntE.Index())),
                                                          P2,
                                                          PntE.Parameter(),
                                                          Tolerance,
@@ -374,7 +374,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
             }
           }
           if (!V1V.IsNull() && !V2V.IsNull())
-            HLRTopoBRep_FaceIsoLiner::MakeIsoLine(F, IsoLine, V1V, V2V, U12, U22, Tolerance, DS);
+            FaceIsoLiner::MakeIsoLine(F, IsoLine, V1V, V2V, U12, U22, Tolerance, DS);
         }
       }
 
@@ -386,11 +386,11 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
 
 //=================================================================================================
 
-TopoVertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoEdge&  E,
+TopoVertex FaceIsoLiner::MakeVertex(const TopoEdge&  E,
                                                    const Point3d&       P,
                                                    const Standard_Real Par,
                                                    const Standard_Real Tol,
-                                                   HLRTopoBRep_Data&   DS)
+                                                   Data1&   DS)
 {
   TopoVertex V, VF, VL;
   ShapeBuilder  B;
@@ -430,14 +430,14 @@ TopoVertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoEdge&  E,
 
 //=================================================================================================
 
-void HLRTopoBRep_FaceIsoLiner::MakeIsoLine(const TopoFace&         F,
+void FaceIsoLiner::MakeIsoLine(const TopoFace&         F,
                                            const Handle(Geom2d_Line)& Iso,
                                            TopoVertex&             V1,
                                            TopoVertex&             V2,
                                            const Standard_Real        U1,
                                            const Standard_Real        U2,
                                            const Standard_Real        Tol,
-                                           HLRTopoBRep_Data&          DS)
+                                           Data1&          DS)
 {
   ShapeBuilder B;
   TopoEdge  E;

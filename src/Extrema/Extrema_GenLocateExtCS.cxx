@@ -116,7 +116,7 @@ Standard_Real Extrema_GenLocateExtCS::SquareDistance() const
 
 //=================================================================================================
 
-const Extrema_POnCurv& Extrema_GenLocateExtCS::PointOnCurve() const
+const PointOnCurve1& Extrema_GenLocateExtCS::PointOnCurve() const
 {
   if (!IsDone())
   {
@@ -127,7 +127,7 @@ const Extrema_POnCurv& Extrema_GenLocateExtCS::PointOnCurve() const
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_GenLocateExtCS::PointOnSurface() const
+const PointOnSurface1& Extrema_GenLocateExtCS::PointOnSurface() const
 {
   if (!IsDone())
   {

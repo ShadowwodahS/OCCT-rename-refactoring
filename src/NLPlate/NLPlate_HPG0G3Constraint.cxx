@@ -24,9 +24,9 @@ IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0G3Constraint, NLPlate_HPG0G2Constraint)
 
 NLPlate_HPG0G3Constraint::NLPlate_HPG0G3Constraint(const Coords2d&    UV,
                                                    const gp_XYZ&   Value,
-                                                   const Plate_D1& D1T,
-                                                   const Plate_D2& D2T,
-                                                   const Plate_D3& D3T)
+                                                   const D1& D1T,
+                                                   const D2& D2T,
+                                                   const D3& D3T)
     : NLPlate_HPG0G2Constraint(UV, Value, D1T, D2T),
       myG3Target(D3T)
 {
@@ -41,7 +41,7 @@ Standard_Integer NLPlate_HPG0G3Constraint::ActiveOrder() const
     return 3;
 }
 
-const Plate_D3& NLPlate_HPG0G3Constraint::G3Target() const
+const D3& NLPlate_HPG0G3Constraint::G3Target() const
 {
   return myG3Target;
 }

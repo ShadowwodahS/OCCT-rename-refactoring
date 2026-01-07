@@ -33,7 +33,7 @@ GC_MakeSegment::GC_MakeSegment(const Point3d& P1, const Point3d& P2)
 
 GC_MakeSegment::GC_MakeSegment(const gp_Lin& Line, const Point3d& Point, const Standard_Real U)
 {
-  Standard_Real     Ufirst = ElCLib::Parameter(Line, Point);
+  Standard_Real     Ufirst = ElCLib1::Parameter(Line, Point);
   Handle(GeomLine) L      = new GeomLine(Line);
   TheSegment               = new Geom_TrimmedCurve(L, Ufirst, U, Standard_True);
   TheError                 = gce_Done;
@@ -41,8 +41,8 @@ GC_MakeSegment::GC_MakeSegment(const gp_Lin& Line, const Point3d& Point, const S
 
 GC_MakeSegment::GC_MakeSegment(const gp_Lin& Line, const Point3d& P1, const Point3d& P2)
 {
-  Standard_Real     Ufirst = ElCLib::Parameter(Line, P1);
-  Standard_Real     Ulast  = ElCLib::Parameter(Line, P2);
+  Standard_Real     Ufirst = ElCLib1::Parameter(Line, P1);
+  Standard_Real     Ulast  = ElCLib1::Parameter(Line, P2);
   Handle(GeomLine) L      = new GeomLine(Line);
   TheSegment               = new Geom_TrimmedCurve(L, Ufirst, Ulast, Standard_True);
   TheError                 = gce_Done;

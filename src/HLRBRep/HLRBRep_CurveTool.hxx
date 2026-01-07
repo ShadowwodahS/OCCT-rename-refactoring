@@ -37,7 +37,7 @@ class gp_Vec2d;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
 
-class HLRBRep_CurveTool
+class CurveTool5
 {
 public:
   DEFINE_STANDARD_ALLOC

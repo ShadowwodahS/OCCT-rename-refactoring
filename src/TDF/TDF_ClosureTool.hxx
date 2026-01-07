@@ -23,8 +23,8 @@
 #include <TDF_LabelMap.hxx>
 #include <TDF_AttributeMap.hxx>
 class TDF_DataSet;
-class TDF_IDFilter;
-class TDF_ClosureMode;
+class IDFilter;
+class ClosureMode;
 class DataLabel;
 
 //! This class provides services to build the closure
@@ -36,7 +36,7 @@ class DataLabel;
 //! (to select or exclude specific attribute IDs) and
 //! CopyOption objects and by giving to Closure
 //! method.
-class TDF_ClosureTool
+class ClosureTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,15 +51,15 @@ public:
   //! account or not. Uses <aMode> for various way of
   //! closing.
   Standard_EXPORT static void Closure(const Handle(TDF_DataSet)& aDataSet,
-                                      const TDF_IDFilter&        aFilter,
-                                      const TDF_ClosureMode&     aMode);
+                                      const IDFilter&        aFilter,
+                                      const ClosureMode&     aMode);
 
   //! Builds the transitive closure of <aLabel>.
   Standard_EXPORT static void Closure(const DataLabel&       aLabel,
                                       TDF_LabelMap&          aLabMap,
                                       TDF_AttributeMap&      anAttMap,
-                                      const TDF_IDFilter&    aFilter,
-                                      const TDF_ClosureMode& aMode);
+                                      const IDFilter&    aFilter,
+                                      const ClosureMode& aMode);
 
 protected:
 private:
@@ -67,8 +67,8 @@ private:
   Standard_EXPORT static void LabelAttributes(const DataLabel&       aLabel,
                                               TDF_LabelMap&          aLabMap,
                                               TDF_AttributeMap&      anAttMap,
-                                              const TDF_IDFilter&    aFilter,
-                                              const TDF_ClosureMode& aMode);
+                                              const IDFilter&    aFilter,
+                                              const ClosureMode& aMode);
 };
 
 #endif // _TDF_ClosureTool_HeaderFile

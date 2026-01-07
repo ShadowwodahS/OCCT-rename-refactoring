@@ -78,8 +78,8 @@ GeomAbs_Shape LocalContinuity(Standard_Integer         Degree,
   Standard_Integer Index1 = 0;
   Standard_Integer Index2 = 0;
   Standard_Real    newFirst, newLast;
-  BSplCLib::LocateParameter(Degree, TK, TM, PFirst, IsPeriodic, 1, Nb, Index1, newFirst);
-  BSplCLib::LocateParameter(Degree, TK, TM, PLast, IsPeriodic, 1, Nb, Index2, newLast);
+  BSplCLib1::LocateParameter(Degree, TK, TM, PFirst, IsPeriodic, 1, Nb, Index1, newFirst);
+  BSplCLib1::LocateParameter(Degree, TK, TM, PLast, IsPeriodic, 1, Nb, Index2, newLast);
   constexpr Standard_Real EpsKnot = Precision::PConfusion();
   if (Abs(newFirst - TK(Index1 + 1)) < EpsKnot)
     Index1++;
@@ -688,8 +688,8 @@ void GeomAdaptor_Surface::RebuildCache(const Standard_Real theU, const Standard_
     Handle(Geom_BezierSurface) aBezier = Handle(Geom_BezierSurface)::DownCast(mySurface);
     Standard_Integer           aDegU   = aBezier->UDegree();
     Standard_Integer           aDegV   = aBezier->VDegree();
-    TColStd_Array1OfReal       aFlatKnotsU(BSplCLib::FlatBezierKnots(aDegU), 1, 2 * (aDegU + 1));
-    TColStd_Array1OfReal       aFlatKnotsV(BSplCLib::FlatBezierKnots(aDegV), 1, 2 * (aDegV + 1));
+    TColStd_Array1OfReal       aFlatKnotsU(BSplCLib1::FlatBezierKnots(aDegU), 1, 2 * (aDegU + 1));
+    TColStd_Array1OfReal       aFlatKnotsV(BSplCLib1::FlatBezierKnots(aDegV), 1, 2 * (aDegV + 1));
     if (mySurfaceCache.IsNull())
       mySurfaceCache = new BSplSLib_Cache(aDegU,
                                           aBezier->IsUPeriodic(),

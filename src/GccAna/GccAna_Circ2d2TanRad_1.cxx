@@ -497,7 +497,7 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualif
           gp_Lin2d  linint(
             gp_Pnt2d(lxloc - cote2(jcote2) * ydir * Radius, lyloc + cote2(jcote2) * xdir * Radius),
             L2.Direction());
-          IntAna2d_AnaIntersection Intp(linint, cirint);
+          AnalyticIntersection2d Intp(linint, cirint);
           if (Intp.IsDone())
           {
             if (!Intp.IsEmpty())
@@ -613,12 +613,12 @@ Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualif
   }
   for (i = 1; i <= NbrSol; i++)
   {
-    par1sol(i) = ElCLib::Parameter(cirsol(i), pnttg1sol(i));
+    par1sol(i) = ElCLib1::Parameter(cirsol(i), pnttg1sol(i));
     if (TheSame1(i) == 0)
     {
-      pararg1(i) = ElCLib::Parameter(C1, pnttg1sol(i));
+      pararg1(i) = ElCLib1::Parameter(C1, pnttg1sol(i));
     }
-    par2sol(i) = ElCLib::Parameter(cirsol(i), pnttg2sol(i));
-    pararg2(i) = ElCLib::Parameter(L2, pnttg2sol(i));
+    par2sol(i) = ElCLib1::Parameter(cirsol(i), pnttg2sol(i));
+    pararg2(i) = ElCLib1::Parameter(L2, pnttg2sol(i));
   }
 }

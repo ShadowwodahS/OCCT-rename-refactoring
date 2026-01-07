@@ -727,31 +727,31 @@ void TDataStd_TreeNode::DumpJson(Standard_OStream& theOStream, Standard_Integer 
   if (myFather)
   {
     AsciiString1 aFather;
-    TDF_Tool::Entry(myFather->Label(), aFather);
+    Tool3::Entry(myFather->Label(), aFather);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aFather)
   }
   if (myPrevious)
   {
     AsciiString1 aPrevious;
-    TDF_Tool::Entry(myPrevious->Label(), aPrevious);
+    Tool3::Entry(myPrevious->Label(), aPrevious);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aPrevious)
   }
   if (myNext)
   {
     AsciiString1 aNext;
-    TDF_Tool::Entry(myNext->Label(), aNext);
+    Tool3::Entry(myNext->Label(), aNext);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aNext)
   }
   if (myFirst)
   {
     AsciiString1 aFirst;
-    TDF_Tool::Entry(myFirst->Label(), aFirst);
+    Tool3::Entry(myFirst->Label(), aFirst);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aFirst)
   }
   if (myLast)
   {
     AsciiString1 aLast;
-    TDF_Tool::Entry(myLast->Label(), aLast);
+    Tool3::Entry(myLast->Label(), aLast);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLast)
   }
 }

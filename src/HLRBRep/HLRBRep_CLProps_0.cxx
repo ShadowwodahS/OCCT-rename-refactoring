@@ -33,7 +33,7 @@
 #define Pnt_hxx <gp_Pnt2d.hxx>
 #define Dir gp_Dir2d
 #define Dir_hxx <gp_Dir2d.hxx>
-#define Tool HLRBRep_CLPropsATool
+#define Tool CLPropsATool
 #define Tool_hxx <HLRBRep_CLPropsATool.hxx>
 #define LProp_CLProps HLRBRep_CLProps
 #define LProp_CLProps_hxx <HLRBRep_CLProps.hxx>

@@ -52,25 +52,25 @@
 
 //=================================================================================================
 
-GeomTools_Curve2dSet::GeomTools_Curve2dSet() {}
+Curve2dSet1::Curve2dSet1() {}
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::Clear()
+void Curve2dSet1::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer GeomTools_Curve2dSet::Add(const Handle(GeomCurve2d)& S)
+Standard_Integer Curve2dSet1::Add(const Handle(GeomCurve2d)& S)
 {
   return myMap.Add(S);
 }
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomTools_Curve2dSet::Curve2d(const Standard_Integer I) const
+Handle(GeomCurve2d) Curve2dSet1::Curve2d(const Standard_Integer I) const
 {
   if (I <= 0 || I > myMap.Extent())
     return Handle(GeomCurve2d)();
@@ -80,7 +80,7 @@ Handle(GeomCurve2d) GeomTools_Curve2dSet::Curve2d(const Standard_Integer I) cons
 
 //=================================================================================================
 
-Standard_Integer GeomTools_Curve2dSet::Index(const Handle(GeomCurve2d)& S) const
+Standard_Integer Curve2dSet1::Index(const Handle(GeomCurve2d)& S) const
 {
   return myMap.FindIndex(S);
 }
@@ -391,7 +391,7 @@ static void Print(const Handle(Geom2d_TrimmedCurve)& C,
   OS << C->FirstParameter() << " " << C->LastParameter() << "\n";
   if (!compact)
     OS << "Basis curve :\n";
-  GeomTools_Curve2dSet::PrintCurve2d(C->BasisCurve(), OS, compact);
+  Curve2dSet1::PrintCurve2d(C->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
@@ -409,12 +409,12 @@ static void Print(const Handle(Geom2d_OffsetCurve)& C,
   OS << C->Offset() << "\n";
   if (!compact)
     OS << "Basis curve :\n";
-  GeomTools_Curve2dSet::PrintCurve2d(C->BasisCurve(), OS, compact);
+  Curve2dSet1::PrintCurve2d(C->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::PrintCurve2d(const Handle(GeomCurve2d)& C,
+void Curve2dSet1::PrintCurve2d(const Handle(GeomCurve2d)& C,
                                         Standard_OStream&           OS,
                                         const Standard_Boolean      compact)
 {
@@ -458,7 +458,7 @@ void GeomTools_Curve2dSet::PrintCurve2d(const Handle(GeomCurve2d)& C,
   }
   else
   {
-    GeomTools::GetUndefinedTypeHandler()->PrintCurve2d(C, OS, compact);
+    GeomTools1::GetUndefinedTypeHandler()->PrintCurve2d(C, OS, compact);
     // if (!compact)
     //   OS << "****** UNKNOWN CURVE2d TYPE ******\n";
     // else
@@ -468,7 +468,7 @@ void GeomTools_Curve2dSet::PrintCurve2d(const Handle(GeomCurve2d)& C,
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::Dump(Standard_OStream& OS) const
+void Curve2dSet1::Dump(Standard_OStream& OS) const
 {
   Standard_Integer i, nbsurf = myMap.Extent();
   OS << "\n -------\n";
@@ -484,7 +484,7 @@ void GeomTools_Curve2dSet::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::Write(Standard_OStream&            OS,
+void Curve2dSet1::Write(Standard_OStream&            OS,
                                  const Message_ProgressRange& theProgress) const
 {
   std::streamsize prec = OS.precision(17);
@@ -504,8 +504,8 @@ void GeomTools_Curve2dSet::Write(Standard_OStream&            OS,
 static Standard_IStream& operator>>(Standard_IStream& IS, gp_Pnt2d& P)
 {
   Standard_Real X = 0., Y = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
   P.SetCoord(X, Y);
   return IS;
 }
@@ -515,8 +515,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Pnt2d& P)
 static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir2d& D)
 {
   Standard_Real X = 0., Y = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
   D.SetCoord(X, Y);
   return IS;
 }
@@ -540,7 +540,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Circle)&
   gp_Dir2d      AX(1., 0.), AY(1., 0.);
   Standard_Real R = 0.;
   IS >> P >> AX >> AY;
-  GeomTools::GetReal(IS, R);
+  GeomTools1::GetReal(IS, R);
   C = new Geom2d_Circle(gp_Ax22d(P, AX, AY), R);
   return IS;
 }
@@ -553,8 +553,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Ellipse)
   gp_Dir2d      AX(1., 0.), AY(1., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
-  GeomTools::GetReal(IS, R2);
+  GeomTools1::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R2);
   E = new Geom2d_Ellipse(gp_Ax22d(P, AX, AY), R1, R2);
   return IS;
 }
@@ -567,7 +567,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Parabola
   gp_Dir2d      AX(1., 0.), AY(1., 0.);
   Standard_Real R1 = 0.;
   IS >> P >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R1);
   C = new Geom2d_Parabola(gp_Ax22d(P, AX, AY), R1);
   return IS;
 }
@@ -580,8 +580,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_Hyperbol
   gp_Dir2d      AX(1., 0.), AY(1., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> AX >> AY;
-  GeomTools::GetReal(IS, R1);
-  GeomTools::GetReal(IS, R2);
+  GeomTools1::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R2);
   H = new Geom2d_Hyperbola(gp_Ax22d(P, AX, AY), R1, R2);
   return IS;
 }
@@ -604,7 +604,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_BezierCu
   {
     IS >> poles(i);
     if (rational)
-      GeomTools::GetReal(IS, weights(i));
+      GeomTools1::GetReal(IS, weights(i));
   }
 
   if (rational)
@@ -633,7 +633,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_BSplineC
   {
     IS >> poles(i);
     if (rational)
-      GeomTools::GetReal(IS, weights(i));
+      GeomTools1::GetReal(IS, weights(i));
   }
 
   TColStd_Array1OfReal    knots(1, nbknots);
@@ -641,7 +641,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_BSplineC
 
   for (i = 1; i <= nbknots; i++)
   {
-    GeomTools::GetReal(IS, knots(i));
+    GeomTools1::GetReal(IS, knots(i));
     IS >> mults(i);
   }
 
@@ -658,9 +658,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_BSplineC
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_TrimmedCurve)& C)
 {
   Standard_Real p1 = 0., p2 = 0.;
-  GeomTools::GetReal(IS, p1);
-  GeomTools::GetReal(IS, p2);
-  Handle(GeomCurve2d) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
+  GeomTools1::GetReal(IS, p1);
+  GeomTools1::GetReal(IS, p2);
+  Handle(GeomCurve2d) BC = Curve2dSet1::ReadCurve2d(IS);
   C                       = new Geom2d_TrimmedCurve(BC, p1, p2);
   return IS;
 }
@@ -670,15 +670,15 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_TrimmedC
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_OffsetCurve)& C)
 {
   Standard_Real p = 0.;
-  GeomTools::GetReal(IS, p);
-  Handle(GeomCurve2d) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
+  GeomTools1::GetReal(IS, p);
+  Handle(GeomCurve2d) BC = Curve2dSet1::ReadCurve2d(IS);
   C                       = new Geom2d_OffsetCurve(BC, p);
   return IS;
 }
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
+Handle(GeomCurve2d) Curve2dSet1::ReadCurve2d(Standard_IStream& IS)
 {
   Standard_Integer ctype;
 
@@ -755,7 +755,7 @@ Handle(GeomCurve2d) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
 
       default: {
         Handle(GeomCurve2d) CC;
-        GeomTools::GetUndefinedTypeHandler()->ReadCurve2d(ctype, IS, CC);
+        GeomTools1::GetUndefinedTypeHandler()->ReadCurve2d(ctype, IS, CC);
         C = CC;
       }
       break;
@@ -764,7 +764,7 @@ Handle(GeomCurve2d) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "EXCEPTION in GeomTools_Curve2dSet::ReadCurve2d(..)!!!" << std::endl;
+    std::cout << "EXCEPTION in Curve2dSet1::ReadCurve2d(..)!!!" << std::endl;
     std::cout << anException << std::endl;
 #endif
     (void)anException;
@@ -774,7 +774,7 @@ Handle(GeomCurve2d) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
+void Curve2dSet1::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
 {
   char buffer[255];
   IS >> buffer;
@@ -789,7 +789,7 @@ void GeomTools_Curve2dSet::Read(Standard_IStream& IS, const Message_ProgressRang
   Message_ProgressScope aPS(theProgress, "2D Curves", nbcurve);
   for (i = 1; i <= nbcurve && aPS.More(); i++, aPS.Next())
   {
-    Handle(GeomCurve2d) C = GeomTools_Curve2dSet::ReadCurve2d(IS);
+    Handle(GeomCurve2d) C = Curve2dSet1::ReadCurve2d(IS);
     myMap.Add(C);
   }
 }

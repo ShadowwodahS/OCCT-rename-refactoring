@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_BoundedCurve, GeomCurve2d)
 //! The length of a bounded curve is finite.
 //! The Geom2d package provides three concrete
 //! classes of bounded curves:
-//! - two frequently used mathematical formulations of complex curves:
+//! - two frequently used mathematical formulations of complex1 curves:
 //! - Geom2d_BezierCurve,
 //! - Geom2d_BSplineCurve, and
 //! - Geom2d_TrimmedCurve to trim a curve, i.e. to

@@ -567,9 +567,9 @@ void BRepFeat_MakeRevol::Perform(const TopoShape& From, const TopoShape& Until)
     if (ASI2.IsDone() && ASI2.NbPoints(1) >= 1)
     {
       Standard_Real pr1 = ASI2.Point(1, 1).Parameter();
-      pr1               = ElCLib::InPeriod(pr1, PrU - 2 * M_PI, PrU);
+      pr1               = ElCLib1::InPeriod(pr1, PrU - 2 * M_PI, PrU);
       Standard_Real pr2 = ASI2.Point(1, ASI2.NbPoints(1)).Parameter();
-      pr2               = ElCLib::InPeriod(pr2, PrU - 2 * M_PI, PrU);
+      pr2               = ElCLib1::InPeriod(pr2, PrU - 2 * M_PI, PrU);
       // OrF = OrU;
       OrF   = TopAbs1::Reverse(OrU);
       FFrom = ASI2.Point(1, 1).Face();

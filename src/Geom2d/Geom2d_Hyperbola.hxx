@@ -80,7 +80,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Hyperbola, Geom2d_Conic)
 //! be less than the value of the minor radius (on the minor axis).
 //! See Also
 //! GCE2d_MakeHyperbola which provides functions for
-//! more complex hyperbola constructions
+//! more complex1 hyperbola constructions
 //! gp_Ax22d
 //! gp_Hypr2d for an equivalent, non-parameterized data structure
 class Geom2d_Hyperbola : public Geom2d_Conic

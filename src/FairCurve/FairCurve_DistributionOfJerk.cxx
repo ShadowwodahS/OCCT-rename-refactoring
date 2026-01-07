@@ -56,7 +56,7 @@ Standard_Boolean FairCurve_DistributionOfJerk::Value(const math_Vector& TParam, 
                                  // Dans EvalBsplineBasis C"' <=> DerivOrder = 4
                                  // et il faut ajouter 1 rang dans la matrice Base => 5 rangs
 
-  ier = BSplCLib::EvalBsplineBasis(3,
+  ier = BSplCLib1::EvalBsplineBasis(3,
                                    MyBSplOrder,
                                    MyFlatKnots->Array1(),
                                    TParam(TParam.Lower()),

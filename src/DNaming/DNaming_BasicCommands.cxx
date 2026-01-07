@@ -76,7 +76,7 @@ static Standard_Integer Ascendants(DrawInterpreter& di, Standard_Integer n, cons
     Sprintf(name, "%s_%s_%d", a[2], "old", i++);
     DBRep1::Set(name, it.Shape());
     DataLabel Label = it.Label();
-    TDF_Tool::Entry(Label, entry);
+    Tool3::Entry(Label, entry);
     di << entry.ToCString() << "\n";
   }
   return 0;
@@ -117,7 +117,7 @@ static Standard_Integer Descendants(DrawInterpreter& di, Standard_Integer n, con
     Sprintf(name, "%s_%s_%d", a[2], "new", i++);
     DBRep1::Set(name, it.Shape());
     DataLabel Label = it.Label();
-    TDF_Tool::Entry(Label, entry);
+    Tool3::Entry(Label, entry);
     di << entry.ToCString() << "\n";
   }
 
@@ -190,7 +190,7 @@ static Standard_Integer NamedShape(DrawInterpreter& di, Standard_Integer n, cons
     return 0;
   }
   AsciiString1 Name;
-  TDF_Tool::Entry(NS->Label(), Name);
+  Tool3::Entry(NS->Label(), Name);
   di << Name.ToCString();
   return 0;
 }
@@ -246,13 +246,13 @@ static Standard_Integer Initialshape(DrawInterpreter& di, Standard_Integer n, co
   AsciiString1 entry;
   if (itL.More())
   {
-    TDF_Tool::Entry(itL.Value(), entry);
+    Tool3::Entry(itL.Value(), entry);
     di << entry.ToCString();
     itL.Next();
   }
   for (; itL.More(); itL.Next())
   {
-    TDF_Tool::Entry(itL.Value(), entry);
+    Tool3::Entry(itL.Value(), entry);
     di << " , " << entry.ToCString();
   }
   di << ".\n";
@@ -401,7 +401,7 @@ static Standard_Integer Collect(DrawInterpreter& di, Standard_Integer nb, const 
     for (TNaming_MapIteratorOfMapOfNamedShape it(MNS); it.More(); it.Next())
     {
       AsciiString1 Name;
-      TDF_Tool::Entry(it.Key()->Label(), Name);
+      Tool3::Entry(it.Key()->Label(), Name);
       di << Name.ToCString() << " ";
     }
   }

@@ -24,7 +24,7 @@
 
 #define TheCurve gp_Lin
 #define TheCurve_hxx <gp_Lin.hxx>
-#define TheCurveTool HLRBRep_LineTool
+#define TheCurveTool LineTool3
 #define TheCurveTool_hxx <HLRBRep_LineTool.hxx>
 #define IntCurveSurface_Polygon HLRBRep_ThePolygonOfInterCSurf
 #define IntCurveSurface_Polygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>

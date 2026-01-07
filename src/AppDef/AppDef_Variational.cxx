@@ -129,8 +129,8 @@ AppDef_Variational::AppDef_Variational(
       throw Standard_ConstructionError();
   }
   //
-  myNbP2d     = AppDef_MyLineTool::NbP2d(SSP);
-  myNbP3d     = AppDef_MyLineTool::NbP3d(SSP);
+  myNbP2d     = MultiLineTool::NbP2d(SSP);
+  myNbP3d     = MultiLineTool::NbP3d(SSP);
   myDimension = 2 * myNbP2d + 3 * myNbP3d;
   //
   myPercent[0] = 0.4;
@@ -164,7 +164,7 @@ AppDef_Variational::AppDef_Variational(
 
     if (myNbP2d != 0 && myNbP3d == 0)
     {
-      AppDef_MyLineTool::Value(mySSP, ipoint, TabP2d);
+      MultiLineTool::Value(mySSP, ipoint, TabP2d);
 
       for (jp2d = 1; jp2d <= myNbP2d; jp2d++)
       {
@@ -176,7 +176,7 @@ AppDef_Variational::AppDef_Variational(
     }
     if (myNbP3d != 0 && myNbP2d == 0)
     {
-      AppDef_MyLineTool::Value(mySSP, ipoint, TabP3d);
+      MultiLineTool::Value(mySSP, ipoint, TabP3d);
 
       for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
 
@@ -190,7 +190,7 @@ AppDef_Variational::AppDef_Variational(
     }
     if (myNbP3d != 0 && myNbP2d != 0)
     {
-      AppDef_MyLineTool::Value(mySSP, ipoint, TabP3d, TabP2d);
+      MultiLineTool::Value(mySSP, ipoint, TabP3d, TabP2d);
 
       for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
 
@@ -280,7 +280,7 @@ void AppDef_Variational::Init()
         myNbTangPoints++;
         if (myNbP2d != 0 && myNbP3d == 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV2d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV2d) == Standard_False)
             throw Standard_ConstructionError();
           for (jp2d = 1; jp2d <= myNbP2d; jp2d++)
           {
@@ -294,7 +294,7 @@ void AppDef_Variational::Init()
         }
         if (myNbP3d != 0 && myNbP2d == 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV3d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV3d) == Standard_False)
             throw Standard_ConstructionError();
           for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
           {
@@ -311,7 +311,7 @@ void AppDef_Variational::Init()
         }
         if (myNbP3d != 0 && myNbP2d != 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV3d, TabV2d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV3d, TabV2d) == Standard_False)
             throw Standard_ConstructionError();
           for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
           {
@@ -343,9 +343,9 @@ void AppDef_Variational::Init()
         myNbCurvPoints++;
         if (myNbP2d != 0 && myNbP3d == 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV2d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV2d) == Standard_False)
             throw Standard_ConstructionError();
-          if (AppDef_MyLineTool::Curvature(mySSP, ipoint, TabV2dcurv) == Standard_False)
+          if (MultiLineTool::Curvature(mySSP, ipoint, TabV2dcurv) == Standard_False)
             throw Standard_ConstructionError();
           for (jp2d = 1; jp2d <= myNbP2d; jp2d++)
           {
@@ -364,9 +364,9 @@ void AppDef_Variational::Init()
 
         if (myNbP3d != 0 && myNbP2d == 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV3d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV3d) == Standard_False)
             throw Standard_ConstructionError();
-          if (AppDef_MyLineTool::Curvature(mySSP, ipoint, TabV3dcurv) == Standard_False)
+          if (MultiLineTool::Curvature(mySSP, ipoint, TabV3dcurv) == Standard_False)
             throw Standard_ConstructionError();
           for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
           {
@@ -386,9 +386,9 @@ void AppDef_Variational::Init()
         }
         if (myNbP3d != 0 && myNbP2d != 0)
         {
-          if (AppDef_MyLineTool::Tangency(mySSP, ipoint, TabV3d, TabV2d) == Standard_False)
+          if (MultiLineTool::Tangency(mySSP, ipoint, TabV3d, TabV2d) == Standard_False)
             throw Standard_ConstructionError();
-          if (AppDef_MyLineTool::Curvature(mySSP, ipoint, TabV3dcurv, TabV2dcurv) == Standard_False)
+          if (MultiLineTool::Curvature(mySSP, ipoint, TabV3dcurv, TabV2dcurv) == Standard_False)
             throw Standard_ConstructionError();
           for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
           {
@@ -737,7 +737,7 @@ void AppDef_Variational::Distance(math_Matrix& mat)
     index = 1;
     if (myNbP3d != 0)
     {
-      AppDef_MyLineTool::Value(mySSP, ipoint, TabP3d);
+      MultiLineTool::Value(mySSP, ipoint, TabP3d);
 
       for (jp3d = 1; jp3d <= myNbP3d; jp3d++)
 
@@ -750,9 +750,9 @@ void AppDef_Variational::Distance(math_Matrix& mat)
     if (myNbP2d != 0)
     {
       if (myNbP3d == 0)
-        AppDef_MyLineTool::Value(mySSP, ipoint, TabP2d);
+        MultiLineTool::Value(mySSP, ipoint, TabP2d);
       else
-        AppDef_MyLineTool::Value(mySSP, ipoint, TabP3d, TabP2d);
+        MultiLineTool::Value(mySSP, ipoint, TabP3d, TabP2d);
       for (jp2d = 1; jp2d <= myNbP2d; jp2d++)
 
       {

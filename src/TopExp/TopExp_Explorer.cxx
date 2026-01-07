@@ -95,12 +95,12 @@ void ShapeExplorer::Init(const TopoShape&    S,
 
     if (LESSCOMPLEX(ty, toFind))
     {
-      // the first Shape is less complex, nothing to find
+      // the first Shape is less complex1, nothing to find
       hasMore = Standard_False;
     }
     else if (!SAMETYPE(ty, toFind))
     {
-      // type is more complex search inside
+      // type is more complex1 search inside
       hasMore = Standard_True;
       Next();
     }

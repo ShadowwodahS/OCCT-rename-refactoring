@@ -34,7 +34,7 @@ class gp_Pnt2d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed arc of ellipse.
-class GCE2d_MakeArcOfEllipse : public GCE2d_Root
+class GCE2d_MakeArcOfEllipse : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

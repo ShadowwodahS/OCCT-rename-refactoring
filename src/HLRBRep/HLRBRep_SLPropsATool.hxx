@@ -25,7 +25,7 @@
 class Point3d;
 class Vector3d;
 
-class HLRBRep_SLPropsATool
+class SLPropsATool
 {
 public:
   DEFINE_STANDARD_ALLOC

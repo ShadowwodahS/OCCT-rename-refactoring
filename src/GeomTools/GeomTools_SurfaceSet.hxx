@@ -30,13 +30,13 @@
 class GeomSurface;
 
 //! Stores a set of Surfaces from Geom.
-class GeomTools_SurfaceSet
+class SurfaceSet1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of Surfaces.
-  Standard_EXPORT GeomTools_SurfaceSet();
+  Standard_EXPORT SurfaceSet1();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();

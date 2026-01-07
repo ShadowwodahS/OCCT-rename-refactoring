@@ -29,7 +29,7 @@ Standard_Boolean GeomLib_PolyFunc::Value(const Standard_Real X, Standard_Real& F
 {
   Standard_Real* coeff = &myCoeffs(1);
   Standard_Real* ff    = &F;
-  PLib::EvalPolynomial(X, 0, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
+  PLib1::EvalPolynomial(X, 0, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
   return Standard_True;
 }
 
@@ -38,7 +38,7 @@ Standard_Boolean GeomLib_PolyFunc::Derivative(const Standard_Real X, Standard_Re
   Standard_Real* coeff = &myCoeffs(1);
   math_Vector    Aux(1, 2);
   Standard_Real* ff = &Aux(1);
-  PLib::EvalPolynomial(X, 1, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
+  PLib1::EvalPolynomial(X, 1, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
   D = Aux(2);
   return Standard_True;
 }
@@ -48,7 +48,7 @@ Standard_Boolean GeomLib_PolyFunc::Values(const Standard_Real X, Standard_Real& 
   Standard_Real* coeff = &myCoeffs(1);
   math_Vector    Aux(1, 2);
   Standard_Real* ff = &Aux(1);
-  PLib::EvalPolynomial(X, 1, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
+  PLib1::EvalPolynomial(X, 1, myCoeffs.Length() - 1, 1, coeff[0], ff[0]);
   F = Aux(1);
   D = Aux(2);
   return Standard_True;

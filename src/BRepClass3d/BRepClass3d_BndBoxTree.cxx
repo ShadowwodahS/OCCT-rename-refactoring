@@ -24,7 +24,7 @@
 
 Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Integer& theObj)
 {
-  // Box-point collision.
+  // Box1-point collision.
   if (theObj > myMapOfShape.Extent())
     return Standard_False;
   const TopoShape& shp = myMapOfShape(theObj);
@@ -100,7 +100,7 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integ
         {
           if (ExtCC.SquareDistance(i) < EdgeTSq)
           {
-            Extrema_POnCurv P1, P2;
+            PointOnCurve1 P1, P2;
             ExtCC.Points(i, P1, P2);
 
             EdgeParam EP;
@@ -123,7 +123,7 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integ
     Standard_Real        VertTSq = BRepInspector::Tolerance(V);
     VertTSq *= VertTSq;
     // Vertex-Line interference.
-    Extrema_ExtPElC ExtPL(BRepInspector::Pnt(V),
+    PointElCCurveExtrema ExtPL(BRepInspector::Pnt(V),
                           myL,
                           Precision::Confusion(),
                           -Precision::Infinite(),
@@ -131,7 +131,7 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integ
     if (ExtPL.IsDone() && ExtPL.NbExt() > 0)
       if (ExtPL.SquareDistance(1) < VertTSq)
       {
-        Extrema_POnCurv PP;
+        PointOnCurve1 PP;
         Standard_Real   paramL;
         PP     = ExtPL.Point(1);
         paramL = PP.Parameter();

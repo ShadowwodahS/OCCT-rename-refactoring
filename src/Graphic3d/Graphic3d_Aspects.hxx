@@ -475,7 +475,7 @@ public:
   //! array split into triangles. For this, quads should be split in specific order, so that the
   //! quad diagonal (to be NOT rendered) goes first:
   //!     1------2
-  //!    /      /   Triangle #1: 2-0-1; Triangle #2: 0-2-3
+  //!    /      /   Triangle1 #1: 2-0-1; Triangle1 #2: 0-2-3
   //!   0------3
   bool ToSkipFirstEdge() const { return myToSkipFirstEdge; }
 

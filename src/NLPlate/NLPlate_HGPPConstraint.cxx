@@ -69,25 +69,25 @@ const gp_XYZ& NLPlate_HGPPConstraint::G0Target() const
   // cette methode ne devrait pas etre appelee
 }
 
-static const Plate_D1 D1null(XYZnull, XYZnull);
+static const D1 D1null(XYZnull, XYZnull);
 
-const Plate_D1& NLPlate_HGPPConstraint::G1Target() const
+const D1& NLPlate_HGPPConstraint::G1Target() const
 {
   return D1null;
   // cette methode ne devrait pas etre appelee
 }
 
-static const Plate_D2 D2null(XYZnull, XYZnull, XYZnull);
+static const D2 D2null(XYZnull, XYZnull, XYZnull);
 
-const Plate_D2& NLPlate_HGPPConstraint::G2Target() const
+const D2& NLPlate_HGPPConstraint::G2Target() const
 {
   return D2null;
   // cette methode ne devrait pas etre appelee
 }
 
-static const Plate_D3 D3null(XYZnull, XYZnull, XYZnull, XYZnull);
+static const D3 D3null(XYZnull, XYZnull, XYZnull, XYZnull);
 
-const Plate_D3& NLPlate_HGPPConstraint::G3Target() const
+const D3& NLPlate_HGPPConstraint::G3Target() const
 {
   return D3null;
   // cette methode ne devrait pas etre applee

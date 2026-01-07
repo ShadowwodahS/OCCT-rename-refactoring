@@ -38,7 +38,7 @@
 static Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
                                    const Standard_Real aT1,
                                    const Standard_Real aT2,
-                                   Bnd_Box&            aBox);
+                                   Box2&            aBox);
 
 namespace
 {
@@ -236,7 +236,7 @@ void Compute(const Standard_Real theP1,
 }
 } // end namespace
 
-static void OpenMin(const Dir3d& V, Bnd_Box& B)
+static void OpenMin(const Dir3d& V, Box2& B)
 {
   Dir3d OX(1., 0., 0.);
   Dir3d OY(0., 1., 0.);
@@ -255,7 +255,7 @@ static void OpenMin(const Dir3d& V, Bnd_Box& B)
   }
 }
 
-static void OpenMax(const Dir3d& V, Bnd_Box& B)
+static void OpenMax(const Dir3d& V, Box2& B)
 {
   Dir3d OX(1., 0., 0.);
   Dir3d OY(0., 1., 0.);
@@ -274,7 +274,7 @@ static void OpenMax(const Dir3d& V, Bnd_Box& B)
   }
 }
 
-static void OpenMinMax(const Dir3d& V, Bnd_Box& B)
+static void OpenMinMax(const Dir3d& V, Box2& B)
 {
   Dir3d OX(1., 0., 0.);
   Dir3d OY(0., 1., 0.);
@@ -358,28 +358,28 @@ static void OpenMinMax(const gp_Dir2d& V, Bnd_Box2d& B)
   }
 }
 
-void BndLib::Add(const gp_Lin&       L,
+void BndLib1::Add(const gp_Lin&       L,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
   if (Precision::IsNegativeInfinite(P1))
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
       OpenMinMax(L.Direction(), B);
-      B.Add(ElCLib::Value(0., L));
+      B.Add(ElCLib1::Value(0., L));
     }
     else
     {
       OpenMin(L.Direction(), B);
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   else if (Precision::IsPositiveInfinite(P1))
@@ -387,21 +387,21 @@ void BndLib::Add(const gp_Lin&       L,
     if (Precision::IsNegativeInfinite(P2))
     {
       OpenMinMax(L.Direction(), B);
-      B.Add(ElCLib::Value(0., L));
+      B.Add(ElCLib1::Value(0., L));
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
       OpenMax(L.Direction(), B);
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   else
   {
-    B.Add(ElCLib::Value(P1, L));
+    B.Add(ElCLib1::Value(P1, L));
     if (Precision::IsNegativeInfinite(P2))
     {
       OpenMin(L.Direction(), B);
@@ -412,13 +412,13 @@ void BndLib::Add(const gp_Lin&       L,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Lin2d&     L,
+void BndLib1::Add(const gp_Lin2d&     L,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
@@ -429,17 +429,17 @@ void BndLib::Add(const gp_Lin2d&     L,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
       OpenMinMax(L.Direction(), B);
-      B.Add(ElCLib::Value(0., L));
+      B.Add(ElCLib1::Value(0., L));
     }
     else
     {
       OpenMin(L.Direction(), B);
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   else if (Precision::IsPositiveInfinite(P1))
@@ -447,21 +447,21 @@ void BndLib::Add(const gp_Lin2d&     L,
     if (Precision::IsNegativeInfinite(P2))
     {
       OpenMinMax(L.Direction(), B);
-      B.Add(ElCLib::Value(0., L));
+      B.Add(ElCLib1::Value(0., L));
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
       OpenMax(L.Direction(), B);
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   else
   {
-    B.Add(ElCLib::Value(P1, L));
+    B.Add(ElCLib1::Value(P1, L));
     if (Precision::IsNegativeInfinite(P2))
     {
       OpenMin(L.Direction(), B);
@@ -472,23 +472,23 @@ void BndLib::Add(const gp_Lin2d&     L,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, L));
+      B.Add(ElCLib1::Value(P2, L));
     }
   }
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Circ& C, const Standard_Real Tol, Bnd_Box& B)
+void BndLib1::Add(const gp_Circ& C, const Standard_Real Tol, Box2& B)
 {
   Standard_Real U1 = 0., U2 = 2. * M_PI;
   Add(C, U1, U2, Tol, B);
 }
 
-void BndLib::Add(const gp_Circ&      C,
+void BndLib1::Add(const gp_Circ&      C,
                  const Standard_Real U1,
                  const Standard_Real U2,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
   Standard_Real period = 2. * M_PI - Epsilon(2. * M_PI);
 
@@ -501,7 +501,7 @@ void BndLib::Add(const gp_Circ&      C,
   else
   {
     Standard_Real tol = Epsilon(1.);
-    ElCLib::AdjustPeriodic(0., 2. * M_PI, tol, utrim1, utrim2);
+    ElCLib1::AdjustPeriodic(0., 2. * M_PI, tol, utrim1, utrim2);
   }
   Standard_Real R   = C.Radius();
   gp_XYZ        O   = C.Location().XYZ();
@@ -514,7 +514,7 @@ void BndLib::Add(const gp_Circ&      C,
   if (Abs(Xd.X()) > gp::Resolution())
   {
     txmin = ATan(Yd.X() / Xd.X());
-    txmin = ElCLib::InPeriod(txmin, 0., 2. * M_PI);
+    txmin = ElCLib1::InPeriod(txmin, 0., 2. * M_PI);
   }
   else
   {
@@ -537,7 +537,7 @@ void BndLib::Add(const gp_Circ&      C,
   if (Abs(Xd.Y()) > gp::Resolution())
   {
     tymin = ATan(Yd.Y() / Xd.Y());
-    tymin = ElCLib::InPeriod(tymin, 0., 2. * M_PI);
+    tymin = ElCLib1::InPeriod(tymin, 0., 2. * M_PI);
   }
   else
   {
@@ -560,7 +560,7 @@ void BndLib::Add(const gp_Circ&      C,
   if (Abs(Xd.Z()) > gp::Resolution())
   {
     tzmin = ATan(Yd.Z() / Xd.Z());
-    tzmin = ElCLib::InPeriod(tzmin, 0., 2. * M_PI);
+    tzmin = ElCLib1::InPeriod(tzmin, 0., 2. * M_PI);
   }
   else
   {
@@ -585,9 +585,9 @@ void BndLib::Add(const gp_Circ&      C,
   }
   else
   {
-    Point3d P = ElCLib::CircleValue(utrim1, pos, R);
+    Point3d P = ElCLib1::CircleValue(utrim1, pos, R);
     B.Add(P);
-    P = ElCLib::CircleValue(utrim2, pos, R);
+    P = ElCLib1::CircleValue(utrim2, pos, R);
     B.Add(P);
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
     B.FinitePart().Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -599,34 +599,34 @@ void BndLib::Add(const gp_Circ&      C,
     Ymax -= gap;
     Zmax -= gap;
     //
-    txmin = ElCLib::InPeriod(txmin, utrim1, utrim1 + 2. * M_PI);
+    txmin = ElCLib1::InPeriod(txmin, utrim1, utrim1 + 2. * M_PI);
     if (txmin >= utrim1 && txmin <= utrim2)
     {
       Xmin = Min(xmin, Xmin);
     }
-    txmax = ElCLib::InPeriod(txmax, utrim1, utrim1 + 2. * M_PI);
+    txmax = ElCLib1::InPeriod(txmax, utrim1, utrim1 + 2. * M_PI);
     if (txmax >= utrim1 && txmax <= utrim2)
     {
       Xmax = Max(xmax, Xmax);
     }
     //
-    tymin = ElCLib::InPeriod(tymin, utrim1, utrim1 + 2. * M_PI);
+    tymin = ElCLib1::InPeriod(tymin, utrim1, utrim1 + 2. * M_PI);
     if (tymin >= utrim1 && tymin <= utrim2)
     {
       Ymin = Min(ymin, Ymin);
     }
-    tymax = ElCLib::InPeriod(tymax, utrim1, utrim1 + 2. * M_PI);
+    tymax = ElCLib1::InPeriod(tymax, utrim1, utrim1 + 2. * M_PI);
     if (tymax >= utrim1 && tymax <= utrim2)
     {
       Ymax = Max(ymax, Ymax);
     }
     //
-    tzmin = ElCLib::InPeriod(tzmin, utrim1, utrim1 + 2. * M_PI);
+    tzmin = ElCLib1::InPeriod(tzmin, utrim1, utrim1 + 2. * M_PI);
     if (tzmin >= utrim1 && tzmin <= utrim2)
     {
       Zmin = Min(zmin, Zmin);
     }
-    tzmax = ElCLib::InPeriod(tzmax, utrim1, utrim1 + 2. * M_PI);
+    tzmax = ElCLib1::InPeriod(tzmax, utrim1, utrim1 + 2. * M_PI);
     if (tzmax >= utrim1 && tzmax <= utrim2)
     {
       Zmax = Max(zmax, Zmax);
@@ -638,7 +638,7 @@ void BndLib::Add(const gp_Circ&      C,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Circ2d& C, const Standard_Real Tol, Bnd_Box2d& B)
+void BndLib1::Add(const gp_Circ2d& C, const Standard_Real Tol, Bnd_Box2d& B)
 {
 
   Standard_Real R  = C.Radius();
@@ -652,7 +652,7 @@ void BndLib::Add(const gp_Circ2d& C, const Standard_Real Tol, Bnd_Box2d& B)
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Circ2d&    C,
+void BndLib1::Add(const gp_Circ2d&    C,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
@@ -670,17 +670,17 @@ void BndLib::Add(const gp_Circ2d&    C,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Elips& C, const Standard_Real Tol, Bnd_Box& B)
+void BndLib1::Add(const gp_Elips& C, const Standard_Real Tol, Box2& B)
 {
   Standard_Real U1 = 0., U2 = 2. * M_PI;
   Add(C, U1, U2, Tol, B);
 }
 
-void BndLib::Add(const gp_Elips&     C,
+void BndLib1::Add(const gp_Elips&     C,
                  const Standard_Real U1,
                  const Standard_Real U2,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
   Standard_Real period = 2. * M_PI - Epsilon(2. * M_PI);
 
@@ -693,7 +693,7 @@ void BndLib::Add(const gp_Elips&     C,
   else
   {
     Standard_Real tol = Epsilon(1.);
-    ElCLib::AdjustPeriodic(0., 2. * M_PI, tol, utrim1, utrim2);
+    ElCLib1::AdjustPeriodic(0., 2. * M_PI, tol, utrim1, utrim2);
   }
   Standard_Real MajR = C.MajorRadius();
   Standard_Real MinR = C.MinorRadius();
@@ -707,7 +707,7 @@ void BndLib::Add(const gp_Elips&     C,
   if (Abs(Xd.X()) > gp::Resolution())
   {
     txmin = ATan((MinR * Yd.X()) / (MajR * Xd.X()));
-    txmin = ElCLib::InPeriod(txmin, 0., 2. * M_PI);
+    txmin = ElCLib1::InPeriod(txmin, 0., 2. * M_PI);
   }
   else
   {
@@ -730,7 +730,7 @@ void BndLib::Add(const gp_Elips&     C,
   if (Abs(Xd.Y()) > gp::Resolution())
   {
     tymin = ATan((MinR * Yd.Y()) / (MajR * Xd.Y()));
-    tymin = ElCLib::InPeriod(tymin, 0., 2. * M_PI);
+    tymin = ElCLib1::InPeriod(tymin, 0., 2. * M_PI);
   }
   else
   {
@@ -753,7 +753,7 @@ void BndLib::Add(const gp_Elips&     C,
   if (Abs(Xd.Z()) > gp::Resolution())
   {
     tzmin = ATan((MinR * Yd.Z()) / (MajR * Xd.Z()));
-    tzmin = ElCLib::InPeriod(tzmin, 0., 2. * M_PI);
+    tzmin = ElCLib1::InPeriod(tzmin, 0., 2. * M_PI);
   }
   else
   {
@@ -778,9 +778,9 @@ void BndLib::Add(const gp_Elips&     C,
   }
   else
   {
-    Point3d P = ElCLib::EllipseValue(utrim1, pos, MajR, MinR);
+    Point3d P = ElCLib1::EllipseValue(utrim1, pos, MajR, MinR);
     B.Add(P);
-    P = ElCLib::EllipseValue(utrim2, pos, MajR, MinR);
+    P = ElCLib1::EllipseValue(utrim2, pos, MajR, MinR);
     B.Add(P);
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
     B.FinitePart().Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -792,34 +792,34 @@ void BndLib::Add(const gp_Elips&     C,
     Ymax -= gap;
     Zmax -= gap;
     //
-    txmin = ElCLib::InPeriod(txmin, utrim1, utrim1 + 2. * M_PI);
+    txmin = ElCLib1::InPeriod(txmin, utrim1, utrim1 + 2. * M_PI);
     if (txmin >= utrim1 && txmin <= utrim2)
     {
       Xmin = Min(xmin, Xmin);
     }
-    txmax = ElCLib::InPeriod(txmax, utrim1, utrim1 + 2. * M_PI);
+    txmax = ElCLib1::InPeriod(txmax, utrim1, utrim1 + 2. * M_PI);
     if (txmax >= utrim1 && txmax <= utrim2)
     {
       Xmax = Max(xmax, Xmax);
     }
     //
-    tymin = ElCLib::InPeriod(tymin, utrim1, utrim1 + 2. * M_PI);
+    tymin = ElCLib1::InPeriod(tymin, utrim1, utrim1 + 2. * M_PI);
     if (tymin >= utrim1 && tymin <= utrim2)
     {
       Ymin = Min(ymin, Ymin);
     }
-    tymax = ElCLib::InPeriod(tymax, utrim1, utrim1 + 2. * M_PI);
+    tymax = ElCLib1::InPeriod(tymax, utrim1, utrim1 + 2. * M_PI);
     if (tymax >= utrim1 && tymax <= utrim2)
     {
       Ymax = Max(ymax, Ymax);
     }
     //
-    tzmin = ElCLib::InPeriod(tzmin, utrim1, utrim1 + 2. * M_PI);
+    tzmin = ElCLib1::InPeriod(tzmin, utrim1, utrim1 + 2. * M_PI);
     if (tzmin >= utrim1 && tzmin <= utrim2)
     {
       Zmin = Min(zmin, Zmin);
     }
-    tzmax = ElCLib::InPeriod(tzmax, utrim1, utrim1 + 2. * M_PI);
+    tzmax = ElCLib1::InPeriod(tzmax, utrim1, utrim1 + 2. * M_PI);
     if (tzmax >= utrim1 && tzmax <= utrim2)
     {
       Zmax = Max(zmax, Zmax);
@@ -831,7 +831,7 @@ void BndLib::Add(const gp_Elips&     C,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Elips2d& C, const Standard_Real Tol, Bnd_Box2d& B)
+void BndLib1::Add(const gp_Elips2d& C, const Standard_Real Tol, Bnd_Box2d& B)
 {
 
   Standard_Real Ra = C.MajorRadius();
@@ -846,7 +846,7 @@ void BndLib::Add(const gp_Elips2d& C, const Standard_Real Tol, Bnd_Box2d& B)
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Elips2d&   C,
+void BndLib1::Add(const gp_Elips2d&   C,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
@@ -864,18 +864,18 @@ void BndLib::Add(const gp_Elips2d&   C,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Parab&     P,
+void BndLib1::Add(const gp_Parab&     P,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
   if (Precision::IsNegativeInfinite(P1))
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -885,7 +885,7 @@ void BndLib::Add(const gp_Parab&     P,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
     }
     B.OpenXmin();
     B.OpenYmin();
@@ -901,11 +901,11 @@ void BndLib::Add(const gp_Parab&     P,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
     }
     B.OpenXmax();
     B.OpenYmax();
@@ -913,7 +913,7 @@ void BndLib::Add(const gp_Parab&     P,
   }
   else
   {
-    B.Add(ElCLib::Value(P1, P));
+    B.Add(ElCLib1::Value(P1, P));
     if (Precision::IsNegativeInfinite(P2))
     {
       B.OpenXmin();
@@ -928,15 +928,15 @@ void BndLib::Add(const gp_Parab&     P,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
       if (P1 * P2 < 0)
-        B.Add(ElCLib::Value(0., P));
+        B.Add(ElCLib1::Value(0., P));
     }
   }
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Parab2d&   P,
+void BndLib1::Add(const gp_Parab2d&   P,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
@@ -947,7 +947,7 @@ void BndLib::Add(const gp_Parab2d&   P,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -956,7 +956,7 @@ void BndLib::Add(const gp_Parab2d&   P,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
     }
     B.OpenXmin();
     B.OpenYmin();
@@ -970,18 +970,18 @@ void BndLib::Add(const gp_Parab2d&   P,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
     }
     B.OpenXmax();
     B.OpenYmax();
   }
   else
   {
-    B.Add(ElCLib::Value(P1, P));
+    B.Add(ElCLib1::Value(P1, P));
     if (Precision::IsNegativeInfinite(P2))
     {
       B.OpenXmin();
@@ -994,9 +994,9 @@ void BndLib::Add(const gp_Parab2d&   P,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, P));
+      B.Add(ElCLib1::Value(P2, P));
       if (P1 * P2 < 0)
-        B.Add(ElCLib::Value(0., P));
+        B.Add(ElCLib1::Value(0., P));
     }
   }
   B.Enlarge(Tol);
@@ -1004,17 +1004,17 @@ void BndLib::Add(const gp_Parab2d&   P,
 
 //=================================================================================================
 
-void BndLib::Add(const gp_Hypr&      H,
+void BndLib1::Add(const gp_Hypr&      H,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
   if (Precision::IsNegativeInfinite(P1))
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -1024,7 +1024,7 @@ void BndLib::Add(const gp_Hypr&      H,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, H));
+      B.Add(ElCLib1::Value(P2, H));
     }
     B.OpenXmin();
     B.OpenYmin();
@@ -1040,11 +1040,11 @@ void BndLib::Add(const gp_Hypr&      H,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
-      B.Add(ElCLib::Value(P2, H));
+      B.Add(ElCLib1::Value(P2, H));
     }
     B.OpenXmax();
     B.OpenYmax();
@@ -1052,7 +1052,7 @@ void BndLib::Add(const gp_Hypr&      H,
   }
   else
   {
-    B.Add(ElCLib::Value(P1, H));
+    B.Add(ElCLib1::Value(P1, H));
     if (Precision::IsNegativeInfinite(P2))
     {
       B.OpenXmin();
@@ -1073,7 +1073,7 @@ void BndLib::Add(const gp_Hypr&      H,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Hypr2d&    H,
+void BndLib1::Add(const gp_Hypr2d&    H,
                  const Standard_Real P1,
                  const Standard_Real P2,
                  const Standard_Real Tol,
@@ -1084,7 +1084,7 @@ void BndLib::Add(const gp_Hypr2d&    H,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -1093,7 +1093,7 @@ void BndLib::Add(const gp_Hypr2d&    H,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, H));
+      B.Add(ElCLib1::Value(P2, H));
     }
     B.OpenXmin();
     B.OpenYmin();
@@ -1107,18 +1107,18 @@ void BndLib::Add(const gp_Hypr2d&    H,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
-      B.Add(ElCLib::Value(P2, H));
+      B.Add(ElCLib1::Value(P2, H));
     }
     B.OpenXmax();
     B.OpenYmax();
   }
   else
   {
-    B.Add(ElCLib::Value(P1, H));
+    B.Add(ElCLib1::Value(P1, H));
     if (Precision::IsNegativeInfinite(P2))
     {
       B.OpenXmin();
@@ -1131,9 +1131,9 @@ void BndLib::Add(const gp_Hypr2d&    H,
     }
     else
     {
-      B.Add(ElCLib::Value(P2, H));
+      B.Add(ElCLib1::Value(P2, H));
       if (P1 * P2 < 0)
-        B.Add(ElCLib::Value(0., H));
+        B.Add(ElCLib1::Value(0., H));
     }
   }
   B.Enlarge(Tol);
@@ -1144,29 +1144,29 @@ static void ComputeCyl(const gp_Cylinder&  Cyl,
                        const Standard_Real UMax,
                        const Standard_Real VMin,
                        const Standard_Real VMax,
-                       Bnd_Box&            B)
+                       Box2&            B)
 {
-  gp_Circ aC = ElSLib::CylinderVIso(Cyl.Position(), Cyl.Radius(), VMin);
-  BndLib::Add(aC, UMin, UMax, 0., B);
+  gp_Circ aC = ElSLib1::CylinderVIso(Cyl.Position(), Cyl.Radius(), VMin);
+  BndLib1::Add(aC, UMin, UMax, 0., B);
   //
   Vector3d aT = (VMax - VMin) * Cyl.Axis().Direction();
   aC.Translate(aT);
-  BndLib::Add(aC, UMin, UMax, 0., B);
+  BndLib1::Add(aC, UMin, UMax, 0., B);
 }
 
-void BndLib::Add(const gp_Cylinder&  S,
+void BndLib1::Add(const gp_Cylinder&  S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
   if (Precision::IsNegativeInfinite(VMin))
   {
     if (Precision::IsNegativeInfinite(VMax))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
@@ -1186,7 +1186,7 @@ void BndLib::Add(const gp_Cylinder&  S,
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
@@ -1215,14 +1215,14 @@ void BndLib::Add(const gp_Cylinder&  S,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Cylinder&  S,
+void BndLib1::Add(const gp_Cylinder&  S,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
-  BndLib::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
+  BndLib1::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
 }
 
 static void ComputeCone(const gp_Cone&      Cone,
@@ -1230,25 +1230,25 @@ static void ComputeCone(const gp_Cone&      Cone,
                         const Standard_Real UMax,
                         const Standard_Real VMin,
                         const Standard_Real VMax,
-                        Bnd_Box&            B)
+                        Box2&            B)
 {
   const gp_Ax3& aPos = Cone.Position();
   Standard_Real R    = Cone.RefRadius();
   Standard_Real sang = Cone.SemiAngle();
-  gp_Circ       aC   = ElSLib::ConeVIso(aPos, R, sang, VMin);
+  gp_Circ       aC   = ElSLib1::ConeVIso(aPos, R, sang, VMin);
   if (aC.Radius() > Precision::Confusion())
   {
-    BndLib::Add(aC, UMin, UMax, 0., B);
+    BndLib1::Add(aC, UMin, UMax, 0., B);
   }
   else
   {
     B.Add(aC.Location());
   }
   //
-  aC = ElSLib::ConeVIso(aPos, R, sang, VMax);
+  aC = ElSLib1::ConeVIso(aPos, R, sang, VMax);
   if (aC.Radius() > Precision::Confusion())
   {
-    BndLib::Add(aC, UMin, UMax, 0., B);
+    BndLib1::Add(aC, UMin, UMax, 0., B);
   }
   else
   {
@@ -1256,13 +1256,13 @@ static void ComputeCone(const gp_Cone&      Cone,
   }
 }
 
-void BndLib::Add(const gp_Cone&      S,
+void BndLib1::Add(const gp_Cone&      S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
   Standard_Real A = S.SemiAngle();
@@ -1270,7 +1270,7 @@ void BndLib::Add(const gp_Cone&      S,
   {
     if (Precision::IsNegativeInfinite(VMax))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
@@ -1293,7 +1293,7 @@ void BndLib::Add(const gp_Cone&      S,
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
-      throw ExceptionBase("BndLib::bad parameter");
+      throw ExceptionBase("BndLib1::bad parameter");
     }
     else
     {
@@ -1325,14 +1325,14 @@ void BndLib::Add(const gp_Cone&      S,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Cone&      S,
+void BndLib1::Add(const gp_Cone&      S,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
-  BndLib::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
+  BndLib1::Add(S, 0., 2. * M_PI, VMin, VMax, Tol, B);
 }
 
 static void ComputeSphere(const gp_Sphere&    Sphere,
@@ -1340,7 +1340,7 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
                           const Standard_Real UMax,
                           const Standard_Real VMin,
                           const Standard_Real VMax,
-                          Bnd_Box&            B)
+                          Box2&            B)
 {
   Point3d        P = Sphere.Location();
   Standard_Real R = Sphere.Radius();
@@ -1366,16 +1366,16 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
     const gp_Ax3& Pos  = Sphere.Position();
     Point3d        PExt = P;
     PExt.SetX(xmin);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
     }
     //
     PExt.SetX(xmax);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
@@ -1383,16 +1383,16 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
     PExt.SetX(P.X());
     //
     PExt.SetY(ymin);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
     }
     //
     PExt.SetY(ymax);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
@@ -1400,16 +1400,16 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
     PExt.SetY(P.Y());
     //
     PExt.SetZ(zmin);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
     }
     //
     PExt.SetZ(zmax);
-    ElSLib::SphereParameters(Pos, R, PExt, u, v);
-    u = ElCLib::InPeriod(u, UMin, umax);
+    ElSLib1::SphereParameters(Pos, R, PExt, u, v);
+    u = ElCLib1::InPeriod(u, UMin, umax);
     if (u >= UMin && u <= UMax && v >= VMin && v <= VMax)
     {
       B.Add(PExt);
@@ -1417,15 +1417,15 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
     //
     // Add boundaries of patch
     // UMin, UMax
-    gp_Circ aC = ElSLib::SphereUIso(Pos, R, UMin);
-    BndLib::Add(aC, VMin, VMax, 0., B);
-    aC = ElSLib::SphereUIso(Pos, R, UMax);
-    BndLib::Add(aC, VMin, VMax, 0., B);
+    gp_Circ aC = ElSLib1::SphereUIso(Pos, R, UMin);
+    BndLib1::Add(aC, VMin, VMax, 0., B);
+    aC = ElSLib1::SphereUIso(Pos, R, UMax);
+    BndLib1::Add(aC, VMin, VMax, 0., B);
     // VMin, VMax
-    aC = ElSLib::SphereVIso(Pos, R, VMin);
-    BndLib::Add(aC, UMin, UMax, 0., B);
-    aC = ElSLib::SphereVIso(Pos, R, VMax);
-    BndLib::Add(aC, UMin, UMax, 0., B);
+    aC = ElSLib1::SphereVIso(Pos, R, VMin);
+    BndLib1::Add(aC, UMin, UMax, 0., B);
+    aC = ElSLib1::SphereVIso(Pos, R, VMax);
+    BndLib1::Add(aC, UMin, UMax, 0., B);
   }
 }
 
@@ -1439,7 +1439,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
                                     const Standard_Real theUMax,
                                     const Standard_Real theVMin,
                                     const Standard_Real theVMax,
-                                    Bnd_Box&            theB)
+                                    Box2&            theB)
 {
   Point3d        aP  = theTorus.Location();
   Standard_Real aRa = theTorus.MajorRadius();
@@ -1468,16 +1468,16 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   const gp_Ax3& aPos   = theTorus.Position();
   Point3d        aPExt  = aP;
   aPExt.SetX(aXmin);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
   }
   //
   aPExt.SetX(aXmax);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
@@ -1485,16 +1485,16 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   aPExt.SetX(aP.X());
   //
   aPExt.SetY(anYmin);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
   }
   //
   aPExt.SetY(anYmax);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
@@ -1502,16 +1502,16 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   aPExt.SetY(aP.Y());
   //
   aPExt.SetZ(aZmin);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
   }
   //
   aPExt.SetZ(aZmax);
-  ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
-  anU = ElCLib::InPeriod(anU, theUMin, anUmax);
+  ElSLib1::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
+  anU = ElCLib1::InPeriod(anU, theUMin, anUmax);
   if (anU >= theUMin && anU <= theUMax && aV >= theVMin && aV <= theVMax)
   {
     theB.Add(aPExt);
@@ -1519,30 +1519,30 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   //
   // Add boundaries of patch
   // UMin, UMax
-  gp_Circ aC = ElSLib::TorusUIso(aPos, aRa, aRi, theUMin);
-  BndLib::Add(aC, theVMin, theVMax, 0., theB);
-  aC = ElSLib::TorusUIso(aPos, aRa, aRi, theUMax);
-  BndLib::Add(aC, theVMin, theVMax, 0., theB);
+  gp_Circ aC = ElSLib1::TorusUIso(aPos, aRa, aRi, theUMin);
+  BndLib1::Add(aC, theVMin, theVMax, 0., theB);
+  aC = ElSLib1::TorusUIso(aPos, aRa, aRi, theUMax);
+  BndLib1::Add(aC, theVMin, theVMax, 0., theB);
   // VMin, VMax
-  aC = ElSLib::TorusVIso(aPos, aRa, aRi, theVMin);
-  BndLib::Add(aC, theUMin, theUMax, 0., theB);
-  aC = ElSLib::TorusVIso(aPos, aRa, aRi, theVMax);
-  BndLib::Add(aC, theUMin, theUMax, 0., theB);
+  aC = ElSLib1::TorusVIso(aPos, aRa, aRi, theVMin);
+  BndLib1::Add(aC, theUMin, theUMax, 0., theB);
+  aC = ElSLib1::TorusVIso(aPos, aRa, aRi, theVMax);
+  BndLib1::Add(aC, theUMin, theUMax, 0., theB);
 }
 
-void BndLib::Add(const gp_Sphere&    S,
+void BndLib1::Add(const gp_Sphere&    S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
   ComputeSphere(S, UMin, UMax, VMin, VMax, B);
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Sphere& S, const Standard_Real Tol, Bnd_Box& B)
+void BndLib1::Add(const gp_Sphere& S, const Standard_Real Tol, Box2& B)
 {
   Point3d        P = S.Location();
   Standard_Real R = S.Radius();
@@ -1557,13 +1557,13 @@ void BndLib::Add(const gp_Sphere& S, const Standard_Real Tol, Bnd_Box& B)
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Torus&     S,
+void BndLib1::Add(const gp_Torus&     S,
                  const Standard_Real UMin,
                  const Standard_Real UMax,
                  const Standard_Real VMin,
                  const Standard_Real VMax,
                  const Standard_Real Tol,
-                 Bnd_Box&            B)
+                 Box2&            B)
 {
 
   Standard_Integer Fi1;
@@ -1751,7 +1751,7 @@ void BndLib::Add(const gp_Torus&     S,
   B.Enlarge(Tol);
 }
 
-void BndLib::Add(const gp_Torus& S, const Standard_Real Tol, Bnd_Box& B)
+void BndLib1::Add(const gp_Torus& S, const Standard_Real Tol, Box2& B)
 {
 
   Standard_Real RMa = S.MajorRadius();
@@ -1776,22 +1776,22 @@ void BndLib::Add(const gp_Torus& S, const Standard_Real Tol, Bnd_Box& B)
 Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
                             const Standard_Real aT1,
                             const Standard_Real aT2,
-                            Bnd_Box&            aBox)
+                            Box2&            aBox)
 {
   Standard_Integer i, iErr;
   Standard_Real    aRmaj, aRmin, aA, aB, aABP, aBAM, aT3, aCf, aEps;
   Point3d           aP1, aP2, aP3, aP0;
   //
   //
-  aP1 = ElCLib::Value(aT1, aHypr);
-  aP2 = ElCLib::Value(aT2, aHypr);
+  aP1 = ElCLib1::Value(aT1, aHypr);
+  aP2 = ElCLib1::Value(aT2, aHypr);
   //
   aBox.Add(aP1);
   aBox.Add(aP2);
   //
   if (aT1 * aT2 < 0.)
   {
-    aP0 = ElCLib::Value(0., aHypr);
+    aP0 = ElCLib1::Value(0., aHypr);
     aBox.Add(aP0);
   }
   //
@@ -1837,7 +1837,7 @@ Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
     return iErr;
   }
   //
-  aP3 = ElCLib::Value(aT3, aHypr);
+  aP3 = ElCLib1::Value(aT3, aHypr);
   aBox.Add(aP3);
   //
   return iErr;

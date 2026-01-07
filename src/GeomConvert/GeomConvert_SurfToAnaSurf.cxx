@@ -71,7 +71,7 @@ void GeomConvert_SurfToAnaSurf::CheckVTrimForRevSurf(
   const Axis3d& anAxis = aRevSurf->Axis();
 
   gp_Lin         anALin(anAxis);
-  Extrema_ExtElC anExtLL(aLine->Lin(), anALin, Precision::Angular());
+  ExtElC anExtLL(aLine->Lin(), anALin, Precision::Angular());
   if (!anExtLL.IsDone() || anExtLL.IsParallel())
     return;
   Standard_Integer aNbExt = anExtLL.NbExt();
@@ -91,7 +91,7 @@ void GeomConvert_SurfToAnaSurf::CheckVTrimForRevSurf(
   if (imin == 0)
     return;
 
-  Extrema_POnCurv aP1, aP2;
+  PointOnCurve1 aP1, aP2;
   anExtLL.Points(imin, aP1, aP2);
   Standard_Real aVExt = aP1.Parameter();
   if (aVExt <= V1 || aVExt >= V2)
@@ -670,28 +670,28 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(GeomSurface)& t
       {
 
         case GeomAbs_Plane: {
-          ElSLib::Parameters(aPln, P3d, S, T);
-          P3d2 = ElSLib::Value(S, T, aPln);
+          ElSLib1::Parameters(aPln, P3d, S, T);
+          P3d2 = ElSLib1::Value(S, T, aPln);
           break;
         }
         case GeomAbs_Cylinder: {
-          ElSLib::Parameters(aCyl, P3d, S, T);
-          P3d2 = ElSLib::Value(S, T, aCyl);
+          ElSLib1::Parameters(aCyl, P3d, S, T);
+          P3d2 = ElSLib1::Value(S, T, aCyl);
           break;
         }
         case GeomAbs_Cone: {
-          ElSLib::Parameters(aCon, P3d, S, T);
-          P3d2 = ElSLib::Value(S, T, aCon);
+          ElSLib1::Parameters(aCon, P3d, S, T);
+          P3d2 = ElSLib1::Value(S, T, aCon);
           break;
         }
         case GeomAbs_Sphere: {
-          ElSLib::Parameters(aSphere, P3d, S, T);
-          P3d2 = ElSLib::Value(S, T, aSphere);
+          ElSLib1::Parameters(aSphere, P3d, S, T);
+          P3d2 = ElSLib1::Value(S, T, aSphere);
           break;
         }
         case GeomAbs_Torus: {
-          ElSLib::Parameters(aTor, P3d, S, T);
-          P3d2 = ElSLib::Value(S, T, aTor);
+          ElSLib1::Parameters(aTor, P3d, S, T);
+          P3d2 = ElSLib1::Value(S, T, aTor);
           break;
         }
         default:
@@ -875,7 +875,7 @@ Handle(GeomSurface) GeomConvert_SurfToAnaSurf::ConvertToAnalytical(
     aTempS = new Geom_RectangularTrimmedSurface(aTempS, U1, U2, V1, V2);
   }
   isurf = 0; // set plane
-  GeomLib_IsPlanarSurface GeomIsPlanar(aTempS, toler);
+  PlanarSurfaceChecker GeomIsPlanar(aTempS, toler);
   if (GeomIsPlanar.IsPlanar())
   {
     gp_Pln newPln  = GeomIsPlanar.Plan();
@@ -1120,7 +1120,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::IsSame(const Handle(GeomSurface)& S1
     return Standard_False;
   }
 
-  IntAna_QuadQuadGeo interii;
+  QuadQuadGeoIntersection interii;
   if (aST1 == GeomAbs_Plane)
   {
     interii.Perform(anAdaptor1->Plane(), anAdaptor2->Plane(), tol, tol);

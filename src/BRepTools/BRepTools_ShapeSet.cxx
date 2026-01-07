@@ -183,7 +183,7 @@ void BRepTools_ShapeSet::AddGeometry(const TopoShape& S)
         {
           // NCollection_IndexedDataMap::Add() function use is correct because
           // Bin(Brep)Tools_ShapeSet::AddGeometry() is called from Bin(Brep)Tools_ShapeSet::Add()
-          // that processes shapes recursively from complex to elementary ones.
+          // that processes shapes recursively from complex1 to elementary ones.
           // As a result, the TopAbs_FACE's will be processed earlier than the TopAbs_EDGE's.
           // clang-format off
           myTriangulations.Add(CR->Triangulation(), Standard_False); // edge triangulation does not need normals
@@ -791,10 +791,10 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
       TopoVertex& V = TopoDS::Vertex(S);
 
       // Read the point geometry
-      GeomTools::GetReal(IS, tol);
-      GeomTools::GetReal(IS, X);
-      GeomTools::GetReal(IS, Y);
-      GeomTools::GetReal(IS, Z);
+      GeomTools1::GetReal(IS, tol);
+      GeomTools1::GetReal(IS, X);
+      GeomTools1::GetReal(IS, Y);
+      GeomTools1::GetReal(IS, Z);
       myBuilder.MakeVertex(V, Point3d(X, Y, Z), tol);
       Handle(BRep_TVertex) TV = Handle(BRep_TVertex)::DownCast(V.TShape());
 
@@ -803,7 +803,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 
       do
       {
-        GeomTools::GetReal(IS, p1);
+        GeomTools1::GetReal(IS, p1);
         IS >> val;
 
         Handle(BRep_PointRepresentation) PR;
@@ -838,7 +838,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
           break;
 
           case 3: {
-            GeomTools::GetReal(IS, p2);
+            GeomTools1::GetReal(IS, p2);
             IS >> s;
 
             //  Modified by Sergey KHROMOV - Wed Apr 24 13:59:09 2002 Begin
@@ -879,7 +879,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
         myBuilder.MakeEdge(E);
 
         // Read the curve geometry
-        GeomTools::GetReal(IS, tol);
+        GeomTools1::GetReal(IS, tol);
         IS >> val;
         myBuilder.SameParameter(E, (val == 1));
         IS >> val;
@@ -899,8 +899,8 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
               {
                 myBuilder.UpdateEdge(E, myCurves.Curve(c), Locations().Location(l), tol);
               }
-              GeomTools::GetReal(IS, first);
-              GeomTools::GetReal(IS, last);
+              GeomTools1::GetReal(IS, first);
+              GeomTools1::GetReal(IS, last);
               if (!myCurves.Curve(c).IsNull())
               {
                 Standard_Boolean Only3d = Standard_True;
@@ -922,16 +922,16 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
               IS >> s >> l;
 
               // range
-              GeomTools::GetReal(IS, first);
-              GeomTools::GetReal(IS, last);
+              GeomTools1::GetReal(IS, first);
+              GeomTools1::GetReal(IS, last);
 
               // read UV Points // for XML Persistence higher performance
               if (FormatNb() == TopTools_FormatVersion_VERSION_2)
               {
-                GeomTools::GetReal(IS, PfX);
-                GeomTools::GetReal(IS, PfY);
-                GeomTools::GetReal(IS, PlX);
-                GeomTools::GetReal(IS, PlY);
+                GeomTools1::GetReal(IS, PfX);
+                GeomTools1::GetReal(IS, PfY);
+                GeomTools1::GetReal(IS, PlX);
+                GeomTools1::GetReal(IS, PlY);
                 aPf = gp_Pnt2d(PfX, PfY);
                 aPl = gp_Pnt2d(PlX, PlY);
               }
@@ -1069,7 +1069,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
       IS >> val; // natural restriction
       if (val == 0 || val == 1)
       {
-        GeomTools::GetReal(IS, tol);
+        GeomTools1::GetReal(IS, tol);
         IS >> s >> l;
         //  Modified by Sergey KHROMOV - Wed Apr 24 12:39:13 2002 Begin
         if (!mySurfaces.Surface(s).IsNull())
@@ -1185,12 +1185,12 @@ void BRepTools_ShapeSet::WritePolygonOnTriangulation(Standard_OStream&          
     OS << " -------\n";
   }
 
-  Handle(Poly_PolygonOnTriangulation) Poly;
+  Handle(Poly_PolygonOnTriangulation) Poly1;
   Handle(TColStd_HArray1OfReal)       Param;
   for (i = 1; i <= nbpOntri && aPS.More(); i++, aPS.Next())
   {
-    Poly = Handle(Poly_PolygonOnTriangulation)::DownCast(myNodes(i));
-    const TColStd_Array1OfInteger& Nodes = Poly->Nodes();
+    Poly1 = Handle(Poly_PolygonOnTriangulation)::DownCast(myNodes(i));
+    const TColStd_Array1OfInteger& Nodes = Poly1->Nodes();
     if (!Compact)
     {
       OS << "  " << i << " : PolygonOnTriangulation with " << Nodes.Length() << " Nodes\n";
@@ -1204,14 +1204,14 @@ void BRepTools_ShapeSet::WritePolygonOnTriangulation(Standard_OStream&          
     OS << "\n";
 
     // writing parameters:
-    Param = Poly->Parameters();
+    Param = Poly1->Parameters();
     if (Compact)
       OS << "p ";
 
     // write the deflection
     if (!Compact)
       OS << "  Deflection : ";
-    OS << Poly->Deflection() << " ";
+    OS << Poly1->Deflection() << " ";
     if (!Compact)
       OS << "\n";
 
@@ -1254,7 +1254,7 @@ void BRepTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream&           
   Standard_Integer                    hasparameters;
   Standard_Real                       par;
   Handle(TColStd_HArray1OfReal)       Param;
-  Handle(Poly_PolygonOnTriangulation) Poly;
+  Handle(Poly_PolygonOnTriangulation) Poly1;
   IS >> nbpol;
   // OCC19559
   Message_ProgressScope aPS(theProgress, "Polygons On Triangulation", nbpol);
@@ -1270,27 +1270,27 @@ void BRepTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream&           
     IS >> buffer;
     //      if (!strcasecmp(buffer, "p")) {
     Standard_Real def;
-    GeomTools::GetReal(IS, def);
+    GeomTools1::GetReal(IS, def);
     IS >> hasparameters;
     if (hasparameters)
     {
       TColStd_Array1OfReal Param1(1, nbnodes);
       for (j = 1; j <= nbnodes; j++)
       {
-        GeomTools::GetReal(IS, par);
+        GeomTools1::GetReal(IS, par);
         Param1(j) = par;
       }
-      Poly = new Poly_PolygonOnTriangulation(Nodes, Param1);
+      Poly1 = new Poly_PolygonOnTriangulation(Nodes, Param1);
     }
     else
-      Poly = new Poly_PolygonOnTriangulation(Nodes);
-    Poly->Deflection(def);
+      Poly1 = new Poly_PolygonOnTriangulation(Nodes);
+    Poly1->Deflection(def);
     //      }
     //      else {
     //      IS.seekg(ppp);
-    //      Poly = new Poly_PolygonOnTriangulation(Nodes);
+    //      Poly1 = new Poly_PolygonOnTriangulation(Nodes);
     //      }
-    myNodes.Add(Poly);
+    myNodes.Add(Poly1);
   }
   //  }
   //  else IS.seekg(pos);
@@ -1404,12 +1404,12 @@ void BRepTools_ShapeSet::ReadPolygon3D(Standard_IStream&            IS,
     IS >> nbnodes;
     IS >> hasparameters;
     TColgp_Array1OfPnt Nodes(1, nbnodes);
-    GeomTools::GetReal(IS, d);
+    GeomTools1::GetReal(IS, d);
     for (j = 1; j <= nbnodes; j++)
     {
-      GeomTools::GetReal(IS, x);
-      GeomTools::GetReal(IS, y);
-      GeomTools::GetReal(IS, z);
+      GeomTools1::GetReal(IS, x);
+      GeomTools1::GetReal(IS, y);
+      GeomTools1::GetReal(IS, z);
       Nodes(j).SetCoord(x, y, z);
     }
     if (hasparameters)
@@ -1417,7 +1417,7 @@ void BRepTools_ShapeSet::ReadPolygon3D(Standard_IStream&            IS,
       TColStd_Array1OfReal Param(1, nbnodes);
       for (p = 1; p <= nbnodes; p++)
       {
-        GeomTools::GetReal(IS, Param(p));
+        GeomTools1::GetReal(IS, Param(p));
       }
       P = new Poly_Polygon3D(Nodes, Param);
     }
@@ -1536,7 +1536,7 @@ void BRepTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
     {
       if (!Compact)
         OS << std::setw(10) << j << " : ";
-      T->Triangle(j).Get(n1, n2, n3);
+      T->Triangle1(j).Get(n1, n2, n3);
       if (!Compact)
         OS << std::setw(10);
       OS << n1 << " ";
@@ -1615,15 +1615,15 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
     {
       IS >> hasNormals;
     }
-    GeomTools::GetReal(IS, d);
+    GeomTools1::GetReal(IS, d);
 
     T = new MeshTriangulation(nbNodes, nbTriangles, hasUV, hasNormals);
 
     for (j = 1; j <= nbNodes; j++)
     {
-      GeomTools::GetReal(IS, x);
-      GeomTools::GetReal(IS, y);
-      GeomTools::GetReal(IS, z);
+      GeomTools1::GetReal(IS, x);
+      GeomTools1::GetReal(IS, y);
+      GeomTools1::GetReal(IS, z);
       T->SetNode(j, Point3d(x, y, z));
     }
 
@@ -1631,8 +1631,8 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
     {
       for (j = 1; j <= nbNodes; j++)
       {
-        GeomTools::GetReal(IS, x);
-        GeomTools::GetReal(IS, y);
+        GeomTools1::GetReal(IS, x);
+        GeomTools1::GetReal(IS, y);
         T->SetUVNode(j, gp_Pnt2d(x, y));
       }
     }
@@ -1650,9 +1650,9 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
       NCollection_Vec3<Standard_Real> aNorm;
       for (j = 1; j <= nbNodes; j++)
       {
-        GeomTools::GetReal(IS, aNorm.x());
-        GeomTools::GetReal(IS, aNorm.y());
-        GeomTools::GetReal(IS, aNorm.z());
+        GeomTools1::GetReal(IS, aNorm.x());
+        GeomTools1::GetReal(IS, aNorm.y());
+        GeomTools1::GetReal(IS, aNorm.z());
         T->SetNormal(j, gp_Vec3f(aNorm));
       }
     }

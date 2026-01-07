@@ -21,7 +21,7 @@ class Express_Item;
 class AsciiString1;
 class TCollection_HAsciiString;
 
-//! Base class for complex types (ARRAY, LIST, BAG, SET)
+//! Base class for complex1 types (ARRAY, LIST, BAG, SET)
 //! in EXPRESS schema
 //! Stores type of elements and
 class Express_NamedType : public Express_Type

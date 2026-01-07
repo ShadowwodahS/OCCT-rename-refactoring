@@ -569,13 +569,13 @@ void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       
         if (SurfaceIsPeriodic && !isAlongU)
         {
           // Shift along U-direction
-          const Standard_Real aNewLocation = ElCLib::InPeriod(aLoc.X(), aXmin, aXmin + M_PI + M_PI);
+          const Standard_Real aNewLocation = ElCLib1::InPeriod(aLoc.X(), aXmin, aXmin + M_PI + M_PI);
           OffsetU                          = aNewLocation - aLoc.X();
         }
         else if (SurfaceIsBiPeriodic && isAlongU)
         {
           // Shift along V-direction
-          const Standard_Real aNewLocation = ElCLib::InPeriod(aLoc.Y(), aYmin, aYmin + M_PI + M_PI);
+          const Standard_Real aNewLocation = ElCLib1::InPeriod(aLoc.Y(), aYmin, aYmin + M_PI + M_PI);
           OffsetV                          = aNewLocation - aLoc.Y();
         }
       }

@@ -35,7 +35,7 @@ class Vector3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the
 //! Value function returns the constructed arc of circle.
-class GC_MakeArcOfCircle : public GC_Root
+class GC_MakeArcOfCircle : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

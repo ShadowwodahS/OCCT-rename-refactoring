@@ -24,14 +24,14 @@
 #include <Standard_Real.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class TopBas_TestInterference
+class InterferenceTest
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopBas_TestInterference();
+  Standard_EXPORT InterferenceTest();
 
-  Standard_EXPORT TopBas_TestInterference(const Standard_Real&     Inters,
+  Standard_EXPORT InterferenceTest(const Standard_Real&     Inters,
                                           const Standard_Integer&  Bound,
                                           const TopAbs_Orientation Orient,
                                           const TopAbs_Orientation Trans,
@@ -74,7 +74,7 @@ private:
 #define TheSubShape_hxx <Standard_Real.hxx>
 #define TheShape Standard_Integer
 #define TheShape_hxx <Standard_Integer.hxx>
-#define TopBas_Interference TopBas_TestInterference
+#define TopBas_Interference InterferenceTest
 #define TopBas_Interference_hxx <TopBas_TestInterference.hxx>
 
 #include <TopBas_Interference.lxx>

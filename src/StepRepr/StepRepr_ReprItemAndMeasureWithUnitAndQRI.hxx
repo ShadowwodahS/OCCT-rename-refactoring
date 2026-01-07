@@ -26,7 +26,7 @@ class StepRepr_ReprItemAndMeasureWithUnitAndQRI;
 DEFINE_STANDARD_HANDLE(StepRepr_ReprItemAndMeasureWithUnitAndQRI,
                        StepRepr_ReprItemAndMeasureWithUnit)
 
-//! Base class for complex types (MEASURE_REPRESENTATION_ITEM, MEASURE_WITH_UNIT,
+//! Base class for complex1 types (MEASURE_REPRESENTATION_ITEM, MEASURE_WITH_UNIT,
 //! QUALIFIED_REPRESENTATION_ITEM REPRESENTATION_ITEM,
 //! LENGTH_MEASURE_WITH_UNIT/PLANE_ANGLE_MEASURE_WITH_UNIT).
 class StepRepr_ReprItemAndMeasureWithUnitAndQRI : public StepRepr_ReprItemAndMeasureWithUnit

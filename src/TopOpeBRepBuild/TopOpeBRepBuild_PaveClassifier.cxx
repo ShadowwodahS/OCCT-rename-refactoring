@@ -197,7 +197,7 @@ Standard_Real TopOpeBRepBuild_PaveClassifier::AdjustCase(const Standard_Real    
     }
     else
     { // p1 is not on last
-      p2  = ElCLib::InPeriod(p1, first, last);
+      p2  = ElCLib1::InPeriod(p1, first, last);
       cas = 4;
     }
   }

@@ -14,12 +14,12 @@
 
 #include <StdFail_NotDone.hxx>
 
-inline Standard_Boolean IntAna_QuadQuadGeo::IsDone() const
+inline Standard_Boolean QuadQuadGeoIntersection::IsDone() const
 {
   return (done);
 }
 
-inline IntAna_ResultType IntAna_QuadQuadGeo::TypeInter() const
+inline IntAna_ResultType QuadQuadGeoIntersection::TypeInter() const
 {
   if (!done)
   {
@@ -28,7 +28,7 @@ inline IntAna_ResultType IntAna_QuadQuadGeo::TypeInter() const
   return (typeres);
 }
 
-inline Standard_Integer IntAna_QuadQuadGeo::NbSolutions() const
+inline Standard_Integer QuadQuadGeoIntersection::NbSolutions() const
 {
   if (!done)
   {

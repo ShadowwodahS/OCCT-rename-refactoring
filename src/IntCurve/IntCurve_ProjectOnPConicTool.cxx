@@ -42,11 +42,11 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
   {
 
     case GeomAbs_Line:
-      Param = ElCLib::LineParameter(ThePConic.Axis2().XAxis(), P);
+      Param = ElCLib1::LineParameter(ThePConic.Axis2().XAxis(), P);
       break;
 
     case GeomAbs_Circle:
-      Param = ElCLib::CircleParameter(ThePConic.Axis2(), P);
+      Param = ElCLib1::CircleParameter(ThePConic.Axis2(), P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -55,7 +55,7 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
 
     case GeomAbs_Ellipse: {
       Param =
-        ElCLib::EllipseParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
+        ElCLib1::EllipseParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -64,12 +64,12 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
     }
 
     case GeomAbs_Parabola: {
-      Param = ElCLib::ParabolaParameter(ThePConic.Axis2(), P);
+      Param = ElCLib1::ParabolaParameter(ThePConic.Axis2(), P);
       break;
     }
     case GeomAbs_Hyperbola: {
       Param =
-        ElCLib::HyperbolaParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
+        ElCLib1::HyperbolaParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
       break;
     }
     default:
@@ -98,11 +98,11 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
   {
 
     case GeomAbs_Line:
-      Param = ElCLib::LineParameter(ThePConic.Axis2().XAxis(), P);
+      Param = ElCLib1::LineParameter(ThePConic.Axis2().XAxis(), P);
       break;
 
     case GeomAbs_Circle:
-      Param = ElCLib::CircleParameter(ThePConic.Axis2(), P);
+      Param = ElCLib1::CircleParameter(ThePConic.Axis2(), P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -111,7 +111,7 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
 
     case GeomAbs_Ellipse: {
       Param =
-        ElCLib::EllipseParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
+        ElCLib1::EllipseParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
       if (Param < 0.0)
       {
         Param += M_PI + M_PI;
@@ -120,12 +120,12 @@ Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConi
     }
 
     case GeomAbs_Parabola: {
-      Param = ElCLib::ParabolaParameter(ThePConic.Axis2(), P);
+      Param = ElCLib1::ParabolaParameter(ThePConic.Axis2(), P);
       break;
     }
     case GeomAbs_Hyperbola: {
       Param =
-        ElCLib::HyperbolaParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
+        ElCLib1::HyperbolaParameter(ThePConic.Axis2(), ThePConic.Param1(), ThePConic.Param2(), P);
       break;
     }
     default:

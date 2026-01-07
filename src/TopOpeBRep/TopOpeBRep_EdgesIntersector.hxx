@@ -30,7 +30,7 @@
 #include <TopOpeBRep_P2Dstatus.hxx>
 #include <TopOpeBRepDS_Config.hxx>
 
-class Bnd_Box;
+class Box2;
 class BRepAdaptor_Surface;
 class AsciiString1;
 class TopOpeBRep_Point2d;
@@ -53,8 +53,8 @@ public:
 
   Standard_EXPORT void SetFaces(const TopoShape& F1,
                                 const TopoShape& F2,
-                                const Bnd_Box&      B1,
-                                const Bnd_Box&      B2);
+                                const Box2&      B1,
+                                const Box2&      B2);
 
   Standard_EXPORT void ForceTolerances(const Standard_Real Tol1, const Standard_Real Tol2);
 

@@ -20,6 +20,6 @@
 #include <Extrema_POnSurf.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Extrema_POnSurf> Extrema_Array1OfPOnSurf;
+typedef NCollection_Array1<PointOnSurface1> Extrema_Array1OfPOnSurf;
 
 #endif

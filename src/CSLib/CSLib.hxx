@@ -33,7 +33,7 @@ class Dir3d;
 //! The tolerance criterions used in this package are
 //! Resolution from package gp and RealEpsilon from class
 //! Real of package Standard.
-class CSLib
+class CSLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_AxisPlacement, Geom2d_Geometry)
 //! - its unit vector, termed the "Direction" of the axis.
 //! Note: Geom2d_AxisPlacement axes provide the
 //! same kind of "geometric" services as gp_Ax2d axes
-//! but have more complex data structures. The
+//! but have more complex1 data structures. The
 //! geometric objects provided by the Geom2d package
 //! use gp_Ax2d objects to include axes in their data
 //! structures, or to define an axis of symmetry or axis of rotation.

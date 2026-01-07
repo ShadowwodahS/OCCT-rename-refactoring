@@ -25,7 +25,7 @@
 #include <IntTools_SequenceOfRanges.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 class GeomCurve3d;
-class Bnd_Box;
+class Box2;
 
 //! The class provides Edge/Edge intersection algorithm
 //! based on the intersection between edges bounding boxes.
@@ -113,9 +113,9 @@ protected:
 
   //! Looking for the exact intersection ranges
   Standard_EXPORT void FindSolutions(const IntToolsRange&      theR1,
-                                     const Bnd_Box&             theBox1,
+                                     const Box2&             theBox1,
                                      const IntToolsRange&      theR2,
-                                     const Bnd_Box&             theBox2,
+                                     const Box2&             theBox2,
                                      IntTools_SequenceOfRanges& theRanges1,
                                      IntTools_SequenceOfRanges& theRanges2);
 
@@ -132,7 +132,7 @@ protected:
                                                          const Standard_Real      theRes,
                                                          const Standard_Real      thePTol,
                                                          const Standard_Real      theResCoeff,
-                                                         const Bnd_Box&           theCBox,
+                                                         const Box2&           theCBox,
                                                          Standard_Real&           aTB1,
                                                          Standard_Real&           aTB2);
 

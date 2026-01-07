@@ -99,14 +99,14 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
       TP->AddFail(PL, "Surface not planar in a FacetedBRep !");
     Handle(ShapeAnalysis_Surface)            STSU = new ShapeAnalysis_Surface(GeomSurf);
     Standard_Integer                         Nb   = PL->NbPolygon();
-    Handle(StepGeom_HArray1OfCartesianPoint) Poly = new StepGeom_HArray1OfCartesianPoint(1, Nb + 1);
+    Handle(StepGeom_HArray1OfCartesianPoint) Poly1 = new StepGeom_HArray1OfCartesianPoint(1, Nb + 1);
 
     for (i = 1; i <= Nb; i++)
-      Poly->SetValue(i, PL->PolygonValue(i));
+      Poly1->SetValue(i, PL->PolygonValue(i));
 
     Nb++;
-    Poly->SetValue(Nb, PL->PolygonValue(1));
-    P1  = Poly->Value(1);
+    Poly1->SetValue(Nb, PL->PolygonValue(1));
+    P1  = Poly1->Value(1);
     GP1 = StepToGeom1::MakeCartesianPoint(P1, theLocalFactors);
     if (aTool.IsVertexBound(P1))
     {
@@ -120,7 +120,7 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
     B.MakeWire(W);
     for (i = 2; i <= Nb; i++)
     {
-      P2 = Poly->Value(i);
+      P2 = Poly1->Value(i);
       if (P1 == P2)
         continue; // peut arriver (KK)  CKY 9-DEC-1997
       StepToTopoDS_PointPair PP(P1, P2);

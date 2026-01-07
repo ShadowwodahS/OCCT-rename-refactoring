@@ -1012,8 +1012,8 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
       Pl1 = coin->ChangeVertexFirstOnS1();
     const ChFiDS_CommonPoint& Pl2 = coin->VertexLastOnS2();
 
-    Bnd_Box  bf1, bl1, bf2, bl2;
-    Bnd_Box *pbf1 = &bf1, *pbl1 = &bl1, *pbf2 = &bf2, *pbl2 = &bl2;
+    Box2  bf1, bl1, bf2, bl2;
+    Box2 *pbf1 = &bf1, *pbl1 = &bl1, *pbf2 = &bf2, *pbl2 = &bl2;
     if (c1pointu)
       pbl1 = pbf1;
     pbf1->Add(Pf1.Point());

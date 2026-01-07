@@ -34,7 +34,7 @@ class Point3d;
 class IntTools_Curve;
 class Dir3d;
 class GeomCurve3d;
-class Bnd_Box;
+class Box2;
 class IntToolsRange;
 class gp_Lin;
 class gp_Pln;
@@ -139,7 +139,7 @@ public:
   //! Checks if the curve is not covered by the default tolerance (confusion).<br>
   //! Builds bounding box for the curve and stores it into <theBox>.
   Standard_EXPORT static Standard_Boolean CheckCurve(const IntTools_Curve& theCurve,
-                                                     Bnd_Box&              theBox);
+                                                     Box2&              theBox);
 
   Standard_EXPORT static Standard_Boolean IsOnPave(const Standard_Real   theT,
                                                    const IntToolsRange& theRange,

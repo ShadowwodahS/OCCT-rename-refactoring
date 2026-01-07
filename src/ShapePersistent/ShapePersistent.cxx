@@ -85,7 +85,7 @@ void ShapePersistent::BindTypes(StdObjMgt_MapOfInstantiators& theMap)
   theMap.Bind<ShapePersistent_HArray1::Vec2d>("PColgp_HArray1OfVec2d");
   theMap.Bind<ShapePersistent_HArray1::Lin2d>("PColgp_HArray1OfLin2d");
   theMap.Bind<ShapePersistent_HArray1::Circ2d>("PColgp_HArray1OfCirc2d");
-  theMap.Bind<ShapePersistent_HArray1::Triangle>("PPoly_HArray1OfTriangle");
+  theMap.Bind<ShapePersistent_HArray1::Triangle1>("PPoly_HArray1OfTriangle");
 
   theMap.Bind<ShapePersistent_HArray2::XYZ>("PColgp_HArray2OfXYZ");
   theMap.Bind<ShapePersistent_HArray2::Pnt>("PColgp_HArray2OfPnt");

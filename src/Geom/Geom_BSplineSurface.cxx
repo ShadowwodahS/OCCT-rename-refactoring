@@ -85,10 +85,10 @@ static void CheckSurfaceData(const TColgp_Array2OfPnt&      SPoles,
     }
   }
 
-  if (SPoles.ColLength() != BSplCLib::NbPoles(UDegree, UPeriodic, SUMults))
+  if (SPoles.ColLength() != BSplCLib1::NbPoles(UDegree, UPeriodic, SUMults))
     throw Standard_ConstructionError("Geom_BSplineSurface: # U Poles and degree mismatch");
 
-  if (SPoles.RowLength() != BSplCLib::NbPoles(VDegree, VPeriodic, SVMults))
+  if (SPoles.RowLength() != BSplCLib1::NbPoles(VDegree, VPeriodic, SVMults))
     throw Standard_ConstructionError("Geom_BSplineSurface: # V Poles and degree mismatch");
 }
 
@@ -345,7 +345,7 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
                               poles->RowLength());
 
     Standard_Integer nbknots =
-      BSplCLib::IncreaseDegreeCountKnots(udeg, UDegree, uperiodic, umults->Array1());
+      BSplCLib1::IncreaseDegreeCountKnots(udeg, UDegree, uperiodic, umults->Array1());
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, nbknots);
 
@@ -357,7 +357,7 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
     if (urational || vrational)
     {
 
-      BSplSLib::IncreaseDegree(Standard_True,
+      BSplSLib1::IncreaseDegree(Standard_True,
                                udeg,
                                UDegree,
                                uperiodic,
@@ -373,16 +373,16 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
     else
     {
 
-      BSplSLib::IncreaseDegree(Standard_True,
+      BSplSLib1::IncreaseDegree(Standard_True,
                                udeg,
                                UDegree,
                                uperiodic,
                                poles->Array2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                uknots->Array1(),
                                umults->Array1(),
                                npoles->ChangeArray2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                nknots->ChangeArray1(),
                                nmults->ChangeArray1());
     }
@@ -411,7 +411,7 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
                               poles->RowLength() + Step * (ToK2 - FromK1));
 
     Standard_Integer nbknots =
-      BSplCLib::IncreaseDegreeCountKnots(vdeg, VDegree, vperiodic, vmults->Array1());
+      BSplCLib1::IncreaseDegreeCountKnots(vdeg, VDegree, vperiodic, vmults->Array1());
 
     Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, nbknots);
 
@@ -423,7 +423,7 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
     if (urational || vrational)
     {
 
-      BSplSLib::IncreaseDegree(Standard_False,
+      BSplSLib1::IncreaseDegree(Standard_False,
                                vdeg,
                                VDegree,
                                vperiodic,
@@ -439,16 +439,16 @@ void Geom_BSplineSurface::IncreaseDegree(const Standard_Integer UDegree,
     else
     {
 
-      BSplSLib::IncreaseDegree(Standard_False,
+      BSplSLib1::IncreaseDegree(Standard_False,
                                vdeg,
                                VDegree,
                                vperiodic,
                                poles->Array2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                vknots->Array1(),
                                vmults->Array1(),
                                npoles->ChangeArray2(),
-                               BSplSLib::NoWeights(),
+                               BSplSLib1::NoWeights(),
                                nknots->ChangeArray1(),
                                nmults->ChangeArray1());
     }
@@ -549,7 +549,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   Standard_Integer indexU, indexV;
 
   indexU = 0;
-  BSplCLib::LocateParameter(udeg,
+  BSplCLib1::LocateParameter(udeg,
                             uknots->Array1(),
                             umults->Array1(),
                             U1,
@@ -559,7 +559,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
                             indexU,
                             NewU1);
   indexU = 0;
-  BSplCLib::LocateParameter(udeg,
+  BSplCLib1::LocateParameter(udeg,
                             uknots->Array1(),
                             umults->Array1(),
                             U2,
@@ -581,7 +581,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   }
 
   indexV = 0;
-  BSplCLib::LocateParameter(vdeg,
+  BSplCLib1::LocateParameter(vdeg,
                             vknots->Array1(),
                             vmults->Array1(),
                             V1,
@@ -591,7 +591,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
                             indexV,
                             NewV1);
   indexV = 0;
-  BSplCLib::LocateParameter(vdeg,
+  BSplCLib1::LocateParameter(vdeg,
                             vknots->Array1(),
                             vmults->Array1(),
                             V2,
@@ -615,7 +615,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   if (uperiodic && SegmentInU)
   { // set the origine at NewU1
     Standard_Integer index = 0;
-    BSplCLib::LocateParameter(udeg,
+    BSplCLib1::LocateParameter(udeg,
                               uknots->Array1(),
                               umults->Array1(),
                               U1,
@@ -634,7 +634,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   Standard_Integer index1U = 0, index2U = 0;
   Standard_Integer FromU1 = uknots->Lower();
   Standard_Integer ToU2   = uknots->Upper();
-  BSplCLib::LocateParameter(udeg,
+  BSplCLib1::LocateParameter(udeg,
                             uknots->Array1(),
                             umults->Array1(),
                             NewU1,
@@ -645,7 +645,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
                             U);
   if (Abs(uknots->Value(index1U + 1) - U) <= EpsU)
     index1U++;
-  BSplCLib::LocateParameter(udeg,
+  BSplCLib1::LocateParameter(udeg,
                             uknots->Array1(),
                             umults->Array1(),
                             NewU1 + deltaU,
@@ -678,7 +678,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   if (vperiodic && SegmentInV)
   { // set the origine at NewV1
     Standard_Integer index = 0;
-    BSplCLib::LocateParameter(vdeg,
+    BSplCLib1::LocateParameter(vdeg,
                               vknots->Array1(),
                               vmults->Array1(),
                               V1,
@@ -697,7 +697,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   Standard_Integer index1V = 0, index2V = 0;
   Standard_Integer FromV1 = vknots->Lower();
   Standard_Integer ToV2   = vknots->Upper();
-  BSplCLib::LocateParameter(vdeg,
+  BSplCLib1::LocateParameter(vdeg,
                             vknots->Array1(),
                             vmults->Array1(),
                             NewV1,
@@ -708,7 +708,7 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
                             V);
   if (Abs(vknots->Value(index1V + 1) - V) <= EpsV)
     index1V++;
-  BSplCLib::LocateParameter(vdeg,
+  BSplCLib1::LocateParameter(vdeg,
                             vknots->Array1(),
                             vmults->Array1(),
                             NewV1 + deltaV,
@@ -739,8 +739,8 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   }
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1U = BSplCLib::PoleIndex(udeg, index1U, uperiodic, umults->Array1());
-  Standard_Integer pindex2U = BSplCLib::PoleIndex(udeg, index2U, uperiodic, umults->Array1());
+  Standard_Integer pindex1U = BSplCLib1::PoleIndex(udeg, index1U, uperiodic, umults->Array1());
+  Standard_Integer pindex2U = BSplCLib1::PoleIndex(udeg, index2U, uperiodic, umults->Array1());
 
   pindex1U++;
   pindex2U = Min(pindex2U + 1, poles->ColLength());
@@ -748,8 +748,8 @@ void Geom_BSplineSurface::segment(const Standard_Real    U1,
   Standard_Integer nbupoles = pindex2U - pindex1U + 1;
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1V = BSplCLib::PoleIndex(vdeg, index1V, vperiodic, vmults->Array1());
-  Standard_Integer pindex2V = BSplCLib::PoleIndex(vdeg, index2V, vperiodic, vmults->Array1());
+  Standard_Integer pindex1V = BSplCLib1::PoleIndex(vdeg, index1V, vperiodic, vmults->Array1());
+  Standard_Integer pindex2V = BSplCLib1::PoleIndex(vdeg, index2V, vperiodic, vmults->Array1());
 
   pindex1V++;
   pindex2V = Min(pindex2V + 1, poles->RowLength());
@@ -1098,7 +1098,7 @@ void Geom_BSplineSurface::UpdateUKnots()
 {
 
   Standard_Integer MaxKnotMult = 0;
-  BSplCLib::KnotAnalysis(udeg,
+  BSplCLib1::KnotAnalysis(udeg,
                          uperiodic,
                          uknots->Array1(),
                          umults->Array1(),
@@ -1112,9 +1112,9 @@ void Geom_BSplineSurface::UpdateUKnots()
   else
   {
     ufknots =
-      new TColStd_HArray1OfReal(1, BSplCLib::KnotSequenceLength(umults->Array1(), udeg, uperiodic));
+      new TColStd_HArray1OfReal(1, BSplCLib1::KnotSequenceLength(umults->Array1(), udeg, uperiodic));
 
-    BSplCLib::KnotSequence(uknots->Array1(),
+    BSplCLib1::KnotSequence(uknots->Array1(),
                            umults->Array1(),
                            udeg,
                            uperiodic,
@@ -1151,7 +1151,7 @@ void Geom_BSplineSurface::UpdateUKnots()
 void Geom_BSplineSurface::UpdateVKnots()
 {
   Standard_Integer MaxKnotMult = 0;
-  BSplCLib::KnotAnalysis(vdeg,
+  BSplCLib1::KnotAnalysis(vdeg,
                          vperiodic,
                          vknots->Array1(),
                          vmults->Array1(),
@@ -1165,9 +1165,9 @@ void Geom_BSplineSurface::UpdateVKnots()
   else
   {
     vfknots =
-      new TColStd_HArray1OfReal(1, BSplCLib::KnotSequenceLength(vmults->Array1(), vdeg, vperiodic));
+      new TColStd_HArray1OfReal(1, BSplCLib1::KnotSequenceLength(vmults->Array1(), vdeg, vperiodic));
 
-    BSplCLib::KnotSequence(vknots->Array1(),
+    BSplCLib1::KnotSequence(vknots->Array1(),
                            vmults->Array1(),
                            vdeg,
                            vperiodic,

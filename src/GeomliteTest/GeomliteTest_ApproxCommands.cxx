@@ -246,7 +246,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
       TABofCC                            = new AppParCurves_HArray1OfConstraintCouple(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
       for (i = 1; i <= nbc; i++)
@@ -309,7 +309,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
       TABofCC                            = new AppParCurves_HArray1OfConstraintCouple(1, nbp);
       for (i = 1; i <= nbp; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
       for (i = 1; i <= nbc; i++)
@@ -432,7 +432,7 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
       TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
     }
@@ -482,7 +482,7 @@ static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const
       TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
     }
@@ -618,15 +618,15 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
       TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
 
-      AppParCurves_ConstraintCouple AC1(1, AppParCurves_PassPoint);
+      ConstraintCouple AC1(1, AppParCurves_PassPoint);
       if (TABofCC->Value(1).Constraint() < AppParCurves_PassPoint)
         TABofCC->SetValue(1, AC1);
 
-      AppParCurves_ConstraintCouple AC2(NbPoints, AppParCurves_PassPoint);
+      ConstraintCouple AC2(NbPoints, AppParCurves_PassPoint);
       if (TABofCC->Value(NbPoints).Constraint() < AppParCurves_PassPoint)
         TABofCC->SetValue(NbPoints, AC2);
     }
@@ -701,15 +701,15 @@ static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer 
       TABofCC = new AppParCurves_HArray1OfConstraintCouple(1, NbPoints);
       for (i = 1; i <= NbPoints; i++)
       {
-        AppParCurves_ConstraintCouple ACC(i, Constraint);
+        ConstraintCouple ACC(i, Constraint);
         TABofCC->SetValue(i, ACC);
       }
 
-      AppParCurves_ConstraintCouple AC1(1, AppParCurves_PassPoint);
+      ConstraintCouple AC1(1, AppParCurves_PassPoint);
       if (TABofCC->Value(1).Constraint() < AppParCurves_PassPoint)
         TABofCC->SetValue(1, AC1);
 
-      AppParCurves_ConstraintCouple AC2(NbPoints, AppParCurves_PassPoint);
+      ConstraintCouple AC2(NbPoints, AppParCurves_PassPoint);
       if (TABofCC->Value(NbPoints).Constraint() < AppParCurves_PassPoint)
         TABofCC->SetValue(NbPoints, AC2);
     }

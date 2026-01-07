@@ -27,9 +27,9 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Standard_ConstructionError;
-class HLRBRep_CurveTool;
-class HLRBRep_TheProjPCurOfCInter;
-class HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter;
+class CurveTool5;
+class ProjPCurOfCInter;
+class HLRBRepProjPCurCurveLocator;
 class HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter;
 class HLRBRep_TheIntConicCurveOfCInter;
 class HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter;
@@ -183,16 +183,16 @@ private:
 
 #define TheCurve Standard_Address
 #define TheCurve_hxx <Standard_Address.hxx>
-#define TheCurveTool HLRBRep_CurveTool
+#define TheCurveTool CurveTool5
 #define TheCurveTool_hxx <HLRBRep_CurveTool.hxx>
-#define IntCurve_TheProjPCur HLRBRep_TheProjPCurOfCInter
+#define IntCurve_TheProjPCur ProjPCurOfCInter
 #define IntCurve_TheProjPCur_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
-#define IntCurve_TheCurveLocatorOfTheProjPCur HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter
+#define IntCurve_TheCurveLocatorOfTheProjPCur HLRBRepProjPCurCurveLocator
 #define IntCurve_TheCurveLocatorOfTheProjPCur_hxx                                                  \
   <HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx>
 #define IntCurve_TheLocateExtPCOfTheProjPCur HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter
 #define IntCurve_TheLocateExtPCOfTheProjPCur_hxx <HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter.hxx>
-#define IntCurve_TheCurveLocatorOfTheProjPCur HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter
+#define IntCurve_TheCurveLocatorOfTheProjPCur HLRBRepProjPCurCurveLocator
 #define IntCurve_TheCurveLocatorOfTheProjPCur_hxx                                                  \
   <HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx>
 #define IntCurve_TheLocateExtPCOfTheProjPCur HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter

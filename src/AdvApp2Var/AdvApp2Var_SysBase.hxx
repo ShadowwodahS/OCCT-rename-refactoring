@@ -18,11 +18,11 @@
 #include <Standard_TypeDef.hxx>
 #include <AdvApp2Var_Data_f2c.hxx>
 
-class AdvApp2Var_SysBase
+class SystemBase
 {
 public:
-  Standard_EXPORT AdvApp2Var_SysBase();
-  Standard_EXPORT ~AdvApp2Var_SysBase();
+  Standard_EXPORT SystemBase();
+  Standard_EXPORT ~SystemBase();
 
   //
   Standard_EXPORT int mainial_();
@@ -85,7 +85,7 @@ private:
 
   /* Maximum number of allowed allocation requests.
      Currently the maximum known number of requests is 7 - see
-     AdvApp2Var_MathBase::mmresol_(). So the current value is a safe margin and
+     MathBase::mmresol_(). So the current value is a safe margin and
      a reasonable balance to not provoke stack overflow (especially in
      multi-threaded execution). Previous number of 1000 was excessive but
      tolerable when used for static memory.
@@ -107,7 +107,7 @@ private:
      No initialization constructor should be provided to avoid wasting
      time when allocating a field mcrgene_.
   */
-  struct mitem
+  struct mitem1
   {
     unsigned char prot;
     unsigned char unit; // unit of allocation: 1, 2, 4 or 8
@@ -125,7 +125,7 @@ private:
 
   struct
   {
-    mitem         icore[MAX_ALLOC_NB];
+    mitem1         icore[MAX_ALLOC_NB];
     integer       ncore;
     unsigned char lprot;
   } mcrgene_;

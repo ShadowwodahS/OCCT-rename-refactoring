@@ -30,7 +30,7 @@ class gp_Pnt2d;
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class gce_MakeScale2d
+class ScaleBuilder2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,7 +38,7 @@ public:
   //! Constructs a scaling transformation with:
   //! -   Point as the center of the transformation, and
   //! -   Scale as the scale factor.
-  Standard_EXPORT gce_MakeScale2d(const gp_Pnt2d& Point, const Standard_Real Scale);
+  Standard_EXPORT ScaleBuilder2d(const gp_Pnt2d& Point, const Standard_Real Scale);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const gp_Trsf2d& Value() const;

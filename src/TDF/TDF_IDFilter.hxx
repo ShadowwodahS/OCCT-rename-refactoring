@@ -27,7 +27,7 @@ class Standard_GUID;
 class TDF_Attribute;
 
 //! This class offers filtering services around an ID list.
-class TDF_IDFilter
+class IDFilter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public:
   //! set to be ignored, using Ignore(). Of course, it
   //! is possible set an ignored ID to be kept using
   //! Keep().
-  Standard_EXPORT TDF_IDFilter(const Standard_Boolean ignoreMode = Standard_True);
+  Standard_EXPORT IDFilter(const Standard_Boolean ignoreMode = Standard_True);
 
   //! The list of ID is cleared and the filter mode is
   //! set to ignore mode if <keep> is true; false
@@ -95,13 +95,13 @@ public:
 
   //! Copies into <me> the contents of
   //! <fromFilter>. <me> is cleared before copy.
-  Standard_EXPORT void Copy(const TDF_IDFilter& fromFilter);
+  Standard_EXPORT void Copy(const IDFilter& fromFilter);
 
   //! Writes the contents of <me> to <OS>.
   Standard_EXPORT void Dump(Standard_OStream& anOS) const;
 
   //! Assignment
-  void Assign(const TDF_IDFilter& theFilter)
+  void Assign(const IDFilter& theFilter)
   {
     myIgnore = theFilter.myIgnore;
     myIDMap  = theFilter.myIDMap;
@@ -110,8 +110,8 @@ public:
 private:
   //! Private, to forbid implicit or hidden accesses to
   //! the copy constructor.
-  TDF_IDFilter(const TDF_IDFilter& aFilter);
-  TDF_IDFilter& operator=(const TDF_IDFilter& theOther);
+  IDFilter(const IDFilter& aFilter);
+  IDFilter& operator=(const IDFilter& theOther);
 
 private:
   Standard_Boolean myIgnore;

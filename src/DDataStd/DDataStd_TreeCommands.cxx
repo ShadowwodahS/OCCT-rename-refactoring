@@ -355,7 +355,7 @@ static Standard_Integer DDataStd_TreeBrowse(DrawInterpreter& di,
     return 1;
 
   DataLabel lab;
-  TDF_Tool::Label(DF, a[2], lab);
+  Tool3::Label(DF, a[2], lab);
 
   Handle(DDataStd_TreeBrowser) NewTreeNode = new DDataStd_TreeBrowser(lab);
   char*                        name        = new char[50];
@@ -393,7 +393,7 @@ static Standard_Integer DDataStd_OpenNode(DrawInterpreter& di, Standard_Integer 
 
   DataLabel lab;
   if (n == 3)
-    TDF_Tool::Label(browser->Label().Data(), a[2], lab);
+    Tool3::Label(browser->Label().Data(), a[2], lab);
 
   if (n == 2 || lab.IsNull())
   {
@@ -447,7 +447,7 @@ static Standard_Integer DDataStd_ChildNodeIterate(DrawInterpreter& di,
     {
       Value = itr.Value();
       AsciiString1 entry;
-      TDF_Tool::Entry(Value->Label(), entry);
+      Tool3::Entry(Value->Label(), entry);
       di << entry << "\n";
       // di<<entry;
       // if(itr.More()==Standard_True)
@@ -558,7 +558,7 @@ static Standard_Integer DDataStd_ChildNodeValue(DrawInterpreter& di,
                                                 const char** /*a*/)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(cni.Value()->Label(), entry);
+  Tool3::Entry(cni.Value()->Label(), entry);
   di << entry << "\n";
   return 0;
 }

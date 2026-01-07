@@ -222,7 +222,7 @@ Ax1 Geom_Hyperbola::Directrix2() const
 void Geom_Hyperbola::D0(const Standard_Real U, Pnt& P) const
 {
 
-  P = ElCLib::HyperbolaValue(U, pos, majorRadius, minorRadius);
+  P = ElCLib1::HyperbolaValue(U, pos, majorRadius, minorRadius);
 }
 
 //=================================================================================================
@@ -230,7 +230,7 @@ void Geom_Hyperbola::D0(const Standard_Real U, Pnt& P) const
 void Geom_Hyperbola::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 {
 
-  ElCLib::HyperbolaD1(U, pos, majorRadius, minorRadius, P, V1);
+  ElCLib1::HyperbolaD1(U, pos, majorRadius, minorRadius, P, V1);
 }
 
 //=================================================================================================
@@ -238,7 +238,7 @@ void Geom_Hyperbola::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 void Geom_Hyperbola::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 {
 
-  ElCLib::HyperbolaD2(U, pos, majorRadius, minorRadius, P, V1, V2);
+  ElCLib1::HyperbolaD2(U, pos, majorRadius, minorRadius, P, V1, V2);
 }
 
 //=================================================================================================
@@ -246,7 +246,7 @@ void Geom_Hyperbola::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 void Geom_Hyperbola::D3(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2, Vec& V3) const
 {
 
-  ElCLib::HyperbolaD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
+  ElCLib1::HyperbolaD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -255,7 +255,7 @@ Vec Geom_Hyperbola::DN(const Standard_Real U, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::HyperbolaDN(U, pos, majorRadius, minorRadius, N);
+  return ElCLib1::HyperbolaDN(U, pos, majorRadius, minorRadius, N);
 }
 
 //=================================================================================================

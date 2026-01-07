@@ -28,8 +28,8 @@
 #include <TColStd_Array1OfReal.hxx>
 class Standard_OutOfRange;
 class gp_Lin;
-class HLRBRep_LineTool;
-class Bnd_Box;
+class LineTool3;
+class Box2;
 class Point3d;
 
 class HLRBRep_ThePolygonOfInterCSurf
@@ -48,7 +48,7 @@ public:
                                                  const TColStd_Array1OfReal& Upars);
 
   //! Give the bounding box of the polygon.
-  const Bnd_Box& Bounding() const { return TheBnd; }
+  const Box2& Bounding() const { return TheBnd; }
 
   Standard_Real DeflectionOverEstimation() const { return TheDeflection; }
 
@@ -95,7 +95,7 @@ protected:
   Standard_EXPORT void Init(const gp_Lin& Curve, const TColStd_Array1OfReal& Upars);
 
 private:
-  Bnd_Box                       TheBnd;
+  Box2                       TheBnd;
   Standard_Real                 TheDeflection;
   Standard_Integer              NbPntIn;
   TColgp_Array1OfPnt            ThePnts;

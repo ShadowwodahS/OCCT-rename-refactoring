@@ -125,9 +125,9 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
   gp_Ax3 aPosPln(aPC, aDN);
   // Coordinates of nodes on plane
   Standard_Real x1, y1, x2, y2, x3, y3;
-  ElSLib::PlaneParameters(aPosPln, p1, x1, y1);
-  ElSLib::PlaneParameters(aPosPln, p2, x2, y2);
-  ElSLib::PlaneParameters(aPosPln, p3, x3, y3);
+  ElSLib1::PlaneParameters(aPosPln, p1, x1, y1);
+  ElSLib1::PlaneParameters(aPosPln, p2, x2, y2);
+  ElSLib1::PlaneParameters(aPosPln, p3, x3, y3);
   //
   Standard_Real    l1, l2; // barycentriche coordinates
   Standard_Real    x, y, z;
@@ -142,7 +142,7 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
     w *= aDet;
     x         = l1 * (x1 - x3) + l2 * (x2 - x3) + x3;
     y         = l1 * (y1 - y3) + l2 * (y2 - y3) + y3;
-    Point3d aP = ElSLib::PlaneValue(x, y, aPosPln);
+    Point3d aP = ElSLib1::PlaneValue(x, y, aPosPln);
     x         = aP.X() - Apex.X();
     y         = aP.Y() - Apex.Y();
     z         = aP.Z() - Apex.Z();
@@ -194,7 +194,7 @@ void BRepGProp_MeshProps::Perform(const Handle(MeshTriangulation)& theMesh,
       }
       for (Standard_Integer i = 1; i <= theMesh->NbTriangles(); ++i)
       {
-        aCopy->SetTriangle(i, theMesh->Triangle(i));
+        aCopy->SetTriangle(i, theMesh->Triangle1(i));
       }
       Perform(aCopy, theOri);
       return;
@@ -270,7 +270,7 @@ void BRepGProp_MeshProps::Perform(const Handle(MeshTriangulation)& theMesh,
   Standard_Integer n1, n2, n3; // node indices
   for (Standard_Integer i = 1; i <= theMesh->NbTriangles(); ++i)
   {
-    const Poly_Triangle aTri = theMesh->Triangle(i);
+    const Poly_Triangle aTri = theMesh->Triangle1(i);
     aTri.Get(n1, n2, n3);
     if (theOri == TopAbs_REVERSED)
     {

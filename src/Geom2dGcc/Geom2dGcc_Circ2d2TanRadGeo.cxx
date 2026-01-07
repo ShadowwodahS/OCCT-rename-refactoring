@@ -235,10 +235,10 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedLine& Qu
               TheSame2(NbrSol)  = 0;
               pararg1(NbrSol)   = Intp.Point(i).ParamOnFirst();
               pararg2(NbrSol)   = Intp.Point(i).ParamOnSecond();
-              pnttg1sol(NbrSol) = ElCLib::Value(pararg1(NbrSol), L1);
+              pnttg1sol(NbrSol) = ElCLib1::Value(pararg1(NbrSol), L1);
               pnttg2sol(NbrSol) = CurveTool3::Value(Cu2, pararg2(NbrSol));
-              par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-              par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+              par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
           }
           WellDone = Standard_True;
@@ -401,10 +401,10 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedCircle& 
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1 && NbrSol < aNbSolMAX; jcote1++)
     {
       gp_Circ2d       Circ(C1.XAxis(), R1 + cote1(jcote1));
-      Domain2 D1(ElCLib::Value(0., Circ),
+      Domain2 D1(ElCLib1::Value(0., Circ),
                          0.,
                          Tol,
-                         ElCLib::Value(2. * M_PI, Circ),
+                         ElCLib1::Value(2. * M_PI, Circ),
                          2. * M_PI,
                          Tol);
       D1.SetEquivalentParameters(0., 2. * M_PI);
@@ -460,10 +460,10 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedCircle& 
               TheSame2(NbrSol)   = 0;
               pararg1(NbrSol)    = Intp.Point(i).ParamOnFirst();
               pararg2(NbrSol)    = Intp.Point(i).ParamOnSecond();
-              pnttg1sol(NbrSol)  = ElCLib::Value(pararg1(NbrSol), C1);
+              pnttg1sol(NbrSol)  = ElCLib1::Value(pararg1(NbrSol), C1);
               pnttg2sol(NbrSol)  = CurveTool3::Value(Cu2, pararg2(NbrSol));
-              par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-              par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+              par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
           }
           WellDone = Standard_True;
@@ -557,10 +557,10 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve&
       cote1(2) = -Radius;
     }
     gp_Circ2d       Circ(gp_Ax2d(Point2, gp_Dir2d(1., 0.)), Radius);
-    Domain2 D1(ElCLib::Value(0., Circ),
+    Domain2 D1(ElCLib1::Value(0., Circ),
                        0.,
                        Tol,
-                       ElCLib::Value(M_PI + M_PI, Circ),
+                       ElCLib1::Value(M_PI + M_PI, Circ),
                        M_PI + M_PI,
                        Tol);
     D1.SetEquivalentParameters(0., M_PI + M_PI);
@@ -597,8 +597,8 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve&
             pararg2(NbrSol)    = 0.;
             pnttg1sol(NbrSol)  = CurveTool3::Value(Cu1, pararg1(NbrSol));
             pnttg2sol(NbrSol)  = Point2;
-            par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+            par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+            par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
           }
         }
         WellDone = Standard_True;
@@ -991,8 +991,8 @@ Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve&
               pararg2(NbrSol)    = Intp.Point(i).ParamOnSecond();
               pnttg1sol(NbrSol)  = CurveTool3::Value(Cu1, pararg1(NbrSol));
               pnttg2sol(NbrSol)  = CurveTool3::Value(Cu2, pararg2(NbrSol));
-              par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-              par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+              par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
           }
 

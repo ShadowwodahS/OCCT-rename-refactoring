@@ -170,11 +170,11 @@ void LocOpe_FindEdgesInFace::Set(const TopoShape& Sh, const TopoFace& F)
       {
         if (Ts == STANDARD_TYPE(GeomPlane))
         {
-          ElSLib::Parameters(pl, p[i], U, V);
+          ElSLib1::Parameters(pl, p[i], U, V);
         }
         else
         {
-          ElSLib::Parameters(cy, p[i], U, V);
+          ElSLib1::Parameters(cy, p[i], U, V);
         }
         if (TPT.Classify(gp_Pnt2d(U, V), Precision::Confusion()) == TopAbs_OUT)
         {

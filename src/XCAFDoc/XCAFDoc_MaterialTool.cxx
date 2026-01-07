@@ -90,7 +90,7 @@ Standard_Boolean XCAFDoc_MaterialTool::IsMaterial(const DataLabel& lab) const
 void XCAFDoc_MaterialTool::GetMaterialLabels(TDF_LabelSequence& Labels) const
 {
   Labels.Clear();
-  TDF_ChildIterator ChildIterator(Label());
+  ChildIterator ChildIterator(Label());
   for (; ChildIterator.More(); ChildIterator.Next())
   {
     DataLabel L = ChildIterator.Value();
@@ -205,7 +205,7 @@ void XCAFDoc_MaterialTool::DumpJson(Standard_OStream& theOStream, Standard_Integ
        aMaterialLabelIt.Next())
   {
     AsciiString1 aMaterialLabel;
-    TDF_Tool::Entry(aMaterialLabelIt.Value(), aMaterialLabel);
+    Tool3::Entry(aMaterialLabelIt.Value(), aMaterialLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aMaterialLabel)
   }
 }

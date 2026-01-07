@@ -179,12 +179,12 @@ void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& e
       if (PR.ReadInteger(PR.Current(), "Number of Characters", nbChar))
         nbChars->SetValue(i, nbChar);
 
-      // st = PR.ReadReal(PR.Current(), "Box Width", boxWidth); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadReal(PR.Current(), "Box Width", boxWidth))
+      // st = PR.ReadReal(PR.Current(), "Box1 Width", boxWidth); //szv#4:S4163:12Mar99 moved in if
+      if (PR.ReadReal(PR.Current(), "Box1 Width", boxWidth))
         boxWidths->SetValue(i, boxWidth);
 
-      // st = PR.ReadReal(PR.Current(), "Box Height", boxHeight); //szv#4:S4163:12Mar99 moved in if
-      if (PR.ReadReal(PR.Current(), "Box Height", boxHeight))
+      // st = PR.ReadReal(PR.Current(), "Box1 Height", boxHeight); //szv#4:S4163:12Mar99 moved in if
+      if (PR.ReadReal(PR.Current(), "Box1 Height", boxHeight))
         boxHeights->SetValue(i, boxHeight);
 
       Standard_Integer curnum = PR.CurrentNumber();
@@ -538,8 +538,8 @@ void NewGeneralNoteTool::OwnDump(const Handle(IGESDimen_NewGeneralNote)& ent,
     << "Character Angle :\n"
     << "Control Code String :\n"
     << "Number of Characters :\n"
-    << "Box Widths :\n"
-    << "Box Heights :\n"
+    << "Box1 Widths :\n"
+    << "Box1 Heights :\n"
     << "Character Set Codes :\n"
     << "Character Set Entities :\n"
     << "Slant Angles :\n"
@@ -567,8 +567,8 @@ void NewGeneralNoteTool::OwnDump(const Handle(IGESDimen_NewGeneralNote)& ent,
       IGESData_DumpString(S, ent->ControlCodeString(i));
       S << "\n"
         << "Number of Characters : " << ent->NbCharacters(i) << "  "
-        << "Box Width  : " << ent->BoxWidth(i) << "  "
-        << "Box Height : " << ent->BoxHeight(i) << "\n";
+        << "Box1 Width  : " << ent->BoxWidth(i) << "  "
+        << "Box1 Height : " << ent->BoxHeight(i) << "\n";
       if (ent->IsCharSetEntity(i))
       {
         S << "Character Set Entity : ";

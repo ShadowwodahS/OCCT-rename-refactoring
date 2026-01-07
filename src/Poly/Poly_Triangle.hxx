@@ -24,7 +24,7 @@
 #include <Standard_OutOfRange.hxx>
 
 //! Describes a component triangle of a triangulation (MeshTriangulation object).
-//! A Triangle is defined by a triplet of nodes within [1, MeshTriangulation::NbNodes()] range.
+//! A Triangle1 is defined by a triplet of nodes within [1, MeshTriangulation::NbNodes()] range.
 //! Each node is an index in the table of nodes specific to an existing
 //! triangulation of a shape, and represents a point on the surface.
 class Poly_Triangle

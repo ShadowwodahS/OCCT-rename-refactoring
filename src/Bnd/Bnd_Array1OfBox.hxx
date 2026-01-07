@@ -20,6 +20,6 @@
 #include <Bnd_Box.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Bnd_Box> Bnd_Array1OfBox;
+typedef NCollection_Array1<Box2> Bnd_Array1OfBox;
 
 #endif

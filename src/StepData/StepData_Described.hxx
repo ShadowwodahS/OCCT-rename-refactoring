@@ -39,7 +39,7 @@ public:
   //! Returns the Description used to define this entity
   Standard_EXPORT Handle(StepData_EDescr) Description() const;
 
-  //! Tells if a described entity is complex
+  //! Tells if a described entity is complex1
   Standard_EXPORT virtual Standard_Boolean IsComplex() const = 0;
 
   //! Tells if a step type is matched by <me>

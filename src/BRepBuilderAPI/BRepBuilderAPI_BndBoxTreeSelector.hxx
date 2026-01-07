@@ -20,7 +20,7 @@
 #include <Bnd_Box.hxx>
 #include <NCollection_UBTree.hxx>
 
-typedef NCollection_UBTree<Standard_Integer, Bnd_Box> BRepBuilderAPI_BndBoxTree;
+typedef NCollection_UBTree<Standard_Integer, Box2> BRepBuilderAPI_BndBoxTree;
 
 //=======================================================================
 //! Class BRepBuilderAPI_BndBoxTreeSelector
@@ -42,7 +42,7 @@ public:
   //! Implementation of rejection method
   //! @return
   //!   True if the bounding box does not intersect with the current
-  Standard_Boolean Reject(const Bnd_Box& theBox) const { return (myBox.IsOut(theBox)); }
+  Standard_Boolean Reject(const Box2& theBox) const { return (myBox.IsOut(theBox)); }
 
   //! Implementation of acceptance method
   //!   This method is called when the bounding box intersect with the current.
@@ -59,14 +59,14 @@ public:
   void ClearResList() { myResInd.Clear(); }
 
   //! Set current box to search for overlapping with him
-  void SetCurrent(const Bnd_Box& theBox) { myBox = theBox; }
+  void SetCurrent(const Box2& theBox) { myBox = theBox; }
 
   //! Get list of indexes of boxes intersecting with the current box
   const TColStd_ListOfInteger& ResInd() { return myResInd; }
 
 private:
   TColStd_ListOfInteger myResInd;
-  Bnd_Box               myBox;
+  Box2               myBox;
 };
 
 #endif

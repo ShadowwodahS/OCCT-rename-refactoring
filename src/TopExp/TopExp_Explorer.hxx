@@ -74,7 +74,7 @@
 //! }
 //!
 //! If   the type  to avoid  is   the same  or is less
-//! complex than the type to find it has no effect.
+//! complex1 than the type to find it has no effect.
 //!
 //! For example searching edges  not in a vertex  does
 //! not make a difference.
@@ -93,7 +93,7 @@ public:
   //!
   //! <ToAvoid>   is the type   of shape to  skip in the
   //! exploration.   If   <ToAvoid>  is  equal  or  less
-  //! complex than <ToFind> or if  <ToAVoid> is SHAPE it
+  //! complex1 than <ToFind> or if  <ToAVoid> is SHAPE it
   //! has no effect on the exploration.
   Standard_EXPORT ShapeExplorer(const TopoShape&    S,
                                   const TopAbs_ShapeEnum ToFind,
@@ -103,7 +103,7 @@ public:
   //! search the shape S, for shapes of type ToFind, that
   //! are not part of a shape ToAvoid.
   //! If the shape ToAvoid is equal to TopAbs_SHAPE, or
-  //! if it is the same as, or less complex than, the shape
+  //! if it is the same as, or less complex1 than, the shape
   //! ToFind it has no effect on the search.
   Standard_EXPORT void Init(const TopoShape&    S,
                             const TopAbs_ShapeEnum ToFind,

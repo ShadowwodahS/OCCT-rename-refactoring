@@ -858,8 +858,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         else
           dc.SetXY(Center.XY() - Cir1.Location().XY());
         pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + rSol(j) * dc.XY());
-        par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-        pararg1(NbrSol)   = ElCLib::Parameter(Cir1, pnttg1sol(NbrSol));
+        par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+        pararg1(NbrSol)   = ElCLib1::Parameter(Cir1, pnttg1sol(NbrSol));
       }
 
       if (Center.Distance(Cir2.Location()) <= Tolerance)
@@ -873,8 +873,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         else
           dc.SetXY(Center.XY() - Cir2.Location().XY());
         pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + rSol(j) * dc.XY());
-        par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-        pararg2(NbrSol)   = ElCLib::Parameter(Cir2, pnttg2sol(NbrSol));
+        par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+        pararg2(NbrSol)   = ElCLib1::Parameter(Cir2, pnttg2sol(NbrSol));
       }
 
       if (Center.Distance(Cir3.Location()) <= Tolerance)
@@ -888,8 +888,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         else
           dc.SetXY(Center.XY() - Cir3.Location().XY());
         pnttg3sol(NbrSol) = gp_Pnt2d(Center.XY() + rSol(j) * dc.XY());
-        par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
-        pararg3(NbrSol)   = ElCLib::Parameter(Cir3, pnttg3sol(NbrSol));
+        par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+        pararg3(NbrSol)   = ElCLib1::Parameter(Cir3, pnttg3sol(NbrSol));
       }
     }
   }

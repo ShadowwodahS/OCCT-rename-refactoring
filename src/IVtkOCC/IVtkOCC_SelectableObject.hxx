@@ -50,7 +50,7 @@ public:
   const IVtkOCC_Shape::Handle& GetShape() const { return myShape; };
 
   //! Returns bounding box of object
-  Standard_EXPORT virtual void BoundingBox(Bnd_Box& theBndBox) Standard_OVERRIDE;
+  Standard_EXPORT virtual void BoundingBox(Box2& theBndBox) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IVtkOCC_SelectableObject, SelectMgr_SelectableObject)
 
@@ -69,11 +69,11 @@ private:
   {
   }
 
-  const Bnd_Box& BoundingBox();
+  const Box2& BoundingBox();
 
 private:
   IVtkOCC_Shape::Handle myShape;
-  Bnd_Box               myBndBox;
+  Box2               myBndBox;
 };
 
 #endif // __IVTKOCC_SELECTABLEOBJECT_H__

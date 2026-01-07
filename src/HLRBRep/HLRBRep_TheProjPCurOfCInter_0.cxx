@@ -24,9 +24,9 @@
 
 #define TheCurve Standard_Address
 #define TheCurve_hxx <Standard_Address.hxx>
-#define TheCurveTool HLRBRep_CurveTool
+#define TheCurveTool CurveTool5
 #define TheCurveTool_hxx <HLRBRep_CurveTool.hxx>
-#define IntCurve_TheCurveLocator HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter
+#define IntCurve_TheCurveLocator HLRBRepProjPCurCurveLocator
 #define IntCurve_TheCurveLocator_hxx <HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx>
 #define IntCurve_TheLocateExtPC HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter
 #define IntCurve_TheLocateExtPC_hxx <HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter.hxx>
@@ -36,6 +36,6 @@
 #define IntCurve_PCLocFOfTheLocateExtPC HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter
 #define IntCurve_PCLocFOfTheLocateExtPC_hxx                                                        \
   <HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter.hxx>
-#define IntCurve_ProjPCurGen HLRBRep_TheProjPCurOfCInter
+#define IntCurve_ProjPCurGen ProjPCurOfCInter
 #define IntCurve_ProjPCurGen_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
 #include "../IntCurve/IntCurve_ProjPCurGen.gxx"

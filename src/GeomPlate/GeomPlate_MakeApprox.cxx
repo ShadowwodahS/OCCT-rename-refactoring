@@ -32,7 +32,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-class GeomPlate_MakeApprox_Eval : public AdvApp2Var_EvaluatorFunc2Var
+class GeomPlate_MakeApprox_Eval : public EvaluatorFunc2Var
 {
 
 public:
@@ -265,7 +265,7 @@ void GeomPlate_MakeApprox_Eval::Evaluate(Standard_Integer* Dimension,
 //=================================================================================================
 
 GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& SurfPlate,
-                                           const AdvApp2Var_Criterion&      PlateCrit,
+                                           const Criterion&      PlateCrit,
                                            const Standard_Real              Tol3d,
                                            const Standard_Integer           Nbmax,
                                            const Standard_Integer           dgmax,

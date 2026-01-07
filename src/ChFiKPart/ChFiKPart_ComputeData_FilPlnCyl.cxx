@@ -95,17 +95,17 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
   // intersection of the parallel plane and of the parallel cylinder.
   gp_Cylinder        CylOffset(Cyl.Position(), ROff);
-  IntAna_QuadQuadGeo LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
-  Point3d             OrSpine = ElCLib::Value(First, Spine);
+  QuadQuadGeoIntersection LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
+  Point3d             OrSpine = ElCLib1::Value(First, Spine);
   Point3d             OrFillet;
   Dir3d             DirFillet;
   if (LInt.IsDone())
   {
     DirFillet = LInt.Line(1).Direction();
-    Point3d P1 = ElCLib::Value(ElCLib::Parameter(LInt.Line(1), OrSpine), LInt.Line(1));
+    Point3d P1 = ElCLib1::Value(ElCLib1::Parameter(LInt.Line(1), OrSpine), LInt.Line(1));
     if (LInt.NbSolutions() == 2)
     {
-      Point3d P2 = ElCLib::Value(ElCLib::Parameter(LInt.Line(2), OrSpine), LInt.Line(2));
+      Point3d P2 = ElCLib1::Value(ElCLib1::Parameter(LInt.Line(2), OrSpine), LInt.Line(2));
       if (P1.SquareDistance(OrSpine) < P2.SquareDistance(OrSpine))
       {
         OrFillet = P1;
@@ -132,23 +132,23 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   Standard_Real UOnCyl, VOnCyl, UOnPln, VOnPln;
-  ElSLib::Parameters(Cyl, OrFillet, UOnCyl, VOnCyl);
+  ElSLib1::Parameters(Cyl, OrFillet, UOnCyl, VOnCyl);
   constexpr Standard_Real tesp = Precision::Confusion();
   if (UOnCyl < fu - tesp || UOnCyl > lu + tesp)
-    UOnCyl = ElCLib::InPeriod(UOnCyl, fu, fu + 2 * M_PI);
-  ElSLib::Parameters(Pln, OrFillet, UOnPln, VOnPln);
+    UOnCyl = ElCLib1::InPeriod(UOnCyl, fu, fu + 2 * M_PI);
+  ElSLib1::Parameters(Pln, OrFillet, UOnPln, VOnPln);
 
   Vector3d XDir, OtherDir;
   if (plandab)
   {
     XDir     = NorF.Reversed();
-    OtherDir = Vector3d(OrFillet, ElSLib::Value(UOnCyl, VOnCyl, Cyl));
+    OtherDir = Vector3d(OrFillet, ElSLib1::Value(UOnCyl, VOnCyl, Cyl));
     OtherDir.Normalize();
   }
   else
   {
     OtherDir = NorF.Reversed();
-    XDir     = Vector3d(OrFillet, ElSLib::Value(UOnCyl, VOnCyl, Cyl));
+    XDir     = Vector3d(OrFillet, ElSLib1::Value(UOnCyl, VOnCyl, Cyl));
     XDir.Normalize();
   }
 
@@ -165,11 +165,11 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Pnt2d PPln2d(UOnPln, VOnPln);
   gp_Dir2d VPln2d(DirFillet.Dot(AxPln.XDirection()), DirFillet.Dot(AxPln.YDirection()));
   gp_Lin2d Lin2dPln(PPln2d, VPln2d);
-  Point3d   POnPln = ElSLib::Value(UOnPln, VOnPln, Pln);
+  Point3d   POnPln = ElSLib1::Value(UOnPln, VOnPln, Pln);
   gp_Lin   C3d(POnPln, DirFillet);
 
   Standard_Real UOnFillet, V;
-  ElSLib::CylinderParameters(AxFil, Radius, POnPln, UOnFillet, V);
+  ElSLib1::CylinderParameters(AxFil, Radius, POnPln, UOnFillet, V);
 
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
@@ -179,7 +179,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnFillet);
   Point3d              P;
   Vector3d              deru, derv;
-  ElSLib::CylinderD1(UOnFillet, V, AxFil, Radius, P, deru, derv);
+  ElSLib1::CylinderD1(UOnFillet, V, AxFil, Radius, P, deru, derv);
   Dir3d           NorFil(deru.Crossed(derv));
   Standard_Boolean toreverse = (NorFil.Dot(NorPln) <= 0.);
   // It is checked if the orientation of the cylinder is the same as of the plane.
@@ -218,9 +218,9 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   if (DirFillet.Dot(AxCyl.Direction()) < 0.)
     DPC.Reverse();
   gp_Lin2d Lin2dCyl(PCyl2d, DPC);
-  Point3d   POnCyl = ElSLib::Value(UOnCyl, VOnCyl, Cyl);
+  Point3d   POnCyl = ElSLib1::Value(UOnCyl, VOnCyl, Cyl);
   C3d             = gp_Lin(POnCyl, DirFillet);
-  ElSLib::CylinderParameters(AxFil, Radius, POnCyl, UOnFillet, V);
+  ElSLib1::CylinderParameters(AxFil, Radius, POnCyl, UOnFillet, V);
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
   LOnFillet = gp_Lin2d(gp_Pnt2d(UOnFillet, V), gp::DY2d());
@@ -228,9 +228,9 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   LFac      = new Geom2d_Line(Lin2dCyl);
   LFil      = new Geom2d_Line(LOnFillet);
 
-  ElSLib::CylinderD1(UOnFillet, V, AxFil, Radius, P, deru, derv);
+  ElSLib1::CylinderD1(UOnFillet, V, AxFil, Radius, P, deru, derv);
   NorFil = Dir3d(deru.Crossed(derv));
-  ElSLib::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), P, deru, derv);
+  ElSLib1::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), P, deru, derv);
   Dir3d NorCyl(deru.Crossed(derv));
 
   toreverse = (NorFil.Dot(NorCyl) <= 0.);
@@ -292,9 +292,9 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   Point3d        Or = Cyl.Location();
   Standard_Real u, v;
-  ElSLib::PlaneParameters(PosPl, Or, u, v);
+  ElSLib1::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d c2dPln(u, v);
-  ElSLib::PlaneD0(u, v, PosPl, Or);
+  ElSLib1::PlaneD0(u, v, PosPl, Or);
   Point3d cPln = Or;
   Or.SetCoord(Or.X() + Radius * Dp.X(), Or.Y() + Radius * Dp.Y(), Or.Z() + Radius * Dp.Z());
   Point3d PtSp;
@@ -303,20 +303,20 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Point3d        PtSp2;
   Vector3d        DSp2;
   Standard_Real acote = 1e-7;
-  ElCLib::D1(First, Spine, PtSp, DSp);
-  ElSLib::Parameters(Cyl, PtSp, u, v);
+  ElCLib1::D1(First, Spine, PtSp, DSp);
+  ElSLib1::Parameters(Cyl, PtSp, u, v);
   if ((Abs(u) < acote) || (Abs(u - (2 * M_PI)) < acote))
   {
-    ElCLib::D1(First + 0.2, Spine, PtSp2, DSp2);
+    ElCLib1::D1(First + 0.2, Spine, PtSp2, DSp2);
     Standard_Real u2, v2;
-    ElSLib::Parameters(Cyl, PtSp2, u2, v2);
+    ElSLib1::Parameters(Cyl, PtSp2, u2, v2);
     if (Abs(u2 - u) > M_PI)
     {
       u    = (2 * M_PI) - u;
-      PtSp = ElSLib::Value(u, v, Cyl);
+      PtSp = ElSLib1::Value(u, v, Cyl);
       Standard_Real PR;
-      PR = ElCLib::Parameter(Spine, PtSp);
-      ElCLib::D1(PR, Spine, PtSp2, DSp);
+      PR = ElCLib1::Parameter(Spine, PtSp);
+      ElCLib1::D1(PR, Spine, PtSp2, DSp);
     }
   }
   // end of modif
@@ -325,7 +325,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Dir3d Dy(DSp);
   Point3d PtCyl;
   Vector3d Vu, Vv;
-  ElSLib::D1(u, v, Cyl, PtCyl, Vu, Vv);
+  ElSLib1::D1(u, v, Cyl, PtCyl, Vu, Vv);
   Dir3d Dc(Vu.Crossed(Vv));
   if (Or2 == TopAbs_REVERSED)
   {
@@ -401,14 +401,14 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Dir3d norFil;
   if (c1sphere)
   {
-    ElSLib::SphereD1(u, v, FilAx3, cylrad, PP, deru, derv);
+    ElSLib1::SphereD1(u, v, FilAx3, cylrad, PP, deru, derv);
     norFil = FilAx3.XDirection().Crossed(FilAx3.YDirection());
     if (v < 0.)
       norFil.Reverse();
   }
   else
   {
-    ElSLib::TorusD1(u, v, FilAx3, Rad, Radius, PP, deru, derv);
+    ElSLib1::TorusD1(u, v, FilAx3, Rad, Radius, PP, deru, derv);
     norFil = Dir3d(deru.Crossed(derv));
   }
   gp_Pnt2d         p2dFil(0., v);
@@ -430,7 +430,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Frame3d                circAx2 = FilAx3.Ax2();
   if (!c1sphere)
   {
-    ElSLib::PlaneParameters(PosPl, P, u, v);
+    ElSLib1::PlaneParameters(PosPl, P, u, v);
     gp_Pnt2d  p2dPln(u, v);
     gp_Dir2d  d2d(DSp.Dot(PosPl.XDirection()), DSp.Dot(PosPl.YDirection()));
     gp_Ax22d  ax2dPln(c2dPln, gp_Dir2d(gp_Vec2d(c2dPln, p2dPln)), d2d);
@@ -442,7 +442,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
   else
   {
-    ElSLib::PlaneParameters(PosPl, P, u, v);
+    ElSLib1::PlaneParameters(PosPl, P, u, v);
     gp_Pnt2d p2dPln(u, v), pbid;
     if (plandab)
     {
@@ -501,16 +501,16 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   p2dFil.SetCoord(u, v);
   if (c1sphere)
   {
-    ElSLib::SphereD1(u, v, FilAx3, cylrad, PP, deru, derv);
+    ElSLib1::SphereD1(u, v, FilAx3, cylrad, PP, deru, derv);
   }
   else
   {
-    ElSLib::TorusD1(u, v, FilAx3, Rad, Radius, PP, deru, derv);
+    ElSLib1::TorusD1(u, v, FilAx3, Rad, Radius, PP, deru, derv);
   }
   norFil = deru.Crossed(derv);
   lin2dFil.SetLocation(p2dFil);
   Handle(Geom2d_Line) GLin2dFil2 = new Geom2d_Line(lin2dFil);
-  ElSLib::Parameters(Cyl, P, u, v);
+  ElSLib1::Parameters(Cyl, P, u, v);
   Standard_Real    tol           = Precision::PConfusion();
   Standard_Boolean careaboutsens = 0;
   if (Abs(lu - fu - 2 * M_PI) < tol)
@@ -521,7 +521,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     u = lu;
   if (u < fu || u > lu)
     u = ChFiKPart_InPeriod(u, fu, fu + 2 * M_PI, tol);
-  ElSLib::D1(u, v, Cyl, PP, deru, derv);
+  ElSLib1::D1(u, v, Cyl, PP, deru, derv);
   Dir3d   norcyl = deru.Crossed(derv);
   gp_Dir2d d2dCyl = gp::DX2d();
   if (deru.Dot(Dy) < 0.)

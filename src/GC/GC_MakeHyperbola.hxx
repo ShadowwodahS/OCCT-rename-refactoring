@@ -58,7 +58,7 @@ class Point3d;
 //! of the hyperbola C and the apex of the First (or Second)
 //! Conjugate branch. The minor axis is the YAxis.
 //! The major radius can be lower than the minor radius.
-class GC_MakeHyperbola : public GC_Root
+class GC_MakeHyperbola : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

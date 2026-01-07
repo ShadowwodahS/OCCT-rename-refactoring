@@ -30,20 +30,20 @@ class gp_Ax2d;
 
 //! Definition of a conic by its implicit quadaratic equation:
 //! A.X**2 + B.Y**2 + 2.C.X*Y + 2.D.X + 2.E.Y + F = 0.
-class IntAna2d_Conic
+class Conic2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntAna2d_Conic(const gp_Circ2d& C);
+  Standard_EXPORT Conic2d(const gp_Circ2d& C);
 
-  Standard_EXPORT IntAna2d_Conic(const gp_Lin2d& C);
+  Standard_EXPORT Conic2d(const gp_Lin2d& C);
 
-  Standard_EXPORT IntAna2d_Conic(const gp_Parab2d& C);
+  Standard_EXPORT Conic2d(const gp_Parab2d& C);
 
-  Standard_EXPORT IntAna2d_Conic(const gp_Hypr2d& C);
+  Standard_EXPORT Conic2d(const gp_Hypr2d& C);
 
-  Standard_EXPORT IntAna2d_Conic(const gp_Elips2d& C);
+  Standard_EXPORT Conic2d(const gp_Elips2d& C);
 
   //! value of the function F at the point X,Y.
   Standard_EXPORT Standard_Real Value(const Standard_Real X, const Standard_Real Y) const;

@@ -36,7 +36,7 @@ class gp_Lin2d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed line segment.
-class GCE2d_MakeSegment : public GCE2d_Root
+class GCE2d_MakeSegment : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

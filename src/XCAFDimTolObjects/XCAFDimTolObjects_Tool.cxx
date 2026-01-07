@@ -41,7 +41,7 @@ void XCAFDimTolObjects_Tool::GetDimensions(
   XCAFDimTolObjects_DimensionObjectSequence& theDimensionObjectSequence) const
 {
   theDimensionObjectSequence.Clear();
-  TDF_ChildIterator aChildIterator(myDimTolTool->Label());
+  ChildIterator aChildIterator(myDimTolTool->Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel                 aL = aChildIterator.Value();
@@ -61,7 +61,7 @@ void XCAFDimTolObjects_Tool::GetGeomTolerances(
   XCAFDimTolObjects_DataMapOfToleranceDatum&     theMap) const
 {
   theGeomToleranceObjectSequence.Clear();
-  TDF_ChildIterator aChildIterator(myDimTolTool->Label());
+  ChildIterator aChildIterator(myDimTolTool->Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel                     aL = aChildIterator.Value();

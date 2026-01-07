@@ -24,7 +24,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_SphereRangeSplitter::GenerateSurfaceNode
   // Calculate parameters for iteration in V direction
   Standard_Real aStep =
     0.7
-    * GCPnts_TangentialDeflection::ArcAngularStep(GetDFace()->GetSurface()->Sphere().Radius(),
+    * TangentialDeflectionSampler::ArcAngularStep(GetDFace()->GetSurface()->Sphere().Radius(),
                                                   GetDFace()->GetDeflection(),
                                                   theParameters.Angle,
                                                   theParameters.MinSize);

@@ -67,7 +67,7 @@ public:
 
 public:
   //! Returns AABB of the geometric object.
-  virtual BVH_Box<T, N> Box() const = 0;
+  virtual BVH_Box<T, N> Box1() const = 0;
 };
 
 #endif // _BVH_Object_Header

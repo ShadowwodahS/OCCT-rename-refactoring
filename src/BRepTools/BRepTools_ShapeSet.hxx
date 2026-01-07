@@ -172,9 +172,9 @@ public:
 protected:
 private:
   ShapeBuilder                  myBuilder;
-  GeomTools_SurfaceSet          mySurfaces;
-  GeomTools_CurveSet            myCurves;
-  GeomTools_Curve2dSet          myCurves2d;
+  SurfaceSet1          mySurfaces;
+  CurveSet1            myCurves;
+  Curve2dSet1          myCurves2d;
   TColStd_IndexedMapOfTransient myPolygons2D;
   TColStd_IndexedMapOfTransient myPolygons3D;
   NCollection_IndexedDataMap<Handle(MeshTriangulation),

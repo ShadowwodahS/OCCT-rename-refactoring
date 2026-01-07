@@ -27,8 +27,8 @@
 
 #define Surface Standard_Address
 #define Surface_hxx <Standard_Address.hxx>
-#define Tool HLRBRep_SLPropsATool
+#define Tool SLPropsATool
 #define Tool_hxx <HLRBRep_SLPropsATool.hxx>
-#define LProp_SLProps HLRBRep_SLProps
+#define LProp_SLProps SLProps
 #define LProp_SLProps_hxx <HLRBRep_SLProps.hxx>
 #include "../LProp/LProp_SLProps.gxx"

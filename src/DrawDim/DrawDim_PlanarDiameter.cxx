@@ -60,9 +60,9 @@ void DrawDim_PlanarDiameter::DrawOn(DrawDisplay& dis) const
       TopoVertex vf, vl;
       TopExp1::Vertices(TopoDS::Edge(myCircle), vf, vl);
       const Point3d  first    = BRepInspector::Pnt(vf);
-      Standard_Real parfirst = ElCLib::Parameter(circle, first);
+      Standard_Real parfirst = ElCLib1::Parameter(circle, first);
       Standard_Real parlast  = (parfirst + M_PI);
-      Point3d        last     = ElCLib::Value(parlast, circle);
+      Point3d        last     = ElCLib1::Value(parlast, circle);
       //
       dis.Draw1(first, last);
       Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);

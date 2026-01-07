@@ -73,7 +73,7 @@ public:
 
   Standard_EXPORT Standard_Integer ChainList() const;
 
-  Standard_EXPORT Standard_Integer GetEdgePoints(const IntPolyh_Triangle& Triangle,
+  Standard_EXPORT Standard_Integer GetEdgePoints(const IntPolyh_Triangle& Triangle1,
                                                  Standard_Integer&        FirstEdgePoint,
                                                  Standard_Integer&        SecondEdgePoint,
                                                  Standard_Integer&        LastPoint) const;

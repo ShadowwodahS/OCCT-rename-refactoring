@@ -59,17 +59,17 @@ static void initDefaultHilightAttributes(const Handle(StyleDrawer)& theDrawer,
   theDrawer->SetupOwnShadingAspect();
   theDrawer->SetupOwnPointAspect();
   theDrawer->SetLineAspect(new Prs3d_LineAspect(Quantity_NOC_BLACK, Aspect_TOL_SOLID, 1.0));
-  *theDrawer->LineAspect()->Aspect() = *theDrawer->Link()->LineAspect()->Aspect();
+  *theDrawer->LineAspect()->Aspect() = *theDrawer->Link1()->LineAspect()->Aspect();
   theDrawer->SetWireAspect(new Prs3d_LineAspect(Quantity_NOC_BLACK, Aspect_TOL_SOLID, 1.0));
-  *theDrawer->WireAspect()->Aspect() = *theDrawer->Link()->WireAspect()->Aspect();
+  *theDrawer->WireAspect()->Aspect() = *theDrawer->Link1()->WireAspect()->Aspect();
   theDrawer->SetPlaneAspect(new Prs3d_PlaneAspect());
-  *theDrawer->PlaneAspect()->EdgesAspect() = *theDrawer->Link()->PlaneAspect()->EdgesAspect();
+  *theDrawer->PlaneAspect()->EdgesAspect() = *theDrawer->Link1()->PlaneAspect()->EdgesAspect();
   theDrawer->SetFreeBoundaryAspect(new Prs3d_LineAspect(Quantity_NOC_BLACK, Aspect_TOL_SOLID, 1.0));
-  *theDrawer->FreeBoundaryAspect()->Aspect() = *theDrawer->Link()->FreeBoundaryAspect()->Aspect();
+  *theDrawer->FreeBoundaryAspect()->Aspect() = *theDrawer->Link1()->FreeBoundaryAspect()->Aspect();
   theDrawer->SetUnFreeBoundaryAspect(
     new Prs3d_LineAspect(Quantity_NOC_BLACK, Aspect_TOL_SOLID, 1.0));
   *theDrawer->UnFreeBoundaryAspect()->Aspect() =
-    *theDrawer->Link()->UnFreeBoundaryAspect()->Aspect();
+    *theDrawer->Link1()->UnFreeBoundaryAspect()->Aspect();
   theDrawer->SetDatumAspect(new Prs3d_DatumAspect());
 
   theDrawer->ShadingAspect()->SetColor(theColor);
@@ -133,25 +133,25 @@ VisualContext::VisualContext(const Handle(ViewManager)& MainViewer)
   myDefaultDrawer->SetDisplayMode(0);
   {
     const Handle(StyleDrawer)& aStyle = myStyles[Prs3d_TypeOfHighlight_Dynamic];
-    aStyle->Link(myDefaultDrawer);
+    aStyle->Link1(myDefaultDrawer);
     initDefaultHilightAttributes(aStyle, Quantity_NOC_CYAN1);
     aStyle->SetZLayer(Graphic3d_ZLayerId_Top);
   }
   {
     const Handle(StyleDrawer)& aStyle = myStyles[Prs3d_TypeOfHighlight_LocalDynamic];
-    aStyle->Link(myDefaultDrawer);
+    aStyle->Link1(myDefaultDrawer);
     initDefaultHilightAttributes(aStyle, Quantity_NOC_CYAN1);
     aStyle->SetZLayer(Graphic3d_ZLayerId_Topmost);
   }
   {
     const Handle(StyleDrawer)& aStyle = myStyles[Prs3d_TypeOfHighlight_Selected];
-    aStyle->Link(myDefaultDrawer);
+    aStyle->Link1(myDefaultDrawer);
     initDefaultHilightAttributes(aStyle, Quantity_NOC_GRAY80);
     aStyle->SetZLayer(Graphic3d_ZLayerId_UNKNOWN);
   }
   {
     const Handle(StyleDrawer)& aStyle = myStyles[Prs3d_TypeOfHighlight_LocalSelected];
-    aStyle->Link(myDefaultDrawer);
+    aStyle->Link1(myDefaultDrawer);
     initDefaultHilightAttributes(aStyle, Quantity_NOC_GRAY80);
     aStyle->SetZLayer(Graphic3d_ZLayerId_UNKNOWN);
   }
@@ -2061,9 +2061,9 @@ void VisualContext::FitSelected(const Handle(ViewWindow)& theView)
 
 //=================================================================================================
 
-Bnd_Box VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView) const
+Box2 VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView) const
 {
-  Bnd_Box                aBndSelected;
+  Box2                aBndSelected;
   AIS_MapOfObjectOwners  anObjectOwnerMap;
   const Standard_Integer aViewId = !theView.IsNull() ? theView->View()->Identification() : -1;
   for (AIS_NListOfEntityOwner::Iterator aSelIter(mySelection->Objects()); aSelIter.More();
@@ -2086,7 +2086,7 @@ Bnd_Box VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView)
 
     if (anOwner == anObj->GlobalSelOwner())
     {
-      Bnd_Box aTmpBnd;
+      Box2 aTmpBnd;
       anObj->BoundingBox(aTmpBnd);
       aBndSelected.Add(aTmpBnd);
     }
@@ -2106,7 +2106,7 @@ Bnd_Box VisualContext::BoundingBoxOfSelection(const Handle(ViewWindow)& theView)
   for (AIS_MapIteratorOfMapOfObjectOwners anIter(anObjectOwnerMap); anIter.More(); anIter.Next())
   {
     const Handle(SelectMgr_SelectableObject)& anObject = anIter.Key();
-    Bnd_Box aTmpBox = anObject->BndBoxOfSelected(anIter.ChangeValue());
+    Box2 aTmpBox = anObject->BndBoxOfSelected(anIter.ChangeValue());
     aBndSelected.Add(aTmpBox);
   }
 
@@ -2121,7 +2121,7 @@ void VisualContext::FitSelected(const Handle(ViewWindow)& theView,
                                          const Standard_Real     theMargin,
                                          const Standard_Boolean  theToUpdate)
 {
-  Bnd_Box aBndSelected = BoundingBoxOfSelection(theView);
+  Box2 aBndSelected = BoundingBoxOfSelection(theView);
   if (!aBndSelected.IsVoid())
   {
     theView->FitAll(aBndSelected, theMargin, theToUpdate);

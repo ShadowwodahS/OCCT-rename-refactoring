@@ -281,7 +281,7 @@ static Standard_Boolean CheckPoints(const TopoShape&    theS,
                                     const Standard_Boolean theIsTriangulationUsed,
                                     const Standard_Boolean theIsOptimal,
                                     const Standard_Boolean theIsShapeToleranceUsed,
-                                    Bnd_OBB&               theOBB)
+                                    OrientedBox&               theOBB)
 {
   const Standard_Integer aNbPnts = PointsForOBB(theS, theIsTriangulationUsed);
 
@@ -361,7 +361,7 @@ static void ComputeProperties(const TopoShape& theS, GeometricProperties& theGCo
 // purpose : Creates OBB with axes of inertia.
 //=======================================================================
 static void ComputePCA(const TopoShape&    theS,
-                       Bnd_OBB&               theOBB,
+                       OrientedBox&               theOBB,
                        const Standard_Boolean theIsTriangulationUsed,
                        const Standard_Boolean theIsOptimal,
                        const Standard_Boolean theIsShapeToleranceUsed)
@@ -389,7 +389,7 @@ static void ComputePCA(const TopoShape&    theS,
     (aTrsf.Form() == gp_Identity) ? theS : theS.Moved(TopLoc_Location(aTrsf));
 
   // Initial axis-aligned BndBox
-  Bnd_Box aShapeBox;
+  Box2 aShapeBox;
   if (theIsOptimal)
   {
     BRepBndLib::AddOptimal(aST, aShapeBox, theIsTriangulationUsed, theIsShapeToleranceUsed);
@@ -473,7 +473,7 @@ static void ComputePCA(const TopoShape&    theS,
 //=================================================================================================
 
 void BRepBndLib::AddOBB(const TopoShape&    theS,
-                        Bnd_OBB&               theOBB,
+                        OrientedBox&               theOBB,
                         const Standard_Boolean theIsTriangulationUsed,
                         const Standard_Boolean theIsOptimal,
                         const Standard_Boolean theIsShapeToleranceUsed)

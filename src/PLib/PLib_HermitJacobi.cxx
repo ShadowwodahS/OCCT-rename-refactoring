@@ -27,13 +27,13 @@ IMPLEMENT_STANDARD_RTTIEXT(PLib_HermitJacobi, PLib_Base)
 PLib_HermitJacobi::PLib_HermitJacobi(const Standard_Integer WorkDegree,
                                      const GeomAbs_Shape    ConstraintOrder)
     : myH(1,
-          2 * (PLib::NivConstr(ConstraintOrder) + 1),
+          2 * (PLib1::NivConstr(ConstraintOrder) + 1),
           1,
-          2 * (PLib::NivConstr(ConstraintOrder) + 1)),
-      myWCoeff(1, 2 * (PLib::NivConstr(ConstraintOrder) + 1) + 1)
+          2 * (PLib1::NivConstr(ConstraintOrder) + 1)),
+      myWCoeff(1, 2 * (PLib1::NivConstr(ConstraintOrder) + 1) + 1)
 {
-  Standard_Integer NivConstr = PLib::NivConstr(ConstraintOrder);
-  PLib::HermiteCoefficients(-1., 1., NivConstr, NivConstr, myH);
+  Standard_Integer NivConstr = PLib1::NivConstr(ConstraintOrder);
+  PLib1::HermiteCoefficients(-1., 1., NivConstr, NivConstr, myH);
 
   myJacobi = new PLib_JacobiPolynomial(WorkDegree, ConstraintOrder);
 
@@ -169,12 +169,12 @@ void PLib_HermitJacobi::D0123(const Standard_Integer NDeriv,
   if (NDeriv == 0)
     for (i = 0; i <= DegreeH; i++)
     {
-      PLib::NoDerivativeEvalPolynomial(U, DegreeH, 1, DegreeH, myH(i + 1, 1), HermitValues(i, 0));
+      PLib1::NoDerivativeEvalPolynomial(U, DegreeH, 1, DegreeH, myH(i + 1, 1), HermitValues(i, 0));
     }
   else
     for (i = 0; i <= DegreeH; i++)
     {
-      PLib::EvalPolynomial(U, NDeriv, DegreeH, 1, myH(i + 1, 1), HermitValues(i, 0));
+      PLib1::EvalPolynomial(U, NDeriv, DegreeH, 1, myH(i + 1, 1), HermitValues(i, 0));
     }
 
   // Evaluation des polynomes de Jaccobi
@@ -207,9 +207,9 @@ void PLib_HermitJacobi::D0123(const Standard_Integer NDeriv,
 
     // Evaluation de W(t)
     if (NDeriv == 0)
-      PLib::NoDerivativeEvalPolynomial(U, DegreeH + 1, 1, DegreeH + 1, myWCoeff(1), WValues(0));
+      PLib1::NoDerivativeEvalPolynomial(U, DegreeH + 1, 1, DegreeH + 1, myWCoeff(1), WValues(0));
     else
-      PLib::EvalPolynomial(U, NDeriv, DegreeH + 1, 1, myWCoeff(1), WValues(0));
+      PLib1::EvalPolynomial(U, NDeriv, DegreeH + 1, 1, myWCoeff(1), WValues(0));
   }
 
   // Evaluation a l'ordre 0

@@ -21,7 +21,7 @@ enum
   //! greater depth to OCCT algorithms!
   BVH_Constants_MaxTreeDepth = 32,
 
-  //! Leaf node size optimal for complex nodes,
+  //! Leaf node size optimal for complex1 nodes,
   //! e.g. for upper-level BVH trees within multi-level structure (nodes point to another BVH
   //! trees).
   BVH_Constants_LeafNodeSizeSingle = 1,

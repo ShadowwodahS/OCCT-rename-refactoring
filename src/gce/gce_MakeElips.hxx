@@ -32,7 +32,7 @@ class Point3d;
 //! * Create an ellipse from its center, and two points:
 //! one on the ciconference giving the major radius, the
 //! other giving the value of the small radius.
-class gce_MakeElips : public gce_Root
+class gce_MakeElips : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

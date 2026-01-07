@@ -29,12 +29,12 @@ class LProp_BadContinuity;
 class Standard_DomainError;
 class Standard_OutOfRange;
 class LProp_NotDefined;
-class HLRBRep_SLPropsATool;
+class SLPropsATool;
 class Point3d;
 class Vector3d;
 class Dir3d;
 
-class HLRBRep_SLProps
+class SLProps
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -49,7 +49,7 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT HLRBRep_SLProps(const Standard_Address& S,
+  Standard_EXPORT SLProps(const Standard_Address& S,
                                   const Standard_Real     U,
                                   const Standard_Real     V,
                                   const Standard_Integer  N,
@@ -57,14 +57,14 @@ public:
 
   //! idem as previous constructor but without setting the value
   //! of parameters <U> and <V>.
-  Standard_EXPORT HLRBRep_SLProps(const Standard_Address& S,
+  Standard_EXPORT SLProps(const Standard_Address& S,
                                   const Standard_Integer  N,
                                   const Standard_Real     Resolution);
 
   //! idem as previous constructor but without setting the value
   //! of parameters <U> and <V> and the surface.
   //! the surface can have an empty constructor.
-  Standard_EXPORT HLRBRep_SLProps(const Standard_Integer N, const Standard_Real Resolution);
+  Standard_EXPORT SLProps(const Standard_Integer N, const Standard_Real Resolution);
 
   //! Initializes the local properties of the surface S
   //! for the new surface.

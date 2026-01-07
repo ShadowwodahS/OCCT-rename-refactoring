@@ -121,7 +121,7 @@ Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoShape&      
     return theDrawer->MaximalChordialDeviation();
   }
 
-  Bnd_Box aBndBox;
+  Box2 aBndBox;
   BRepBndLib::Add(theShape, aBndBox, Standard_False);
   if (aBndBox.IsVoid())
   {

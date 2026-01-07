@@ -120,7 +120,7 @@ static Standard_Boolean GetFuncGUID(Standard_CString aKey, Standard_GUID& GUID)
     aDMap.Bind("PntXYZ", PNTXYZ_GUID);
     aDMap.Bind("PntRLT", PNTRLT_GUID);
     aDMap.Bind("Line3D", LINE3D_GUID);
-    aDMap.Bind("Box", BOX_GUID);
+    aDMap.Bind("Box1", BOX_GUID);
     aDMap.Bind("Sph", SPH_GUID);
     aDMap.Bind("Cyl", CYL_GUID);
     aDMap.Bind("Cut", CUT_GUID);
@@ -152,7 +152,7 @@ static Standard_Boolean GetFuncGUID(Standard_CString aKey, Standard_GUID& GUID)
 static Handle(TFunction_Driver) GetDriver(const AsciiString1& name)
 {
   Handle(TFunction_Driver) aDrv;
-  if (name == "Box")
+  if (name == "Box1")
     aDrv = new DNaming_BoxDriver();
   else if (name == "Cyl")
     aDrv = new DNaming_CylinderDriver();
@@ -325,7 +325,7 @@ static Standard_Integer DNaming_AddBox(DrawInterpreter& theDI,
     if (anObj.IsNull())
       return 1;
     Standard_GUID funGUID;
-    if (!GetFuncGUID("Box", funGUID))
+    if (!GetFuncGUID("Box1", funGUID))
       return 1;
 
     Handle(TFunction_Function) aFun = SetFunctionDS(anObj->Label(), funGUID);
@@ -403,7 +403,7 @@ static Standard_Integer DNaming_BoxDX(DrawInterpreter& theDI,
     if (!objLabel.FindAttribute(GEOMOBJECT_GUID, anObj))
       return 1;
     Standard_GUID funGUID;
-    if (!GetFuncGUID("Box", funGUID))
+    if (!GetFuncGUID("Box1", funGUID))
       return 1;
 
     Handle(TFunction_Function) aFun = GetFunction(objLabel, funGUID);
@@ -442,7 +442,7 @@ static Standard_Integer DNaming_BoxDY(DrawInterpreter& theDI,
     if (!objLabel.FindAttribute(GEOMOBJECT_GUID, anObj))
       return 1;
     Standard_GUID funGUID;
-    if (!GetFuncGUID("Box", funGUID))
+    if (!GetFuncGUID("Box1", funGUID))
       return 1;
 
     Handle(TFunction_Function) aFun = GetFunction(objLabel, funGUID);
@@ -481,7 +481,7 @@ static Standard_Integer DNaming_BoxDZ(DrawInterpreter& theDI,
     if (!objLabel.FindAttribute(GEOMOBJECT_GUID, anObj))
       return 1;
     Standard_GUID funGUID;
-    if (!GetFuncGUID("Box", funGUID))
+    if (!GetFuncGUID("Box1", funGUID))
       return 1;
 
     Handle(TFunction_Function) aFun = GetFunction(objLabel, funGUID);
@@ -540,13 +540,13 @@ static Standard_Integer DNaming_SolveFlatFrom(DrawInterpreter& /*theDI*/,
     if (FatherLab.IsNull())
       goto ERR;
     AsciiString1 entry;
-    TDF_Tool::Entry(FatherLab, entry);
+    Tool3::Entry(FatherLab, entry);
 #ifdef OCCT_DEBUG
     std::cout << "DNaming_SolveFlatFrom: Father label = " << entry << std::endl;
 #endif
     Handle(TFunction_Logbook) logbook = TFunction_Logbook::Set(FatherLab);
     Standard_Boolean          found(Standard_False);
-    TDF_ChildIterator         it(FatherLab, Standard_False);
+    ChildIterator         it(FatherLab, Standard_False);
     for (; it.More(); it.Next())
     {
       const DataLabel& aLabel = it.Value();
@@ -569,7 +569,7 @@ static Standard_Integer DNaming_SolveFlatFrom(DrawInterpreter& /*theDI*/,
       }
       else
       {
-        TDF_Tool::Entry(funLabel, entry);
+        Tool3::Entry(funLabel, entry);
         try
         {
           // We clear the logbook because the execution starts not from the beginning of the
@@ -659,7 +659,7 @@ static Standard_Integer DNaming_CheckLogBook(DrawInterpreter& /*theDI*/,
       std::cout << "DNaming_CheckLogBook : LogBook current state:" << std::endl;
       for (; it.More(); it.Next())
       {
-        TDF_Tool::Entry(it.Key(), entry);
+        Tool3::Entry(it.Key(), entry);
         std::cout << entry << std::endl;
       }
     }
@@ -787,7 +787,7 @@ static Standard_Integer DNaming_AttachShape(DrawInterpreter& di,
           {
 #ifdef OCCT_DEBUG
             AsciiString1 entry;
-            TDF_Tool::Entry(aCont->Label(), entry);
+            Tool3::Entry(aCont->Label(), entry);
             std::cout << "ContextNS Label = " << entry << std::endl;
 #endif
             Handle(TFunction_Function) aCntFun;
@@ -1980,7 +1980,7 @@ static Standard_Boolean MakeSelection(const Handle(TDataStd_UAttribute)& Obj,
         {
 
           // AsciiString1 entry;
-          // TDF_Tool::Entry(aNS->Label(), entry);
+          // Tool3::Entry(aNS->Label(), entry);
           // std::cout << "ContextNS Label = " << entry <<std::endl;
           Handle(TFunction_Function) aCntFun;
           if (aNS->Label().Father().FindAttribute(TFunction_Function::GetID(), aCntFun))
@@ -2047,7 +2047,7 @@ static Standard_Boolean MakeXSelection(const Handle(TDataStd_UAttribute)& Obj,
         {
 
           // AsciiString1 entry;
-          // TDF_Tool::Entry(aNS->Label(), entry);
+          // Tool3::Entry(aNS->Label(), entry);
           // std::cout << "ContextNS Label = " << entry <<std::endl;
           Handle(TFunction_Function) aCntFun;
           if (aNS->Label().Father().FindAttribute(TFunction_Function::GetID(), aCntFun))
@@ -2234,7 +2234,7 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
           FirstAuxObj = auxObj;
           isFirst     = Standard_False;
           AsciiString1 entry;
-          TDF_Tool::Entry(FirstAuxObj->Label(), entry);
+          Tool3::Entry(FirstAuxObj->Label(), entry);
 #ifdef OCCT_DEBUG
           std::cout << "First Selection function at " << entry << std::endl;
 #endif
@@ -2261,7 +2261,7 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
             << "%%%INFO:Error: ::TestSingleSelection selection failed : unknown exception type";
         }
         AsciiString1 entry;
-        TDF_Tool::Entry(auxObj->Label(), entry);
+        Tool3::Entry(auxObj->Label(), entry);
         UtfString aResult("");
         if (isSelected)
         {
@@ -2316,7 +2316,7 @@ static Standard_Integer DNaming_TestSingle(DrawInterpreter& theDI,
           TNaming_Builder B(aLabel);
           B.Generated(it1.Value());
           AsciiString1 entry;
-          TDF_Tool::Entry(aLabel, entry);
+          Tool3::Entry(aLabel, entry);
           std::cout << "\t" << entry << std::endl;
         }
       }
@@ -2391,7 +2391,7 @@ static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
           isFirst     = Standard_False;
 #ifdef OCCT_DEBUG
           AsciiString1 entry;
-          TDF_Tool::Entry(FirstAuxObj->Label(), entry);
+          Tool3::Entry(FirstAuxObj->Label(), entry);
           std::cout << "First Selection function at " << entry << std::endl;
 #endif
         }
@@ -2417,7 +2417,7 @@ static Standard_Integer DNaming_Multiple(DrawInterpreter& theDI,
             << "%%%INFO:Error: ::TestSingleSelection selection failed : unknown exception type";
         }
         AsciiString1 entry;
-        TDF_Tool::Entry(auxObj->Label(), entry);
+        Tool3::Entry(auxObj->Label(), entry);
         UtfString aResult("");
         if (isSelected)
         {
@@ -2492,7 +2492,7 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
 
   theCommands.Add(
     "AddFunction",
-    "AddFunction D ObjEntry FunName[Box|Sph|Cyl|Cut|Fuse|Prism|Revol|PMove|Fillet|Attach|XAttach]",
+    "AddFunction D ObjEntry FunName[Box1|Sph|Cyl|Cut|Fuse|Prism|Revol|PMove|Fillet|Attach|XAttach]",
     __FILE__,
     DNaming_AddFunction,
     g2);
@@ -2512,7 +2512,7 @@ void DNaming1::ModelingCommands(DrawInterpreter& theCommands)
   theCommands.Add(
     "AddDriver",
     "AddDriver Doc Name "
-    "[Box|Sph|Cyl|Cut|Fuse|Prism|Revol|PTxyz|PTALine|PRLine|PMirr|Fillet|Attach|XAttach]",
+    "[Box1|Sph|Cyl|Cut|Fuse|Prism|Revol|PTxyz|PTALine|PRLine|PMirr|Fillet|Attach|XAttach]",
     __FILE__,
     DNaming_AddDriver,
     g2);

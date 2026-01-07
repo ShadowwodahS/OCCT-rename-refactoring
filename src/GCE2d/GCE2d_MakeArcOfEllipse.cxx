@@ -27,8 +27,8 @@ GCE2d_MakeArcOfEllipse::GCE2d_MakeArcOfEllipse(const gp_Elips2d&      Elips,
                                                const gp_Pnt2d&        P2,
                                                const Standard_Boolean Sense)
 {
-  Standard_Real          Alpha1 = ElCLib::Parameter(Elips, P1);
-  Standard_Real          Alpha2 = ElCLib::Parameter(Elips, P2);
+  Standard_Real          Alpha1 = ElCLib1::Parameter(Elips, P1);
+  Standard_Real          Alpha2 = ElCLib1::Parameter(Elips, P2);
   Handle(Geom2d_Ellipse) E      = new Geom2d_Ellipse(Elips);
   TheArc                        = new Geom2d_TrimmedCurve(E, Alpha1, Alpha2, Sense);
   TheError                      = gce_Done;
@@ -39,7 +39,7 @@ GCE2d_MakeArcOfEllipse::GCE2d_MakeArcOfEllipse(const gp_Elips2d&      Elips,
                                                const Standard_Real    Alpha,
                                                const Standard_Boolean Sense)
 {
-  Standard_Real          Alphafirst = ElCLib::Parameter(Elips, P);
+  Standard_Real          Alphafirst = ElCLib1::Parameter(Elips, P);
   Handle(Geom2d_Ellipse) E          = new Geom2d_Ellipse(Elips);
   TheArc                            = new Geom2d_TrimmedCurve(E, Alphafirst, Alpha, Sense);
   TheError                          = gce_Done;

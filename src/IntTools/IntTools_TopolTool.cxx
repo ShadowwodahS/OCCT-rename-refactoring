@@ -173,9 +173,9 @@ void IntTools_TopolTool::ComputeSamplePoints()
     case GeomAbs_Cone: {
       gp_Cone aCone = myS->Cone();
       gp_Circ aCircle =
-        ElSLib::ConeVIso(aCone.Position(), aCone.RefRadius(), aCone.SemiAngle(), vinf);
+        ElSLib1::ConeVIso(aCone.Position(), aCone.RefRadius(), aCone.SemiAngle(), vinf);
       Standard_Real aRadius = aCircle.Radius();
-      aCircle = ElSLib::ConeVIso(aCone.Position(), aCone.RefRadius(), aCone.SemiAngle(), vsup);
+      aCircle = ElSLib1::ConeVIso(aCone.Position(), aCone.RefRadius(), aCone.SemiAngle(), vsup);
 
       if (aRadius < aCircle.Radius())
         aRadius = aCircle.Radius();
@@ -216,17 +216,17 @@ void IntTools_TopolTool::ComputeSamplePoints()
       {
         gp_Torus aTorus = myS->Torus();
         aCircle =
-          ElSLib::TorusUIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), uinf);
+          ElSLib1::TorusUIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), uinf);
         aRadius2 = aCircle.Radius();
         aCircle =
-          ElSLib::TorusUIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), usup);
+          ElSLib1::TorusUIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), usup);
         aRadius2 = (aRadius2 < aCircle.Radius()) ? aCircle.Radius() : aRadius2;
 
         aCircle =
-          ElSLib::TorusVIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), vinf);
+          ElSLib1::TorusVIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), vinf);
         aRadius1 = aCircle.Radius();
         aCircle =
-          ElSLib::TorusVIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), vsup);
+          ElSLib1::TorusVIso(aTorus.Position(), aTorus.MajorRadius(), aTorus.MinorRadius(), vsup);
         aRadius1 = (aRadius1 < aCircle.Radius()) ? aCircle.Radius() : aRadius1;
       }
       else

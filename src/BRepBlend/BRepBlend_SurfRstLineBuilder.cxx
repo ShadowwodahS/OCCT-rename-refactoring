@@ -1033,7 +1033,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::Recadre(Blend_SurfCurvFuncInv&   
 
   math_Vector toler(1, 3), infb(1, 3), supb(1, 3);
   // use reduced Tol argument value to pass testcase
-  // blend complex A6 with scale factor of model 0.1 (base scale = 1000)
+  // blend complex1 A6 with scale factor of model 0.1 (base scale = 1000)
   // So, here we using 1.0e-5 rather than 1.0e-4 of tolerance of point in 3d
   FinvC.GetTolerance(toler, 0.1 * tolpoint3d);
   FinvC.GetBounds(infb, supb);

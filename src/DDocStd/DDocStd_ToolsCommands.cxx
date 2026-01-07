@@ -113,7 +113,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << " empty\n";
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value()->Label(), string);
+      Tool3::Entry(it.Value()->Label(), string);
       di << "- " << string.ToCString() << " ";
       di << it.Value()->Attribute()->DynamicType()->Name();
       di << "\n";
@@ -128,7 +128,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << " empty\n";
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value()->Label(), string);
+      Tool3::Entry(it.Value()->Label(), string);
       di << "- " << string.ToCString() << " ";
       di << it.Value()->Attribute()->DynamicType()->Name();
       di << "\n";
@@ -143,7 +143,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << " empty\n";
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value()->Label(), string);
+      Tool3::Entry(it.Value()->Label(), string);
       di << "- " << string.ToCString() << " ";
       di << it.Value()->Attribute()->DynamicType()->Name();
       di << "\n";
@@ -158,7 +158,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << " empty\n";
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value()->Label(), string);
+      Tool3::Entry(it.Value()->Label(), string);
       di << "- " << string.ToCString() << " ";
       di << it.Value()->Attribute()->DynamicType()->Name();
       di << "\n";
@@ -173,7 +173,7 @@ static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
       di << " empty\n";
     for (; it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Value()->Label(), string);
+      Tool3::Entry(it.Value()->Label(), string);
       di << "- " << string.ToCString() << " ";
       di << it.Value()->Attribute()->DynamicType()->Name();
       di << "\n";

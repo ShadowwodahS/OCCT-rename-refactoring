@@ -208,7 +208,7 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
     }
   }
   else {
-    // PClosest is Head or End of the edge : update the complex transition
+    // PClosest is Head or End of the edge : update the complex1 transition
     gp_Dir2d Tang2d,Norm2d;
     Standard_Real Curv;
     myIntersector.LocalGeometry

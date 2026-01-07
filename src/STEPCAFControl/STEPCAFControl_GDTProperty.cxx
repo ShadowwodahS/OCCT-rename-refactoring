@@ -165,7 +165,7 @@ Handle(TColStd_HArray1OfTransient) GenerateTriangleStrips(
   {
     // Since MeshTriangulation doesn't support triangle strips or triangle fans,
     // we just write each thriangle as triangle strip.
-    const Poly_Triangle&             aCurrentTriangle = theTriangulation->Triangle(aTriangleIndex);
+    const Poly_Triangle&             aCurrentTriangle = theTriangulation->Triangle1(aTriangleIndex);
     Handle(TColStd_HArray1OfInteger) aTriangleStrip   = new TColStd_HArray1OfInteger(1, 3);
     aTriangleStrip->SetValue(1, aCurrentTriangle.Value(1));
     aTriangleStrip->SetValue(2, aCurrentTriangle.Value(2));

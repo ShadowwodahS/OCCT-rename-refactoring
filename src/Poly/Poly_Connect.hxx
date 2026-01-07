@@ -51,7 +51,7 @@ class MeshTriangulation;
 //! passes through the node, then look for the triangles
 //! adjacent to this triangle, then the adjacent nodes. You
 //! can thus explore the triangulation step by step (functions
-//! Triangle, Triangles and Nodes).
+//! Triangle1, Triangles and Nodes).
 //! -   From a given node you can look for all the triangles
 //! that pass through the node (iteration method, using the
 //! functions Initialize, More, Next and Value).
@@ -81,7 +81,7 @@ public:
 
   //! Returns the index of a triangle containing the node at
   //! index N in the nodes table specific to the triangulation analyzed by this tool
-  Standard_Integer Triangle(const Standard_Integer N) const { return myTriangles(N); }
+  Standard_Integer Triangle1(const Standard_Integer N) const { return myTriangles(N); }
 
   //! Returns in t1, t2 and t3, the indices of the 3 triangles
   //! adjacent to the triangle at index T in the triangles table

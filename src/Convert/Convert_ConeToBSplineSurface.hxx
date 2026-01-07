@@ -36,7 +36,7 @@ class gp_Cone;
 //! [0, 2PI].
 //! KeyWords :
 //! Convert, Cone, BSplineSurface.
-class Convert_ConeToBSplineSurface : public Convert_ElementarySurfaceToBSplineSurface
+class Convert_ConeToBSplineSurface : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC

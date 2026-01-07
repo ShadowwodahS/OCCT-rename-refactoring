@@ -30,13 +30,13 @@ class gp_Pnt2d;
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class gce_MakeRotation2d
+class RotationBuilder2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a rotation through angle Angle about the center Point.
-  Standard_EXPORT gce_MakeRotation2d(const gp_Pnt2d& Point, const Standard_Real Angle);
+  Standard_EXPORT RotationBuilder2d(const gp_Pnt2d& Point, const Standard_Real Angle);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const gp_Trsf2d& Value() const;

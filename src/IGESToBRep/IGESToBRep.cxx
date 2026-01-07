@@ -317,7 +317,7 @@ Standard_Boolean IGESToBRep1::TransferPCurve(const TopoEdge& fromedge,
       {
         OCC_CATCH_SIGNALS
         Handle(GeomCurve2d) newpcurve;
-        GeomLib::SameRange(Precision::PConfusion(), oldpcurve, olda, oldb, a, b, newpcurve);
+        GeomLib1::SameRange(Precision::PConfusion(), oldpcurve, olda, oldb, a, b, newpcurve);
         if (!newpcurve.IsNull())
         {
           olda      = a;

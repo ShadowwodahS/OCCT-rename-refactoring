@@ -28,16 +28,16 @@ class gp_Pnt2d;
 class gp_Trsf2d;
 class gp_Ax2d;
 
-class Bnd_B2f
+class Box2f
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Bnd_B2f();
+  Box2f();
 
   //! Constructor.
-  Bnd_B2f(const Coords2d& theCenter, const Coords2d& theHSize);
+  Box2f(const Coords2d& theCenter, const Coords2d& theHSize);
 
   //! Returns True if the box is void (non-initialized).
   Standard_Boolean IsVoid() const;
@@ -52,7 +52,7 @@ public:
   void Add(const gp_Pnt2d& thePnt);
 
   //! Update the box by another box.
-  void Add(const Bnd_B2f& theBox);
+  void Add(const Box2f& theBox);
 
   //! Query a box corner: (Center - HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
@@ -68,19 +68,19 @@ public:
   //! then a very big real value is returned.
   Standard_Real SquareExtent() const;
 
-  //! Extend the Box by the absolute value of theDiff.
+  //! Extend the Box1 by the absolute value of theDiff.
   void Enlarge(const Standard_Real theDiff);
 
-  //! Limit the Box by the internals of theOtherBox.
+  //! Limit the Box1 by the internals of theOtherBox.
   //! Returns True if the limitation takes place, otherwise False
   //! indicating that the boxes do not intersect.
-  Standard_EXPORT Standard_Boolean Limit(const Bnd_B2f& theOtherBox);
+  Standard_EXPORT Standard_Boolean Limit(const Box2f& theOtherBox);
 
   //! Transform the bounding box with the given transformation.
   //! The resulting box will be larger if theTrsf contains rotation.
-  Standard_NODISCARD Standard_EXPORT Bnd_B2f Transformed(const gp_Trsf2d& theTrsf) const;
+  Standard_NODISCARD Standard_EXPORT Box2f Transformed(const gp_Trsf2d& theTrsf) const;
 
-  //! Check the given point for the inclusion in the Box.
+  //! Check the given point for the inclusion in the Box1.
   //! Returns True if the point is outside.
   Standard_Boolean IsOut(const Coords2d& thePnt) const;
 
@@ -93,12 +93,12 @@ public:
 
   //! Check the given box for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
-  Standard_Boolean IsOut(const Bnd_B2f& theOtherBox) const;
+  Standard_Boolean IsOut(const Box2f& theOtherBox) const;
 
   //! Check the given box oriented by the given transformation
   //! for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_B2f&   theOtherBox,
+  Standard_EXPORT Standard_Boolean IsOut(const Box2f&   theOtherBox,
                                          const gp_Trsf2d& theTrsf) const;
 
   //! Check the given Line for the intersection with the current box.
@@ -112,12 +112,12 @@ public:
 
   //! Check that the box 'this' is inside the given box 'theBox'. Returns
   //! True if 'this' box is fully inside 'theBox'.
-  Standard_Boolean IsIn(const Bnd_B2f& theBox) const;
+  Standard_Boolean IsIn(const Box2f& theBox) const;
 
   //! Check that the box 'this' is inside the given box 'theBox'
   //! transformed by 'theTrsf'. Returns True if 'this' box is fully
   //! inside the transformed 'theBox'.
-  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B2f& theBox, const gp_Trsf2d& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsIn(const Box2f& theBox, const gp_Trsf2d& theTrsf) const;
 
   //! Set the Center coordinates
   void SetCenter(const Coords2d& theCenter);
@@ -135,7 +135,7 @@ private:
 
 #define RealType Standard_ShortReal
 #define RealType_hxx <Standard_ShortReal.hxx>
-#define Bnd_B2x Bnd_B2f
+#define Bnd_B2x Box2f
 #define Bnd_B2x_hxx <Bnd_B2f.hxx>
 
 #include <Bnd_B2x.lxx>

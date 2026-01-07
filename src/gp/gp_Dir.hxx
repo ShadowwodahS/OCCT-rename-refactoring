@@ -27,7 +27,7 @@ class Transform3d;
 
 //! Describes a unit vector in 3D space. This unit vector is also called "Direction".
 //! See Also
-//! gce_MakeDir which provides functions for more complex
+//! gce_MakeDir which provides functions for more complex1
 //! unit vector constructions
 //! Geom_Direction which provides additional functions for
 //! constructing unit vectors and works, in particular, with the

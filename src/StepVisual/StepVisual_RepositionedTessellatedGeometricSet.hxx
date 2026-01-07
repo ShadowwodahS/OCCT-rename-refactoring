@@ -21,7 +21,7 @@ class StepGeom_Axis2Placement3d;
 DEFINE_STANDARD_HANDLE(StepVisual_RepositionedTessellatedGeometricSet,
                        StepVisual_TessellatedGeometricSet)
 
-//! Representation of complex STEP entity RepositionedTessellatedGeometricSet
+//! Representation of complex1 STEP entity RepositionedTessellatedGeometricSet
 class StepVisual_RepositionedTessellatedGeometricSet : public StepVisual_TessellatedGeometricSet
 {
 public:

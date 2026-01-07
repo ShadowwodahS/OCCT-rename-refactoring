@@ -51,7 +51,7 @@ inline void HLRBRep_EdgeInterferenceTool::NextVertex()
 // purpose  :
 //=======================================================================
 
-inline const HLRAlgo_Intersection& HLRBRep_EdgeInterferenceTool::CurrentVertex() const
+inline const Intersection3& HLRBRep_EdgeInterferenceTool::CurrentVertex() const
 {
   return inter[cur];
 }

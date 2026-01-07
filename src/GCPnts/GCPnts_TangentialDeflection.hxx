@@ -51,7 +51,7 @@
 //! double aCDeflect  = 0.01; // Curvature deflection
 //! double anADeflect = 0.09; // Angular   deflection
 //!
-//! GCPnts_TangentialDeflection aPointsOnCurve;
+//! TangentialDeflectionSampler aPointsOnCurve;
 //! aPointsOnCurve.Initialize (aCurveAdaptor, anADeflect, aCDeflect);
 //! for (int i = 1; i <= aPointsOnCurve.NbPoints(); ++i)
 //! {
@@ -59,14 +59,14 @@
 //!   Point3d aPnt = aPointsOnCurve.Value (i);
 //! }
 //! @endcode
-class GCPnts_TangentialDeflection
+class TangentialDeflectionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
   //! @sa Initialize()
-  Standard_EXPORT GCPnts_TangentialDeflection();
+  Standard_EXPORT TangentialDeflectionSampler();
 
   //! Constructor for 3D curve.
   //! @param[in] theC  3d curve
@@ -75,7 +75,7 @@ public:
   //! @param[in] theMinimumOfPoints  minimum number of points
   //! @param[in] theUTol    tolerance in curve parametric scope
   //! @param[in] theMinLen  minimal length
-  Standard_EXPORT GCPnts_TangentialDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT TangentialDeflectionSampler(const Adaptor3d_Curve& theC,
                                               const Standard_Real    theAngularDeflection,
                                               const Standard_Real    theCurvatureDeflection,
                                               const Standard_Integer theMinimumOfPoints = 2,
@@ -91,7 +91,7 @@ public:
   //! @param[in] theMinimumOfPoints  minimum number of points
   //! @param theUTo  l[in]  tolerance in curve parametric scope
   //! @param[in] theMinLen  minimal length
-  Standard_EXPORT GCPnts_TangentialDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT TangentialDeflectionSampler(const Adaptor3d_Curve& theC,
                                               const Standard_Real    theFirstParameter,
                                               const Standard_Real    theLastParameter,
                                               const Standard_Real    theAngularDeflection,
@@ -107,7 +107,7 @@ public:
   //! @param[in] theMinimumOfPoints  minimum number of points
   //! @param[in] theUTol    tolerance in curve parametric scope
   //! @param[in] theMinLen  minimal length
-  Standard_EXPORT GCPnts_TangentialDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT TangentialDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                               const Standard_Real      theAngularDeflection,
                                               const Standard_Real      theCurvatureDeflection,
                                               const Standard_Integer   theMinimumOfPoints = 2,
@@ -123,7 +123,7 @@ public:
   //! @param[in] theMinimumOfPoints  minimum number of points
   //! @param[in] theUTol    tolerance in curve parametric scope
   //! @param[in] theMinLen  minimal length
-  Standard_EXPORT GCPnts_TangentialDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT TangentialDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                               const Standard_Real      theFirstParameter,
                                               const Standard_Real      theLastParameter,
                                               const Standard_Real      theAngularDeflection,

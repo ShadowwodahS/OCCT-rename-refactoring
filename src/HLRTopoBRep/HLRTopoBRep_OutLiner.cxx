@@ -58,7 +58,7 @@ HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner(const TopoShape& OriS, const TopoShap
 
 //=================================================================================================
 
-void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
+void HLRTopoBRep_OutLiner::Fill(const HLRAlgoProjector&       P,
                                 BRepTopAdaptor_MapOfShapeTool& MST,
                                 const Standard_Integer         nbIso)
 {
@@ -82,7 +82,7 @@ void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
         Dir3d DirZ(Vecz);
         FO.Init(DirZ);
       }
-      HLRTopoBRep_DSFiller::Insert(myOriginalShape, FO, myDS, MST, nbIso);
+      DSFiller::Insert(myOriginalShape, FO, myDS, MST, nbIso);
       BuildShape(MST);
     }
   }

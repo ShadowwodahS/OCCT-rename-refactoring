@@ -340,8 +340,8 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
           gp_Pnt2d      Pp;
           //
           gp_Lin2d Lin(SeqPnt2d(ii - 2), gp_Dir2d(gp_Vec2d(SeqPnt2d(ii - 2), SeqPnt2d(ii))));
-          ul = ElCLib::Parameter(Lin, SeqPnt2d(ii - 1));
-          Pp = ElCLib::Value(ul, Lin);
+          ul = ElCLib1::Parameter(Lin, SeqPnt2d(ii - 1));
+          Pp = ElCLib1::Value(ul, Lin);
           dU = Abs(Pp.X() - SeqPnt2d(ii - 1).X());
           dV = Abs(Pp.Y() - SeqPnt2d(ii - 1).Y());
           if (dU > FlecheU)
@@ -404,7 +404,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
       gp_Pnt2d             anInitPnt(0., 0.);
       //
       PClass.Init(anInitPnt);
-      TabClass.Append((void*)new CSLib_Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+      TabClass.Append((void*)new Class2d(PClass, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
       BadWire = 1;
       TabOrien.Append(-1);
     }
@@ -430,7 +430,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
 
         Standard_Real aS   = 0.;
         Standard_Real aPer = 0.;
-        Poly::PolygonProperties(SeqPnt2d, aS, aPer);
+        Poly1::PolygonProperties(SeqPnt2d, aS, aPer);
 
         Standard_Real    anExpThick = Max(2. * Abs(aS) / aPer, 1e-7);
         Standard_Real    aDefl      = Max(FlecheU, FlecheV);
@@ -456,7 +456,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
               if (Abs(plbid - pfbid) < 1.e-9)
                 continue;
               BRepAdaptor_Curve2d           C(edge, Face);
-              GCPnts_QuasiUniformDeflection aDiscr(C, aDiscrDefl);
+              QuasiUniformDeflectionSampler aDiscr(C, aDiscrDefl);
               if (!aDiscr.IsDone())
                 break;
               Standard_Integer nbp   = aDiscr.NbPoints();
@@ -478,8 +478,8 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
               {
                 Standard_Integer ii = SeqPnt2d.Length();
                 gp_Lin2d Lin(SeqPnt2d(ii - 2), gp_Dir2d(gp_Vec2d(SeqPnt2d(ii - 2), SeqPnt2d(ii))));
-                Standard_Real ul = ElCLib::Parameter(Lin, SeqPnt2d(ii - 1));
-                gp_Pnt2d      Pp = ElCLib::Value(ul, Lin);
+                Standard_Real ul = ElCLib1::Parameter(Lin, SeqPnt2d(ii - 1));
+                gp_Pnt2d      Pp = ElCLib1::Value(ul, Lin);
                 Standard_Real dU = Abs(Pp.X() - SeqPnt2d(ii - 1).X());
                 Standard_Real dV = Abs(Pp.Y() - SeqPnt2d(ii - 1).Y());
                 if (dU > FlecheU)
@@ -497,7 +497,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
 
         if (isChanged)
         {
-          Poly::PolygonProperties(SeqPnt2d, aS, aPer);
+          Poly1::PolygonProperties(SeqPnt2d, aS, aPer);
         }
         //
         if (FlecheU < Toluv)
@@ -507,7 +507,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
           FlecheV = Toluv;
 
         TabClass.Append(
-          (void*)new CSLib_Class2d(SeqPnt2d, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+          (void*)new Class2d(SeqPnt2d, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
         //
         if (Abs(aS) < Precision::SquareConfusion())
         {
@@ -535,7 +535,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
         TColgp_Array1OfPnt2d PPClass(1, 2);
         SeqPnt2d.Clear();
         TabClass.Append(
-          (void*)new CSLib_Class2d(SeqPnt2d, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
+          (void*)new Class2d(SeqPnt2d, FlecheU, FlecheV, Umin, Vmin, Umax, Vmax));
       }
     } // else if(WireIsNotEmpty)
   } // for(; aExpF.More();  aExpF.Next()) {
@@ -649,7 +649,7 @@ TopAbs_State IntTools_FClass2d::Perform(const gp_Pnt2d&        _Puv,
       Standard_Integer n, cur, TabOrien_n;
       for (n = 1; n <= nbtabclass; n++)
       {
-        cur        = ((CSLib_Class2d*)TabClass(n))->SiDans(Puv);
+        cur        = ((Class2d*)TabClass(n))->SiDans(Puv);
         TabOrien_n = TabOrien(n);
 
         if (cur == 1)
@@ -809,7 +809,7 @@ TopAbs_State IntTools_FClass2d::TestOnRestriction(const gp_Pnt2d&        _Puv,
     {
       for (Standard_Integer n = 1; n <= nbtabclass; n++)
       {
-        Standard_Integer cur = ((CSLib_Class2d*)TabClass(n))->SiDans_OnMode(Puv, Tol);
+        Standard_Integer cur = ((Class2d*)TabClass(n))->SiDans_OnMode(Puv, Tol);
         if (cur == 1)
         {
           if (TabOrien(n) == 0)
@@ -895,7 +895,7 @@ IntTools_FClass2d::~IntTools_FClass2d()
   {
     if (TabClass(d))
     {
-      delete ((CSLib_Class2d*)TabClass(d));
+      delete ((Class2d*)TabClass(d));
       TabClass(d) = NULL;
     }
   }

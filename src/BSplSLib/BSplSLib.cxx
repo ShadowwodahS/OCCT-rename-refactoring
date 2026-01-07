@@ -49,9 +49,9 @@ struct BSplSLib_DataContainer
   {
     (void)UDegree;
     (void)VDegree; // just to avoid compiler warning in Release mode
-    Standard_OutOfRange_Raise_if(UDegree > BSplCLib::MaxDegree() || VDegree > BSplCLib::MaxDegree()
-                                   || BSplCLib::MaxDegree() > 25,
-                                 "BSplSLib: bspline degree is greater than maximum supported");
+    Standard_OutOfRange_Raise_if(UDegree > BSplCLib1::MaxDegree() || VDegree > BSplCLib1::MaxDegree()
+                                   || BSplCLib1::MaxDegree() > 25,
+                                 "BSplSLib1: bspline degree is greater than maximum supported");
   }
 
   Standard_Real poles[4 * (25 + 1) * (25 + 1)]{};
@@ -71,7 +71,7 @@ struct BSplSLib_DataContainer
 //           the derivatives of the denominator
 //=======================================================================
 
-void BSplSLib::RationalDerivative(const Standard_Integer UDeg,
+void BSplSLib1::RationalDerivative(const Standard_Integer UDeg,
                                   const Standard_Integer VDeg,
                                   const Standard_Integer N,
                                   const Standard_Integer M,
@@ -221,12 +221,12 @@ void BSplSLib::RationalDerivative(const Standard_Integer UDeg,
         ppM3 += M3;
         index  = ppM3;
         index2 = jjM1 - ppM1;
-        Pip    = PLib::Bin(ii, pp);
+        Pip    = PLib1::Bin(ii, pp);
 
         for (qq = 0; qq <= jj; qq++)
         {
           index2--;
-          Pjq = Pip * PLib::Bin(jj, qq) * StoreW[index2];
+          Pjq = Pip * PLib1::Bin(jj, qq) * StoreW[index2];
           RArray[index1] -= Pjq * RArray[index];
           index++;
           index1++;
@@ -240,12 +240,12 @@ void BSplSLib::RationalDerivative(const Standard_Integer UDeg,
       }
       index  = iiM3;
       index2 = jj + 1;
-      Pii    = PLib::Bin(ii, ii);
+      Pii    = PLib1::Bin(ii, ii);
 
       for (qq = 0; qq < jj; qq++)
       {
         index2--;
-        Pjq = Pii * PLib::Bin(jj, qq) * StoreW[index2];
+        Pjq = Pii * PLib1::Bin(jj, qq) * StoreW[index2];
         RArray[index1] -= Pjq * RArray[index];
         index++;
         index1++;
@@ -324,30 +324,30 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
   {
     // compute the indices
     if (uindex < UKLower || uindex > UKUpper)
-      BSplCLib::LocateParameter(UDegree, UKnots, UMults, U, UPer, uindex, u1);
+      BSplCLib1::LocateParameter(UDegree, UKnots, UMults, U, UPer, uindex, u1);
     else
       u1 = U;
 
     if (vindex < VKLower || vindex > VKUpper)
-      BSplCLib::LocateParameter(VDegree, VKnots, VMults, V, VPer, vindex, u2);
+      BSplCLib1::LocateParameter(VDegree, VKnots, VMults, V, VPer, vindex, u2);
     else
       u2 = V;
 
     // get the knots
     d1 = UDegree;
     d2 = VDegree;
-    BSplCLib::BuildKnots(UDegree, uindex, UPer, UKnots, UMults, *dc.knots1);
-    BSplCLib::BuildKnots(VDegree, vindex, VPer, VKnots, VMults, *dc.knots2);
+    BSplCLib1::BuildKnots(UDegree, uindex, UPer, UKnots, UMults, *dc.knots1);
+    BSplCLib1::BuildKnots(VDegree, vindex, VPer, VKnots, VMults, *dc.knots2);
 
     if (UMults == NULL)
       uindex -= UKLower + UDegree;
     else
-      uindex = BSplCLib::PoleIndex(UDegree, uindex, UPer, *UMults);
+      uindex = BSplCLib1::PoleIndex(UDegree, uindex, UPer, *UMults);
 
     if (VMults == NULL)
       vindex -= VKLower + VDegree;
     else
-      vindex = BSplCLib::PoleIndex(VDegree, vindex, VPer, *VMults);
+      vindex = BSplCLib1::PoleIndex(VDegree, vindex, VPer, *VMults);
 
     // get the poles
     Standard_Integer i, j, ip, jp;
@@ -473,12 +473,12 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
   {
     // compute the indices
     if (uindex < UKLower || uindex > UKUpper)
-      BSplCLib::LocateParameter(UDegree, UKnots, UMults, U, UPer, uindex, u2);
+      BSplCLib1::LocateParameter(UDegree, UKnots, UMults, U, UPer, uindex, u2);
     else
       u2 = U;
 
     if (vindex < VKLower || vindex > VKUpper)
-      BSplCLib::LocateParameter(VDegree, VKnots, VMults, V, VPer, vindex, u1);
+      BSplCLib1::LocateParameter(VDegree, VKnots, VMults, V, VPer, vindex, u1);
     else
       u1 = V;
 
@@ -487,18 +487,18 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
     d2 = UDegree;
     d1 = VDegree;
 
-    BSplCLib::BuildKnots(UDegree, uindex, UPer, UKnots, UMults, *dc.knots2);
-    BSplCLib::BuildKnots(VDegree, vindex, VPer, VKnots, VMults, *dc.knots1);
+    BSplCLib1::BuildKnots(UDegree, uindex, UPer, UKnots, UMults, *dc.knots2);
+    BSplCLib1::BuildKnots(VDegree, vindex, VPer, VKnots, VMults, *dc.knots1);
 
     if (UMults == NULL)
       uindex -= UKLower + UDegree;
     else
-      uindex = BSplCLib::PoleIndex(UDegree, uindex, UPer, *UMults);
+      uindex = BSplCLib1::PoleIndex(UDegree, uindex, UPer, *UMults);
 
     if (VMults == NULL)
       vindex -= VKLower + VDegree;
     else
-      vindex = BSplCLib::PoleIndex(VDegree, vindex, VPer, *VMults);
+      vindex = BSplCLib1::PoleIndex(VDegree, vindex, VPer, *VMults);
 
     // get the poles
     Standard_Integer i, j, ip, jp;
@@ -627,7 +627,7 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::D0(const Standard_Real            U,
+void BSplSLib1::D0(const Standard_Real            U,
                   const Standard_Real            V,
                   const Standard_Integer         UIndex,
                   const Standard_Integer         VIndex,
@@ -672,7 +672,7 @@ void BSplSLib::D0(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::HomogeneousD0(const Standard_Real            U,
+void BSplSLib1::HomogeneousD0(const Standard_Real            U,
                              const Standard_Real            V,
                              const Standard_Integer         UIndex,
                              const Standard_Integer         VIndex,
@@ -724,8 +724,8 @@ void BSplSLib::HomogeneousD0(const Standard_Real            U,
   if (rational)
   {
     dim = 4;
-    BSplCLib::Eval(u1, d1, *dc.knots1, dim * (d2 + 1), *dc.poles);
-    BSplCLib::Eval(u2, d2, *dc.knots2, dim, *dc.poles);
+    BSplCLib1::Eval(u1, d1, *dc.knots1, dim * (d2 + 1), *dc.poles);
+    BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *dc.poles);
     W = dc.poles[3];
     P.SetX(dc.poles[0]);
     P.SetY(dc.poles[1]);
@@ -734,8 +734,8 @@ void BSplSLib::HomogeneousD0(const Standard_Real            U,
   else
   {
     dim = 3;
-    BSplCLib::Eval(u1, d1, *dc.knots1, dim * (d2 + 1), *dc.poles);
-    BSplCLib::Eval(u2, d2, *dc.knots2, dim, *dc.poles);
+    BSplCLib1::Eval(u1, d1, *dc.knots1, dim * (d2 + 1), *dc.poles);
+    BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *dc.poles);
     P.SetX(dc.poles[0]);
     P.SetY(dc.poles[1]);
     P.SetZ(dc.poles[2]);
@@ -744,7 +744,7 @@ void BSplSLib::HomogeneousD0(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::D1(const Standard_Real            U,
+void BSplSLib1::D1(const Standard_Real            U,
                   const Standard_Real            V,
                   const Standard_Integer         UIndex,
                   const Standard_Integer         VIndex,
@@ -798,10 +798,10 @@ void BSplSLib::D1(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
-      BSplSLib::RationalDerivative(d1, d2, 1, 1, *dc.poles, *dc.ders);
+      BSplCLib1::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplSLib1::RationalDerivative(d1, d2, 1, 1, *dc.poles, *dc.ders);
       result = dc.ders;
       resVu  = result + 6;
       resVv  = result + 3;
@@ -811,9 +811,9 @@ void BSplSLib::D1(const Standard_Real            U,
       dim  = 3;
       dim2 = d2 + 1;
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
       result = dc.poles;
       resVu  = result + dim2;
       resVv  = result + 3;
@@ -825,10 +825,10 @@ void BSplSLib::D1(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
-      BSplSLib::RationalDerivative(d1, d2, 1, 1, *dc.poles, *dc.ders);
+      BSplCLib1::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplSLib1::RationalDerivative(d1, d2, 1, 1, *dc.poles, *dc.ders);
       result = dc.ders;
       resVu  = result + 3;
       resVv  = result + 6;
@@ -838,9 +838,9 @@ void BSplSLib::D1(const Standard_Real            U,
       dim  = 3;
       dim2 = d2 + 1;
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 1, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim2));
       result = dc.poles;
       resVu  = result + 3;
       resVv  = result + dim2;
@@ -862,7 +862,7 @@ void BSplSLib::D1(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::HomogeneousD1(const Standard_Real            U,
+void BSplSLib1::HomogeneousD1(const Standard_Real            U,
                              const Standard_Real            V,
                              const Standard_Integer         UIndex,
                              const Standard_Integer         VIndex,
@@ -919,9 +919,9 @@ void BSplSLib::HomogeneousD1(const Standard_Real            U,
                                         dc);
   dim                           = rational ? 4 : 3;
 
-  BSplCLib::Bohm(u1, d1, 1, *dc.knots1, dim * (d2 + 1), *dc.poles);
-  BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
-  BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim * (d2 + 1)));
+  BSplCLib1::Bohm(u1, d1, 1, *dc.knots1, dim * (d2 + 1), *dc.poles);
+  BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *dc.poles);
+  BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + dim * (d2 + 1)));
 
   Standard_Real *result, *resVu, *resVv;
   result = dc.poles;
@@ -950,7 +950,7 @@ void BSplSLib::HomogeneousD1(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::D2(const Standard_Real            U,
+void BSplSLib1::D2(const Standard_Real            U,
                   const Standard_Real            V,
                   const Standard_Integer         UIndex,
                   const Standard_Integer         VIndex,
@@ -1007,12 +1007,12 @@ void BSplSLib::D2(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
-      BSplSLib::RationalDerivative(d1, d2, 2, 2, *dc.poles, *dc.ders);
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+      BSplSLib1::RationalDerivative(d1, d2, 2, 2, *dc.poles, *dc.ders);
       result = dc.ders;
       resVu  = result + 9;
       resVv  = result + 3;
@@ -1025,11 +1025,11 @@ void BSplSLib::D2(const Standard_Real            U,
       dim  = 3;
       dim2 = d2 + 1;
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       result = dc.poles;
       resVu  = result + dim2;
       resVv  = result + 3;
@@ -1050,12 +1050,12 @@ void BSplSLib::D2(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
-      BSplSLib::RationalDerivative(d1, d2, 2, 2, *dc.poles, *dc.ders);
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+      BSplSLib1::RationalDerivative(d1, d2, 2, 2, *dc.poles, *dc.ders);
       result = dc.ders;
       resVu  = result + 3;
       resVv  = result + 9;
@@ -1068,11 +1068,11 @@ void BSplSLib::D2(const Standard_Real            U,
       dim  = 3;
       dim2 = d2 + 1;
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 2, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       result = dc.poles;
       resVu  = result + 3;
       resVv  = result + dim2;
@@ -1112,7 +1112,7 @@ void BSplSLib::D2(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::D3(const Standard_Real            U,
+void BSplSLib1::D3(const Standard_Real            U,
                   const Standard_Real            V,
                   const Standard_Integer         UIndex,
                   const Standard_Integer         VIndex,
@@ -1174,14 +1174,14 @@ void BSplSLib::D3(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       if (d1 > 2)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
-      BSplSLib::RationalDerivative(d1, d2, 3, 3, *dc.poles, *dc.ders);
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
+      BSplSLib1::RationalDerivative(d1, d2, 3, 3, *dc.poles, *dc.ders);
       result  = dc.ders;
       resVu   = result + 12;
       resVv   = result + 3;
@@ -1198,13 +1198,13 @@ void BSplSLib::D3(const Standard_Real            U,
       dim  = 3;
       dim2 = (d2 + 1);
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       if (d1 > 2)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
       result = dc.poles;
       resVu  = result + dim2;
       resVv  = result + 3;
@@ -1245,14 +1245,14 @@ void BSplSLib::D3(const Standard_Real            U,
     {
       dim  = 4;
       dim2 = (d2 + 1) << 2;
-      BSplCLib::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       if (d1 > 2)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
-      BSplSLib::RationalDerivative(d1, d2, 3, 3, *dc.poles, *dc.ders);
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
+      BSplSLib1::RationalDerivative(d1, d2, 3, 3, *dc.poles, *dc.ders);
       result  = dc.ders;
       resVu   = result + 3;
       resVv   = result + 12;
@@ -1269,13 +1269,13 @@ void BSplSLib::D3(const Standard_Real            U,
       dim  = 3;
       dim2 = (d2 + 1);
       dim2 = (dim2 << 1) + dim2;
-      BSplCLib::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
-      BSplCLib::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
+      BSplCLib1::Bohm(u1, d1, 3, *dc.knots1, dim2, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 3, *dc.knots2, dim, *dc.poles);
+      BSplCLib1::Bohm(u2, d2, 2, *dc.knots2, dim, *(dc.poles + dim2));
       if (d1 > 1)
-        BSplCLib::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
+        BSplCLib1::Bohm(u2, d2, 1, *dc.knots2, dim, *(dc.poles + (dim2 << 1)));
       if (d1 > 2)
-        BSplCLib::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
+        BSplCLib1::Eval(u2, d2, *dc.knots2, dim, *(dc.poles + (dim2 << 1) + dim2));
       result = dc.poles;
       resVu  = result + 3;
       resVv  = result + dim2;
@@ -1347,7 +1347,7 @@ void BSplSLib::D3(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::DN(const Standard_Real            U,
+void BSplSLib1::DN(const Standard_Real            U,
                   const Standard_Real            V,
                   const Standard_Integer         Nu,
                   const Standard_Integer         Nv,
@@ -1411,15 +1411,15 @@ void BSplSLib::DN(const Standard_Real            U,
   Standard_Integer n1 = ufirst ? Nu : Nv;
   Standard_Integer n2 = ufirst ? Nv : Nu;
 
-  BSplCLib::Bohm(u1, d1, n1, *dc.knots1, dim * (d2 + 1), *dc.poles);
+  BSplCLib1::Bohm(u1, d1, n1, *dc.knots1, dim * (d2 + 1), *dc.poles);
 
   for (k = 0; k <= Min(n1, d1); k++)
-    BSplCLib::Bohm(u2, d2, n2, *dc.knots2, dim, *(dc.poles + k * dim * (d2 + 1)));
+    BSplCLib1::Bohm(u2, d2, n2, *dc.knots2, dim, *(dc.poles + k * dim * (d2 + 1)));
 
   Standard_Real* result;
   if (rational)
   {
-    BSplSLib::RationalDerivative(d1, d2, n1, n2, *dc.poles, *dc.ders, Standard_False);
+    BSplSLib1::RationalDerivative(d1, d2, n1, n2, *dc.poles, *dc.ders, Standard_False);
     result = dc.ders; // because Standard_False ci-dessus.
   }
   else
@@ -1442,7 +1442,7 @@ void BSplSLib::DN(const Standard_Real            U,
 
 //=================================================================================================
 
-void BSplSLib::Iso(const Standard_Real            Param,
+void BSplSLib1::Iso(const Standard_Real            Param,
                    const Standard_Boolean         IsU,
                    const TColgp_Array2OfPnt&      Poles,
                    const TColStd_Array2OfReal*    Weights,
@@ -1461,12 +1461,12 @@ void BSplSLib::Iso(const Standard_Real            Param,
   // compute local knots
 
   NCollection_LocalArray<Standard_Real> locknots1(2 * Degree);
-  BSplCLib::LocateParameter(Degree, Knots, Mults, u, Periodic, index, u);
-  BSplCLib::BuildKnots(Degree, index, Periodic, Knots, Mults, *locknots1);
+  BSplCLib1::LocateParameter(Degree, Knots, Mults, u, Periodic, index, u);
+  BSplCLib1::BuildKnots(Degree, index, Periodic, Knots, Mults, *locknots1);
   if (Mults == NULL)
     index -= Knots.Lower() + Degree;
   else
-    index = BSplCLib::PoleIndex(Degree, index, Periodic, *Mults);
+    index = BSplCLib1::PoleIndex(Degree, index, Periodic, *Mults);
 
   // copy the local poles
 
@@ -1521,7 +1521,7 @@ void BSplSLib::Iso(const Standard_Real            Param,
   }
 
   // compute the iso
-  BSplCLib::Eval(u, Degree, *locknots1, (l2 - f2 + 1) * dim, *locpoles);
+  BSplCLib1::Eval(u, Degree, *locknots1, (l2 - f2 + 1) * dim, *locpoles);
 
   // get the result
   pole = locpoles;
@@ -1556,7 +1556,7 @@ void BSplSLib::Iso(const Standard_Real            Param,
 
 //=================================================================================================
 
-void BSplSLib::Reverse(TColgp_Array2OfPnt&    Poles,
+void BSplSLib1::Reverse(TColgp_Array2OfPnt&    Poles,
                        const Standard_Integer Last,
                        const Standard_Boolean UDirection)
 {
@@ -1629,7 +1629,7 @@ void BSplSLib::Reverse(TColgp_Array2OfPnt&    Poles,
 
 //=================================================================================================
 
-void BSplSLib::Reverse(TColStd_Array2OfReal&  Weights,
+void BSplSLib1::Reverse(TColStd_Array2OfReal&  Weights,
                        const Standard_Integer Last,
                        const Standard_Boolean UDirection)
 {
@@ -1702,7 +1702,7 @@ void BSplSLib::Reverse(TColStd_Array2OfReal&  Weights,
 
 //=================================================================================================
 
-Standard_Boolean BSplSLib::IsRational(const TColStd_Array2OfReal& Weights,
+Standard_Boolean BSplSLib1::IsRational(const TColStd_Array2OfReal& Weights,
                                       const Standard_Integer      I1,
                                       const Standard_Integer      I2,
                                       const Standard_Integer      J1,
@@ -1728,7 +1728,7 @@ Standard_Boolean BSplSLib::IsRational(const TColStd_Array2OfReal& Weights,
 
 //=================================================================================================
 
-void BSplSLib::SetPoles(const TColgp_Array2OfPnt& Poles,
+void BSplSLib1::SetPoles(const TColgp_Array2OfPnt& Poles,
                         TColStd_Array1OfReal&     FP,
                         const Standard_Boolean    UDirection)
 {
@@ -1777,7 +1777,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt& Poles,
 
 //=================================================================================================
 
-void BSplSLib::SetPoles(const TColgp_Array2OfPnt&   Poles,
+void BSplSLib1::SetPoles(const TColgp_Array2OfPnt&   Poles,
                         const TColStd_Array2OfReal& Weights,
                         TColStd_Array1OfReal&       FP,
                         const Standard_Boolean      UDirection)
@@ -1833,7 +1833,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt&   Poles,
 
 //=================================================================================================
 
-void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
+void BSplSLib1::GetPoles(const TColStd_Array1OfReal& FP,
                         TColgp_Array2OfPnt&         Poles,
                         const Standard_Boolean      UDirection)
 {
@@ -1882,7 +1882,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
 
 //=================================================================================================
 
-void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
+void BSplSLib1::GetPoles(const TColStd_Array1OfReal& FP,
                         TColgp_Array2OfPnt&         Poles,
                         TColStd_Array2OfReal&       Weights,
                         const Standard_Boolean      UDirection)
@@ -1938,7 +1938,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
 
 //=================================================================================================
 
-void BSplSLib::InsertKnots(const Standard_Boolean         UDirection,
+void BSplSLib1::InsertKnots(const Standard_Boolean         UDirection,
                            const Standard_Integer         Degree,
                            const Standard_Boolean         Periodic,
                            const TColgp_Array2OfPnt&      Poles,
@@ -1975,7 +1975,7 @@ void BSplSLib::InsertKnots(const Standard_Boolean         UDirection,
   {
     dim *= Poles.ColLength();
   }
-  BSplCLib::InsertKnots(Degree,
+  BSplCLib1::InsertKnots(Degree,
                         Periodic,
                         dim,
                         poles,
@@ -1997,7 +1997,7 @@ void BSplSLib::InsertKnots(const Standard_Boolean         UDirection,
 
 //=================================================================================================
 
-Standard_Boolean BSplSLib::RemoveKnot(const Standard_Boolean         UDirection,
+Standard_Boolean BSplSLib1::RemoveKnot(const Standard_Boolean         UDirection,
                                       const Standard_Integer         Index,
                                       const Standard_Integer         Mult,
                                       const Standard_Integer         Degree,
@@ -2034,7 +2034,7 @@ Standard_Boolean BSplSLib::RemoveKnot(const Standard_Boolean         UDirection,
     dim *= Poles.ColLength();
   }
 
-  if (!BSplCLib::RemoveKnot(Index,
+  if (!BSplCLib1::RemoveKnot(Index,
                             Mult,
                             Degree,
                             Periodic,
@@ -2057,7 +2057,7 @@ Standard_Boolean BSplSLib::RemoveKnot(const Standard_Boolean         UDirection,
 
 //=================================================================================================
 
-void BSplSLib::IncreaseDegree(const Standard_Boolean         UDirection,
+void BSplSLib1::IncreaseDegree(const Standard_Boolean         UDirection,
                               const Standard_Integer         Degree,
                               const Standard_Integer         NewDegree,
                               const Standard_Boolean         Periodic,
@@ -2092,7 +2092,7 @@ void BSplSLib::IncreaseDegree(const Standard_Boolean         UDirection,
     dim *= Poles.ColLength();
   }
 
-  BSplCLib::IncreaseDegree(Degree,
+  BSplCLib1::IncreaseDegree(Degree,
                            NewDegree,
                            Periodic,
                            dim,
@@ -2111,7 +2111,7 @@ void BSplSLib::IncreaseDegree(const Standard_Boolean         UDirection,
 
 //=================================================================================================
 
-void BSplSLib::Unperiodize(const Standard_Boolean         UDirection,
+void BSplSLib1::Unperiodize(const Standard_Boolean         UDirection,
                            const Standard_Integer         Degree,
                            const TColStd_Array1OfInteger& Mults,
                            const TColStd_Array1OfReal&    Knots,
@@ -2144,7 +2144,7 @@ void BSplSLib::Unperiodize(const Standard_Boolean         UDirection,
     dim *= Poles.ColLength();
   }
 
-  BSplCLib::Unperiodize(Degree, dim, Mults, Knots, poles, NewMults, NewKnots, newpoles);
+  BSplCLib1::Unperiodize(Degree, dim, Mults, Knots, poles, NewMults, NewKnots, newpoles);
 
   if (rational)
     GetPoles(newpoles, NewPoles, *NewWeights, UDirection);
@@ -2159,7 +2159,7 @@ void BSplSLib::Unperiodize(const Standard_Boolean         UDirection,
 //           stored in homogeneous form
 //=======================================================================
 
-void BSplSLib::BuildCache(const Standard_Real         U,
+void BSplSLib1::BuildCache(const Standard_Real         U,
                           const Standard_Real         V,
                           const Standard_Real         USpanDomain,
                           const Standard_Real         VSpanDomain,
@@ -2198,8 +2198,8 @@ void BSplSLib::BuildCache(const Standard_Real         U,
                             Weights,
                             UFlatKnots,
                             VFlatKnots,
-                            (BSplCLib::NoMults()),
-                            (BSplCLib::NoMults()),
+                            (BSplCLib1::NoMults()),
+                            (BSplCLib1::NoMults()),
                             u1,
                             u2,
                             d1,
@@ -2210,10 +2210,10 @@ void BSplSLib::BuildCache(const Standard_Real         U,
   d2p1        = d2 + 1;
   if (rational)
   {
-    BSplCLib::Bohm(u1, d1, d1, *dc.knots1, 4 * d2p1, *dc.poles);
+    BSplCLib1::Bohm(u1, d1, d1, *dc.knots1, 4 * d2p1, *dc.poles);
 
     for (kk = 0; kk <= d1; kk++)
-      BSplCLib::Bohm(u2, d2, d2, *dc.knots2, 4, *(dc.poles + kk * 4 * d2p1));
+      BSplCLib1::Bohm(u2, d2, d2, *dc.knots2, 4, *(dc.poles + kk * 4 * d2p1));
     if (flag_u_or_v)
     {
       min_degree_domain = USpanDomain;
@@ -2252,10 +2252,10 @@ void BSplSLib::BuildCache(const Standard_Real         U,
   }
   else
   {
-    BSplCLib::Bohm(u1, d1, d1, *dc.knots1, 3 * d2p1, *dc.poles);
+    BSplCLib1::Bohm(u1, d1, d1, *dc.knots1, 3 * d2p1, *dc.poles);
 
     for (kk = 0; kk <= d1; kk++)
-      BSplCLib::Bohm(u2, d2, d2, *dc.knots2, 3, *(dc.poles + kk * 3 * d2p1));
+      BSplCLib1::Bohm(u2, d2, d2, *dc.knots2, 3, *(dc.poles + kk * 3 * d2p1));
     if (flag_u_or_v)
     {
       min_degree_domain = USpanDomain;
@@ -2310,7 +2310,7 @@ void BSplSLib::BuildCache(const Standard_Real         U,
   }
 }
 
-void BSplSLib::BuildCache(const Standard_Real         theU,
+void BSplSLib1::BuildCache(const Standard_Real         theU,
                           const Standard_Real         theV,
                           const Standard_Real         theUSpanDomain,
                           const Standard_Real         theVSpanDomain,
@@ -2347,8 +2347,8 @@ void BSplSLib::BuildCache(const Standard_Real         theU,
                             theWeights,
                             theUFlatKnots,
                             theVFlatKnots,
-                            (BSplCLib::NoMults()),
-                            (BSplCLib::NoMults()),
+                            (BSplCLib1::NoMults()),
+                            (BSplCLib1::NoMults()),
                             u1,
                             u2,
                             d1,
@@ -2376,9 +2376,9 @@ void BSplSLib::BuildCache(const Standard_Real         theU,
     aDomains[1] = theUSpanDomain;
   }
 
-  BSplCLib::Bohm(u1, d1, d1, *dc.knots1, aDimension * d2p1, *dc.poles);
+  BSplCLib1::Bohm(u1, d1, d1, *dc.knots1, aDimension * d2p1, *dc.poles);
   for (Standard_Integer kk = 0; kk <= d1; kk++)
-    BSplCLib::Bohm(u2, d2, d2, *dc.knots2, aDimension, *(dc.poles + kk * aDimension * d2p1));
+    BSplCLib1::Bohm(u2, d2, d2, *dc.knots2, aDimension, *(dc.poles + kk * aDimension * d2p1));
 
   Standard_Real* aCache =
     (Standard_Real*)&(theCacheArray(theCacheArray.LowerRow(), theCacheArray.LowerCol()));
@@ -2428,7 +2428,7 @@ void BSplSLib::BuildCache(const Standard_Real         theU,
 //
 //=======================================================================
 
-void BSplSLib::CacheD0(const Standard_Real         UParameter,
+void BSplSLib1::CacheD0(const Standard_Real         UParameter,
                        const Standard_Real         VParameter,
                        const Standard_Integer      UDegree,
                        const Standard_Integer      VDegree,
@@ -2473,14 +2473,14 @@ void BSplSLib::CacheD0(const Standard_Real         UParameter,
   }
   NCollection_LocalArray<Standard_Real> locpoles(dimension);
 
-  PLib::NoDerivativeEvalPolynomial(new_parameter[0],
+  PLib1::NoDerivativeEvalPolynomial(new_parameter[0],
                                    max_degree,
                                    dimension,
                                    max_degree * dimension,
                                    PArray[0],
                                    locpoles[0]);
 
-  PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+  PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                    min_degree,
                                    3,
                                    (min_degree << 1) + min_degree,
@@ -2492,14 +2492,14 @@ void BSplSLib::CacheD0(const Standard_Real         UParameter,
     const TColStd_Array2OfReal& refWeights = *WeightsArray;
     Standard_Real*              WArray =
       (Standard_Real*)&refWeights(refWeights.LowerCol(), refWeights.LowerRow());
-    PLib::NoDerivativeEvalPolynomial(new_parameter[0],
+    PLib1::NoDerivativeEvalPolynomial(new_parameter[0],
                                      max_degree,
                                      dimension,
                                      max_degree * dimension,
                                      WArray[0],
                                      locpoles[0]);
 
-    PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+    PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                      min_degree,
                                      1,
                                      min_degree,
@@ -2519,7 +2519,7 @@ void BSplSLib::CacheD0(const Standard_Real         UParameter,
 //
 //=======================================================================
 
-void BSplSLib::CacheD1(const Standard_Real         UParameter,
+void BSplSLib1::CacheD1(const Standard_Real         UParameter,
                        const Standard_Real         VParameter,
                        const Standard_Integer      UDegree,
                        const Standard_Integer      VDegree,
@@ -2627,10 +2627,10 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
 
   NCollection_LocalArray<Standard_Real> locpoles(2 * dimension);
 
-  PLib::EvalPolynomial(new_parameter[0], 1, max_degree, dimension, PArray[0], locpoles[0]);
+  PLib1::EvalPolynomial(new_parameter[0], 1, max_degree, dimension, PArray[0], locpoles[0]);
 
-  PLib::EvalPolynomial(new_parameter[1], 1, min_degree, 3, locpoles[0], local_poles_array[0][0][0]);
-  PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+  PLib1::EvalPolynomial(new_parameter[1], 1, min_degree, 3, locpoles[0], local_poles_array[0][0][0]);
+  PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                    min_degree,
                                    3,
                                    (min_degree << 1) + min_degree,
@@ -2643,15 +2643,15 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
     const TColStd_Array2OfReal& refWeights = *WeightsArray;
     Standard_Real*              WArray =
       (Standard_Real*)&refWeights(refWeights.LowerCol(), refWeights.LowerRow());
-    PLib::EvalPolynomial(new_parameter[0], 1, max_degree, dimension, WArray[0], locpoles[0]);
+    PLib1::EvalPolynomial(new_parameter[0], 1, max_degree, dimension, WArray[0], locpoles[0]);
 
-    PLib::EvalPolynomial(new_parameter[1],
+    PLib1::EvalPolynomial(new_parameter[1],
                          1,
                          min_degree,
                          1,
                          locpoles[0],
                          local_weights_array[0][0]);
-    PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+    PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                      min_degree,
                                      1,
                                      min_degree,
@@ -2678,7 +2678,7 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
     local_poles_and_weights_array[1][1][2] = local_poles_array[1][1][2];
     local_poles_and_weights_array[1][1][3] = local_weights_array[1][1];
 
-    BSplSLib::RationalDerivative(1,
+    BSplSLib1::RationalDerivative(1,
                                  1,
                                  1,
                                  1,
@@ -2705,7 +2705,7 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
 //
 //=======================================================================
 
-void BSplSLib::CacheD2(const Standard_Real         UParameter,
+void BSplSLib1::CacheD2(const Standard_Real         UParameter,
                        const Standard_Real         VParameter,
                        const Standard_Integer      UDegree,
                        const Standard_Integer      VDegree,
@@ -2879,22 +2879,22 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
     }
   }
 
-  PLib::EvalPolynomial(new_parameter[0], MinIndMax, max_degree, dimension, PArray[0], locpoles[0]);
+  PLib1::EvalPolynomial(new_parameter[0], MinIndMax, max_degree, dimension, PArray[0], locpoles[0]);
 
-  PLib::EvalPolynomial(new_parameter[1],
+  PLib1::EvalPolynomial(new_parameter[1],
                        MinIndMin,
                        min_degree,
                        3,
                        locpoles[0],
                        local_poles_array[0][0][0]);
-  PLib::EvalPolynomial(new_parameter[1],
+  PLib1::EvalPolynomial(new_parameter[1],
                        1,
                        min_degree,
                        3,
                        locpoles[dimension],
                        local_poles_array[1][0][0]);
 
-  PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+  PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                    min_degree,
                                    3,
                                    (min_degree << 1) + min_degree,
@@ -2907,26 +2907,26 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
     const TColStd_Array2OfReal& refWeights = *WeightsArray;
     Standard_Real*              WArray =
       (Standard_Real*)&refWeights(refWeights.LowerCol(), refWeights.LowerRow());
-    PLib::EvalPolynomial(new_parameter[0],
+    PLib1::EvalPolynomial(new_parameter[0],
                          MinIndMax,
                          max_degree,
                          dimension,
                          WArray[0],
                          locpoles[0]);
 
-    PLib::EvalPolynomial(new_parameter[1],
+    PLib1::EvalPolynomial(new_parameter[1],
                          MinIndMin,
                          min_degree,
                          1,
                          locpoles[0],
                          local_weights_array[0][0]);
-    PLib::EvalPolynomial(new_parameter[1],
+    PLib1::EvalPolynomial(new_parameter[1],
                          1,
                          min_degree,
                          1,
                          locpoles[dimension],
                          local_weights_array[1][0]);
-    PLib::NoDerivativeEvalPolynomial(new_parameter[1],
+    PLib1::NoDerivativeEvalPolynomial(new_parameter[1],
                                      min_degree,
                                      1,
                                      min_degree,
@@ -2973,7 +2973,7 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
     local_poles_and_weights_array[2][1][3] = local_weights_array[2][1];
     local_poles_and_weights_array[2][2][3] = local_weights_array[2][2];
 
-    BSplSLib::RationalDerivative(2,
+    BSplSLib1::RationalDerivative(2,
                                  2,
                                  2,
                                  2,
@@ -3013,7 +3013,7 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
 //           given  u and v as parameters) to reach a new position
 //=======================================================================
 
-void BSplSLib::MovePoint(const Standard_Real         U,
+void BSplSLib1::MovePoint(const Standard_Real         U,
                          const Standard_Real         V,
                          const Vector3d&               Displ,
                          const Standard_Integer      UIndex1,
@@ -3036,7 +3036,7 @@ void BSplSLib::MovePoint(const Standard_Real         U,
   // calculate the UBSplineBasis in the parameter U
   Standard_Integer UFirstNonZeroBsplineIndex;
   math_Matrix      UBSplineBasis(1, 1, 1, UDegree + 1);
-  Standard_Integer ErrorCod1 = BSplCLib::EvalBsplineBasis(0,
+  Standard_Integer ErrorCod1 = BSplCLib1::EvalBsplineBasis(0,
                                                           UDegree + 1,
                                                           UFlatKnots,
                                                           U,
@@ -3045,7 +3045,7 @@ void BSplSLib::MovePoint(const Standard_Real         U,
   // calculate the VBSplineBasis in the parameter V
   Standard_Integer VFirstNonZeroBsplineIndex;
   math_Matrix      VBSplineBasis(1, 1, 1, VDegree + 1);
-  Standard_Integer ErrorCod2 = BSplCLib::EvalBsplineBasis(0,
+  Standard_Integer ErrorCod2 = BSplCLib1::EvalBsplineBasis(0,
                                                           VDegree + 1,
                                                           VFlatKnots,
                                                           V,
@@ -3274,7 +3274,7 @@ void BSplSLib::MovePoint(const Standard_Real         U,
 //
 //=======================================================================
 
-void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
+void BSplSLib1::Resolution(const TColgp_Array2OfPnt&      Poles,
                           const TColStd_Array2OfReal*    Weights,
                           const TColStd_Array1OfReal&    UKnots,
                           const TColStd_Array1OfReal&    VKnots,
@@ -3303,12 +3303,12 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
   Standard_Integer ii_minus, upper[2], lower[2], poles_length[2];
   Standard_Integer num_poles[2], num_flat_knots[2];
 
-  num_flat_knots[0] = BSplCLib::KnotSequenceLength(UMults, UDegree, UPeriodic);
-  num_flat_knots[1] = BSplCLib::KnotSequenceLength(VMults, VDegree, VPeriodic);
+  num_flat_knots[0] = BSplCLib1::KnotSequenceLength(UMults, UDegree, UPeriodic);
+  num_flat_knots[1] = BSplCLib1::KnotSequenceLength(VMults, VDegree, VPeriodic);
   TColStd_Array1OfReal flat_knots_in_u(1, num_flat_knots[0]);
   TColStd_Array1OfReal flat_knots_in_v(1, num_flat_knots[1]);
-  BSplCLib::KnotSequence(UKnots, UMults, UDegree, UPeriodic, flat_knots_in_u);
-  BSplCLib::KnotSequence(VKnots, VMults, VDegree, VPeriodic, flat_knots_in_v);
+  BSplCLib1::KnotSequence(UKnots, UMults, UDegree, UPeriodic, flat_knots_in_u);
+  BSplCLib1::KnotSequence(VKnots, VMults, VDegree, VPeriodic, flat_knots_in_v);
   PRowLength = Poles.RowLength();
   PColLength = Poles.ColLength();
   if (URational || VRational)
@@ -3567,7 +3567,7 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
 
 //=================================================================================================
 
-void BSplSLib::Interpolate(const Standard_Integer      UDegree,
+void BSplSLib1::Interpolate(const Standard_Integer      UDegree,
                            const Standard_Integer      VDegree,
                            const TColStd_Array1OfReal& UFlatKnots,
                            const TColStd_Array1OfReal& VFlatKnots,
@@ -3603,7 +3603,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
   // interpolation of iso u
   poles_array = (Standard_Real*)&Points.ChangeValue(1, 1);
-  BSplCLib::Interpolate(VDegree,
+  BSplCLib1::Interpolate(VDegree,
                         VFlatKnots,
                         VParameters,
                         ContactOrder->Array1(),
@@ -3634,7 +3634,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
     }
   }
   // interpolation of iso v
-  BSplCLib::Interpolate(UDegree,
+  BSplCLib1::Interpolate(UDegree,
                         UFlatKnots,
                         UParameters,
                         ContactOrder->Array1(),
@@ -3658,7 +3658,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
 //=================================================================================================
 
-void BSplSLib::Interpolate(const Standard_Integer      UDegree,
+void BSplSLib1::Interpolate(const Standard_Integer      UDegree,
                            const Standard_Integer      VDegree,
                            const TColStd_Array1OfReal& UFlatKnots,
                            const TColStd_Array1OfReal& VFlatKnots,
@@ -3692,7 +3692,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
   // interpolation of iso u
   poles_array = (Standard_Real*)&Points.ChangeValue(1, 1);
-  BSplCLib::Interpolate(VDegree,
+  BSplCLib1::Interpolate(VDegree,
                         VFlatKnots,
                         VParameters,
                         ContactOrder->Array1(),
@@ -3722,7 +3722,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
     }
   }
   // interpolation of iso v
-  BSplCLib::Interpolate(UDegree,
+  BSplCLib1::Interpolate(UDegree,
                         UFlatKnots,
                         UParameters,
                         ContactOrder->Array1(),
@@ -3745,7 +3745,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
 //=================================================================================================
 
-void BSplSLib::FunctionMultiply(const BSplSLib_EvaluatorFunction& Function,
+void BSplSLib1::FunctionMultiply(const EvaluatorFunction2& Function,
                                 const Standard_Integer            UBSplineDegree,
                                 const Standard_Integer            VBSplineDegree,
                                 const TColStd_Array1OfReal&       UBSplineKnots,
@@ -3777,9 +3777,9 @@ void BSplSLib::FunctionMultiply(const BSplSLib_EvaluatorFunction& Function,
       && (NewDenominator.RowLength() == num_vparameters))
   {
 
-    BSplCLib::BuildSchoenbergPoints(UNewDegree, UFlatKnots, UParameters);
+    BSplCLib1::BuildSchoenbergPoints(UNewDegree, UFlatKnots, UParameters);
 
-    BSplCLib::BuildSchoenbergPoints(VNewDegree, VFlatKnots, VParameters);
+    BSplCLib1::BuildSchoenbergPoints(VNewDegree, VFlatKnots, VParameters);
 
     for (ii = 1; ii <= num_uparameters; ii++)
     {

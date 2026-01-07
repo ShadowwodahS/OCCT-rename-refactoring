@@ -117,7 +117,7 @@ private:
   Standard_ShortReal myTolEnd;
   Standard_Boolean   myAllHidden;
   Standard_Boolean   myAllVisible;
-  Intrv_Intervals    myVisibles;
+  Intervals    myVisibles;
 };
 
 #endif // _HLRAlgo_EdgeStatus_HeaderFile

@@ -768,8 +768,8 @@ Standard_Real Bisector_BisecPC::Parameter(const gp_Pnt2d& P) const
   if (extensionStart)
   {
     gp_Ax2d Axe(pointStartBis, gp_Dir2d(pointStartBis.X() - P.X(), pointStartBis.Y() - P.Y()));
-    Standard_Real U    = ElCLib::LineParameter(Axe, P);
-    gp_Pnt2d      Proj = ElCLib::LineValue(U, Axe);
+    Standard_Real U    = ElCLib1::LineParameter(Axe, P);
+    gp_Pnt2d      Proj = ElCLib1::LineValue(U, Axe);
     if (Proj.IsEqual(P, Tol) && U < 0.)
     {
       return U + startIntervals.Value(bisInterval);
@@ -778,8 +778,8 @@ Standard_Real Bisector_BisecPC::Parameter(const gp_Pnt2d& P) const
   if (extensionEnd)
   {
     gp_Ax2d       Axe(pointEndBis, gp_Dir2d(P.X() - pointEndBis.X(), P.Y() - pointEndBis.Y()));
-    Standard_Real U    = ElCLib::LineParameter(Axe, P);
-    gp_Pnt2d      Proj = ElCLib::LineValue(U, Axe);
+    Standard_Real U    = ElCLib1::LineParameter(Axe, P);
+    gp_Pnt2d      Proj = ElCLib1::LineValue(U, Axe);
     if (Proj.IsEqual(P, Tol) && U > 0.)
     {
       return U + endIntervals.Value(bisInterval);

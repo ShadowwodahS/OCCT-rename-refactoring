@@ -35,8 +35,8 @@ class AsciiString1;
   {                                                                                                \
     return new Class();                                                                            \
   }                                                                                                \
-  static TDF_DerivedAttribute::NewDerived TDF_DERIVED_##Class(                                     \
-    TDF_DerivedAttribute::Register(TDF_DERIVED_New##Class));                                       \
+  static DerivedAttribute::NewDerived TDF_DERIVED_##Class(                                     \
+    DerivedAttribute::Register(TDF_DERIVED_New##Class));                                       \
   Handle(TDF_Attribute) Class::NewEmpty() const                                                    \
   {                                                                                                \
     return TDF_DERIVED_##Class();                                                                  \
@@ -50,8 +50,8 @@ class AsciiString1;
   {                                                                                                \
     return new Class();                                                                            \
   }                                                                                                \
-  static TDF_DerivedAttribute::NewDerived TDF_DERIVED_##Class(                                     \
-    TDF_DerivedAttribute::Register(TDF_DERIVED_New##Class, NameSpace, TypeName));                  \
+  static DerivedAttribute::NewDerived TDF_DERIVED_##Class(                                     \
+    DerivedAttribute::Register(TDF_DERIVED_New##Class, NameSpace, TypeName));                  \
   Handle(TDF_Attribute) Class::NewEmpty() const                                                    \
   {                                                                                                \
     return TDF_DERIVED_##Class();                                                                  \
@@ -60,7 +60,7 @@ class AsciiString1;
 //! Class provides global access (through static methods) to all derived attributes information.
 //! It is used internally by macros for registration of derived attributes and driver-tables
 //! for getting this data.
-class TDF_DerivedAttribute
+class DerivedAttribute
 {
 public:
   /// A function of derived attribute that returns a new attribute instance

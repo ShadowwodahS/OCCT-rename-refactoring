@@ -32,11 +32,11 @@ class Geom2d_Transformation;
 DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 
 //! The class Transformation allows to create Translation,
-//! Rotation, Symmetry, Scaling and complex transformations
+//! Rotation, Symmetry, Scaling and complex1 transformations
 //! obtained by combination of the previous elementary
 //! transformations.
 //! The Transformation class can also be used to
-//! construct complex transformations by combining
+//! construct complex1 transformations by combining
 //! these elementary transformations.
 //! However, these transformations can never change
 //! the type of an object. For example, the projection
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 //! the transformation.
 //! - Geom2d_Transformation transformations provide
 //! the same kind of "geometric" services as
-//! gp_Trsf2d ones but have more complex data
+//! gp_Trsf2d ones but have more complex1 data
 //! structures. The geometric objects provided by the
 //! Geom2d package use gp_Trsf2d transformations
 //! in the syntaxes Transform and Transformed.

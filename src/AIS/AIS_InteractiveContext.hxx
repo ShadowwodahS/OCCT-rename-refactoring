@@ -569,11 +569,11 @@ public: //! @name Selection management
     SelectDetected(const AIS_SelectionScheme theSelScheme = AIS_SelectionScheme_Replace);
 
   //! Returns bounding box of selected objects.
-  Standard_EXPORT Bnd_Box BoundingBoxOfSelection(const Handle(ViewWindow)& theView) const;
+  Standard_EXPORT Box2 BoundingBoxOfSelection(const Handle(ViewWindow)& theView) const;
 
   Standard_DEPRECATED("BoundingBoxOfSelection() should be called with View argument")
 
-  Bnd_Box BoundingBoxOfSelection() const { return BoundingBoxOfSelection(Handle(ViewWindow)()); }
+  Box2 BoundingBoxOfSelection() const { return BoundingBoxOfSelection(Handle(ViewWindow)()); }
 
   //! Sets list of owner selected/deselected using specified selection scheme.
   //! @param theOwners owners to change selection state
@@ -1509,33 +1509,33 @@ protected: //! @name internal methods
   //! Returns True if the object is detected.
   Standard_EXPORT Standard_Boolean isDetected(const Handle(VisualEntity)& theObject);
 
-  //! Helper function to unhighlight all entity owners currently highlighted with seleciton color.
+  //! Helper1 function to unhighlight all entity owners currently highlighted with seleciton color.
   Standard_EXPORT void unselectOwners(const Handle(VisualEntity)& theObject);
 
-  //! Helper function that highlights the owner given with <theStyle> without
+  //! Helper1 function that highlights the owner given with <theStyle> without
   //! performing AutoHighlight checks, e.g. is used for dynamic highlight.
   Standard_EXPORT void highlightWithColor(const Handle(SelectMgr_EntityOwner)& theOwner,
                                           const Handle(ViewManager)&            theViewer = NULL);
 
-  //! Helper function that highlights the owner given with <theStyle> with check
+  //! Helper1 function that highlights the owner given with <theStyle> with check
   //! for AutoHighlight, e.g. is used for selection.
   Standard_EXPORT void highlightSelected(const Handle(SelectMgr_EntityOwner)& theOwner);
 
-  //! Helper function that highlights the owners with check for AutoHighlight, e.g. is used for
+  //! Helper1 function that highlights the owners with check for AutoHighlight, e.g. is used for
   //! selection.
   //! @param[in] theOwners  list of owners to highlight
   //! @param[in] theStyle   highlight style to apply or NULL to apply selection style
   Standard_EXPORT void highlightOwners(const AIS_NListOfEntityOwner& theOwners,
                                        const Handle(StyleDrawer)&   theStyle);
 
-  //! Helper function that highlights global owner of the object given with <theStyle> with check
+  //! Helper1 function that highlights global owner of the object given with <theStyle> with check
   //! for AutoHighlight, e.g. is used for selection.
   //! If global owner is null, it simply highlights the whole object
   Standard_EXPORT void highlightGlobal(const Handle(VisualEntity)& theObj,
                                        const Handle(StyleDrawer)&          theStyle,
                                        const Standard_Integer               theDispMode);
 
-  //! Helper function that unhighlights all owners that are stored in current AIS_Selection.
+  //! Helper1 function that unhighlights all owners that are stored in current AIS_Selection.
   //! The function updates global status and selection state of owner and interactive object.
   //! If the parameter <theIsToHilightSubIntensity> is set to true, interactive objects with
   //! sub-intensity switched on in AIS_GlobalStatus will be highlighted with context's sub-intensity
@@ -1543,17 +1543,17 @@ protected: //! @name internal methods
   Standard_EXPORT void unhighlightSelected(
     const Standard_Boolean theIsToHilightSubIntensity = Standard_False);
 
-  //! Helper function that unhighlights the owners with check
+  //! Helper1 function that unhighlights the owners with check
   //! for AutoHighlight, e.g. is used for selection.
   Standard_EXPORT void unhighlightOwners(
     const AIS_NListOfEntityOwner& theOwners,
     const Standard_Boolean        theIsToHilightSubIntensity = Standard_False);
 
-  //! Helper function that unhighlights global selection owner of given interactive.
+  //! Helper1 function that unhighlights global selection owner of given interactive.
   //! The function does not perform any updates of global or owner status
   Standard_EXPORT void unhighlightGlobal(const Handle(VisualEntity)& theObj);
 
-  //! Helper function that turns on sub-intensity in global status and highlights
+  //! Helper1 function that turns on sub-intensity in global status and highlights
   //! given objects with sub-intensity color
   //! @param[in] theObject  the object. If NULL is given, than sub-intensity will be turned on for
   //! all inveractive objects of the context
@@ -1566,19 +1566,19 @@ protected: //! @name internal methods
     const Standard_Integer               theDispMode        = -1,
     const Standard_Boolean               theIsDisplayedOnly = Standard_True) const;
 
-  //! Helper function that highlights the object with sub-intensity color without any checks
+  //! Helper1 function that highlights the object with sub-intensity color without any checks
   //! @param[in] theObject  the object that will be highlighted
   //! @param[in] theMode  display mode
   Standard_EXPORT void highlightWithSubintensity(const Handle(VisualEntity)& theObject,
                                                  const Standard_Integer theMode) const;
 
-  //! Helper function that highlights the owner with sub-intensity color without any checks
+  //! Helper1 function that highlights the owner with sub-intensity color without any checks
   //! @param[in] theOwner  the owner that will be highlighted
   //! @param[in] theMode  display mode
   Standard_EXPORT void highlightWithSubintensity(const Handle(SelectMgr_EntityOwner)& theOwner,
                                                  const Standard_Integer theMode) const;
 
-  //! Helper function that returns correct dynamic highlight style for the object:
+  //! Helper1 function that returns correct dynamic highlight style for the object:
   //! if custom style is defined via object's highlight drawer, it will be used. Otherwise,
   //! dynamic highlight style of interactive context will be returned.
   //! @param[in] theObj  the object to check
@@ -1600,7 +1600,7 @@ protected: //! @name internal methods
   Standard_EXPORT Standard_Boolean isSlowHiStyle(const Handle(SelectMgr_EntityOwner)& theOwner,
                                                  const Handle(ViewManager)& theViewer) const;
 
-  //! Helper function that returns correct selection style for the object:
+  //! Helper1 function that returns correct selection style for the object:
   //! if custom style is defined via object's highlight drawer, it will be used. Otherwise,
   //! selection style of interactive context will be returned.
   //! @param[in] theObj  the object to check

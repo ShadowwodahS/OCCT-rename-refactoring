@@ -27,7 +27,7 @@
 #include <TColStd_PackedMapOfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
-class Bnd_Box;
+class Box2;
 class MeshVS_Mesh;
 class TColStd_HPackedMapOfInteger;
 class Bnd_Box2d;
@@ -162,7 +162,7 @@ public:
   //! It is used in advanced selection mode to define roughly
   //! the sensitive area of the mesh.
   //! It can be redefined to get access to a box computed in advance.
-  Standard_EXPORT virtual Bnd_Box GetBoundingBox() const;
+  Standard_EXPORT virtual Box2 GetBoundingBox() const;
 
   //! Returns maps of entities (nodes and elements) detected
   //! by mouse click at the point (X,Y) on the current view plane,

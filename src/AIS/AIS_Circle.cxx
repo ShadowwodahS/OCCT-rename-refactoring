@@ -102,7 +102,7 @@ void AIS_Circle::replaceWithNewLineAspect(const Handle(Prs3d_LineAspect)& theAsp
 
   const Handle(Graphic3d_AspectLine3d) anAspectOld = myDrawer->LineAspect()->Aspect();
   const Handle(Graphic3d_AspectLine3d) anAspectNew =
-    !theAspect.IsNull() ? theAspect->Aspect() : myDrawer->Link()->LineAspect()->Aspect();
+    !theAspect.IsNull() ? theAspect->Aspect() : myDrawer->Link1()->LineAspect()->Aspect();
   if (anAspectNew != anAspectOld)
   {
     myDrawer->SetLineAspect(theAspect);
@@ -123,7 +123,7 @@ void AIS_Circle::SetColor(const Quantity_Color& aCol)
   {
     Standard_Real WW = HasWidth() ? myOwnWidth
                        : myDrawer->HasLink()
-                         ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Line)
+                         ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
                          : 1.;
     replaceWithNewLineAspect(new Prs3d_LineAspect(aCol, Aspect_TOL_SOLID, WW));
   }
@@ -146,7 +146,7 @@ void AIS_Circle::SetWidth(const Standard_Real aValue)
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Line, CC);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
     replaceWithNewLineAspect(new Prs3d_LineAspect(CC, Aspect_TOL_SOLID, aValue));
   }
   else
@@ -172,7 +172,7 @@ void AIS_Circle::UnsetColor()
     if (HasColor())
       CC = myDrawer->Color();
     else if (myDrawer->HasLink())
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Line, CC);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
     myDrawer->LineAspect()->SetColor(CC);
     myDrawer->SetColor(CC);
     SynchronizeAspects();
@@ -191,7 +191,7 @@ void AIS_Circle::UnsetWidth()
   {
     Standard_ShortReal WW =
       myDrawer->HasLink()
-        ? (Standard_ShortReal)AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Line)
+        ? (Standard_ShortReal)AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
         : 1.0f;
     myDrawer->LineAspect()->SetWidth(WW);
     myOwnWidth = WW;

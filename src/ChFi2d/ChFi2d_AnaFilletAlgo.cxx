@@ -186,8 +186,8 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
 
   Point3d   P1 = BRepInspector::Pnt(v1);
   Point3d   P2 = BRepInspector::Pnt(v2);
-  gp_Pnt2d p1 = ProjLib::Project(thePlane, P1);
-  gp_Pnt2d p2 = ProjLib::Project(thePlane, P2);
+  gp_Pnt2d p1 = ProjLib1::Project(thePlane, P1);
+  gp_Pnt2d p2 = ProjLib1::Project(thePlane, P2);
   p1.Coord(x11, y11);
   p2.Coord(x12, y12);
 
@@ -197,7 +197,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
     segment1  = false;
     gp_Circ c = AC1.Circle();
 
-    gp_Pnt2d loc = ProjLib::Project(thePlane, c.Location());
+    gp_Pnt2d loc = ProjLib1::Project(thePlane, c.Location());
     loc.Coord(xc1, yc1);
 
     radius1 = c.Radius();
@@ -215,8 +215,8 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
 
   P1 = BRepInspector::Pnt(v1);
   P2 = BRepInspector::Pnt(v2);
-  p1 = ProjLib::Project(thePlane, P1);
-  p2 = ProjLib::Project(thePlane, P2);
+  p1 = ProjLib1::Project(thePlane, P1);
+  p2 = ProjLib1::Project(thePlane, P2);
   p1.Coord(x21, y21);
   p2.Coord(x22, y22);
 
@@ -226,7 +226,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
     segment2  = false;
     gp_Circ c = AC2.Circle();
 
-    gp_Pnt2d loc = ProjLib::Project(thePlane, c.Location());
+    gp_Pnt2d loc = ProjLib1::Project(thePlane, c.Location());
     loc.Coord(xc2, yc2);
 
     radius2 = c.Radius();
@@ -360,7 +360,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
 
   // Construct a fillet.
   // Make circle.
-  Point3d        center = ElSLib::Value(xc, yc, plane);
+  Point3d        center = ElSLib1::Value(xc, yc, plane);
   const Dir3d& normal = plane.Position().Direction();
   gp_Circ       circ(Frame3d(center, cw ? -normal : normal), radius);
 
@@ -399,7 +399,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
           cw = !cw;
 
         // Make the circle again.
-        center = ElSLib::Value(xc, yc, plane);
+        center = ElSLib1::Value(xc, yc, plane);
         circ.SetLocation(center);
         circ.SetRadius(radius - little);
       }
@@ -419,7 +419,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
     Point3d pstart;
     if (xstart != DBL_MAX)
     {
-      pstart = ElSLib::Value(xstart, ystart, plane);
+      pstart = ElSLib1::Value(xstart, ystart, plane);
     }
     else
     {
@@ -432,7 +432,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
     Point3d pend;
     if (xend != DBL_MAX)
     {
-      pend = ElSLib::Value(xend, yend, plane);
+      pend = ElSLib1::Value(xend, yend, plane);
     }
     else
     {
@@ -648,7 +648,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
     circ.SetRadius(radius2 - radius);
 
   // Calculate intersection of the line and the circle.
-  IntAna2d_AnaIntersection intersector(line, circ);
+  AnalyticIntersection2d intersector(line, circ);
   if (!intersector.IsDone() || !intersector.NbPoints())
     return Standard_False;
 
@@ -657,7 +657,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
   Standard_Real    minDist = DBL_MAX;
   for (i = 1; i <= intersector.NbPoints(); ++i)
   {
-    const IntAna2d_IntPoint& intp = intersector.Point(i);
+    const IntersectionPoint2d& intp = intersector.Point(i);
     const gp_Pnt2d&          p    = intp.Value();
 
     Standard_Real d = nearl.Distance(p);
@@ -692,7 +692,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::SegmentFilletArc(const Standard_Real radi
   yend = DBL_MAX;
   for (i = 1; i <= intersector.NbPoints(); ++i)
   {
-    const IntAna2d_IntPoint& intp = intersector.Point(i);
+    const IntersectionPoint2d& intp = intersector.Point(i);
     const gp_Pnt2d&          p    = intp.Value();
 
     const Standard_Real d2 = p.SquareDistance(pc);
@@ -778,7 +778,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
     circ.SetRadius(radius1 - radius);
 
   // Calculate intersection of the line and the big circle.
-  IntAna2d_AnaIntersection intersector(line, circ);
+  AnalyticIntersection2d intersector(line, circ);
   if (!intersector.IsDone() || !intersector.NbPoints())
     return Standard_False;
 
@@ -787,7 +787,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
   Standard_Real    minDist = DBL_MAX;
   for (i = 1; i <= intersector.NbPoints(); ++i)
   {
-    const IntAna2d_IntPoint& intp = intersector.Point(i);
+    const IntersectionPoint2d& intp = intersector.Point(i);
     const gp_Pnt2d&          p    = intp.Value();
 
     Standard_Real d = nearLine.Distance(p);
@@ -822,7 +822,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletSegment(const Standard_Real radi
   ystart = DBL_MAX;
   for (i = 1; i <= intersector.NbPoints(); ++i)
   {
-    const IntAna2d_IntPoint& intp = intersector.Point(i);
+    const IntersectionPoint2d& intp = intersector.Point(i);
     const gp_Pnt2d&          p    = intp.Value();
 
     const Standard_Real d2 = p.SquareDistance(pc);
@@ -896,7 +896,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
 
   // Calculate an intersection point of these two circles
   // and choose the one closer to the "check" point.
-  IntAna2d_AnaIntersection intersector(c1, c2);
+  AnalyticIntersection2d intersector(c1, c2);
   if (!intersector.IsDone() || !intersector.NbPoints())
     return Standard_False;
 
@@ -905,7 +905,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
   Standard_Real minDist = DBL_MAX;
   for (int i = 1; i <= intersector.NbPoints(); ++i)
   {
-    const IntAna2d_IntPoint& intp = intersector.Point(i);
+    const IntersectionPoint2d& intp = intersector.Point(i);
     const gp_Pnt2d&          p    = intp.Value();
 
     Standard_Real d = checkp.SquareDistance(p);
@@ -979,7 +979,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Cut(const gp_Pln& thePlane,
       {
         theE2 = mkEdge2.Edge();
 
-        gp_Pnt2d p2d = ProjLib::Project(thePlane, p);
+        gp_Pnt2d p2d = ProjLib1::Project(thePlane, p);
         p2d.Coord(x12, y12);
         x21 = x12;
         y21 = y12;

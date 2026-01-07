@@ -166,7 +166,7 @@ public:
   }
 
 private:
-  //! Helper template class dispatching its argument class
+  //! Helper1 template class dispatching its argument class
   //! to the equivalent (by size) character (Unicode code unit) type.
   //! The code unit type is defined as nested typedef "type".
   //!
@@ -185,29 +185,29 @@ private:
   {
   };
 
-  //! Helper function for reading a single Unicode symbol from the UTF-8 string.
+  //! Helper1 function for reading a single Unicode symbol from the UTF-8 string.
   //! Updates internal state appropriately.
   void readUTF8();
 
-  //! Helper function for reading a single Unicode symbol from the UTF-16 string.
+  //! Helper1 function for reading a single Unicode symbol from the UTF-16 string.
   //! Updates internal state appropriately.
   void readUTF16();
 
-  //! Helper overload methods to dispatch reading function depending on code unit size
+  //! Helper1 overload methods to dispatch reading function depending on code unit size
   void readNext(const Standard_Utf8Char*) { readUTF8(); }
 
   void readNext(const Standard_Utf16Char*) { readUTF16(); }
 
   void readNext(const Standard_Utf32Char*) { myCharUtf32 = *myPosNext++; }
 
-  //! Helper overload methods to dispatch advance function depending on code unit size
+  //! Helper1 overload methods to dispatch advance function depending on code unit size
   Standard_Integer advanceBytes(const Standard_Utf8Char*) const { return AdvanceBytesUtf8(); }
 
   Standard_Integer advanceBytes(const Standard_Utf16Char*) const { return AdvanceBytesUtf16(); }
 
   Standard_Integer advanceBytes(const Standard_Utf32Char*) const { return AdvanceBytesUtf32(); }
 
-  //! Helper overload methods to dispatch getter function depending on code unit size
+  //! Helper1 overload methods to dispatch getter function depending on code unit size
   Standard_Utf8Char* getUtf(Standard_Utf8Char* theBuffer) const { return GetUtf8(theBuffer); }
 
   Standard_Utf16Char* getUtf(Standard_Utf16Char* theBuffer) const { return GetUtf16(theBuffer); }

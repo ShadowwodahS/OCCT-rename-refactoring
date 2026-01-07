@@ -47,7 +47,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Line, GeomCurve2d)
 //! of its positioning axis.
 //! See Also
 //! GCE2d_MakeLine which provides functions for more
-//! complex line constructions
+//! complex1 line constructions
 //! gp_Ax2d
 //! gp_Lin2d for an equivalent, non-parameterized data structure.
 class Geom2d_Line : public GeomCurve2d

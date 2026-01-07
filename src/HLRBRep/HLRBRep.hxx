@@ -30,7 +30,7 @@ class HLRBRep_Curve;
 //!
 //! The class PolyAlgo  is used to remove Hidden lines
 //! on Shapes with Triangulations.
-class HLRBRep
+class HLRBRep1
 {
 public:
   DEFINE_STANDARD_ALLOC

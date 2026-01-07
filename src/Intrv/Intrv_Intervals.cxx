@@ -36,28 +36,28 @@
 //                                     ***---*   IsAfter
 //=================================================================================================
 
-Intrv_Intervals::Intrv_Intervals() {}
+Intervals::Intervals() {}
 
 //=================================================================================================
 
-Intrv_Intervals::Intrv_Intervals(const Intrv_Interval& Int)
+Intervals::Intervals(const Interval2& Int)
 {
   myInter.Append(Int);
 }
 
 //=================================================================================================
 
-void Intrv_Intervals::Intersect(const Intrv_Interval& Tool)
+void Intervals::Intersect(const Interval2& Tool)
 {
-  Intrv_Intervals Inter(Tool);
+  Intervals Inter(Tool);
   Intersect(Inter);
 }
 
 //=================================================================================================
 
-void Intrv_Intervals::Intersect(const Intrv_Intervals& Tool)
+void Intervals::Intersect(const Intervals& Tool)
 {
-  Intrv_Intervals XUni(*this);
+  Intervals XUni(*this);
   XUni.XUnite(Tool);
   Unite(Tool);
   Subtract(XUni);
@@ -65,7 +65,7 @@ void Intrv_Intervals::Intersect(const Intrv_Intervals& Tool)
 
 //=================================================================================================
 
-void Intrv_Intervals::Subtract(const Intrv_Interval& Tool)
+void Intervals::Subtract(const Interval2& Tool)
 {
   Standard_Integer index = 1;
 
@@ -123,7 +123,7 @@ void Intrv_Intervals::Subtract(const Intrv_Interval& Tool)
 
 //=================================================================================================
 
-void Intrv_Intervals::Subtract(const Intrv_Intervals& Tool)
+void Intervals::Subtract(const Intervals& Tool)
 {
   Standard_Integer index;
   for (index = 1; index <= Tool.myInter.Length(); index++)
@@ -132,10 +132,10 @@ void Intrv_Intervals::Subtract(const Intrv_Intervals& Tool)
 
 //=================================================================================================
 
-void Intrv_Intervals::Unite(const Intrv_Interval& Tool)
+void Intervals::Unite(const Interval2& Tool)
 {
   Standard_Boolean Inserted = Standard_False;
-  Intrv_Interval   Tins(Tool);
+  Interval2   Tins(Tool);
   Standard_Integer index = 1;
 
   while (index <= myInter.Length())
@@ -216,7 +216,7 @@ void Intrv_Intervals::Unite(const Intrv_Interval& Tool)
 
 //=================================================================================================
 
-void Intrv_Intervals::Unite(const Intrv_Intervals& Tool)
+void Intervals::Unite(const Intervals& Tool)
 {
   Standard_Integer index;
   for (index = 1; index <= Tool.myInter.Length(); index++)
@@ -225,17 +225,17 @@ void Intrv_Intervals::Unite(const Intrv_Intervals& Tool)
 
 //=================================================================================================
 
-void Intrv_Intervals::XUnite(const Intrv_Interval& Tool)
+void Intervals::XUnite(const Interval2& Tool)
 {
-  Intrv_Intervals Inter(Tool);
+  Intervals Inter(Tool);
   XUnite(Inter);
 }
 
 //=================================================================================================
 
-void Intrv_Intervals::XUnite(const Intrv_Intervals& Tool)
+void Intervals::XUnite(const Intervals& Tool)
 {
-  Intrv_Intervals Sub2(Tool);
+  Intervals Sub2(Tool);
   Sub2.Subtract(*this);
   Subtract(Tool);
   Unite(Sub2);

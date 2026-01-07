@@ -109,7 +109,7 @@ Handle(ChFiDS_ElSpine) ChFiDS_Spine::ElSpine(const Standard_Integer IE) const
 {
   Standard_Real wmil = 0.5 * (FirstParameter(IE) + LastParameter(IE));
   if (IsPeriodic())
-    wmil = ElCLib::InPeriod(wmil, FirstParameter(), LastParameter());
+    wmil = ElCLib1::InPeriod(wmil, FirstParameter(), LastParameter());
   return ElSpine(wmil);
 }
 
@@ -388,7 +388,7 @@ void ChFiDS_Spine::SetReference(const Standard_Real W)
   hasref            = Standard_True;
   Standard_Real lll = abscissa->Value(abscissa->Upper());
   if (IsPeriodic())
-    valref = ElCLib::InPeriod(W, 0., lll);
+    valref = ElCLib1::InPeriod(W, 0., lll);
   else
     valref = W;
 }
@@ -413,7 +413,7 @@ Standard_Integer ChFiDS_Spine::Index(const Standard_Real W, const Standard_Boole
   Standard_Real    f = 0., l = 0., t = Max(tolesp, Precision::Confusion());
 
   if (IsPeriodic() && Abs(par) >= t && Abs(par - last) >= t)
-    par = ElCLib::InPeriod(par, 0., last);
+    par = ElCLib1::InPeriod(par, 0., last);
 
   for (ind = 1; ind <= len; ind++)
   {
@@ -579,7 +579,7 @@ void ChFiDS_Spine::Prepare(Standard_Real& L, Standard_Integer& Ind) const
   Standard_Real    last = abscissa->Value(abscissa->Upper());
   Standard_Integer len  = abscissa->Length();
   if (IsPeriodic() && Abs(L) >= tol && Abs(L - last) >= tol)
-    L = ElCLib::InPeriod(L, 0., last);
+    L = ElCLib1::InPeriod(L, 0., last);
 
   if (hasfirsttgt && (L <= firsttgtpar))
   {

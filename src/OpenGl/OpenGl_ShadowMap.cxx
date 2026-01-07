@@ -71,9 +71,9 @@ const Handle(OpenGl_Texture)& OpenGl_ShadowMap::Texture() const
 bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ* theOrigin)
 {
   // clang-format off
-  const Bnd_Box aMinMaxBox  = theOrigin == NULL ? theView.MinMaxValues (false) : Bnd_Box(); // applicative min max boundaries
+  const Box2 aMinMaxBox  = theOrigin == NULL ? theView.MinMaxValues (false) : Box2(); // applicative min max boundaries
   // clang-format on
-  const Bnd_Box aGraphicBox = aMinMaxBox;
+  const Box2 aGraphicBox = aMinMaxBox;
 
   switch (myShadowLight->Type())
   {
@@ -151,7 +151,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
       myShadowCamera->SetProjectionType(CameraOn3d::Projection_Perspective);
 
       const Point3d& aLightPos = myShadowLight->Position();
-      Standard_Real aDistance(aMinMaxBox.Distance(Bnd_Box(aLightPos, aLightPos))
+      Standard_Real aDistance(aMinMaxBox.Distance(Box2(aLightPos, aLightPos))
                               + aMinMaxBox.CornerMin().Distance(aMinMaxBox.CornerMax()));
       myShadowCamera->SetDistance(aDistance);
       myShadowCamera->MoveEyeTo(aLightPos);

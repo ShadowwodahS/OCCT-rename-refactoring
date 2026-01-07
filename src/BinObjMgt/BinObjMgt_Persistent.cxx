@@ -386,7 +386,7 @@ BinObjMgt_Persistent& BinObjMgt_Persistent::PutLabel(const DataLabel& theValue)
   if (!theValue.IsNull())
   {
     TColStd_ListOfInteger aTagList;
-    TDF_Tool::TagList(theValue, aTagList);
+    Tool3::TagList(theValue, aTagList);
     TColStd_ListIteratorOfListOfInteger itTag(aTagList);
     for (; itTag.More(); itTag.Next())
     {
@@ -799,7 +799,7 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetLabel(const Handle(TDF_Data
       aLen--;
     }
     // find label by entry
-    TDF_Tool::Label(theDS, aTagList, theValue, Standard_True);
+    Tool3::Label(theDS, aTagList, theValue, Standard_True);
   }
   return *this;
 }

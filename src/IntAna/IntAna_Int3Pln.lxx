@@ -15,13 +15,13 @@
 #include <StdFail_NotDone.hxx>
 #include <Standard_DomainError.hxx>
 
-inline Standard_Boolean IntAna_Int3Pln::IsDone() const
+inline Standard_Boolean Int3Planes::IsDone() const
 {
 
   return done;
 }
 
-inline Standard_Boolean IntAna_Int3Pln::IsEmpty() const
+inline Standard_Boolean Int3Planes::IsEmpty() const
 {
 
   if (!done)
@@ -31,7 +31,7 @@ inline Standard_Boolean IntAna_Int3Pln::IsEmpty() const
   return empt;
 }
 
-inline const Point3d& IntAna_Int3Pln::Value() const
+inline const Point3d& Int3Planes::Value() const
 {
 
   if (!done)

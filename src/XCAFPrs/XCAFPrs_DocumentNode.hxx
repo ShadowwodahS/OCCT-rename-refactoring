@@ -30,7 +30,7 @@ struct XCAFPrs_DocumentNode
   XCAFPrs_Style           Style;      //!< node style
   TopLoc_Location         Location;   //!< node global transformation
   TopLoc_Location         LocalTrsf;  //!< node transformation relative to parent
-  TDF_ChildIterator       ChildIter;  //!< child iterator
+  ChildIterator       ChildIter;  //!< child iterator
   Standard_Boolean        IsAssembly; //!< flag indicating that this label is assembly
 
   XCAFPrs_DocumentNode()

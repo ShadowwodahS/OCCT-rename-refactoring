@@ -24,10 +24,10 @@
 #include <math_BFGS.hxx>
 #include <math_Vector.hxx>
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_MyGradientbisOfBSplineCompute;
 class AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute;
-class AppDef_ResConstraintOfMyGradientbisOfBSplineCompute;
+class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
 class math_MultipleVarFunctionWithGradient;
 

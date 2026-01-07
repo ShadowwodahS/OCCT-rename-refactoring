@@ -303,7 +303,7 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
   Point3d aCenterOfMaxSide(theTrg[aBisectedEdgeIdx].Coord());
   aCenterOfMaxSide.BaryCenter(0.5, theTrg[(aBisectedEdgeIdx + 1) % 3], 0.5);
 
-  Bnd_Box aBox;
+  Box2 aBox;
   aBox.Add(aCenterOfMaxSide);
   aBox.Enlarge(theTol);
   myInspector.SetCurrent(aCenterOfMaxSide.Coord());
@@ -347,7 +347,7 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
 static Standard_Real getModelRange(const TopLoc_Location&            theLocation,
                                    const Handle(MeshTriangulation)& theTr)
 {
-  Bnd_Box aBox;
+  Box2 aBox;
   theTr->MinMax(aBox, theLocation.Transformation());
   Standard_Real aXm = 0.0, aYm = 0.0, aZm = 0.0, aXM = 0.0, aYM = 0.0, aZM = 0.0;
   aBox.Get(aXm, aYm, aZm, aXM, aYM, aZM);
@@ -367,7 +367,7 @@ static void getNodesOfTrg(const Standard_Integer            theTriIdx,
   Standard_Integer aVtxIdx2;
   Standard_Integer aVtxIdx3;
 
-  theTr->Triangle(theTriIdx).Get(aVtxIdx1, aVtxIdx2, aVtxIdx3);
+  theTr->Triangle1(theTriIdx).Get(aVtxIdx1, aVtxIdx2, aVtxIdx3);
 
   Point3d aVtx1 = theTr->Node(aVtxIdx1);
   aVtx1.Transform(theLocation);

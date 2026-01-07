@@ -253,7 +253,7 @@ public:
   //! Links the program object.
   //! @param theCtx bound OpenGL context
   //! @param theIsVerbose flag to print log on error
-  Standard_EXPORT Standard_Boolean Link(const Handle(OpenGl_Context)& theCtx,
+  Standard_EXPORT Standard_Boolean Link1(const Handle(OpenGl_Context)& theCtx,
                                         bool                          theIsVerbose = true);
 
   //! Fetches information log of the last link operation.

@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class Standard_OutOfRange;
 class IntCurveSurface_ThePolyhedronOfHInter;
-class Bnd_Box;
+class Box2;
 class Point3d;
 
 class PolyhedronToolHInter
@@ -34,7 +34,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Give the bounding box of the PolyhedronTool.
-  static const Bnd_Box& Bounding(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
+  static const Box2& Bounding(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh);
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
@@ -50,7 +50,7 @@ public:
 
   //! Give the indices  of  the 3 points of  the triangle of
   //! address Index in the PolyhedronTool.
-  static void Triangle(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
+  static void Triangle1(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
                        const Standard_Integer                       Index,
                        Standard_Integer&                            P1,
                        Standard_Integer&                            P2,

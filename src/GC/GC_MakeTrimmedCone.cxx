@@ -41,8 +41,8 @@ GC_MakeTrimmedCone::GC_MakeTrimmedCone(const Point3d& P1,
   {
     Dir3d          D1(P2.XYZ() - P1.XYZ());
     gp_Lin          L1(P1, D1);
-    Extrema_ExtPElC ext1(P3, L1, 1.0e-7, -2.0e+100, +2.0e+100);
-    Extrema_ExtPElC ext2(P4, L1, 1.0e-7, -2.0e+100, +2.0e+100);
+    PointElCCurveExtrema ext1(P3, L1, 1.0e-7, -2.0e+100, +2.0e+100);
+    PointElCCurveExtrema ext2(P4, L1, 1.0e-7, -2.0e+100, +2.0e+100);
     Point3d          P5 = ext1.Point(1).Value();
     Point3d          P6 = ext2.Point(1).Value();
     Standard_Real   D  = P6.Distance(P5) / cos((Cone.Value())->SemiAngle());

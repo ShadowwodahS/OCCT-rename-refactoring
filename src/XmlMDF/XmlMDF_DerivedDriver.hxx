@@ -45,7 +45,7 @@ public:
   const AsciiString1& TypeName() const
   {
     const AsciiString1& aRegistered =
-      TDF_DerivedAttribute::TypeName(myDerivative->DynamicType()->Name());
+      DerivedAttribute::TypeName(myDerivative->DynamicType()->Name());
     if (aRegistered.IsEmpty())
     {
       return XmlMDF_ADriver::TypeName();

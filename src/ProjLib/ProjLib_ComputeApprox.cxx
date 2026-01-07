@@ -81,27 +81,27 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
 
     case GeomAbs_Plane: {
       gp_Pln Plane = mySurface->Plane();
-      ElSLib::Parameters(Plane, P3d, S, T);
+      ElSLib1::Parameters(Plane, P3d, S, T);
       break;
     }
     case GeomAbs_Cylinder: {
       gp_Cylinder Cylinder = mySurface->Cylinder();
-      ElSLib::Parameters(Cylinder, P3d, S, T);
+      ElSLib1::Parameters(Cylinder, P3d, S, T);
       break;
     }
     case GeomAbs_Cone: {
       gp_Cone Cone = mySurface->Cone();
-      ElSLib::Parameters(Cone, P3d, S, T);
+      ElSLib1::Parameters(Cone, P3d, S, T);
       break;
     }
     case GeomAbs_Sphere: {
       gp_Sphere Sphere = mySurface->Sphere();
-      ElSLib::Parameters(Sphere, P3d, S, T);
+      ElSLib1::Parameters(Sphere, P3d, S, T);
       break;
     }
     case GeomAbs_Torus: {
       gp_Torus Torus = mySurface->Torus();
-      ElSLib::Parameters(Torus, P3d, S, T);
+      ElSLib1::Parameters(Torus, P3d, S, T);
       break;
     }
     default:
@@ -112,7 +112,7 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
   {
     if (S < U1 || S > U2)
     {
-      S = ElCLib::InPeriod(S, U1, U2);
+      S = ElCLib1::InPeriod(S, U1, U2);
     }
   }
 
@@ -126,10 +126,10 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
         S = M_PI + S;
       }
       if (S > U1 || S < U2)
-        S = ElCLib::InPeriod(S, U1, U2);
+        S = ElCLib1::InPeriod(S, U1, U2);
     }
     if (T < V1 || T > V2)
-      T = ElCLib::InPeriod(T, V1, V2);
+      T = ElCLib1::InPeriod(T, V1, V2);
   }
 
   return gp_Pnt2d(S, T);
@@ -270,9 +270,9 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         case GeomAbs_Hyperbola:
         case GeomAbs_Ellipse: {
           Standard_Real U1, U2, V1, V2, U, V;
-          ElSLib::Parameters(Cone, P1, U1, V1);
-          ElSLib::Parameters(Cone, P2, U2, V2);
-          ElSLib::Parameters(Cone, P, U, V);
+          ElSLib1::Parameters(Cone, P1, U1, V1);
+          ElSLib1::Parameters(Cone, P2, U2, V2);
+          ElSLib1::Parameters(Cone, P, U, V);
           myU1 = Min(U1, U2);
           myU2 = Max(U1, U2);
           if ((U1 < U && U < U2) && !myCurve->IsClosed())
@@ -288,8 +288,8 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         break;
         default: {
           Standard_Real U1, V1, U, V, Delta = 0., d = 0., pmin = W1, pmax = W1, dmax = 0., Uf, Ul;
-          ElSLib::Parameters(Cone, P1, U1, V1);
-          ElSLib::Parameters(Cone, P2, Ul, V1);
+          ElSLib1::Parameters(Cone, P1, U1, V1);
+          ElSLib1::Parameters(Cone, P2, Ul, V1);
           const Axis3d& anAx1 = Cone.Axis();
           gp_Lin        aLin(anAx1);
           Standard_Real R = (aLin.Distance(P1) + aLin.Distance(P2) + aLin.Distance(P)) / 3.;
@@ -314,7 +314,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
             if (!isclandper)
               par += Step;
             P = myCurve->Value(par);
-            ElSLib::Parameters(Cone, P, U, V);
+            ElSLib1::Parameters(Cone, P, U, V);
             U += Delta;
             d = U - U1;
             if (d > M_PI)
@@ -400,9 +400,9 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
       {
 
         Standard_Real U1, U2, V1, V2, U, V;
-        ElSLib::Parameters(Cylinder, P1, U1, V1);
-        ElSLib::Parameters(Cylinder, P2, U2, V2);
-        ElSLib::Parameters(Cylinder, P, U, V);
+        ElSLib1::Parameters(Cylinder, P1, U1, V1);
+        ElSLib1::Parameters(Cylinder, P2, U2, V2);
+        ElSLib1::Parameters(Cylinder, P, U, V);
         myU1 = Min(U1, U2);
         myU2 = Max(U1, U2);
 
@@ -454,7 +454,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
       else
       {
         Standard_Real U1, V1, U, V;
-        ElSLib::Parameters(Cylinder, P1, U1, V1);
+        ElSLib1::Parameters(Cylinder, P1, U1, V1);
         Standard_Real R     = Cylinder.Radius();
         Standard_Real Delta = 0., Step;
         Standard_Real eps = M_PI, dmax = 0., d = 0.;
@@ -465,7 +465,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         for (Standard_Real par = W1 + Step; par <= plim; par += Step)
         {
           P = myCurve->Value(par);
-          ElSLib::Parameters(Cylinder, P, U, V);
+          ElSLib1::Parameters(Cylinder, P, U, V);
           U += Delta;
           d = U - U1;
           if (d > eps)
@@ -594,7 +594,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
 
         // box+sphere >>
         Standard_Real UU = 0.;
-        ElSLib::Parameters(SP, P1, U1, V1);
+        ElSLib1::Parameters(SP, P1, U1, V1);
         Standard_Real eps = 10. * Epsilon(1.);
         Standard_Real dt  = Max(Precision::PConfusion(), 0.01 * (W2 - W1));
         if (Abs(U1) < eps)
@@ -602,7 +602,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           // May be U1 must be equal 2*PI?
           Point3d        Pd = myCurve->Value(W1 + dt);
           Standard_Real ud, vd;
-          ElSLib::Parameters(SP, Pd, ud, vd);
+          ElSLib1::Parameters(SP, Pd, ud, vd);
           if (Abs(U1 - ud) > M_PI)
           {
             U1 = 2. * M_PI;
@@ -613,20 +613,20 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           // maybe U1 = 0.?
           Point3d        Pd = myCurve->Value(W1 + dt);
           Standard_Real ud, vd;
-          ElSLib::Parameters(SP, Pd, ud, vd);
+          ElSLib1::Parameters(SP, Pd, ud, vd);
           if (Abs(U1 - ud) > M_PI)
           {
             U1 = 0.;
           }
         }
         //
-        ElSLib::Parameters(SP, P2, U2, V1);
+        ElSLib1::Parameters(SP, P2, U2, V1);
         if (Abs(U2) < eps)
         {
           // May be U2 must be equal 2*PI?
           Point3d        Pd = myCurve->Value(W2 - dt);
           Standard_Real ud, vd;
-          ElSLib::Parameters(SP, Pd, ud, vd);
+          ElSLib1::Parameters(SP, Pd, ud, vd);
           if (Abs(U2 - ud) > M_PI)
           {
             U2 = 2. * M_PI;
@@ -637,14 +637,14 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           // maybe U2 = 0.?
           Point3d        Pd = myCurve->Value(W2 - dt);
           Standard_Real ud, vd;
-          ElSLib::Parameters(SP, Pd, ud, vd);
+          ElSLib1::Parameters(SP, Pd, ud, vd);
           if (Abs(U2 - ud) > M_PI)
           {
             U2 = 0.;
           }
         }
         //
-        ElSLib::Parameters(SP, P, UU, V1);
+        ElSLib1::Parameters(SP, P, UU, V1);
         //+This fragment was the reason of bug # 26008.
         //+It has been deleted on April, 03 2015.
         // Standard_Real UUmi = Min(Min(U1,UU),Min(UU,U2));
@@ -652,7 +652,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         // Standard_Boolean reCalc = ((UUmi >= 0. && UUmi <= M_PI) && (UUma >= 0. && UUma <= M_PI));
         // box+sphere <<
         P2 = myCurve->Value(W1 + M_PI / 8);
-        ElSLib::Parameters(SP, P2, U2, V2);
+        ElSLib1::Parameters(SP, P2, U2, V2);
         //
         if (NbSolutions == 1)
         {
@@ -687,7 +687,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         { // 0 ou 2 solutions
           Point3d        Center = Circle.Location();
           Standard_Real U, V;
-          ElSLib::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
+          ElSLib1::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
           myU1 = U - M_PI;
           myU2 = U + M_PI;
         }
@@ -720,7 +720,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           {
             Point3d        Center = Circle.Location();
             Standard_Real U, V;
-            ElSLib::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
+            ElSLib1::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
             myU1     = U - M_PI;
             myU2     = U + M_PI;
             VCouture = Standard_False;
@@ -737,7 +737,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         // if((Abs(UU1) <= (2.*M_PI) && Abs(UU2) <= (2.*M_PI)) && NbSolutions == 1 && reCalc) {
         //  Point3d Center = Circle.Location();
         //  Standard_Real U,V;
-        //  ElSLib::SphereParameters(gp_Ax3(gp::XOY()),1,Center, U, V);
+        //  ElSLib1::SphereParameters(gp_Ax3(gp::XOY()),1,Center, U, V);
         //  myU1 = U-M_PI;
         //  myU1 = Min(UU1,myU1);
         //  myU2 = myU1 + 2.*M_PI;
@@ -749,7 +749,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
       else
       {
         Standard_Real U1, V1, U, V;
-        ElSLib::Parameters(SP, P1, U1, V1);
+        ElSLib1::Parameters(SP, P1, U1, V1);
         Standard_Real R     = SP.Radius();
         Standard_Real Delta = 0., Step;
         Standard_Real eps = M_PI, dmax = 0., d = 0.;
@@ -760,7 +760,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         for (Standard_Real par = W1 + Step; par <= plim; par += Step)
         {
           P = myCurve->Value(par);
-          ElSLib::Parameters(SP, P, U, V);
+          ElSLib1::Parameters(SP, P, U, V);
           U += Delta;
           d = U - U1;
           if (d > eps)
@@ -820,7 +820,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
     case GeomAbs_Torus: {
       gp_Torus      TR = mySurface->Torus();
       Standard_Real U1, V1, U, V, dU, dV;
-      ElSLib::Parameters(TR, P1, U1, V1);
+      ElSLib1::Parameters(TR, P1, U1, V1);
       Standard_Real R      = TR.MinorRadius();
       Standard_Real DeltaU = 0., DeltaV = 0., Step;
       Standard_Real eps = M_PI, dmaxU = 0., dmaxV = 0.;
@@ -833,7 +833,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
       for (Standard_Real par = W1 + Step; par <= plim; par += Step)
       {
         P = myCurve->Value(par);
-        ElSLib::Parameters(TR, P, U, V);
+        ElSLib1::Parameters(TR, P, U, V);
         U += DeltaU;
         V += DeltaV;
         dU = U - U1;
@@ -946,7 +946,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
 // classn : ProjLib_Function
 // purpose  :
 //=======================================================================
-class ProjLib_Function : public AppCont_Function
+class ProjLib_Function : public ContinuityFunction
 {
   Handle(Adaptor3d_Curve)   myCurve;
   Handle(Adaptor3d_Surface) mySurface;
@@ -1097,7 +1097,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
   GeomAbs_CurveType   CType = C->GetType();
   GeomAbs_SurfaceType SType = S->GetType();
 
-  Standard_Boolean SurfIsAnal = ProjLib::IsAnaSurf(S);
+  Standard_Boolean SurfIsAnal = ProjLib1::IsAnaSurf(S);
 
   Standard_Boolean CurvIsAnal = (CType != GeomAbs_BSplineCurve) && (CType != GeomAbs_BezierCurve)
                                 && (CType != GeomAbs_OffsetCurve) && (CType != GeomAbs_OtherCurve);
@@ -1129,7 +1129,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     Standard_Real U, V;
     for (Standard_Integer i = 1; i <= NbPoles; i++)
     {
-      ElSLib::Parameters(Plane, P3d(i), U, V);
+      ElSLib1::Parameters(Plane, P3d(i), U, V);
       Poles.SetValue(i, gp_Pnt2d(U, V));
     }
     NbKnots = BS->NbKnots();
@@ -1169,7 +1169,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     Standard_Real U, V;
     for (Standard_Integer i = 1; i <= NbPoles; i++)
     {
-      ElSLib::Parameters(Plane, P3d(i), U, V);
+      ElSLib1::Parameters(Plane, P3d(i), U, V);
       Poles.SetValue(i, gp_Pnt2d(U, V));
     }
     if (BezierCurvePtr->IsRational())
@@ -1265,7 +1265,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
       Standard_Integer NbCurves = Fit.NbMultiCurves();
 
       // on essaie de rendre la courbe au moins C1
-      Convert_CompBezierCurves2dToBSplineCurve2d Conv;
+      BezierToBSpline2d Conv;
 
       Standard_Real Tol3d, Tol2d;
       for (i = 1; i <= NbCurves; i++)
@@ -1295,7 +1295,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
       Conv.KnotsAndMults(NewKnots, NewMults);
       Conv.Poles(NewPoles);
 
-      BSplCLib::Reparametrize(C->FirstParameter(), C->LastParameter(), NewKnots);
+      BSplCLib1::Reparametrize(C->FirstParameter(), C->LastParameter(), NewKnots);
 
       // Set NewKnots(NbKnots) exactly C->LastParameter()
       // to avoid problems if trim is used.
@@ -1350,27 +1350,27 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     {
       case GeomAbs_Plane: {
         gp_Pln Plane = S->Plane();
-        ElSLib::Parameters(Plane, P3d, u, v);
+        ElSLib1::Parameters(Plane, P3d, u, v);
         break;
       }
       case GeomAbs_Cylinder: {
         gp_Cylinder Cylinder = S->Cylinder();
-        ElSLib::Parameters(Cylinder, P3d, u, v);
+        ElSLib1::Parameters(Cylinder, P3d, u, v);
         break;
       }
       case GeomAbs_Cone: {
         gp_Cone Cone = S->Cone();
-        ElSLib::Parameters(Cone, P3d, u, v);
+        ElSLib1::Parameters(Cone, P3d, u, v);
         break;
       }
       case GeomAbs_Sphere: {
         gp_Sphere Sphere = S->Sphere();
-        ElSLib::Parameters(Sphere, P3d, u, v);
+        ElSLib1::Parameters(Sphere, P3d, u, v);
         break;
       }
       case GeomAbs_Torus: {
         gp_Torus Torus = S->Torus();
-        ElSLib::Parameters(Torus, P3d, u, v);
+        ElSLib1::Parameters(Torus, P3d, u, v);
         break;
       }
       default:
@@ -1387,7 +1387,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
         dv       = -M_PI;
         v        = M_PI - v;
       }
-      Standard_Real newV = ElCLib::InPeriod(v, F.myV1, F.myV2);
+      Standard_Real newV = ElCLib1::InPeriod(v, F.myV1, F.myV2);
       number             = (Standard_Integer)(Floor((newV - v) / (F.myV2 - F.myV1)));
       dv -= number * (F.myV2 - F.myV1);
     }

@@ -20,6 +20,6 @@
 #include <AppParCurves_ConstraintCouple.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<AppParCurves_ConstraintCouple> AppParCurves_Array1OfConstraintCouple;
+typedef NCollection_Array1<ConstraintCouple> AppParCurves_Array1OfConstraintCouple;
 
 #endif

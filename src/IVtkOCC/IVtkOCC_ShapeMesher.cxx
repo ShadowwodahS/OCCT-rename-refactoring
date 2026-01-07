@@ -397,11 +397,11 @@ void IVtkOCC_ShapeMesher::addShadedFace(const TopoFace& theFace, const IVtk_IdTy
   {
     if (theFace.Orientation() == TopAbs_REVERSED)
     {
-      anOcctTriangulation->Triangle(anI).Get(aN1, aN3, aN2);
+      anOcctTriangulation->Triangle1(anI).Get(aN1, aN3, aN2);
     }
     else
     {
-      anOcctTriangulation->Triangle(anI).Get(aN1, aN2, aN3);
+      anOcctTriangulation->Triangle1(anI).Get(aN1, aN2, aN3);
     }
 
     // Insert new triangle on these points into output shape data.

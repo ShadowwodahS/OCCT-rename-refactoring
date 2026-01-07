@@ -25,22 +25,22 @@
 
 #define Curve1 Adaptor3d_Curve
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
-#define Tool1 Extrema_CurveTool
+#define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
 #define Curve2 Adaptor3d_Curve
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
-#define Tool2 Extrema_CurveTool
+#define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>
 #define Handle_ArrayOfPnt Handle(TColgp_HArray1OfPnt)
 #define ArrayOfPnt TColgp_HArray1OfPnt
 #define ArrayOfPnt_hxx <TColgp_HArray1OfPnt.hxx>
-#define POnC Extrema_POnCurv
+#define POnC PointOnCurve1
 #define POnC_hxx <Extrema_POnCurv.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>
 #define Extrema_GExtPC Extrema_ExtPC
-#define Extrema_GenExtCC Extrema_ECC
+#define Extrema_GenExtCC CurveCurveExtrema1
 #define Extrema_GenExtCC_hxx <Extrema_ECC.hxx>
 #include "../Extrema/Extrema_GenExtCC.gxx"

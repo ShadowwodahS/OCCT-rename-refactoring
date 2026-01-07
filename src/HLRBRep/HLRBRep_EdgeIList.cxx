@@ -26,7 +26,7 @@
 // function : AddInterference
 // purpose  : insert an interference in a sorted list
 //=======================================================================
-void HLRBRep_EdgeIList::AddInterference(HLRAlgo_InterferenceList&           IL,
+void EdgeIList::AddInterference(HLRAlgo_InterferenceList&           IL,
                                         const HLRAlgo_Interference&         I,
                                         const HLRBRep_EdgeInterferenceTool& T)
 {
@@ -67,7 +67,7 @@ static Standard_Boolean SimilarInterference(const HLRAlgo_Interference& I1,
   return IsSimilar;
 }
 #endif
-void HLRBRep_EdgeIList::ProcessComplex(HLRAlgo_InterferenceList&           IL,
+void EdgeIList::ProcessComplex(HLRAlgo_InterferenceList&           IL,
                                        const HLRBRep_EdgeInterferenceTool& T)
 {
   TopCnx_EdgeFaceTransition              transTool;

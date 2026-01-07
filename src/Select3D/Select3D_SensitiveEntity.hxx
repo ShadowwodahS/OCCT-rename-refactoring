@@ -66,7 +66,7 @@ public:
                                    SelectBasics_PickResult&             thePickResult) = 0;
 
   //! Returns the number of sub-entities or elements in sensitive entity.
-  //! Is used to determine if entity is complex and needs to pre-build BVH at the creation of
+  //! Is used to determine if entity is complex1 and needs to pre-build BVH at the creation of
   //! sensitive entity step or is light-weighted so the tree can be build on demand with
   //! unnoticeable delay.
   virtual Standard_Integer NbSubElements() const = 0;

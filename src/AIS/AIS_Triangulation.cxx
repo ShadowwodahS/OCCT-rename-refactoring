@@ -43,7 +43,7 @@ void AIS_Triangulation::SetTransparency(const Standard_Real theValue)
     myDrawer->SetShadingAspect(new Prs3d_ShadingAspect());
     if (myDrawer->HasLink())
     {
-      *myDrawer->ShadingAspect()->Aspect() = *myDrawer->Link()->ShadingAspect()->Aspect();
+      *myDrawer->ShadingAspect()->Aspect() = *myDrawer->Link1()->ShadingAspect()->Aspect();
     }
   }
 
@@ -172,7 +172,7 @@ void AIS_Triangulation::Compute(const Handle(PrsMgr_PresentationManager)&,
   Standard_Integer aTriIndices[3] = {0, 0, 0};
   for (Standard_Integer aTriIter = 1; aTriIter <= myTriangulation->NbTriangles(); ++aTriIter)
   {
-    myTriangulation->Triangle(aTriIter).Get(aTriIndices[0], aTriIndices[1], aTriIndices[2]);
+    myTriangulation->Triangle1(aTriIter).Get(aTriIndices[0], aTriIndices[1], aTriIndices[2]);
     anArray->AddEdge(aTriIndices[0]);
     anArray->AddEdge(aTriIndices[1]);
     anArray->AddEdge(aTriIndices[2]);

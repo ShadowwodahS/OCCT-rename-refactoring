@@ -833,11 +833,11 @@ void DBRep_DrawableShape::DrawOn(DrawDisplay& dis) const
 
         // Polygone sur triangulation:
         Handle(MeshTriangulation)          PolyTr;
-        Handle(Poly_PolygonOnTriangulation) Poly;
-        BRepInspector::PolygonOnTriangulation(E->Edge(), Poly, PolyTr, loc);
-        if (!Poly.IsNull())
+        Handle(Poly_PolygonOnTriangulation) Poly1;
+        BRepInspector::PolygonOnTriangulation(E->Edge(), Poly1, PolyTr, loc);
+        if (!Poly1.IsNull())
         {
-          const TColStd_Array1OfInteger& Indices = Poly->Nodes();
+          const TColStd_Array1OfInteger& Indices = Poly1->Nodes();
           for (i = Indices.Lower() + 1; i <= Indices.Upper(); i++)
           {
             dis.Draw1(PolyTr->Node(Indices(i - 1)).Transformed(loc),
@@ -891,7 +891,7 @@ void DBRep_DrawableShape::DisplayHiddenLines(DrawDisplay& dis)
   if (!strcmp(dout.GetType(id), "PERS"))
     focal = dout.Focal(id);
   Standard_Real Ang, Def;
-  HLRBRep::PolyHLRAngleAndDeflection(myAng, Ang, Def);
+  HLRBRep1::PolyHLRAngleAndDeflection(myAng, Ang, Def);
   IMeshTools_Parameters aMeshParams;
   aMeshParams.Relative   = Standard_True;
   aMeshParams.Deflection = Def;
@@ -1152,7 +1152,7 @@ void DBRep_DrawableShape::display(const Handle(MeshTriangulation)& T,
   for (i = 1; i <= nbTriangles; i++)
   {
     pc.Triangles(i, t[0], t[1], t[2]);
-    T->Triangle(i).Get(n[0], n[1], n[2]);
+    T->Triangle1(i).Get(n[0], n[1], n[2]);
     for (j = 0; j < 3; j++)
     {
       Standard_Integer k = (j + 1) % 3;

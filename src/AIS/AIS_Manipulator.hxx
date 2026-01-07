@@ -438,9 +438,9 @@ protected:
 
   Standard_EXPORT void attachToPoint(const Point3d& thePoint);
 
-  Standard_EXPORT void attachToBox(const Bnd_Box& theBox);
+  Standard_EXPORT void attachToBox(const Box2& theBox);
 
-  Standard_EXPORT void adjustSize(const Bnd_Box& theBox);
+  Standard_EXPORT void adjustSize(const Box2& theBox);
 
   Standard_EXPORT void setTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers);
 

@@ -20,6 +20,6 @@
 #include <HLRAlgo_PolyInternalSegment.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<HLRAlgo_PolyInternalSegment> HLRAlgo_Array1OfPISeg;
+typedef NCollection_Array1<PolyInternalSegment> HLRAlgo_Array1OfPISeg;
 
 #endif

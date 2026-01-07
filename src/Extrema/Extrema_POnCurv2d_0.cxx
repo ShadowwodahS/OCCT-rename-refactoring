@@ -20,6 +20,6 @@
 
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>
-#define Extrema_Point Extrema_POnCurv2d
+#define Extrema_Point PointOnCurve2d
 #define Extrema_Point_hxx <Extrema_POnCurv2d.hxx>
 #include "../Extrema/Extrema_Point.gxx"

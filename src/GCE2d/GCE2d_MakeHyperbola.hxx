@@ -55,7 +55,7 @@ class gp_Pnt2d;
 //! of the hyperbola C and the apex of the First (or Second)
 //! Conjugate branch. The minor axis is the "YAxis".
 //! The major radius can be lower than the minor radius.
-class GCE2d_MakeHyperbola : public GCE2d_Root
+class GCE2d_MakeHyperbola : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

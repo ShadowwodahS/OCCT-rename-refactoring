@@ -160,7 +160,7 @@ void XCAFDoc_AssemblyGraph::addComponents(const DataLabel&       theParent,
   }
 
   // Loop over the children (persistent representation of "part-of" relation).
-  for (TDF_ChildIterator anIt(theParent); anIt.More(); anIt.Next())
+  for (ChildIterator anIt(theParent); anIt.More(); anIt.Next())
   {
     DataLabel aComponent = anIt.Value();
 

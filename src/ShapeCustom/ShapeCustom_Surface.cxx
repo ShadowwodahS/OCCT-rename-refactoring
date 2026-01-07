@@ -385,22 +385,22 @@ Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real
 
         case GeomAbs_Cylinder: {
           gp_Cylinder Cylinder = SurfAdapt.Cylinder();
-          ElSLib::Parameters(Cylinder, P3d, S, T);
+          ElSLib1::Parameters(Cylinder, P3d, S, T);
           break;
         }
         case GeomAbs_Cone: {
           gp_Cone Cone = SurfAdapt.Cone();
-          ElSLib::Parameters(Cone, P3d, S, T);
+          ElSLib1::Parameters(Cone, P3d, S, T);
           break;
         }
         case GeomAbs_Sphere: {
           gp_Sphere Sphere = SurfAdapt.Sphere();
-          ElSLib::Parameters(Sphere, P3d, S, T);
+          ElSLib1::Parameters(Sphere, P3d, S, T);
           break;
         }
         case GeomAbs_Torus: {
           gp_Torus Torus = SurfAdapt.Torus();
-          ElSLib::Parameters(Torus, P3d, S, T);
+          ElSLib1::Parameters(Torus, P3d, S, T);
           break;
         }
         default:

@@ -73,7 +73,7 @@ static void CheckCurveData(const TColgp_Array1OfPnt2d&    CPoles,
     }
   }
 
-  if (CPoles.Length() != BSplCLib::NbPoles(Degree, Periodic, CMults))
+  if (CPoles.Length() != BSplCLib1::NbPoles(Degree, Periodic, CMults))
     throw Standard_ConstructionError("BSpline curve: # Poles and degree mismatch");
 }
 
@@ -194,7 +194,7 @@ Geom2d_BSplineCurve::Geom2d_BSplineCurve(const TColgp_Array1OfPnt2d&    Poles,
 
 Standard_Integer Geom2d_BSplineCurve::MaxDegree()
 {
-  return BSplCLib::MaxDegree();
+  return BSplCLib1::MaxDegree();
 }
 
 //=================================================================================================
@@ -218,7 +218,7 @@ void Geom2d_BSplineCurve::IncreaseDegree(const Standard_Integer Degree)
     new TColgp_HArray1OfPnt2d(1, poles->Length() + Step * (ToK2 - FromK1));
 
   Standard_Integer nbknots =
-    BSplCLib::IncreaseDegreeCountKnots(deg, Degree, periodic, mults->Array1());
+    BSplCLib1::IncreaseDegreeCountKnots(deg, Degree, periodic, mults->Array1());
 
   Handle(TColStd_HArray1OfReal) nknots = new TColStd_HArray1OfReal(1, nbknots);
 
@@ -231,15 +231,15 @@ void Geom2d_BSplineCurve::IncreaseDegree(const Standard_Integer Degree)
     nweights = new TColStd_HArray1OfReal(1, npoles->Upper());
   }
 
-  BSplCLib::IncreaseDegree(deg,
+  BSplCLib1::IncreaseDegree(deg,
                            Degree,
                            periodic,
                            poles->Array1(),
-                           !nweights.IsNull() ? &weights->Array1() : BSplCLib::NoWeights(),
+                           !nweights.IsNull() ? &weights->Array1() : BSplCLib1::NoWeights(),
                            knots->Array1(),
                            mults->Array1(),
                            npoles->ChangeArray1(),
-                           !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib::NoWeights(),
+                           !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib1::NoWeights(),
                            nknots->ChangeArray1(),
                            nmults->ChangeArray1());
 
@@ -314,7 +314,7 @@ void Geom2d_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
   // Check and compute new sizes
   Standard_Integer nbpoles, nbknots;
 
-  if (!BSplCLib::PrepareInsertKnots(deg,
+  if (!BSplCLib1::PrepareInsertKnots(deg,
                                     periodic,
                                     knots->Array1(),
                                     mults->Array1(),
@@ -345,16 +345,16 @@ void Geom2d_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
     nweights = new TColStd_HArray1OfReal(1, nbpoles);
   }
 
-  BSplCLib::InsertKnots(deg,
+  BSplCLib1::InsertKnots(deg,
                         periodic,
                         poles->Array1(),
-                        !nweights.IsNull() ? &weights->Array1() : BSplCLib::NoWeights(),
+                        !nweights.IsNull() ? &weights->Array1() : BSplCLib1::NoWeights(),
                         knots->Array1(),
                         mults->Array1(),
                         Knots,
                         &Mults,
                         npoles->ChangeArray1(),
-                        !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib::NoWeights(),
+                        !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib1::NoWeights(),
                         nknots->ChangeArray1(),
                         nmults->ChangeArray1(),
                         Epsilon,
@@ -406,16 +406,16 @@ Standard_Boolean Geom2d_BSplineCurve::RemoveKnot(const Standard_Integer Index,
     nweights = new TColStd_HArray1OfReal(1, npoles->Length());
   }
 
-  if (!BSplCLib::RemoveKnot(Index,
+  if (!BSplCLib1::RemoveKnot(Index,
                             M,
                             deg,
                             periodic,
                             poles->Array1(),
-                            !nweights.IsNull() ? &weights->Array1() : BSplCLib::NoWeights(),
+                            !nweights.IsNull() ? &weights->Array1() : BSplCLib1::NoWeights(),
                             knots->Array1(),
                             mults->Array1(),
                             npoles->ChangeArray1(),
-                            !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib::NoWeights(),
+                            !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib1::NoWeights(),
                             nknots->ChangeArray1(),
                             nmults->ChangeArray1(),
                             Tolerance))
@@ -591,16 +591,16 @@ void Geom2d_BSplineCurve::RemovePole(const Standard_Integer Index)
 
 void Geom2d_BSplineCurve::Reverse()
 {
-  BSplCLib::Reverse(knots->ChangeArray1());
-  BSplCLib::Reverse(mults->ChangeArray1());
+  BSplCLib1::Reverse(knots->ChangeArray1());
+  BSplCLib1::Reverse(mults->ChangeArray1());
   Standard_Integer last;
   if (periodic)
     last = flatknots->Upper() - deg - 1;
   else
     last = poles->Upper();
-  BSplCLib::Reverse(poles->ChangeArray1(), last);
+  BSplCLib1::Reverse(poles->ChangeArray1(), last);
   if (rational)
-    BSplCLib::Reverse(weights->ChangeArray1(), last);
+    BSplCLib1::Reverse(weights->ChangeArray1(), last);
   UpdateKnots();
 }
 
@@ -647,7 +647,7 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
   }
   //
   index = 0;
-  BSplCLib::LocateParameter(deg,
+  BSplCLib1::LocateParameter(deg,
                             knots->Array1(),
                             mults->Array1(),
                             U1,
@@ -657,7 +657,7 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
                             index,
                             NewU1);
   index = 0;
-  BSplCLib::LocateParameter(deg,
+  BSplCLib1::LocateParameter(deg,
                             knots->Array1(),
                             mults->Array1(),
                             U2,
@@ -674,7 +674,7 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
   if (periodic)
   { // set the origine at NewU1
     index = 0;
-    BSplCLib::LocateParameter(deg,
+    BSplCLib1::LocateParameter(deg,
                               knots->Array1(),
                               mults->Array1(),
                               U1,
@@ -697,7 +697,7 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
   Standard_Integer index1 = 0, index2 = 0;
   Standard_Integer FromU1 = knots->Lower();
   Standard_Integer ToU2   = knots->Upper();
-  BSplCLib::LocateParameter(deg,
+  BSplCLib1::LocateParameter(deg,
                             knots->Array1(),
                             mults->Array1(),
                             NewU1,
@@ -710,7 +710,7 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
   {
     index1++;
   }
-  BSplCLib::LocateParameter(deg,
+  BSplCLib1::LocateParameter(deg,
                             knots->Array1(),
                             mults->Array1(),
                             NewU2,
@@ -748,8 +748,8 @@ void Geom2d_BSplineCurve::Segment(const Standard_Real aU1,
   nmults->SetValue(nbknots, deg + 1);
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1 = BSplCLib::PoleIndex(deg, index1, periodic, mults->Array1());
-  Standard_Integer pindex2 = BSplCLib::PoleIndex(deg, index2, periodic, mults->Array1());
+  Standard_Integer pindex1 = BSplCLib1::PoleIndex(deg, index1, periodic, mults->Array1());
+  Standard_Integer pindex2 = BSplCLib1::PoleIndex(deg, index2, periodic, mults->Array1());
 
   pindex1++;
   pindex2 = Min(pindex2 + 1, poles->Length());
@@ -862,7 +862,7 @@ void Geom2d_BSplineCurve::SetPeriodic()
   mults->ChangeArray1()        = cmults;
 
   // compute new number of poles;
-  Standard_Integer nbp = BSplCLib::NbPoles(deg, Standard_True, cmults);
+  Standard_Integer nbp = BSplCLib1::NbPoles(deg, Standard_True, cmults);
 
   Handle(TColgp_HArray1OfPnt2d) tp = poles;
   TColgp_Array1OfPnt2d          cpoles((poles->Array1())(1), 1, nbp);
@@ -979,7 +979,7 @@ void Geom2d_BSplineCurve::SetNotPeriodic()
   if (periodic)
   {
     Standard_Integer NbKnots, NbPoles;
-    BSplCLib::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
+    BSplCLib1::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
 
     Handle(TColgp_HArray1OfPnt2d) npoles = new TColgp_HArray1OfPnt2d(1, NbPoles);
 
@@ -993,15 +993,15 @@ void Geom2d_BSplineCurve::SetNotPeriodic()
       nweights = new TColStd_HArray1OfReal(1, NbPoles);
     }
 
-    BSplCLib::Unperiodize(deg,
+    BSplCLib1::Unperiodize(deg,
                           mults->Array1(),
                           knots->Array1(),
                           poles->Array1(),
-                          !nweights.IsNull() ? &weights->Array1() : BSplCLib::NoWeights(),
+                          !nweights.IsNull() ? &weights->Array1() : BSplCLib1::NoWeights(),
                           nmults->ChangeArray1(),
                           nknots->ChangeArray1(),
                           npoles->ChangeArray1(),
-                          !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib::NoWeights());
+                          !nweights.IsNull() ? &nweights->ChangeArray1() : BSplCLib1::NoWeights());
     poles         = npoles;
     weights       = nweights;
     mults         = nmults;
@@ -1086,13 +1086,13 @@ void Geom2d_BSplineCurve::MovePoint(const Standard_Real    U,
   D0(U, P0);
   gp_Vec2d Displ(P0, P);
 
-  BSplCLib::MovePoint(U,
+  BSplCLib1::MovePoint(U,
                       Displ,
                       Index1,
                       Index2,
                       deg,
                       poles->Array1(),
-                      rational ? &weights->Array1() : BSplCLib::NoWeights(),
+                      rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                       flatknots->Array1(),
                       FirstModifiedPole,
                       LastmodifiedPole,
@@ -1133,7 +1133,7 @@ void Geom2d_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
     delta_derivative.SetCoord(ii, Tangent.Coord(ii) - delta_derivative.Coord(ii));
   }
 
-  BSplCLib::MovePointAndTangent(U,
+  BSplCLib1::MovePointAndTangent(U,
                                 delta,
                                 delta_derivative,
                                 Tolerance,
@@ -1141,7 +1141,7 @@ void Geom2d_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
                                 StartingCondition,
                                 EndingCondition,
                                 poles->Array1(),
-                                rational ? &weights->Array1() : BSplCLib::NoWeights(),
+                                rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                                 flatknots->Array1(),
                                 new_poles,
                                 ErrorStatus);
@@ -1160,7 +1160,7 @@ void Geom2d_BSplineCurve::UpdateKnots()
   rational = !weights.IsNull();
 
   Standard_Integer MaxKnotMult = 0;
-  BSplCLib::KnotAnalysis(deg, periodic, knots->Array1(), mults->Array1(), knotSet, MaxKnotMult);
+  BSplCLib1::KnotAnalysis(deg, periodic, knots->Array1(), mults->Array1(), knotSet, MaxKnotMult);
 
   if (knotSet == GeomAbs_Uniform && !periodic)
   {
@@ -1169,9 +1169,9 @@ void Geom2d_BSplineCurve::UpdateKnots()
   else
   {
     flatknots =
-      new TColStd_HArray1OfReal(1, BSplCLib::KnotSequenceLength(mults->Array1(), deg, periodic));
+      new TColStd_HArray1OfReal(1, BSplCLib1::KnotSequenceLength(mults->Array1(), deg, periodic));
 
-    BSplCLib::KnotSequence(knots->Array1(),
+    BSplCLib1::KnotSequence(knots->Array1(),
                            mults->Array1(),
                            deg,
                            periodic,

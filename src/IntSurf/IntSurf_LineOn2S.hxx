@@ -90,7 +90,7 @@ private:
   IntSurf_SequenceOfPntOn2S mySeq;
   Bnd_Box2d                 myBuv1;
   Bnd_Box2d                 myBuv2;
-  Bnd_Box                   myBxyz;
+  Box2                   myBxyz;
 };
 
 #include <IntSurf_LineOn2S.lxx>

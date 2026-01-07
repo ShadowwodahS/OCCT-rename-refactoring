@@ -37,7 +37,7 @@ class Vector3d;
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
 
-class HLRBRep_SurfaceTool
+class SurfaceTool3
 {
 public:
   DEFINE_STANDARD_ALLOC

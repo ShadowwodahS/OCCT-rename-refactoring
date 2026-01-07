@@ -560,8 +560,8 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
     tMatu.Transforms(pXY);
     Pl.SetXY(pXY);
     gp_Lin2d line2d(Pf, gp_Dir2d(gp_Vec2d(Pf, Pl)));
-    aFirst                      = ElCLib::Parameter(line2d, Pf);
-    aLast                       = ElCLib::Parameter(line2d, Pl);
+    aFirst                      = ElCLib1::Parameter(line2d, Pf);
+    aLast                       = ElCLib1::Parameter(line2d, Pl);
     Handle(Geom2d_Line) Gline2d = new Geom2d_Line(line2d);
     return Gline2d;
   }
@@ -594,13 +594,13 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
       if (approx.HasResult())
         aBSpline2d = approx.Curve();
       else
-        aBSpline2d = Geom2dConvert::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
+        aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(tcurve, Convert_QuasiAngular);
       aFirst = aBSpline2d->FirstParameter();
       aLast  = aBSpline2d->LastParameter();
     }
     else if (!result->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))
     {
-      aBSpline2d = Geom2dConvert::CurveToBSplineCurve(result, Convert_QuasiAngular);
+      aBSpline2d = Geom2dConvert1::CurveToBSplineCurve(result, Convert_QuasiAngular);
     }
     else
       aBSpline2d = Handle(Geom2d_BSplineCurve)::DownCast(result);

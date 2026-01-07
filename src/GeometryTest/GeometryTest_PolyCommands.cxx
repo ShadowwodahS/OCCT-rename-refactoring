@@ -173,8 +173,8 @@ static Standard_Integer shtriangles(DrawInterpreter&, Standard_Integer n, const 
 
 //=================================================================================================
 
-template <typename Poly, typename Point, typename PointArr>
-static inline void AddNode(const Handle(Poly)& thePolygon, const Point& thePnt, PointArr& theNodes)
+template <typename Poly1, typename Point, typename PointArr>
+static inline void AddNode(const Handle(Poly1)& thePolygon, const Point& thePnt, PointArr& theNodes)
 {
   for (Standard_Integer i = thePolygon->Nodes().Lower(); i <= thePolygon->Nodes().Upper(); i++)
   {
@@ -235,7 +235,7 @@ static Standard_Integer PolygonProps(DrawInterpreter& theDI,
   Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
 
   Standard_Real anArea = 0.0, aPerimeter = 0.0;
-  Poly::PolygonProperties(aPoly2d->Nodes(), anArea, aPerimeter);
+  Poly1::PolygonProperties(aPoly2d->Nodes(), anArea, aPerimeter);
 
   theDI << "Area      = " << anArea << "\n";
   theDI << "Perimeter = " << aPerimeter << "\n";
@@ -266,7 +266,7 @@ static Standard_Integer PolygonProps(DrawInterpreter& theDI,
 void GeometryTest::PolyCommands(DrawInterpreter& theCommands)
 {
 
-  const char* g = "Poly Commands";
+  const char* g = "Poly1 Commands";
 
   theCommands.Add("polytr",
                   "polytr name nbnodes nbtri x1 y1 z1 ... n1 n2 n3 ...",

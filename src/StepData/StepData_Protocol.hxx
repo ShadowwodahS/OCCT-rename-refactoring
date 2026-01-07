@@ -115,7 +115,7 @@ public:
     const Standard_CString name,
     const Standard_Boolean anylevel = Standard_True) const;
 
-  //! Returns a complex description according to list of names
+  //! Returns a complex1 description according to list of names
   //! <anylevel> True (D) : for <me> and its resources
   //! <anylevel> False : for <me> only
   Standard_EXPORT Handle(StepData_ECDescr) ECDescr(
@@ -132,7 +132,7 @@ public:
     const Standard_CString name,
     const Standard_Boolean anylevel = Standard_True) const;
 
-  //! Records an ESDescr, intended to build complex descriptions
+  //! Records an ESDescr, intended to build complex1 descriptions
   Standard_EXPORT void AddBasicDescr(const Handle(StepData_ESDescr)& esdescr);
 
   //! Returns a basic description according to its name

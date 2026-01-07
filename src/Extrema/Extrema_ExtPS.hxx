@@ -33,7 +33,7 @@
 class Extrema_ExtPExtS;
 class Extrema_ExtPRevS;
 class Adaptor3d_Surface;
-class Extrema_POnSurf;
+class PointOnSurface1;
 
 //! It calculates all the extremum distances
 //! between a point and a surface.
@@ -103,7 +103,7 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& Point(const Standard_Integer N) const;
 
   //! if the surface is a trimmed surface,
   //! dUfVf is a square distance between <P> and the point
@@ -128,12 +128,12 @@ public:
   Standard_EXPORT void SetAlgo(const Extrema_ExtAlgo A);
 
 private:
-  Standard_EXPORT void TreatSolution(const Extrema_POnSurf& PS, const Standard_Real Val);
+  Standard_EXPORT void TreatSolution(const PointOnSurface1& PS, const Standard_Real Val);
 
 private:
   const Adaptor3d_Surface*  myS;
   Standard_Boolean          myDone;
-  Extrema_ExtPElS           myExtPElS;
+  PointElSurfaceExtrema           myExtPElS;
   Extrema_GenExtPS          myExtPS;
   Extrema_SequenceOfPOnSurf myPoints;
   Standard_Real             myuinf;

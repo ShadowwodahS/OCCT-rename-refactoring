@@ -298,13 +298,13 @@ public:
   //! Returns minimum value to consider the surface as V-closed
   Standard_Real VCloseVal() const;
 
-  Standard_EXPORT const Bnd_Box& GetBoxUF();
+  Standard_EXPORT const Box2& GetBoxUF();
 
-  Standard_EXPORT const Bnd_Box& GetBoxUL();
+  Standard_EXPORT const Box2& GetBoxUL();
 
-  Standard_EXPORT const Bnd_Box& GetBoxVF();
+  Standard_EXPORT const Box2& GetBoxVF();
 
-  Standard_EXPORT const Bnd_Box& GetBoxVL();
+  Standard_EXPORT const Box2& GetBoxVL();
 
   DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Surface, RefObject)
 
@@ -331,10 +331,10 @@ protected:
   Handle(GeomCurve3d)          myIsoVF;
   Handle(GeomCurve3d)          myIsoVL;
   Standard_Boolean            myIsoBoxes;
-  Bnd_Box                     myBndUF;
-  Bnd_Box                     myBndUL;
-  Bnd_Box                     myBndVF;
-  Bnd_Box                     myBndVL;
+  Box2                     myBndUF;
+  Box2                     myBndUL;
+  Box2                     myBndVF;
+  Box2                     myBndVL;
   Standard_Real               myGap;
   Standard_Real               myUDelt;
   Standard_Real               myVDelt;

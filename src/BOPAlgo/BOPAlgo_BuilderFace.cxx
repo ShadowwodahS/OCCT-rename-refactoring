@@ -474,7 +474,7 @@ void BOPAlgo_BuilderFace::PerformAreas(const Message_ProgressRange& theRange)
     //
     Bnd_Box2d aBox;
     BRepTools1::AddUVBounds(aHFace, aBox);
-    aBoxTree.Add(i, Bnd_Tools::Bnd2BVH(aBox));
+    aBoxTree.Add(i, Tools5::Bnd2BVH(aBox));
   }
 
   // Build BVH
@@ -502,7 +502,7 @@ void BOPAlgo_BuilderFace::PerformAreas(const Message_ProgressRange& theRange)
     BRepTools1::AddUVBounds(aFace, aBox);
 
     aSelector.Clear();
-    aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBox));
+    aSelector.SetBox(Tools5::Bnd2BVH(aBox));
     aSelector.Select();
 
     const TColStd_ListOfInteger&        aLI = aSelector.Indices();
@@ -549,7 +549,7 @@ void BOPAlgo_BuilderFace::PerformAreas(const Message_ProgressRange& theRange)
   // Add unused holes to the original face
   if (aHoleFaces.Extent() != aHoleFaceMap.Extent())
   {
-    Bnd_Box aBoxF;
+    Box2 aBoxF;
     BRepBndLib::Add(myFace, aBoxF);
     if (aBoxF.IsOpenXmin() || aBoxF.IsOpenXmax() || aBoxF.IsOpenYmin() || aBoxF.IsOpenYmax()
         || aBoxF.IsOpenZmin() || aBoxF.IsOpenZmax())
@@ -643,7 +643,7 @@ void BOPAlgo_BuilderFace::PerformInternalShapes(const Message_ProgressRange& the
         BRepTools1::AddUVBounds(myFace, aE, aBoxE);
         // Make sure the index of edge in the map and
         // of the box in the tree is the same
-        aBoxTree.Add(anEdgesMap.Add(aE), Bnd_Tools::Bnd2BVH(aBoxE));
+        aBoxTree.Add(anEdgesMap.Add(aE), Tools5::Bnd2BVH(aBoxE));
       }
     }
   }
@@ -674,7 +674,7 @@ void BOPAlgo_BuilderFace::PerformInternalShapes(const Message_ProgressRange& the
     // Select edges for the classification
     BOPTools_Box2dTreeSelector aSelector;
     aSelector.SetBVHSet(&aBoxTree);
-    aSelector.SetBox(Bnd_Tools::Bnd2BVH(aBoxF));
+    aSelector.SetBox(Tools5::Bnd2BVH(aBoxF));
     if (!aSelector.Select())
       continue;
 

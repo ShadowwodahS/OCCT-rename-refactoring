@@ -69,8 +69,8 @@ void AIS_BaseAnimationObject::invalidateViewer()
        aDefViewIter.Next())
   {
     const Handle(ViewWindow)& aView       = aDefViewIter.Value();
-    const Bnd_Box           aMinMaxBox  = aView->View()->MinMaxValues(Standard_False);
-    const Bnd_Box           aGraphicBox = aView->View()->MinMaxValues(Standard_True);
+    const Box2           aMinMaxBox  = aView->View()->MinMaxValues(Standard_False);
+    const Box2           aGraphicBox = aView->View()->MinMaxValues(Standard_True);
     Standard_Real           aZNear      = 0.0;
     Standard_Real           aZFar       = 0.0;
     if (aView->Camera()->ZFitAll(aDefViewIter.Value()->AutoZFitScaleFactor(),

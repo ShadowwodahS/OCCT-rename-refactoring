@@ -146,7 +146,7 @@ Standard_Real GeomCircle::Radius() const
 void GeomCircle::D0(const Standard_Real U, Pnt& P) const
 {
 
-  P = ElCLib::CircleValue(U, pos, radius);
+  P = ElCLib1::CircleValue(U, pos, radius);
 }
 
 //=================================================================================================
@@ -154,7 +154,7 @@ void GeomCircle::D0(const Standard_Real U, Pnt& P) const
 void GeomCircle::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 {
 
-  ElCLib::CircleD1(U, pos, radius, P, V1);
+  ElCLib1::CircleD1(U, pos, radius, P, V1);
 }
 
 //=================================================================================================
@@ -162,7 +162,7 @@ void GeomCircle::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 void GeomCircle::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 {
 
-  ElCLib::CircleD2(U, pos, radius, P, V1, V2);
+  ElCLib1::CircleD2(U, pos, radius, P, V1, V2);
 }
 
 //=================================================================================================
@@ -170,7 +170,7 @@ void GeomCircle::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 void GeomCircle::D3(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2, Vec& V3) const
 {
 
-  ElCLib::CircleD3(U, pos, radius, P, V1, V2, V3);
+  ElCLib1::CircleD3(U, pos, radius, P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -179,7 +179,7 @@ Vec GeomCircle::DN(const Standard_Real U, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::CircleDN(U, pos, radius, N);
+  return ElCLib1::CircleDN(U, pos, radius, N);
 }
 
 //=================================================================================================

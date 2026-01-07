@@ -26,7 +26,7 @@ class Bnd_Box2d;
 class gp_Hypr2d;
 class gp_Parab2d;
 class gp_Lin;
-class Bnd_Box;
+class Box2;
 class gp_Hypr;
 class gp_Parab;
 
@@ -51,13 +51,13 @@ public:
                                   const Bnd_Box2d&  bounding,
                                   Bnd_Box2d&        boxHypr);
 
-  Standard_EXPORT void LinBox(const gp_Lin& theLin, const Bnd_Box& bounding, Bnd_Box& boxLin);
+  Standard_EXPORT void LinBox(const gp_Lin& theLin, const Box2& bounding, Box2& boxLin);
 
-  Standard_EXPORT void HyprBox(const gp_Hypr& theHypr, const Bnd_Box& bounding, Bnd_Box& boxHypr);
+  Standard_EXPORT void HyprBox(const gp_Hypr& theHypr, const Box2& bounding, Box2& boxHypr);
 
   Standard_EXPORT void ParabBox(const gp_Parab& theParab,
-                                const Bnd_Box&  bounding,
-                                Bnd_Box&        boxHypr);
+                                const Box2&  bounding,
+                                Box2&        boxHypr);
 
   Standard_EXPORT Standard_Integer NbSegments() const;
 
@@ -71,9 +71,9 @@ private:
 
   Standard_EXPORT Standard_Integer Inters2d(const gp_Parab2d& theCurve, const Bnd_Box2d& Domain);
 
-  Standard_EXPORT Standard_Integer Inters3d(const gp_Hypr& theCurve, const Bnd_Box& Domain);
+  Standard_EXPORT Standard_Integer Inters3d(const gp_Hypr& theCurve, const Box2& Domain);
 
-  Standard_EXPORT Standard_Integer Inters3d(const gp_Parab& theCurve, const Bnd_Box& Domain);
+  Standard_EXPORT Standard_Integer Inters3d(const gp_Parab& theCurve, const Box2& Domain);
 
   Standard_Integer nbSeg;
   Standard_Real    beginOnCurve[6];

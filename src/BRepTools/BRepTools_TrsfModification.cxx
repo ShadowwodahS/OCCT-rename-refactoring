@@ -117,7 +117,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
   }
 
   theTriangulation = theTriangulation->Copy();
-  theTriangulation->SetCachedMinMax(Bnd_Box()); // clear bounding box
+  theTriangulation->SetCachedMinMax(Box2()); // clear bounding box
   theTriangulation->Deflection(theTriangulation->Deflection() * Abs(myTrsf.ScaleFactor()));
   // apply transformation to 3D nodes
   for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
@@ -144,7 +144,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
   {
     for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbTriangles(); ++anInd)
     {
-      Poly_Triangle    aTria = theTriangulation->Triangle(anInd);
+      Poly_Triangle    aTria = theTriangulation->Triangle1(anInd);
       Standard_Integer aN1, aN2, aN3;
       aTria.Get(aN1, aN2, aN3);
       aTria.Set(aN1, aN3, aN2);
@@ -256,13 +256,13 @@ Standard_Boolean BRepTools_TrsfModification::NewPolygonOnTriangulation(
     gp_GTrsf2d aGTrsf = aSurf->ParametricTransformation(myTrsf);
     if (aGTrsf.Form() != gp_Identity)
     {
-      Handle(GeomCurve2d) aNewC2d = GeomLib::GTransform(aC2d, aGTrsf);
+      Handle(GeomCurve2d) aNewC2d = GeomLib1::GTransform(aC2d, aGTrsf);
       for (Standard_Integer anInd = 1; anInd <= theP->NbNodes(); ++anInd)
       {
         Standard_Real aParam = theP->Parameter(anInd);
         gp_Pnt2d      aP2d   = aC2d->Value(aParam);
         aGTrsf.Transforms(aP2d.ChangeCoord());
-        GeomLib_Tool::Parameter(aNewC2d, aP2d, theP->Deflection(), aParam);
+        Tool2::Parameter(aNewC2d, aP2d, theP->Deflection(), aParam);
         theP->SetParameter(anInd, aParam);
       }
     }
@@ -381,7 +381,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoEdge& E,
 
     if (gtrsf.Form() != gp_Identity)
     {
-      NewC = GeomLib::GTransform(NewC, gtrsf);
+      NewC = GeomLib1::GTransform(NewC, gtrsf);
       if (NewC.IsNull())
       {
         throw Standard_DomainError("TrsfModification:Error in NewCurve2d");
@@ -398,7 +398,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoEdge& E,
   Standard_Real aTolV;
   NewParameter(V1, EFOR, f, aTolV);
   NewParameter(V2, EFOR, l, aTolV);
-  GeomLib::SameRange(Precision::PConfusion(), NewC, newf, newl, f, l, C);
+  GeomLib1::SameRange(Precision::PConfusion(), NewC, newf, newl, f, l, C);
 
   return Standard_True;
 }

@@ -36,7 +36,7 @@ class gp_Pnt2d;
 //! other giving the value of the small radius.
 //! * Create an ellipse from its major axis and its major
 //! radius and its minor radius.
-class gce_MakeElips2d : public gce_Root
+class gce_MakeElips2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

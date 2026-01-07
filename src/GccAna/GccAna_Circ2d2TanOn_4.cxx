@@ -141,11 +141,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
       pnttg1sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + dp2l * dc2.XY());
       pnttg2sol(NbrSol)  = Point2;
       pntcen(NbrSol)     = pinterm;
-      par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-      pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
-      par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+      par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+      pararg1(NbrSol)    = ElCLib1::Parameter(L1, pnttg1sol(NbrSol));
+      par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
       pararg2(NbrSol)    = 0.;
-      parcen3(NbrSol)    = ElCLib::Parameter(OnLine, pntcen(NbrSol));
+      parcen3(NbrSol)    = ElCLib1::Parameter(OnLine, pntcen(NbrSol));
       return;
     }
   }
@@ -159,14 +159,14 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
   {
     Handle(GccInt_Bisec)     Sol  = Bis.ThisSolution();
     GccInt_IType             type = Sol->ArcType();
-    IntAna2d_AnaIntersection Intp;
+    AnalyticIntersection2d Intp;
     if (type == GccInt_Lin)
     {
       Intp.Perform(OnLine, Sol->Line());
     }
     if (type == GccInt_Par)
     {
-      Intp.Perform(OnLine, IntAna2d_Conic(Sol->Parabola()));
+      Intp.Perform(OnLine, Conic2d(Sol->Parabola()));
     }
     if (Intp.IsDone())
     {
@@ -227,11 +227,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
             pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
             pnttg2sol(NbrSol)  = Point2;
             pntcen(NbrSol)     = Center;
-            par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
-            par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+            par1sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+            pararg1(NbrSol)    = ElCLib1::Parameter(L1, pnttg1sol(NbrSol));
+            par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             pararg2(NbrSol)    = 0.;
-            parcen3(NbrSol)    = ElCLib::Parameter(OnLine, pntcen(NbrSol));
+            parcen3(NbrSol)    = ElCLib1::Parameter(OnLine, pntcen(NbrSol));
           }
         }
       }

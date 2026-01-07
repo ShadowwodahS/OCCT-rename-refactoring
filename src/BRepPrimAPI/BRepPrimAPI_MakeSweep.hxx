@@ -37,7 +37,7 @@ class TopoShape;
 //! Two kinds of sweeps are implemented in the BRepPrimAPI package:
 //! -      The linear sweep called a   Prism
 //! -      The rotational sweep    called a Revol
-//! Swept constructions along complex profiles such as BSpline curves
+//! Swept constructions along complex1 profiles such as BSpline curves
 //! are also available in the BRepOffsetAPI package..
 class BRepPrimAPI_MakeSweep : public BRepBuilderAPI_MakeShape
 {

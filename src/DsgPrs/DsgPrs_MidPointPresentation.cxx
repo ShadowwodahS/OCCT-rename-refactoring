@@ -62,12 +62,12 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
-      aPrims->AddVertex(ElCLib::Value(dteta * (i - 1), aCircleM));
+      aPrims->AddVertex(ElCLib1::Value(dteta * (i - 1), aCircleM));
 
     // segment from mid point to the text position
     aPrims->AddBound(2);
     // clang-format off
-    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib::Value(ElCLib::Parameter(aCircleM,Position),aCircleM)); // mid point
+    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib1::Value(ElCLib1::Parameter(aCircleM,Position),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(Position); // text position
 
@@ -89,7 +89,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     // segment from mid point to the geometry
     Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(2);
     // clang-format off
-    aPrims->AddVertex(ElCLib::Value(ElCLib::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
+    aPrims->AddVertex(ElCLib1::Value(ElCLib1::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(AttachPoint); // attach point to the geometry
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
@@ -139,12 +139,12 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
-      aPrims->AddVertex(ElCLib::Value(dteta * (i - 1), aCircleM));
+      aPrims->AddVertex(ElCLib1::Value(dteta * (i - 1), aCircleM));
 
     // segment from mid point to the text position
     aPrims->AddBound(2);
     // clang-format off
-    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib::Value(ElCLib::Parameter(aCircleM,Position),aCircleM)); // mid point
+    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib1::Value(ElCLib1::Parameter(aCircleM,Position),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(Position); // text position
 
@@ -159,7 +159,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   {
     // mid point
     aPrims = new Graphic3d_ArrayOfSegments(2);
-    aPrims->AddVertex(ElCLib::Value(ElCLib::Parameter(aCircleM, AttachPoint), aCircleM));
+    aPrims->AddVertex(ElCLib1::Value(ElCLib1::Parameter(aCircleM, AttachPoint), aCircleM));
     aPrims->AddVertex(AttachPoint); // attach point to the geometry
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }
@@ -193,8 +193,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  const Standard_Real pf    = ElCLib::Parameter(aCircle, Point1);
-  const Standard_Real pl    = ElCLib::Parameter(aCircle, Point2);
+  const Standard_Real pf    = ElCLib1::Parameter(aCircle, Point1);
+  const Standard_Real pl    = ElCLib1::Parameter(aCircle, Point2);
   Standard_Real       alpha = pl - pf;
   if (alpha < 0)
     alpha += 2. * M_PI;
@@ -204,7 +204,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Graphic3d_ArrayOfPrimitives) aPrims = new Graphic3d_ArrayOfPolylines(nbp);
   for (Standard_Integer i = 1; i <= nbp; i++)
-    aPrims->AddVertex(ElCLib::Value(pf + dteta * (i - 1), aCircle));
+    aPrims->AddVertex(ElCLib1::Value(pf + dteta * (i - 1), aCircle));
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   if (first)
@@ -217,12 +217,12 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
-      aPrims->AddVertex(ElCLib::Value(dteta * (i - 1), aCircleM));
+      aPrims->AddVertex(ElCLib1::Value(dteta * (i - 1), aCircleM));
 
     // segment from mid point to the text position
     aPrims->AddBound(2);
     // clang-format off
-    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib::Value(ElCLib::Parameter(aCircleM,Position),aCircleM)); // mid point
+    aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib1::Value(ElCLib1::Parameter(aCircleM,Position),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(Position); // text position
 
@@ -238,7 +238,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     // segment from mid point to the geometry
     aPrims = new Graphic3d_ArrayOfSegments(2);
     // clang-format off
-    aPrims->AddVertex(ElCLib::Value(ElCLib::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
+    aPrims->AddVertex(ElCLib1::Value(ElCLib1::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(AttachPoint); // attach point to the geometry
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
@@ -275,8 +275,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  const Standard_Real pf    = ElCLib::Parameter(aCircle, Point1);
-  const Standard_Real pl    = ElCLib::Parameter(aCircle, Point2);
+  const Standard_Real pf    = ElCLib1::Parameter(aCircle, Point1);
+  const Standard_Real pl    = ElCLib1::Parameter(aCircle, Point2);
   Standard_Real       alpha = pl - pf;
   if (alpha < 0)
     alpha += 2 * M_PI;
@@ -286,7 +286,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Graphic3d_ArrayOfPrimitives) aPrims = new Graphic3d_ArrayOfPolylines(nbp);
   for (Standard_Integer i = 1; i <= nbp; i++)
-    aPrims->AddVertex(ElCLib::Value(pf + dteta * (i - 1), aCircle));
+    aPrims->AddVertex(ElCLib1::Value(pf + dteta * (i - 1), aCircle));
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   if (first)
@@ -299,12 +299,12 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPrims = new Graphic3d_ArrayOfPolylines(nbp + 2, 2);
     aPrims->AddBound(nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
-      aPrims->AddVertex(ElCLib::Value(dteta * (i - 1), aCircleM));
+      aPrims->AddVertex(ElCLib1::Value(dteta * (i - 1), aCircleM));
 
     // segment from mid point to the text position
     aPrims->AddBound(2);
     // clang-format off
-	aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib::Value(ElCLib::Parameter(aCircleM,Position),aCircleM)); // mid point
+	aPrims->AddVertex(Position.IsEqual(MidPoint,rad)? MidPoint : ElCLib1::Value(ElCLib1::Parameter(aCircleM,Position),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(Position); // text position
 
@@ -320,7 +320,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     // segment from mid point to the geometry
     aPrims = new Graphic3d_ArrayOfSegments(2);
     // clang-format off
-    aPrims->AddVertex(ElCLib::Value(ElCLib::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
+    aPrims->AddVertex(ElCLib1::Value(ElCLib1::Parameter(aCircleM,AttachPoint),aCircleM)); // mid point
     // clang-format on
     aPrims->AddVertex(AttachPoint); // attach point to the geometry
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);

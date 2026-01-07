@@ -28,7 +28,7 @@
 #include <gp_Dir.hxx>
 class TopOpeBRepDS_Interference;
 
-//! a tool computing edge / face complex transition,
+//! a tool computing edge / face complex1 transition,
 //! Interferences of edge reference are given by
 //! I = (T on face, G = point or vertex, S = edge)
 class TopOpeBRepDS_Edge3dInterferenceTool
@@ -55,7 +55,7 @@ public:
 protected:
 private:
   Standard_Integer           myFaceOriented;
-  TopTrans_SurfaceTransition myTool;
+  SurfaceTransition myTool;
   Standard_Real              myTole;
   Standard_Boolean           myrefdef;
   Standard_Integer           myIsVertex;

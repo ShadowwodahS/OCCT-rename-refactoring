@@ -120,7 +120,7 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsOrphan() const
     return Standard_True;
 
   DataLabel aLabel;
-  TDF_Tool::Label(aData, myItemId.GetPath().Last(), aLabel);
+  Tool3::Label(aData, myItemId.GetPath().Last(), aLabel);
   if (aLabel.IsNull())
     return Standard_True;
 

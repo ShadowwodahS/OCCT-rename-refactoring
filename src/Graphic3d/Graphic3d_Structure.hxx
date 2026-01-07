@@ -29,7 +29,7 @@
 
 class Graphic3d_StructureManager;
 class Graphic3d_DataStructureManager;
-class Bnd_Box;
+class Box2;
 
 DEFINE_STANDARD_HANDLE(Graphic3d_Structure, RefObject)
 
@@ -289,7 +289,7 @@ public:
   //! not taking into account infinite helper elements).
   //! Warning: If the structure <me> is empty then the empty box is returned,
   //! If the structure <me> is infinite then the whole box is returned.
-  Standard_EXPORT Bnd_Box
+  Standard_EXPORT Box2
     MinMaxValues(const Standard_Boolean theToIgnoreInfiniteFlag = Standard_False) const;
 
   //! Returns the visualisation mode for the structure <me>.

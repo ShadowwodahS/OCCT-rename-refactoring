@@ -38,7 +38,7 @@
 // --- Si un probleme est constate : Dupliquer le code entre les
 // --- commentaires VERIF-VALID
 // -----------------------------------------------------------------
-void IntAna2d_AnaIntersection::Perform(const gp_Hypr2d& H, const IntAna2d_Conic& Conic)
+void AnalyticIntersection2d::Perform(const gp_Hypr2d& H, const Conic2d& Conic)
 {
   Standard_Boolean HIsDirect = H.IsDirect();
   Standard_Real    A, B, C, D, E, F;
@@ -72,7 +72,7 @@ void IntAna2d_AnaIntersection::Perform(const gp_Hypr2d& H, const IntAna2d_Conic&
   px3 = 4.0 * (D * major_radius + E * minor_radius);
   px4 = A_major_radiusP2 + C_2_major_minor_radius + B_minor_radiusP2;
 
-  MyDirectPolynomialRoots Sol(px4, px3, px2, px1, px0);
+  MyDirectPolynomialRoots1 Sol(px4, px3, px2, px1, px0);
 
   if (!Sol.IsDone())
   {

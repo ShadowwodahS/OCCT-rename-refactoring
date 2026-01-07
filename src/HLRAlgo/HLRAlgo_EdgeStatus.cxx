@@ -101,10 +101,10 @@ void HLRAlgo_EdgeStatus::Hide(const Standard_Real      Start,
   {
     if (AllVisible())
     {
-      myVisibles = Intrv_Intervals(Intrv_Interval(myStart, myTolStart, myEnd, myTolEnd));
+      myVisibles = Intervals(Interval2(myStart, myTolStart, myEnd, myTolEnd));
       AllVisible(Standard_False);
     }
-    myVisibles.Subtract(Intrv_Interval(Start, TolStart, End, TolEnd));
+    myVisibles.Subtract(Interval2(Start, TolStart, End, TolEnd));
     if (!AllHidden())
       AllHidden(myVisibles.NbIntervals() == 0);
   }

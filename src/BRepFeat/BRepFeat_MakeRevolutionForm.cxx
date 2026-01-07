@@ -965,7 +965,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoShape&       Sbase,
 
     BRepTopAdaptor_FClass2d Cl(NewBndFace, Precision::Confusion());
     Standard_Real           paru, parv;
-    ElSLib::Parameters(myPln->Pln(), CheckPnt, paru, parv);
+    ElSLib1::Parameters(myPln->Pln(), CheckPnt, paru, parv);
     gp_Pnt2d checkpnt2d(paru, parv);
     if (Cl.Perform(checkpnt2d, Standard_True) == TopAbs_OUT)
     {

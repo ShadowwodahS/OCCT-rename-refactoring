@@ -47,13 +47,13 @@
 //! least  one surface  element has   been given, this
 //! position is "In","Out" or "On" for the part of the
 //! curve "Before" or "After" the intersection.
-class TopTrans_SurfaceTransition
+class SurfaceTransition
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Create an empty Surface Transition.
-  Standard_EXPORT TopTrans_SurfaceTransition();
+  Standard_EXPORT SurfaceTransition();
 
   //! Initialize  a  Surface Transition with the local
   //! description of the intersection curve and of the

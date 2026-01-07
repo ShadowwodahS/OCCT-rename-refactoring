@@ -32,14 +32,14 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalNode, RefObject)
 class HLRAlgo_PolyInternalNode : public RefObject
 {
 public:
-  struct NodeIndices
+  struct NodeIndices1
   {
     Standard_Integer NdSg, Flag, Edg1, Edg2;
   };
 
-  struct NodeData
+  struct NodeData1
   {
-    NodeData()
+    NodeData1()
         : PCu1(0.0),
           PCu2(0.0),
           Scal(0.0)
@@ -59,15 +59,15 @@ public:
     myIndices.Edg2 = 0;
   }
 
-  NodeIndices& Indices() { return myIndices; }
+  NodeIndices1& Indices() { return myIndices; }
 
-  NodeData& Data() { return myData; }
+  NodeData1& Data() { return myData; }
 
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, RefObject)
 
 private:
-  NodeIndices myIndices;
-  NodeData    myData;
+  NodeIndices1 myIndices;
+  NodeData1    myData;
 };
 
 #endif // _HLRAlgo_PolyInternalNode_HeaderFile

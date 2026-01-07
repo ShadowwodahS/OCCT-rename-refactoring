@@ -256,24 +256,24 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
   {
     Standard_CString type = "";
     if (theAtt->ID() == XCAFDoc::ShapeRefGUID())
-      type = "Shape Instance Link";
+      type = "Shape Instance Link1";
     else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorGen))
-      type = "Generic Color Link";
+      type = "Generic Color Link1";
     else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorSurf))
-      type = "Surface Color Link";
+      type = "Surface Color Link1";
     else if (theAtt->ID() == XCAFDoc::ColorRefGUID(XCAFDoc_ColorCurv))
-      type = "Curve Color Link";
+      type = "Curve Color Link1";
     else if (theAtt->ID() == XCAFDoc::DimTolRefGUID())
-      type = "DGT Link";
+      type = "DGT Link1";
     else if (theAtt->ID() == XCAFDoc::DatumRefGUID())
-      type = "Datum Link";
+      type = "Datum Link1";
     else if (theAtt->ID() == XCAFDoc::MaterialRefGUID())
-      type = "Material Link";
+      type = "Material Link1";
     Handle(TDataStd_TreeNode) TN = Handle(TDataStd_TreeNode)::DownCast(theAtt);
     AsciiString1   ref;
     if (TN->HasFather())
     {
-      TDF_Tool::Entry(TN->Father()->Label(), ref);
+      Tool3::Entry(TN->Father()->Label(), ref);
       anInfo = type;
       anInfo += AsciiString1(" ==> ") + ref;
     }
@@ -284,7 +284,7 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
       Handle(TDataStd_TreeNode) child = TN->First();
       while (!child.IsNull())
       {
-        TDF_Tool::Entry(child->Label(), ref);
+        Tool3::Entry(child->Label(), ref);
         if (child != TN->First())
           anInfo += ", ";
         anInfo += ref;
@@ -297,7 +297,7 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
   {
     Handle(TDF_Reference)   val = Handle(TDF_Reference)::DownCast(theAtt);
     AsciiString1 ref;
-    TDF_Tool::Entry(val->Get(), ref);
+    Tool3::Entry(val->Get(), ref);
     anInfo += AsciiString1("==> ") + ref;
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDF_TagSource)))
@@ -537,43 +537,43 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
     Standard_CString type;
     if (theAtt->ID() == XCAFDoc::LayerRefGUID())
     {
-      type = "Layer Instance Link";
+      type = "Layer Instance Link1";
     }
     else if (theAtt->ID() == XCAFDoc::SHUORefGUID())
     {
-      type = "SHUO Instance Link";
+      type = "SHUO Instance Link1";
     }
     else if (theAtt->ID() == XCAFDoc::DatumTolRefGUID())
     {
-      type = "DatumToler Link";
+      type = "DatumToler Link1";
     }
     else if (theAtt->ID() == XCAFDoc::DimensionRefFirstGUID())
     {
-      type = "Dimension Link First";
+      type = "Dimension Link1 First";
     }
     else if (theAtt->ID() == XCAFDoc::DimensionRefSecondGUID())
     {
-      type = "Dimension Link Second";
+      type = "Dimension Link1 Second";
     }
     else if (theAtt->ID() == XCAFDoc::GeomToleranceRefGUID())
     {
-      type = "GeomTolerance Link";
+      type = "GeomTolerance Link1";
     }
     else if (theAtt->ID() == XCAFDoc::DatumRefGUID())
     {
-      type = "Datum Link";
+      type = "Datum Link1";
     }
     else if (theAtt->ID() == XCAFDoc::ViewRefShapeGUID())
     {
-      type = "View Shape Link";
+      type = "View Shape Link1";
     }
     else if (theAtt->ID() == XCAFDoc::ViewRefGDTGUID())
     {
-      type = "View GD&T Link";
+      type = "View GD&T Link1";
     }
     else if (theAtt->ID() == XCAFDoc::ViewRefPlaneGUID())
     {
-      type = "View Clipping Plane Link";
+      type = "View Clipping Plane Link1";
     }
     else
       return AsciiString1();
@@ -584,13 +584,13 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
     if (DETGN->NbFathers() != 0)
     {
 
-      TDF_Tool::Entry(DETGN->GetFather(ii)->Label(), ref);
+      Tool3::Entry(DETGN->GetFather(ii)->Label(), ref);
       anInfo = type;
       anInfo += " ==> (";
       anInfo += ref;
       for (ii = 2; ii <= DETGN->NbFathers(); ii++)
       {
-        TDF_Tool::Entry(DETGN->GetFather(ii)->Label(), ref);
+        Tool3::Entry(DETGN->GetFather(ii)->Label(), ref);
         anInfo += ", ";
         anInfo += ref;
       }
@@ -599,13 +599,13 @@ AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
     ii = 1;
     if (DETGN->NbChildren() != 0)
     {
-      TDF_Tool::Entry(DETGN->GetChild(ii)->Label(), ref);
+      Tool3::Entry(DETGN->GetChild(ii)->Label(), ref);
       anInfo += type;
       anInfo += " <== (";
       anInfo += ref;
       for (ii = 2; ii <= DETGN->NbChildren(); ii++)
       {
-        TDF_Tool::Entry(DETGN->GetChild(ii)->Label(), ref);
+        Tool3::Entry(DETGN->GetChild(ii)->Label(), ref);
         anInfo += ", ";
         anInfo += ref;
       }

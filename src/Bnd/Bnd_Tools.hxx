@@ -21,9 +21,9 @@
 #include <BVH_Box.hxx>
 
 //! Defines a set of static methods operating with bounding boxes
-class Bnd_Tools
+class Tools5
 {
-public: //! @name Bnd_Box to BVH_Box conversion
+public: //! @name Box2 to BVH_Box conversion
   //! Converts the given Bnd_Box2d to BVH_Box
   static BVH_Box<Standard_Real, 2> Bnd2BVH(const Bnd_Box2d& theBox)
   {
@@ -32,8 +32,8 @@ public: //! @name Bnd_Box to BVH_Box conversion
     return BVH_Box<Standard_Real, 2>(BVH_Vec2d(aXMin, aYMin), BVH_Vec2d(aXMax, aYMax));
   }
 
-  //! Converts the given Bnd_Box to BVH_Box
-  static BVH_Box<Standard_Real, 3> Bnd2BVH(const Bnd_Box& theBox)
+  //! Converts the given Box2 to BVH_Box
+  static BVH_Box<Standard_Real, 3> Bnd2BVH(const Box2& theBox)
   {
     Standard_Real aXMin, aYMin, aZMin, aXMax, aYMax, aZMax;
     theBox.Get(aXMin, aYMin, aZMin, aXMax, aYMax, aZMax);

@@ -118,7 +118,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectionContainer)
                       + theMode + ") has failed (" + anException.GetMessageString() + ")");
     if (theMode == 0)
     {
-      Bnd_Box                       aBndBox       = BoundingBox();
+      Box2                       aBndBox       = BoundingBox();
       Handle(StdSelect_BRepOwner)   aOwner        = new StdSelect_BRepOwner(anOcctShape, this);
       Handle(Select3D_SensitiveBox) aSensitiveBox = new Select3D_SensitiveBox(aOwner, aBndBox);
       theSelection->Add(aSensitiveBox);
@@ -130,7 +130,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectionContainer)
 // Method:  BoundingBox
 // Purpose:
 //============================================================================
-const Bnd_Box& IVtkOCC_SelectableObject::BoundingBox()
+const Box2& IVtkOCC_SelectableObject::BoundingBox()
 {
   if (myShape.IsNull())
   {
@@ -158,7 +158,7 @@ const Bnd_Box& IVtkOCC_SelectableObject::BoundingBox()
 // Method:  BoundingBox
 // Purpose:
 //============================================================================
-void IVtkOCC_SelectableObject::BoundingBox(Bnd_Box& theBndBox)
+void IVtkOCC_SelectableObject::BoundingBox(Box2& theBndBox)
 {
   BoundingBox();
   theBndBox = myBndBox;

@@ -26,7 +26,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array2OfReal.hxx>
 
-void CSLib::Normal(
+void CSLib1::Normal(
 
   const Vector3d&           D1U,
   const Vector3d&           D1V,
@@ -67,7 +67,7 @@ void CSLib::Normal(
   }
 }
 
-void CSLib::Normal(
+void CSLib1::Normal(
 
   const Vector3d&       D1U,
   const Vector3d&       D1V,
@@ -140,7 +140,7 @@ void CSLib::Normal(
   }
 }
 
-void CSLib::Normal(
+void CSLib1::Normal(
 
   const Vector3d&       D1U,
   const Vector3d&       D1V,
@@ -173,7 +173,7 @@ void CSLib::Normal(
 
 // Calculate normal vector in singular cases
 //
-void CSLib::Normal(const Standard_Integer    MaxOrder,
+void CSLib1::Normal(const Standard_Integer    MaxOrder,
                    const TColgp_Array2OfVec& DerNUV,
                    const Standard_Real       SinTol,
                    const Standard_Real       U,
@@ -302,10 +302,10 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
         Standard_Boolean CS    = 0;
         Standard_Real    Vprec = 0., Vsuiv = 0.;
         // Creation of the polynom
-        CSLib_NormalPolyDef Poly(Order, Ratio);
+        CSLib_NormalPolyDef Poly1(Order, Ratio);
         // Find zeros of SAPS
         math_FunctionRoots
-          FindRoots(Poly, inf, sup, 200, 1e-5, Precision::Confusion(), Precision::Confusion());
+          FindRoots(Poly1, inf, sup, 200, 1e-5, Precision::Confusion(), Precision::Confusion());
         // If there are zeros
         if (FindRoots.IsDone() && FindRoots.NbSolutions() > 0)
         {
@@ -336,7 +336,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
           {
             if (Abs(Sol0(i + 1) - Sol0(i)) > Precision::PConfusion())
             {
-              Poly.Value((Sol0(i) + Sol0(i + 1)) / 2.0, Vsuiv);
+              Poly1.Value((Sol0(i) + Sol0(i + 1)) / 2.0, Vsuiv);
               if (ifirst == 0)
               {
                 ifirst = i;
@@ -355,7 +355,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
         {
           // SAPS has no root, so forcedly do not change the sign
           CS = Standard_False;
-          Poly.Value(inf, Vsuiv);
+          Poly1.Value(inf, Vsuiv);
         }
         // fin if(MFR.IsDone() && MFR.NbSolutions()>0)
 
@@ -388,7 +388,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
 //
 // Calculate the derivative of the non-normed normal vector
 //
-Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
+Vector3d CSLib1::DNNUV(const Standard_Integer    Nu,
                     const Standard_Integer    Nv,
                     const TColgp_Array2OfVec& DerSurf)
 {
@@ -400,14 +400,14 @@ Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
       VG = DerSurf.Value(i + 1, j);
       VD = DerSurf.Value(Nu - i, Nv + 1 - j);
       PV = VG ^ VD;
-      D  = D + PLib::Bin(Nu, i) * PLib::Bin(Nv, j) * PV;
+      D  = D + PLib1::Bin(Nu, i) * PLib1::Bin(Nv, j) * PV;
     }
   return D;
 }
 
 //=================================================================================================
 
-Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
+Vector3d CSLib1::DNNUV(const Standard_Integer    Nu,
                     const Standard_Integer    Nv,
                     const TColgp_Array2OfVec& DerSurf1,
                     const TColgp_Array2OfVec& DerSurf2)
@@ -420,7 +420,7 @@ Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
       VG = DerSurf1.Value(i + 1, j);
       VD = DerSurf2.Value(Nu - i, Nv + 1 - j);
       PV = VG ^ VD;
-      D  = D + PLib::Bin(Nu, i) * PLib::Bin(Nv, j) * PV;
+      D  = D + PLib1::Bin(Nu, i) * PLib1::Bin(Nv, j) * PV;
     }
   return D;
 }
@@ -429,7 +429,7 @@ Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
 // Calculate the derivatives of the normed normal vector depending on the  derivatives
 // of the non-normed normal vector
 //
-Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
+Vector3d CSLib1::DNNormal(const Standard_Integer    Nu,
                        const Standard_Integer    Nv,
                        const TColgp_Array2OfVec& DerNUV,
                        const Standard_Integer    Iduref,
@@ -462,14 +462,14 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
         for (Standard_Integer Jderiv = 1; Jderiv <= Qderiv; Jderiv++)
         {
           Scal = Scal
-                 - PLib::Bin(Qderiv, Jderiv)
+                 - PLib1::Bin(Qderiv, Jderiv)
                      * (DerVecNor.Value(0, Jderiv) * DerVecNor.Value(Pderiv, Qderiv - Jderiv));
         }
 
         for (Standard_Integer Jderiv = 0; Jderiv < Qderiv; Jderiv++)
         {
           Scal = Scal
-                 - PLib::Bin(Qderiv, Jderiv)
+                 - PLib1::Bin(Qderiv, Jderiv)
                      * (DerVecNor.Value(Pderiv, Jderiv) * DerVecNor.Value(0, Qderiv - Jderiv));
         }
 
@@ -478,7 +478,7 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
           for (Standard_Integer Jderiv = 0; Jderiv <= Qderiv; Jderiv++)
           {
             Scal = Scal
-                   - PLib::Bin(Pderiv, Ideriv) * PLib::Bin(Qderiv, Jderiv)
+                   - PLib1::Bin(Pderiv, Ideriv) * PLib1::Bin(Qderiv, Jderiv)
                        * (DerVecNor.Value(Ideriv, Jderiv)
                           * DerVecNor.Value(Pderiv - Ideriv, Qderiv - Jderiv));
           }
@@ -489,14 +489,14 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
         for (Standard_Integer Ideriv = 1; Ideriv <= Pderiv; Ideriv++)
         {
           Scal = Scal
-                 - PLib::Bin(Pderiv, Ideriv) * DerVecNor.Value(Ideriv, 0)
+                 - PLib1::Bin(Pderiv, Ideriv) * DerVecNor.Value(Ideriv, 0)
                      * DerVecNor.Value(Pderiv - Ideriv, Qderiv);
         }
 
         for (Standard_Integer Ideriv = 0; Ideriv < Pderiv; Ideriv++)
         {
           Scal = Scal
-                 - PLib::Bin(Pderiv, Ideriv) * DerVecNor.Value(Ideriv, Qderiv)
+                 - PLib1::Bin(Pderiv, Ideriv) * DerVecNor.Value(Ideriv, Qderiv)
                      * DerVecNor.Value(Pderiv - Ideriv, 0);
         }
 
@@ -505,7 +505,7 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
           for (Standard_Integer Jderiv = 1; Jderiv < Qderiv; Jderiv++)
           {
             Scal = Scal
-                   - PLib::Bin(Pderiv, Ideriv) * PLib::Bin(Qderiv, Jderiv)
+                   - PLib1::Bin(Pderiv, Ideriv) * PLib1::Bin(Qderiv, Jderiv)
                        * (DerVecNor.Value(Ideriv, Jderiv)
                           * DerVecNor.Value(Pderiv - Ideriv, Qderiv - Jderiv));
           }
@@ -518,7 +518,7 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
       for (Standard_Integer Jderiv = 0; Jderiv < Qderiv; Jderiv++)
       {
         Dnorm = Dnorm
-                - PLib::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Pderiv, Jderiv)
+                - PLib1::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Pderiv, Jderiv)
                     * TabScal.Value(0, Qderiv - Jderiv);
       }
 
@@ -527,8 +527,8 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
         for (Standard_Integer Jderiv = 0; Jderiv <= Qderiv; Jderiv++)
         {
           Dnorm = Dnorm
-                  - PLib::Bin(Pderiv + Iduref, Ideriv + Iduref)
-                      * PLib::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Ideriv, Jderiv)
+                  - PLib1::Bin(Pderiv + Iduref, Ideriv + Iduref)
+                      * PLib1::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Ideriv, Jderiv)
                       * TabScal.Value(Pderiv - Ideriv, Qderiv - Jderiv);
         }
       }
@@ -539,7 +539,7 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
       for (Standard_Integer Jderiv = 1; Jderiv <= Qderiv; Jderiv++)
       {
         DerNor = DerNor
-                 - PLib::Bin(Pderiv + Iduref, Iduref) * PLib::Bin(Qderiv + Idvref, Jderiv + Idvref)
+                 - PLib1::Bin(Pderiv + Iduref, Iduref) * PLib1::Bin(Qderiv + Idvref, Jderiv + Idvref)
                      * TabNorm.Value(0, Jderiv) * DerVecNor.Value(Pderiv, Qderiv - Jderiv);
       }
 
@@ -548,12 +548,12 @@ Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
         for (Standard_Integer Jderiv = 0; Jderiv <= Qderiv; Jderiv++)
         {
           DerNor = DerNor
-                   - PLib::Bin(Pderiv + Iduref, Ideriv + Iduref)
-                       * PLib::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Ideriv, Jderiv)
+                   - PLib1::Bin(Pderiv + Iduref, Ideriv + Iduref)
+                       * PLib1::Bin(Qderiv + Idvref, Jderiv + Idvref) * TabNorm.Value(Ideriv, Jderiv)
                        * DerVecNor.Value(Pderiv - Ideriv, Qderiv - Jderiv);
         }
       }
-      DerNor = DerNor / PLib::Bin(Pderiv + Iduref, Iduref) / PLib::Bin(Qderiv + Idvref, Idvref)
+      DerNor = DerNor / PLib1::Bin(Pderiv + Iduref, Iduref) / PLib1::Bin(Qderiv + Idvref, Idvref)
                / TabNorm.Value(0, 0);
       DerVecNor.SetValue(Pderiv, Qderiv, DerNor);
     }

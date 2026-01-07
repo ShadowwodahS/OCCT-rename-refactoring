@@ -20,8 +20,8 @@
 #include <TopBas_TestInterference.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<TopBas_TestInterference> TopBas_ListOfTestInterference;
-typedef NCollection_List<TopBas_TestInterference>::Iterator
+typedef NCollection_List<InterferenceTest> TopBas_ListOfTestInterference;
+typedef NCollection_List<InterferenceTest>::Iterator
   TopBas_ListIteratorOfListOfTestInterference;
 
 #endif

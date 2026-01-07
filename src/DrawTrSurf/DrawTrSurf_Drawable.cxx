@@ -58,7 +58,7 @@ void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& aDisp
   if (myDrawMode == 1)
   {
     Standard_Real            Fleche = myDeflection / aDisplay.Zoom();
-    GCPnts_UniformDeflection LineVu(C, Fleche);
+    UniformDeflection1 LineVu(C, Fleche);
     if (LineVu.IsDone())
     {
       P           = LineVu.Value(1);
@@ -139,7 +139,7 @@ void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, DrawDisplay& aDisplay)
   if (myDrawMode == 1)
   {
     Standard_Real            Fleche = myDeflection / aDisplay.Zoom();
-    GCPnts_UniformDeflection LineVu(C, Fleche);
+    UniformDeflection1 LineVu(C, Fleche);
     if (LineVu.IsDone())
     {
       aDisplay.MoveTo(LineVu.Value(1));

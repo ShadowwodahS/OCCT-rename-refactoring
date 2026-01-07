@@ -31,47 +31,47 @@ const Standard_Real EPSILON          = RealEpsilon();
 const Standard_Real RADIX            = 2;
 const Standard_Real Un_Sur_Log_RADIX = 1.0 / log(2.0);
 
-static Standard_Real Value(const Standard_Integer N, Standard_Real* Poly, const Standard_Real X)
+static Standard_Real Value(const Standard_Integer N, Standard_Real* Poly1, const Standard_Real X)
 {
 
-  Standard_Real Result = Poly[0];
+  Standard_Real Result = Poly1[0];
   for (Standard_Integer Index = 1; Index < N; Index++)
   {
-    Result = Result * X + Poly[Index];
+    Result = Result * X + Poly1[Index];
   }
   return Result;
 }
 
 static void Values(const Standard_Integer N,
-                   Standard_Real*         Poly,
+                   Standard_Real*         Poly1,
                    const Standard_Real    X,
                    Standard_Real&         Val,
                    Standard_Real&         Der)
 {
 
-  Val = Poly[0] * X + Poly[1];
-  Der = Poly[0];
+  Val = Poly1[0] * X + Poly1[1];
+  Der = Poly1[0];
   for (Standard_Integer Index = 2; Index < N; Index++)
   {
     Der = Der * X + Val;
-    Val = Val * X + Poly[Index];
+    Val = Val * X + Poly1[Index];
   }
 }
 
 static Standard_Real Improve(const Standard_Integer N,
-                             Standard_Real*         Poly,
+                             Standard_Real*         Poly1,
                              const Standard_Real    IniSol)
 {
 
   Standard_Real    Val    = 0., Der, Delta;
   Standard_Real    Sol    = IniSol;
-  Standard_Real    IniVal = Value(N, Poly, IniSol);
+  Standard_Real    IniVal = Value(N, Poly1, IniSol);
   Standard_Integer Index;
 
   //      std::cout << "Improve\n";
   for (Index = 1; Index < 10; Index++)
   {
-    Values(N, Poly, Sol, Val, Der);
+    Values(N, Poly1, Sol, Val, Der);
     if (Abs(Der) <= ZERO)
       break;
     Delta = -Val / Der;
@@ -99,13 +99,13 @@ Standard_Real Improve(const Standard_Real A,
                       const Standard_Real IniSol)
 {
 
-  Standard_Real Poly[5];
-  Poly[0] = A;
-  Poly[1] = B;
-  Poly[2] = C;
-  Poly[3] = D;
-  Poly[4] = E;
-  return Improve(5, Poly, IniSol);
+  Standard_Real Poly1[5];
+  Poly1[0] = A;
+  Poly1[1] = B;
+  Poly1[2] = C;
+  Poly1[3] = D;
+  Poly1[4] = E;
+  return Improve(5, Poly1, IniSol);
 }
 
 Standard_Real Improve(const Standard_Real A,
@@ -115,12 +115,12 @@ Standard_Real Improve(const Standard_Real A,
                       const Standard_Real IniSol)
 {
 
-  Standard_Real Poly[4];
-  Poly[0] = A;
-  Poly[1] = B;
-  Poly[2] = C;
-  Poly[3] = D;
-  return Improve(4, Poly, IniSol);
+  Standard_Real Poly1[4];
+  Poly1[0] = A;
+  Poly1[1] = B;
+  Poly1[2] = C;
+  Poly1[3] = D;
+  return Improve(4, Poly1, IniSol);
 }
 
 Standard_Real Improve(const Standard_Real A,
@@ -129,11 +129,11 @@ Standard_Real Improve(const Standard_Real A,
                       const Standard_Real IniSol)
 {
 
-  Standard_Real Poly[3];
-  Poly[0] = A;
-  Poly[1] = B;
-  Poly[2] = C;
-  return Improve(3, Poly, IniSol);
+  Standard_Real Poly1[3];
+  Poly1[0] = A;
+  Poly1[1] = B;
+  Poly1[2] = C;
+  return Improve(3, Poly1, IniSol);
 }
 
 Standard_Integer BaseExponent(const Standard_Real X)

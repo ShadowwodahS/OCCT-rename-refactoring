@@ -31,7 +31,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=============================================================================
-Extrema_ExtPElC2d::Extrema_ExtPElC2d()
+PointElCCurveExtrema2d::PointElCCurveExtrema2d()
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -45,7 +45,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d()
 
 //=============================================================================
 
-Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
+PointElCCurveExtrema2d::PointElCCurveExtrema2d(const gp_Pnt2d&     P,
                                      const gp_Lin2d&     L,
                                      const Standard_Real Tol,
                                      const Standard_Real Uinf,
@@ -54,7 +54,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
   Perform(P, L, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
+void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
                                 const gp_Lin2d&     L,
                                 const Standard_Real Tol,
                                 const Standard_Real Uinf,
@@ -72,7 +72,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
   {
     myNbExt = 1;
     MyP     = OR.Translated(Mydist * V1);
-    Extrema_POnCurv2d MyPOnCurve(Mydist, MyP);
+    PointOnCurve2d MyPOnCurve(Mydist, MyP);
     mySqDist[0] = P.SquareDistance(MyP);
     myPoint[0]  = MyPOnCurve;
     myIsMin[0]  = Standard_True;
@@ -81,7 +81,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
 //=============================================================================
 
-Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
+PointElCCurveExtrema2d::PointElCCurveExtrema2d(const gp_Pnt2d&     P,
                                      const gp_Circ2d&    C,
                                      const Standard_Real Tol,
                                      const Standard_Real Uinf,
@@ -90,7 +90,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
+void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
                                 const gp_Circ2d&    C,
                                 const Standard_Real Tol,
                                 const Standard_Real Uinf,
@@ -113,12 +113,12 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
     gp_Dir2d V(gp_Vec2d(P, OC));
     radius               = C.Radius();
     P1                   = OC.Translated(radius * V);
-    U1                   = ElCLib::Parameter(C, P1);
+    U1                   = ElCLib1::Parameter(C, P1);
     U2                   = U1 + M_PI;
     P2                   = OC.Translated(-radius * V);
     Standard_Real myuinf = Uinf;
-    ElCLib::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U1);
-    ElCLib::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U2);
+    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U1);
+    ElCLib1::AdjustPeriodic(Uinf, Uinf + 2 * M_PI, Precision::PConfusion(), myuinf, U2);
     if (((U1 - 2 * M_PI - Uinf) < Tol) && ((U1 - 2 * M_PI - Uinf) > -Tol))
     {
       U1 = Uinf;
@@ -135,7 +135,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
     if (((Uinf - U1) < Tol) && ((U1 - Usup) < Tol))
     {
-      Extrema_POnCurv2d MyPOnCurve(U1, P1);
+      PointOnCurve2d MyPOnCurve(U1, P1);
       mySqDist[0] = P.SquareDistance(P1);
       myPoint[0]  = MyPOnCurve;
       myIsMin[0]  = Standard_True;
@@ -144,7 +144,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
     if (((Uinf - U2) < Tol) && ((U2 - Usup) < Tol))
     {
-      Extrema_POnCurv2d MyPOnCurve(U2, P2);
+      PointOnCurve2d MyPOnCurve(U2, P2);
       mySqDist[myNbExt] = P.SquareDistance(P2);
       myPoint[myNbExt]  = MyPOnCurve;
       myIsMin[myNbExt]  = Standard_True;
@@ -155,7 +155,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
 //=============================================================================
 
-Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
+PointElCCurveExtrema2d::PointElCCurveExtrema2d(const gp_Pnt2d&     P,
                                      const gp_Elips2d&   E,
                                      const Standard_Real Tol,
                                      const Standard_Real Uinf,
@@ -164,7 +164,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
   Perform(P, E, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
+void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
                                 const gp_Elips2d&   E,
                                 const Standard_Real Tol,
                                 const Standard_Real Uinf,
@@ -203,10 +203,10 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
     for (NoSol = 1; NoSol <= NbSol; NoSol++)
     {
       Us                = Sol.Value(NoSol);
-      Cu                = ElCLib::Value(Us, E);
+      Cu                = ElCLib1::Value(Us, E);
       mySqDist[myNbExt] = Cu.SquareDistance(P);
       myIsMin[myNbExt]  = (NoSol == 0);
-      myPoint[myNbExt]  = Extrema_POnCurv2d(Us, Cu);
+      myPoint[myNbExt]  = PointOnCurve2d(Us, Cu);
       myNbExt++;
     }
     myDone = Standard_True;
@@ -215,7 +215,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
 //=============================================================================
 
-Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
+PointElCCurveExtrema2d::PointElCCurveExtrema2d(const gp_Pnt2d&     P,
                                      const gp_Hypr2d&    C,
                                      const Standard_Real Tol,
                                      const Standard_Real Uinf,
@@ -224,7 +224,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
+void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
                                 const gp_Hypr2d&    H,
                                 const Standard_Real Tol,
                                 const Standard_Real Uinf,
@@ -260,7 +260,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
       Us = Log(Vs);
       if ((Us >= Uinf) && (Us <= Usup))
       {
-        Cu      = ElCLib::Value(Us, H);
+        Cu      = ElCLib1::Value(Us, H);
         DejaEnr = Standard_False;
         for (NoExt = 0; NoExt < myNbExt; NoExt++)
         {
@@ -275,7 +275,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
           TbExt[myNbExt]    = Cu;
           mySqDist[myNbExt] = Cu.SquareDistance(P);
           myIsMin[myNbExt]  = (NoSol == 0);
-          myPoint[myNbExt]  = Extrema_POnCurv2d(Us, Cu);
+          myPoint[myNbExt]  = PointOnCurve2d(Us, Cu);
           myNbExt++;
         }
       } // if ((Us >= Uinf) && (Us <= Usup))
@@ -286,7 +286,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
 //=============================================================================
 
-Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
+PointElCCurveExtrema2d::PointElCCurveExtrema2d(const gp_Pnt2d&     P,
                                      const gp_Parab2d&   C,
                                      const Standard_Real Tol,
                                      const Standard_Real Uinf,
@@ -295,7 +295,7 @@ Extrema_ExtPElC2d::Extrema_ExtPElC2d(const gp_Pnt2d&     P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
+void PointElCCurveExtrema2d::Perform(const gp_Pnt2d&     P,
                                 const gp_Parab2d&   C,
                                 const Standard_Real Tol,
                                 const Standard_Real Uinf,
@@ -327,7 +327,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
     Us = Sol.Value(NoSol);
     if ((Us >= Uinf) && (Us <= Usup))
     {
-      Cu      = ElCLib::Value(Us, C);
+      Cu      = ElCLib1::Value(Us, C);
       DejaEnr = Standard_False;
       for (NoExt = 0; NoExt < myNbExt; NoExt++)
       {
@@ -342,7 +342,7 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
         TbExt[myNbExt]    = Cu;
         mySqDist[myNbExt] = Cu.SquareDistance(P);
         myIsMin[myNbExt]  = (NoSol == 0);
-        myPoint[myNbExt]  = Extrema_POnCurv2d(Us, Cu);
+        myPoint[myNbExt]  = PointOnCurve2d(Us, Cu);
         myNbExt++;
       }
     } // if ((Us >= Uinf) && (Us <= Usup))
@@ -352,14 +352,14 @@ void Extrema_ExtPElC2d::Perform(const gp_Pnt2d&     P,
 
 //=============================================================================
 
-Standard_Boolean Extrema_ExtPElC2d::IsDone() const
+Standard_Boolean PointElCCurveExtrema2d::IsDone() const
 {
   return myDone;
 }
 
 //=============================================================================
 
-Standard_Integer Extrema_ExtPElC2d::NbExt() const
+Standard_Integer PointElCCurveExtrema2d::NbExt() const
 {
   if (!IsDone())
   {
@@ -370,7 +370,7 @@ Standard_Integer Extrema_ExtPElC2d::NbExt() const
 
 //=============================================================================
 
-Standard_Real Extrema_ExtPElC2d::SquareDistance(const Standard_Integer N) const
+Standard_Real PointElCCurveExtrema2d::SquareDistance(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -381,7 +381,7 @@ Standard_Real Extrema_ExtPElC2d::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-Standard_Boolean Extrema_ExtPElC2d::IsMin(const Standard_Integer N) const
+Standard_Boolean PointElCCurveExtrema2d::IsMin(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -392,7 +392,7 @@ Standard_Boolean Extrema_ExtPElC2d::IsMin(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnCurv2d& Extrema_ExtPElC2d::Point(const Standard_Integer N) const
+const PointOnCurve2d& PointElCCurveExtrema2d::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {

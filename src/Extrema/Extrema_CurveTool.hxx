@@ -39,7 +39,7 @@ class Vector3d;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-class Extrema_CurveTool
+class CurveTool4
 {
 public:
   DEFINE_STANDARD_ALLOC

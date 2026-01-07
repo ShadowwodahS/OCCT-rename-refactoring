@@ -308,7 +308,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
           if (!entry.IsEmpty() && !entry.IsEqual(AsciiString1(NULL_ENTRY)))
           {
             DataLabel tLab; // Null label.
-            TDF_Tool::Label(anAtt->Label().Data(), entry, tLab, Standard_True);
+            Tool3::Label(anAtt->Label().Data(), entry, tLab, Standard_True);
             if (!tLab.IsNull())
               aName.ContextLabel(tLab);
           }
@@ -437,7 +437,7 @@ void BinMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   // 6. keep context label
   AsciiString1 entry(NULL_ENTRY);
   if (!aName.ContextLabel().IsNull())
-    TDF_Tool::Entry(aName.ContextLabel(), entry);
+    Tool3::Entry(aName.ContextLabel(), entry);
   theTarget << entry;
 
   // 7. keep Orientation

@@ -92,7 +92,7 @@ Standard_IMPORT DrawViewer dout;
 #endif
 
 // Class is used in fitcurve
-class CurveEvaluator : public AppCont_Function
+class CurveEvaluator : public ContinuityFunction
 
 {
 
@@ -1802,7 +1802,7 @@ static Standard_Integer fitcurve(DrawInterpreter& di, Standard_Integer n, const 
   Standard_Integer i;
   Standard_Integer NbCurves = anAppro.NbMultiCurves();
 
-  Convert_CompBezierCurvesToBSplineCurve Conv;
+  BezierToBSpline Conv;
 
   Standard_Real tol3d, tol2d, tolreached = 0.;
   for (i = 1; i <= NbCurves; i++)
@@ -1825,7 +1825,7 @@ static Standard_Integer fitcurve(DrawInterpreter& di, Standard_Integer n, const 
   Conv.KnotsAndMults(NewKnots, NewMults);
   Conv.Poles(NewPoles);
 
-  BSplCLib::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
+  BSplCLib1::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
   Handle(BSplineCurve3d) TheCurve =
     new BSplineCurve3d(NewPoles, NewKnots, NewMults, Conv.Degree());
 
@@ -1868,7 +1868,7 @@ static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const c
     return 1;
   }
 
-  Handle(BSplineCurve3d) BS = GeomConvert::CurveToBSplineCurve(ACurve);
+  Handle(BSplineCurve3d) BS = GeomConvert1::CurveToBSplineCurve(ACurve);
 
   if (BS.IsNull())
     return 1;
@@ -1876,7 +1876,7 @@ static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const c
   if (optiontab)
   {
     Handle(TColGeom_HArray1OfBSplineCurve) tabBS;
-    GeomConvert::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
+    GeomConvert1::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
     for (i = 0; i <= (tabBS->Length() - 1); i++)
     {
       Sprintf(name, "%s_%d", c[1], i + 1);
@@ -1887,7 +1887,7 @@ static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const c
   }
   else
   {
-    GeomConvert::C0BSplineToC1BSplineCurve(BS, tolerance, angular_tolerance);
+    GeomConvert1::C0BSplineToC1BSplineCurve(BS, tolerance, angular_tolerance);
 
     DrawTrSurf1::Set(c[1], BS);
   }
@@ -1925,7 +1925,7 @@ static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const
     return 1;
   }
 
-  Handle(Geom2d_BSplineCurve) BS = Geom2dConvert::CurveToBSplineCurve(ACurve);
+  Handle(Geom2d_BSplineCurve) BS = Geom2dConvert1::CurveToBSplineCurve(ACurve);
 
   if (BS.IsNull())
     return 1;
@@ -1933,7 +1933,7 @@ static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const
   if (optiontab)
   {
     Handle(TColGeom2d_HArray1OfBSplineCurve) tabBS;
-    Geom2dConvert::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
+    Geom2dConvert1::C0BSplineToArrayOfC1BSplineCurve(BS, tabBS, angular_tolerance, tolerance);
     for (i = 0; i <= (tabBS->Length() - 1); i++)
     {
       Sprintf(name, "%s_%d", c[1], i + 1);
@@ -1944,7 +1944,7 @@ static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const
   }
   else
   {
-    Geom2dConvert::C0BSplineToC1BSplineCurve(BS, tolerance);
+    Geom2dConvert1::C0BSplineToC1BSplineCurve(BS, tolerance);
     DrawTrSurf1::Set(c[1], BS);
   }
   return 0;
@@ -1971,7 +1971,7 @@ static Standard_Integer canceldenom(DrawInterpreter&, Standard_Integer n, const 
   if (voption)
     vdirection = Standard_True;
   Handle(Geom_BSplineSurface) BSurf = DrawTrSurf1::GetBSplineSurface(c[1]);
-  GeomLib::CancelDenominatorDerivative(BSurf, udirection, vdirection);
+  GeomLib1::CancelDenominatorDerivative(BSurf, udirection, vdirection);
   DrawTrSurf1::Set(c[1], BSurf);
   return 0;
 }

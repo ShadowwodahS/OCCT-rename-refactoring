@@ -28,12 +28,12 @@
 class TDF_Attribute;
 class TDF_Data;
 class Standard_GUID;
-class TDF_IDFilter;
+class IDFilter;
 
 //! This class provides basic operations  to define
 //! a label in a data structure.
 //! A label is a feature in the feature hierarchy. A
-//! label is always connected to a Data from TDF.
+//! label is always connected to a Data from TDF1.
 //! To a label is attached attributes containing the
 //! software components information.
 //!
@@ -247,13 +247,13 @@ public:
   //! Dumps the label on <aStream> and its attributes
   //! rank in <aMap> if their IDs are kept by <IDFilter>.
   Standard_EXPORT void ExtendedDump(Standard_OStream&        anOS,
-                                    const TDF_IDFilter&      aFilter,
+                                    const IDFilter&      aFilter,
                                     TDF_AttributeIndexedMap& aMap) const;
 
   //! Dumps the label entry.
   Standard_EXPORT void EntryDump(Standard_OStream& anOS) const;
 
-  friend class TDF_ChildIterator;
+  friend class ChildIterator;
   friend class TDF_Attribute;
   friend class TDF_AttributeIterator;
   friend class TDF_Data;
@@ -286,7 +286,7 @@ private:
                                                   const Standard_Boolean create) const;
 
   Standard_EXPORT void InternalDump(Standard_OStream&        anOS,
-                                    const TDF_IDFilter&      aFilter,
+                                    const IDFilter&      aFilter,
                                     TDF_AttributeIndexedMap& aMap,
                                     const Standard_Boolean   extended) const;
 

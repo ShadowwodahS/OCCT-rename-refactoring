@@ -145,7 +145,7 @@ Bnd_B2x Bnd_B2x::Transformed (const gp_Trsf2d& theTrsf) const
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - Circle
+//purpose  : Intersection Box1 - Circle
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const Coords2d&           theCenter,
@@ -194,7 +194,7 @@ Standard_Boolean Bnd_B2x::IsOut (const Coords2d&           theCenter,
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - transformed Box
+//purpose  : Intersection Box1 - transformed Box1
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const Bnd_B2x&   theBox,
@@ -256,7 +256,7 @@ Standard_Boolean Bnd_B2x::IsOut (const Bnd_B2x&   theBox,
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - Line
+//purpose  : Intersection Box1 - Line
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const gp_Ax2d& theLine) const
@@ -275,7 +275,7 @@ Standard_Boolean Bnd_B2x::IsOut (const gp_Ax2d& theLine) const
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - Segment
+//purpose  : Intersection Box1 - Segment
 //=======================================================================
 
 Standard_Boolean Bnd_B2x::IsOut (const Coords2d& theP0, const Coords2d& theP1) const

@@ -189,15 +189,15 @@ void BRepLib_MakeWire::CollectCoincidentVertices(
 
   // aV2CV : vertex <-> its coincident vertices
   NCollection_DataMap<TopoVertex, NCollection_Map<TopoVertex>> aV2CV;
-  NCollection_UBTree<Standard_Integer, Bnd_Box>                      aTree;
-  NCollection_UBTreeFiller<Standard_Integer, Bnd_Box>                aTreeFiller(aTree);
+  NCollection_UBTree<Standard_Integer, Box2>                      aTree;
+  NCollection_UBTreeFiller<Standard_Integer, Box2>                aTreeFiller(aTree);
   NCollection_Map<TopoVertex>                                     aNonGroupedV;
 
   /// add vertices from anAllV to treefiller
   for (Standard_Integer i = 1; i <= anAllV.Extent(); i++)
   {
     const TopoShape& aSh = anAllV(i);
-    Bnd_Box             aBB;
+    Box2             aBB;
     BRepBndLib::Add(aSh, aBB);
     aTreeFiller.Add(i, aBB);
   }

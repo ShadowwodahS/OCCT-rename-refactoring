@@ -317,8 +317,8 @@ static void PutInBounds(const TopoFace& F, const TopoEdge& E, Handle(GeomCurve2d
 Standard_Real BRepOffset_Tool::Gabarit(const Handle(GeomCurve3d)& aCurve)
 {
   GeomAdaptor_Curve GC(aCurve);
-  Bnd_Box           aBox;
-  BndLib_Add3dCurve::Add(GC, Precision::Confusion(), aBox);
+  Box2           aBox;
+  Add3dCurve::Add(GC, Precision::Confusion(), aBox);
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax, dist;
   aBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
   dist = Max((aXmax - aXmin), (aYmax - aYmin));
@@ -638,8 +638,8 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
-        ElSLib::PlaneParameters(Ax, P, U, V);
-        TolReached = P.Distance(ElSLib::PlaneValue(U, V, Ax));
+        ElSLib1::PlaneParameters(Ax, P, U, V);
+        TolReached = P.Distance(ElSLib1::PlaneValue(U, V, Ax));
         if (TolReached > TolConf)
           return Standard_False;
       }
@@ -651,8 +651,8 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
-        ElSLib::CylinderParameters(Ax, Rad, P, U, V);
-        TolReached = P.Distance(ElSLib::CylinderValue(U, V, Ax, Rad));
+        ElSLib1::CylinderParameters(Ax, Rad, P, U, V);
+        TolReached = P.Distance(ElSLib1::CylinderValue(U, V, Ax, Rad));
         if (TolReached > TolConf)
           return Standard_False;
       }
@@ -665,8 +665,8 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
-        ElSLib::ConeParameters(Ax, Rad, Alp, P, U, V);
-        TolReached = P.Distance(ElSLib::ConeValue(U, V, Ax, Rad, Alp));
+        ElSLib1::ConeParameters(Ax, Rad, Alp, P, U, V);
+        TolReached = P.Distance(ElSLib1::ConeValue(U, V, Ax, Rad, Alp));
         if (TolReached > TolConf)
           return Standard_False;
       }
@@ -678,8 +678,8 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
-        ElSLib::SphereParameters(Ax, Rad, P, U, V);
-        TolReached = P.Distance(ElSLib::SphereValue(U, V, Ax, Rad));
+        ElSLib1::SphereParameters(Ax, Rad, P, U, V);
+        TolReached = P.Distance(ElSLib1::SphereValue(U, V, Ax, Rad));
         if (TolReached > TolConf)
           return Standard_False;
       }
@@ -692,8 +692,8 @@ static Standard_Boolean IsOnSurface(const Handle(GeomCurve3d)&   C,
       for (Standard_Integer i = 0; i < n; i++)
       {
         P = C->Value(f + i * du);
-        ElSLib::TorusParameters(Ax, R1, R2, P, U, V);
-        TolReached = P.Distance(ElSLib::TorusValue(U, V, Ax, R1, R2));
+        ElSLib1::TorusParameters(Ax, R1, R2, P, U, V);
+        TolReached = P.Distance(ElSLib1::TorusValue(U, V, Ax, R1, R2));
         if (TolReached > TolConf)
           return Standard_False;
       }
@@ -1020,7 +1020,7 @@ static void ReconstructPCurves(const TopoEdge& anEdge)
       TopLoc_Location      theLoc  = CurveRep->Location();
       theLoc                       = anEdge.Location() * theLoc;
       theSurf = Handle(GeomSurface)::DownCast(theSurf->Transformed(theLoc.Transformation()));
-      Handle(GeomCurve2d) ProjPCurve = GeomProjLib::Curve2d(C3d, f, l, theSurf);
+      Handle(GeomCurve2d) ProjPCurve = GeomProjLib1::Curve2d(C3d, f, l, theSurf);
       if (!ProjPCurve.IsNull())
       {
         CurveRep->PCurve(ProjPCurve);
@@ -1072,36 +1072,36 @@ static Handle(GeomCurve2d) ConcatPCurves(const TopoEdge&     E1,
     {
       Handle(Geom2d_Line) Lin1   = Handle(Geom2d_Line)::DownCast(PCurve1);
       gp_Lin2d            theLin = Lin1->Lin2d();
-      first2                     = ElCLib::Parameter(theLin, P1);
-      last2                      = ElCLib::Parameter(theLin, P2);
+      first2                     = ElCLib1::Parameter(theLin, P1);
+      last2                      = ElCLib1::Parameter(theLin, P2);
     }
     else if (PCurve1->IsInstance(STANDARD_TYPE(Geom2d_Circle)))
     {
       Handle(Geom2d_Circle) Circ1   = Handle(Geom2d_Circle)::DownCast(PCurve1);
       gp_Circ2d             theCirc = Circ1->Circ2d();
-      first2                        = ElCLib::Parameter(theCirc, P1);
-      last2                         = ElCLib::Parameter(theCirc, P2);
+      first2                        = ElCLib1::Parameter(theCirc, P1);
+      last2                         = ElCLib1::Parameter(theCirc, P2);
     }
     else if (PCurve1->IsInstance(STANDARD_TYPE(Geom2d_Ellipse)))
     {
       Handle(Geom2d_Ellipse) Ell1     = Handle(Geom2d_Ellipse)::DownCast(PCurve1);
       gp_Elips2d             theElips = Ell1->Elips2d();
-      first2                          = ElCLib::Parameter(theElips, P1);
-      last2                           = ElCLib::Parameter(theElips, P2);
+      first2                          = ElCLib1::Parameter(theElips, P1);
+      last2                           = ElCLib1::Parameter(theElips, P2);
     }
     else if (PCurve1->IsInstance(STANDARD_TYPE(Geom2d_Parabola)))
     {
       Handle(Geom2d_Parabola) Parab1   = Handle(Geom2d_Parabola)::DownCast(PCurve1);
       gp_Parab2d              theParab = Parab1->Parab2d();
-      first2                           = ElCLib::Parameter(theParab, P1);
-      last2                            = ElCLib::Parameter(theParab, P2);
+      first2                           = ElCLib1::Parameter(theParab, P1);
+      last2                            = ElCLib1::Parameter(theParab, P2);
     }
     else if (PCurve1->IsInstance(STANDARD_TYPE(Geom2d_Hyperbola)))
     {
       Handle(Geom2d_Hyperbola) Hypr1   = Handle(Geom2d_Hyperbola)::DownCast(PCurve1);
       gp_Hypr2d                theHypr = Hypr1->Hypr2d();
-      first2                           = ElCLib::Parameter(theHypr, P1);
-      last2                            = ElCLib::Parameter(theHypr, P2);
+      first2                           = ElCLib1::Parameter(theHypr, P1);
+      last2                            = ElCLib1::Parameter(theHypr, P2);
     }
     newFirst = Min(first1, first2);
     newLast  = Max(last1, last2);
@@ -2080,8 +2080,8 @@ static void ExtentEdge(const TopoFace& F,
   if (ExtC.IsNull())
     return;
 
-  GeomLib::ExtendCurveToPoint(ExtC, PF, 1, 0);
-  GeomLib::ExtendCurveToPoint(ExtC, PL, 1, 1);
+  GeomLib1::ExtendCurveToPoint(ExtC, PF, 1, 0);
+  GeomLib1::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
   Handle(GeomCurve2d) CNE2d = GeomAPI1::To2d(ExtC, gp_Pln(gp::XOY()));
 
@@ -2573,7 +2573,7 @@ static void MakeFace(const Handle(GeomSurface)& S,
     gp_Cone                     theCone  = ConicalS->Cone();
     Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
-    ElSLib::Parameters(theCone, theApex, Uapex, Vapex);
+    ElSLib1::Parameters(theCone, theApex, Uapex, Vapex);
     if (Abs(VMin - Vapex) <= Precision::Confusion())
       vmindegen = Standard_True;
     if (Abs(VMax - Vapex) <= Precision::Confusion())
@@ -2955,16 +2955,16 @@ static Standard_Boolean EnlargeGeometry(Handle(GeomSurface)&  S,
     if (enlargeU)
     {
       if (enlargeUfirst && du_first != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, du_first, 1, Standard_True, Standard_False);
+        GeomLib1::ExtendSurfByLength(aSurf, du_first, 1, Standard_True, Standard_False);
       if (enlargeUlast && du_last != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, du_last, 1, Standard_True, Standard_True);
+        GeomLib1::ExtendSurfByLength(aSurf, du_last, 1, Standard_True, Standard_True);
     }
     if (enlargeV)
     {
       if (enlargeVfirst && dv_first != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, dv_first, 1, Standard_False, Standard_False);
+        GeomLib1::ExtendSurfByLength(aSurf, dv_first, 1, Standard_False, Standard_False);
       if (enlargeVlast && dv_last != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, dv_last, 1, Standard_False, Standard_True);
+        GeomLib1::ExtendSurfByLength(aSurf, dv_last, 1, Standard_False, Standard_True);
     }
     S = aSurf;
     S->Bounds(U1, U2, V1, V2);
@@ -3036,16 +3036,16 @@ static Standard_Boolean EnlargeGeometry(Handle(GeomSurface)&  S,
     if (enlargeU)
     {
       if (enlargeUfirst && uf1 - u1 < duf && du_first != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, du_first, 1, Standard_True, Standard_False);
+        GeomLib1::ExtendSurfByLength(aSurf, du_first, 1, Standard_True, Standard_False);
       if (enlargeUlast && u2 - uf2 < duf && du_last != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, du_last, 1, Standard_True, Standard_True);
+        GeomLib1::ExtendSurfByLength(aSurf, du_last, 1, Standard_True, Standard_True);
     }
     if (enlargeV)
     {
       if (enlargeVfirst && vf1 - v1 < dvf && dv_first != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, dv_first, 1, Standard_False, Standard_False);
+        GeomLib1::ExtendSurfByLength(aSurf, dv_first, 1, Standard_False, Standard_False);
       if (enlargeVlast && v2 - vf2 < dvf && dv_last != 0.)
-        GeomLib::ExtendSurfByLength(aSurf, dv_last, 1, Standard_False, Standard_True);
+        GeomLib1::ExtendSurfByLength(aSurf, dv_last, 1, Standard_False, Standard_True);
     }
     S = aSurf;
 
@@ -3375,7 +3375,7 @@ Standard_Boolean BRepOffset_Tool::EnLargeFace(const TopoFace&     F,
     gp_Cone                     theCone  = ConicalS->Cone();
     Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
-    ElSLib::Parameters(theCone, theApex, Uapex, Vapex);
+    ElSLib1::Parameters(theCone, theApex, Uapex, Vapex);
     if (VV1 < Vapex && Vapex < VV2)
     {
       // consider that VF1 and VF2 are on the same side from apex
@@ -3618,7 +3618,7 @@ void BRepOffset_Tool::ExtentFace(const TopoFace&            F,
 
   // Construction de la boite englobante de la face a etendre et des bouchons pour
   // limiter les extensions.
-  // Bnd_Box ContextBox;
+  // Box2 ContextBox;
   // BRepBndLib::Add(F,B);
   // TopTools_DataMapIteratorOfDataMapOfShape itTB(ToBuild);
   // for (; itTB.More(); itTB.Next()) {
@@ -4191,7 +4191,7 @@ static Standard_Boolean IsInOut(BRepTopAdaptor_FClass2d&   FC,
                                 const TopAbs_State&        S)
 {
   constexpr Standard_Real       Def = 100 * Precision::Confusion();
-  GCPnts_QuasiUniformDeflection QU(AC, Def);
+  QuasiUniformDeflectionSampler QU(AC, Def);
 
   for (Standard_Integer i = 1; i <= QU.NbPoints(); i++)
   {

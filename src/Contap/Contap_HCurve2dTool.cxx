@@ -18,7 +18,7 @@
 #include <Geom2d_BezierCurve.hxx>
 
 //============================================================
-Standard_Integer Contap_HCurve2dTool::NbSamples(const Handle(Adaptor2d_Curve2d)& C,
+Standard_Integer HCurve2dTool2::NbSamples(const Handle(Adaptor2d_Curve2d)& C,
                                                 const Standard_Real              U0,
                                                 const Standard_Real              U1)
 {

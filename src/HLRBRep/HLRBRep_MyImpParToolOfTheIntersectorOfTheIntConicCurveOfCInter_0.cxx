@@ -23,7 +23,7 @@
 #define ImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ParCurve Standard_Address
 #define ParCurve_hxx <Standard_Address.hxx>
-#define ParTool HLRBRep_CurveTool
+#define ParTool CurveTool5
 #define ParTool_hxx <HLRBRep_CurveTool.hxx>
 #define IntImpParGen_ImpParTool HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
 #define IntImpParGen_ImpParTool_hxx                                                                \

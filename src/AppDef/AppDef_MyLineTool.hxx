@@ -28,9 +28,9 @@
 #include <Approx_Status.hxx>
 class AppDef_MultiLine;
 
-//! Example of MultiLine tool corresponding to the tools of the packages AppParCurves and Approx.
+//! Example of MultiLine tool corresponding to the tools of the packages AppParCurves1 and Approx.
 //! For Approx, the tool will not add points if the algorithms want some.
-class AppDef_MyLineTool
+class MultiLineTool
 {
 public:
   DEFINE_STANDARD_ALLOC

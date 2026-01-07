@@ -29,13 +29,13 @@ class gp_Cylinder;
 
 //! Definition of a parametric Curve which is the result
 //! of the intersection between two quadrics.
-class IntAna_Curve
+class Curve1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor
-  Standard_EXPORT IntAna_Curve();
+  Standard_EXPORT Curve1();
 
   //! Sets the parameters used to compute Points and Derivative
   //! on the curve.

@@ -24,7 +24,7 @@
 #include <Bnd_HArray1OfBox.hxx>
 #include <Standard_Integer.hxx>
 class Standard_OutOfRange;
-class Bnd_Box;
+class Box2;
 class IntPatch_Polyhedron;
 class Point3d;
 
@@ -37,7 +37,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Give the bounding box of the Polyhedron.
-  static const Bnd_Box& Bounding(const IntPatch_Polyhedron& thePolyh);
+  static const Box2& Bounding(const IntPatch_Polyhedron& thePolyh);
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
@@ -51,7 +51,7 @@ public:
 
   //! Give the indices  of  the 3 points of  the triangle of
   //! address Index in the Polyhedron.
-  static void Triangle(const IntPatch_Polyhedron& thePolyh,
+  static void Triangle1(const IntPatch_Polyhedron& thePolyh,
                        const Standard_Integer     Index,
                        Standard_Integer&          P1,
                        Standard_Integer&          P2,

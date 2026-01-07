@@ -117,8 +117,8 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
 
     Handle(GeomLine) dimLin    = new GeomLine(myPntAttach, myDir);
-    Standard_Real     parcurpos = ElCLib::Parameter(dimLin->Lin(), myPosition);
-    curpos                      = ElCLib::Value(parcurpos, dimLin->Lin());
+    Standard_Real     parcurpos = ElCLib1::Parameter(dimLin->Lin(), myPosition);
+    curpos                      = ElCLib1::Value(parcurpos, dimLin->Lin());
 
     if (curpos.Distance(myPntAttach) < 5.)
     {

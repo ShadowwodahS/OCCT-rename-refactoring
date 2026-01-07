@@ -41,7 +41,7 @@ class gp_Vec2d;
 //! responsibility of user (parameter MaxDist).
 //! Return FALSE if the point is beyond the MaxDist
 //! limit or if computation fails.
-class GeomLib_Tool
+class Tool2
 {
 public:
   DEFINE_STANDARD_ALLOC

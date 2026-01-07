@@ -20,6 +20,6 @@
 #define TheSubShape_hxx <Standard_Real.hxx>
 #define TheShape Standard_Integer
 #define TheShape_hxx <Standard_Integer.hxx>
-#define TopBas_Interference TopBas_TestInterference
+#define TopBas_Interference InterferenceTest
 #define TopBas_Interference_hxx <TopBas_TestInterference.hxx>
 #include "../TopBas/TopBas_Interference.gxx"

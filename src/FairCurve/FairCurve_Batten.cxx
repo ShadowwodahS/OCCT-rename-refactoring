@@ -88,11 +88,11 @@ FairCurve_Batten::FairCurve_Batten(const gp_Pnt2d&     P1,
   Handle(TColStd_HArray1OfReal)    Nknots  = new TColStd_HArray1OfReal(1, 2);
   Handle(TColStd_HArray1OfInteger) Nmults  = new TColStd_HArray1OfInteger(1, 2);
 
-  BSplCLib::IncreaseDegree(1,
+  BSplCLib1::IncreaseDegree(1,
                            Degree,
                            Standard_False,
                            Ipoles->Array1(),
-                           BSplCLib::NoWeights(),
+                           BSplCLib1::NoWeights(),
                            Iknots->Array1(),
                            Imults->Array1(),
                            Npoles->ChangeArray1(),
@@ -110,9 +110,9 @@ FairCurve_Batten::FairCurve_Batten(const gp_Pnt2d&     P1,
 
   Flatknots = new TColStd_HArray1OfReal(
     1,
-    BSplCLib::KnotSequenceLength(Mults->Array1(), Degree, Standard_False));
+    BSplCLib1::KnotSequenceLength(Mults->Array1(), Degree, Standard_False));
 
-  BSplCLib::KnotSequence(Knots->Array1(),
+  BSplCLib1::KnotSequence(Knots->Array1(),
                          Mults->Array1(),
                          Degree,
                          Standard_False,
@@ -244,7 +244,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
 
   // Polynoms of Hermite
   math_Matrix HermiteCoef(1, L, 1, L);
-  Ok = PLib::HermiteCoefficients(0, 1, NewConstraintOrder1, NewConstraintOrder2, HermiteCoef);
+  Ok = PLib1::HermiteCoefficients(0, 1, NewConstraintOrder1, NewConstraintOrder2, HermiteCoef);
   if (!Ok)
     return Standard_False;
 
@@ -283,7 +283,7 @@ Standard_Boolean FairCurve_Batten::Compute(const gp_Vec2d&         DeltaP1,
     Interpolation(ii).SetXY(AuxXY);
   }
   // Conversion into BSpline of the same structure as the current batten.
-  PLib::CoefficientsPoles(Interpolation, PLib::NoWeights(), HermitePoles, PLib::NoWeights());
+  PLib1::CoefficientsPoles(Interpolation, PLib1::NoWeights(), HermitePoles, PLib1::NoWeights());
 
   mults.Init(L);
 

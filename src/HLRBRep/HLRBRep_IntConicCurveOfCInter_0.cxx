@@ -31,7 +31,7 @@
 #define TheImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ThePCurve Standard_Address
 #define ThePCurve_hxx <Standard_Address.hxx>
-#define ThePCurveTool HLRBRep_CurveTool
+#define ThePCurveTool CurveTool5
 #define ThePCurveTool_hxx <HLRBRep_CurveTool.hxx>
 #define TheIntConicCurve HLRBRep_TheIntConicCurveOfCInter
 #define TheIntConicCurve_hxx <HLRBRep_TheIntConicCurveOfCInter.hxx>

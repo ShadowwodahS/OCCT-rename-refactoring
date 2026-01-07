@@ -66,7 +66,7 @@ Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const DataLabel& L, const gp_Pln& P)
       {
         TopoFace             aFace    = TopoDS::Face(aNS->Get());
         Handle(GeomSurface)    aSurface = BRepInspector::Surface(aFace);
-        GeomLib_IsPlanarSurface aChecker(aSurface);
+        PlanarSurfaceChecker aChecker(aSurface);
         if (aChecker.IsPlanar())
         {
           gp_Pln aPlane = aChecker.Plan();

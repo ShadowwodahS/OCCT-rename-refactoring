@@ -113,7 +113,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
   }
   else
     res = ShapeUpgrade_ShapeDivide::Perform(newContext);
-  // pdn Hereafter the fix on GeomLib:SameParameter.
+  // pdn Hereafter the fix on GeomLib1:SameParameter.
   // In order to fix this bug all edges that are based on
   // bezier curves (2d or 3d) and have range not equal to [0,1]
   // are performed the following sequence:
@@ -207,7 +207,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
                 newCurve = bezier;
               }
               else
-                GeomLib::SameRange(preci, c2d, first, last, 0, 1, newCurve);
+                GeomLib1::SameRange(preci, c2d, first, last, 0, 1, newCurve);
               if (isSeam)
               {
                 if (!bezierR.IsNull())
@@ -216,7 +216,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
                   newRevCurve = bezierR;
                 }
                 else if (!c2drev.IsNull())
-                  GeomLib::SameRange(preci, c2drev, first, last, 0, 1, newRevCurve);
+                  GeomLib1::SameRange(preci, c2drev, first, last, 0, 1, newRevCurve);
                 if (edge.Orientation() == TopAbs_FORWARD)
                   B.UpdateEdge(edge, newCurve, newRevCurve, face, 0.);
                 else
@@ -259,7 +259,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
                 newnextCurve = beziernext;
               }
               else
-                GeomLib::SameRange(preci, c2dnext, first2, last2, 0, 1, newnextCurve);
+                GeomLib1::SameRange(preci, c2dnext, first2, last2, 0, 1, newnextCurve);
               if (isSeam)
               {
                 if (!bezierRnext.IsNull())
@@ -268,7 +268,7 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
                   newRevCurve = bezierRnext;
                 }
                 else if (!c2drevnext.IsNull())
-                  GeomLib::SameRange(preci, c2drevnext, first2, last2, 0, 1, newRevCurve);
+                  GeomLib1::SameRange(preci, c2drevnext, first2, last2, 0, 1, newRevCurve);
                 if (edge.Orientation() == TopAbs_FORWARD)
                   B.UpdateEdge(edgenext, newnextCurve, newRevCurve, face, 0.);
                 else

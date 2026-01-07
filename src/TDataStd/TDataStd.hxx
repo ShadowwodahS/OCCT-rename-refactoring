@@ -43,7 +43,7 @@
 //! Note
 //! For information on the relations between this
 //! component of OCAF and the others, refer to the OCAF User's Guide.
-class TDataStd
+class TDataStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

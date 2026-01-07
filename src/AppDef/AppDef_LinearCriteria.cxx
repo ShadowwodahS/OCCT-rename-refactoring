@@ -433,8 +433,8 @@ void AppDef_LinearCriteria::ErrorValues(Standard_Real& MaxError,
 
   Standard_Integer NbDim = myCurve->Dimension();
 
-  Standard_Integer myNbP2d = AppDef_MyLineTool::NbP2d(mySSP),
-                   myNbP3d = AppDef_MyLineTool::NbP3d(mySSP);
+  Standard_Integer myNbP2d = MultiLineTool::NbP2d(mySSP),
+                   myNbP3d = MultiLineTool::NbP3d(mySSP);
 
   if (NbDim != (2 * myNbP2d + 3 * myNbP3d))
     throw Standard_DomainError("AppDef_LinearCriteria::ErrorValues");
@@ -456,7 +456,7 @@ void AppDef_LinearCriteria::ErrorValues(Standard_Real& MaxError,
     myCurve->D0(myParameters->Value(i), BasePoint);
 
     c0 = 0;
-    AppDef_MyLineTool::Value(mySSP, i, TabP3d);
+    MultiLineTool::Value(mySSP, i, TabP3d);
     for (ipnt = 1; ipnt <= myNbP3d; ipnt++)
     {
       P3d.SetCoord(BasePoint(c0 + 1), BasePoint(c0 + 2), BasePoint(c0 + 3));
@@ -469,9 +469,9 @@ void AppDef_LinearCriteria::ErrorValues(Standard_Real& MaxError,
     }
 
     if (myNbP3d == 0)
-      AppDef_MyLineTool::Value(mySSP, i, TabP2d);
+      MultiLineTool::Value(mySSP, i, TabP2d);
     else
-      AppDef_MyLineTool::Value(mySSP, i, TabP3d, TabP2d);
+      MultiLineTool::Value(mySSP, i, TabP3d, TabP2d);
     for (ipnt = 1; ipnt <= myNbP2d; ipnt++)
     {
       P2d.SetCoord(BasePoint(c0 + 1), BasePoint(c0 + 2));
@@ -598,8 +598,8 @@ void AppDef_LinearCriteria::Gradient(const Standard_Integer Element,
   if (myCurve.IsNull())
     throw Standard_DomainError("AppDef_LinearCriteria::ErrorValues");
 
-  Standard_Integer myNbP2d = AppDef_MyLineTool::NbP2d(mySSP),
-                   myNbP3d = AppDef_MyLineTool::NbP3d(mySSP);
+  Standard_Integer myNbP2d = MultiLineTool::NbP2d(mySSP),
+                   myNbP3d = MultiLineTool::NbP3d(mySSP);
 
   if (Dimension > (2 * myNbP2d + 3 * myNbP3d))
     throw Standard_DomainError("AppDef_LinearCriteria::ErrorValues");
@@ -658,15 +658,15 @@ void AppDef_LinearCriteria::Gradient(const Standard_Integer Element,
   {
     if (In3d)
     {
-      AppDef_MyLineTool::Value(mySSP, ipnt, TabP3d);
+      MultiLineTool::Value(mySSP, ipnt, TabP3d);
       Pnt = TabP3d(IndPnt).Coord(IndCrd);
     }
     else
     {
       if (myNbP3d == 0)
-        AppDef_MyLineTool::Value(mySSP, ipnt, TabP2d);
+        MultiLineTool::Value(mySSP, ipnt, TabP2d);
       else
-        AppDef_MyLineTool::Value(mySSP, ipnt, TabP3d, TabP2d);
+        MultiLineTool::Value(mySSP, ipnt, TabP3d, TabP2d);
       Pnt = TabP2d(IndPnt).Coord(IndCrd);
     }
 

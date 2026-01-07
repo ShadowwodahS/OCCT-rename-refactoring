@@ -23,7 +23,7 @@
 
 //! Specialization of binary BVH tree.
 template <class T, int N>
-class BVH_Tree<T, N, BVH_BinaryTree> : public BVH_TreeBase<T, N>
+class BVH_Tree<T, N, BinaryTree> : public BVH_TreeBase<T, N>
 {
 public: //! @name custom data types
   typedef typename BVH_TreeBase<T, N>::BVH_VecNt BVH_VecNt;
@@ -148,7 +148,7 @@ public: //! @name methods specific to binary BVH
 
   //! Collapses the tree into QBVH an returns it. As a result, each
   //! 2-nd level of current tree is kept and the rest are discarded.
-  BVH_Tree<T, N, BVH_QuadTree>* CollapseToQuadTree() const;
+  BVH_Tree<T, N, QuadTree>* CollapseToQuadTree() const;
 };
 
 namespace BVH
@@ -156,7 +156,7 @@ namespace BVH
 //! Internal function for recursive calculation of
 //! surface area heuristic (SAH) of the given tree.
 template <class T, int N>
-void EstimateSAH(const BVH_Tree<T, N, BVH_BinaryTree>* theTree,
+void EstimateSAH(const BVH_Tree<T, N, BinaryTree>* theTree,
                  const int                             theNode,
                  T                                     theProb,
                  T&                                    theSAH)
@@ -201,7 +201,7 @@ void EstimateSAH(const BVH_Tree<T, N, BVH_BinaryTree>* theTree,
 // purpose  :
 // =======================================================================
 template <class T, int N>
-T BVH_Tree<T, N, BVH_BinaryTree>::EstimateSAH() const
+T BVH_Tree<T, N, BinaryTree>::EstimateSAH() const
 {
   T aSAH = static_cast<T>(0.0);
   BVH::EstimateSAH<T, N>(this, 0, static_cast<T>(1.0), aSAH);
@@ -213,9 +213,9 @@ T BVH_Tree<T, N, BVH_BinaryTree>::EstimateSAH() const
 // purpose  :
 // =======================================================================
 template <class T, int N>
-BVH_Tree<T, N, BVH_QuadTree>* BVH_Tree<T, N, BVH_BinaryTree>::CollapseToQuadTree() const
+BVH_Tree<T, N, QuadTree>* BVH_Tree<T, N, BinaryTree>::CollapseToQuadTree() const
 {
-  BVH_Tree<T, N, BVH_QuadTree>* aQBVH = new BVH_Tree<T, N, BVH_QuadTree>;
+  BVH_Tree<T, N, QuadTree>* aQBVH = new BVH_Tree<T, N, QuadTree>;
 
   if (this->Length() == 0)
   {

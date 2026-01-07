@@ -390,7 +390,7 @@ void BRepBuilderAPI_FastSewing::FindVertexes(const Standard_Integer             
     FS_Vertex aVert;
 
     NodeInspector anInspector(myVertexVec, aPnts[i], myTolerance);
-    Bnd_Box       aBox;
+    Box2       aBox;
     aBox.Add(aPnts[i]);
     aBox.Enlarge(myTolerance);
 
@@ -513,7 +513,7 @@ BRepBuilderAPI_FastSewing::FS_VARStatuses BRepBuilderAPI_FastSewing::GetStatuses
 
 Standard_Real BRepBuilderAPI_FastSewing::Compute3DRange()
 {
-  Bnd_Box aBox;
+  Box2 aBox;
 
   for (Standard_Integer i = myFaceVec.Lower(); i <= myFaceVec.Upper(); i++)
   {

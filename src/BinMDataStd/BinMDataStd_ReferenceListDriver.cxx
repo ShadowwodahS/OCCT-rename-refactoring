@@ -67,7 +67,7 @@ Standard_Boolean BinMDataStd_ReferenceListDriver::Paste(
       if (!(theSource >> entry))
         return Standard_False;
       DataLabel L;
-      TDF_Tool::Label(anAtt->Label().Data(), entry, L, Standard_True);
+      Tool3::Label(anAtt->Label().Data(), entry, L, Standard_True);
       if (!L.IsNull())
         anAtt->Append(L);
     }
@@ -102,7 +102,7 @@ void BinMDataStd_ReferenceListDriver::Paste(const Handle(TDF_Attribute)& theSour
     if (!L.IsNull())
     {
       AsciiString1 entry;
-      TDF_Tool::Entry(L, entry);
+      Tool3::Entry(L, entry);
       theTarget << entry;
     }
   }

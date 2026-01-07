@@ -21,7 +21,7 @@
 
 Plate_LinearScalarConstraint::Plate_LinearScalarConstraint() {}
 
-Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const Plate_PinpointConstraint& PPC1,
+Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const PinpointConstraint& PPC1,
                                                            const gp_XYZ&                   coeff)
 
 {
@@ -70,7 +70,7 @@ Plate_LinearScalarConstraint::Plate_LinearScalarConstraint(const Standard_Intege
 }
 
 void Plate_LinearScalarConstraint::SetPPC(const Standard_Integer          Index,
-                                          const Plate_PinpointConstraint& Value)
+                                          const PinpointConstraint& Value)
 {
   myPPC->ChangeValue(Index) = Value;
 }

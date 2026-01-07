@@ -94,7 +94,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       Handle(GccInt_Bisec)     Sol2 = Bis2.ThisSolution(i);
       GccInt_IType             typ2 = Sol2->ArcType();
       gp_Lin2d                 Sol1(Bis1.ThisSolution());
-      IntAna2d_AnaIntersection Intp;
+      AnalyticIntersection2d Intp;
       if (typ2 == GccInt_Cir)
       {
         Intp.Perform(Sol1, Sol2->Circle());
@@ -105,11 +105,11 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       }
       else if (typ2 == GccInt_Hpr)
       {
-        Intp.Perform(Sol1, IntAna2d_Conic(Sol2->Hyperbola()));
+        Intp.Perform(Sol1, Conic2d(Sol2->Hyperbola()));
       }
       else if (typ2 == GccInt_Ell)
       {
-        Intp.Perform(Sol1, IntAna2d_Conic(Sol2->Ellipse()));
+        Intp.Perform(Sol1, Conic2d(Sol2->Ellipse()));
       }
 
       if (Intp.IsDone())
@@ -212,17 +212,17 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
 		     dc.Reverse(); // if tangent circle is inside the source circle, moving to edge of source circle
                 // clang-format on
                 pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(nbsol3) * dc.XY());
-                par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
               }
 
               TheSame2(NbrSol)  = 0;
               pnttg2sol(NbrSol) = Point2;
-              par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+              par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
               pararg2(NbrSol)   = 0.;
               TheSame3(NbrSol)  = 0;
               pnttg3sol(NbrSol) = Point3;
-              par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+              par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
               pararg3(NbrSol)   = 0.;
               //}
             }

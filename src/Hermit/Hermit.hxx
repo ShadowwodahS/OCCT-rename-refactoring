@@ -41,7 +41,7 @@ class BSplineCurve3d;
 //! can be found by reading :
 //! " Etude sur la concatenation de NURBS en vue du
 //! balayage de surfaces" PFE n S85 Ensam Lille
-class Hermit
+class Hermit1
 {
 public:
   DEFINE_STANDARD_ALLOC

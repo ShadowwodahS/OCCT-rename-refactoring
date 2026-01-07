@@ -146,8 +146,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
     if (cu1.GetType() == GeomAbs_Line)
     {
       //      gp_Lin L1 (myFAttach,myFDirAttach);
-      Point3d        PjAttachPnt1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
-      Point3d        PjOffSetPnt  = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
+      Point3d        PjAttachPnt1 = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
+      Point3d        PjOffSetPnt  = ElCLib1::Value(ElCLib1::Parameter(laxis, myPosition), laxis);
       Standard_Real h =
         fabs(PjOffSetPnt.Distance(PjAttachPnt1) / cos(myAxisDirAttach.Angle(myFDirAttach)));
       Vector3d        VL1(myFDirAttach);
@@ -157,7 +157,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
         VL1.Reverse();
       VL1.Multiply(h);
       Point3d P1       = myFAttach.Translated(VL1);
-      Point3d ProjAxis = ElCLib::Value(ElCLib::Parameter(laxis, P1), laxis);
+      Point3d ProjAxis = ElCLib1::Value(ElCLib1::Parameter(laxis, P1), laxis);
       Vector3d v(P1, ProjAxis);
       Point3d P2 = ProjAxis.Translated(v);
 
@@ -181,19 +181,19 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
         aSel->Add(box);
       }
       Standard_Real parmin, parmax, parcur;
-      parmin = ElCLib::Parameter(L3, P1);
+      parmin = ElCLib1::Parameter(L3, P1);
       parmax = parmin;
 
-      parcur = ElCLib::Parameter(L3, P2);
+      parcur = ElCLib1::Parameter(L3, P2);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      parcur = ElCLib::Parameter(L3, myPosition);
+      parcur = ElCLib1::Parameter(L3, myPosition);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      Point3d PointMin = ElCLib::Value(parmin, L3);
-      Point3d PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib1::Value(parmin, L3);
+      Point3d PointMax = ElCLib1::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -222,8 +222,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
       gp_Circ circ1(geom_circ1->Circ());
       Point3d  OffsetPnt(myPosition.X(), myPosition.Y(), myPosition.Z());
       Point3d  Center1         = circ1.Location();
-      Point3d  ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(laxis, OffsetPnt), laxis);
-      Point3d  ProjCenter1     = ElCLib::Value(ElCLib::Parameter(laxis, Center1), laxis);
+      Point3d  ProjOffsetPoint = ElCLib1::Value(ElCLib1::Parameter(laxis, OffsetPnt), laxis);
+      Point3d  ProjCenter1     = ElCLib1::Value(ElCLib1::Parameter(laxis, Center1), laxis);
       Vector3d  Vp(ProjCenter1, Center1);
       if (Vp.Magnitude() <= Precision::Confusion())
         Vp = Vector3d(laxis.Direction()) ^ myPlane->Pln().Position().Direction();
@@ -261,19 +261,19 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
         aSel->Add(box);
       }
       Standard_Real parmin, parmax, parcur;
-      parmin = ElCLib::Parameter(L3, P1);
+      parmin = ElCLib1::Parameter(L3, P1);
       parmax = parmin;
 
-      parcur = ElCLib::Parameter(L3, P2);
+      parcur = ElCLib1::Parameter(L3, P2);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      parcur = ElCLib::Parameter(L3, myPosition);
+      parcur = ElCLib1::Parameter(L3, myPosition);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      Point3d PointMin = ElCLib::Value(parmin, L3);
-      Point3d PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib1::Value(parmin, L3);
+      Point3d PointMax = ElCLib1::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -292,8 +292,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
     }
     else
     {
-      Point3d ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
-      Point3d ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+      Point3d ProjOffsetPoint      = ElCLib1::Value(ElCLib1::Parameter(laxis, myPosition), laxis);
+      Point3d ProjAttachmentPoint1 = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
       Vector3d PjAtt1_Att1(ProjAttachmentPoint1, myFAttach);
       Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
       Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
@@ -317,19 +317,19 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)
         aSel->Add(box);
       }
       Standard_Real parmin, parmax, parcur;
-      parmin = ElCLib::Parameter(L3, P1);
+      parmin = ElCLib1::Parameter(L3, P1);
       parmax = parmin;
 
-      parcur = ElCLib::Parameter(L3, P2);
+      parcur = ElCLib1::Parameter(L3, P2);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      parcur = ElCLib::Parameter(L3, myPosition);
+      parcur = ElCLib1::Parameter(L3, myPosition);
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      Point3d PointMin = ElCLib::Value(parmin, L3);
-      Point3d PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib1::Value(parmin, L3);
+      Point3d PointMax = ElCLib1::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -418,7 +418,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   }
 
   // recherche points attache
-  Point3d ProjOffset = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
+  Point3d ProjOffset = ElCLib1::Value(ElCLib1::Parameter(laxis, myPosition), laxis);
 
   /*//----------------------------------------------------
     //Quand on fait la symetrie de 2 edges consecutifs:
@@ -438,13 +438,13 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
     if (myAutomaticPosition)
     {
       myFAttach = Handle(GeomLine)::DownCast(geom1)->Lin().Location();
-      mySAttach = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
+      mySAttach = ElCLib1::Value(ElCLib1::Parameter(line2, myFAttach), line2);
     }
     else
     {
       const gp_Lin& line1 = Handle(GeomLine)::DownCast(geom1)->Lin();
-      myFAttach           = ElCLib::Value(ElCLib::Parameter(line1, myPosition), line1);
-      mySAttach           = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
+      myFAttach           = ElCLib1::Value(ElCLib1::Parameter(line1, myPosition), line1);
+      mySAttach           = ElCLib1::Value(ElCLib1::Parameter(line2, myFAttach), line2);
     }
   }
   else if (!isInfinite1 && !isInfinite2)
@@ -490,13 +490,13 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   { // geom1 et geom2 sont des lignes
     mySAttach           = ptat21;
     const gp_Lin& line1 = Handle(GeomLine)::DownCast(geom1)->Lin();
-    myFAttach           = ElCLib::Value(ElCLib::Parameter(line1, mySAttach), line1);
+    myFAttach           = ElCLib1::Value(ElCLib1::Parameter(line1, mySAttach), line1);
   }
   else if (isInfinite2)
   { // geom1 et geom2 sont des lignes
     myFAttach           = ptat11;
     const gp_Lin& line2 = Handle(GeomLine)::DownCast(geom2)->Lin();
-    mySAttach           = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
+    mySAttach           = ElCLib1::Value(ElCLib1::Parameter(line2, myFAttach), line2);
   }
 
   if (!myArrowSizeIsDefined)
@@ -506,7 +506,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   //----------------------------------------------------
   // Si myFAttach <> mySAttach et PjFAttach = myFAttach
   //----------------------------------------------------
-  Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+  Point3d PjFAttach = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
 
   if (PjFAttach.IsEqual(myFAttach, Precision::Confusion()))
   {
@@ -517,7 +517,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
     PntTempo  = myFAttach;
     myFAttach = mySAttach;
     mySAttach = PntTempo;
-    PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+    PjFAttach = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
   }
 
   //----------------------------------------------------
@@ -525,7 +525,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
 
   if (myAutomaticPosition)
   {
-    // Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis,myFAttach),laxis);
+    // Point3d PjFAttach = ElCLib1::Value(ElCLib1::Parameter(laxis,myFAttach),laxis);
     //  offset pour eviter confusion Edge et Dimension
     Vector3d offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);
@@ -534,8 +534,8 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
     myPosition    = curpos;
   }
 
-  Point3d Pj1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
-  Point3d Pj2 = ElCLib::Value(ElCLib::Parameter(laxis, mySAttach), laxis);
+  Point3d Pj1 = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
+  Point3d Pj2 = ElCLib1::Value(ElCLib1::Parameter(laxis, mySAttach), laxis);
   if ((myFAttach.SquareDistance(Pj1) + mySAttach.SquareDistance(Pj2)) <= Precision::Confusion())
     myArrowSize = 0.;
   Handle(Prs3d_DimensionAspect) la  = myDrawer->DimensionAspect();
@@ -628,7 +628,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   //  Point3d curpos;
   if (myAutomaticPosition)
   {
-    Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+    Point3d PjFAttach = ElCLib1::Value(ElCLib1::Parameter(laxis, myFAttach), laxis);
     // offset pour eviter confusion Edge et Dimension
     Vector3d offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);

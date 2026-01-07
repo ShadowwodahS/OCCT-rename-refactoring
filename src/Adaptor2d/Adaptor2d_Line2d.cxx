@@ -156,28 +156,28 @@ Standard_Real Adaptor2d_Line2d::Period() const
 
 gp_Pnt2d Adaptor2d_Line2d::Value(const Standard_Real X) const
 {
-  return ElCLib::LineValue(X, myAx2d);
+  return ElCLib1::LineValue(X, myAx2d);
 }
 
 //=================================================================================================
 
 void Adaptor2d_Line2d::D0(const Standard_Real X, gp_Pnt2d& P) const
 {
-  P = ElCLib::LineValue(X, myAx2d);
+  P = ElCLib1::LineValue(X, myAx2d);
 }
 
 //=================================================================================================
 
 void Adaptor2d_Line2d::D1(const Standard_Real X, gp_Pnt2d& P, gp_Vec2d& V) const
 {
-  ElCLib::LineD1(X, myAx2d, P, V);
+  ElCLib1::LineD1(X, myAx2d, P, V);
 }
 
 //=================================================================================================
 
 void Adaptor2d_Line2d::D2(const Standard_Real X, gp_Pnt2d& P, gp_Vec2d& V1, gp_Vec2d& V2) const
 {
-  ElCLib::LineD1(X, myAx2d, P, V1);
+  ElCLib1::LineD1(X, myAx2d, P, V1);
   V2.SetCoord(0., 0.);
 }
 
@@ -189,7 +189,7 @@ void Adaptor2d_Line2d::D3(const Standard_Real X,
                           gp_Vec2d&           V2,
                           gp_Vec2d&           V3) const
 {
-  ElCLib::LineD1(X, myAx2d, P, V1);
+  ElCLib1::LineD1(X, myAx2d, P, V1);
   V2.SetCoord(0., 0.);
   V3.SetCoord(0., 0.);
 }

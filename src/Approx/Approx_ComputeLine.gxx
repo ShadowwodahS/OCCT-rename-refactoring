@@ -838,8 +838,8 @@ void Approx_ComputeLine::Perform(const MultiLine& Line)
   Standard_Integer myfirstpt = Thefirstpt; 
   Standard_Integer mylastpt = Thelastpt;
 
-  AppParCurves_ConstraintCouple myCouple1(myfirstpt, myfirstC);
-  AppParCurves_ConstraintCouple myCouple2(mylastpt, mylastC);
+  ConstraintCouple myCouple1(myfirstpt, myfirstC);
+  ConstraintCouple myCouple2(mylastpt, mylastC);
   myConstraints->SetValue(1, myCouple1);
   myConstraints->SetValue(2, myCouple2);
 

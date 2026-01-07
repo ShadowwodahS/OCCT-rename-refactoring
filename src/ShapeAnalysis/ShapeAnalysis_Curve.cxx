@@ -312,7 +312,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
   if (!OK)
   {
     // BUG NICOLAS - Si le point est sur la courbe 0 Solutions
-    // Cela fonctionne avec ElCLib
+    // Cela fonctionne avec ElCLib1
 
     // D une facon generale, on essaie de TOUJOURS retourner un resultat
     //  MEME PAS BIEN BON. L appelant pourra decider alors quoi faire
@@ -330,31 +330,31 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
         }
         else
         {
-          param = ElCLib::Parameter(aCirc, P3D);
-          proj  = ElCLib::Value(param, aCirc);
+          param = ElCLib1::Parameter(aCirc, P3D);
+          proj  = ElCLib1::Value(param, aCirc);
         }
         closed    = Standard_True;
         valclosed = 2. * M_PI;
       }
       break;
       case GeomAbs_Hyperbola: {
-        param = ElCLib::Parameter(C3D.Hyperbola(), P3D);
-        proj  = ElCLib::Value(param, C3D.Hyperbola());
+        param = ElCLib1::Parameter(C3D.Hyperbola(), P3D);
+        proj  = ElCLib1::Value(param, C3D.Hyperbola());
       }
       break;
       case GeomAbs_Parabola: {
-        param = ElCLib::Parameter(C3D.Parabola(), P3D);
-        proj  = ElCLib::Value(param, C3D.Parabola());
+        param = ElCLib1::Parameter(C3D.Parabola(), P3D);
+        proj  = ElCLib1::Value(param, C3D.Parabola());
       }
       break;
       case GeomAbs_Line: {
-        param = ElCLib::Parameter(C3D.Line(), P3D);
-        proj  = ElCLib::Value(param, C3D.Line());
+        param = ElCLib1::Parameter(C3D.Line(), P3D);
+        proj  = ElCLib1::Value(param, C3D.Line());
       }
       break;
       case GeomAbs_Ellipse: {
-        param     = ElCLib::Parameter(C3D.Ellipse(), P3D);
-        proj      = ElCLib::Value(param, C3D.Ellipse());
+        param     = ElCLib1::Parameter(C3D.Ellipse(), P3D);
+        proj      = ElCLib1::Value(param, C3D.Ellipse());
         closed    = Standard_True;
         valclosed = 2. * M_PI;
       }
@@ -554,7 +554,7 @@ Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(GeomCurve3d)& t
   if (ShapeAnalysis_Curve::IsPeriodic(theCurve))
   {
     // clang-format off
-    ElCLib::AdjustPeriodic(cf,cl,Precision::PConfusion(),First,Last); //:a7 abv 11 Feb 98: preci -> PConfusion()
+    ElCLib1::AdjustPeriodic(cf,cl,Precision::PConfusion(),First,Last); //:a7 abv 11 Feb 98: preci -> PConfusion()
     // clang-format on
   }
   else if (First < Last)
@@ -677,7 +677,7 @@ Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(GeomCurve3d)& t
 
 //=======================================================================
 // function : FillBndBox
-// purpose  : WORK-AROUND for methods brom BndLib which give not exact bounds
+// purpose  : WORK-AROUND for methods brom BndLib1 which give not exact bounds
 //=======================================================================
 
 // search for extremum using Newton
@@ -725,7 +725,7 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
                                      const Standard_Real         Last,
                                      const Standard_Integer      NPoints,
                                      const Standard_Boolean      Exact,
-                                     Bnd_Box2d&                  Box) const
+                                     Bnd_Box2d&                  Box1) const
 {
   if (!Exact)
   {
@@ -735,7 +735,7 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
     {
       Standard_Real par = First + i * step;
       gp_Pnt2d      pnt = C2d->Value(par);
-      Box.Add(pnt);
+      Box1.Add(pnt);
     }
     return;
   }
@@ -758,7 +758,7 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
   {
     Standard_Real aPar1 = aParams(i);
     gp_Pnt2d      aPnt  = C2d->Value(aPar1);
-    Box.Add(aPnt);
+    Box1.Add(aPnt);
     if (i <= nbSamples)
     {
       Standard_Real aPar2 = aParams(i + 1);
@@ -767,12 +767,12 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
       Standard_Real parextr = par;
       if (SearchForExtremum(C2d, aPar1, aPar2, gp_Vec2d(1, 0), parextr, pextr))
       {
-        Box.Add(pextr);
+        Box1.Add(pextr);
       }
       parextr = par;
       if (SearchForExtremum(C2d, aPar1, aPar2, gp_Vec2d(0, 1), parextr, pextr))
       {
-        Box.Add(pextr);
+        Box1.Add(pextr);
       }
     }
   }

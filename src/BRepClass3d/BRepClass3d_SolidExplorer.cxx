@@ -566,7 +566,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
       {
         Standard_Integer i, iNear, iEnd;
         Standard_Real    aUx, aVx, Dist2, Dist2Min;
-        Extrema_POnSurf  aPx;
+        PointOnSurface1  aPx;
         //
         iNear    = 1;
         Dist2Min = Ext.SquareDistance(1);
@@ -952,14 +952,14 @@ void BRepClass3d_SolidExplorer::InitShape(const TopoShape& S)
   }
   //
   // Fill mapEV with vertices and edges from shape
-  NCollection_UBTreeFiller<Standard_Integer, Bnd_Box> aTreeFiller(myTree);
+  NCollection_UBTreeFiller<Standard_Integer, Box2> aTreeFiller(myTree);
   //
   Standard_Integer i, aNbEV = myMapEV.Extent();
   for (i = 1; i <= aNbEV; ++i)
   {
     const TopoShape& aS = myMapEV(i);
     //
-    Bnd_Box aBox;
+    Box2 aBox;
     BRepBndLib::Add(aS, aBox);
     aTreeFiller.Add(i, aBox);
   }
@@ -1106,7 +1106,7 @@ IntCurvesFace_Intersector& BRepClass3d_SolidExplorer::Intersector(const TopoFace
 
 //=================================================================================================
 
-const Bnd_Box& BRepClass3d_SolidExplorer::Box() const
+const Box2& BRepClass3d_SolidExplorer::Box1() const
 {
   return (myBox);
 }

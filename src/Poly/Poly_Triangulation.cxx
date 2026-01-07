@@ -339,15 +339,15 @@ void MeshTriangulation::DumpJson(Standard_OStream& theOStream, Standard_Integer)
 
 //=================================================================================================
 
-const Bnd_Box& MeshTriangulation::CachedMinMax() const
+const Box2& MeshTriangulation::CachedMinMax() const
 {
-  static const Bnd_Box anEmptyBox;
+  static const Box2 anEmptyBox;
   return (myCachedMinMax == NULL) ? anEmptyBox : *myCachedMinMax;
 }
 
 //=================================================================================================
 
-void MeshTriangulation::SetCachedMinMax(const Bnd_Box& theBox)
+void MeshTriangulation::SetCachedMinMax(const Box2& theBox)
 {
   if (theBox.IsVoid())
   {
@@ -356,7 +356,7 @@ void MeshTriangulation::SetCachedMinMax(const Bnd_Box& theBox)
   }
   if (myCachedMinMax == NULL)
   {
-    myCachedMinMax = new Bnd_Box();
+    myCachedMinMax = new Box2();
   }
   *myCachedMinMax = theBox;
 }
@@ -374,11 +374,11 @@ void MeshTriangulation::unsetCachedMinMax()
 
 //=================================================================================================
 
-Standard_Boolean MeshTriangulation::MinMax(Bnd_Box&       theBox,
+Standard_Boolean MeshTriangulation::MinMax(Box2&       theBox,
                                             const Transform3d& theTrsf,
                                             const bool     theIsAccurate) const
 {
-  Bnd_Box aBox;
+  Box2 aBox;
   if (HasCachedMinMax()
       && (!HasGeometry() || !theIsAccurate || theTrsf.Form() == gp_Identity
           || theTrsf.Form() == gp_Translation || theTrsf.Form() == gp_PntMirror
@@ -400,9 +400,9 @@ Standard_Boolean MeshTriangulation::MinMax(Bnd_Box&       theBox,
 
 //=================================================================================================
 
-Bnd_Box MeshTriangulation::computeBoundingBox(const Transform3d& theTrsf) const
+Box2 MeshTriangulation::computeBoundingBox(const Transform3d& theTrsf) const
 {
-  Bnd_Box aBox;
+  Box2 aBox;
   if (theTrsf.Form() == gp_Identity)
   {
     for (Standard_Integer aNodeIdx = 0; aNodeIdx < NbNodes(); aNodeIdx++)

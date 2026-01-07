@@ -18,7 +18,7 @@
 #include <Standard_Macro.hxx>
 #include <AdvApp2Var_Data_f2c.hxx>
 
-class AdvApp2Var_MathBase
+class MathBase
 {
 public:
   ///

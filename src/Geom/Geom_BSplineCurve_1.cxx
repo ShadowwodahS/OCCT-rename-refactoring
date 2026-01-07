@@ -30,7 +30,7 @@
 #define POLES (poles->Array1())
 #define KNOTS (knots->Array1())
 #define FKNOTS (flatknots->Array1())
-#define FMULTS (BSplCLib::NoMults())
+#define FMULTS (BSplCLib1::NoMults())
 
 //=================================================================================================
 
@@ -55,7 +55,7 @@ Standard_Boolean BSplineCurve3d::IsCN(const Standard_Integer N) const
     case GeomAbs_C3:
       return N <= 3 ? Standard_True
                     : N <= deg
-                             - BSplCLib::MaxKnotMult(mults->Array1(),
+                             - BSplCLib1::MaxKnotMult(mults->Array1(),
                                                      mults->Lower() + 1,
                                                      mults->Upper() - 1);
     default:
@@ -171,16 +171,16 @@ void BSplineCurve3d::D0(const Standard_Real U, Point3d& P) const
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
   PeriodicNormalization(aNewU);
-  BSplCLib::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
+  BSplCLib1::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
   if (aNewU < knots->Value(aSpanIndex))
     aSpanIndex--;
 
-  BSplCLib::D0(aNewU,
+  BSplCLib1::D0(aNewU,
                aSpanIndex,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                knots->Array1(),
                &mults->Array1(),
                P);
@@ -193,16 +193,16 @@ void BSplineCurve3d::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
   PeriodicNormalization(aNewU);
-  BSplCLib::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
+  BSplCLib1::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
   if (aNewU < knots->Value(aSpanIndex))
     aSpanIndex--;
 
-  BSplCLib::D1(aNewU,
+  BSplCLib1::D1(aNewU,
                aSpanIndex,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                knots->Array1(),
                &mults->Array1(),
                P,
@@ -216,16 +216,16 @@ void BSplineCurve3d::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
   PeriodicNormalization(aNewU);
-  BSplCLib::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
+  BSplCLib1::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
   if (aNewU < knots->Value(aSpanIndex))
     aSpanIndex--;
 
-  BSplCLib::D2(aNewU,
+  BSplCLib1::D2(aNewU,
                aSpanIndex,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                knots->Array1(),
                &mults->Array1(),
                P,
@@ -244,16 +244,16 @@ void BSplineCurve3d::D3(const Standard_Real U,
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
   PeriodicNormalization(aNewU);
-  BSplCLib::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
+  BSplCLib1::LocateParameter(deg, knots->Array1(), &mults->Array1(), U, periodic, aSpanIndex, aNewU);
   if (aNewU < knots->Value(aSpanIndex))
     aSpanIndex--;
 
-  BSplCLib::D3(aNewU,
+  BSplCLib1::D3(aNewU,
                aSpanIndex,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                knots->Array1(),
                &mults->Array1(),
                P,
@@ -267,13 +267,13 @@ void BSplineCurve3d::D3(const Standard_Real U,
 Vector3d BSplineCurve3d::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Vector3d V;
-  BSplCLib::DN(U,
+  BSplCLib1::DN(U,
                N,
                0,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                V);
@@ -297,7 +297,7 @@ Standard_Integer BSplineCurve3d::FirstUKnotIndex() const
   if (periodic)
     return 1;
   else
-    return BSplCLib::FirstUKnotIndex(deg, mults->Array1());
+    return BSplCLib1::FirstUKnotIndex(deg, mults->Array1());
 }
 
 //=================================================================================================
@@ -359,7 +359,7 @@ Standard_Integer BSplineCurve3d::LastUKnotIndex() const
   if (periodic)
     return knots->Length();
   else
-    return BSplCLib::LastUKnotIndex(deg, mults->Array1());
+    return BSplCLib1::LastUKnotIndex(deg, mults->Array1());
 }
 
 //=================================================================================================
@@ -391,14 +391,14 @@ void BSplineCurve3d::LocalD0(const Standard_Real    U,
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
-  BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
-  index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
-  BSplCLib::D0(u,
+  BSplCLib1::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
+  index = BSplCLib1::FlatIndex(deg, index, mults->Array1(), periodic);
+  BSplCLib1::D0(u,
                index,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                P);
@@ -416,14 +416,14 @@ void BSplineCurve3d::LocalD1(const Standard_Real    U,
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
-  BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
-  index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
-  BSplCLib::D1(u,
+  BSplCLib1::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
+  index = BSplCLib1::FlatIndex(deg, index, mults->Array1(), periodic);
+  BSplCLib1::D1(u,
                index,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                P,
@@ -443,14 +443,14 @@ void BSplineCurve3d::LocalD2(const Standard_Real    U,
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
-  BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
-  index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
-  BSplCLib::D2(u,
+  BSplCLib1::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
+  index = BSplCLib1::FlatIndex(deg, index, mults->Array1(), periodic);
+  BSplCLib1::D2(u,
                index,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                P,
@@ -472,14 +472,14 @@ void BSplineCurve3d::LocalD3(const Standard_Real    U,
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
-  BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
-  index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
-  BSplCLib::D3(u,
+  BSplCLib1::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
+  index = BSplCLib1::FlatIndex(deg, index, mults->Array1(), periodic);
+  BSplCLib1::D3(u,
                index,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                P,
@@ -499,17 +499,17 @@ Vector3d BSplineCurve3d::LocalDN(const Standard_Real    U,
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
-  BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
-  index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
+  BSplCLib1::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
+  index = BSplCLib1::FlatIndex(deg, index, mults->Array1(), periodic);
 
   Vector3d V;
-  BSplCLib::DN(u,
+  BSplCLib1::DN(u,
                N,
                index,
                deg,
                periodic,
                POLES,
-               rational ? &weights->Array1() : BSplCLib::NoWeights(),
+               rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                FKNOTS,
                FMULTS,
                V);
@@ -615,7 +615,7 @@ const TColStd_Array1OfReal* BSplineCurve3d::Weights() const
 {
   if (IsRational())
     return &weights->Array1();
-  return BSplCLib::NoWeights();
+  return BSplCLib1::NoWeights();
 }
 
 //=================================================================================================
@@ -682,7 +682,7 @@ void BSplineCurve3d::LocateU(const Standard_Real    U,
   else
   {
     I1 = 1;
-    BSplCLib::Hunt(CKnots, NewU, I1);
+    BSplCLib1::Hunt(CKnots, NewU, I1);
     I1 = Max(Min(I1, CKnots.Upper()), CKnots.Lower());
     while (I1 + 1 <= CKnots.Upper() && Abs(CKnots(I1 + 1) - NewU) <= PParametricTolerance)
     {
@@ -708,7 +708,7 @@ void BSplineCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& 
     if (periodic)
     {
       Standard_Integer NbKnots, NbPoles;
-      BSplCLib::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
+      BSplCLib1::PrepareUnperiodize(deg, mults->Array1(), NbKnots, NbPoles);
       TColgp_Array1OfPnt   new_poles(1, NbPoles);
       TColStd_Array1OfReal new_weights(1, NbPoles);
       for (Standard_Integer ii = 1; ii <= NbPoles; ii++)
@@ -722,8 +722,8 @@ void BSplineCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& 
           new_weights(ii) = weights->Array1()((ii - 1) % poles->Length() + 1);
         }
       }
-      BSplCLib::Resolution(new_poles,
-                           rational ? &new_weights : BSplCLib::NoWeights(),
+      BSplCLib1::Resolution(new_poles,
+                           rational ? &new_weights : BSplCLib1::NoWeights(),
                            new_poles.Length(),
                            flatknots->Array1(),
                            deg,
@@ -732,8 +732,8 @@ void BSplineCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& 
     }
     else
     {
-      BSplCLib::Resolution(poles->Array1(),
-                           rational ? &weights->Array1() : BSplCLib::NoWeights(),
+      BSplCLib1::Resolution(poles->Array1(),
+                           rational ? &weights->Array1() : BSplCLib1::NoWeights(),
                            poles->Length(),
                            flatknots->Array1(),
                            deg,

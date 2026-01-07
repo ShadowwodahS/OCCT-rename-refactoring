@@ -61,8 +61,8 @@ public:
   //! - charAngles           : Character angle
   //! - controlCodeStrings   : Control Code string
   //! - nbChars              : Number of characters in string
-  //! - boxWidths            : Box width
-  //! - boxHeights           : Box height
+  //! - boxWidths            : Box1 width
+  //! - boxHeights           : Box1 height
   //! - charSetCodes         : Character Set Interpretation
   //! - charSetEntities      : Character Set Font
   //! - slAngles             : Slant angle of text in radians
@@ -185,11 +185,11 @@ public:
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Integer NbCharacters(const Standard_Integer Index) const;
 
-  //! returns Box width of string
+  //! returns Box1 width of string
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Real BoxWidth(const Standard_Integer Index) const;
 
-  //! returns Box height of string
+  //! returns Box1 height of string
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Real BoxHeight(const Standard_Integer Index) const;
 

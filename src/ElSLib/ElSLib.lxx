@@ -20,120 +20,120 @@
 #include <gp_Cone.hxx>
 #include <gp_Ax3.hxx>
 
-inline Point3d ElSLib::Value(const Standard_Real U, const Standard_Real V, const gp_Pln& Pl)
+inline Point3d ElSLib1::Value(const Standard_Real U, const Standard_Real V, const gp_Pln& Pl)
 {
 
-  return ElSLib::PlaneValue(U, V, Pl.Position());
+  return ElSLib1::PlaneValue(U, V, Pl.Position());
 }
 
-inline Point3d ElSLib::Value(const Standard_Real U, const Standard_Real V, const gp_Cone& C)
+inline Point3d ElSLib1::Value(const Standard_Real U, const Standard_Real V, const gp_Cone& C)
 {
 
-  return ElSLib::ConeValue(U, V, C.Position(), C.RefRadius(), C.SemiAngle());
+  return ElSLib1::ConeValue(U, V, C.Position(), C.RefRadius(), C.SemiAngle());
 }
 
-inline Point3d ElSLib::Value(const Standard_Real U, const Standard_Real V, const gp_Cylinder& C)
+inline Point3d ElSLib1::Value(const Standard_Real U, const Standard_Real V, const gp_Cylinder& C)
 {
 
-  return ElSLib::CylinderValue(U, V, C.Position(), C.Radius());
+  return ElSLib1::CylinderValue(U, V, C.Position(), C.Radius());
 }
 
-inline Point3d ElSLib::Value(const Standard_Real U, const Standard_Real V, const gp_Sphere& S)
+inline Point3d ElSLib1::Value(const Standard_Real U, const Standard_Real V, const gp_Sphere& S)
 {
 
-  return ElSLib::SphereValue(U, V, S.Position(), S.Radius());
+  return ElSLib1::SphereValue(U, V, S.Position(), S.Radius());
 }
 
-inline Point3d ElSLib::Value(const Standard_Real U, const Standard_Real V, const gp_Torus& T)
+inline Point3d ElSLib1::Value(const Standard_Real U, const Standard_Real V, const gp_Torus& T)
 {
 
-  return ElSLib::TorusValue(U, V, T.Position(), T.MajorRadius(), T.MinorRadius());
+  return ElSLib1::TorusValue(U, V, T.Position(), T.MajorRadius(), T.MinorRadius());
 }
 
-inline Vector3d ElSLib::DN(const Standard_Real    U,
+inline Vector3d ElSLib1::DN(const Standard_Real    U,
                          const Standard_Real    V,
                          const gp_Pln&          Pl,
                          const Standard_Integer Nu,
                          const Standard_Integer Nv)
 {
 
-  return ElSLib::PlaneDN(U, V, Pl.Position(), Nu, Nv);
+  return ElSLib1::PlaneDN(U, V, Pl.Position(), Nu, Nv);
 }
 
-inline Vector3d ElSLib::DN(const Standard_Real    U,
+inline Vector3d ElSLib1::DN(const Standard_Real    U,
                          const Standard_Real    V,
                          const gp_Cone&         C,
                          const Standard_Integer Nu,
                          const Standard_Integer Nv)
 {
 
-  return ElSLib::ConeDN(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), Nu, Nv);
+  return ElSLib1::ConeDN(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), Nu, Nv);
 }
 
-inline Vector3d ElSLib::DN(const Standard_Real    U,
+inline Vector3d ElSLib1::DN(const Standard_Real    U,
                          const Standard_Real    V,
                          const gp_Cylinder&     C,
                          const Standard_Integer Nu,
                          const Standard_Integer Nv)
 {
 
-  return ElSLib::CylinderDN(U, V, C.Position(), C.Radius(), Nu, Nv);
+  return ElSLib1::CylinderDN(U, V, C.Position(), C.Radius(), Nu, Nv);
 }
 
-inline Vector3d ElSLib::DN(const Standard_Real    U,
+inline Vector3d ElSLib1::DN(const Standard_Real    U,
                          const Standard_Real    V,
                          const gp_Sphere&       S,
                          const Standard_Integer Nu,
                          const Standard_Integer Nv)
 {
 
-  return ElSLib::SphereDN(U, V, S.Position(), S.Radius(), Nu, Nv);
+  return ElSLib1::SphereDN(U, V, S.Position(), S.Radius(), Nu, Nv);
 }
 
-inline Vector3d ElSLib::DN(const Standard_Real    U,
+inline Vector3d ElSLib1::DN(const Standard_Real    U,
                          const Standard_Real    V,
                          const gp_Torus&        T,
                          const Standard_Integer Nu,
                          const Standard_Integer Nv)
 {
 
-  return ElSLib::TorusDN(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), Nu, Nv);
+  return ElSLib1::TorusDN(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), Nu, Nv);
 }
 
-inline void ElSLib::D0(const Standard_Real U, const Standard_Real V, const gp_Pln& Pl, Point3d& P)
+inline void ElSLib1::D0(const Standard_Real U, const Standard_Real V, const gp_Pln& Pl, Point3d& P)
 {
 
-  ElSLib::PlaneD0(U, V, Pl.Position(), P);
+  ElSLib1::PlaneD0(U, V, Pl.Position(), P);
 }
 
-inline void ElSLib::D0(const Standard_Real U, const Standard_Real V, const gp_Cone& C, Point3d& P)
+inline void ElSLib1::D0(const Standard_Real U, const Standard_Real V, const gp_Cone& C, Point3d& P)
 {
 
-  ElSLib::ConeD0(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P);
+  ElSLib1::ConeD0(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P);
 }
 
-inline void ElSLib::D0(const Standard_Real U,
+inline void ElSLib1::D0(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cylinder&  C,
                        Point3d&             P)
 {
 
-  ElSLib::CylinderD0(U, V, C.Position(), C.Radius(), P);
+  ElSLib1::CylinderD0(U, V, C.Position(), C.Radius(), P);
 }
 
-inline void ElSLib::D0(const Standard_Real U, const Standard_Real V, const gp_Sphere& S, Point3d& P)
+inline void ElSLib1::D0(const Standard_Real U, const Standard_Real V, const gp_Sphere& S, Point3d& P)
 {
 
-  ElSLib::SphereD0(U, V, S.Position(), S.Radius(), P);
+  ElSLib1::SphereD0(U, V, S.Position(), S.Radius(), P);
 }
 
-inline void ElSLib::D0(const Standard_Real U, const Standard_Real V, const gp_Torus& T, Point3d& P)
+inline void ElSLib1::D0(const Standard_Real U, const Standard_Real V, const gp_Torus& T, Point3d& P)
 {
 
-  ElSLib::TorusD0(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P);
+  ElSLib1::TorusD0(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P);
 }
 
-inline void ElSLib::D1(const Standard_Real U,
+inline void ElSLib1::D1(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Pln&       Pl,
                        Point3d&             P,
@@ -141,10 +141,10 @@ inline void ElSLib::D1(const Standard_Real U,
                        Vector3d&             Vv)
 {
 
-  ElSLib::PlaneD1(U, V, Pl.Position(), P, Vu, Vv);
+  ElSLib1::PlaneD1(U, V, Pl.Position(), P, Vu, Vv);
 }
 
-inline void ElSLib::D1(const Standard_Real U,
+inline void ElSLib1::D1(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cone&      C,
                        Point3d&             P,
@@ -152,10 +152,10 @@ inline void ElSLib::D1(const Standard_Real U,
                        Vector3d&             Vv)
 {
 
-  ElSLib::ConeD1(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P, Vu, Vv);
+  ElSLib1::ConeD1(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P, Vu, Vv);
 }
 
-inline void ElSLib::D1(const Standard_Real U,
+inline void ElSLib1::D1(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cylinder&  C,
                        Point3d&             P,
@@ -163,10 +163,10 @@ inline void ElSLib::D1(const Standard_Real U,
                        Vector3d&             Vv)
 {
 
-  ElSLib::CylinderD1(U, V, C.Position(), C.Radius(), P, Vu, Vv);
+  ElSLib1::CylinderD1(U, V, C.Position(), C.Radius(), P, Vu, Vv);
 }
 
-inline void ElSLib::D1(const Standard_Real U,
+inline void ElSLib1::D1(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Sphere&    S,
                        Point3d&             P,
@@ -174,10 +174,10 @@ inline void ElSLib::D1(const Standard_Real U,
                        Vector3d&             Vv)
 {
 
-  ElSLib::SphereD1(U, V, S.Position(), S.Radius(), P, Vu, Vv);
+  ElSLib1::SphereD1(U, V, S.Position(), S.Radius(), P, Vu, Vv);
 }
 
-inline void ElSLib::D1(const Standard_Real U,
+inline void ElSLib1::D1(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Torus&     T,
                        Point3d&             P,
@@ -185,10 +185,10 @@ inline void ElSLib::D1(const Standard_Real U,
                        Vector3d&             Vv)
 {
 
-  ElSLib::TorusD1(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P, Vu, Vv);
+  ElSLib1::TorusD1(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P, Vu, Vv);
 }
 
-inline void ElSLib::D2(const Standard_Real U,
+inline void ElSLib1::D2(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cone&      C,
                        Point3d&             P,
@@ -199,10 +199,10 @@ inline void ElSLib::D2(const Standard_Real U,
                        Vector3d&             Vuv)
 {
 
-  ElSLib::ConeD2(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P, Vu, Vv, Vuu, Vvv, Vuv);
+  ElSLib1::ConeD2(U, V, C.Position(), C.RefRadius(), C.SemiAngle(), P, Vu, Vv, Vuu, Vvv, Vuv);
 }
 
-inline void ElSLib::D2(const Standard_Real U,
+inline void ElSLib1::D2(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cylinder&  C,
                        Point3d&             P,
@@ -213,10 +213,10 @@ inline void ElSLib::D2(const Standard_Real U,
                        Vector3d&             Vuv)
 {
 
-  ElSLib::CylinderD2(U, V, C.Position(), C.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv);
+  ElSLib1::CylinderD2(U, V, C.Position(), C.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv);
 }
 
-inline void ElSLib::D2(const Standard_Real U,
+inline void ElSLib1::D2(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Sphere&    S,
                        Point3d&             P,
@@ -227,10 +227,10 @@ inline void ElSLib::D2(const Standard_Real U,
                        Vector3d&             Vuv)
 {
 
-  ElSLib::SphereD2(U, V, S.Position(), S.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv);
+  ElSLib1::SphereD2(U, V, S.Position(), S.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv);
 }
 
-inline void ElSLib::D2(const Standard_Real U,
+inline void ElSLib1::D2(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Torus&     T,
                        Point3d&             P,
@@ -241,10 +241,10 @@ inline void ElSLib::D2(const Standard_Real U,
                        Vector3d&             Vuv)
 {
 
-  ElSLib::TorusD2(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P, Vu, Vv, Vuu, Vvv, Vuv);
+  ElSLib1::TorusD2(U, V, T.Position(), T.MajorRadius(), T.MinorRadius(), P, Vu, Vv, Vuu, Vvv, Vuv);
 }
 
-inline void ElSLib::D3(const Standard_Real U,
+inline void ElSLib1::D3(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cone&      C,
                        Point3d&             P,
@@ -259,7 +259,7 @@ inline void ElSLib::D3(const Standard_Real U,
                        Vector3d&             Vuvv)
 {
 
-  ElSLib::ConeD3(U,
+  ElSLib1::ConeD3(U,
                  V,
                  C.Position(),
                  C.RefRadius(),
@@ -276,7 +276,7 @@ inline void ElSLib::D3(const Standard_Real U,
                  Vuvv);
 }
 
-inline void ElSLib::D3(const Standard_Real U,
+inline void ElSLib1::D3(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Cylinder&  C,
                        Point3d&             P,
@@ -291,11 +291,11 @@ inline void ElSLib::D3(const Standard_Real U,
                        Vector3d&             Vuvv)
 {
 
-  ElSLib::
+  ElSLib1::
     CylinderD3(U, V, C.Position(), C.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv, Vuuu, Vvvv, Vuuv, Vuvv);
 }
 
-inline void ElSLib::D3(const Standard_Real U,
+inline void ElSLib1::D3(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Sphere&    S,
                        Point3d&             P,
@@ -310,11 +310,11 @@ inline void ElSLib::D3(const Standard_Real U,
                        Vector3d&             Vuvv)
 {
 
-  ElSLib::
+  ElSLib1::
     SphereD3(U, V, S.Position(), S.Radius(), P, Vu, Vv, Vuu, Vvv, Vuv, Vuuu, Vvvv, Vuuv, Vuvv);
 }
 
-inline void ElSLib::D3(const Standard_Real U,
+inline void ElSLib1::D3(const Standard_Real U,
                        const Standard_Real V,
                        const gp_Torus&     T,
                        Point3d&             P,
@@ -329,7 +329,7 @@ inline void ElSLib::D3(const Standard_Real U,
                        Vector3d&             Vuvv)
 {
 
-  ElSLib::TorusD3(U,
+  ElSLib1::TorusD3(U,
                   V,
                   T.Position(),
                   T.MajorRadius(),
@@ -346,47 +346,47 @@ inline void ElSLib::D3(const Standard_Real U,
                   Vuvv);
 }
 
-inline void ElSLib::Parameters(const gp_Pln&  Pl,
+inline void ElSLib1::Parameters(const gp_Pln&  Pl,
                                const Point3d&  P,
                                Standard_Real& U,
                                Standard_Real& V)
 {
 
-  ElSLib::PlaneParameters(Pl.Position(), P, U, V);
+  ElSLib1::PlaneParameters(Pl.Position(), P, U, V);
 }
 
-inline void ElSLib::Parameters(const gp_Cylinder& C,
+inline void ElSLib1::Parameters(const gp_Cylinder& C,
                                const Point3d&      P,
                                Standard_Real&     U,
                                Standard_Real&     V)
 {
 
-  ElSLib::CylinderParameters(C.Position(), C.Radius(), P, U, V);
+  ElSLib1::CylinderParameters(C.Position(), C.Radius(), P, U, V);
 }
 
-inline void ElSLib::Parameters(const gp_Cone& C,
+inline void ElSLib1::Parameters(const gp_Cone& C,
                                const Point3d&  P,
                                Standard_Real& U,
                                Standard_Real& V)
 {
 
-  ElSLib::ConeParameters(C.Position(), C.RefRadius(), C.SemiAngle(), P, U, V);
+  ElSLib1::ConeParameters(C.Position(), C.RefRadius(), C.SemiAngle(), P, U, V);
 }
 
-inline void ElSLib::Parameters(const gp_Sphere& S,
+inline void ElSLib1::Parameters(const gp_Sphere& S,
                                const Point3d&    P,
                                Standard_Real&   U,
                                Standard_Real&   V)
 {
 
-  ElSLib::SphereParameters(S.Position(), S.Radius(), P, U, V);
+  ElSLib1::SphereParameters(S.Position(), S.Radius(), P, U, V);
 }
 
-inline void ElSLib::Parameters(const gp_Torus& T,
+inline void ElSLib1::Parameters(const gp_Torus& T,
                                const Point3d&   P,
                                Standard_Real&  U,
                                Standard_Real&  V)
 {
 
-  ElSLib::TorusParameters(T.Position(), T.MajorRadius(), T.MinorRadius(), P, U, V);
+  ElSLib1::TorusParameters(T.Position(), T.MajorRadius(), T.MinorRadius(), P, U, V);
 }

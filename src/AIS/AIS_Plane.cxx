@@ -318,12 +318,12 @@ void AIS_Plane::SetSize(const Standard_Real aXLength, const Standard_Real aYLeng
   DA = myDrawer->DatumAspect();
 
   Standard_Boolean yenavaitPA(Standard_True), yenavaitDA(Standard_True);
-  if (myDrawer->HasLink() && myDrawer->Link()->PlaneAspect() == PA)
+  if (myDrawer->HasLink() && myDrawer->Link1()->PlaneAspect() == PA)
   {
     yenavaitPA = Standard_False;
     PA         = new Prs3d_PlaneAspect();
   }
-  if (myDrawer->HasLink() && myDrawer->Link()->DatumAspect() == DA)
+  if (myDrawer->HasLink() && myDrawer->Link1()->DatumAspect() == DA)
   {
     yenavaitDA = Standard_False;
     DA         = new Prs3d_DatumAspect();
@@ -360,9 +360,9 @@ void AIS_Plane::UnsetSize()
   else
   {
     const Handle(Prs3d_PlaneAspect) PA =
-      myDrawer->HasLink() ? myDrawer->Link()->PlaneAspect() : new Prs3d_PlaneAspect();
+      myDrawer->HasLink() ? myDrawer->Link1()->PlaneAspect() : new Prs3d_PlaneAspect();
     const Handle(Prs3d_DatumAspect) DA =
-      myDrawer->HasLink() ? myDrawer->Link()->DatumAspect() : new Prs3d_DatumAspect();
+      myDrawer->HasLink() ? myDrawer->Link1()->DatumAspect() : new Prs3d_DatumAspect();
 
     myDrawer->PlaneAspect()->SetPlaneLength(PA->PlaneXLength(), PA->PlaneYLength());
     myDrawer->DatumAspect()->SetAxisLength(DA->AxisLength(Prs3d_DatumParts_XAxis),
@@ -427,12 +427,12 @@ void AIS_Plane::SetColor(const Quantity_Color& aCol)
   DA = myDrawer->DatumAspect();
 
   Standard_Boolean yenavaitPA(Standard_True), yenavaitDA(Standard_True);
-  if (myDrawer->HasLink() && myDrawer->Link()->PlaneAspect() == PA)
+  if (myDrawer->HasLink() && myDrawer->Link1()->PlaneAspect() == PA)
   {
     yenavaitPA = Standard_False;
     PA         = new Prs3d_PlaneAspect();
   }
-  if (myDrawer->HasLink() && myDrawer->Link()->DatumAspect() == DA)
+  if (myDrawer->HasLink() && myDrawer->Link1()->DatumAspect() == DA)
   {
     yenavaitDA = Standard_False;
     DA         = new Prs3d_DatumAspect();
@@ -468,7 +468,7 @@ void AIS_Plane::UnsetColor()
   else
   {
     const Handle(Prs3d_PlaneAspect) PA =
-      myDrawer->HasLink() ? myDrawer->Link()->PlaneAspect() : new Prs3d_PlaneAspect();
+      myDrawer->HasLink() ? myDrawer->Link1()->PlaneAspect() : new Prs3d_PlaneAspect();
     Quantity_Color Col = PA->EdgesAspect()->Aspect()->Color();
     myDrawer->PlaneAspect()->EdgesAspect()->SetColor(Col);
 
@@ -490,14 +490,14 @@ void AIS_Plane::ComputeFrame()
 
   if (myAutomaticPosition)
   {
-    ElSLib::Parameters(pl->Pln(), myCenter, U, V);
+    ElSLib1::Parameters(pl->Pln(), myCenter, U, V);
     pl->D0(U, V, myCenter);
   }
   else
   {
     Handle(GeomPlane) thegoodpl(
       Handle(GeomPlane)::DownCast(pl->Translated(pl->Location(), myCenter)));
-    ElSLib::Parameters(thegoodpl->Pln(), myPmin, U, V);
+    ElSLib1::Parameters(thegoodpl->Pln(), myPmin, U, V);
 
     U = 2.4 * Abs(U);
     V = 2.4 * Abs(V);

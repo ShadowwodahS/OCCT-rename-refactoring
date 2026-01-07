@@ -22,7 +22,7 @@
 #include <memory>
 
 class gp_Pnt2d;
-class CSLib_Class2d;
+class Class2d;
 
 //! Auxiliary class intended for classification of points
 //! regarding internals of discrete face.
@@ -56,7 +56,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(BRepMesh_Classifier, RefObject)
 
 private:
-  NCollection_Vector<NCollection_Handle<CSLib_Class2d>> myTabClass;
+  NCollection_Vector<NCollection_Handle<Class2d>> myTabClass;
   IMeshData::VectorOfBoolean                            myTabOrient;
 };
 

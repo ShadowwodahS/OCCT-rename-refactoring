@@ -167,7 +167,7 @@ static void CheckPCurves(TopoWire&           aWire,
     {
       Standard_Real u1, u2, v1, v2;
       mySurf->Bounds(u1, u2, v1, v2);
-      ElCLib::AdjustPeriodic(u1, u2, Min(Abs(w2 - w1) / 2, Precision::PConfusion()), w1, w2);
+      ElCLib1::AdjustPeriodic(u1, u2, Min(Abs(w2 - w1) / 2, Precision::PConfusion()), w1, w2);
       B.Range(myEdge, aFace, w1, w2);
     }
 

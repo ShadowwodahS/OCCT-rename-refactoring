@@ -43,7 +43,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
 
   //! Returns AABB of the structure.
-  Standard_EXPORT virtual Graphic3d_BndBox3d Box(const Standard_Integer theIdx) const
+  Standard_EXPORT virtual Graphic3d_BndBox3d Box1(const Standard_Integer theIdx) const
     Standard_OVERRIDE;
 
   //! Calculates center of the AABB along given axis.

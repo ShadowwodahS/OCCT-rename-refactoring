@@ -78,7 +78,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
 
       for (Standard_Integer k = 1; k <= Bis.NbSolutions(); k++)
       {
-        IntAna2d_AnaIntersection Intp(Bis.ThisSolution(k), OnLine);
+        AnalyticIntersection2d Intp(Bis.ThisSolution(k), OnLine);
         if (Intp.IsDone())
         {
           WellDone = Standard_True;
@@ -146,11 +146,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
       else
         qualifier2(i) = GccEnt_enclosed;
       pntcen(i)  = pbid;
-      par1sol(i) = ElCLib::Parameter(cirsol(i), pnttg1sol(i));
-      pararg1(i) = ElCLib::Parameter(L1, pnttg1sol(i));
-      par2sol(i) = ElCLib::Parameter(cirsol(i), pnttg2sol(i));
-      pararg2(i) = ElCLib::Parameter(L2, pnttg2sol(i));
-      parcen3(i) = ElCLib::Parameter(OnLine, pntcen(i));
+      par1sol(i) = ElCLib1::Parameter(cirsol(i), pnttg1sol(i));
+      pararg1(i) = ElCLib1::Parameter(L1, pnttg1sol(i));
+      par2sol(i) = ElCLib1::Parameter(cirsol(i), pnttg2sol(i));
+      pararg2(i) = ElCLib1::Parameter(L2, pnttg2sol(i));
+      parcen3(i) = ElCLib1::Parameter(OnLine, pntcen(i));
     }
     else
     {

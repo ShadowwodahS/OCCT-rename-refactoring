@@ -38,7 +38,7 @@ class gp_Pnt2d;
 //! * Create a Circ2d with its center and a point given
 //! the radius.
 //! * Create a Circ2d with its axis and its radius.
-class gce_MakeCirc2d : public gce_Root
+class gce_MakeCirc2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

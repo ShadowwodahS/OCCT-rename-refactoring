@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(TNaming_UsedShapes, TDF_Attribute)
 
 //! Global attribute located under root label to store all
 //! the shapes handled by the framework
-//! Set of Shapes Used in a Data from TDF
+//! Set of Shapes Used in a Data from TDF1
 //! Only one instance by Data, it always
 //! Stored as Attribute of The Root.
 class TNaming_UsedShapes : public TDF_Attribute

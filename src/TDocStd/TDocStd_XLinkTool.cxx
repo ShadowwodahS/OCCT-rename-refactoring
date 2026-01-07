@@ -47,7 +47,7 @@ void TDocStd_XLinkTool::Copy(const DataLabel& target, const DataLabel& source)
   SOURCE = AppDocument::Get(source);
   if (TARGET != SOURCE)
   {
-    if (!TDF_Tool::IsSelfContained(source))
+    if (!Tool3::IsSelfContained(source))
     {
       throw Standard_DomainError("TDocStd_XLinkTool::Copy : not self-contained");
     }
@@ -75,12 +75,12 @@ void TDocStd_XLinkTool::Copy(const DataLabel& target, const DataLabel& source)
   myRT                   = new TDF_RelocationTable(Standard_True);
   myDS                   = new TDF_DataSet;
   Handle(TDF_DataSet) DS = new TDF_DataSet();
-  TDF_ClosureMode     mode(Standard_True); // descendant plus reference
+  ClosureMode     mode(Standard_True); // descendant plus reference
   myDS->AddLabel(source);
   myRT->SetRelocation(source, target);
-  TDF_IDFilter filter(Standard_False); // on prend tout
-  TDF_ClosureTool::Closure(myDS, filter, mode);
-  TDF_CopyTool::Copy(myDS, myRT);
+  IDFilter filter(Standard_False); // on prend tout
+  ClosureTool::Closure(myDS, filter, mode);
+  CopyTool::Copy(myDS, myRT);
   // TopTools_DataMapOfShapeShape M; // removed to avoid dependence with TNaming1
   // TNaming1::ChangeShapes(target,M);// should be used as postfix after Copy
 
@@ -127,7 +127,7 @@ void TDocStd_XLinkTool::CopyWithLink(const DataLabel& target, const DataLabel& s
   if (isDone)
   {
     AsciiString1 xlabelentry, xdocentry;
-    TDF_Tool::Entry(source, xlabelentry);
+    Tool3::Entry(source, xlabelentry);
     Handle(AppDocument) aSourceD  = AppDocument::Get(source);
     Handle(AppDocument) aTargetD  = AppDocument::Get(target);
     Standard_Integer         aDocEntry = 0;

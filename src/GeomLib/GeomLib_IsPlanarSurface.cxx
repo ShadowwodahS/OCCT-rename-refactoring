@@ -40,7 +40,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
   Dir3d                  DX, DY;
   constexpr Standard_Real aTolSingular = Precision::Confusion();
 
-  GeomLib::Inertia(Poles, Bary, DX, DY, gx, gy, gz);
+  GeomLib1::Inertia(Poles, Bary, DX, DY, gx, gy, gz);
   if (gz < Tol && gy > aTolSingular)
   {
     Point3d        P;
@@ -133,7 +133,7 @@ static Standard_Boolean Controle(const Handle(GeomCurve3d)& C,
   return B;
 }
 
-GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(GeomSurface)& S,
+PlanarSurfaceChecker::PlanarSurfaceChecker(const Handle(GeomSurface)& S,
                                                  const Standard_Real         Tol)
 
 {
@@ -260,14 +260,14 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(GeomSurface)& S,
   }
 }
 
-Standard_Boolean GeomLib_IsPlanarSurface::IsPlanar() const
+Standard_Boolean PlanarSurfaceChecker::IsPlanar() const
 {
   return IsPlan;
 }
 
-const gp_Pln& GeomLib_IsPlanarSurface::Plan() const
+const gp_Pln& PlanarSurfaceChecker::Plan() const
 {
   if (!IsPlan)
-    throw StdFail_NotDone(" GeomLib_IsPlanarSurface");
+    throw StdFail_NotDone(" PlanarSurfaceChecker");
   return myPlan;
 }

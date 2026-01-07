@@ -274,15 +274,15 @@ void MessageView_ActionsTest::OnTestMessenger()
     aTrsf.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // Bnd_Box
+  // Box2
   {
-    Bnd_Box aBox(Point3d(20., 15., 10.), Point3d(25., 20., 15.));
+    Box2 aBox(Point3d(20., 15., 10.), Point3d(25., 20., 15.));
     aBox.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // Bnd_OBB
+  // OrientedBox
   {
-    Bnd_OBB anOBB(Point3d(-10., -15., -10.),
+    OrientedBox anOBB(Point3d(-10., -15., -10.),
                   Dir3d(1., 0., 0.),
                   Dir3d(0., 1., 0.),
                   Dir3d(0., 0., 1.),

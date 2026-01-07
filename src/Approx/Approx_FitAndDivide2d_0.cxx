@@ -18,7 +18,7 @@
 
 #include <AppParCurves_MultiCurve.hxx>
 
-#define MultiLine AppCont_Function
+#define MultiLine ContinuityFunction
 #define MultiLine_hxx <AppCont_Function.hxx>
 #define Approx_ComputeCLine Approx_FitAndDivide2d
 #define Approx_ComputeCLine_hxx <Approx_FitAndDivide2d.hxx>

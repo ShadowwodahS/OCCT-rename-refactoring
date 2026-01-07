@@ -29,11 +29,11 @@
 class Standard_DomainError;
 class StdFail_NotDone;
 class Adaptor2d_Curve2d;
-class Extrema_Curve2dTool;
-class Extrema_ExtPElC2d;
+class Curve2dTool1;
+class PointElCCurveExtrema2d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class Extrema_POnCurv2d;
+class PointOnCurve2d;
 class Extrema_ELPCOfLocateExtPC2d;
 class Extrema_EPCOfELPCOfLocateExtPC2d;
 class Extrema_LocEPCOfLocateExtPC2d;
@@ -95,11 +95,11 @@ public:
   Standard_EXPORT Standard_Boolean IsMin() const;
 
   //! Returns the point of the extremum distance.
-  Standard_EXPORT const Extrema_POnCurv2d& Point() const;
+  Standard_EXPORT const PointOnCurve2d& Point() const;
 
 protected:
 private:
-  Extrema_POnCurv2d             mypp;
+  PointOnCurve2d             mypp;
   Standard_Address              myC;
   Standard_Real                 mydist2;
   Standard_Boolean              myismin;

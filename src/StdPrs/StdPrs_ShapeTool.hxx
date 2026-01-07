@@ -25,7 +25,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 
-class Bnd_Box;
+class Box2;
 class MeshTriangulation;
 class Poly_PolygonOnTriangulation;
 class Poly_Polygon3D;
@@ -51,7 +51,7 @@ public:
 
   const TopoFace& GetFace() const { return TopoDS::Face(myFaceExplorer.Current()); }
 
-  Standard_EXPORT Bnd_Box FaceBound() const;
+  Standard_EXPORT Box2 FaceBound() const;
 
   Standard_Boolean IsPlanarFace() const
   {
@@ -67,7 +67,7 @@ public:
 
   const TopoEdge& GetCurve() const { return TopoDS::Edge(myEdgeMap.FindKey(myEdge)); }
 
-  Standard_EXPORT Bnd_Box CurveBound() const;
+  Standard_EXPORT Box2 CurveBound() const;
 
   Standard_EXPORT Standard_Integer Neighbours() const;
 

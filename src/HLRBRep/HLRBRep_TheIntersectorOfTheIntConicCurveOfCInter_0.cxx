@@ -28,9 +28,9 @@
 #define ImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ParCurve Standard_Address
 #define ParCurve_hxx <Standard_Address.hxx>
-#define ParTool HLRBRep_CurveTool
+#define ParTool CurveTool5
 #define ParTool_hxx <HLRBRep_CurveTool.hxx>
-#define ProjectOnPCurveTool HLRBRep_TheProjPCurOfCInter
+#define ProjectOnPCurveTool ProjPCurOfCInter
 #define ProjectOnPCurveTool_hxx <HLRBRep_TheProjPCurOfCInter.hxx>
 #define IntImpParGen_MyImpParTool HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
 #define IntImpParGen_MyImpParTool_hxx                                                              \

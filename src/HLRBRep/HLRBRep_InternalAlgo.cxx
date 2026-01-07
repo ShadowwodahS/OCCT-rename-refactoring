@@ -61,14 +61,14 @@ HLRBRep_InternalAlgo::HLRBRep_InternalAlgo(const Handle(HLRBRep_InternalAlgo)& A
 
 //=================================================================================================
 
-void HLRBRep_InternalAlgo::Projector(const HLRAlgo_Projector& P)
+void HLRBRep_InternalAlgo::Projector(const HLRAlgoProjector& P)
 {
   myProj = P;
 }
 
 //=================================================================================================
 
-HLRAlgo_Projector& HLRBRep_InternalAlgo::Projector()
+HLRAlgoProjector& HLRBRep_InternalAlgo::Projector()
 {
   return myProj;
 }
@@ -90,7 +90,7 @@ void HLRBRep_InternalAlgo::Update()
       try
       {
         OCC_CATCH_SIGNALS
-        DS[i - 1] = HLRBRep_ShapeToHLR::Load(SB.Shape(), myProj, myMapOfShapeTool, SB.NbOfIso());
+        DS[i - 1] = ShapeToHLRConverter::Load(SB.Shape(), myProj, myMapOfShapeTool, SB.NbOfIso());
         dv        = DS[i - 1]->NbVertices();
         de        = DS[i - 1]->NbEdges();
         df        = DS[i - 1]->NbFaces();
@@ -140,8 +140,8 @@ void HLRBRep_InternalAlgo::Update()
 
     myDS->Update(myProj);
 
-    HLRAlgo_EdgesBlock::MinMaxIndices ShapMin, ShapMax, MinMaxShap;
-    HLRAlgo_EdgesBlock::MinMaxIndices TheMin, TheMax;
+    HLRAlgo_EdgesBlock::MinMaxIndices1 ShapMin, ShapMax, MinMaxShap;
+    HLRAlgo_EdgesBlock::MinMaxIndices1 TheMin, TheMax;
     HLRBRep_Array1OfEData&            aEDataArray = myDS->EDataArray();
     HLRBRep_Array1OfFData&            aFDataArray = myDS->FDataArray();
 
@@ -155,23 +155,23 @@ void HLRBRep_InternalAlgo::Update()
       for (Standard_Integer e = e1; e <= e2; e++)
       {
         HLRBRep_EdgeData& ed = aEDataArray.ChangeValue(e);
-        HLRAlgo::DecodeMinMax(ed.MinMax(), TheMin, TheMax);
+        HLRAlgo1::DecodeMinMax(ed.MinMax(), TheMin, TheMax);
         if (FirstTime)
         {
           FirstTime = Standard_False;
-          HLRAlgo::CopyMinMax(TheMin, TheMax, ShapMin, ShapMax);
+          HLRAlgo1::CopyMinMax(TheMin, TheMax, ShapMin, ShapMax);
         }
         else
-          HLRAlgo::AddMinMax(TheMin, TheMax, ShapMin, ShapMax);
+          HLRAlgo1::AddMinMax(TheMin, TheMax, ShapMin, ShapMax);
       }
 
       for (Standard_Integer f = f1; f <= f2; f++)
       {
         HLRBRep_FaceData& fd = aFDataArray.ChangeValue(f);
-        HLRAlgo::DecodeMinMax(fd.Wires()->MinMax(), TheMin, TheMax);
-        HLRAlgo::AddMinMax(TheMin, TheMax, ShapMin, ShapMax);
+        HLRAlgo1::DecodeMinMax(fd.Wires()->MinMax(), TheMin, TheMax);
+        HLRAlgo1::AddMinMax(TheMin, TheMax, ShapMin, ShapMax);
       }
-      HLRAlgo::EncodeMinMax(ShapMin, ShapMax, MinMaxShap);
+      HLRAlgo1::EncodeMinMax(ShapMin, ShapMax, MinMaxShap);
       SB.UpdateMinMax(MinMaxShap);
     }
   }
@@ -583,8 +583,8 @@ void HLRBRep_InternalAlgo::Hide(const Standard_Integer I, const Standard_Integer
       Hide(I);
     else
     {
-      HLRAlgo_EdgesBlock::MinMaxIndices* MinMaxShBI = &myShapes(I).MinMax();
-      HLRAlgo_EdgesBlock::MinMaxIndices* MinMaxShBJ = &myShapes(J).MinMax();
+      HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxShBI = &myShapes(I).MinMax();
+      HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxShBJ = &myShapes(J).MinMax();
       if (((MinMaxShBJ->Max[0] - MinMaxShBI->Min[0]) & 0x80008000) == 0
           && ((MinMaxShBI->Max[0] - MinMaxShBJ->Min[0]) & 0x80008000) == 0
           && ((MinMaxShBJ->Max[1] - MinMaxShBI->Min[1]) & 0x80008000) == 0

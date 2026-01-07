@@ -630,7 +630,7 @@ Standard_Boolean MAT2d_Tool2d::Projection(const Standard_Integer IEdge,
       ParamMax = theCircuit->Connexion(INext)->ParameterOnFirst();
       if (Curve->BasisCurve()->IsPeriodic())
       {
-        ElCLib::AdjustPeriodic(0., 2 * M_PI, Eps, ParamMin, ParamMax);
+        ElCLib1::AdjustPeriodic(0., 2 * M_PI, Eps, ParamMin, ParamMax);
       }
     }
     //---------------------------------------------------------------------

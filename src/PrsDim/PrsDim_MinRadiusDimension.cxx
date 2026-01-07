@@ -129,8 +129,8 @@ void PrsDim_MinRadiusDimension::ComputeEllipse(const Handle(Prs3d_Presentation)&
   {
     curPos = myPosition;
     gp_Lin L1(myEllipse.YAxis());
-    U      = ElCLib::Parameter(L1, curPos);
-    curPos = ElCLib::Value(U, L1);
+    U      = ElCLib1::Parameter(L1, curPos);
+    curPos = ElCLib1::Value(U, L1);
     if (curPos.Distance(myApexP) < curPos.Distance(myApexN))
       myEndOfArrow = myApexP;
     else
@@ -184,13 +184,13 @@ void PrsDim_MinRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
   {
     curPos = myPosition;
     gp_Lin L1(myEllipse.YAxis());
-    par    = ElCLib::Parameter(L1, curPos);
-    curPos = ElCLib::Value(par, L1);
+    par    = ElCLib1::Parameter(L1, curPos);
+    curPos = ElCLib1::Value(par, L1);
     if (curPos.Distance(myApexP) < curPos.Distance(myApexN))
       myEndOfArrow = myApexP;
     else
       myEndOfArrow = myApexN;
-    par        = ElCLib::Parameter(myEllipse, myEndOfArrow);
+    par        = ElCLib1::Parameter(myEllipse, myEndOfArrow);
     IsInDomain = PrsDim::InDomain(myFirstPar, myLastPar, par);
     myPosition = curPos;
   }
@@ -268,7 +268,7 @@ void PrsDim_MinRadiusDimension::ComputeSelection(const Handle(SelectionContainer
   if (myIsAnArc)
   {
 
-    Standard_Real parEnd = ElCLib::Parameter(myEllipse, myEndOfArrow);
+    Standard_Real parEnd = ElCLib1::Parameter(myEllipse, myEndOfArrow);
     if (!PrsDim::InDomain(myFirstPar, myLastPar, parEnd))
     {
       Standard_Real parStart, par;
@@ -277,8 +277,8 @@ void PrsDim_MinRadiusDimension::ComputeSelection(const Handle(SelectionContainer
         par = myFirstPar;
       else
         par = myLastPar;
-      Vector3d Vapex(center, ElCLib::Value(parEnd, myEllipse));
-      Vector3d Vpnt(center, ElCLib::Value(par, myEllipse));
+      Vector3d Vapex(center, ElCLib1::Value(parEnd, myEllipse));
+      Vector3d Vpnt(center, ElCLib1::Value(par, myEllipse));
       Dir3d dir(Vpnt ^ Vapex);
       if (myEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()))
       {

@@ -27,16 +27,16 @@
 #include <Standard_Boolean.hxx>
 class Standard_OutOfRange;
 class HLRBRep_ThePolyhedronOfInterCSurf;
-class Bnd_Box;
+class Box2;
 class Point3d;
 
-class HLRBRep_ThePolyhedronToolOfInterCSurf
+class PolyhedronToolInterCSurf
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Give the bounding box of the PolyhedronTool.
-  static const Bnd_Box& Bounding(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh);
+  static const Box2& Bounding(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh);
 
   //! Give the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
@@ -51,7 +51,7 @@ public:
 
   //! Give the indices  of  the 3 points of  the triangle of
   //! address Index in the PolyhedronTool.
-  static void Triangle(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh,
+  static void Triangle1(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh,
                        const Standard_Integer                   Index,
                        Standard_Integer&                        P1,
                        Standard_Integer&                        P2,
@@ -89,7 +89,7 @@ public:
 
 #define ThePolyhedron HLRBRep_ThePolyhedronOfInterCSurf
 #define ThePolyhedron_hxx <HLRBRep_ThePolyhedronOfInterCSurf.hxx>
-#define IntCurveSurface_PolyhedronTool HLRBRep_ThePolyhedronToolOfInterCSurf
+#define IntCurveSurface_PolyhedronTool PolyhedronToolInterCSurf
 #define IntCurveSurface_PolyhedronTool_hxx <HLRBRep_ThePolyhedronToolOfInterCSurf.hxx>
 
 #include <IntCurveSurface_PolyhedronTool.lxx>

@@ -82,7 +82,7 @@ public:
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling
-  //! or a complex transformation obtained by combination of
+  //! or a complex1 transformation obtained by combination of
   //! the previous elementaries transformations.
   //! (see class Transformation of the package Geom).
   Standard_EXPORT virtual void Transform(const Transform3d& T) = 0;

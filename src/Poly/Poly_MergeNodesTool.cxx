@@ -428,7 +428,7 @@ void Poly_MergeNodesTool::AddTriangulation(const Handle(MeshTriangulation)& theT
 
   for (int anElemIter = 1; anElemIter <= theTris->NbTriangles(); ++anElemIter)
   {
-    Poly_Triangle anElem = theTris->Triangle(anElemIter);
+    Poly_Triangle anElem = theTris->Triangle1(anElemIter);
     if (theToReverse)
     {
       anElem = Poly_Triangle(anElem.Value(1), anElem.Value(3), anElem.Value(2));

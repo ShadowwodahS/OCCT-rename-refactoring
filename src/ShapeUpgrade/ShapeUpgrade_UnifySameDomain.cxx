@@ -991,7 +991,7 @@ static void TransformPCurves(const TopoFace&   theRefFace,
 
     Point3d OriginRefSurf = AxisOfRefSurf.Location();
 
-    Standard_Real aParam = ElCLib::LineParameter(AxisOfSurfFace.Axis(), OriginRefSurf);
+    Standard_Real aParam = ElCLib1::LineParameter(AxisOfSurfFace.Axis(), OriginRefSurf);
 
     if (Abs(aParam) > Precision::PConfusion())
       aTranslation = -aParam;
@@ -1078,7 +1078,7 @@ static void TransformPCurves(const TopoFace&   theRefFace,
         aC3d                    = new Geom_TrimmedCurve(aC3d, fpar, lpar);
         Standard_Real tol       = BRepInspector::Tolerance(anEdge);
         tol                     = Min(tol, Precision::Approximation());
-        NewPCurves[ii]          = GeomProjLib::Curve2d(aC3d, RefSurf);
+        NewPCurves[ii]          = GeomProjLib1::Curve2d(aC3d, RefSurf);
       }
       else
       {
@@ -1409,10 +1409,10 @@ static Standard_Boolean IsSameDomain(
 
   // case of two planar surfaces:
   // all kinds of surfaces checked, including b-spline and bezier
-  GeomLib_IsPlanarSurface aPlanarityChecker1(S1, theLinTol);
+  PlanarSurfaceChecker aPlanarityChecker1(S1, theLinTol);
   if (aPlanarityChecker1.IsPlanar())
   {
-    GeomLib_IsPlanarSurface aPlanarityChecker2(S2, theLinTol);
+    PlanarSurfaceChecker aPlanarityChecker2(S2, theLinTol);
     if (aPlanarityChecker2.IsPlanar())
     {
       gp_Pln aPln1 = aPlanarityChecker1.Plan();
@@ -1575,8 +1575,8 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
 
     Handle(GeomCurve3d)        aCurve   = BRepInspector::Curve(anEdge, fpar, lpar);
     Handle(Geom_TrimmedCurve) aTrCurve = new Geom_TrimmedCurve(aCurve, fpar, lpar);
-    tab_c3d(i - 1)                     = GeomConvert::CurveToBSplineCurve(aTrCurve);
-    GeomConvert::C0BSplineToC1BSplineCurve(tab_c3d(i - 1), Precision::Confusion());
+    tab_c3d(i - 1)                     = GeomConvert1::CurveToBSplineCurve(aTrCurve);
+    GeomConvert1::C0BSplineToC1BSplineCurve(tab_c3d(i - 1), Precision::Confusion());
     if (ToReverse)
       tab_c3d(i - 1)->Reverse();
     PrevVertex = (ToReverse) ? VF : VL;
@@ -1585,7 +1585,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
   Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
   Handle(TColStd_HArray1OfInteger)       ArrayOfIndices; // array of the remaining Vertex
   Standard_Boolean                       closed_flag = Standard_False;
-  GeomConvert::ConcatC1(tab_c3d,
+  GeomConvert1::ConcatC1(tab_c3d,
                         tabtolvertex,
                         ArrayOfIndices,
                         concatcurve,
@@ -1622,8 +1622,8 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
       if (aPCurve.IsNull())
         continue;
       Handle(Geom2d_TrimmedCurve) aTrPCurve = new Geom2d_TrimmedCurve(aPCurve, fpar, lpar);
-      tab_c2d(i - 1)                        = Geom2dConvert::CurveToBSplineCurve(aTrPCurve);
-      Geom2dConvert::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
+      tab_c2d(i - 1)                        = Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
+      Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
       if (ToReverse)
         tab_c2d(i - 1)->Reverse();
       PrevVertex = (ToReverse) ? VF : VL;
@@ -1632,7 +1632,7 @@ static TopoEdge GlueEdgesWithPCurves(const TopTools_SequenceOfShape& aChain,
     Handle(TColGeom2d_HArray1OfBSplineCurve) concatc2d;    // array of the concatenated curves
     Handle(TColStd_HArray1OfInteger)         ArrayOfInd2d; // array of the remaining Vertex
     closed_flag = Standard_False;
-    Geom2dConvert::ConcatC1(tab_c2d,
+    Geom2dConvert1::ConcatC1(tab_c2d,
                             tabtolvertex,
                             ArrayOfInd2d,
                             concatc2d,
@@ -1815,8 +1815,8 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
               isSameCurve = Standard_True;
               gp_Pnt2d p1 = anAdaptor.Value(aFirst);
               gp_Pnt2d p2 = anAdaptor.Value(aLast);
-              aNewF       = ElCLib::Parameter(aPrevLin, p1);
-              aNewL       = ElCLib::Parameter(aPrevLin, p2);
+              aNewF       = ElCLib1::Parameter(aPrevLin, p1);
+              aNewL       = ElCLib1::Parameter(aPrevLin, p2);
               if (aNewF > aNewL)
               {
                 Standard_Real aTmp = aNewF;
@@ -1835,8 +1835,8 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
               isSameCurve = Standard_True;
               gp_Pnt2d p1 = anAdaptor.Value(aFirst);
               gp_Pnt2d p2 = anAdaptor.Value(aLast);
-              aNewF       = ElCLib::Parameter(aPrevCirc, p1);
-              aNewL       = ElCLib::Parameter(aPrevCirc, p2);
+              aNewF       = ElCLib1::Parameter(aPrevCirc, p1);
+              aNewL       = ElCLib1::Parameter(aPrevCirc, p2);
               if (aNewF > aNewL)
               {
                 Standard_Real aTmp = aNewF;
@@ -1904,8 +1904,8 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
         {
           aTrPCurve->Reverse();
         }
-        tab_c2d(i - 1) = Geom2dConvert::CurveToBSplineCurve(aTrPCurve);
-        Geom2dConvert::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
+        tab_c2d(i - 1) = Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
+        Geom2dConvert1::C0BSplineToC1BSplineCurve(tab_c2d(i - 1), Precision::Confusion());
       }
 
       TColStd_Array1OfReal tabtolvertex(0, aTolVerSeq.Length() - 1);
@@ -1920,7 +1920,7 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
       Handle(TColGeom2d_HArray1OfBSplineCurve) concatc2d;    // array of the concatenated curves
       Handle(TColStd_HArray1OfInteger)         ArrayOfInd2d; // array of the remaining Vertex
       Standard_Boolean                         aClosedFlag = Standard_False;
-      Geom2dConvert::ConcatC1(tab_c2d,
+      Geom2dConvert1::ConcatC1(tab_c2d,
                               tabtolvertex,
                               ArrayOfInd2d,
                               concatc2d,
@@ -1975,10 +1975,10 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
         // Reparametrize pcurve
         Handle(Geom2d_TrimmedCurve) aTrPCurve =
           new Geom2d_TrimmedCurve(ResPCurves(ii), ResFirsts(ii), ResLasts(ii));
-        Handle(Geom2d_BSplineCurve) aBSplinePCurve = Geom2dConvert::CurveToBSplineCurve(aTrPCurve);
+        Handle(Geom2d_BSplineCurve) aBSplinePCurve = Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
         TColStd_Array1OfReal        aKnots(1, aBSplinePCurve->NbKnots());
         aBSplinePCurve->Knots(aKnots);
-        BSplCLib::Reparametrize(aFirst3d, aLast3d, aKnots);
+        BSplCLib1::Reparametrize(aFirst3d, aLast3d, aKnots);
         aBSplinePCurve->SetKnots(aKnots);
         ResPCurves(ii) = aBSplinePCurve;
       }
@@ -2023,10 +2023,10 @@ void ShapeUpgrade_UnifySameDomain::UnionPCurves(const TopTools_SequenceOfShape& 
           Handle(Geom2d_TrimmedCurve) aTrPCurve =
             new Geom2d_TrimmedCurve(ResPCurves(ii), ResFirsts(ii), ResLasts(ii));
           Handle(Geom2d_BSplineCurve) aBSplinePCurve =
-            Geom2dConvert::CurveToBSplineCurve(aTrPCurve);
+            Geom2dConvert1::CurveToBSplineCurve(aTrPCurve);
           TColStd_Array1OfReal aKnots(1, aBSplinePCurve->NbKnots());
           aBSplinePCurve->Knots(aKnots);
-          BSplCLib::Reparametrize(aFirst3d, aLast3d, aKnots);
+          BSplCLib1::Reparametrize(aFirst3d, aLast3d, aKnots);
           aBSplinePCurve->SetKnots(aKnots);
           ResPCurves(ii) = aBSplinePCurve;
         }

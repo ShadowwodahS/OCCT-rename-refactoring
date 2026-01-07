@@ -37,7 +37,7 @@ class gp_Circ;
 //! * Create a Cylinder with 3 points.
 //! * Create a Cylinder by its axis and radius.
 //! * Create a cylinder by its circular base.
-class gce_MakeCylinder : public gce_Root
+class gce_MakeCylinder : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -213,9 +213,9 @@ void ShapeTool::AdjustOnPeriodic(const TopoShape& F,
 
     //    Standard_Real ubid = UFfirst;
 
-    //    ElCLib::AdjustPeriodic(UFfirst,UFfirst + Uperiod,tol,ubid,u);
+    //    ElCLib1::AdjustPeriodic(UFfirst,UFfirst + Uperiod,tol,ubid,u);
     if (Abs(u - UFfirst - Uperiod) > tol)
-      u = ElCLib::InPeriod(u, UFfirst, UFfirst + Uperiod);
+      u = ElCLib1::InPeriod(u, UFfirst, UFfirst + Uperiod);
   }
   if (isVperio)
   {
@@ -223,9 +223,9 @@ void ShapeTool::AdjustOnPeriodic(const TopoShape& F,
 
     //    Standard_Real vbid = VFfirst;
 
-    //    ElCLib::AdjustPeriodic(VFfirst,VFfirst + Vperiod,tol,vbid,v);
+    //    ElCLib1::AdjustPeriodic(VFfirst,VFfirst + Vperiod,tol,vbid,v);
     if (Abs(v - VFfirst - Vperiod) > tol)
-      v = ElCLib::InPeriod(v, VFfirst, VFfirst + Vperiod);
+      v = ElCLib1::InPeriod(v, VFfirst, VFfirst + Vperiod);
   }
 }
 

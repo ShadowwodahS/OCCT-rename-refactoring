@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S)
+Standard_Integer BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S)
 {
   Standard_Integer    nbs;
   GeomAbs_SurfaceType typS = S.GetType();
@@ -63,7 +63,7 @@ Standard_Integer HLRBRep_BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S)
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_BSurfaceTool::NbSamplesV(const BRepAdaptor_Surface& S)
+Standard_Integer BSurfaceTool::NbSamplesV(const BRepAdaptor_Surface& S)
 {
   Standard_Integer    nbs;
   GeomAbs_SurfaceType typS = S.GetType();
@@ -104,7 +104,7 @@ Standard_Integer HLRBRep_BSurfaceTool::NbSamplesV(const BRepAdaptor_Surface& S)
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S,
+Standard_Integer BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S,
                                                   const Standard_Real        u1,
                                                   const Standard_Real        u2)
 {
@@ -125,7 +125,7 @@ Standard_Integer HLRBRep_BSurfaceTool::NbSamplesU(const BRepAdaptor_Surface& S,
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_BSurfaceTool::NbSamplesV(const BRepAdaptor_Surface& S,
+Standard_Integer BSurfaceTool::NbSamplesV(const BRepAdaptor_Surface& S,
                                                   const Standard_Real        v1,
                                                   const Standard_Real        v2)
 {

@@ -26,16 +26,16 @@
 
 //! This class represents a bounding sphere of a geometric entity
 //! (triangle, segment of line or whatever else).
-class Bnd_Sphere
+class Sphere2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT Bnd_Sphere();
+  Standard_EXPORT Sphere2();
 
   //! Constructor of a definite sphere
-  Standard_EXPORT Bnd_Sphere(const gp_XYZ&          theCntr,
+  Standard_EXPORT Sphere2(const gp_XYZ&          theCntr,
                              const Standard_Real    theRad,
                              const Standard_Integer theU,
                              const Standard_Integer theV);
@@ -83,9 +83,9 @@ public:
 
   Standard_EXPORT Standard_Real SquareDistance(const gp_XYZ& theNode) const;
 
-  Standard_EXPORT void Add(const Bnd_Sphere& theOther);
+  Standard_EXPORT void Add(const Sphere2& theOther);
 
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_Sphere& theOther) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Sphere2& theOther) const;
 
   Standard_EXPORT Standard_Boolean IsOut(const gp_XYZ& thePnt, Standard_Real& theMaxDist) const;
 

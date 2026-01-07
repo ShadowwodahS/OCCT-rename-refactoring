@@ -448,7 +448,7 @@ Standard_Boolean GeomFill_Sweep::BuildProduct(const GeomAbs_Shape    Continuity,
                          ResPoles->Value(ii,4).XYZ());
           TR(ii) = ResPoles->Value(ii,1);
         }
-        GeomLib::TensorialProduct(BSurf, TM, TR,
+        GeomLib1::TensorialProduct(BSurf, TM, TR,
                                   Approx.Knots()->Array1(),
                                   Approx.Multiplicities()->Array1());
 
@@ -560,7 +560,7 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
 
   aPntLastSec.Transform(TfEnd);
 
-  Point3d aPntFirstSec = ElCLib::Value(UFirst, L);
+  Point3d aPntFirstSec = ElCLib1::Value(UFirst, L);
   Vector3d aVecSec(aPntFirstSec, aPntLastSec);
   Vector3d aVecSpine = VEnd - VBegin;
 
@@ -895,8 +895,8 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             Point3d        FirstPoint = theSection->Value(theSection->FirstParameter());
             Point3d        LastPoint  = theSection->Value(theSection->LastParameter());
             Standard_Real UfirstOnSec, VfirstOnSec, UlastOnSec, VlastOnSec;
-            ElSLib::Parameters(theSphere, FirstPoint, UfirstOnSec, VfirstOnSec);
-            ElSLib::Parameters(theSphere, LastPoint, UlastOnSec, VlastOnSec);
+            ElSLib1::Parameters(theSphere, FirstPoint, UfirstOnSec, VfirstOnSec);
+            ElSLib1::Parameters(theSphere, LastPoint, UlastOnSec, VlastOnSec);
             if (VfirstOnSec < VlastOnSec)
             {
               f = VfirstOnSec;

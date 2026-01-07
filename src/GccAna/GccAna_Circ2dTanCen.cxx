@@ -124,8 +124,8 @@ Circle2dTangentCenter::Circle2dTangentCenter(const QualifiedCircle& Qualified1,
         TheSame1(NbrSol) = 0;
         gp_Dir2d d(Pcenter.X() - center1.X(), Pcenter.Y() - center1.Y());
         pnttg1sol(NbrSol) = gp_Pnt2d(Pcenter.XY() + signe * Radius * d.XY());
-        par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-        pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+        par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+        pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
       }
       WellDone = Standard_True;
     }
@@ -173,8 +173,8 @@ Circle2dTangentCenter::Circle2dTangentCenter(const QualifiedCircle& Qualified1,
         WellDone         = Standard_True;
         gp_Dir2d d(Pcenter.X() - center1.X(), Pcenter.Y() - center1.Y());
         pnttg1sol(NbrSol) = gp_Pnt2d(Pcenter.XY() + signe1 * Radius * d.XY());
-        par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-        pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+        par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+        pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
       }
     }
     else
@@ -224,14 +224,14 @@ Circle2dTangentCenter::Circle2dTangentCenter(const gp_Lin2d& Linetan, const gp_P
   if (gp_Dir2d(xloc - Pcenter.X(), yloc - Pcenter.Y()).Dot(gp_Dir2d(-ydir, xdir)) > 0.0)
   {
     pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * Coords2d(-ydir, xdir));
-    par1sol(1)   = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
-    pararg1(1)   = ElCLib::Parameter(Linetan, pnttg1sol(1));
+    par1sol(1)   = ElCLib1::Parameter(cirsol(1), pnttg1sol(1));
+    pararg1(1)   = ElCLib1::Parameter(Linetan, pnttg1sol(1));
   }
   else
   {
     pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * Coords2d(ydir, -xdir));
-    par1sol(1)   = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
-    pararg1(1)   = ElCLib::Parameter(Linetan, pnttg1sol(1));
+    par1sol(1)   = ElCLib1::Parameter(cirsol(1), pnttg1sol(1));
+    pararg1(1)   = ElCLib1::Parameter(Linetan, pnttg1sol(1));
   }
   NbrSol   = 1;
   WellDone = Standard_True;
@@ -265,7 +265,7 @@ Circle2dTangentCenter::Circle2dTangentCenter(const gp_Pnt2d& Point1, const gp_Pn
   qualifier1(1) = GccEnt_noqualifier;
   TheSame1(1)   = 0;
   pnttg1sol(1)  = Point1;
-  par1sol(1)    = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
+  par1sol(1)    = ElCLib1::Parameter(cirsol(1), pnttg1sol(1));
   pararg1(1)    = 0.0;
   NbrSol        = 1;
   WellDone      = Standard_True;

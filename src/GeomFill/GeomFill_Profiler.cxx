@@ -139,13 +139,13 @@ void Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
       C = appr.Curve();
   }
   if (C.IsNull())
-    C = GeomConvert::CurveToBSplineCurve(Curve);
+    C = GeomConvert1::CurveToBSplineCurve(Curve);
   /*
   if ( Curve->IsKind(STANDARD_TYPE(BSplineCurve3d))) {
     C = Handle(GeomCurve3d)::DownCast(Curve->Copy());
   }
   else {
-    C = GeomConvert::CurveToBSplineCurve(Curve,Convert_QuasiAngular);
+    C = GeomConvert1::CurveToBSplineCurve(Curve,Convert_QuasiAngular);
   }
   */
   ///////////////////////////////////////////////
@@ -206,7 +206,7 @@ void Profiler::Perform(const Standard_Real PTol)
 
     TColStd_Array1OfReal Knots(1, C->NbKnots());
     C->Knots(Knots);
-    BSplCLib::Reparametrize(UFirst, ULast, Knots);
+    BSplCLib1::Reparametrize(UFirst, ULast, Knots);
     C->SetKnots(Knots);
   }
 

@@ -65,10 +65,10 @@
 //! minimal distance.
 //! ~~~~
 //! // Structure to contain points of the triangle
-//! struct Triangle
+//! struct Triangle1
 //! {
-//!   Triangle() {}
-//!   Triangle(const BVH_Vec3d& theNode1,
+//!   Triangle1() {}
+//!   Triangle1(const BVH_Vec3d& theNode1,
 //!            const BVH_Vec3d& theNode2,
 //!            const BVH_Vec3d& theNode3)
 //!     : Node1 (theNode1), Node2 (theNode2), Node3 (theNode3)
@@ -81,7 +81,7 @@
 //!
 //! // Selector for min point-triangulation distance
 //! class BVH_PointTriangulationSqDist :
-//!   public BVH_Distance<Standard_Real, 3, BVH_Vec3d, BVH_BoxSet<Standard_Real, 3, Triangle>>
+//!   public BVH_Distance<Standard_Real, 3, BVH_Vec3d, BVH_BoxSet<Standard_Real, 3, Triangle1>>
 //! {
 //! public:
 //!
@@ -98,7 +98,7 @@
 //!   virtual Standard_Boolean Accept (const Standard_Integer theIndex,
 //!                                    const Standard_Real&) Standard_OVERRIDE
 //!   {
-//!     const Triangle& aTri = myBVHSet->Element (theIndex);
+//!     const Triangle1& aTri = myBVHSet->Element (theIndex);
 //!     Standard_Real aDist = BVH_Tools<Standard_Real, 3>::PointTriangleSquareDistance (myObject,
 //!     aTri.Node1, aTri.Node2, aTri.Node3); if (aDist < myDistance)
 //!     {
@@ -112,7 +112,7 @@
 //! // Point to which the distance is required
 //! BVH_Vec3d aPoint = ...;
 //! // BVH Set containing triangulation
-//! opencascade::handle<BVH_BoxSet<Standard_Real, 3, Triangle>> aTriangulationSet = ...;
+//! opencascade::handle<BVH_BoxSet<Standard_Real, 3, Triangle1>> aTriangulationSet = ...;
 //!
 //! BVH_PointTriangulationSqDist aDistTool;
 //! aDistTool.SetObject (aPoint);

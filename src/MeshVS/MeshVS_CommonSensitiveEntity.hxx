@@ -37,11 +37,11 @@ public:
   //! Number of elements.
   Standard_EXPORT virtual Standard_Integer NbSubElements() const Standard_OVERRIDE;
 
-  //! Returns the amount of sub-entities of the complex entity
+  //! Returns the amount of sub-entities of the complex1 entity
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
 
   //! Returns bounding box of sub-entity with index theIdx in sub-entity list
-  Standard_EXPORT virtual Select3D_BndBox3d Box(const Standard_Integer theIdx) const
+  Standard_EXPORT virtual Select3D_BndBox3d Box1(const Standard_Integer theIdx) const
     Standard_OVERRIDE;
 
   //! Returns geometry center of sensitive entity index theIdx along the given axis theAxis

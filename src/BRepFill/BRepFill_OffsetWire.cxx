@@ -129,7 +129,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
 static void CheckBadEdges(const TopoFace&              Spine,
                           const Standard_Real             Offset,
                           const BRepMAT2d_BisectingLocus& Locus,
-                          const BRepMAT2d_LinkTopoBilo&   Link,
+                          const BRepMAT2d_LinkTopoBilo&   Link1,
                           ShapeList&           BadEdges);
 
 static Standard_Integer CutEdge(const TopoEdge&    E,
@@ -670,7 +670,7 @@ void Compute(const TopoFace&                                 Spine,
 void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
                                           const Standard_Real             Offset,
                                           const BRepMAT2d_BisectingLocus& Locus,
-                                          BRepMAT2d_LinkTopoBilo&         Link,
+                                          BRepMAT2d_LinkTopoBilo&         Link1,
                                           const GeomAbs_JoinType          Join,
                                           const Standard_Real             Alt)
 {
@@ -754,11 +754,11 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
 
   for (Standard_Integer ic = 1; ic <= Locus.NumberOfContours(); ic++)
   {
-    TopoShape  PEE = Link.GeneratingShape(Locus.BasicElt(ic, Locus.NumberOfElts(ic)));
+    TopoShape  PEE = Link1.GeneratingShape(Locus.BasicElt(ic, Locus.NumberOfElts(ic)));
     TopoShape& PE  = PEE;
     for (Standard_Integer ie = 1; ie <= Locus.NumberOfElts(ic); ie++)
     {
-      const TopoShape& SE = Link.GeneratingShape(Locus.BasicElt(ic, ie));
+      const TopoShape& SE = Link1.GeneratingShape(Locus.BasicElt(ic, ie));
       if (SE.ShapeType() == TopAbs_VERTEX)
       {
         if (!SE.IsSame(Ends[0]) && !SE.IsSame(Ends[1]))
@@ -833,8 +833,8 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoFace&              Spine,
     //-------------------------------------------------------------------
     // Return elements of the spine corresponding to separate basicElts.
     //-------------------------------------------------------------------
-    S[0] = Link.GeneratingShape(CurrentArc->FirstElement());
-    S[1] = Link.GeneratingShape(CurrentArc->SecondElement());
+    S[0] = Link1.GeneratingShape(CurrentArc->FirstElement());
+    S[1] = Link1.GeneratingShape(CurrentArc->SecondElement());
 
     TopTools_SequenceOfShape Vertices;
     TColgp_SequenceOfPnt     Params;
@@ -2551,7 +2551,7 @@ Standard_Boolean IsSmallClosedEdge(const TopoEdge& anEdge, const TopoVertex& aVe
 static void CheckBadEdges(const TopoFace&              Spine,
                           const Standard_Real             Offset,
                           const BRepMAT2d_BisectingLocus& Locus,
-                          const BRepMAT2d_LinkTopoBilo&   Link,
+                          const BRepMAT2d_LinkTopoBilo&   Link1,
                           ShapeList&           BadEdges)
 {
 
@@ -2565,7 +2565,7 @@ static void CheckBadEdges(const TopoFace&              Spine,
   {
     for (Standard_Integer ie = 1; ie <= Locus.NumberOfElts(ic); ie++)
     {
-      const TopoShape& SE = Link.GeneratingShape(Locus.BasicElt(ic, ie));
+      const TopoShape& SE = Link1.GeneratingShape(Locus.BasicElt(ic, ie));
       if (SE.ShapeType() == TopAbs_EDGE)
       {
 

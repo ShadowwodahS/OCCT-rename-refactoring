@@ -176,7 +176,7 @@ void GeomFill_CircularBlendFunc::Discret()
 
   Standard_Real                 Fleche = 1.e-2 * L;
   Standard_Real                 Angle, Cosa, Percent;
-  GCPnts_QuasiUniformDeflection Samp;
+  QuasiUniformDeflectionSampler Samp;
   Samp.Initialize(*C, Fleche);
   myBary.SetCoord(0., 0., 0.);
   Vector3d ns1, ns2;

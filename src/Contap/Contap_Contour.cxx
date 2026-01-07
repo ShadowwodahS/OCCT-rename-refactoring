@@ -215,7 +215,7 @@ static void ComputeInternalPointsOnRstr(Contap_Line&,
                                         const Standard_Real,
                                         Contap_SurfFunction&);
 
-static void ProcessSegments(const Contap_TheSearch&,
+static void ProcessSegments(const ContourSearch&,
                             Contap_TheSequenceOfLine&,
                             const Standard_Real,
                             Contap_SurfFunction&,
@@ -349,14 +349,14 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (firstp != lastp)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        Point3d        Pmid = ElCLib::Value(pmid, L.Line());
+        Point3d        Pmid = ElCLib1::Value(pmid, L.Line());
         if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
         else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -404,18 +404,18 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (Abs(firstp - lastp) > 0.000000001)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
+        Point3d        Pmid = ElCLib1::Value(pmid, L.Circle());
         if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
         else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
         else if (HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
         {
-          ElSLib::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -453,18 +453,18 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (Abs(firstp - lastp) > 0.0000000001)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
+        Point3d        Pmid = ElCLib1::Value(pmid, L.Circle());
         if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
         else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
         else if (HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
         {
-          ElSLib::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
+          ElSLib1::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -504,8 +504,8 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
 
 //-- --------------------------------------------------------------------------------
 
-static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
-                             const Contap_TheSearch&          solrst,
+static void KeepInsidePoints(const TheSearchInside1&    solins,
+                             const ContourSearch&          solrst,
                              Contap_SurfFunction&             Func,
                              IntSurf_SequenceOfInteriorPoint& seqpins)
 
@@ -527,7 +527,7 @@ static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
     for (inda = 1; inda <= Nba; inda++)
     {
       const Handle(Adaptor2d_Curve2d)& thearc = solrst.Segment(inda).Curve();
-      projok = Contap_HContTool::Project(thearc, toproj, paramproj, Ptproj);
+      projok = HContTool::Project(thearc, toproj, paramproj, Ptproj);
       if (projok)
       {
         Point3d pprojete = HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
@@ -545,7 +545,7 @@ static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
   }
 }
 
-static void ComputeTangency(const Contap_TheSearch&            solrst,
+static void ComputeTangency(const ContourSearch&            solrst,
                             const Handle(Adaptor3d_TopolTool)& Domain,
                             Contap_SurfFunction&               Func,
                             IntSurf_SequenceOfPathPoint&       seqpdep,
@@ -582,7 +582,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
       const Contap_ThePathPointOfTheSearch& PStart = solrst.Point(i);
       const Handle(Adaptor2d_Curve2d)&      thearc = PStart.Arc();
       theparam                                     = PStart.Parameter();
-      gp_Pnt2d Ptoproj                             = Contap_HCurve2dTool::Value(thearc, theparam);
+      gp_Pnt2d Ptoproj                             = HCurve2dTool2::Value(thearc, theparam);
       //-- lbr le 15 mai 97
       //-- On elimine les points qui sont egalement present sur une restriction solution
       Standard_Boolean SurUneRestrictionSolution = Standard_False;
@@ -593,7 +593,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
         const Handle(Adaptor2d_Curve2d)& thearcsol = solrst.Segment(restriction).Curve();
         Standard_Real                    paramproj;
         gp_Pnt2d                         pproj;
-        Standard_Boolean projok = Contap_HContTool::Project(thearcsol, Ptoproj, paramproj, pproj);
+        Standard_Boolean projok = HContTool::Project(thearcsol, Ptoproj, paramproj, pproj);
         if (projok)
         {
           // Point3d pprojete = HSurfaceTool::Value(Surf,Ptoproj.X(),Ptoproj.Y());
@@ -611,7 +611,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
         arcorien  = Domain->Orientation(thearc);
         ispassing = (arcorien == TopAbs_INTERNAL || arcorien == TopAbs_EXTERNAL);
 
-        Contap_HCurve2dTool::D1(thearc, theparam, pt2d, tg2drst);
+        HCurve2dTool2::D1(thearc, theparam, pt2d, tg2drst);
         X(1) = pt2d.X();
         X(2) = pt2d.Y();
         PPoint.SetValue(PStart.Value(), X(1), X(2));
@@ -640,7 +640,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
                     ispassing =
                       ispassing && (arcorien == TopAbs_INTERNAL || arcorien == TopAbs_EXTERNAL);
 
-                    pt2d = Contap_HCurve2dTool::Value(thearc2, theparam);
+                    pt2d = HCurve2dTool2::Value(thearc2, theparam);
                     X(1) = pt2d.X();
                     X(2) = pt2d.Y();
                     PPoint.AddUV(X(1), X(2));
@@ -662,7 +662,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
 
           Point3d ptbid;
           //	HSurfaceTool::D1(Surf,X(1),X(2),ptbid,v1,v2);
-          Contap_SurfProps::DerivAndNorm(Surf, X(1), X(2), ptbid, v1, v2, normale);
+          SurfaceProperties::DerivAndNorm(Surf, X(1), X(2), ptbid, v1, v2, normale);
           tg3drst = tg2drst.X() * v1 + tg2drst.Y() * v2;
           //	normale = v1.Crossed(v2);
           if (normale.SquareMagnitude() < RealEpsilon())
@@ -703,7 +703,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
 
               Standard_Boolean         tobeverified = Standard_False;
               TopAbs_Orientation       LocTrans;
-              TopTrans_CurveTransition comptrans;
+              CurveTransition comptrans;
               comptrans.Reset(vectg, bidnorm, 0.);
               if (arcorien != TopAbs_INTERNAL && arcorien != TopAbs_EXTERNAL)
               {
@@ -752,7 +752,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
                       theparam                                 = PStart2.Parameter();
                       arcorien                                 = Domain->Orientation(thearc2);
 
-                      Contap_HCurve2dTool::D1(thearc2, theparam, pt2d, tg2drst);
+                      HCurve2dTool2::D1(thearc2, theparam, pt2d, tg2drst);
                       X(1) = pt2d.X();
                       X(2) = pt2d.Y();
                       PPoint.AddUV(X(1), X(2));
@@ -839,7 +839,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
 
                     if (arcorien == TopAbs_FORWARD || arcorien == TopAbs_REVERSED)
                     {
-                      Contap_HCurve2dTool::D1(thearc2, theparam, pt2d, tg2drst);
+                      HCurve2dTool2::D1(thearc2, theparam, pt2d, tg2drst);
                       tg3drst  = tg2drst.X() * v1 + tg2drst.Y() * v2;
                       vtxorien = Domain->Orientation(solrst.Point(k).Vertex());
                       if ((arcorien == TopAbs_FORWARD && vtxorien == TopAbs_REVERSED)
@@ -948,7 +948,7 @@ IntSurf_TypeTrans ComputeTransitionOnLine(Contap_SurfFunction& SFunc,
   return (IntSurf_In);
 }
 
-void ProcessSegments(const Contap_TheSearch&            solrst,
+void ProcessSegments(const ContourSearch&            solrst,
                      Contap_TheSequenceOfLine&          slin,
                      const Standard_Real                TolArc,
                      Contap_SurfFunction&               SFunc,
@@ -1019,7 +1019,7 @@ void ProcessSegments(const Contap_TheSearch&            solrst,
       U = 0.0;
     }
 
-    Contap_HCurve2dTool::D1(thesegsol.Curve(), U, p2d, d2d);
+    HCurve2dTool2::D1(thesegsol.Curve(), U, p2d, d2d);
     HSurfaceTool::D1(SFunc.Surface(), p2d.X(), p2d.Y(), valpt, d1u, d1v);
     tgline.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
     IntSurf_TypeTrans tral = ComputeTransitionOnLine(SFunc, p2d.X(), p2d.Y(), tgline);
@@ -1078,7 +1078,7 @@ void ProcessSegments(const Contap_TheSearch&            solrst,
     if (dofirst)
     {
 
-      p2d = Contap_HCurve2dTool::Value(thesegsol.Curve(), paramf);
+      p2d = HCurve2dTool2::Value(thesegsol.Curve(), paramf);
       ptvtx.SetValue(PStartf.Value(), p2d.X(), p2d.Y());
       ptvtx.SetParameter(paramf);
       if (!PStartf.IsNew())
@@ -1089,7 +1089,7 @@ void ProcessSegments(const Contap_TheSearch&            solrst,
     }
     if (dolast)
     {
-      p2d = Contap_HCurve2dTool::Value(thesegsol.Curve(), paraml);
+      p2d = HCurve2dTool2::Value(thesegsol.Curve(), paraml);
       ptvtx.SetValue(PStartl.Value(), p2d.X(), p2d.Y());
       ptvtx.SetParameter(paraml);
       if (!PStartl.IsNew())
@@ -1138,16 +1138,16 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
   const Handle(Adaptor3d_Surface)& Surf = SFunc.Surface();
   Contap_TFunction                 TypeFunc(SFunc.FunctionType());
 
-  Standard_Integer Nbpnts = Contap_HContTool::NbSamplesOnArc(thearc);
+  Standard_Integer Nbpnts = HContTool::NbSamplesOnArc(thearc);
   indexinf                = 1;
   vecregard               = SFunc.Direction();
-  toler                   = Contap_HCurve2dTool::Resolution(thearc, Precision::Confusion());
+  toler                   = HCurve2dTool2::Resolution(thearc, Precision::Confusion());
   found                   = Standard_False;
 
   do
   {
     paraminf = ((Nbpnts - indexinf) * Paramf + (indexinf - 1) * Paraml) / (Nbpnts - 1);
-    Contap_HCurve2dTool::D1(thearc, paraminf, p2d, d2d);
+    HCurve2dTool2::D1(thearc, paraminf, p2d, d2d);
     HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
@@ -1179,7 +1179,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
   while (!toutvu)
   {
     paramsup = ((Nbpnts - indexsup) * Paramf + (indexsup - 1) * Paraml) / (Nbpnts - 1);
-    Contap_HCurve2dTool::D1(thearc, paramsup, p2d, d2d);
+    HCurve2dTool2::D1(thearc, paramsup, p2d, d2d);
     HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
@@ -1210,7 +1210,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
         while (!solution)
         {
           paramp = (paraminf + paramsup) / 2.;
-          Contap_HCurve2dTool::D1(thearc, paramp, p2d, d2d);
+          HCurve2dTool2::D1(thearc, paramp, p2d, d2d);
           HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
           tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
@@ -1569,7 +1569,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   //-- le 23 janvier 98 0.05 -> 0.01
 
   //-- ******************************************************************************** Janvier 98
-  Bnd_Box          B1;
+  Box2          B1;
   Standard_Boolean Box1OK = Standard_True;
 
   Standard_Real Uinf = Surf->FirstUParameter();
@@ -1588,7 +1588,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   }
   else
   {
-    BndLib_AddSurface::Add(*Surf, 1e-8, B1);
+    AddSurface::Add(*Surf, 1e-8, B1);
   }
   Standard_Real x0, y0, z0, x1, y1, z1, dx, dy, dz;
   if (Box1OK)
@@ -1729,8 +1729,8 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
             if (!iwline->IsTangentAtBegining())
             {
 
-              Contap_HCurve2dTool::D1(currentarc, currentparam, pt2d, d2d);
-              Contap_SurfProps::DerivAndNorm(Surf, pt2d.X(), pt2d.Y(), ptonsurf, d1u, d1v, normale);
+              HCurve2dTool2::D1(currentarc, currentparam, pt2d, d2d);
+              SurfaceProperties::DerivAndNorm(Surf, pt2d.X(), pt2d.Y(), ptonsurf, d1u, d1v, normale);
               tgtrst = d2d.X() * d1u;
               tgtrst.Add(d2d.Y() * d1v);
 
@@ -1781,9 +1781,9 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
             if (!iwline->IsTangentAtEnd())
             {
 
-              Contap_HCurve2dTool::D1(currentarc, currentparam, pt2d, d2d);
+              HCurve2dTool2::D1(currentarc, currentparam, pt2d, d2d);
 
-              Contap_SurfProps::DerivAndNorm(Surf, pt2d.X(), pt2d.Y(), ptonsurf, d1u, d1v, normale);
+              SurfaceProperties::DerivAndNorm(Surf, pt2d.X(), pt2d.Y(), ptonsurf, d1u, d1v, normale);
               tgtrst = d2d.X() * d1u;
               tgtrst.Add(d2d.Y() * d1v);
               IntSurf1::MakeTransition(PPoint.Direction3d().Reversed(),
@@ -1891,7 +1891,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
                 const Handle(Adaptor2d_Curve2d)& thearc = slin(k).Arc();
                 Standard_Real                    paramproj;
                 gp_Pnt2d                         Ptproj;
-                projok = Contap_HContTool::Project(thearc, toproj, paramproj, Ptproj);
+                projok = HContTool::Project(thearc, toproj, paramproj, Ptproj);
 
                 if (projok)
                 {
@@ -1900,12 +1900,12 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
                   {
                     // Calcul de la transition
 
-                    Contap_HCurve2dTool::D1(thearc, paramproj, Ptproj, d2d);
+                    HCurve2dTool2::D1(thearc, paramproj, Ptproj, d2d);
                     //		    HSurfaceTool::D1(Surf,Ptproj.X(),Ptproj.Y(),
                     //				       ptonsurf,d1u,d1v);
                     //		    normale = d1u.Crossed(d1v);
 
-                    Contap_SurfProps::DerivAndNorm(Surf,
+                    SurfaceProperties::DerivAndNorm(Surf,
                                                    Ptproj.X(),
                                                    Ptproj.Y(),
                                                    ptonsurf,
@@ -1971,20 +1971,20 @@ static Standard_Boolean FindLine(Contap_Line&                     Line,
   Standard_Real para, dist;
   Standard_Real dismin = RealLast();
 
-  Contap_SurfProps::Normale(Surf, Pt2d.X(), Pt2d.Y(), Ptref, Norm);
+  SurfaceProperties::Normale(Surf, Pt2d.X(), Pt2d.Y(), Ptref, Norm);
 
   if (Line.TypeContour() == Contap_Lin)
   {
     gp_Lin lin(Line.Line());
-    para = ElCLib::Parameter(lin, Ptref);
-    ElCLib::D1(para, lin, pt, tg);
+    para = ElCLib1::Parameter(lin, Ptref);
+    ElCLib1::D1(para, lin, pt, tg);
     dist = pt.Distance(Ptref) + Abs(Norm.Dot(lin.Direction()));
   }
   else
   { // Contap__Circle
     gp_Circ cir(Line.Circle());
-    para = ElCLib::Parameter(cir, Ptref);
-    ElCLib::D1(para, cir, pt, tg);
+    para = ElCLib1::Parameter(cir, Ptref);
+    ElCLib1::D1(para, cir, pt, tg);
     dist = pt.Distance(Ptref) + Abs(Norm.Dot(tg / cir.Radius()));
   }
   if (dist < dismin)
@@ -2004,7 +2004,7 @@ static Standard_Boolean FindLine(Contap_Line&                     Line,
   }
 }
 
-static void PutPointsOnLine(const Contap_TheSearch&          solrst,
+static void PutPointsOnLine(const ContourSearch&          solrst,
                             const Handle(Adaptor3d_Surface)& Surf,
                             Contap_TheSequenceOfLine&        slin)
 
@@ -2035,7 +2035,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
       const Handle(Adaptor2d_Curve2d)&      thearc = PStart.Arc();
       theparam                                     = PStart.Parameter();
 
-      Contap_HCurve2dTool::D1(thearc, theparam, pt2d, d2d);
+      HCurve2dTool2::D1(thearc, theparam, pt2d, d2d);
       goon = FindLine(Line, Surf, pt2d, ptonsurf, paramlin, vectg, normale);
 
       Contap_Point PPoint;
@@ -2095,20 +2095,20 @@ IntSurf_TypeTrans ComputeTransitionOngpLine(Contap_SurfFunction& SFunc, const gp
   GeomAbs_SurfaceType              typS = HSurfaceTool::GetType(Surf);
   Point3d                           P;
   Vector3d                           T;
-  ElCLib::D1(0.0, L, P, T);
+  ElCLib1::D1(0.0, L, P, T);
   Standard_Real u = 0., v = 0.;
   switch (typS)
   {
     case GeomAbs_Cylinder: {
-      ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
       break;
     }
     case GeomAbs_Cone: {
-      ElSLib::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
       break;
     }
     case GeomAbs_Sphere: {
-      ElSLib::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
       break;
     }
     default:
@@ -2123,20 +2123,20 @@ IntSurf_TypeTrans ComputeTransitionOngpCircle(Contap_SurfFunction& SFunc, const 
   GeomAbs_SurfaceType              typS = HSurfaceTool::GetType(Surf);
   Point3d                           P;
   Vector3d                           T;
-  ElCLib::D1(0.0, C, P, T);
+  ElCLib1::D1(0.0, C, P, T);
   Standard_Real u = 0., v = 0.;
   switch (typS)
   {
     case GeomAbs_Cylinder: {
-      ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
       break;
     }
     case GeomAbs_Cone: {
-      ElSLib::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
       break;
     }
     case GeomAbs_Sphere: {
-      ElSLib::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
+      ElSLib1::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
       break;
     }
     default:
@@ -2156,7 +2156,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
   Standard_Integer nbCont, nbPointRst, i;
   // gp_Circ cirsol;
   // gp_Lin linsol;
-  Contap_ContAna                   contana;
+  ContourAnalyzer                   contana;
   Contap_Line                      theline;
   const Handle(Adaptor3d_Surface)& Surf = mySFunc.Surface();
   Contap_TFunction                 TypeFunc(mySFunc.FunctionType());
@@ -2322,7 +2322,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       if (typS == GeomAbs_Cone) {
       Standard_Real u,v;
       gp_Cone thecone(HSurfaceTool::Cone(Surf));
-      ElSLib::Parameters(thecone,thecone.Apex(),u,v);
+      ElSLib1::Parameters(thecone,thecone.Apex(),u,v);
       Contap_Point vtxapex(thecone.Apex(),u,v);
       vtxapex.SetInternal();
       vtxapex.SetMultiple();

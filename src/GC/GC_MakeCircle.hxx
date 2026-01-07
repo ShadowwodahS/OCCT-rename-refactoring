@@ -47,7 +47,7 @@ class Axis3d;
 //! The center of the circle is the Location point of its axis
 //! placement. The XDirection of the axis placement defines the
 //! origin of the parametrization.
-class GC_MakeCircle : public GC_Root
+class GC_MakeCircle : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

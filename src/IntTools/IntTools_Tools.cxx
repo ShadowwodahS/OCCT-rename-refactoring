@@ -563,7 +563,7 @@ void ParabolaTolerance(const Handle(GeomCurve3d)& aC3D,
 /////////////////////////////////////////////////////////////////////////
 //=================================================================================================
 
-Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Bnd_Box& theBox)
+Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Box2& theBox)
 {
   const Handle(GeomCurve3d)& aC3D   = theCurve.Curve();
   Standard_Boolean          bValid = !aC3D.IsNull();
@@ -573,7 +573,7 @@ Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Bnd_Box& the
   }
   //
   // Build bounding box for the curve
-  BndLib_Add3dCurve::Add(GeomAdaptor_Curve(aC3D),
+  Add3dCurve::Add(GeomAdaptor_Curve(aC3D),
                          Max(theCurve.Tolerance(), theCurve.TangentialTolerance()),
                          theBox);
   //
@@ -584,7 +584,7 @@ Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Bnd_Box& the
   // - plus Precision::Confusion() as the minimal distance between vertices.
   Standard_Real aTolCmp = 3 * Precision::Confusion();
   //
-  // Check the size of the box using the Bnd_Box::IsThin() method
+  // Check the size of the box using the Box2::IsThin() method
   // which does not use the gap of the box.
   bValid = !theBox.IsThin(aTolCmp);
   //

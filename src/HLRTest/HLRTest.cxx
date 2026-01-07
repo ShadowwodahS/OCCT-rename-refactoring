@@ -36,14 +36,14 @@ Standard_IMPORT DrawViewer dout;
 
 //=================================================================================================
 
-void HLRTest::Set(const Standard_CString Name, const HLRAlgo_Projector& P)
+void HLRTest::Set(const Standard_CString Name, const HLRAlgoProjector& P)
 {
   Draw1::Set(Name, new HLRTest_Projector(P));
 }
 
 //=================================================================================================
 
-Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgo_Projector& P)
+Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgoProjector& P)
 {
   Handle(HLRTest_Projector) HP = Handle(HLRTest_Projector)::DownCast(Draw1::Get(Name));
   if (HP.IsNull())
@@ -99,7 +99,7 @@ static Standard_Integer hprj(DrawInterpreter&, Standard_Integer n, const char** 
     anAx2 = Frame3d(anOrigin, aNormal, aDX);
   }
 
-  HLRAlgo_Projector P(anAx2);
+  HLRAlgoProjector P(anAx2);
   HLRTest::Set(a[1], P);
   return 0;
 }
@@ -138,7 +138,7 @@ static Standard_Integer hfil(DrawInterpreter& di, Standard_Integer n, const char
     return 1;
   }
   const char*       name2 = a[2];
-  HLRAlgo_Projector P;
+  HLRAlgoProjector P;
   if (!HLRTest::GetProjector(name2, P))
   {
     di << name2 << " is not a projector.\n";
@@ -264,7 +264,7 @@ static Standard_Integer sprj(DrawInterpreter& di, Standard_Integer n, const char
   if (n < 2)
     return 1;
   const char*       name = a[1];
-  HLRAlgo_Projector P;
+  HLRAlgoProjector P;
   if (!HLRTest::GetProjector(name, P))
   {
     di << name << " is not a projector.\n";

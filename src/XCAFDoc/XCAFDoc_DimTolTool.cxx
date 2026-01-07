@@ -124,7 +124,7 @@ Standard_Boolean XCAFDoc_DimTolTool::IsGeomTolerance(const DataLabel& theDimTolL
 void XCAFDoc_DimTolTool::GetDimTolLabels(TDF_LabelSequence& theLabels) const
 {
   theLabels.Clear();
-  TDF_ChildIterator aChildIterator(Label());
+  ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel aL = aChildIterator.Value();
@@ -138,7 +138,7 @@ void XCAFDoc_DimTolTool::GetDimTolLabels(TDF_LabelSequence& theLabels) const
 void XCAFDoc_DimTolTool::GetDimensionLabels(TDF_LabelSequence& theLabels) const
 {
   theLabels.Clear();
-  TDF_ChildIterator aChildIterator(Label());
+  ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel aL = aChildIterator.Value();
@@ -152,7 +152,7 @@ void XCAFDoc_DimTolTool::GetDimensionLabels(TDF_LabelSequence& theLabels) const
 void XCAFDoc_DimTolTool::GetGeomToleranceLabels(TDF_LabelSequence& theLabels) const
 {
   theLabels.Clear();
-  TDF_ChildIterator aChildIterator(Label());
+  ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel aL = aChildIterator.Value();
@@ -609,7 +609,7 @@ Standard_Boolean XCAFDoc_DimTolTool::IsDatum(const DataLabel& theDimTolL) const
 void XCAFDoc_DimTolTool::GetDatumLabels(TDF_LabelSequence& theLabels) const
 {
   theLabels.Clear();
-  TDF_ChildIterator aChildIterator(Label());
+  ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel L = aChildIterator.Value();
@@ -994,7 +994,7 @@ void XCAFDoc_DimTolTool::DumpJson(Standard_OStream& theOStream, Standard_Integer
   for (TDF_LabelSequence::Iterator aDimLabelIt(aLabels); aDimLabelIt.More(); aDimLabelIt.Next())
   {
     AsciiString1 aDimensionLabel;
-    TDF_Tool::Entry(aDimLabelIt.Value(), aDimensionLabel);
+    Tool3::Entry(aDimLabelIt.Value(), aDimensionLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aDimensionLabel)
   }
 
@@ -1004,7 +1004,7 @@ void XCAFDoc_DimTolTool::DumpJson(Standard_OStream& theOStream, Standard_Integer
        aGeomToleranceLabelIt.Next())
   {
     AsciiString1 aGeomToleranceLabel;
-    TDF_Tool::Entry(aGeomToleranceLabelIt.Value(), aGeomToleranceLabel);
+    Tool3::Entry(aGeomToleranceLabelIt.Value(), aGeomToleranceLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aGeomToleranceLabel)
   }
 
@@ -1014,7 +1014,7 @@ void XCAFDoc_DimTolTool::DumpJson(Standard_OStream& theOStream, Standard_Integer
        aDimTolLabelIt.Next())
   {
     AsciiString1 aDimTolLabelLabel;
-    TDF_Tool::Entry(aDimTolLabelIt.Value(), aDimTolLabelLabel);
+    Tool3::Entry(aDimTolLabelIt.Value(), aDimTolLabelLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aDimTolLabelLabel)
   }
 
@@ -1024,7 +1024,7 @@ void XCAFDoc_DimTolTool::DumpJson(Standard_OStream& theOStream, Standard_Integer
        aDatumLabelIt.Next())
   {
     AsciiString1 aDatumLabel;
-    TDF_Tool::Entry(aDatumLabelIt.Value(), aDatumLabel);
+    Tool3::Entry(aDatumLabelIt.Value(), aDatumLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aDatumLabel)
   }
 }

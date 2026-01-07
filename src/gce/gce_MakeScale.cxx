@@ -21,22 +21,22 @@
 //=========================================================================
 //   Creation d un homothetie de gp de centre Point et de rapport Scale.  +
 //=========================================================================
-gce_MakeScale::gce_MakeScale(const Point3d& Point, const Standard_Real Scale)
+ScaleBuilder::ScaleBuilder(const Point3d& Point, const Standard_Real Scale)
 {
   TheScale.SetScale(Point, Scale);
 }
 
-const Transform3d& gce_MakeScale::Value() const
+const Transform3d& ScaleBuilder::Value() const
 {
   return TheScale;
 }
 
-const Transform3d& gce_MakeScale::Operator() const
+const Transform3d& ScaleBuilder::Operator() const
 {
   return TheScale;
 }
 
-gce_MakeScale::operator Transform3d() const
+ScaleBuilder::operator Transform3d() const
 {
   return TheScale;
 }

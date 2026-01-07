@@ -791,25 +791,25 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
   if (basisC1->DynamicType() == STANDARD_TYPE(Geom2d_Circle))
   {
     Handle(Geom2d_Circle) CC1 = Handle(Geom2d_Circle)::DownCast(basisC1);
-    ElCLib::D1(param1, CC1->Circ2d(), p, Ve1);
+    ElCLib1::D1(param1, CC1->Circ2d(), p, Ve1);
     Sens1 = (CC1->Circ2d()).IsDirect();
   } // if (C1->DynamicType() ...
   else
   {
     Handle(Geom2d_Line) CC1 = Handle(Geom2d_Line)::DownCast(basisC1);
-    ElCLib::D1(param1, CC1->Lin2d(), p, Ve1);
+    ElCLib1::D1(param1, CC1->Lin2d(), p, Ve1);
     Sens1 = Standard_True;
   } // else ...
   if (basisC2->DynamicType() == STANDARD_TYPE(Geom2d_Circle))
   {
     Handle(Geom2d_Circle) CC2 = Handle(Geom2d_Circle)::DownCast(basisC2);
-    ElCLib::D1(param3, CC2->Circ2d(), p, Ve2);
+    ElCLib1::D1(param3, CC2->Circ2d(), p, Ve2);
     Sens2 = (CC2->Circ2d()).IsDirect();
   } // if (C2->DynamicType() ...
   else
   {
     Handle(Geom2d_Line) CC2 = Handle(Geom2d_Line)::DownCast(basisC2);
-    ElCLib::D1(param3, CC2->Lin2d(), p, Ve2);
+    ElCLib1::D1(param3, CC2->Lin2d(), p, Ve2);
     Sens2 = Standard_True;
   } // else ...
 
@@ -1065,25 +1065,25 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
     }
 
     gp_Vec2d vec;
-    ElCLib::D1(U1, cir, Ptg1, vec);
+    ElCLib1::D1(U1, cir, Ptg1, vec);
 
     gp_Vec2d vec1;
     if (basisC1->DynamicType() == STANDARD_TYPE(Geom2d_Circle))
     {
       Handle(Geom2d_Circle) CC1 = Handle(Geom2d_Circle)::DownCast(basisC1);
       gp_Circ2d             cir2d(CC1->Circ2d());
-      Standard_Real         par = ElCLib::Parameter(cir2d, Ptg1);
+      Standard_Real         par = ElCLib1::Parameter(cir2d, Ptg1);
       gp_Pnt2d              Pd;
-      ElCLib::D1(par, cir2d, Pd, vec1);
+      ElCLib1::D1(par, cir2d, Pd, vec1);
     } // if (C1->DynamicType() ...
     else if (basisC1->DynamicType() == STANDARD_TYPE(Geom2d_Line))
     {
       Handle(Geom2d_Line) CC1 = Handle(Geom2d_Line)::DownCast(basisC1);
       gp_Lin2d            lin2d(CC1->Lin2d());
-      Standard_Real       par = ElCLib::Parameter(lin2d, sommet);
+      Standard_Real       par = ElCLib1::Parameter(lin2d, sommet);
       vec1                    = gp_Vec2d(sommet.X() - somBid.X(), sommet.Y() - somBid.Y());
       gp_Pnt2d Pd;
-      ElCLib::D1(par, lin2d, Pd, vec1);
+      ElCLib1::D1(par, lin2d, Pd, vec1);
     } // else if ...
 
     if (OE1 == TopAbs_REVERSED)
@@ -1093,7 +1093,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
     Standard_Boolean Sense = (vec1 * vec) > 0.;
     if (U1 > Vv1 && U1 > 2. * M_PI)
     {
-      ElCLib::AdjustPeriodic(0., 2. * M_PI, Precision::Confusion(), U1, Vv1);
+      ElCLib1::AdjustPeriodic(0., 2. * M_PI, Precision::Confusion(), U1, Vv1);
     } // if (U1 ...
     if ((O1 == TopAbs_FORWARD && OE1 == TopAbs_FORWARD)
         || (O1 == TopAbs_REVERSED && OE1 == TopAbs_REVERSED))

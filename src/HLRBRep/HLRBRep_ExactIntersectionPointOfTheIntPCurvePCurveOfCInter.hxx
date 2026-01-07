@@ -24,8 +24,8 @@
 #include <Standard_Boolean.hxx>
 #include <HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter.hxx>
 #include <math_Vector.hxx>
-class HLRBRep_CurveTool;
-class HLRBRep_TheProjPCurOfCInter;
+class CurveTool5;
+class ProjPCurOfCInter;
 class HLRBRep_TheIntPCurvePCurveOfCInter;
 class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;

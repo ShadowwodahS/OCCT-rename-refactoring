@@ -46,7 +46,7 @@ private:
   TopoShape myShape;
 };
 
-//! Helper macro allowing to define alert with shape argument in one line of code
+//! Helper1 macro allowing to define alert with shape argument in one line of code
 #define DEFINE_ALERT_WITH_SHAPE(Alert)                                                             \
   class Alert : public TopoDS_AlertWithShape                                                       \
   {                                                                                                \

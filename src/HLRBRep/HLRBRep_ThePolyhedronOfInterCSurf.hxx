@@ -26,9 +26,9 @@
 #include <Bnd_HArray1OfBox.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Standard_OutOfRange;
-class HLRBRep_SurfaceTool;
+class SurfaceTool3;
 class Point3d;
-class Bnd_Box;
+class Box2;
 class gp_XYZ;
 
 class HLRBRep_ThePolyhedronOfInterCSurf
@@ -73,7 +73,7 @@ public:
 
   //! Give the 3 points of the triangle of address Index in
   //! the double array of triangles.
-  Standard_EXPORT void Triangle(const Standard_Integer Index,
+  Standard_EXPORT void Triangle1(const Standard_Integer Index,
                                 Standard_Integer&      P1,
                                 Standard_Integer&      P2,
                                 Standard_Integer&      P3) const;
@@ -114,7 +114,7 @@ public:
   Standard_EXPORT void Point(const Standard_Integer Index, Point3d& P) const;
 
   //! Give the bounding box of the MaTriangle.
-  Standard_EXPORT const Bnd_Box& Bounding() const;
+  Standard_EXPORT const Box2& Bounding() const;
 
   //! Compute the array of boxes. The box <n> corresponding
   //! to the triangle <n>.
@@ -182,7 +182,7 @@ private:
 private:
   Standard_Integer         nbdeltaU;
   Standard_Integer         nbdeltaV;
-  Bnd_Box                  TheBnd;
+  Box2                  TheBnd;
   Handle(Bnd_HArray1OfBox) TheComponentsBnd;
   Standard_Real            TheDeflection;
   Standard_Address         C_MyPnts;
@@ -198,7 +198,7 @@ private:
 
 #define ThePSurface Standard_Address
 #define ThePSurface_hxx <Standard_Address.hxx>
-#define ThePSurfaceTool HLRBRep_SurfaceTool
+#define ThePSurfaceTool SurfaceTool3
 #define ThePSurfaceTool_hxx <HLRBRep_SurfaceTool.hxx>
 #define IntCurveSurface_Polyhedron HLRBRep_ThePolyhedronOfInterCSurf
 #define IntCurveSurface_Polyhedron_hxx <HLRBRep_ThePolyhedronOfInterCSurf.hxx>

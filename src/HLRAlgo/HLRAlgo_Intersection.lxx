@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::Orientation(const TopAbs_Orientation Ori)
+inline void Intersection3::Orientation(const TopAbs_Orientation Ori)
 {
   myOrien = Ori;
 }
@@ -29,7 +29,7 @@ inline void HLRAlgo_Intersection::Orientation(const TopAbs_Orientation Ori)
 // purpose  :
 //=======================================================================
 
-inline TopAbs_Orientation HLRAlgo_Intersection::Orientation() const
+inline TopAbs_Orientation Intersection3::Orientation() const
 {
   return myOrien;
 }
@@ -39,7 +39,7 @@ inline TopAbs_Orientation HLRAlgo_Intersection::Orientation() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::Level(const Standard_Integer Lev)
+inline void Intersection3::Level(const Standard_Integer Lev)
 {
   myLevel = Lev;
 }
@@ -49,7 +49,7 @@ inline void HLRAlgo_Intersection::Level(const Standard_Integer Lev)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer HLRAlgo_Intersection::Level() const
+inline Standard_Integer Intersection3::Level() const
 {
   return myLevel;
 }
@@ -59,7 +59,7 @@ inline Standard_Integer HLRAlgo_Intersection::Level() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::SegIndex(const Standard_Integer SegInd)
+inline void Intersection3::SegIndex(const Standard_Integer SegInd)
 {
   mySegIndex = SegInd;
 }
@@ -69,7 +69,7 @@ inline void HLRAlgo_Intersection::SegIndex(const Standard_Integer SegInd)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer HLRAlgo_Intersection::SegIndex() const
+inline Standard_Integer Intersection3::SegIndex() const
 {
   return mySegIndex;
 }
@@ -79,7 +79,7 @@ inline Standard_Integer HLRAlgo_Intersection::SegIndex() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::Index(const Standard_Integer Ind)
+inline void Intersection3::Index(const Standard_Integer Ind)
 {
   myIndex = Ind;
 }
@@ -89,7 +89,7 @@ inline void HLRAlgo_Intersection::Index(const Standard_Integer Ind)
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer HLRAlgo_Intersection::Index() const
+inline Standard_Integer Intersection3::Index() const
 {
   return myIndex;
 }
@@ -99,7 +99,7 @@ inline Standard_Integer HLRAlgo_Intersection::Index() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::Parameter(const Standard_Real P)
+inline void Intersection3::Parameter(const Standard_Real P)
 {
   myParam = P;
 }
@@ -109,7 +109,7 @@ inline void HLRAlgo_Intersection::Parameter(const Standard_Real P)
 // purpose  :
 //=======================================================================
 
-inline Standard_Real HLRAlgo_Intersection::Parameter() const
+inline Standard_Real Intersection3::Parameter() const
 {
   return myParam;
 }
@@ -119,7 +119,7 @@ inline Standard_Real HLRAlgo_Intersection::Parameter() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::Tolerance(const Standard_ShortReal T)
+inline void Intersection3::Tolerance(const Standard_ShortReal T)
 {
   myToler = T;
 }
@@ -129,7 +129,7 @@ inline void HLRAlgo_Intersection::Tolerance(const Standard_ShortReal T)
 // purpose  :
 //=======================================================================
 
-inline Standard_ShortReal HLRAlgo_Intersection::Tolerance() const
+inline Standard_ShortReal Intersection3::Tolerance() const
 {
   return myToler;
 }
@@ -139,7 +139,7 @@ inline Standard_ShortReal HLRAlgo_Intersection::Tolerance() const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Intersection::State(const TopAbs_State St)
+inline void Intersection3::State(const TopAbs_State St)
 {
   myState = St;
 }
@@ -149,7 +149,7 @@ inline void HLRAlgo_Intersection::State(const TopAbs_State St)
 // purpose  :
 //=======================================================================
 
-inline TopAbs_State HLRAlgo_Intersection::State() const
+inline TopAbs_State Intersection3::State() const
 {
   return myState;
 }

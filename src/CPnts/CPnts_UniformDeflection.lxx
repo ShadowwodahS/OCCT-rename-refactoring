@@ -20,7 +20,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean CPnts_UniformDeflection::IsAllDone() const
+inline Standard_Boolean UniformDeflectionSampler::IsAllDone() const
 {
   return myDone;
 }
@@ -30,10 +30,10 @@ inline Standard_Boolean CPnts_UniformDeflection::IsAllDone() const
 // purpose  :
 //=======================================================================
 
-inline void CPnts_UniformDeflection::Next()
+inline void UniformDeflectionSampler::Next()
 {
   Standard_OutOfRange_Raise_if(myIPoint >= myNbPoints,
-                               "CPnts_UniformDeflection::Next() - no more points available");
+                               "UniformDeflectionSampler::Next() - no more points available");
   myIPoint++;
 }
 
@@ -42,9 +42,9 @@ inline void CPnts_UniformDeflection::Next()
 // purpose  :
 //=======================================================================
 
-inline Standard_Real CPnts_UniformDeflection::Value() const
+inline Standard_Real UniformDeflectionSampler::Value() const
 {
-  StdFail_NotDone_Raise_if(!myDone, "CPnts_UniformDeflection::Value() - no result");
+  StdFail_NotDone_Raise_if(!myDone, "UniformDeflectionSampler::Value() - no result");
   return myParams[myIPoint + 1];
 }
 
@@ -53,8 +53,8 @@ inline Standard_Real CPnts_UniformDeflection::Value() const
 // purpose  :
 //=======================================================================
 
-inline Point3d CPnts_UniformDeflection::Point() const
+inline Point3d UniformDeflectionSampler::Point() const
 {
-  StdFail_NotDone_Raise_if(!myDone, "CPnts_UniformDeflection::Point() - no result");
+  StdFail_NotDone_Raise_if(!myDone, "UniformDeflectionSampler::Point() - no result");
   return myPoints[myIPoint + 1];
 }

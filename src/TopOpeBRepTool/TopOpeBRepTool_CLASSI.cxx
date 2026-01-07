@@ -81,7 +81,7 @@ Standard_Boolean TopOpeBRepTool_CLASSI::Add2d(const TopoShape& S)
       return Standard_False;
     BRepAdaptor_Curve2d BC2d(E, myFref);
     Standard_Real       tol2d = BC2d.Resolution(tolE);
-    BndLib_Add2dCurve::Add(BC2d, tol2d, B2d);
+    Add2dCurve::Add(BC2d, tol2d, B2d);
   }
   mymapsbox2d.Add(S, B2d);
   return Standard_True;

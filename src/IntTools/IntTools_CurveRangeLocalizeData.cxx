@@ -32,13 +32,13 @@ void CurveRangeLocalizeData::AddOutRange(const IntTools_CurveRangeSample& theRan
 }
 
 void CurveRangeLocalizeData::AddBox(const IntTools_CurveRangeSample& theRange,
-                                             const Bnd_Box&                   theBox)
+                                             const Box2&                   theBox)
 {
   myMapBox.Bind(theRange, theBox);
 }
 
 Standard_Boolean CurveRangeLocalizeData::FindBox(const IntTools_CurveRangeSample& theRange,
-                                                          Bnd_Box& theBox) const
+                                                          Box2& theBox) const
 {
   if (myMapBox.IsBound(theRange))
   {

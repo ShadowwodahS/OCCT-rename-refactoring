@@ -37,7 +37,7 @@ class Standard_OutOfRange;
 class Standard_DimensionError;
 class Standard_NoSuchObject;
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppParCurves_MultiCurve;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

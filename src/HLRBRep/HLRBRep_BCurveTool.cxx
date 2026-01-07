@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_BCurveTool::NbSamples(const BRepAdaptor_Curve& C,
+Standard_Integer BCurveTool::NbSamples(const BRepAdaptor_Curve& C,
                                                const Standard_Real      U0,
                                                const Standard_Real      U1)
 {
@@ -50,7 +50,7 @@ Standard_Integer HLRBRep_BCurveTool::NbSamples(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-void HLRBRep_BCurveTool::Poles(const BRepAdaptor_Curve& C, TColgp_Array1OfPnt& T)
+void BCurveTool::Poles(const BRepAdaptor_Curve& C, TColgp_Array1OfPnt& T)
 {
   if (C.GetType() == GeomAbs_BezierCurve)
     C.Bezier()->Poles(T);
@@ -60,7 +60,7 @@ void HLRBRep_BCurveTool::Poles(const BRepAdaptor_Curve& C, TColgp_Array1OfPnt& T
 
 //=================================================================================================
 
-void HLRBRep_BCurveTool::PolesAndWeights(const BRepAdaptor_Curve& C,
+void BCurveTool::PolesAndWeights(const BRepAdaptor_Curve& C,
                                          TColgp_Array1OfPnt&      T,
                                          TColStd_Array1OfReal&    W)
 {
@@ -80,14 +80,14 @@ void HLRBRep_BCurveTool::PolesAndWeights(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-Handle(BezierCurve3d) HLRBRep_BCurveTool::Bezier(const BRepAdaptor_Curve& C)
+Handle(BezierCurve3d) BCurveTool::Bezier(const BRepAdaptor_Curve& C)
 {
   return (C.Bezier());
 }
 
 //=================================================================================================
 
-Handle(BSplineCurve3d) HLRBRep_BCurveTool::BSpline(const BRepAdaptor_Curve& C)
+Handle(BSplineCurve3d) BCurveTool::BSpline(const BRepAdaptor_Curve& C)
 {
   return (C.BSpline());
 }

@@ -36,7 +36,7 @@ class gp_Torus;
 //! the Torus. The parametrization range is U [0, 2PI], V [0, 2PI].
 //! KeyWords :
 //! Convert, Torus, BSplineSurface.
-class Convert_TorusToBSplineSurface : public Convert_ElementarySurfaceToBSplineSurface
+class Convert_TorusToBSplineSurface : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC

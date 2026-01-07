@@ -1025,7 +1025,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::GParamOnReference(const TopoVertex& V,
   gp_Pln        pln = suplan->Pln();
   Point3d        p3  = BRepInspector::Pnt(V);
   Standard_Real u, v;
-  ElSLib::Parameters(pln, p3, u, v);
+  ElSLib1::Parameters(pln, p3, u, v);
   gp_Pnt2d             p2(u, v);
   Standard_Real        f, l, tolpc;
   Handle(GeomCurve2d) C2D;
@@ -1038,19 +1038,19 @@ Standard_Boolean TopOpeBRepBuild_Builder::GParamOnReference(const TopoVertex& V,
   switch (AC.GetType())
   {
     case GeomAbs_Line:
-      P = ElCLib::Parameter(AC.Line(), p2);
+      P = ElCLib1::Parameter(AC.Line(), p2);
       break;
     case GeomAbs_Circle:
-      P = ElCLib::Parameter(AC.Circle(), p2);
+      P = ElCLib1::Parameter(AC.Circle(), p2);
       break;
     case GeomAbs_Ellipse:
-      P = ElCLib::Parameter(AC.Ellipse(), p2);
+      P = ElCLib1::Parameter(AC.Ellipse(), p2);
       break;
     case GeomAbs_Hyperbola:
-      P = ElCLib::Parameter(AC.Hyperbola(), p2);
+      P = ElCLib1::Parameter(AC.Hyperbola(), p2);
       break;
     case GeomAbs_Parabola:
-      P = ElCLib::Parameter(AC.Parabola(), p2);
+      P = ElCLib1::Parameter(AC.Parabola(), p2);
       break;
     default:
 #ifdef OCCT_DEBUG

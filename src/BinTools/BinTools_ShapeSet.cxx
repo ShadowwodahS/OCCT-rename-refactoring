@@ -204,7 +204,7 @@ void BinTools_ShapeSet::AddShape(const TopoShape& S)
         {
           // NCollection_IndexedDataMap::Add() function use is correct because
           // Bin(Brep)Tools_ShapeSet::AddGeometry() is called from Bin(Brep)Tools_ShapeSet::Add()
-          // that processes shapes recursively from complex to elementary ones.
+          // that processes shapes recursively from complex1 to elementary ones.
           // As a result, the TopAbs_FACE's will be processed earlier than the TopAbs_EDGE's.
           // clang-format off
           myTriangulations.Add(CR->Triangulation(), Standard_False); // edge triangulation does not need normals
@@ -1458,7 +1458,7 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
 
       for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
       {
-        const Poly_Triangle aTri = aTriangulation->Triangle(aTriIter);
+        const Poly_Triangle aTri = aTriangulation->Triangle1(aTriIter);
         BinTools1::PutInteger(OS, aTri.Value(1));
         BinTools1::PutInteger(OS, aTri.Value(2));
         BinTools1::PutInteger(OS, aTri.Value(3));

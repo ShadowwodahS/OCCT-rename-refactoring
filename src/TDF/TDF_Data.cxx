@@ -47,18 +47,18 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
     if (!myTransaction)                                                                            \
     {                                                                                              \
       AsciiString1 entry;                                                               \
-      for (TDF_ChildIterator itr(Root(), Standard_True); itr.More(); itr.Next())                   \
+      for (ChildIterator itr(Root(), Standard_True); itr.More(); itr.Next())                   \
       {                                                                                            \
         const TDF_LabelNode* lnp = itr.Value().myLabelNode;                                        \
         if (lnp->AttributesModified() || lnp->MayBeModified())                                     \
         {                                                                                          \
-          TDF_Tool::Entry(itr.Value(), entry);                                                     \
+          Tool3::Entry(itr.Value(), entry);                                                     \
           std::cout << ACTION << " on " << entry << " : flag(s) ";                                 \
           if (lnp->AttributesModified())                                                           \
             std::cout << "AttributesModified ";                                                    \
           if (lnp->MayBeModified())                                                                \
             std::cout                                                                              \
-              << "MayBeModified already set in transaction 0! Please contact TDF developer.";      \
+              << "MayBeModified already set in transaction 0! Please contact TDF1 developer.";      \
           std::cout << std::endl;                                                                  \
           std::cout << itr.Value() << std::endl;                                                   \
           entry.Clear();                                                                           \
@@ -73,7 +73,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
   #define TDF_DataDebugDeltaCreation(DELTATYPE)                                                    \
     {                                                                                              \
       AsciiString1 entry;                                                               \
-      TDF_Tool::Entry(currentAtt->Label(), entry);                                                 \
+      Tool3::Entry(currentAtt->Label(), entry);                                                 \
       std::cout << "Creation of a DeltaOn" << DELTATYPE << " \tat " << entry << " \ton "           \
                 << currentAtt->DynamicType() << std::endl;                                         \
     }
@@ -335,7 +335,7 @@ Standard_Integer TDF_Data::CommitTransaction(const DataLabel&         aLabel,
 
   // Iteration on the children to do the same!
   //------------------------------------------
-  for (TDF_ChildIterator itr2(aLabel); itr2.More(); itr2.Next())
+  for (ChildIterator itr2(aLabel); itr2.More(); itr2.Next())
   {
 #ifdef TDF_DATA_COMMIT_OPTIMIZED
     if (itr2.Value().myLabelNode->MayBeModified())
@@ -456,15 +456,15 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
   {
     // Add root label.
     AsciiString1 anEntry;
-    TDF_Tool::Entry(myRoot, anEntry);
+    Tool3::Entry(myRoot, anEntry);
     myAccessByEntriesTable.Bind(anEntry, myRoot);
 
     // Add all other labels.
-    TDF_ChildIterator itr(myRoot, Standard_True);
+    ChildIterator itr(myRoot, Standard_True);
     for (; itr.More(); itr.Next())
     {
       const DataLabel aLabel = itr.Value();
-      TDF_Tool::Entry(aLabel, anEntry);
+      Tool3::Entry(aLabel, anEntry);
       myAccessByEntriesTable.Bind(anEntry, aLabel);
     }
   }
@@ -475,7 +475,7 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
 void TDF_Data::RegisterLabel(const DataLabel& aLabel)
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aLabel, anEntry);
+  Tool3::Entry(aLabel, anEntry);
   myAccessByEntriesTable.Bind(anEntry, aLabel);
 }
 
@@ -496,7 +496,7 @@ void TDF_Data::DumpJson(Standard_OStream& theOStream, Standard_Integer /*theDept
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
   AsciiString1 aStrForTDF_Label;
-  TDF_Tool::Entry(myRoot, aStrForTDF_Label);
+  Tool3::Entry(myRoot, aStrForTDF_Label);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aStrForTDF_Label)
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myTransaction)

@@ -140,7 +140,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     else
     {
       aLFaces.Append(aS);
-      aShapeBoxMap.Bind(aS, aSI.Box());
+      aShapeBoxMap.Bind(aS, aSI.Box1());
     }
   }
 
@@ -168,7 +168,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     const TopoSolid& aSolid = (*(TopoSolid*)(&aS));
     //
     // Bounding box for the solid aS
-    Bnd_Box& aBoxS = aSI.ChangeBox();
+    Box2& aBoxS = aSI.ChangeBox();
     if (aBoxS.IsVoid())
       myDS->BuildBndBoxSolid(i, aBoxS, myCheckInverted);
 

@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L, const gp_Circ2d& C)
+void AnalyticIntersection2d::Perform(const gp_Lin2d& L, const gp_Circ2d& C)
 {
 
   done = Standard_False;
@@ -60,8 +60,8 @@ void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L, const gp_Circ2d& C)
       //
       // modified by NIZNHY-PKV Fri Jun 15 09:55:35 2007f
       aP2D.SetCoord(XS, YS);
-      u   = ElCLib::Parameter(L, aP2D);
-      ang = ElCLib::Parameter(C, aP2D);
+      u   = ElCLib1::Parameter(L, aP2D);
+      ang = ElCLib1::Parameter(C, aP2D);
       /*
       u=B*(L.Location().X()-C.Location().X()) -
     A*(L.Location().Y()-C.Location().Y());
@@ -95,10 +95,10 @@ void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L, const gp_Circ2d& C)
       // modified by NIZNHY-PKV Fri Jun 15 09:55:57 2007f
       aP2D1.SetCoord(XS1, YS1);
       aP2D2.SetCoord(XS2, YS2);
-      u1   = ElCLib::Parameter(L, aP2D1);
-      u2   = ElCLib::Parameter(L, aP2D2);
-      ang1 = ElCLib::Parameter(C, aP2D1);
-      ang2 = ElCLib::Parameter(C, aP2D2);
+      u1   = ElCLib1::Parameter(L, aP2D1);
+      u2   = ElCLib1::Parameter(L, aP2D2);
+      ang1 = ElCLib1::Parameter(C, aP2D1);
+      ang2 = ElCLib1::Parameter(C, aP2D2);
       //
       /*
       if (Abs(cost)<=0.707) {

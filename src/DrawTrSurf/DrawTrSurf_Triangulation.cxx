@@ -64,7 +64,7 @@ DrawTrSurf_Triangulation::DrawTrSurf_Triangulation(const Handle(MeshTriangulatio
   for (i = 1; i <= nbTriangles; i++)
   {
     pc.Triangles(i, t[0], t[1], t[2]);
-    T->Triangle(i).Get(n[0], n[1], n[2]);
+    T->Triangle1(i).Get(n[0], n[1], n[2]);
     for (j = 0; j < 3; j++)
     {
       Standard_Integer k = (j + 1) % 3;
@@ -132,7 +132,7 @@ void DrawTrSurf_Triangulation::DrawOn(DrawDisplay& dis) const
     Standard_Integer t[3], j;
     for (i = 1; i <= n; i++)
     {
-      myTriangulation->Triangle(i).Get(t[0], t[1], t[2]);
+      myTriangulation->Triangle1(i).Get(t[0], t[1], t[2]);
       Point3d  P(0, 0, 0);
       gp_XYZ& bary = P.ChangeCoord();
       for (j = 0; j < 3; j++)
@@ -156,7 +156,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Triangulation::Copy() const
 
 void DrawTrSurf_Triangulation::Dump(Standard_OStream& S) const
 {
-  Poly::Dump(myTriangulation, S);
+  Poly1::Dump(myTriangulation, S);
 }
 
 //=================================================================================================
@@ -171,7 +171,7 @@ void DrawTrSurf_Triangulation::Save(Standard_OStream& theStream) const
   long            aForm = theStream.setf(std::ios::scientific);
   std::streamsize aPrec = theStream.precision(15);
 #endif
-  Poly::Write(myTriangulation, theStream);
+  Poly1::Write(myTriangulation, theStream);
 #if !defined(_MSC_VER) && !defined(__sgi) && !defined(IRIX)
   theStream.setf(aFlags);
 #else
@@ -184,7 +184,7 @@ void DrawTrSurf_Triangulation::Save(Standard_OStream& theStream) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Triangulation::Restore(Standard_IStream& theStream)
 {
-  return new DrawTrSurf_Triangulation(Poly::ReadTriangulation(theStream));
+  return new DrawTrSurf_Triangulation(Poly1::ReadTriangulation(theStream));
 }
 
 //=================================================================================================

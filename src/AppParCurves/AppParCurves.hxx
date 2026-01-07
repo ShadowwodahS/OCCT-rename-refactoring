@@ -29,7 +29,7 @@ class math_Matrix;
 //! This package gives all the algorithms used to approximate a MultiLine
 //! described by the tool MLineTool.
 //! The result of the approximation will be a MultiCurve.
-class AppParCurves
+class AppParCurves1
 {
 public:
   DEFINE_STANDARD_ALLOC

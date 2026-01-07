@@ -477,7 +477,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
       AppParCurves_Constraint  Constraint=AppParCurves_NoConstraint;
 
       for(i = 1; i <= NbPoint; ++i) {
-	AppParCurves_ConstraintCouple ACC(i,Constraint);
+	ConstraintCouple ACC(i,Constraint);
 	TABofCC->SetValue(i,ACC);
       }
       
@@ -544,7 +544,7 @@ void AppBlend_AppSurf::InternalPerform(const Handle(TheLine)& Lin,
   tabVKnots->ChangeArray1() = multC.Knots();
 
   if (knownp && !UseSmoothing) {
-    BSplCLib::Reparametrize(F.Parameter(Lin->Point(1)),
+    BSplCLib1::Reparametrize(F.Parameter(Lin->Point(1)),
 			    F.Parameter(Lin->Point(NbPoint)),
 			    tabVKnots->ChangeArray1());
   }
@@ -874,7 +874,7 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
 //  modified by EAP Fri Jan  4 12:07:30 2002 ___BEGIN___
     if (aParamSeq.Length() != tabVKnots->Length())
     {
-      BSplCLib::Reparametrize(F.Parameter(Lin->Point(1)),
+      BSplCLib1::Reparametrize(F.Parameter(Lin->Point(1)),
 			      F.Parameter(Lin->Point(Lin->NbPoints())),
 			      tabVKnots->ChangeArray1()
 			      );

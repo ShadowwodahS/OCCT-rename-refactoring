@@ -143,22 +143,22 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
 
   if ((K12 - K11) > (K22 - K21))
   {
-    BSplCLib::Reparametrize(K11, K12, K2);
+    BSplCLib1::Reparametrize(K11, K12, K2);
     C2->SetKnots(K2);
   }
   else if ((K12 - K11) < (K22 - K21))
   {
-    BSplCLib::Reparametrize(K21, K22, K1);
+    BSplCLib1::Reparametrize(K21, K22, K1);
     C1->SetKnots(K1);
   }
   else if (Abs(K12 - K11) > Precision::PConfusion())
   {
-    BSplCLib::Reparametrize(K11, K12, K2);
+    BSplCLib1::Reparametrize(K11, K12, K2);
     C2->SetKnots(K2);
   }
 
   Standard_Integer NP, NK;
-  if (BSplCLib::PrepareInsertKnots(C1->Degree(),
+  if (BSplCLib1::PrepareInsertKnots(C1->Degree(),
                                    Standard_False,
                                    K1,
                                    M1,
@@ -173,7 +173,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
     TColStd_Array1OfReal    NewW(1, NP);
     TColStd_Array1OfReal    NewK(1, NK);
     TColStd_Array1OfInteger NewM(1, NK);
-    BSplCLib::InsertKnots(C1->Degree(),
+    BSplCLib1::InsertKnots(C1->Degree(),
                           Standard_False,
                           P1,
                           &W1,
@@ -195,7 +195,7 @@ static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
     {
       C1 = new BSplineCurve3d(NewP, NewK, NewM, C1->Degree());
     }
-    BSplCLib::InsertKnots(C2->Degree(),
+    BSplCLib1::InsertKnots(C2->Degree(),
                           Standard_False,
                           P2,
                           &W2,

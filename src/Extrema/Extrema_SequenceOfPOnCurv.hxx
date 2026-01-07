@@ -20,6 +20,6 @@
 #include <Extrema_POnCurv.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Extrema_POnCurv> Extrema_SequenceOfPOnCurv;
+typedef NCollection_Sequence<PointOnCurve1> Extrema_SequenceOfPOnCurv;
 
 #endif

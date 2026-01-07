@@ -23,7 +23,7 @@ class StepVisual_RepositionedTessellatedGeometricSet;
 class StepData_StepWriter;
 class Interface_EntityIterator;
 
-//! Read & Write tool for complex RepositionedTessellatedGeometricSet
+//! Read & Write tool for complex1 RepositionedTessellatedGeometricSet
 class RWStepVisual_RWRepositionedTessellatedGeometricSet
 {
 public:

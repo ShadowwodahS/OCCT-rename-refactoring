@@ -44,23 +44,23 @@ void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPrese
 
   Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(2 * nbp + 6, 4);
 
-  Point3d pt1 = ElCLib::Value(0., Circ);
+  Point3d pt1 = ElCLib1::Value(0., Circ);
   aPrims->AddBound(nbp + 1);
   aPrims->AddVertex(pt1);
   Standard_Real    ucur = dteta;
   Standard_Integer i;
   for (i = 2; i <= nbp; i++, ucur += dteta)
-    aPrims->AddVertex(ElCLib::Value(ucur, Circ));
+    aPrims->AddVertex(ElCLib1::Value(ucur, Circ));
   aPrims->AddVertex(pt1);
 
   // Creation et discretisation du plus petit cercle
   Circ.SetRadius(0.5 * aRadius);
-  pt1 = ElCLib::Value(0., Circ);
+  pt1 = ElCLib1::Value(0., Circ);
   aPrims->AddBound(nbp + 1);
   aPrims->AddVertex(pt1);
   ucur = dteta;
   for (i = 2; i <= nbp; i++, ucur += dteta)
-    aPrims->AddVertex(ElCLib::Value(ucur, Circ));
+    aPrims->AddVertex(ElCLib1::Value(ucur, Circ));
   aPrims->AddVertex(pt1);
 
   // Creation de la croix

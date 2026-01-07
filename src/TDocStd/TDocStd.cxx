@@ -27,7 +27,7 @@
 // #include <LCTLOFF.h>
 //=================================================================================================
 
-//  Handle(AppManager) TDocStd::Application
+//  Handle(AppManager) TDocStd1::Application
 //  (const Standard_Boolean UseDocAPI)
 //  {
 //    static Handle(AppManager) theAppli;
@@ -47,15 +47,15 @@
 //  }
 //=================================================================================================
 
-//  Handle(AppManager) TDocStd::InitApplication
+//  Handle(AppManager) TDocStd1::InitApplication
 //  (const Standard_Boolean UseDocAPI)
 //  {
 //    // No init yet.
-//    return TDocStd::Application(UseDocAPI);
+//    return TDocStd1::Application(UseDocAPI);
 //  }
 //=================================================================================================
 
-void TDocStd::IDList(TDF_IDList& anIDList)
+void TDocStd1::IDList(TDF_IDList& anIDList)
 {
   anIDList.Append(TDocStd_XLink::GetID());
 }

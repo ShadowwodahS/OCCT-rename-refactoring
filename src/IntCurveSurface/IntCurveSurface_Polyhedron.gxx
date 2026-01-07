@@ -146,7 +146,7 @@ void IntCurveSurface_Polyhedron::Init(const ThePSurface&     Surface,
       Index++;
     }
   }
-  //-- Calcul de la deflection Triangle <-> Point milieu
+  //-- Calcul de la deflection Triangle1 <-> Point milieu
   Standard_Real tol=0.0; Standard_Integer nbtriangles = NbTriangles();
   for (i1=1; i1<=nbtriangles; i1++) {
     Standard_Real tol1 = DeflectionOnTriangle(Surface,i1);
@@ -233,7 +233,7 @@ void IntCurveSurface_Polyhedron::Init(const ThePSurface&     Surface,
       Index++;
     }
   }
-  //-- Calcul de la deflection Triangle <-> Point milieu
+  //-- Calcul de la deflection Triangle1 <-> Point milieu
   Standard_Real tol=0.0; Standard_Integer nbtriangles = NbTriangles();
   for (i1=1; i1<=nbtriangles; i1++) {
     Standard_Real tol1 = DeflectionOnTriangle(Surface,i1);
@@ -292,7 +292,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOnTriangle (const ThePSurfac
 								const Standard_Integer Triang) const 
 {
   Standard_Integer i1,i2,i3;    
-  Triangle(Triang,i1,i2,i3);
+  Triangle1(Triang,i1,i2,i3);
   //-- Calcul de l equation du plan
   Standard_Real u1,v1,u2,v2,u3,v3;
   Point3d P1,P2,P3;
@@ -365,7 +365,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOverEstimation() const
 //function : Bounding
 //purpose  : 
 //=======================================================================
-const Bnd_Box& IntCurveSurface_Polyhedron::Bounding() const
+const Box2& IntCurveSurface_Polyhedron::Bounding() const
 {
   return TheBnd;
 }
@@ -376,11 +376,11 @@ const Bnd_Box& IntCurveSurface_Polyhedron::Bounding() const
 void IntCurveSurface_Polyhedron::FillBounding()
 {
   TheComponentsBnd=new Bnd_HArray1OfBox(1, NbTriangles());
-  Bnd_Box Boite;
+  Box2 Boite;
   Standard_Integer np1, np2, np3;
   Standard_Integer nbtriangles = NbTriangles();
   for (Standard_Integer iTri=1; iTri<=nbtriangles; iTri++) {
-    Triangle(iTri, np1, np2, np3);
+    Triangle1(iTri, np1, np2, np3);
     Point3d p1(Point(np1));
     Point3d p2(Point(np2));
     Point3d p3(Point(np3));
@@ -459,7 +459,7 @@ Standard_Integer IntCurveSurface_Polyhedron::TriConnex
     typE=0;
   }
 
-// Triangle position General case :
+// Triangle1 position General case :
 
   Standard_Integer linT =0, colT =0;
   Standard_Integer linO =0, colO =0;
@@ -529,7 +529,7 @@ Standard_Integer IntCurveSurface_Polyhedron::TriConnex
     }
   }
   else {
-    // Unknown Triangle position :
+    // Unknown Triangle1 position :
     if (Pedge==0) {
       // Unknown edge :
       linT=(1>ligP)? 1 : ligP;      //--linT=Max(1, ligP);
@@ -611,7 +611,7 @@ void IntCurveSurface_Polyhedron::PlaneEquation (const Standard_Integer Triang,
 					Standard_Real& PolarDistance)  const
 {
   Standard_Integer i1,i2,i3;
-  Triangle(Triang,i1,i2,i3);
+  Triangle1(Triang,i1,i2,i3);
 
   //--  gp_XYZ v1=Point(i2).XYZ()-Point(i1).XYZ();
   //--  gp_XYZ v2=Point(i3).XYZ()-Point(i2).XYZ();
@@ -648,7 +648,7 @@ Standard_Boolean IntCurveSurface_Polyhedron::Contain (const Standard_Integer Tri
 						      const Point3d& ThePnt) const
 {
   Standard_Integer i1,i2,i3;
-  Triangle(Triang,i1,i2,i3);
+  Triangle1(Triang,i1,i2,i3);
   gp_XYZ Pointi1(Point(i1).XYZ());
   gp_XYZ Pointi2(Point(i2).XYZ());
   gp_XYZ Pointi3(Point(i3).XYZ());
@@ -680,10 +680,10 @@ void IntCurveSurface_Polyhedron::Size (Standard_Integer& nbdu,
   nbdv=nbdeltaV;
 }
 //=======================================================================
-//function : Triangle
+//function : Triangle1
 //purpose  : 
 //=======================================================================
-void IntCurveSurface_Polyhedron::Triangle (const Standard_Integer Index,
+void IntCurveSurface_Polyhedron::Triangle1 (const Standard_Integer Index,
 				  Standard_Integer& P1,
 				  Standard_Integer& P2,
 				  Standard_Integer& P3) const

@@ -42,7 +42,7 @@
 //! GccAna and Geom2dGcc1 packages which provide
 //! functions for constructing circles defined by geometric constraints
 //! gce_MakeCirc2d which provides functions for more
-//! complex circle constructions
+//! complex1 circle constructions
 //! Geom2d_Circle which provides additional functions for
 //! constructing circles and works, with the parametric
 //! equations of circles in particular  gp_Ax22d

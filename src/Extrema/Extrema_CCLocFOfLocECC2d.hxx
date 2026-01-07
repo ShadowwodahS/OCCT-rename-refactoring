@@ -30,8 +30,8 @@
 #include <math_Vector.hxx>
 class Standard_OutOfRange;
 class Adaptor2d_Curve2d;
-class Extrema_Curve2dTool;
-class Extrema_POnCurv2d;
+class Curve2dTool1;
+class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class math_Matrix;
@@ -79,8 +79,8 @@ public:
 
   //! Return the points of the Nth extreme distance.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv2d&     P1,
-                              Extrema_POnCurv2d&     P2) const;
+                              PointOnCurve2d&     P1,
+                              PointOnCurve2d&     P2) const;
 
   //! Returns a pointer to the curve specified in the constructor
   //! or in SetCurve() method.
@@ -123,13 +123,13 @@ private:
 
 #define Curve1 Adaptor2d_Curve2d
 #define Curve1_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool1 Extrema_Curve2dTool
+#define Tool1 Curve2dTool1
 #define Tool1_hxx <Extrema_Curve2dTool.hxx>
 #define Curve2 Adaptor2d_Curve2d
 #define Curve2_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool2 Extrema_Curve2dTool
+#define Tool2 Curve2dTool1
 #define Tool2_hxx <Extrema_Curve2dTool.hxx>
-#define POnC Extrema_POnCurv2d
+#define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>

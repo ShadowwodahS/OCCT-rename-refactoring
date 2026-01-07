@@ -287,10 +287,10 @@ Standard_Boolean MeshVS_DataSource::GetDetectedEntities(
 
 //=================================================================================================
 
-Bnd_Box MeshVS_DataSource::GetBoundingBox() const
+Box2 MeshVS_DataSource::GetBoundingBox() const
 {
   // Compute the 3D bounding box for mesh
-  Bnd_Box                           aBox;
+  Box2                           aBox;
   const TColStd_PackedMapOfInteger& aNodes = GetAllNodes();
   if (aNodes.Extent())
   {

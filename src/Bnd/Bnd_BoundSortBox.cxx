@@ -449,7 +449,7 @@ Bnd_BoundSortBox::Bnd_BoundSortBox()
 
 //=================================================================================================
 
-void Bnd_BoundSortBox::Initialize(const Bnd_Box&                  CompleteBox,
+void Bnd_BoundSortBox::Initialize(const Box2&                  CompleteBox,
                                   const Handle(Bnd_HArray1OfBox)& SetOfBox)
 {
   myBox                        = CompleteBox;
@@ -649,14 +649,14 @@ void Bnd_BoundSortBox::SortBoxes()
 
 //=================================================================================================
 
-void Bnd_BoundSortBox::Initialize(const Bnd_Box& CompleteBox, const Standard_Integer nbComponents)
+void Bnd_BoundSortBox::Initialize(const Box2& CompleteBox, const Standard_Integer nbComponents)
 {
   Standard_NullValue_Raise_if(nbComponents <= 0, "BoundSortBox nul!");
   myBox           = CompleteBox;
   myBndComponents = new Bnd_HArray1OfBox(1, nbComponents);
 
   //***>>> JCD - 04.08.2000 - Array initialization is missing...
-  Bnd_Box emptyBox;
+  Box2 emptyBox;
   myBndComponents->Init(emptyBox);
   //***<<< JCD - End
 
@@ -683,7 +683,7 @@ void Bnd_BoundSortBox::Initialize(const Bnd_Box& CompleteBox, const Standard_Int
 
 //=================================================================================================
 
-void Bnd_BoundSortBox::Add(const Bnd_Box& theBox, const Standard_Integer boxIndex)
+void Bnd_BoundSortBox::Add(const Box2& theBox, const Standard_Integer boxIndex)
 {
   Standard_MultiplyDefined_Raise_if(!(myBndComponents->Value(boxIndex).IsVoid()),
                                     " This box is already defined !");
@@ -821,7 +821,7 @@ void Bnd_BoundSortBox::Add(const Bnd_Box& theBox, const Standard_Integer boxInde
 //=======================================================================
 #if VERIFICATION
 static void VerifCompare(const TColStd_ListOfInteger& lastResult,
-                         const Bnd_Box&               theBox,
+                         const Box2&               theBox,
                          const Bnd_Array1OfBox&       taBox)
 {
   static int       Verif = 1;
@@ -865,7 +865,7 @@ static void VerifCompare(const TColStd_ListOfInteger& lastResult,
 #endif
 //=================================================================================================
 
-const TColStd_ListOfInteger& Bnd_BoundSortBox::Compare(const Bnd_Box& theBox)
+const TColStd_ListOfInteger& Bnd_BoundSortBox::Compare(const Box2& theBox)
 
 {
   Standard_Integer lacase;

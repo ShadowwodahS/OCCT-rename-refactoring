@@ -99,7 +99,7 @@ void AdvApp2Var_Iso::MakeApprox(const AdvApp2Var_Context&           Conditions,
                                 const Standard_Real                 U1,
                                 const Standard_Real                 V0,
                                 const Standard_Real                 V1,
-                                const AdvApp2Var_EvaluatorFunc2Var& Func,
+                                const EvaluatorFunc2Var& Func,
                                 AdvApp2Var_Node&                    NodeBegin,
                                 AdvApp2Var_Node&                    NodeEnd)
 {
@@ -241,7 +241,7 @@ void AdvApp2Var_Iso::MakeApprox(const AdvApp2Var_Context&           Conditions,
     // GCC 3.0 would not accept this line without the void
     // pointer cast.  Perhaps the real problem is a definition
     // somewhere that has a void * in it.
-    AdvApp2Var_ApproxF2var::mma2fnc_(&NDIMEN,
+    FunctionApprox2var::mma2fnc_(&NDIMEN,
                                      &NBSESP,
                                      &NDIMSE,
                                      UVFONC,

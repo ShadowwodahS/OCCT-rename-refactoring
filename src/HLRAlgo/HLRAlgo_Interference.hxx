@@ -23,8 +23,8 @@
 #include <HLRAlgo_Intersection.hxx>
 #include <HLRAlgo_Coincidence.hxx>
 #include <TopAbs_Orientation.hxx>
-class HLRAlgo_Intersection;
-class HLRAlgo_Coincidence;
+class Intersection3;
+class Coincidence;
 
 class HLRAlgo_Interference
 {
@@ -33,15 +33,15 @@ public:
 
   Standard_EXPORT HLRAlgo_Interference();
 
-  Standard_EXPORT HLRAlgo_Interference(const HLRAlgo_Intersection& Inters,
-                                       const HLRAlgo_Coincidence&  Bound,
+  Standard_EXPORT HLRAlgo_Interference(const Intersection3& Inters,
+                                       const Coincidence&  Bound,
                                        const TopAbs_Orientation    Orient,
                                        const TopAbs_Orientation    Trans,
                                        const TopAbs_Orientation    BTrans);
 
-  void Intersection(const HLRAlgo_Intersection& I);
+  void Intersection(const Intersection3& I);
 
-  void Boundary(const HLRAlgo_Coincidence& B);
+  void Boundary(const Coincidence& B);
 
   void Orientation(const TopAbs_Orientation O);
 
@@ -49,13 +49,13 @@ public:
 
   void BoundaryTransition(const TopAbs_Orientation BTr);
 
-  const HLRAlgo_Intersection& Intersection() const;
+  const Intersection3& Intersection() const;
 
-  HLRAlgo_Intersection& ChangeIntersection();
+  Intersection3& ChangeIntersection();
 
-  const HLRAlgo_Coincidence& Boundary() const;
+  const Coincidence& Boundary() const;
 
-  HLRAlgo_Coincidence& ChangeBoundary();
+  Coincidence& ChangeBoundary();
 
   TopAbs_Orientation Orientation() const;
 
@@ -65,16 +65,16 @@ public:
 
 protected:
 private:
-  HLRAlgo_Intersection myIntersection;
-  HLRAlgo_Coincidence  myBoundary;
+  Intersection3 myIntersection;
+  Coincidence  myBoundary;
   TopAbs_Orientation   myOrientation;
   TopAbs_Orientation   myTransition;
   TopAbs_Orientation   myBTransition;
 };
 
-#define TheSubShape HLRAlgo_Intersection
+#define TheSubShape Intersection3
 #define TheSubShape_hxx <HLRAlgo_Intersection.hxx>
-#define TheShape HLRAlgo_Coincidence
+#define TheShape Coincidence
 #define TheShape_hxx <HLRAlgo_Coincidence.hxx>
 #define TopBas_Interference HLRAlgo_Interference
 #define TopBas_Interference_hxx <HLRAlgo_Interference.hxx>

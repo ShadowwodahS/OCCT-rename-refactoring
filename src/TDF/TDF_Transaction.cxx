@@ -94,14 +94,14 @@ Handle(TDF_Delta) TDF_Transaction::Commit(const Standard_Boolean withDelta)
 #endif
 #ifdef OCCT_DEBUG_TRANSACTION_DUMP
     std::cout << "DF before commit" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myDF);
+    Tool3::DeepDump(std::cout, myDF);
 #endif
     Standard_Integer until = myUntilTransaction;
     myUntilTransaction     = 0;
     delta                  = myDF->CommitUntilTransaction(until, withDelta);
 #ifdef OCCT_DEBUG_TRANSACTION_DUMP
     std::cout << "DF after commit" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myDF);
+    Tool3::DeepDump(std::cout, myDF);
 #endif
   }
 #ifdef OCCT_DEBUG_TRANSACTION
@@ -123,13 +123,13 @@ void TDF_Transaction::Abort()
 #endif
 #ifdef OCCT_DEBUG_TRANSACTION_DUMP
     std::cout << "DF before abort" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myDF);
+    Tool3::DeepDump(std::cout, myDF);
 #endif
     myDF->AbortUntilTransaction(myUntilTransaction);
     myUntilTransaction = 0;
 #ifdef OCCT_DEBUG_TRANSACTION_DUMP
     std::cout << "DF after abort" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myDF);
+    Tool3::DeepDump(std::cout, myDF);
 #endif
   }
 }

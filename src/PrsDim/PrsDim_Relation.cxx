@@ -100,8 +100,8 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
     Handle(GeomLine) gl(Handle(GeomLine)::DownCast(ProjCurv));
     if (!isInfinite)
     {
-      pf = ElCLib::Parameter(gl->Lin(), FirstP);
-      pl = ElCLib::Parameter(gl->Lin(), LastP);
+      pf = ElCLib1::Parameter(gl->Lin(), FirstP);
+      pl = ElCLib1::Parameter(gl->Lin(), LastP);
       EdgeMaker MakEd(gl->Lin(), pf, pl);
       E = MakEd.Edge();
     }
@@ -114,8 +114,8 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
   else if (ProjCurv->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
     Handle(GeomCircle) gc(Handle(GeomCircle)::DownCast(ProjCurv));
-    pf = ElCLib::Parameter(gc->Circ(), FirstP);
-    pl = ElCLib::Parameter(gc->Circ(), LastP);
+    pf = ElCLib1::Parameter(gc->Circ(), FirstP);
+    pl = ElCLib1::Parameter(gc->Circ(), LastP);
     EdgeMaker MakEd(gc->Circ(), pf, pl);
     E = MakEd.Edge();
   }
@@ -225,7 +225,7 @@ void PrsDim_Relation::SetColor(const Quantity_Color& aCol)
 
   Standard_Real WW = HasWidth() ? Width()
                      : myDrawer->HasLink()
-                       ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Line)
+                       ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line)
                        : 1.;
   if (!myDrawer->HasOwnLineAspect())
   {
@@ -256,8 +256,8 @@ void PrsDim_Relation::UnsetColor()
   Quantity_Color                  CC = Quantity_NOC_YELLOW;
   if (myDrawer->HasLink())
   {
-    AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Line, CC);
-    myDrawer->SetTextAspect(myDrawer->Link()->TextAspect());
+    AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, CC);
+    myDrawer->SetTextAspect(myDrawer->Link1()->TextAspect());
   }
   LA->SetColor(CC);
   myDrawer->DimensionAspect()->SetLineAspect(LA);

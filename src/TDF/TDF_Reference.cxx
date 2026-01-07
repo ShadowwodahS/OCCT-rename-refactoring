@@ -138,6 +138,6 @@ void TDF_Reference::DumpJson(Standard_OStream& theOStream, Standard_Integer theD
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDF_Attribute)
 
   AsciiString1 aLabel;
-  TDF_Tool::Entry(myOrigin, aLabel);
+  Tool3::Entry(myOrigin, aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 }

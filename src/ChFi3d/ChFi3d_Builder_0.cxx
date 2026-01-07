@@ -107,7 +107,7 @@ Standard_Real ChFi3d_InPeriod(const Standard_Real U,
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Calculation of min/max uv of the fillet to intersect.
 //=======================================================================
 void ChFi3d_Boite(const gp_Pnt2d& p1,
@@ -124,7 +124,7 @@ void ChFi3d_Boite(const gp_Pnt2d& p1,
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Calculation of min/max uv of the fillet to intersect.
 //=======================================================================
 void ChFi3d_Boite(const gp_Pnt2d& p1,
@@ -185,7 +185,7 @@ static Handle(Adaptor3d_Surface) Geometry(TopOpeBRepDS_DataStructure& DStr,
 //=================================================================================================
 
 void ChFi3d_SetPointTolerance(TopOpeBRepDS_DataStructure& DStr,
-                              const Bnd_Box&              box,
+                              const Box2&              box,
                               const Standard_Integer      IP)
 {
   Standard_Real a, b, c, d, e, f, vtol;
@@ -205,8 +205,8 @@ void ChFi3d_SetPointTolerance(TopOpeBRepDS_DataStructure& DStr,
 void ChFi3d_EnlargeBox(const Handle(GeomCurve3d)& C,
                        const Standard_Real       wd,
                        const Standard_Real       wf,
-                       Bnd_Box&                  box1,
-                       Bnd_Box&                  box2)
+                       Box2&                  box1,
+                       Box2&                  box2)
 {
   box1.Add(C->Value(wd));
   box2.Add(C->Value(wf));
@@ -218,8 +218,8 @@ void ChFi3d_EnlargeBox(const Handle(Adaptor3d_Surface)& S,
                        const Handle(GeomCurve2d)&      PC,
                        const Standard_Real              wd,
                        const Standard_Real              wf,
-                       Bnd_Box&                         box1,
-                       Bnd_Box&                         box2)
+                       Box2&                         box1,
+                       Box2&                         box2)
 {
   Standard_Real u, v;
   PC->Value(wd).Coord(u, v);
@@ -233,7 +233,7 @@ void ChFi3d_EnlargeBox(const Handle(Adaptor3d_Surface)& S,
 void ChFi3d_EnlargeBox(const TopoEdge&          E,
                        const ShapeList& LF,
                        const Standard_Real         w,
-                       Bnd_Box&                    box)
+                       Box2&                    box)
 
 {
   BRepAdaptor_Curve BC(E);
@@ -255,8 +255,8 @@ void ChFi3d_EnlargeBox(const TopoEdge&          E,
 void ChFi3d_EnlargeBox(TopOpeBRepDS_DataStructure&    DStr,
                        const Handle(ChFiDS_Stripe)&   st,
                        const Handle(ChFiDS_SurfData)& sd,
-                       Bnd_Box&                       b1,
-                       Bnd_Box&                       b2,
+                       Box2&                       b1,
+                       Box2&                       b2,
                        const Standard_Boolean         isfirst)
 {
   Standard_Real             u, v;
@@ -638,7 +638,7 @@ Standard_Boolean ChFi3d_InterPlaneEdge(const Handle(Adaptor3d_Surface)& Plan,
     {
       CW = Intersection.Point(iip).W();
       if (C->IsPeriodic())
-        CW = ElCLib::InPeriod(CW, uf - tolc, uf - tolc + C->Period());
+        CW = ElCLib1::InPeriod(CW, uf - tolc, uf - tolc + C->Period());
       if (uf - tolc <= CW && ul + tolc >= CW)
       {
         if (isol == 0)
@@ -693,13 +693,13 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
     case GeomAbs_Cylinder: {
       gp_Cylinder cyl = gs.Cylinder();
       R               = cyl.Radius();
-      ElSLib::D1(pp.X(), pp.Y(), cyl, Pbid, Vbid, V);
+      ElSLib1::D1(pp.X(), pp.Y(), cyl, Pbid, Vbid, V);
     }
     break;
     case GeomAbs_Torus: {
       gp_Torus tor = gs.Torus();
       R            = tor.MinorRadius();
-      ElSLib::D1(pp.X(), pp.Y(), tor, Pbid, V, Vbid);
+      ElSLib1::D1(pp.X(), pp.Y(), tor, Pbid, V, Vbid);
     }
     break;
     default: {
@@ -745,13 +745,13 @@ Handle(GeomCircle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
 {
   gp_Circ            ccc;
   gp_Pln             Pl1(Pdeb, Dir3d(Vdeb)), Pl2(Pfin, Dir3d(Vfin));
-  IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
   gp_Lin             li;
   if (LInt.IsDone())
   {
     li            = LInt.Line(1);
-    Point3d cendeb = ElCLib::Value(ElCLib::Parameter(li, Pdeb), li);
-    Point3d cenfin = ElCLib::Value(ElCLib::Parameter(li, Pfin), li);
+    Point3d cendeb = ElCLib1::Value(ElCLib1::Parameter(li, Pdeb), li);
+    Point3d cenfin = ElCLib1::Value(ElCLib1::Parameter(li, Pfin), li);
     Vector3d vvdeb(cendeb, Pdeb);
     Vector3d vvfin(cenfin, Pfin);
     Dir3d dddeb(vvdeb);
@@ -1339,7 +1339,7 @@ void ChFi3d_ReparamPcurv(const Standard_Real   Uf,
     TColStd_Array1OfInteger mu(1, pc->NbKnots());
     pc->Multiplicities(mu);
     Standard_Integer deg = pc->Degree();
-    BSplCLib::Reparametrize(Uf, Ul, kn);
+    BSplCLib1::Reparametrize(Uf, Ul, kn);
     pc = new Geom2d_BSplineCurve(pol, kn, mu, deg);
   }
   Pcurv = pc;
@@ -1446,7 +1446,7 @@ Standard_Boolean ChFi3d_SameParameter(const Handle(Adaptor3d_Curve)&   C3d,
 {
   if (ChFi3d_CheckSameParameter(C3d, Pcurv, S, tol3d, tolreached))
     return Standard_True;
-  Approx_SameParameter sp(C3d, Pcurv, S, tol3d);
+  SameParameterTool sp(C3d, Pcurv, S, tol3d);
   if (sp.IsDone() && !sp.IsSameParameter())
     Pcurv = sp.Curve2d();
   else if (!sp.IsDone() && !sp.IsSameParameter())
@@ -1837,7 +1837,7 @@ void ChFi3d_ComputeArete(const ChFiDS_CommonPoint&   P1,
         C3d = tc->BasisCurve();
         if (C3d->IsPeriodic())
         {
-          ElCLib::AdjustPeriodic(C3d->FirstParameter(),
+          ElCLib1::AdjustPeriodic(C3d->FirstParameter(),
                                  C3d->LastParameter(),
                                  tol2d,
                                  Pardeb,
@@ -1886,7 +1886,7 @@ void ChFi3d_ComputeArete(const ChFiDS_CommonPoint&   P1,
         C3d = tc->BasisCurve();
         if (C3d->IsPeriodic())
         {
-          ElCLib::AdjustPeriodic(C3d->FirstParameter(),
+          ElCLib1::AdjustPeriodic(C3d->FirstParameter(),
                                  C3d->LastParameter(),
                                  tol2d,
                                  Pardeb,
@@ -1969,7 +1969,7 @@ void ChFi3d_ComputeArete(const ChFiDS_CommonPoint&   P1,
     Pardeb = Cs.FirstParameter();
     Parfin = Cs.LastParameter();
     Standard_Real avtol;
-    GeomLib::BuildCurve3d(tol3d, Cs, Pardeb, Parfin, C3d, tolreached, avtol);
+    GeomLib1::BuildCurve3d(tol3d, Cs, Pardeb, Parfin, C3d, tolreached, avtol);
   }
   else
   {
@@ -3491,7 +3491,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       pl  = S2->Plane();
       cyl = S1->Cylinder();
     }
-    IntAna_QuadQuadGeo ImpKK(pl, cyl, Precision::Angular(), tol3d);
+    QuadQuadGeoIntersection ImpKK(pl, cyl, Precision::Angular(), tol3d);
     Standard_Boolean   isIntDone = ImpKK.IsDone();
 
     if (ImpKK.TypeInter() == IntAna_Ellipse)
@@ -3514,30 +3514,30 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
           for (Standard_Integer ilin = 1; ilin <= nbsol; ilin++)
           {
             C1           = ImpKK.Line(ilin);
-            Udeb         = ElCLib::Parameter(C1, pdeb);
-            Point3d ptest = ElCLib::Value(Udeb, C1);
+            Udeb         = ElCLib1::Parameter(C1, pdeb);
+            Point3d ptest = ElCLib1::Value(Udeb, C1);
             if (ptest.Distance(pdeb) < tol3d)
               break;
           }
-          Ufin = ElCLib::Parameter(C1, pfin);
+          Ufin = ElCLib1::Parameter(C1, pfin);
           C3d  = new GeomLine(C1);
-          ElCLib::D1(Udeb, C1, Pbid, Vint);
+          ElCLib1::D1(Udeb, C1, Pbid, Vint);
         }
         break;
         case IntAna_Circle: {
           gp_Circ C1 = ImpKK.Circle(1);
           C3d        = new GeomCircle(C1);
-          Udeb       = ElCLib::Parameter(C1, pdeb);
-          Ufin       = ElCLib::Parameter(C1, pfin);
-          ElCLib::D1(Udeb, C1, Pbid, Vint);
+          Udeb       = ElCLib1::Parameter(C1, pdeb);
+          Ufin       = ElCLib1::Parameter(C1, pfin);
+          ElCLib1::D1(Udeb, C1, Pbid, Vint);
         }
         break;
         case IntAna_Ellipse: {
           gp_Elips C1 = ImpKK.Ellipse(1);
           C3d         = new Geom_Ellipse(C1);
-          Udeb        = ElCLib::Parameter(C1, pdeb);
-          Ufin        = ElCLib::Parameter(C1, pfin);
-          ElCLib::D1(Udeb, C1, Pbid, Vint);
+          Udeb        = ElCLib1::Parameter(C1, pdeb);
+          Ufin        = ElCLib1::Parameter(C1, pfin);
+          ElCLib1::D1(Udeb, C1, Pbid, Vint);
         }
         break;
         default:
@@ -3558,7 +3558,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
         }
       }
       if (!c1line)
-        ElCLib::AdjustPeriodic(0., 2 * M_PI, Precision::Angular(), Udeb, Ufin);
+        ElCLib1::AdjustPeriodic(0., 2 * M_PI, Precision::Angular(), Udeb, Ufin);
       Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve();
       HC->Load(C3d, Udeb, Ufin);
       ChFi3d_ProjectPCurv(HC, S1, Pc1, tol3d, tolr1);
@@ -3589,14 +3589,14 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
   }
   else if (S1->GetType() == GeomAbs_Plane && S2->GetType() == GeomAbs_Plane)
   {
-    IntAna_QuadQuadGeo LInt(S1->Plane(), S2->Plane(), Precision::Angular(), tol3d);
+    QuadQuadGeoIntersection LInt(S1->Plane(), S2->Plane(), Precision::Angular(), tol3d);
     if (LInt.IsDone())
     {
       gp_Lin L = LInt.Line(1);
       C3d      = new GeomLine(L);
-      Udeb     = ElCLib::Parameter(L, pdeb);
-      Ufin     = ElCLib::Parameter(L, pfin);
-      ElCLib::D1(Udeb, L, Pbid, Vint);
+      Udeb     = ElCLib1::Parameter(L, pdeb);
+      Ufin     = ElCLib1::Parameter(L, pfin);
+      ElCLib1::D1(Udeb, L, Pbid, Vint);
       if (Vint.Dot(Vref) < 0)
       {
         C3d->Reverse();
@@ -4117,7 +4117,7 @@ void ChFi3d_ComputesIntPC(const ChFiDS_FaceInterference&     Fi1,
     Standard_Real dist2 = ext.SquareDistance();
     if (dist2 < distref2)
     {
-      Extrema_POnCurv ponc1, ponc2;
+      PointOnCurve1 ponc1, ponc2;
       ext.Point(ponc1, ponc2);
       UInt1       = ponc1.Parameter();
       UInt2       = ponc2.Parameter();
@@ -4359,19 +4359,19 @@ void ChFi3d_Parameters(const Handle(GeomSurface)& S,
   switch (gas.GetType())
   {
     case GeomAbs_Plane:
-      ElSLib::Parameters(gas.Plane(), p3d, u, v);
+      ElSLib1::Parameters(gas.Plane(), p3d, u, v);
       break;
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(gas.Cylinder(), p3d, u, v);
+      ElSLib1::Parameters(gas.Cylinder(), p3d, u, v);
       break;
     case GeomAbs_Cone:
-      ElSLib::Parameters(gas.Cone(), p3d, u, v);
+      ElSLib1::Parameters(gas.Cone(), p3d, u, v);
       break;
     case GeomAbs_Sphere:
-      ElSLib::Parameters(gas.Sphere(), p3d, u, v);
+      ElSLib1::Parameters(gas.Sphere(), p3d, u, v);
       break;
     case GeomAbs_Torus:
-      ElSLib::Parameters(gas.Torus(), p3d, u, v);
+      ElSLib1::Parameters(gas.Torus(), p3d, u, v);
       break;
     case GeomAbs_BezierSurface:
     case GeomAbs_BSplineSurface:
@@ -4401,28 +4401,28 @@ void ChFi3d_TrimCurve(const Handle(GeomCurve3d)&  gc,
   switch (gac.GetType())
   {
     case GeomAbs_Line: {
-      uf = ElCLib::Parameter(gac.Line(), FirstP);
-      ul = ElCLib::Parameter(gac.Line(), LastP);
+      uf = ElCLib1::Parameter(gac.Line(), FirstP);
+      ul = ElCLib1::Parameter(gac.Line(), LastP);
     }
     break;
     case GeomAbs_Circle: {
-      uf = ElCLib::Parameter(gac.Circle(), FirstP);
-      ul = ElCLib::Parameter(gac.Circle(), LastP);
+      uf = ElCLib1::Parameter(gac.Circle(), FirstP);
+      ul = ElCLib1::Parameter(gac.Circle(), LastP);
     }
     break;
     case GeomAbs_Ellipse: {
-      uf = ElCLib::Parameter(gac.Ellipse(), FirstP);
-      ul = ElCLib::Parameter(gac.Ellipse(), LastP);
+      uf = ElCLib1::Parameter(gac.Ellipse(), FirstP);
+      ul = ElCLib1::Parameter(gac.Ellipse(), LastP);
     }
     break;
     case GeomAbs_Hyperbola: {
-      uf = ElCLib::Parameter(gac.Hyperbola(), FirstP);
-      ul = ElCLib::Parameter(gac.Hyperbola(), LastP);
+      uf = ElCLib1::Parameter(gac.Hyperbola(), FirstP);
+      ul = ElCLib1::Parameter(gac.Hyperbola(), LastP);
     }
     break;
     case GeomAbs_Parabola: {
-      uf = ElCLib::Parameter(gac.Parabola(), FirstP);
-      ul = ElCLib::Parameter(gac.Parabola(), LastP);
+      uf = ElCLib1::Parameter(gac.Parabola(), FirstP);
+      ul = ElCLib1::Parameter(gac.Parabola(), LastP);
     }
     break;
     default: {
@@ -4497,9 +4497,9 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   if (periodic)
   {
     period = Spine->Period();
-    nwf    = ElCLib::InPeriod(WF, -tol, period - tol);
+    nwf    = ElCLib1::InPeriod(WF, -tol, period - tol);
     IF     = Spine->Index(nwf, 1);
-    nwl    = ElCLib::InPeriod(WL, tol, period + tol);
+    nwl    = ElCLib1::InPeriod(WL, tol, period + tol);
     IL     = Spine->Index(nwl, 0);
     if (nwl < nwf + tol)
       IL += nbed;
@@ -4646,7 +4646,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   }
   //
   TC = new (Geom_TrimmedCurve)(Cv, First, Last);
-  BS = GeomConvert::CurveToBSplineCurve(TC);
+  BS = GeomConvert1::CurveToBSplineCurve(TC);
   CurveCleaner(BS, Abs(WL - WF) * 1.e-4, 0);
   //
   // Smoothing of the curve
@@ -4733,7 +4733,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     }
     //
     TC = new (Geom_TrimmedCurve)(Cv, First, Last);
-    BS = GeomConvert::CurveToBSplineCurve(TC);
+    BS = GeomConvert1::CurveToBSplineCurve(TC);
     CurveCleaner(BS, Abs(WL - WF) * 1.e-4, 0);
     //
     // Smoothing of the curve
@@ -4770,7 +4770,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   // There is a reparametrisation to maximally connect the abscissas of edges.
   TColStd_Array1OfReal BSNoeuds(1, BSpline->NbKnots());
   BSpline->Knots(BSNoeuds);
-  BSplCLib::Reparametrize(Wrefdeb, Wreffin, BSNoeuds);
+  BSplCLib1::Reparametrize(Wrefdeb, Wreffin, BSNoeuds);
   BSpline->SetKnots(BSNoeuds);
   //
   // Traitement des Extremites
@@ -4800,7 +4800,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     for (Standard_Integer icont = 3; icont >= 1 && !goodext; icont--)
     {
       Handle(Geom_BoundedCurve) anExtCurve = BSpline;
-      GeomLib::ExtendCurveToPoint(anExtCurve, Bout, icont, Standard_False);
+      GeomLib1::ExtendCurveToPoint(anExtCurve, Bout, icont, Standard_False);
       newc = Handle(BSplineCurve3d)::DownCast(anExtCurve);
       gacurve.Load(newc);
       GCPnts_AbscissaPoint GCP(gacurve, -rabdist, Wrefdeb, WF);
@@ -4831,7 +4831,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     for (Standard_Integer icont = 3; icont >= 1 && !goodext; icont--)
     {
       Handle(Geom_BoundedCurve) anExtCurve = BSpline;
-      GeomLib::ExtendCurveToPoint(anExtCurve, Bout, icont, Standard_True);
+      GeomLib1::ExtendCurveToPoint(anExtCurve, Bout, icont, Standard_True);
       newc = Handle(BSplineCurve3d)::DownCast(anExtCurve);
       gacurve.Load(newc);
       GCPnts_AbscissaPoint GCP(gacurve, rabdist, Wreffin, WL);
@@ -4870,7 +4870,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   {
     Handle(BSplineCurve3d) C1;
     C1 = Handle(BSplineCurve3d)::DownCast(BSpline->Copy());
-    GeomConvert::C0BSplineToC1BSplineCurve(C1, tol, 0.1);
+    GeomConvert1::C0BSplineToC1BSplineCurve(C1, tol, 0.1);
     // Il faut s'assurer que l'origine n'a pas bouge (cts21158)
     if (C1->FirstParameter() == BSpline->FirstParameter())
     {
@@ -4982,7 +4982,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     if (adjust)
     {
       Handle(Geom_BoundedCurve) anExtCurve = BSpline;
-      GeomLib::AdjustExtremity(anExtCurve, PDeb, PFin, VrefDeb, VrefFin);
+      GeomLib1::AdjustExtremity(anExtCurve, PDeb, PFin, VrefDeb, VrefFin);
       BSpline = Handle(BSplineCurve3d)::DownCast(anExtCurve);
     }
   }

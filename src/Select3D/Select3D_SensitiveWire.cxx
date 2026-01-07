@@ -64,10 +64,10 @@ Standard_Integer Select3D_SensitiveWire::Size() const
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns bounding box of sensitive entity with index theIdx
 //=======================================================================
-Select3D_BndBox3d Select3D_SensitiveWire::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_SensitiveWire::Box1(const Standard_Integer theIdx) const
 {
   const Standard_Integer aSensitiveIdx = myEntityIndexes.Value(theIdx);
   return myEntities.Value(aSensitiveIdx)->BoundingBox();

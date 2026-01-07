@@ -27,16 +27,16 @@ class AppDocument;
 //! Iterates on Reference attributes.
 //! This is an iterator giving all the external references
 //! of a Document.
-class TDocStd_XLinkIterator
+class XLinkIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty iterator;
-  Standard_EXPORT TDocStd_XLinkIterator();
+  Standard_EXPORT XLinkIterator();
 
   //! Creates an iterator on Reference of <D>.
-  Standard_EXPORT TDocStd_XLinkIterator(const Handle(AppDocument)& D);
+  Standard_EXPORT XLinkIterator(const Handle(AppDocument)& D);
 
   //! Restarts an iteration with <D>.
   Standard_EXPORT void Initialize(const Handle(AppDocument)& D);

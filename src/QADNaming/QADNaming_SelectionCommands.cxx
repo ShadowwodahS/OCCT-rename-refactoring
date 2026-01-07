@@ -73,12 +73,12 @@ static void DumpNaming(const Handle(TNaming_Naming)& naming, DrawInterpreter& di
   const TNaming_ListOfNamedShape& NSS = AName.Arguments();
   for (TNaming_ListIteratorOfListOfNamedShape it(NSS); it.More(); it.Next())
   {
-    TDF_Tool::Entry(it.Value()->Label(), Entry);
+    Tool3::Entry(it.Value()->Label(), Entry);
     di << " " << Entry.ToCString();
   }
   if (!AName.StopNamedShape().IsNull())
   {
-    TDF_Tool::Entry(AName.StopNamedShape()->Label(), Entry);
+    Tool3::Entry(AName.StopNamedShape()->Label(), Entry);
     di << " Stop " << Entry.ToCString();
   }
 }
@@ -183,7 +183,7 @@ static Standard_Integer QADNaming_DumpSelection(DrawInterpreter& di,
       Standard_Integer        depth    = L.Depth();
       Standard_Integer        curdepth = 0;
       AsciiString1 Entry;
-      TDF_ChildIterator       it(naming->Label(), Standard_True);
+      ChildIterator       it(naming->Label(), Standard_True);
       for (; it.More(); it.Next())
       {
         if (it.Value().FindAttribute(TNaming_Naming::GetID(), naming))
@@ -191,7 +191,7 @@ static Standard_Integer QADNaming_DumpSelection(DrawInterpreter& di,
           curdepth = (naming->Label().Depth() - depth);
           for (Standard_Integer i = 1; i <= curdepth; i++)
             di << " ";
-          TDF_Tool::Entry(naming->Label(), Entry);
+          Tool3::Entry(naming->Label(), Entry);
           di << Entry.ToCString() << " ";
           DumpNaming(naming, di);
           di << "\n";
@@ -234,7 +234,7 @@ static Standard_Integer QADNaming_ArgsSelection(DrawInterpreter& di,
     SL.Arguments(args);
     for (TDF_MapIteratorOfAttributeMap it(args); it.More(); it.Next())
     {
-      TDF_Tool::Entry(it.Key()->Label(), Entry);
+      Tool3::Entry(it.Key()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";
@@ -258,7 +258,7 @@ static void CollectAttachment(const DataLabel&              root,
       attachment.Add(itarg.Value());
   }
   Handle(TNaming_Naming) subnaming;
-  for (TDF_ChildIterator it(naming->Label(), Standard_True); it.More(); it.Next())
+  for (ChildIterator it(naming->Label(), Standard_True); it.More(); it.Next())
   {
     if (it.Value().FindAttribute(TNaming_Naming::GetID(), subnaming))
     {
@@ -297,7 +297,7 @@ static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
     }
     else
     {
-      for (TDF_ChildIterator it(L, Standard_True); it.More(); it.Next())
+      for (ChildIterator it(L, Standard_True); it.More(); it.Next())
       {
         if (it.Value().FindAttribute(TNaming_Naming::GetID(), naming))
         {
@@ -307,12 +307,12 @@ static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
       }
     }
     AsciiString1 Entry;
-    TDF_Tool::Entry(L, Entry);
+    Tool3::Entry(L, Entry);
     di << " Attachment of " << Entry.ToCString();
     di << "\n";
     for (TNaming_MapIteratorOfMapOfNamedShape ita(attachment); ita.More(); ita.Next())
     {
-      TDF_Tool::Entry(ita.Key()->Label(), Entry);
+      Tool3::Entry(ita.Key()->Label(), Entry);
       di << Entry.ToCString() << " ";
     }
     di << "\n";

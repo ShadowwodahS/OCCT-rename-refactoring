@@ -257,7 +257,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     Handle(Geom_BoundedCurve) C1 = Handle(Geom_BoundedCurve)::DownCast(csau);
     if (!C1.IsNull())
     {
-      GeomLib::ExtendCurveToPoint(C1, CP2.Point(), 1, Standard_False);
+      GeomLib1::ExtendCurveToPoint(C1, CP2.Point(), 1, Standard_False);
       GeomAdaptor_Curve cad;
       cad.Load(C1);
       Extrema_ExtPC ext(CP2.Point(), cad, 1.e-4);
@@ -417,7 +417,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     Corner2->SetIndexPoint(Corner1->IndexPoint(isfirst1, IFaCo1), isfirst2, IFaCo2);
     Corner2->SetIndexPoint(Corner1->IndexPoint(isfirst1, IFaArc1), isfirst2, IFaArc2);
     // The tolerances of points are updated.
-    Bnd_Box bco, barc;
+    Box2 bco, barc;
     if (IFaCo1 == 1)
       ChFi3d_EnlargeBox(DStr, Corner1, Fd1, bco, barc, isfirst1);
     else
@@ -627,7 +627,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     DStr.ChangeSurfaceInterferences(ISurf).Append(Interfc);
 
     // The tolerances of points are updated (beginning).
-    Bnd_Box bco, bmil, barc;
+    Box2 bco, bmil, barc;
     if (IFaCoSma == 1)
       ChFi3d_EnlargeBox(DStr, SmaCD, SmaFD, bco, bmil, isfirstSma);
     else

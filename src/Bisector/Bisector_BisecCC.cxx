@@ -402,7 +402,7 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
   // Construction of the new polygon from the initial one.
   // inversion of PointOnBis and Calculation of new parameters on the bissectrice.
   //-------------------------------------------------------------------------
-  Bisector_PolyBis Poly;
+  Bisector_PolyBis Poly1;
   if (sign1 == sign2)
   {
     //---------------------------------------------------------------
@@ -416,7 +416,7 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
                                P.ParamOnC2(),
                                P.Distance(),
                                P.Point());
-      Poly.Append(NewP);
+      Poly1.Append(NewP);
     }
   }
   else
@@ -429,12 +429,12 @@ Handle(Bisector_BisecCC) Bisector_BisecCC::ChangeGuide() const
                                P.ParamOnC2(),
                                P.Distance(),
                                P.Point());
-      Poly.Append(NewP);
+      Poly1.Append(NewP);
     }
   }
-  C->Polygon(Poly);
-  C->FirstParameter(Poly.First().ParamOnBis());
-  C->LastParameter(Poly.Last().ParamOnBis());
+  C->Polygon(Poly1);
+  C->FirstParameter(Poly1.First().ParamOnBis());
+  C->LastParameter(Poly1.Last().ParamOnBis());
 
   return C;
 }

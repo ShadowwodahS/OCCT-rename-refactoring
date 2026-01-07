@@ -65,7 +65,7 @@ public:
   //! type is Complex, the StepType is replaced by the display of
   //! the cdl type. Complex Type are well processed by level 1.
   //! - 1 : dumps the entity, completely (whatever it has simple or
-  //! complex type) but alone.
+  //! complex1 type) but alone.
   //! - 2 : dumps the entity completely, plus the item its refers to
   //! at first level (a header message designates the starting
   //! entity of the dump) <Lists Shared and Implied>

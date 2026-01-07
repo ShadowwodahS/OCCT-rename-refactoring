@@ -19,7 +19,7 @@
 //! Simple structure containing parameters describing parameterization
 //! of a B-spline curve or a surface in one direction (U or V),
 //! and data of the current span for its caching
-struct BSplCLib_CacheParams
+struct CacheParams
 {
   const Standard_Integer Degree;         ///< degree of Bezier/B-spline
   const Standard_Boolean IsPeriodic;     ///< true of the B-spline is periodic
@@ -37,7 +37,7 @@ struct BSplCLib_CacheParams
   //! \param theDegree     degree of the B-spline (or Bezier)
   //! \param thePeriodic   identify whether the B-spline is periodic
   //! \param theFlatKnots  knots of Bezier / B-spline parameterization
-  BSplCLib_CacheParams(Standard_Integer            theDegree,
+  CacheParams(Standard_Integer            theDegree,
                        Standard_Boolean            thePeriodic,
                        const TColStd_Array1OfReal& theFlatKnots)
       : Degree(theDegree),
@@ -90,9 +90,9 @@ struct BSplCLib_CacheParams
   void LocateParameter(Standard_Real& theParameter, const TColStd_Array1OfReal& theFlatKnots)
   {
     SpanIndex = 0;
-    BSplCLib::LocateParameter(Degree,
+    BSplCLib1::LocateParameter(Degree,
                               theFlatKnots,
-                              BSplCLib::NoMults(),
+                              BSplCLib1::NoMults(),
                               theParameter,
                               IsPeriodic,
                               SpanIndex,
@@ -103,8 +103,8 @@ struct BSplCLib_CacheParams
 
 private:
   // copying is prohibited
-  BSplCLib_CacheParams(const BSplCLib_CacheParams&);
-  void operator=(const BSplCLib_CacheParams&);
+  CacheParams(const CacheParams&);
+  void operator=(const CacheParams&);
 };
 
 #endif

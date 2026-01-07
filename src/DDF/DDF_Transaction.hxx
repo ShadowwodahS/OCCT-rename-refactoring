@@ -60,7 +60,7 @@ public:
 
   ~DDF_Transaction() { Abort(); }
 
-  //! Returns the Data from TDF.
+  //! Returns the Data from TDF1.
   Standard_EXPORT Handle(TDF_Data) Data() const;
 
   //! Returns the number of the transaction opened by <me>.

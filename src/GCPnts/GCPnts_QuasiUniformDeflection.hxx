@@ -34,30 +34,30 @@ class Point3d;
 //! or the distance between the mid point and the point at parameter 0.5
 //! on the cubic interpolation of the two points and their tangents.
 //!
-//! Note: this algorithm is faster than a GCPnts_UniformDeflection algorithm,
+//! Note: this algorithm is faster than a UniformDeflection1 algorithm,
 //! and is able to work with non-"C2" continuous curves.
 //! However, it generates more points in the distribution.
-class GCPnts_QuasiUniformDeflection
+class QuasiUniformDeflectionSampler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty algorithm.
   //! To define the problem to be solved, use the function Initialize().
-  Standard_EXPORT GCPnts_QuasiUniformDeflection();
+  Standard_EXPORT QuasiUniformDeflectionSampler();
 
   //! Computes a QuasiUniform Deflection distribution of points on the Curve.
-  Standard_EXPORT GCPnts_QuasiUniformDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
                                                 const Standard_Real    theDeflection,
                                                 const GeomAbs_Shape    theContinuity = GeomAbs_C1);
 
   //! Computes a QuasiUniform Deflection distribution of points on the Curve.
-  Standard_EXPORT GCPnts_QuasiUniformDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                                 const Standard_Real      theDeflection,
                                                 const GeomAbs_Shape theContinuity = GeomAbs_C1);
 
   //! Computes a QuasiUniform Deflection distribution of points on a part of the Curve.
-  Standard_EXPORT GCPnts_QuasiUniformDeflection(const Adaptor3d_Curve& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor3d_Curve& theC,
                                                 const Standard_Real    theDeflection,
                                                 const Standard_Real    theU1,
                                                 const Standard_Real    theU2,
@@ -103,7 +103,7 @@ public:
   //!     the package Geom2d (in the case of an Adaptor2d_Curve2d curve)
   //!     or a 3D curve from the package Geom (in the case of an Adaptor3d_Curve curve),
   //! -   and those required on the curve by the computation algorithm.
-  Standard_EXPORT GCPnts_QuasiUniformDeflection(const Adaptor2d_Curve2d& theC,
+  Standard_EXPORT QuasiUniformDeflectionSampler(const Adaptor2d_Curve2d& theC,
                                                 const Standard_Real      theDeflection,
                                                 const Standard_Real      theU1,
                                                 const Standard_Real      theU2,
@@ -186,7 +186,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Integer NbPoints() const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_QuasiUniformDeflection::NbPoints()");
+    StdFail_NotDone_Raise_if(!myDone, "QuasiUniformDeflectionSampler::NbPoints()");
     return myParams.Length();
   }
 
@@ -202,7 +202,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Real Parameter(const Standard_Integer Index) const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_QuasiUniformDeflection::Parameter()");
+    StdFail_NotDone_Raise_if(!myDone, "QuasiUniformDeflectionSampler::Parameter()");
     return myParams(Index);
   }
 
@@ -228,7 +228,7 @@ public:
   //! initialized, or if the computation was not successful.
   Standard_Real Deflection() const
   {
-    StdFail_NotDone_Raise_if(!myDone, "GCPnts_QuasiUniformDeflection::Deflection()");
+    StdFail_NotDone_Raise_if(!myDone, "QuasiUniformDeflectionSampler::Deflection()");
     return myDeflection;
   }
 

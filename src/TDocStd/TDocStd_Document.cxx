@@ -179,7 +179,7 @@ void AppDocument::Update(const Handle(CDM_Document)& /*aToDocument*/,
                               const Standard_Integer aReferenceIdentifier,
                               const Standard_Address aModifContext)
 {
-  const TDocStd_Context* CC = static_cast<TDocStd_Context*>(aModifContext);
+  const Context* CC = static_cast<Context*>(aModifContext);
   if (CC->ModifiedReferences() || !IsUpToDate(aReferenceIdentifier))
   {
     AsciiString1 aDocEntry(aReferenceIdentifier);
@@ -520,13 +520,13 @@ Standard_Boolean AppDocument::Undo()
     // should test the applicability before.
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF before Undo ==================================" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myData);
+    Tool3::DeepDump(std::cout, myData);
 #endif
     Handle(TDF_Delta) D = myData->Undo(myUndos.Last(), Standard_True);
     D->SetName(myUndos.Last()->Name());
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF after Undo ==================================" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myData);
+    Tool3::DeepDump(std::cout, myData);
 #endif
     // Push the redo
     myRedos.Prepend(D);
@@ -578,13 +578,13 @@ Standard_Boolean AppDocument::Redo()
     // Apply the Redo
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF before Redo ==================================" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myData);
+    Tool3::DeepDump(std::cout, myData);
 #endif
     Handle(TDF_Delta) D = myData->Undo(myRedos.First(), Standard_True);
     D->SetName(myRedos.First()->Name());
 #ifdef OCCT_DEBUG_DELTA
     std::cout << "DF after Redo ==================================" << std::endl;
-    TDF_Tool::DeepDump(std::cout, myData);
+    Tool3::DeepDump(std::cout, myData);
 #endif
     // Push the redo of the redo as an undo (got it !)
     myUndos.Append(D);
@@ -613,7 +613,7 @@ void AppDocument::UpdateReferences(const AsciiString1& aDocEntry)
 
   TDF_AttributeList aRefList;
   TDocStd_XLink*    xRefPtr;
-  for (TDocStd_XLinkIterator xItr(this); xItr.More(); xItr.Next())
+  for (XLinkIterator xItr(this); xItr.More(); xItr.Next())
   {
     xRefPtr = xItr.Value();
     if (xRefPtr->DocumentEntry() == aDocEntry)

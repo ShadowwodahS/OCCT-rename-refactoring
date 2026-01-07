@@ -335,7 +335,7 @@ static void reparamBSpline(Handle(GeomCurve3d)& curve,
   {
     if (curve->FirstParameter() < First || curve->LastParameter() > Last)
       curve = new Geom_TrimmedCurve(curve, First, Last);
-    bscurve = GeomConvert::CurveToBSplineCurve(curve, Convert_RationalC1);
+    bscurve = GeomConvert1::CurveToBSplineCurve(curve, Convert_RationalC1);
   }
   else
   {
@@ -348,7 +348,7 @@ static void reparamBSpline(Handle(GeomCurve3d)& curve,
 
   TColStd_Array1OfReal Knots(1, bscurve->NbKnots());
   bscurve->Knots(Knots);
-  BSplCLib::Reparametrize(0., 1., Knots);
+  BSplCLib1::Reparametrize(0., 1., Knots);
   bscurve->SetKnots(Knots);
   curve = bscurve;
 }
@@ -613,7 +613,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
       {
         if (curve->FirstParameter() < First || curve->LastParameter() > Last)
           curve = new Geom_TrimmedCurve(curve, First, Last);
-        bscurve = GeomConvert::CurveToBSplineCurve(curve, Convert_RationalC1);
+        bscurve = GeomConvert1::CurveToBSplineCurve(curve, Convert_RationalC1);
       }
       else
       {
@@ -622,7 +622,7 @@ TopoShape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_Rul
       }
       TColStd_Array1OfReal Knots(1, bscurve->NbKnots());
       bscurve->Knots(Knots);
-      BSplCLib::Reparametrize(0., 1., Knots);
+      BSplCLib1::Reparametrize(0., 1., Knots);
       bscurve->SetKnots(Knots);
 
       ShapeBuilder B;
@@ -1842,7 +1842,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_CylindricalSurface, Cyl, Surf);
       gp_Cylinder TheCyl = Cyl->Cylinder();
-      ElSLib::CylinderParameters(TheCyl.Position(),
+      ElSLib1::CylinderParameters(TheCyl.Position(),
                                  TheCyl.Radius(),
                                  Curve3d->Value(First),
                                  paramu,
@@ -1853,7 +1853,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_ConicalSurface, Cone, Surf);
       gp_Cone TheCone = Cone->Cone();
-      ElSLib::ConeParameters(TheCone.Position(),
+      ElSLib1::ConeParameters(TheCone.Position(),
                              TheCone.RefRadius(),
                              TheCone.SemiAngle(),
                              Curve3d->Value(First),
@@ -1865,7 +1865,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_ToroidalSurface, Tore, Surf);
       gp_Torus TheTore = Tore->Torus();
-      ElSLib::TorusParameters(TheTore.Position(),
+      ElSLib1::TorusParameters(TheTore.Position(),
                               TheTore.MajorRadius(),
                               TheTore.MinorRadius(),
                               Curve3d->Value(First),
@@ -1879,7 +1879,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
     {
       DeclareAndCast(Geom_SphericalSurface, Sphere, Surf);
       gp_Sphere TheSphere = Sphere->Sphere();
-      ElSLib::SphereParameters(TheSphere.Position(),
+      ElSLib1::SphereParameters(TheSphere.Position(),
                                TheSphere.Radius(),
                                Curve3d->Value(First),
                                paramu,
@@ -1898,7 +1898,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
         DeclareAndCast(IGESGeom_CircularArc, circ, generatrix);
         gp_Pnt2d startpoint = circ->StartPoint();
         paramv -=
-          ElCLib::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
+          ElCLib1::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
                             startpoint);
         if (Surf->IsKind(STANDARD_TYPE(Geom_SphericalSurface)))
           paramv += ShapeAnalysis::AdjustToPeriod(paramv, -M_PI, M_PI);
@@ -1915,7 +1915,7 @@ TopoShape IGESToBRep_TopoSurface::ParamSurface(const Handle(IGESData_IGESEntity)
         DeclareAndCast(IGESGeom_CircularArc, circ, directrix);
         gp_Pnt2d startpoint = circ->StartPoint();
         paramu -=
-          ElCLib::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
+          ElCLib1::Parameter(gp_Circ2d(gp_Ax2d(circ->Center(), gp_Dir2d(1, 0)), circ->Radius()),
                             startpoint);
         paramu += ShapeAnalysis::AdjustToPeriod(paramu, 0, M_PI * 2);
       }

@@ -69,7 +69,7 @@ Standard_Real GeomLib_DenominatorMultiplier::Value(const Standard_Real UParamete
   udegree = mySurface->UDegree();
   vdegree = mySurface->VDegree();
 
-  BSplSLib::HomogeneousD1(mySurface->UKnot(mySurface->LastUKnotIndex()),
+  BSplSLib1::HomogeneousD1(mySurface->UKnot(mySurface->LastUKnotIndex()),
                           VParameter,
                           0,
                           0,
@@ -91,7 +91,7 @@ Standard_Real GeomLib_DenominatorMultiplier::Value(const Standard_Real UParamete
                           Dumaxv,
                           dDduumaxv,
                           Dv);
-  BSplSLib::HomogeneousD1(mySurface->UKnot(1),
+  BSplSLib1::HomogeneousD1(mySurface->UKnot(1),
                           VParameter,
                           0,
                           0,
@@ -119,14 +119,14 @@ Standard_Real GeomLib_DenominatorMultiplier::Value(const Standard_Real UParamete
     lambda = (mySurface->Weight(1, 1) / mySurface->Weight(mySurface->NbUPoles(), 1));
   Standard_Integer index, i;
 
-  BSplCLib::EvalBsplineBasis(1, 4, myKnotFlatVector, 0.0, index, BSplineBasisDeriv);
+  BSplCLib1::EvalBsplineBasis(1, 4, myKnotFlatVector, 0.0, index, BSplineBasisDeriv);
   B1prim0 = BSplineBasisDeriv(2, 2);
 
-  BSplCLib::EvalBsplineBasis(1, 4, myKnotFlatVector, 1.0, index, BSplineBasisDeriv);
+  BSplCLib1::EvalBsplineBasis(1, 4, myKnotFlatVector, 1.0, index, BSplineBasisDeriv);
   Bprelastprim1 = BSplineBasisDeriv(2, 3);
 
   math_Matrix BSplineBasisValue(1, 1, 1, 4, 0.0);
-  BSplCLib::EvalBsplineBasis(0, 4, myKnotFlatVector, UParameter, index, BSplineBasisValue);
+  BSplCLib1::EvalBsplineBasis(0, 4, myKnotFlatVector, UParameter, index, BSplineBasisValue);
 
   TColStd_Array1OfReal value(0, 5);
   TColStd_Array1OfReal Polesenv(0, 5); // poles of a(u,v)

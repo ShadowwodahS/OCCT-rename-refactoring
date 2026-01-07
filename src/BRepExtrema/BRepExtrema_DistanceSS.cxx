@@ -151,7 +151,7 @@ static void TRIM_INFINIT_EDGE(const TopoEdge& S1,
   }
   if (bIsTrim1 || bIsTrim2)
   {
-    Bnd_Box aEdgeBox;
+    Box2 aEdgeBox;
     if (bIsTrim1)
       BRepBndLib::Add(S2, aEdgeBox);
     if (bIsTrim2)
@@ -312,7 +312,7 @@ static void TRIM_INFINIT_FACE(const TopoShape& S1,
 
   if (bIsTrim)
   {
-    Bnd_Box aEdgeBox;
+    Box2 aEdgeBox;
     BRepBndLib::Add(aE, aEdgeBox);
 
     if (aEdgeBox.IsWhole())
@@ -574,8 +574,8 @@ static Standard_Boolean isOnBoundary(const TopoEdge&  theEdge,
 
 void BRepExtrema_DistanceSS::Perform(const TopoShape& theS1,
                                      const TopoShape& theS2,
-                                     const Bnd_Box&      theBox1,
-                                     const Bnd_Box&      theBox2)
+                                     const Box2&      theBox1,
+                                     const Box2&      theBox2)
 {
   mySeqSolShape1.Clear();
   mySeqSolShape2.Clear();
@@ -584,7 +584,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoShape& theS1,
   Standard_Real aBBDist = theBox1.Distance(theBox2);
   if (aBBDist - myDstRef > myEps)
   {
-    // The Box-Box distance is greater than the start distance.
+    // The Box1-Box1 distance is greater than the start distance.
     // The solution cannot be improved further.
     return;
   }

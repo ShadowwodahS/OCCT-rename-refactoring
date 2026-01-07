@@ -46,7 +46,7 @@
 static void ModDbgTools_WriteCurrentShape(const Handle(ShapeAttribute) & NS)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(NS->Label(), entry);
+  Tool3::Entry(NS->Label(), entry);
   if (!NS.IsNull())
     {
       TopoShape Sh = Tool11::CurrentShape (NS);
@@ -111,7 +111,7 @@ void TNaming_Identifier::Init(const TopoShape& Context)
   }
 #ifdef OCCT_DEBUG_IDF
   AsciiString1 entry;
-  TDF_Tool::Entry(NS->Label(), entry);
+  Tool3::Entry(NS->Label(), entry);
   std::cout << "Identifier:: (S) Label = " << entry << std::endl;
 #endif
   //-------------------------------------
@@ -252,7 +252,7 @@ Standard_Boolean IsImported(const Handle(ShapeAttribute)& NS)
 {
   DataLabel Lab    = NS->Label();
   DataLabel Father = Lab.Father();
-  for (TDF_ChildIterator cit(Father); cit.More(); cit.Next())
+  for (ChildIterator cit(Father); cit.More(); cit.Next())
   {
     if (cit.Value() != Lab)
       return 0;

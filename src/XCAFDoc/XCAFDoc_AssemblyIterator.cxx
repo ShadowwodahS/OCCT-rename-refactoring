@@ -74,7 +74,7 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& th
 
   AuxAssemblyItem aSeed;
   aSeed.myItem = theRoot;
-  TDF_Tool::Label(theDoc->GetData(), theRoot.GetPath().Last(), aSeed.myLabel);
+  Tool3::Label(theDoc->GetData(), theRoot.GetPath().Last(), aSeed.myLabel);
 
   if (aSeed.myLabel.IsNull())
     return;
@@ -175,7 +175,7 @@ void XCAFDoc_AssemblyIterator::createItem(const DataLabel&                 theLa
                                           AuxAssemblyItem&                 theAuxItem) const
 {
   AsciiString1 anEntry;
-  TDF_Tool::Entry(theLabel, anEntry);
+  Tool3::Entry(theLabel, anEntry);
 
   DataLabel anOriginal;
   if (myShapeTool->GetReferredShape(theLabel, anOriginal))

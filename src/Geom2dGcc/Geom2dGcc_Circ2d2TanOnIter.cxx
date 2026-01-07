@@ -91,9 +91,9 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
   tol(2)          = CurveTool3::EpsX(Cu2, Tolang);
   tol(3)          = tol(1);
   tol(4)          = tol(1);
-  gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, L1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
-  gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
+  gp_Pnt2d point3 = ElCLib1::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(L1, Cu2, OnLine, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -104,7 +104,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
     Root.Root(Ufirst);
     //     gp_Vec2d Tan1,Tan2,Nor1,Nor2;
     gp_Vec2d Tan1, Tan2;
-    ElCLib::D1(Ufirst(1), L1, point1, Tan1);
+    ElCLib1::D1(Ufirst(1), L1, point1, Tan1);
     CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     gp_Vec2d      Tan3(OnLine.Direction().XY());
     gp_Pnt2d      point3new(OnLine.Location().XY() + Ufirst(3) * Tan3.XY());
@@ -137,10 +137,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3new;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -202,7 +202,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
-  gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
+  gp_Pnt2d point3 = ElCLib1::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Cu2, OnLine, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -258,10 +258,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3new;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -314,7 +314,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
   tol(2)          = 1.e-15;
   tol(3)          = Tol / 10.;
   gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
-  gp_Pnt2d point3 = ElCLib::Value(Param2, OnLine);
+  gp_Pnt2d point3 = ElCLib1::Value(Param2, OnLine);
   Ufirst(3)       = (point3.Distance(Point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Point2, OnLine, Max(Ufirst(3), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -326,7 +326,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
     gp_Pnt2d point1new, point3new;
     gp_Vec2d Tan1, Tan3;
     CurveTool3::D1(Cu1, Ufirst(1), point1new, Tan1);
-    ElCLib::D1(Ufirst(2), OnLine, point3new, Tan3);
+    ElCLib1::D1(Ufirst(2), OnLine, point3new, Tan3);
     Standard_Real dist1 = point3new.Distance(point1new);
     Standard_Real dist2 = point3new.Distance(Point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -351,10 +351,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
         qualifier2 = GccEnt_noqualifier;
         pnttg1sol  = point1new;
         pararg1    = Ufirst(1);
-        par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+        par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
         pnttg2sol  = Point2;
         pararg2    = Ufirst(2);
-        par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+        par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
         pntcen     = point3new;
         parcen3    = Ufirst(3);
         WellDone   = Standard_True;
@@ -414,9 +414,9 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
   tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 1.e-15;
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, C1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
-  gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
+  gp_Pnt2d point3 = ElCLib1::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(C1, Cu2, OnLine, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -427,14 +427,14 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
     Root.Root(Ufirst);
     //     gp_Vec2d Tan1,Tan2,Nor1,Nor2;
     gp_Vec2d Tan1, Tan2, Nor2;
-    ElCLib::D2(Ufirst(1), C1, point1, Tan1, Nor2);
+    ElCLib1::D2(Ufirst(1), C1, point1, Tan1, Nor2);
     CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(OnLine.Direction().XY());
 #else
     OnLine.Direction().XY();
 #endif
-    point3              = ElCLib::Value(Ufirst(1), OnLine);
+    point3              = ElCLib1::Value(Ufirst(1), OnLine);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -466,10 +466,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -530,9 +530,9 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
   tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 2.e-15 * M_PI;
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, C1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
-  gp_Pnt2d point3 = ElCLib::Value(Param3, OnCirc);
+  gp_Pnt2d point3 = ElCLib1::Value(Param3, OnCirc);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(C1, Cu2, OnCirc, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -543,12 +543,12 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
     Root.Root(Ufirst);
     //     gp_Vec2d Tan1,Tan2,Nor1;
     gp_Vec2d Tan1, Tan2;
-    ElCLib::D1(Ufirst(1), C1, point1, Tan1);
+    ElCLib1::D1(Ufirst(1), C1, point1, Tan1);
     CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
-    point3              = ElCLib::Value(Ufirst(3), OnCirc);
+    point3              = ElCLib1::Value(Ufirst(3), OnCirc);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -580,10 +580,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -642,9 +642,9 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
   tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 2.e-15 * M_PI;
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, L1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
-  gp_Pnt2d point3 = ElCLib::Value(Param3, OnCirc);
+  gp_Pnt2d point3 = ElCLib1::Value(Param3, OnCirc);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(L1, Cu2, OnCirc, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -655,12 +655,12 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
     Root.Root(Ufirst);
     gp_Pnt2d point1new, point2new;
     gp_Vec2d Tan1, Tan2;
-    ElCLib::D1(Ufirst(1), L1, point1new, Tan1);
+    ElCLib1::D1(Ufirst(1), L1, point1new, Tan1);
     CurveTool3::D1(Cu2, Ufirst(2), point2new, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
-    point3              = ElCLib::Value(Ufirst(3), OnCirc);
+    point3              = ElCLib1::Value(Ufirst(3), OnCirc);
     Standard_Real dist1 = point3.Distance(point1new);
     Standard_Real dist2 = point3.Distance(point2new);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -690,10 +690,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1new;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2new;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -867,7 +867,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
   tol(2)          = 2.e-15 * M_PI;
   tol(3)          = Tol / 10.;
   gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
-  gp_Pnt2d point3 = ElCLib::Value(Param2, OnCirc);
+  gp_Pnt2d point3 = ElCLib1::Value(Param2, OnCirc);
   Ufirst(3)       = (point3.Distance(Point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Point2, OnCirc, Max(Ufirst(3), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -879,7 +879,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
     gp_Pnt2d point1new, point3new;
     gp_Vec2d Tan1, Tan3;
     CurveTool3::D1(Cu1, Ufirst(1), point1new, Tan1);
-    ElCLib::D1(Ufirst(2), OnCirc, point3new, Tan3);
+    ElCLib1::D1(Ufirst(2), OnCirc, point3new, Tan3);
     Standard_Real dist1 = point3new.Distance(point1new);
     Standard_Real dist2 = point3new.Distance(Point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -904,10 +904,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Quali
         qualifier2 = GccEnt_noqualifier;
         pnttg1sol  = point1new;
         pararg1    = Ufirst(1);
-        par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+        par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
         pnttg2sol  = Point2;
         pararg2    = 0.;
-        par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+        par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
         pntcen     = point3new;
         parcen3    = Ufirst(3);
         WellDone   = Standard_True;
@@ -1083,7 +1083,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
   tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, C1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = CurveTool3::Value(OnCurv, ParamOn);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
@@ -1097,7 +1097,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
     gp_Vec2d Tan1, Tan2, Tan3;
     CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
-    ElCLib::D1(Ufirst(1), C1, point1, Tan1);
+    ElCLib1::D1(Ufirst(1), C1, point1, Tan1);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -1130,10 +1130,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualif
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -1192,7 +1192,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
   tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
+  gp_Pnt2d point1 = ElCLib1::Value(Param1, L1);
   gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = CurveTool3::Value(OnCurv, ParamOn);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
@@ -1204,7 +1204,7 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
   {
     Root.Root(Ufirst);
     gp_Vec2d Tan1, Tan2, Tan3;
-    ElCLib::D1(Ufirst(1), L1, point1, Tan1);
+    ElCLib1::D1(Ufirst(1), L1, point1, Tan1);
     CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
     Standard_Real dist1 = point3.Distance(point1);
@@ -1236,10 +1236,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualifie
           qualifier2 = Qualified2.Qualifier();
           pnttg1sol  = point1;
           pararg1    = Ufirst(1);
-          par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+          par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
           pnttg2sol  = point2;
           pararg2    = Ufirst(2);
-          par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+          par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
           pntcen     = point3;
           parcen3    = Ufirst(3);
           WellDone   = Standard_True;
@@ -1329,10 +1329,10 @@ Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qu
         qualifier2 = GccEnt_noqualifier;
         pnttg1sol  = point1;
         pararg1    = Ufirst(1);
-        par1sol    = ElCLib::Parameter(cirsol, pnttg1sol);
+        par1sol    = ElCLib1::Parameter(cirsol, pnttg1sol);
         pnttg2sol  = Point2;
         pararg2    = 0.;
-        par2sol    = ElCLib::Parameter(cirsol, pnttg2sol);
+        par2sol    = ElCLib1::Parameter(cirsol, pnttg2sol);
         pntcen     = point3;
         parcen3    = Ufirst(3);
         WellDone   = Standard_True;

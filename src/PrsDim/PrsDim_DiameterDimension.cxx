@@ -107,7 +107,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const gp_Circ& theCircle)
   else if (!myIsPlaneCustom)
   {
     ComputePlane();
-    myAnchorPoint = ElCLib::Value(0.0, myCircle);
+    myAnchorPoint = ElCLib1::Value(0.0, myCircle);
   }
 
   SetToUpdate();
@@ -133,7 +133,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoShape& theShape)
   else if (!myIsPlaneCustom)
   {
     ComputePlane();
-    myAnchorPoint = ElCLib::Value(0.0, myCircle);
+    myAnchorPoint = ElCLib1::Value(0.0, myCircle);
   }
 
   SetToUpdate();
@@ -181,7 +181,7 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
   // The circle lays on the plane.
   if (anIntersector.NbPoints() != 2)
   {
-    myAnchorPoint     = ElCLib::Value(0.0, myCircle);
+    myAnchorPoint     = ElCLib1::Value(0.0, myCircle);
     myIsGeometryValid = Standard_True;
     return;
   }

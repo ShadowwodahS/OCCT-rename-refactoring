@@ -45,7 +45,7 @@ class Axis3d;
 //!
 //! The "XDirection" and the "YDirection" of the axis
 //! placement define the plane ("XAxis" and "YAxis") .
-class gce_MakePln : public gce_Root
+class gce_MakePln : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

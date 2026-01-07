@@ -185,10 +185,10 @@ void DrawDisplay::Draw1(const gp_Circ&         C,
   }
 
   Point3d PC = Cloc.Location();
-  Point3d P  = ElCLib::Value(A1, Cloc);
+  Point3d P  = ElCLib1::Value(A1, Cloc);
   MoveTo(P);
   Vector3d V1(PC, P);
-  P = ElCLib::Value(A1 + angle, Cloc);
+  P = ElCLib1::Value(A1 + angle, Cloc);
   Vector3d V2(PC, P);
   DrawTo(P);
   Vector3d V;
@@ -201,7 +201,7 @@ void DrawDisplay::Draw1(const gp_Circ&         C,
     DrawTo(PC.Translated(V));
   }
 
-  P = ElCLib::Value(A2, Cloc);
+  P = ElCLib1::Value(A2, Cloc);
   DrawTo(P);
 }
 
@@ -238,10 +238,10 @@ void DrawDisplay::Draw1(const gp_Circ2d&       C,
   }
 
   gp_Pnt2d PC = Cloc.Location();
-  gp_Pnt2d P  = ElCLib::Value(A1, Cloc);
+  gp_Pnt2d P  = ElCLib1::Value(A1, Cloc);
   MoveTo(P);
   gp_Vec2d V1(PC, P);
-  P = ElCLib::Value(A1 + angle, Cloc);
+  P = ElCLib1::Value(A1 + angle, Cloc);
   gp_Vec2d V2(PC, P);
   DrawTo(P);
   gp_Vec2d V;
@@ -254,7 +254,7 @@ void DrawDisplay::Draw1(const gp_Circ2d&       C,
     DrawTo(PC.Translated(V));
   }
 
-  P = ElCLib::Value(A2, Cloc);
+  P = ElCLib1::Value(A2, Cloc);
   DrawTo(P);
 }
 

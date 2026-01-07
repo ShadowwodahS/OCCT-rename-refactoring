@@ -81,12 +81,12 @@ public:
                               Standard_Integer& F1,
                               Standard_Integer& F2) const;
 
-  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices& theTotMinMax)
+  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& theTotMinMax)
   {
     myMinMax = theTotMinMax;
   }
 
-  HLRAlgo_EdgesBlock::MinMaxIndices& MinMax() { return myMinMax; }
+  HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax() { return myMinMax; }
 
 protected:
 private:
@@ -99,7 +99,7 @@ private:
   Standard_Integer                  myEdgeEnd;
   Standard_Integer                  myFaceStart;
   Standard_Integer                  myFaceEnd;
-  HLRAlgo_EdgesBlock::MinMaxIndices myMinMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 myMinMax;
 };
 
 #include <HLRBRep_ShapeBounds.lxx>

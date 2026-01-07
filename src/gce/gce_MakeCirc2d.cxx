@@ -91,7 +91,7 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_
     {
       L2 = gp_Lin2d(P1, gp_Dir2d(P1.Y() - P2.Y(), P2.X() - P1.X()));
     }
-    IntAna2d_AnaIntersection Intp(L1, L2);
+    AnalyticIntersection2d Intp(L1, L2);
     if (Intp.IsDone())
     {
       if (!Intp.IsEmpty())
@@ -105,9 +105,9 @@ gce_MakeCirc2d::gce_MakeCirc2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2, const gp_
         gp_Dir2d d1(x1 - xc, y1 - yc);
         gp_Dir2d d2(xc - x3, yc - y3);
         TheCirc2d            = gp_Circ2d(gp_Ax22d(pInt, d1, d2), (dist1 + dist2 + dist3) / 3.);
-        Standard_Real Alpha1 = ElCLib::Parameter(TheCirc2d, P1);
-        Standard_Real Alpha2 = ElCLib::Parameter(TheCirc2d, P2);
-        Standard_Real Alpha3 = ElCLib::Parameter(TheCirc2d, P3);
+        Standard_Real Alpha1 = ElCLib1::Parameter(TheCirc2d, P1);
+        Standard_Real Alpha2 = ElCLib1::Parameter(TheCirc2d, P2);
+        Standard_Real Alpha3 = ElCLib1::Parameter(TheCirc2d, P3);
         if (!((Alpha1 <= Alpha2) && (Alpha2 <= Alpha3)))
         {
           TheCirc2d.Reverse();

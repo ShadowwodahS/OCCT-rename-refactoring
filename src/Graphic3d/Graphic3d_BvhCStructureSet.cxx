@@ -37,7 +37,7 @@ Standard_Integer Graphic3d_BvhCStructureSet::Size() const
 
 //=================================================================================================
 
-Graphic3d_BndBox3d Graphic3d_BvhCStructureSet::Box(const Standard_Integer theIdx) const
+Graphic3d_BndBox3d Graphic3d_BvhCStructureSet::Box1(const Standard_Integer theIdx) const
 {
   return myStructs.FindKey(theIdx + 1)->BoundingBox();
 }

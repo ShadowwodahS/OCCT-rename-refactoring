@@ -26,13 +26,13 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 class HLRBRep_Data;
 class HLRTopoBRep_OutLiner;
-class HLRAlgo_Projector;
+class HLRAlgoProjector;
 class TopoFace;
 
 //! compute  the   OutLinedShape  of  a Shape with  an
 //! OutLiner,    a  Projector  and   create  the  Data
 //! Structure of a Shape.
-class HLRBRep_ShapeToHLR
+class ShapeToHLRConverter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! Creates  a DataStructure   containing the OutLiner
   //! <S> depending on the projector <P> and nbIso.
   Standard_EXPORT static Handle(HLRBRep_Data) Load(const Handle(HLRTopoBRep_OutLiner)& S,
-                                                   const HLRAlgo_Projector&            P,
+                                                   const HLRAlgoProjector&            P,
                                                    BRepTopAdaptor_MapOfShapeTool&      MST,
                                                    const Standard_Integer              nbIso = 0);
 

@@ -147,7 +147,7 @@ Standard_Real StartPoint::GetAngle() const
   return (angle);
 }
 
-Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle,
+Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle1,
                                                     Standard_Integer&        FirstEdgePoint,
                                                     Standard_Integer&        SecondEdgePoint,
                                                     Standard_Integer&        LastPoint) const
@@ -157,21 +157,21 @@ Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle,
   {
     if (e1 == 1)
     {
-      FirstEdgePoint  = Triangle.FirstPoint();
-      SecondEdgePoint = Triangle.SecondPoint();
-      LastPoint       = Triangle.ThirdPoint();
+      FirstEdgePoint  = Triangle1.FirstPoint();
+      SecondEdgePoint = Triangle1.SecondPoint();
+      LastPoint       = Triangle1.ThirdPoint();
     }
     else if (e1 == 2)
     {
-      FirstEdgePoint  = Triangle.SecondPoint();
-      SecondEdgePoint = Triangle.ThirdPoint();
-      LastPoint       = Triangle.FirstPoint();
+      FirstEdgePoint  = Triangle1.SecondPoint();
+      SecondEdgePoint = Triangle1.ThirdPoint();
+      LastPoint       = Triangle1.FirstPoint();
     }
     else if (e1 == 3)
     {
-      FirstEdgePoint  = Triangle.ThirdPoint();
-      SecondEdgePoint = Triangle.FirstPoint();
-      LastPoint       = Triangle.SecondPoint();
+      FirstEdgePoint  = Triangle1.ThirdPoint();
+      SecondEdgePoint = Triangle1.FirstPoint();
+      LastPoint       = Triangle1.SecondPoint();
     }
     SurfID = 1;
   }
@@ -179,21 +179,21 @@ Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle,
   {
     if (e2 == 1)
     {
-      FirstEdgePoint  = Triangle.FirstPoint();
-      SecondEdgePoint = Triangle.SecondPoint();
-      LastPoint       = Triangle.ThirdPoint();
+      FirstEdgePoint  = Triangle1.FirstPoint();
+      SecondEdgePoint = Triangle1.SecondPoint();
+      LastPoint       = Triangle1.ThirdPoint();
     }
     else if (e2 == 2)
     {
-      FirstEdgePoint  = Triangle.SecondPoint();
-      SecondEdgePoint = Triangle.ThirdPoint();
-      LastPoint       = Triangle.FirstPoint();
+      FirstEdgePoint  = Triangle1.SecondPoint();
+      SecondEdgePoint = Triangle1.ThirdPoint();
+      LastPoint       = Triangle1.FirstPoint();
     }
     else if (e2 == 3)
     {
-      FirstEdgePoint  = Triangle.ThirdPoint();
-      SecondEdgePoint = Triangle.FirstPoint();
-      LastPoint       = Triangle.SecondPoint();
+      FirstEdgePoint  = Triangle1.ThirdPoint();
+      SecondEdgePoint = Triangle1.FirstPoint();
+      LastPoint       = Triangle1.SecondPoint();
     }
     SurfID = 2;
   }
@@ -303,7 +303,7 @@ void StartPoint::Dump() const
          v1,
          u2,
          v2);
-  printf("Triangle S1:%d Edge S1:%d Lambda1:%f Triangle S2:%d Edge S2:%d Lambda2:%f\n",
+  printf("Triangle1 S1:%d Edge S1:%d Lambda1:%f Triangle1 S2:%d Edge S2:%d Lambda2:%f\n",
          t1,
          e1,
          lambda1,
@@ -325,7 +325,7 @@ void StartPoint::Dump(const Standard_Integer i) const
     v1,
     u2,
     v2);
-  printf("Triangle S1:%d Edge S1:%d Lambda1:%f Triangle S2:%d Edge S2:%d Lambda2:%f\n",
+  printf("Triangle1 S1:%d Edge S1:%d Lambda1:%f Triangle1 S2:%d Edge S2:%d Lambda2:%f\n",
          t1,
          e1,
          lambda1,

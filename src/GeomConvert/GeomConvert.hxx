@@ -34,7 +34,7 @@ class Geom_BSplineSurface;
 class GeomCurve3d;
 class GeomSurface;
 
-//! The GeomConvert package provides some global functions as follows
+//! The GeomConvert1 package provides some global functions as follows
 //! -   converting classical Geom curves into BSpline curves,
 //! -   segmenting BSpline curves, particularly at knots
 //! values: this function may be used in conjunction with the
@@ -59,7 +59,7 @@ class GeomSurface;
 //! 1987
 //! . A survey of curve and surface methods in CAGD (Wolfgang BOHM)
 //! CAGD 1 1984
-class GeomConvert
+class GeomConvert1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -49,7 +49,7 @@ static void InitTriangulation(const Handle(MeshTriangulation)&       theMesh,
   theCoordinates->Init(theName, thePoints);
   if (!theMesh->HasNormals())
   {
-    Poly::ComputeNormals(theMesh);
+    Poly1::ComputeNormals(theMesh);
   }
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theMesh->NbNodes(); ++aNodeIndex)
   {
@@ -65,7 +65,7 @@ static void InitTriangulation(const Handle(MeshTriangulation)&       theMesh,
   for (Standard_Integer aTriangleIndex = 1; aTriangleIndex <= theMesh->NbTriangles();
        ++aTriangleIndex)
   {
-    const Poly_Triangle& aT = theMesh->Triangle(aTriangleIndex);
+    const Poly_Triangle& aT = theMesh->Triangle1(aTriangleIndex);
     theTrias->SetValue(aTriangleIndex, 1, aT.Value(1));
     theTrias->SetValue(aTriangleIndex, 2, aT.Value(2));
     theTrias->SetValue(aTriangleIndex, 3, aT.Value(3));

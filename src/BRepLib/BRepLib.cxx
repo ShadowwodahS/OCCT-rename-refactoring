@@ -230,7 +230,7 @@ void BRepLib::SameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
         {
           if (has_curve)
           {
-            GeomLib::SameRange(Tolerance,
+            GeomLib1::SameRange(Tolerance,
                                Curve2dPtr,
                                geometric_representation_ptr->First(),
                                geometric_representation_ptr->Last(),
@@ -241,7 +241,7 @@ void BRepLib::SameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
           }
           if (has_closed_curve)
           {
-            GeomLib::SameRange(Tolerance,
+            GeomLib1::SameRange(Tolerance,
                                Curve2dPtr2,
                                geometric_representation_ptr->First(),
                                geometric_representation_ptr->Last(),
@@ -350,7 +350,7 @@ Standard_Boolean BRepLib::BuildCurve3d(const TopoEdge&     AnEdge,
   {
     // compute the 3d curve
     Frame3d             axes = P->Position().Ax2();
-    Handle(GeomCurve3d) C3d  = GeomLib::To3d(axes, PC);
+    Handle(GeomCurve3d) C3d  = GeomLib1::To3d(axes, PC);
     if (C3d.IsNull())
       return Standard_False;
     // update the edge
@@ -406,7 +406,7 @@ Standard_Boolean BRepLib::BuildCurve3d(const TopoEdge&     AnEdge,
 
       Handle(GeomCurve3d) NewCurvePtr;
 
-      GeomLib::BuildCurve3d(Tolerance,
+      GeomLib1::BuildCurve3d(Tolerance,
                             CurveOnSurface,
                             f,
                             l,
@@ -504,7 +504,7 @@ Standard_Boolean BRepLib::UpdateEdgeTol(const TopoEdge&  AnEdge,
   Handle(GeomCurve2d)          curve2d_ptr, new_curve2d_ptr;
   Handle(GeomSurface)          surface_ptr;
   TopLoc_Location               local_location;
-  GCPnts_QuasiUniformDeflection a_sampler;
+  QuasiUniformDeflectionSampler a_sampler;
   GeomAdaptor_Curve             geom_reference_curve;
   Adaptor3d_CurveOnSurface      curve_on_surface_reference;
   Handle(GeomCurve3d) C   = BRepInspector::Curve(AnEdge, local_location, current_first, current_last);
@@ -570,11 +570,11 @@ Standard_Boolean BRepLib::UpdateEdgeTol(const TopoEdge&  AnEdge,
   }
   if (a_sampler.NbPoints() < min_sampling_points)
   {
-    GeomLib::DensifyArray1OfReal(min_sampling_points, sampling_parameters, parameters_ptr);
+    GeomLib1::DensifyArray1OfReal(min_sampling_points, sampling_parameters, parameters_ptr);
   }
   else if (a_sampler.NbPoints() > max_sampling_points)
   {
-    GeomLib::RemovePointsFromArray(max_sampling_points, sampling_parameters, parameters_ptr);
+    GeomLib1::RemovePointsFromArray(max_sampling_points, sampling_parameters, parameters_ptr);
   }
   else
   {
@@ -631,7 +631,7 @@ Standard_Boolean BRepLib::UpdateEdgeTol(const TopoEdge&  AnEdge,
         if (BRepInspector::SameParameter(AnEdge))
         {
 
-          GeomLib::EvalMaxParametricDistance(a_curve_on_surface,
+          GeomLib1::EvalMaxParametricDistance(a_curve_on_surface,
                                              geom_reference_curve,
                                              MinToleranceRequested,
                                              parameters_ptr->Array1(),
@@ -639,7 +639,7 @@ Standard_Boolean BRepLib::UpdateEdgeTol(const TopoEdge&  AnEdge,
         }
         else if (geom_reference_curve_flag)
         {
-          GeomLib::EvalMaxDistanceAlongParameter(a_curve_on_surface,
+          GeomLib1::EvalMaxDistanceAlongParameter(a_curve_on_surface,
                                                  geom_reference_curve,
                                                  MinToleranceRequested,
                                                  parameters_ptr->Array1(),
@@ -648,7 +648,7 @@ Standard_Boolean BRepLib::UpdateEdgeTol(const TopoEdge&  AnEdge,
         else
         {
 
-          GeomLib::EvalMaxDistanceAlongParameter(a_curve_on_surface,
+          GeomLib1::EvalMaxDistanceAlongParameter(a_curve_on_surface,
                                                  curve_on_surface_reference,
                                                  MinToleranceRequested,
                                                  parameters_ptr->Array1(),
@@ -751,7 +751,7 @@ static void GetEdgeTol(const TopoEdge& theEdge,
     Standard_Real u     = First * (1. - t) + Last * t;
     Point3d        Pc3d  = HC->Value(u);
     gp_Pnt2d      p2d   = pc->Value(u);
-    Point3d        Pcons = ElSLib::Value(p2d.X(), p2d.Y(), pln);
+    Point3d        Pcons = ElSLib1::Value(p2d.X(), p2d.Y(), pln);
     Standard_Real eps   = Max(Pc3d.XYZ().SquareModulus(), Pcons.XYZ().SquareModulus());
     eps                 = Epsilon(eps);
     Standard_Real temp  = Pc3d.SquareDistance(Pcons);
@@ -1306,7 +1306,7 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
           break;
         if (!SameRange)
         {
-          GeomLib::SameRange(TolSameRange, PC[i], GCurve->First(), GCurve->Last(), f3d, l3d, curPC);
+          GeomLib1::SameRange(TolSameRange, PC[i], GCurve->First(), GCurve->Last(), f3d, l3d, curPC);
 
           updatepc = (curPC != PC[i]);
         }
@@ -1333,7 +1333,7 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
           Standard_Boolean            repar = Standard_True;
           gp_Pnt2d                    OriginPoint;
           bs2d->D0(fC0, OriginPoint);
-          Geom2dConvert::C0BSplineToC1BSplineCurve(bs2d, TolConf2d);
+          Geom2dConvert1::C0BSplineToC1BSplineCurve(bs2d, TolConf2d);
           isBSP = Standard_True;
 
           if (bs2d->IsPeriodic())
@@ -1386,7 +1386,7 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
 
               Tol2dbail = Max(Min(Tol2dbail, d), TolConf2d);
 
-              Geom2dConvert::C0BSplineToC1BSplineCurve(bs2d, Tol2dbail);
+              Geom2dConvert1::C0BSplineToC1BSplineCurve(bs2d, Tol2dbail);
 
               if (bs2d->IsPeriodic())
               { // -------- IFV, Jan 2000
@@ -1430,8 +1430,8 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
               Standard_Integer     NbKnots = bs2d->NbKnots();
               TColStd_Array1OfReal Knots(1, NbKnots);
               bs2d->Knots(Knots);
-              //	    BSplCLib::Reparametrize(f3d,l3d,Knots);
-              BSplCLib::Reparametrize(fC0, lC0, Knots);
+              //	    BSplCLib1::Reparametrize(f3d,l3d,Knots);
+              BSplCLib1::Reparametrize(fC0, lC0, Knots);
               bs2d->SetKnots(Knots);
               GAC2d.Load(bs2d, f3d, l3d);
               curPC                        = bs2d;
@@ -1521,8 +1521,8 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
                   Standard_Integer     NbKnots = bs2d->NbKnots();
                   TColStd_Array1OfReal Knots(1, NbKnots);
                   bs2d->Knots(Knots);
-                  //		  BSplCLib::Reparametrize(f3d,l3d,Knots);
-                  BSplCLib::Reparametrize(fC0, lC0, Knots);
+                  //		  BSplCLib1::Reparametrize(f3d,l3d,Knots);
+                  BSplCLib1::Reparametrize(fC0, lC0, Knots);
                   bs2d->SetKnots(Knots);
                   GAC2d.Load(bs2d, f3d, l3d);
                   curPC = bs2d;
@@ -1534,11 +1534,11 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
 
         if (goodpc)
         {
-          //	  Approx_SameParameter SameP(HC,HC2d,HS,Tolerance);
+          //	  SameParameterTool SameP(HC,HC2d,HS,Tolerance);
           Standard_Real                    aTol     = (isANA && isBSP) ? 1.e-7 : theTolerance;
           const Handle(Adaptor3d_Curve)&   aHCurv   = HC;   // to avoid ambiguity
           const Handle(Adaptor2d_Curve2d)& aHCurv2d = HC2d; // to avoid ambiguity
-          Approx_SameParameter             SameP(aHCurv, aHCurv2d, HS, aTol);
+          SameParameterTool             SameP(aHCurv, aHCurv2d, HS, aTol);
 
           if (SameP.IsSameParameter())
           {
@@ -1574,10 +1574,10 @@ TopoEdge BRepLib::SameParameter(const TopoEdge&  theEdge,
           }
           else
           {
-            // Approx_SameParameter has failed.
+            // SameParameterTool has failed.
             // Consequently, the situation might be,
             // when 3D and 2D-curve do not have same-range.
-            GeomLib::SameRange(TolSameRange,
+            GeomLib1::SameRange(TolSameRange,
                                PC[i],
                                GCurve->First(),
                                GCurve->Last(),
@@ -1652,7 +1652,7 @@ static void InternalUpdateTolerances(const TopoShape&    theOldShape,
     Handle(GeomSurface) S;
     TopLoc_Location      l;
     ShapeExplorer      ex;
-    Bnd_Box              aB;
+    Box2              aB;
     Standard_Real        aXmin, aYmin, aZmin, aXmax, aYmax, aZmax, dMax;
     for (ex.Init(theOldShape, TopAbs_FACE); ex.More(); ex.Next())
     {
@@ -2185,7 +2185,7 @@ GeomAbs_Shape BRepLib::ContinuityOfFaces(const TopoEdge&  theEdge,
       ext.Perform(aSP1.Value(), u);
       if (ext.IsDone() && ext.IsMin())
       {
-        const Extrema_POnCurv& poc = ext.Point();
+        const PointOnCurve1& poc = ext.Point();
         aSP2.Calculate(poc.Parameter());
         aDer2   = aSP2.Derivative();
         aSqLen2 = aDer2.SquareMagnitude();
@@ -2548,35 +2548,35 @@ struct EvalDeflection
 };
 
 //! Represents link of triangulation.
-struct Link
+struct Link1
 {
   Standard_Integer Node[2];
 
   //! Constructor
-  Link(const Standard_Integer theNode1, const Standard_Integer theNode2)
+  Link1(const Standard_Integer theNode1, const Standard_Integer theNode2)
   {
     Node[0] = theNode1;
     Node[1] = theNode2;
   }
 
   //! Returns true if this link has the same nodes as the other.
-  Standard_Boolean IsEqual(const Link& theOther) const
+  Standard_Boolean IsEqual(const Link1& theOther) const
   {
     return ((Node[0] == theOther.Node[0] && Node[1] == theOther.Node[1])
             || (Node[0] == theOther.Node[1] && Node[1] == theOther.Node[0]));
   }
 
   //! Alias for IsEqual.
-  Standard_Boolean operator==(const Link& theOther) const { return IsEqual(theOther); }
+  Standard_Boolean operator==(const Link1& theOther) const { return IsEqual(theOther); }
 };
 } // namespace
 
 namespace std
 {
 template <>
-struct hash<Link>
+struct hash<Link1>
 {
-  size_t operator()(const Link& theLink) const noexcept
+  size_t operator()(const Link1& theLink) const noexcept
   {
     int aCombination[2]{theLink.Node[0], theLink.Node[1]};
     if (aCombination[0] > aCombination[1])
@@ -2634,12 +2634,12 @@ void BRepLib::UpdateDeflection(const TopoShape& theShape)
     }
 
     EvalDeflection        aTool(aFace);
-    NCollection_Map<Link> aLinks;
+    NCollection_Map<Link1> aLinks;
     Standard_Real         aSqDeflection = 0.;
     const Transform3d&        aTrsf         = aLoc.Transformation();
     for (Standard_Integer aTriIt = 1; aTriIt <= aPT->NbTriangles(); ++aTriIt)
     {
-      const Poly_Triangle& aTriangle = aPT->Triangle(aTriIt);
+      const Poly_Triangle& aTriangle = aPT->Triangle1(aTriIt);
 
       int aNode[3];
       aTriangle.Get(aNode[0], aNode[1], aNode[2]);
@@ -2666,7 +2666,7 @@ void BRepLib::UpdateDeflection(const TopoShape& theShape)
       for (Standard_Integer i = 0; i < 3; ++i)
       {
         const Standard_Integer j = (i + 1) % 3;
-        const Link             aLink(aNode[i], aNode[j]);
+        const Link1             aLink(aNode[i], aNode[j]);
         if (!aLinks.Add(aLink))
         {
           // Do not estimate boundary links due to high distortions at the edge.
@@ -3027,25 +3027,25 @@ void BRepLib::ExtendFace(const TopoFace&     theF,
     // UMin
     if (theExtUMin && !isUClosed && !Precision::IsInfinite(aSUMin))
     {
-      GeomLib::ExtendSurfByLength(aSB, theExtVal, 1, Standard_True, Standard_False);
+      GeomLib1::ExtendSurfByLength(aSB, theExtVal, 1, Standard_True, Standard_False);
       isExtUMin = Standard_True;
     }
     // UMax
     if (theExtUMax && !isUClosed && !Precision::IsInfinite(aSUMax))
     {
-      GeomLib::ExtendSurfByLength(aSB, theExtVal, 1, Standard_True, Standard_True);
+      GeomLib1::ExtendSurfByLength(aSB, theExtVal, 1, Standard_True, Standard_True);
       isExtUMax = Standard_True;
     }
     // VMin
     if (theExtVMin && !isVClosed && !Precision::IsInfinite(aSVMax))
     {
-      GeomLib::ExtendSurfByLength(aSB, theExtVal, 1, Standard_False, Standard_False);
+      GeomLib1::ExtendSurfByLength(aSB, theExtVal, 1, Standard_False, Standard_False);
       isExtVMin = Standard_True;
     }
     // VMax
     if (theExtVMax && !isVClosed && !Precision::IsInfinite(aSVMax))
     {
-      GeomLib::ExtendSurfByLength(aSB, theExtVal, 1, Standard_False, Standard_True);
+      GeomLib1::ExtendSurfByLength(aSB, theExtVal, 1, Standard_False, Standard_True);
       isExtVMax = Standard_True;
     }
 

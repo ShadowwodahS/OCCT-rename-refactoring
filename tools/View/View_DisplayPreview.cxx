@@ -72,7 +72,7 @@ void View_DisplayPreview::SetContext(const Handle(VisualContext)& theContext)
 
   myContext = theContext;
   if (!theContext.IsNull())
-    myPreviewParameters->GetDrawer()->Link(theContext->DefaultDrawer());
+    myPreviewParameters->GetDrawer()->Link1(theContext->DefaultDrawer());
 }
 
 // =======================================================================

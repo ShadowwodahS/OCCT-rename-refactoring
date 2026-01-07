@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 //: k4 abv 30.11.98: TR9: warnings for BWV
-//: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve
+//: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve
 //: j4 gka 16.03.99 S4134
 
 #include <Interface_Category.hxx>
@@ -2951,7 +2951,7 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer           
       tool.Share(anent, iter);
     }
     break;
-    //: n5 abv 15 Feb 99: S4132 complex type bounded_curve + surface_curve
+    //: n5 abv 15 Feb 99: S4132 complex1 type bounded_curve + surface_curve
     case 358: {
       DeclareAndCast(StepGeom_SurfaceCurveAndBoundedCurve, anent, ent);
       RWStepGeom_RWSurfaceCurveAndBoundedCurve tool;

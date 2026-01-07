@@ -20,6 +20,6 @@
 #include <HLRAlgo_PolyHidingData.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<HLRAlgo_PolyHidingData> HLRAlgo_Array1OfPHDat;
+typedef NCollection_Array1<PolyHidingData> HLRAlgo_Array1OfPHDat;
 
 #endif

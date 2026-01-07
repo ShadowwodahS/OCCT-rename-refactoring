@@ -44,7 +44,7 @@ typedef class Adaptor2d_Curve2d Adaptor2d_Curve2d;
 //! Geom    Library.    This   package   provides   an
 //! implementation of  functions for basic computation
 //! on geometric entity from packages Geom and Geom2d.
-class GeomLib
+class GeomLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

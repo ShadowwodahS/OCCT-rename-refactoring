@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,
@@ -57,7 +57,7 @@ HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,
@@ -85,7 +85,7 @@ HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,
@@ -125,7 +125,7 @@ HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,
@@ -158,7 +158,7 @@ HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,
@@ -203,7 +203,7 @@ HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::HLRAlgo_BiPoint(const Standard_Real    X1,
+BiPoint::BiPoint(const Standard_Real    X1,
                                  const Standard_Real    Y1,
                                  const Standard_Real    Z1,
                                  const Standard_Real    X2,

@@ -28,7 +28,7 @@
 #include <TColStd_Array2OfReal.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Real.hxx>
-class Plate_PinpointConstraint;
+class PinpointConstraint;
 
 //! define on or several constraints as linear combination of
 //! PinPointConstraint unlike the LinearScalarConstraint, usage
@@ -56,7 +56,7 @@ public:
   //! Sets   the PinPointConstraint of   index Index to
   //! Value raise if Index is greater than the length of
   //! PPC or the Row length of coeff or lower  than 1
-  Standard_EXPORT void SetPPC(const Standard_Integer Index, const Plate_PinpointConstraint& Value);
+  Standard_EXPORT void SetPPC(const Standard_Integer Index, const PinpointConstraint& Value);
 
   //! Sets the coeff  of index (Row,Col)  to Value
   //! raise if  Row (respectively Col)  is greater than the

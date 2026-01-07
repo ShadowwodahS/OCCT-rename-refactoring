@@ -575,7 +575,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
     }
   }
 
-  if (!Link(theCtx))
+  if (!Link1(theCtx))
   {
     return Standard_False;
   }
@@ -752,7 +752,7 @@ Standard_Boolean OpenGl_ShaderProgram::DetachShader(const Handle(OpenGl_Context)
 }
 
 // =======================================================================
-// function : Link
+// function : Link1
 // purpose  : Links the program object
 // =======================================================================
 Standard_Boolean OpenGl_ShaderProgram::link(const Handle(OpenGl_Context)& theCtx)
@@ -780,7 +780,7 @@ Standard_Boolean OpenGl_ShaderProgram::link(const Handle(OpenGl_Context)& theCtx
 
 //=================================================================================================
 
-Standard_Boolean OpenGl_ShaderProgram::Link(const Handle(OpenGl_Context)& theCtx, bool theIsVerbose)
+Standard_Boolean OpenGl_ShaderProgram::Link1(const Handle(OpenGl_Context)& theCtx, bool theIsVerbose)
 {
   if (!theIsVerbose)
   {
@@ -1536,7 +1536,7 @@ Standard_Boolean OpenGl_ShaderProgram::UpdateDebugDump(const Handle(OpenGl_Conte
   }
   if (hasUpdates)
   {
-    return Link(theCtx);
+    return Link1(theCtx);
   }
   return Standard_False;
 }

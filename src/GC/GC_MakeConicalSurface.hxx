@@ -56,7 +56,7 @@ class Point3d;
 //! When you create a ConicalSurface the U and V directions of
 //! parametrization are such that at each point of the surface the
 //! normal is oriented towards the "outside region".
-class GC_MakeConicalSurface : public GC_Root
+class GC_MakeConicalSurface : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

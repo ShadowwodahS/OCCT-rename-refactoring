@@ -305,7 +305,7 @@ public:
              const NCollection_Mat4<T>&      theWorldView,
              const Standard_Integer          theViewportWidth,
              const Standard_Integer          theViewportHeight,
-             Bnd_Box&                        theBoundingBox) const;
+             Box2&                        theBoundingBox) const;
 
   //! Apply transformation to bounding box of presentation
   //! @param[in] theCamera  camera definition
@@ -616,7 +616,7 @@ void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theWorldView,
                                     const Standard_Integer          theViewportWidth,
                                     const Standard_Integer          theViewportHeight,
-                                    Bnd_Box&                        theBoundingBox) const
+                                    Box2&                        theBoundingBox) const
 {
   if (theBoundingBox.IsVoid())
   {
@@ -633,7 +633,7 @@ void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
 
   Apply(theCamera, theProjection, theWorldView, theViewportWidth, theViewportHeight, aBBox);
 
-  theBoundingBox = Bnd_Box();
+  theBoundingBox = Box2();
   theBoundingBox.Update(aBBox.CornerMin().x(),
                         aBBox.CornerMin().y(),
                         aBBox.CornerMin().z(),

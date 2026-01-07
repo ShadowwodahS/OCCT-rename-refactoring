@@ -33,11 +33,11 @@ class BinMDF_ADriver : public RefObject
 {
 
 public:
-  //! Creates a new attribute from TDF.
+  //! Creates a new attribute from TDF1.
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const = 0;
 
   //! Returns the type of source object,
-  //! inheriting from Attribute from TDF.
+  //! inheriting from Attribute from TDF1.
   Standard_EXPORT virtual const Handle(TypeInfo)& SourceType() const;
 
   //! Returns the type name of the attribute object

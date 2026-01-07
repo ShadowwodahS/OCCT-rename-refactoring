@@ -27,7 +27,7 @@
 #include <TColgp_Array1OfXYZ.hxx>
 #include <TColgp_Array2OfXYZ.hxx>
 #include <Standard_Integer.hxx>
-class Plate_PinpointConstraint;
+class PinpointConstraint;
 class gp_XYZ;
 
 //! define on or several constraints  as linear combination of
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Plate_LinearScalarConstraint();
 
-  Standard_EXPORT Plate_LinearScalarConstraint(const Plate_PinpointConstraint& thePPC1,
+  Standard_EXPORT Plate_LinearScalarConstraint(const PinpointConstraint& thePPC1,
                                                const gp_XYZ&                   theCoeff);
 
   Standard_EXPORT Plate_LinearScalarConstraint(const Plate_Array1OfPinpointConstraint& thePPC,
@@ -58,7 +58,7 @@ public:
   //! Sets   the PinPointConstraint of   index Index to
   //! Value raise if Index is greater than the length of
   //! PPC or the Row length of coeff or lower  than 1
-  Standard_EXPORT void SetPPC(const Standard_Integer Index, const Plate_PinpointConstraint& Value);
+  Standard_EXPORT void SetPPC(const Standard_Integer Index, const PinpointConstraint& Value);
 
   //! Sets the coeff  of index (Row,Col)  to Value
   //! raise if  Row (respectively Col)  is greater than the

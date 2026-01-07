@@ -174,7 +174,7 @@ Point3d PrincipalEquation::Point() const
   return g;
 }
 
-void PrincipalEquation::Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
+void PrincipalEquation::Box1(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
   if (!IsSpace())
     throw Standard_NoSuchObject();

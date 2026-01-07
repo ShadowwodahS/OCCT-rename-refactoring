@@ -551,7 +551,7 @@ static Standard_Boolean AddMultiConexityFaces(
 // function : BoxIn
 // purpose  : Check if one face contains inside other.
 //=======================================================================
-static Standard_Integer BoxIn(const Bnd_Box& theBox1, const Bnd_Box& theBox2)
+static Standard_Integer BoxIn(const Box2& theBox1, const Box2& theBox2)
 {
   Standard_Integer aNumIn = 0;
   Standard_Real    aXmin1, aYmin1, aXmax1, aYmax1, aXmin2, aYmin2, aXmax2, aYmax2, aZmin1, aZmax1,
@@ -582,9 +582,9 @@ static void GetClosedShells(TopTools_SequenceOfShape& Shells,
   Bnd_Array1OfBox aBoxes(1, Shells.Length());
   for (Standard_Integer i = 1; i <= Shells.Length(); i++)
   {
-    Bnd_Box Box;
-    BRepBndLib::AddClose(Shells.Value(i), Box);
-    aBoxes.SetValue(i, Box);
+    Box2 Box1;
+    BRepBndLib::AddClose(Shells.Value(i), Box1);
+    aBoxes.SetValue(i, Box1);
   }
   TColStd_MapOfInteger aMapNum;
   for (Standard_Integer j = 1; j <= aBoxes.Length(); j++)

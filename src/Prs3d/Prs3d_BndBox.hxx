@@ -32,7 +32,7 @@ public:
   //! @param[in] theBndBox  the bounding box.
   //! @param[in] theDrawer  the drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePresentation,
-                                  const Bnd_Box&                    theBndBox,
+                                  const Box2&                    theBndBox,
                                   const Handle(StyleDrawer)&       theDrawer);
 
   //! Computes presentation of a bounding box.
@@ -40,13 +40,13 @@ public:
   //! @param[in] theBndBox  the bounding box.
   //! @param[in] theDrawer  the drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePresentation,
-                                  const Bnd_OBB&                    theBndBox,
+                                  const OrientedBox&                    theBndBox,
                                   const Handle(StyleDrawer)&       theDrawer);
 
 public:
   //! Create primitive array with line segments for displaying a box.
   //! @param[in] theBox  the box to add
-  static Handle(Graphic3d_ArrayOfSegments) FillSegments(const Bnd_OBB& theBox)
+  static Handle(Graphic3d_ArrayOfSegments) FillSegments(const OrientedBox& theBox)
   {
     if (theBox.IsVoid())
     {
@@ -60,7 +60,7 @@ public:
 
   //! Create primitive array with line segments for displaying a box.
   //! @param[in] theBox  the box to add
-  static Handle(Graphic3d_ArrayOfSegments) FillSegments(const Bnd_Box& theBox)
+  static Handle(Graphic3d_ArrayOfSegments) FillSegments(const Box2& theBox)
   {
     if (theBox.IsVoid())
     {
@@ -77,7 +77,7 @@ public:
   //!                               should be at least 8 nodes and 24 edges in size
   //! @param[in] theBox  the box to add
   static void FillSegments(const Handle(Graphic3d_ArrayOfSegments)& theSegments,
-                           const Bnd_OBB&                           theBox)
+                           const OrientedBox&                           theBox)
   {
     if (!theBox.IsVoid())
     {
@@ -92,7 +92,7 @@ public:
   //!                               should be at least 8 nodes and 24 edges in size
   //! @param[in] theBox  the box to add
   static void FillSegments(const Handle(Graphic3d_ArrayOfSegments)& theSegments,
-                           const Bnd_Box&                           theBox)
+                           const Box2&                           theBox)
   {
     if (!theBox.IsVoid())
     {

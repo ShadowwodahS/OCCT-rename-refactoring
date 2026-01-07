@@ -1044,7 +1044,7 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
       if (!anax1aFace1.IsParallel(anax1aFace2, Precision::Angular()))
       {
 
-        IntAna_QuadQuadGeo IntersectPlane(aPlnaFace1,
+        QuadQuadGeoIntersection IntersectPlane(aPlnaFace1,
                                           aPlnaFace2,
                                           Precision::Angular(),
                                           Precision::Angular());

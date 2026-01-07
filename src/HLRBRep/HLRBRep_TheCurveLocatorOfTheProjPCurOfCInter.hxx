@@ -22,11 +22,11 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class HLRBRep_CurveTool;
-class Extrema_POnCurv2d;
+class CurveTool5;
+class PointOnCurve2d;
 class gp_Pnt2d;
 
-class HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter
+class HLRBRepProjPCurCurveLocator
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,7 +37,7 @@ public:
   Standard_EXPORT static void Locate(const gp_Pnt2d&         P,
                                      const Standard_Address& C,
                                      const Standard_Integer  NbU,
-                                     Extrema_POnCurv2d&      Papp);
+                                     PointOnCurve2d&      Papp);
 
   //! Among a set of points {C(ui),i=1,NbU}, locate the point
   //! P=C(uj) such that:
@@ -48,7 +48,7 @@ public:
                                      const Standard_Integer  NbU,
                                      const Standard_Real     Umin,
                                      const Standard_Real     Usup,
-                                     Extrema_POnCurv2d&      Papp);
+                                     PointOnCurve2d&      Papp);
 
   //! Among two sets of points {C1(ui),i=1,NbU} and
   //! {C2(vj),j=1,NbV}, locate the two points P1=C1(uk) and
@@ -58,8 +58,8 @@ public:
                                      const Standard_Address& C2,
                                      const Standard_Integer  NbU,
                                      const Standard_Integer  NbV,
-                                     Extrema_POnCurv2d&      Papp1,
-                                     Extrema_POnCurv2d&      Papp2);
+                                     PointOnCurve2d&      Papp1,
+                                     PointOnCurve2d&      Papp2);
 
 protected:
 private:

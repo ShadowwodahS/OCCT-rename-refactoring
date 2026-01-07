@@ -259,7 +259,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
   aGTrsf.Multiply(aLoc.Transformation());
 
   theTriangulation = theTriangulation->Copy();
-  theTriangulation->SetCachedMinMax(Bnd_Box()); // clear bounding box
+  theTriangulation->SetCachedMinMax(Box2()); // clear bounding box
   theTriangulation->Deflection(theTriangulation->Deflection() * Abs(myGScale));
   // apply transformation to 3D nodes
   for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
@@ -273,7 +273,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
   {
     for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbTriangles(); ++anInd)
     {
-      Poly_Triangle    aTria = theTriangulation->Triangle(anInd);
+      Poly_Triangle    aTria = theTriangulation->Triangle1(anInd);
       Standard_Integer aN1, aN2, aN3;
       aTria.Get(aN1, aN2, aN3);
       aTria.Set(aN1, aN3, aN2);

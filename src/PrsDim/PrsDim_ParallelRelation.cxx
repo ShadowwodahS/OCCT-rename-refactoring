@@ -106,8 +106,8 @@ void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectionContainer)&
 {
   gp_Lin L1(myFAttach, myDirAttach);
   gp_Lin L2(mySAttach, myDirAttach);
-  Point3d Proj1 = ElCLib::Value(ElCLib::Parameter(L1, myPosition), L1);
-  Point3d Proj2 = ElCLib::Value(ElCLib::Parameter(L2, myPosition), L2);
+  Point3d Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, myPosition), L1);
+  Point3d Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, myPosition), L2);
 
   gp_Lin                        L3;
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -130,19 +130,19 @@ void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectionContainer)&
     aSelection->Add(box);
   }
   Standard_Real parmin, parmax, parcur;
-  parmin = ElCLib::Parameter(L3, Proj1);
+  parmin = ElCLib1::Parameter(L3, Proj1);
   parmax = parmin;
 
-  parcur = ElCLib::Parameter(L3, Proj2);
+  parcur = ElCLib1::Parameter(L3, Proj2);
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  parcur = ElCLib::Parameter(L3, myPosition);
+  parcur = ElCLib1::Parameter(L3, myPosition);
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  Point3d PointMin = ElCLib::Value(parmin, L3);
-  Point3d PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib1::Value(parmin, L3);
+  Point3d PointMax = ElCLib1::Value(parmax, L3);
 
   Handle(Select3D_SensitiveSegment) seg;
 
@@ -266,12 +266,12 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
     Point3d curpos;
     if (!isInfinite1)
     {
-      Point3d p2 = ElCLib::Value(ElCLib::Parameter(l2, ptat11), l2);
+      Point3d p2 = ElCLib1::Value(ElCLib1::Parameter(l2, ptat11), l2);
       curpos.SetXYZ((ptat11.XYZ() + p2.XYZ()) / 2.);
     }
     else if (!isInfinite2)
     {
-      Point3d p2 = ElCLib::Value(ElCLib::Parameter(l1, ptat21), l1);
+      Point3d p2 = ElCLib1::Value(ElCLib1::Parameter(l1, ptat21), l1);
       curpos.SetXYZ((ptat21.XYZ() + p2.XYZ()) / 2.);
     }
     else
@@ -305,7 +305,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   }
   else
   {
-    myFAttach = ElCLib::Value(ElCLib::Parameter(l1, myPosition), l1);
+    myFAttach = ElCLib1::Value(ElCLib1::Parameter(l1, myPosition), l1);
   }
 
   if (!isInfinite2)
@@ -327,7 +327,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   }
   else
   {
-    mySAttach = ElCLib::Value(ElCLib::Parameter(l2, myPosition), l2);
+    mySAttach = ElCLib1::Value(ElCLib1::Parameter(l2, myPosition), l2);
   }
   UtfString aText(" //");
 

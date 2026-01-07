@@ -346,8 +346,8 @@ void PrsDim_FixRelation::ComputeEdge(const TopoEdge& FixEdge, Point3d& curpos)
   if (curEdge->IsKind(STANDARD_TYPE(GeomLine)))
   {
     gp_Lin        glin = Handle(GeomLine)::DownCast(curEdge)->Lin();
-    Standard_Real pfirst(ElCLib::Parameter(glin, ptbeg));
-    Standard_Real plast(ElCLib::Parameter(glin, ptend));
+    Standard_Real pfirst(ElCLib1::Parameter(glin, ptbeg));
+    Standard_Real plast(ElCLib1::Parameter(glin, ptend));
     ComputeLinePosition(glin, curpos, pfirst, plast);
   }
 
@@ -381,7 +381,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
   if (myAutomaticPosition)
   {
     // point of attach is chosen as middle of the segment
-    myPntAttach = ElCLib::Value((pfirst + plast) / 2, glin);
+    myPntAttach = ElCLib1::Value((pfirst + plast) / 2, glin);
 
     Dir3d norm = myPlane->Axis().Direction();
 
@@ -393,12 +393,12 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
   else
   {
     pos                    = myPosition;
-    Standard_Real linparam = ElCLib::Parameter(glin, pos);
+    Standard_Real linparam = ElCLib1::Parameter(glin, pos);
 
     // case if the projection of position is located between 2 vertices
     // de l'edge
     if ((linparam >= pfirst) && (linparam <= plast))
-      myPntAttach = ElCLib::Value(linparam, glin);
+      myPntAttach = ElCLib1::Value(linparam, glin);
 
     // case if the projection of Position is outside of the limits
     // of the edge : the point closest to the projection is chosen
@@ -410,13 +410,13 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
         pOnLin = plast;
       else
         pOnLin = pfirst;
-      myPntAttach = ElCLib::Value(pOnLin, glin);
+      myPntAttach = ElCLib1::Value(pOnLin, glin);
       Dir3d norm = myPlane->Axis().Direction();
 
       norm.Cross(glin.Position().Direction());
       gp_Lin        lsup(myPntAttach, norm);
-      Standard_Real parpos = ElCLib::Parameter(lsup, myPosition);
-      pos                  = ElCLib::Value(parpos, lsup);
+      Standard_Real parpos = ElCLib1::Parameter(lsup, myPosition);
+      pos                  = ElCLib1::Value(parpos, lsup);
     }
   }
   myPosition = pos;
@@ -457,7 +457,7 @@ void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
       circparam = otherpar;
     }
 
-    myPntAttach = ElCLib::Value(circparam, gcirc);
+    myPntAttach = ElCLib1::Value(circparam, gcirc);
 
     Vector3d dir(gcirc.Location().XYZ(), myPntAttach.XYZ());
     dir.Normalize();
@@ -474,7 +474,7 @@ void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
     // in the valid part of the circle
     pos = myPosition;
 
-    Standard_Real circparam = ElCLib::Parameter(gcirc, pos);
+    Standard_Real circparam = ElCLib1::Parameter(gcirc, pos);
 
     if (!InDomain(pfirst, plast, circparam))
     {
@@ -484,7 +484,7 @@ void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
       circparam = otherpar;
     }
 
-    myPntAttach = ElCLib::Value(circparam, gcirc);
+    myPntAttach = ElCLib1::Value(circparam, gcirc);
   }
 }
 

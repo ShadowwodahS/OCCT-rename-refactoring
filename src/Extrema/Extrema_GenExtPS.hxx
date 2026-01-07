@@ -123,7 +123,7 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& Point(const Standard_Integer N) const;
 
 private:
   Standard_EXPORT void BuildTree();

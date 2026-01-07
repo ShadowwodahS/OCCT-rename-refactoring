@@ -100,7 +100,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
       Handle(GccInt_Bisec)     Sol2 = Bis2.ThisSolution();
       GccInt_IType             typ1 = Sol1->ArcType();
       GccInt_IType             typ2 = Sol2->ArcType();
-      IntAna2d_AnaIntersection Intp;
+      AnalyticIntersection2d Intp;
       if (typ1 == GccInt_Lin)
       {
         if (typ2 == GccInt_Lin)
@@ -109,18 +109,18 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         }
         else if (typ2 == GccInt_Par)
         {
-          Intp.Perform(Sol1->Line(), IntAna2d_Conic(Sol2->Parabola()));
+          Intp.Perform(Sol1->Line(), Conic2d(Sol2->Parabola()));
         }
       }
       else if (typ1 == GccInt_Par)
       {
         if (typ2 == GccInt_Lin)
         {
-          Intp.Perform(Sol2->Line(), IntAna2d_Conic(Sol1->Parabola()));
+          Intp.Perform(Sol2->Line(), Conic2d(Sol1->Parabola()));
         }
         else if (typ2 == GccInt_Par)
         {
-          Intp.Perform(Sol1->Parabola(), IntAna2d_Conic(Sol2->Parabola()));
+          Intp.Perform(Sol1->Parabola(), Conic2d(Sol2->Parabola()));
         }
       }
       if (Intp.IsDone())
@@ -273,8 +273,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                   gp_Dir2d dc(Center.XY() - C1.Location().XY());
                   //  modified by NIZHNY-EAP Mon Nov  1 13:48:55 1999 ___END___
                   pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc.XY());
-                  par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                  pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                  par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                  pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
                 }
                 TheSame2(NbrSol) = 0;
                 TheSame3(NbrSol) = 0;
@@ -282,10 +282,10 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                 Standard_Real sign = dc.Dot(gp_Dir2d(-L2.Direction().Y(), L2.Direction().X()));
                 dc                = gp_Dir2d(sign * Coords2d(-L2.Direction().Y(), L2.Direction().X()));
                 pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc.XY());
-                par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-                pararg2(NbrSol)   = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
+                par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                pararg2(NbrSol)   = ElCLib1::Parameter(L2, pnttg2sol(NbrSol));
                 pnttg3sol(NbrSol) = Point3;
-                par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+                par3sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
                 pararg3(NbrSol)   = 0.;
               }
             }

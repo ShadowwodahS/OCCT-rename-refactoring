@@ -100,7 +100,7 @@ void Poly_Connect::Load(const Handle(MeshTriangulation)& theTriangulation)
   for (Standard_Integer aTriIter = 1; aTriIter <= aNbTris; ++aTriIter)
   {
     // get the nodes
-    myTriangulation->Triangle(aTriIter).Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
+    myTriangulation->Triangle1(aTriIter).Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
 
     // Update the myTriangles array
     myTriangles.SetValue(aTriNodes[0], aTriIter);
@@ -157,7 +157,7 @@ void Poly_Connect::Load(const Handle(MeshTriangulation)& theTriangulation)
   for (Standard_Integer aTriIter = 1; aTriIter <= aNbTris; ++aTriIter)
   {
     // get the nodes
-    myTriangulation->Triangle(aTriIter).Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
+    myTriangulation->Triangle1(aTriIter).Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
 
     // for each edge in triangle
     for (Standard_Integer aNodeInTri = 0; aNodeInTri < 3; ++aNodeInTri)
@@ -209,7 +209,7 @@ void Poly_Connect::Load(const Handle(MeshTriangulation)& theTriangulation)
 void Poly_Connect::Initialize(const Standard_Integer N)
 {
   mynode  = N;
-  myfirst = Triangle(N);
+  myfirst = Triangle1(N);
   mytr    = myfirst;
   mysense = Standard_True;
   mymore  = (myfirst != 0);
@@ -218,7 +218,7 @@ void Poly_Connect::Initialize(const Standard_Integer N)
   if (mymore)
   {
     Standard_Integer i, no[3];
-    myTriangulation->Triangle(myfirst).Get(no[0], no[1], no[2]);
+    myTriangulation->Triangle1(myfirst).Get(no[0], no[1], no[2]);
     for (i = 0; i < 3; i++)
       if (no[i] == mynode)
         break;
@@ -240,7 +240,7 @@ void Poly_Connect::Next()
     {
       if (t[i] != 0)
       {
-        myTriangulation->Triangle(t[i]).Get(n[0], n[1], n[2]);
+        myTriangulation->Triangle1(t[i]).Get(n[0], n[1], n[2]);
         for (j = 0; j < 3; j++)
         {
           if ((n[j] == mynode) && (n[(j + 1) % 3] == myothernode))
@@ -255,7 +255,7 @@ void Poly_Connect::Next()
       }
     }
     // sinon, depart vers la gauche.
-    myTriangulation->Triangle(myfirst).Get(n[0], n[1], n[2]);
+    myTriangulation->Triangle1(myfirst).Get(n[0], n[1], n[2]);
     for (i = 0; i < 3; i++)
       if (n[i] == mynode)
         break;
@@ -270,7 +270,7 @@ void Poly_Connect::Next()
     {
       if (t[i] != 0)
       {
-        myTriangulation->Triangle(t[i]).Get(n[0], n[1], n[2]);
+        myTriangulation->Triangle1(t[i]).Get(n[0], n[1], n[2]);
         for (j = 0; j < 3; j++)
         {
           if ((n[j] == mynode) && (n[(j + 2) % 3] == myothernode))

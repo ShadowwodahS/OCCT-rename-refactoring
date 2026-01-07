@@ -493,7 +493,7 @@ void HLRBRep_Intersector::Load(Standard_Address& A)
 void HLRBRep_Intersector::Perform(const gp_Lin& L, const Standard_Real P)
 {
   myTypePerform           = 2;
-  GeomAbs_SurfaceType typ = HLRBRep_SurfaceTool::GetType(mySurface);
+  GeomAbs_SurfaceType typ = SurfaceTool3::GetType(mySurface);
   switch (typ)
   {
     case GeomAbs_Plane:
@@ -508,18 +508,18 @@ void HLRBRep_Intersector::Perform(const gp_Lin& L, const Standard_Real P)
       {
         Standard_Integer nbsu, nbsv;
         Standard_Real    u1, v1, u2, v2;
-        u1           = HLRBRep_SurfaceTool::FirstUParameter(mySurface);
-        v1           = HLRBRep_SurfaceTool::FirstVParameter(mySurface);
-        u2           = HLRBRep_SurfaceTool::LastUParameter(mySurface);
-        v2           = HLRBRep_SurfaceTool::LastVParameter(mySurface);
-        nbsu         = HLRBRep_SurfaceTool::NbSamplesU(mySurface, u1, u2);
-        nbsv         = HLRBRep_SurfaceTool::NbSamplesV(mySurface, v1, v2);
+        u1           = SurfaceTool3::FirstUParameter(mySurface);
+        v1           = SurfaceTool3::FirstVParameter(mySurface);
+        u2           = SurfaceTool3::LastUParameter(mySurface);
+        v2           = SurfaceTool3::LastVParameter(mySurface);
+        nbsu         = SurfaceTool3::NbSamplesU(mySurface, u1, u2);
+        nbsv         = SurfaceTool3::NbSamplesV(mySurface, v1, v2);
         myPolyhedron = new HLRBRep_ThePolyhedronOfInterCSurf(mySurface, nbsu, nbsv, u1, v1, u2, v2);
       }
       Standard_Real x0, y0, z0, x1, y1, z1, pmin, pmax; //,pp;
       myPolyhedron->Bounding().Get(x0, y0, z0, x1, y1, z1);
 #if 0
-      pmax = pmin = ElCLib::Parameter(L, Point3d((x1+x0)*0.5,
+      pmax = pmin = ElCLib1::Parameter(L, Point3d((x1+x0)*0.5,
 						(y1+y0)*0.5,
 						(z1+z0)*0.5));
       Standard_Real d = (x1-x0) + (y1-y0) + (z1-z0);
@@ -535,42 +535,42 @@ void HLRBRep_Intersector::Perform(const gp_Lin& L, const Standard_Real P)
 #else
       //-- On va rejeter tous les points de parametres > P
       Standard_Real p;
-      p    = ElCLib::Parameter(L, Point3d(x0, y0, z0));
+      p    = ElCLib1::Parameter(L, Point3d(x0, y0, z0));
       pmin = pmax = p;
-      p           = ElCLib::Parameter(L, Point3d(x0, y0, z1));
+      p           = ElCLib1::Parameter(L, Point3d(x0, y0, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
 
-      p = ElCLib::Parameter(L, Point3d(x1, y0, z0));
+      p = ElCLib1::Parameter(L, Point3d(x1, y0, z0));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
-      p = ElCLib::Parameter(L, Point3d(x1, y0, z1));
-      if (pmin > p)
-        pmin = p;
-      if (pmax < p)
-        pmax = p;
-
-      p = ElCLib::Parameter(L, Point3d(x0, y1, z0));
-      if (pmin > p)
-        pmin = p;
-      if (pmax < p)
-        pmax = p;
-      p = ElCLib::Parameter(L, Point3d(x0, y1, z1));
+      p = ElCLib1::Parameter(L, Point3d(x1, y0, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
 
-      p = ElCLib::Parameter(L, Point3d(x1, y1, z0));
+      p = ElCLib1::Parameter(L, Point3d(x0, y1, z0));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
-      p = ElCLib::Parameter(L, Point3d(x1, y1, z1));
+      p = ElCLib1::Parameter(L, Point3d(x0, y1, z1));
+      if (pmin > p)
+        pmin = p;
+      if (pmax < p)
+        pmax = p;
+
+      p = ElCLib1::Parameter(L, Point3d(x1, y1, z0));
+      if (pmin > p)
+        pmin = p;
+      if (pmax < p)
+        pmax = p;
+      p = ElCLib1::Parameter(L, Point3d(x1, y1, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)

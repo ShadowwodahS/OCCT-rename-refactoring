@@ -74,12 +74,12 @@ public:
   //! with  MatrixTransform  from VrmlConverter;
   Standard_EXPORT void Add(Standard_OStream& anOStream) const;
 
-  Standard_EXPORT HLRAlgo_Projector Projector() const;
+  Standard_EXPORT HLRAlgoProjector Projector() const;
 
   DEFINE_STANDARD_RTTIEXT(VrmlConverter_Projector, RefObject)
 
 private:
-  HLRAlgo_Projector          myProjector;
+  HLRAlgoProjector          myProjector;
   Vrml_PerspectiveCamera     myPerspectiveCamera;
   Vrml_OrthographicCamera    myOrthographicCamera;
   Vrml_DirectionalLight      myDirectionalLight;

@@ -23,11 +23,11 @@
 class Adaptor2d_Curve2d;
 
 //! Class representing a point on curve, with 2D coordinate and the tangent
-class Geom2dConvert_PPoint
+class ParameterPoint
 {
 public:
   //! Empty constructor.
-  Standard_EXPORT inline Geom2dConvert_PPoint()
+  Standard_EXPORT inline ParameterPoint()
       : myParameter(::RealLast()),
         myPoint(0., 0.),
         myD1(0., 0.)
@@ -35,7 +35,7 @@ public:
   }
 
   //! Constructor.
-  Standard_EXPORT inline Geom2dConvert_PPoint(const Standard_Real theParameter,
+  Standard_EXPORT inline ParameterPoint(const Standard_Real theParameter,
                                               const Coords2d&        thePoint,
                                               const Coords2d&        theD1)
       : myParameter(theParameter),
@@ -45,11 +45,11 @@ public:
   }
 
   //! Constructor.
-  Standard_EXPORT Geom2dConvert_PPoint(const Standard_Real      theParameter,
+  Standard_EXPORT ParameterPoint(const Standard_Real      theParameter,
                                        const Adaptor2d_Curve2d& theAdaptor);
 
   //! Compute the distance between two 2d points.
-  inline Standard_Real Dist(const Geom2dConvert_PPoint& theOth) const
+  inline Standard_Real Dist(const ParameterPoint& theOth) const
   {
     return myPoint.Distance(theOth.myPoint);
   }
@@ -67,10 +67,10 @@ public:
   inline void SetD1(const Coords2d& theD1) { myD1.SetXY(theD1); }
 
   //! Compare two values of this type.
-  Standard_EXPORT Standard_Boolean operator==(const Geom2dConvert_PPoint&) const;
+  Standard_EXPORT Standard_Boolean operator==(const ParameterPoint&) const;
 
   //! Compare two values of this type.
-  Standard_EXPORT Standard_Boolean operator!=(const Geom2dConvert_PPoint&) const;
+  Standard_EXPORT Standard_Boolean operator!=(const ParameterPoint&) const;
 
 private:
   Standard_Real myParameter; //! Parameter value

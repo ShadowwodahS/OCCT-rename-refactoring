@@ -169,7 +169,7 @@ void GeomLine::Transform(const Transform3d& T)
 
 void GeomLine::D0(const Standard_Real U, Point3d& P) const
 {
-  P = ElCLib::LineValue(U, pos);
+  P = ElCLib1::LineValue(U, pos);
 }
 
 //=================================================================================================
@@ -177,7 +177,7 @@ void GeomLine::D0(const Standard_Real U, Point3d& P) const
 void GeomLine::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
 
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
 }
 
 //=================================================================================================
@@ -185,7 +185,7 @@ void GeomLine::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 void GeomLine::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
 
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
   V2.SetCoord(0.0, 0.0, 0.0);
 }
 
@@ -194,7 +194,7 @@ void GeomLine::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2)
 void GeomLine::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
 
-  ElCLib::LineD1(U, pos, P, V1);
+  ElCLib1::LineD1(U, pos, P, V1);
   V2.SetCoord(0.0, 0.0, 0.0);
   V3.SetCoord(0.0, 0.0, 0.0);
 }

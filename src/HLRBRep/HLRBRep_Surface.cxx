@@ -36,7 +36,7 @@ void HLRBRep_Surface::Surface(const TopoFace& F)
 {
   // mySurf.Initialize(F,Standard_False);
   mySurf.Initialize(F, Standard_True);
-  GeomAbs_SurfaceType typ = HLRBRep_BSurfaceTool::GetType(mySurf);
+  GeomAbs_SurfaceType typ = BSurfaceTool::GetType(mySurf);
   switch (typ)
   {
 
@@ -50,7 +50,7 @@ void HLRBRep_Surface::Surface(const TopoFace& F)
       break;
 
     case GeomAbs_BezierSurface:
-      if (HLRBRep_BSurfaceTool::UDegree(mySurf) == 1 && HLRBRep_BSurfaceTool::VDegree(mySurf) == 1)
+      if (BSurfaceTool::UDegree(mySurf) == 1 && BSurfaceTool::VDegree(mySurf) == 1)
       {
         myType = GeomAbs_Plane;
       }
@@ -161,7 +161,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
   {
     if (myProj->Perspective())
       return Standard_False;
-    gp_Cylinder Cyl = HLRBRep_BSurfaceTool::Cylinder(mySurf);
+    gp_Cylinder Cyl = BSurfaceTool::Cylinder(mySurf);
     Axis3d      A   = Cyl.Axis();
     D               = A.Direction();
     D.Transform(myProj->Transformation());
@@ -172,7 +172,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
   {
     if (!myProj->Perspective())
       return Standard_False;
-    gp_Cone Con = HLRBRep_BSurfaceTool::Cone(mySurf);
+    gp_Cone Con = BSurfaceTool::Cone(mySurf);
     Pt          = Con.Apex();
     Pt.Transform(myProj->Transformation());
     Standard_Real tol = 0.001;
@@ -182,22 +182,22 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
   {
     if (myProj->Perspective())
       return Standard_False;
-    Standard_Integer   nu = HLRBRep_BSurfaceTool::NbUPoles(mySurf);
-    Standard_Integer   nv = HLRBRep_BSurfaceTool::NbVPoles(mySurf);
+    Standard_Integer   nu = BSurfaceTool::NbUPoles(mySurf);
+    Standard_Integer   nv = BSurfaceTool::NbVPoles(mySurf);
     TColgp_Array2OfPnt Pnt(1, nu, 1, nv);
-    HLRBRep_BSurfaceTool::Bezier(mySurf)->Poles(Pnt);
+    BSurfaceTool::Bezier(mySurf)->Poles(Pnt);
     return SideRowsOfPoles(tolF, nu, nv, Pnt);
   }
   else if (myType == GeomAbs_BSplineSurface)
   {
     if (myProj->Perspective())
       return Standard_False;
-    Standard_Integer     nu = HLRBRep_BSurfaceTool::NbUPoles(mySurf);
-    Standard_Integer     nv = HLRBRep_BSurfaceTool::NbVPoles(mySurf);
+    Standard_Integer     nu = BSurfaceTool::NbUPoles(mySurf);
+    Standard_Integer     nv = BSurfaceTool::NbVPoles(mySurf);
     TColgp_Array2OfPnt   Pnt(1, nu, 1, nv);
     TColStd_Array2OfReal W(1, nu, 1, nv);
-    HLRBRep_BSurfaceTool::BSpline(mySurf)->Poles(Pnt);
-    HLRBRep_BSurfaceTool::BSpline(mySurf)->Weights(W);
+    BSurfaceTool::BSpline(mySurf)->Poles(Pnt);
+    BSurfaceTool::BSpline(mySurf)->Weights(W);
     return SideRowsOfPoles(tolF, nu, nv, Pnt);
   }
   else
@@ -271,7 +271,7 @@ Point3d HLRBRep_Surface::Value(const Standard_Real U, const Standard_Real V) con
 
 gp_Pln HLRBRep_Surface::Plane() const
 {
-  GeomAbs_SurfaceType typ = HLRBRep_BSurfaceTool::GetType(mySurf);
+  GeomAbs_SurfaceType typ = BSurfaceTool::GetType(mySurf);
   switch (typ)
   {
     case GeomAbs_BezierSurface: {
@@ -283,6 +283,6 @@ gp_Pln HLRBRep_Surface::Plane() const
     }
 
     default:
-      return HLRBRep_BSurfaceTool::Plane(mySurf);
+      return BSurfaceTool::Plane(mySurf);
   }
 }

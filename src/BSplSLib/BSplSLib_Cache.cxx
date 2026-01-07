@@ -65,7 +65,7 @@ void BSplSLib_Cache::BuildCache(const Standard_Real&        theParameterU,
   myParamsU.LocateParameter(aNewParamU, theFlatKnotsU);
   myParamsV.LocateParameter(aNewParamV, theFlatKnotsV);
 
-  // BSplSLib uses different convention for span parameters than BSplCLib
+  // BSplSLib1 uses different convention for span parameters than BSplCLib1
   // (Start is in the middle of the span and length is half-span),
   // thus we need to amend them here
   Standard_Real aSpanLengthU = 0.5 * myParamsU.SpanLength;
@@ -74,7 +74,7 @@ void BSplSLib_Cache::BuildCache(const Standard_Real&        theParameterU,
   Standard_Real aSpanStartV  = myParamsV.SpanStart + aSpanLengthV;
 
   // Calculate new cache data
-  BSplSLib::BuildCache(aSpanStartU,
+  BSplSLib1::BuildCache(aSpanStartU,
                        aSpanStartV,
                        aSpanLengthU,
                        aSpanLengthV,
@@ -98,7 +98,7 @@ void BSplSLib_Cache::D0(const Standard_Real& theU,
   Standard_Real aNewU = myParamsU.PeriodicNormalization(theU);
   Standard_Real aNewV = myParamsV.PeriodicNormalization(theV);
 
-  // BSplSLib uses different convention for span parameters than BSplCLib
+  // BSplSLib1 uses different convention for span parameters than BSplCLib1
   // (Start is in the middle of the span and length is half-span),
   // thus we need to amend them here
   Standard_Real aSpanLengthU = 0.5 * myParamsU.SpanLength;
@@ -133,7 +133,7 @@ void BSplSLib_Cache::D0(const Standard_Real& theU,
   // clang-format on
 
   // Calculate intermediate value of cached polynomial along columns
-  PLib::NoDerivativeEvalPolynomial(aParameters[1],
+  PLib1::NoDerivativeEvalPolynomial(aParameters[1],
                                    aMinMaxDegree[1],
                                    aCacheCols,
                                    aMinMaxDegree[1] * aCacheCols,
@@ -141,7 +141,7 @@ void BSplSLib_Cache::D0(const Standard_Real& theU,
                                    aTransientCoeffs[0]);
 
   // Calculate total value
-  PLib::NoDerivativeEvalPolynomial(aParameters[0],
+  PLib1::NoDerivativeEvalPolynomial(aParameters[0],
                                    aMinMaxDegree[0],
                                    aDimension,
                                    aDimension * aMinMaxDegree[0],
@@ -162,7 +162,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
   Standard_Real aNewU = myParamsU.PeriodicNormalization(theU);
   Standard_Real aNewV = myParamsV.PeriodicNormalization(theV);
 
-  // BSplSLib uses different convention for span parameters than BSplCLib
+  // BSplSLib1 uses different convention for span parameters than BSplCLib1
   // (Start is in the middle of the span and length is half-span),
   // thus we need to amend them here
   Standard_Real aSpanLengthU = 0.5 * myParamsU.SpanLength;
@@ -203,7 +203,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
 
   // Calculate intermediate values and derivatives of bivariate polynomial along variable with
   // maximal degree
-  PLib::EvalPolynomial(aParameters[1],
+  PLib1::EvalPolynomial(aParameters[1],
                        1,
                        aMinMaxDegree[1],
                        aCacheCols,
@@ -211,7 +211,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
                        aTransientCoeffs[0]);
 
   // Calculate a point on surface and a derivative along variable with minimal degree
-  PLib::EvalPolynomial(aParameters[0],
+  PLib1::EvalPolynomial(aParameters[0],
                        1,
                        aMinMaxDegree[0],
                        aDimension,
@@ -219,7 +219,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
                        aPntDeriv[0]);
 
   // Calculate derivative along variable with maximal degree
-  PLib::NoDerivativeEvalPolynomial(aParameters[0],
+  PLib1::NoDerivativeEvalPolynomial(aParameters[0],
                                    aMinMaxDegree[0],
                                    aDimension,
                                    aMinMaxDegree[0] * aDimension,
@@ -230,7 +230,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
   Standard_Real  aTempStorage[12];
   if (myIsRational) // calculate derivatives divided by weight's derivatives
   {
-    BSplSLib::RationalDerivative(1, 1, 1, 1, aPntDeriv[0], aTempStorage[0]);
+    BSplSLib1::RationalDerivative(1, 1, 1, 1, aPntDeriv[0], aTempStorage[0]);
     aResult = aTempStorage;
     aDimension--;
   }
@@ -264,7 +264,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
   Standard_Real aNewU = myParamsU.PeriodicNormalization(theU);
   Standard_Real aNewV = myParamsV.PeriodicNormalization(theV);
 
-  // BSplSLib uses different convention for span parameters than BSplCLib
+  // BSplSLib1 uses different convention for span parameters than BSplCLib1
   // (Start is in the middle of the span and length is half-span),
   // thus we need to amend them here
   Standard_Real aSpanLengthU = 0.5 * myParamsU.SpanLength;
@@ -314,7 +314,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
 
   // Calculate intermediate values and derivatives of bivariate polynomial along variable with
   // maximal degree
-  PLib::EvalPolynomial(aParameters[1],
+  PLib1::EvalPolynomial(aParameters[1],
                        aMinMaxDeriv[1],
                        aMinMaxDegree[1],
                        aCacheCols,
@@ -322,7 +322,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
                        aTransientCoeffs[0]);
 
   // Calculate a point on surface and a derivatives along variable with minimal degree
-  PLib::EvalPolynomial(aParameters[0],
+  PLib1::EvalPolynomial(aParameters[0],
                        aMinMaxDeriv[0],
                        aMinMaxDegree[0],
                        aDimension,
@@ -330,7 +330,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
                        aPntDeriv[0]);
 
   // Calculate derivative along variable with maximal degree and mixed derivative
-  PLib::EvalPolynomial(aParameters[0],
+  PLib1::EvalPolynomial(aParameters[0],
                        1,
                        aMinMaxDegree[0],
                        aDimension,
@@ -338,7 +338,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
                        aPntDeriv[3 * aDimension]);
 
   // Calculate second derivative along variable with maximal degree
-  PLib::NoDerivativeEvalPolynomial(aParameters[0],
+  PLib1::NoDerivativeEvalPolynomial(aParameters[0],
                                    aMinMaxDegree[0],
                                    aDimension,
                                    aMinMaxDegree[0] * aDimension,
@@ -349,7 +349,7 @@ void BSplSLib_Cache::D2(const Standard_Real& theU,
   Standard_Real  aTempStorage[36];
   if (myIsRational) // calculate derivatives divided by weight's derivatives
   {
-    BSplSLib::RationalDerivative(2, 2, 2, 2, aPntDeriv[0], aTempStorage[0]);
+    BSplSLib1::RationalDerivative(2, 2, 2, 2, aPntDeriv[0], aTempStorage[0]);
     aResult = aTempStorage;
     aDimension--;
   }

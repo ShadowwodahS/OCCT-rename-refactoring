@@ -28,7 +28,7 @@
 static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M, const gp_Ax3& Axis)
 {
   Handle(GeomCurve2d) C;
-  C = GeomProjLib::Curve2d(M, new GeomPlane(Axis));
+  C = GeomProjLib1::Curve2d(M, new GeomPlane(Axis));
   return C;
 }
 

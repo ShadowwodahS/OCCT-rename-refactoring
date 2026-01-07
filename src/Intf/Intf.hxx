@@ -28,8 +28,8 @@ class gp_XYZ;
 
 //! Interference computation  between polygons, lines  and
 //! polyhedra with only  triangular  facets. These objects
-//! are polygonal  representations of complex   curves and
-//! triangulated representations of complex surfaces.
+//! are polygonal  representations of complex1   curves and
+//! triangulated representations of complex1 surfaces.
 class Intf
 {
 public:

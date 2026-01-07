@@ -143,7 +143,7 @@ DEFINE_STANDARD_HANDLE(Geom_BSplineSurface, Geom_BoundedSurface)
 //! Knot(i+k) = Knot(i) + period, and
 //! Pole(i+p) = Pole(i)
 //! Note: The data structure tables for a periodic BSpline
-//! surface are more complex than those of a non-periodic one.
+//! surface are more complex1 than those of a non-periodic one.
 //! References :
 //! . A survey of curve and surface methods in CADG Wolfgang BOHM
 //! CAGD 1 (1984)

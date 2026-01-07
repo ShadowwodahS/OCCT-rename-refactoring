@@ -34,7 +34,7 @@ class Point3d;
 //! * Create a Dir passing through 2 points.
 //! * Create a Dir from its axis (Ax1 from gp).
 //! * Create a Dir from a point and a direction.
-class gce_MakeDir : public gce_Root
+class gce_MakeDir : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -27,7 +27,7 @@
 #include <Standard_Boolean.hxx>
 #include <Intf_Polygon2d.hxx>
 class Standard_OutOfRange;
-class HLRBRep_CurveTool;
+class CurveTool5;
 class Domain2;
 class Bnd_Box2d;
 class gp_Pnt2d;
@@ -106,7 +106,7 @@ private:
 
 #define TheCurve Standard_Address
 #define TheCurve_hxx <Standard_Address.hxx>
-#define TheCurveTool HLRBRep_CurveTool
+#define TheCurveTool CurveTool5
 #define TheCurveTool_hxx <HLRBRep_CurveTool.hxx>
 #define IntCurve_Polygon2dGen HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter
 #define IntCurve_Polygon2dGen_hxx <HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter.hxx>

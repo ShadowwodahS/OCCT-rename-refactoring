@@ -33,7 +33,7 @@ void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipP
       continue;
     }
 
-    Bnd_Range aSubRange(RealFirst(), RealLast());
+    Range1 aSubRange(RealFirst(), RealLast());
     for (const Graphic3d_ClipPlane* aSubPlaneIter = aClipPlane.get(); aSubPlaneIter != NULL;
          aSubPlaneIter                            = aSubPlaneIter->ChainNextPlane().get())
     {
@@ -110,7 +110,7 @@ void SelectMgr_ViewClipRange::DumpJson(Standard_OStream& theOStream,
 
   for (size_t aRangeIter = 0; aRangeIter < myClipRanges.size(); ++aRangeIter)
   {
-    Bnd_Range aClipRange = myClipRanges[aRangeIter];
+    Range1 aClipRange = myClipRanges[aRangeIter];
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &aClipRange)
   }
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myUnclipRange)

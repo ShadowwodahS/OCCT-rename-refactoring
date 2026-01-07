@@ -149,8 +149,8 @@ gp_Lin GeomConvert_CurveToAnaCurve::GetLine(const Point3d&  P1,
   Vector3d avec(P1, P2);
   Dir3d adir(avec);
   gp_Lin alin(P1, adir);
-  cf = ElCLib::Parameter(alin, P1);
-  cl = ElCLib::Parameter(alin, P2);
+  cf = ElCLib1::Parameter(alin, P1);
+  cl = ElCLib1::Parameter(alin, P2);
   return alin;
 }
 
@@ -304,19 +304,19 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeCircle(const Handle(Geom
   // defining the parameters
   Standard_Real PI2 = 2 * M_PI;
 
-  cf = ElCLib::Parameter(crc, c3d->Value(c1));
-  cf = ElCLib::InPeriod(cf, 0., PI2);
+  cf = ElCLib1::Parameter(crc, c3d->Value(c1));
+  cf = ElCLib1::InPeriod(cf, 0., PI2);
 
   // first parameter should be closed to zero
 
   if (Abs(cf) < Precision::PConfusion() || Abs(PI2 - cf) < Precision::PConfusion())
     cf = 0.;
 
-  Standard_Real cm = ElCLib::Parameter(crc, c3d->Value((c1 + c2) / 2.));
-  cm               = ElCLib::InPeriod(cm, cf, cf + PI2);
+  Standard_Real cm = ElCLib1::Parameter(crc, c3d->Value((c1 + c2) / 2.));
+  cm               = ElCLib1::InPeriod(cm, cf, cf + PI2);
 
-  cl = ElCLib::Parameter(crc, c3d->Value(c2));
-  cl = ElCLib::InPeriod(cl, cm, cm + PI2);
+  cl = ElCLib1::Parameter(crc, c3d->Value(c2));
+  cl = ElCLib1::InPeriod(cl, cm, cm + PI2);
 
   circ = new GeomCircle(crc);
   return circ;
@@ -628,7 +628,7 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
       for (i = 1; i <= 20; i++)
       {
         PP                 = c3d->Value(c1 + i * dc);
-        Standard_Real aPar = ElCLib::Parameter(anEllipse, PP);
+        Standard_Real aPar = ElCLib1::Parameter(anEllipse, PP);
         Standard_Real dist = gell->Value(aPar).Distance(PP);
         if (dist > tol)
           return res; // not done
@@ -639,19 +639,19 @@ Handle(GeomCurve3d) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geo
       Deviation = param2;
 
       Standard_Real PI2 = 2 * M_PI;
-      cf                = ElCLib::Parameter(anEllipse, c3d->Value(c1));
-      cf                = ElCLib::InPeriod(cf, 0., PI2);
+      cf                = ElCLib1::Parameter(anEllipse, c3d->Value(c1));
+      cf                = ElCLib1::InPeriod(cf, 0., PI2);
 
       // first parameter should be closed to zero
 
       if (Abs(cf) < Precision::PConfusion() || Abs(PI2 - cf) < Precision::PConfusion())
         cf = 0.;
 
-      Standard_Real cm = ElCLib::Parameter(anEllipse, c3d->Value((c1 + c2) / 2.));
-      cm               = ElCLib::InPeriod(cm, cf, cf + PI2);
+      Standard_Real cm = ElCLib1::Parameter(anEllipse, c3d->Value((c1 + c2) / 2.));
+      cm               = ElCLib1::InPeriod(cm, cf, cf + PI2);
 
-      cl = ElCLib::Parameter(anEllipse, c3d->Value(c2));
-      cl = ElCLib::InPeriod(cl, cm, cm + PI2);
+      cl = ElCLib1::Parameter(anEllipse, c3d->Value(c2));
+      cl = ElCLib1::InPeriod(cl, cm, cm + PI2);
 
       res = gell;
     }

@@ -227,7 +227,7 @@ BRepCheck_Status BRepCheck_Face::IntersectWires(const Standard_Boolean Update)
         aLast = aC.LastParameter();
       }
       Bnd_Box2d aBoxE;
-      BndLib_Add2dCurve::Add(aC, aFirst, aLast, 0., aBoxE);
+      Add2dCurve::Add(aC, aFirst, aLast, 0., aBoxE);
       aMapShapeBox2d.Bind(anEdge, aBoxE);
       aBoxW.Add(aBoxE);
     }
@@ -650,7 +650,7 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
     }
     if (Box1.IsVoid())
     {
-      BndLib_Add2dCurve::Add(C1, first1, last1, 0., Box1);
+      Add2dCurve::Add(C1, first1, last1, 0., Box1);
     }
     for (exp2.Init(wir2, TopAbs_EDGE); exp2.More(); exp2.Next())
     {
@@ -672,7 +672,7 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
         }
         if (Box2.IsVoid())
         {
-          BndLib_Add2dCurve::Add(C2, first2, last2, 0., Box2);
+          Add2dCurve::Add(C2, first2, last2, 0., Box2);
         }
         if (!Box1.IsOut(Box2))
         {

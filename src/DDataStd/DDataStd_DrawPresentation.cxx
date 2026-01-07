@@ -256,7 +256,7 @@ Standard_Boolean DDataStd_DrawPresentation::BeforeUndo(const Handle(TDF_Attribut
     // std::cout<< "DDataStd_DrawPresentation::BeforeUndo : delta on addition" << std::endl;
     if (Pfw->IsDisplayed())
       DrawErase(AD->Label(), Pfw);
-    // TDF appelle BeforeRemoval effacer
+    // TDF1 appelle BeforeRemoval effacer
   }
   else if (AD->IsKind(STANDARD_TYPE(TDF_DefaultDeltaOnRemoval)))
   {
@@ -351,7 +351,7 @@ void DDataStd_DrawPresentation::DrawDisplay(const DataLabel&                    
     if (!P->GetDrawable().IsNull())
     {
       AsciiString1 S;
-      TDF_Tool::Entry(L, S);
+      Tool3::Entry(L, S);
       Standard_CString name = S.ToCString();
       Draw1::Set(name, P->GetDrawable());
       return;

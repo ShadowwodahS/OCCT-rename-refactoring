@@ -68,7 +68,7 @@ void BRepExtrema_ExtCC::Perform(const TopoEdge& E1)
 
 Standard_Real BRepExtrema_ExtCC::ParameterOnE1(const Standard_Integer N) const
 {
-  Extrema_POnCurv POnE1, POnE2;
+  PointOnCurve1 POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
   return POnE1.Parameter();
 }
@@ -77,7 +77,7 @@ Standard_Real BRepExtrema_ExtCC::ParameterOnE1(const Standard_Integer N) const
 
 Point3d BRepExtrema_ExtCC::PointOnE1(const Standard_Integer N) const
 {
-  Extrema_POnCurv POnE1, POnE2;
+  PointOnCurve1 POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
   return POnE1.Value();
 }
@@ -86,7 +86,7 @@ Point3d BRepExtrema_ExtCC::PointOnE1(const Standard_Integer N) const
 
 Standard_Real BRepExtrema_ExtCC::ParameterOnE2(const Standard_Integer N) const
 {
-  Extrema_POnCurv POnE1, POnE2;
+  PointOnCurve1 POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
   return POnE2.Parameter();
 }
@@ -95,7 +95,7 @@ Standard_Real BRepExtrema_ExtCC::ParameterOnE2(const Standard_Integer N) const
 
 Point3d BRepExtrema_ExtCC::PointOnE2(const Standard_Integer N) const
 {
-  Extrema_POnCurv POnE1, POnE2;
+  PointOnCurve1 POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
   return POnE2.Value();
 }

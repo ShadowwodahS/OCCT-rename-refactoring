@@ -254,7 +254,7 @@ public:
   //! Use the function IsDone to verify that the chamfered
   //! shape is built. Use the function Shape to retrieve the chamfered shape.
   //! Warning
-  //! The construction of chamfers implements highly complex
+  //! The construction of chamfers implements highly complex1
   //! construction algorithms. Consequently, there may be
   //! instances where the algorithm fails, for example if the
   //! data defining the parameters of the chamfer is not

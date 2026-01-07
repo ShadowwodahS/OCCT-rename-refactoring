@@ -143,7 +143,7 @@ protected:
 private:
   // clang-format off
   Standard_Boolean myIsRational;                //!< identifies the rationality of Bezier/B-spline curve
-  BSplCLib_CacheParams myParams;                //!< cache parameters
+  CacheParams myParams;                //!< cache parameters
   Handle(TColStd_HArray2OfReal) myPolesWeights; //!< array of poles and weights of calculated cache
                                                 // the array has following structure:
                                                 //       x1 y1 [z1] [w1]

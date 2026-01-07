@@ -197,7 +197,7 @@ Standard_Integer UpdateBounds(BVH_Set<T, N>*         theSet,
     typename BVH_Box<T, N>::BVH_VecNt& aMaxPoint = theTree->MaxPointBuffer()[theNode];
     for (Standard_Integer aPrimIdx = aData.y(); aPrimIdx <= aData.z(); ++aPrimIdx)
     {
-      const BVH_Box<T, N> aBox = theSet->Box(aPrimIdx);
+      const BVH_Box<T, N> aBox = theSet->Box1(aPrimIdx);
       if (aPrimIdx == aData.y())
       {
         aMinPoint = aBox.CornerMin();

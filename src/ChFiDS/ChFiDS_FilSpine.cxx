@@ -359,7 +359,7 @@ static void mklaw(Law_Laws&                  res,
       const Coords2d&  cur  = pr.Value(i);
       Standard_Real wcur = cur.X();
       if (recadre)
-        wcur = ElCLib::InPeriod(wcur, deb, fin);
+        wcur = ElCLib1::InPeriod(wcur, deb, fin);
       if (curdeb - tol3d <= wcur && wcur <= curfin + tol3d)
       {
         if (wcur - curdeb < tol3d)
@@ -531,7 +531,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
         if (len == 1)
           curfin = LastParameter(k); // because InPeriod will make 0.!!!
         else
-          curfin = ElCLib::InPeriod(LastParameter(k), spinedeb, spinefin);
+          curfin = ElCLib1::InPeriod(LastParameter(k), spinedeb, spinefin);
         Handle(Law_Constant) curloi = new Law_Constant();
         curloi->Set(Rdeb, curdeb, curfin);
         list.Append(curloi);
@@ -572,7 +572,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
     {
       Rdeb                        = Radius(ind(1));
       curfin                      = LastParameter(ind(1));
-      curfin                      = ElCLib::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
+      curfin                      = ElCLib1::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
       curfin                      = Min(fin, curfin);
       Handle(Law_Constant) curloi = new Law_Constant();
       curloi->Set(Rdeb, curdeb, curfin);
@@ -682,13 +682,13 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
       curfin = LastParameter(ind(icur));
       if (IsPeriodic())
       {
-        curfin = ElCLib::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
+        curfin = ElCLib1::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
         if (ind(icur) == ind(nbed))
         {
           // Attention the curfin can be wrong if the last edge passes
           // above the  origin periodic spline.
           Standard_Real biddeb = FirstParameter(ind(icur));
-          biddeb               = ElCLib::InPeriod(biddeb, spinedeb + tol3d, spinefin + tol3d);
+          biddeb               = ElCLib1::InPeriod(biddeb, spinedeb + tol3d, spinefin + tol3d);
           if (biddeb >= curfin)
             curfin = fin;
           else
@@ -710,7 +710,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
     {
       curfin = LastParameter(ind(icur));
       if (IsPeriodic())
-        curfin = ElCLib::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
+        curfin = ElCLib1::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
       curfin     = Min(fin, curfin);
       lawencours = Standard_True;
       if (ind(icur) == ind(nbed))
@@ -721,8 +721,8 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
         {
           Standard_Real biddeb = FirstParameter(ind(icur));
           curfin               = LastParameter(ind(icur));
-          biddeb               = ElCLib::InPeriod(biddeb, spinedeb + tol3d, spinefin + tol3d);
-          curfin               = ElCLib::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
+          biddeb               = ElCLib1::InPeriod(biddeb, spinedeb + tol3d, spinefin + tol3d);
+          curfin               = ElCLib1::InPeriod(curfin, spinedeb + tol3d, spinefin + tol3d);
           if (biddeb >= curfin)
             curfin = fin;
           else

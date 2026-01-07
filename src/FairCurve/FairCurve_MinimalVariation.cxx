@@ -179,7 +179,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
 
   // Polynomes of Hermite
   math_Matrix HermiteCoef(1, L, 1, L);
-  Ok = PLib::HermiteCoefficients(0, 1, NewConstraintOrder1, NewConstraintOrder2, HermiteCoef);
+  Ok = PLib1::HermiteCoefficients(0, 1, NewConstraintOrder1, NewConstraintOrder2, HermiteCoef);
   if (!Ok)
     return Standard_False;
 
@@ -251,7 +251,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
     Interpolation(ii).SetXY(AuxXY);
   }
   // Conversion into BSpline of the same structure as the current batten.
-  PLib::CoefficientsPoles(Interpolation, PLib::NoWeights(), HermitePoles, PLib::NoWeights());
+  PLib1::CoefficientsPoles(Interpolation, PLib1::NoWeights(), HermitePoles, PLib1::NoWeights());
 
   mults.Init(L);
 

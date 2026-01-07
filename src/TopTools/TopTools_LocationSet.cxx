@@ -200,20 +200,20 @@ static void ReadTrsf(Transform3d& T, Standard_IStream& IS)
   Standard_Real V1[3], V2[3], V3[3];
   Standard_Real V[3];
 
-  GeomTools::GetReal(IS, V1[0]);
-  GeomTools::GetReal(IS, V1[1]);
-  GeomTools::GetReal(IS, V1[2]);
-  GeomTools::GetReal(IS, V[0]);
+  GeomTools1::GetReal(IS, V1[0]);
+  GeomTools1::GetReal(IS, V1[1]);
+  GeomTools1::GetReal(IS, V1[2]);
+  GeomTools1::GetReal(IS, V[0]);
 
-  GeomTools::GetReal(IS, V2[0]);
-  GeomTools::GetReal(IS, V2[1]);
-  GeomTools::GetReal(IS, V2[2]);
-  GeomTools::GetReal(IS, V[1]);
+  GeomTools1::GetReal(IS, V2[0]);
+  GeomTools1::GetReal(IS, V2[1]);
+  GeomTools1::GetReal(IS, V2[2]);
+  GeomTools1::GetReal(IS, V[1]);
 
-  GeomTools::GetReal(IS, V3[0]);
-  GeomTools::GetReal(IS, V3[1]);
-  GeomTools::GetReal(IS, V3[2]);
-  GeomTools::GetReal(IS, V[2]);
+  GeomTools1::GetReal(IS, V3[0]);
+  GeomTools1::GetReal(IS, V3[1]);
+  GeomTools1::GetReal(IS, V3[2]);
+  GeomTools1::GetReal(IS, V[2]);
 
   T.SetValues(V1[0], V1[1], V1[2], V[0], V2[0], V2[1], V2[2], V[1], V3[0], V3[1], V3[2], V[2]);
   return;

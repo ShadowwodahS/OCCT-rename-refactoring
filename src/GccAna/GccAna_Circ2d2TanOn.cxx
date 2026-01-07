@@ -125,7 +125,7 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
     WellDone      = Standard_True;
   }
   gp_Lin2d                 L(center1, gp_Dir2d(center2.XY() - center1.XY()));
-  IntAna2d_AnaIntersection Intp(OnLine, L);
+  AnalyticIntersection2d Intp(OnLine, L);
   if (Intp.IsDone())
   {
     if (!Intp.IsEmpty())
@@ -177,12 +177,12 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
           gp_Dir2d dc2(center2.XY() - Center.XY());
           pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(i) * dc1.XY());
           pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(i) * dc2.XY());
-          par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-          pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
-          par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-          pararg2(NbrSol)   = ElCLib::Parameter(C2, pnttg2sol(NbrSol));
+          par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+          pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
+          par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+          pararg2(NbrSol)   = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));
           pntcen(NbrSol)    = cirsol(NbrSol).Location();
-          parcen3(NbrSol)   = ElCLib::Parameter(OnLine, pntcen(NbrSol));
+          parcen3(NbrSol)   = ElCLib1::Parameter(OnLine, pntcen(NbrSol));
         }
       }
     }
@@ -215,11 +215,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
         }
         else if (typ == GccInt_Hpr)
         {
-          Intp.Perform(OnLine, IntAna2d_Conic(Sol->Hyperbola()));
+          Intp.Perform(OnLine, Conic2d(Sol->Hyperbola()));
         }
         else if (typ == GccInt_Ell)
         {
-          Intp.Perform(OnLine, IntAna2d_Conic(Sol->Ellipse()));
+          Intp.Perform(OnLine, Conic2d(Sol->Ellipse()));
         }
         if (Intp.IsDone())
         {
@@ -350,8 +350,8 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                     TheSame1(NbrSol) = 0;
                     gp_Dir2d dc1(center1.XY() - Center.XY());
                     pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc1.XY());
-                    par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                    pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg2sol(NbrSol));
+                    par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                    pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg2sol(NbrSol));
                   }
                   if (Center.Distance(center2) <= Tol && Abs(Radius(k) - C2.Radius()) <= Tol)
                   {
@@ -362,11 +362,11 @@ Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                     TheSame2(NbrSol) = 0;
                     gp_Dir2d dc2(center2.XY() - Center.XY());
                     pnttg2sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(k) * dc2.XY());
-                    par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-                    pararg2(NbrSol)   = ElCLib::Parameter(C2, pnttg2sol(NbrSol));
+                    par2sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                    pararg2(NbrSol)   = ElCLib1::Parameter(C2, pnttg2sol(NbrSol));
                   }
                   pntcen(NbrSol)  = Center;
-                  parcen3(NbrSol) = ElCLib::Parameter(OnLine, pntcen(NbrSol));
+                  parcen3(NbrSol) = ElCLib1::Parameter(OnLine, pntcen(NbrSol));
                 }
               }
             }

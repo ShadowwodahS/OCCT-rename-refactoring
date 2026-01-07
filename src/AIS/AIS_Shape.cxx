@@ -51,16 +51,16 @@ IMPLEMENT_STANDARD_RTTIEXT(VisualShape, VisualEntity)
 
 // Auxiliary macros
 #define replaceAspectWithDef(theMap, theAspect)                                                    \
-  if (myDrawer->Link()->theAspect()->Aspect() != myDrawer->theAspect()->Aspect())                  \
+  if (myDrawer->Link1()->theAspect()->Aspect() != myDrawer->theAspect()->Aspect())                  \
   {                                                                                                \
-    theMap.Bind(myDrawer->theAspect()->Aspect(), myDrawer->Link()->theAspect()->Aspect());         \
+    theMap.Bind(myDrawer->theAspect()->Aspect(), myDrawer->Link1()->theAspect()->Aspect());         \
   }
 
 // Auxiliary macros for replaceWithNewOwnAspects()
 #define replaceAspectWithOwn(theMap, theAspect)                                                    \
-  if (myDrawer->Link()->theAspect()->Aspect() != myDrawer->theAspect()->Aspect())                  \
+  if (myDrawer->Link1()->theAspect()->Aspect() != myDrawer->theAspect()->Aspect())                  \
   {                                                                                                \
-    theMap.Bind(myDrawer->Link()->theAspect()->Aspect(), myDrawer->theAspect()->Aspect());         \
+    theMap.Bind(myDrawer->Link1()->theAspect()->Aspect(), myDrawer->theAspect()->Aspect());         \
   }
 
 //=================================================================================================
@@ -234,7 +234,7 @@ void VisualShape::computeHlrPresentation(const Handle(CameraOn3d)&   theProjecto
     }
   }
 
-  const Handle(StyleDrawer)& aDefDrawer = theDrawer->Link();
+  const Handle(StyleDrawer)& aDefDrawer = theDrawer->Link1();
   if (aDefDrawer->DrawHiddenLine())
   {
     theDrawer->EnableDrawHiddenLine();
@@ -319,7 +319,7 @@ void VisualShape::ComputeSelection(const Handle(SelectionContainer)& aSelection,
     if (aMode == 0)
     {
       aSelection->Clear();
-      Bnd_Box                       B             = BoundingBox();
+      Box2                       B             = BoundingBox();
       Handle(StdSelect_BRepOwner)   aOwner        = new StdSelect_BRepOwner(shape, this);
       Handle(Select3D_SensitiveBox) aSensitiveBox = new Select3D_SensitiveBox(aOwner, B);
       aSelection->Add(aSensitiveBox);
@@ -402,7 +402,7 @@ void VisualShape::UnsetColor()
   }
 
   hasOwnColor = Standard_False;
-  myDrawer->SetColor(myDrawer->HasLink() ? myDrawer->Link()->Color()
+  myDrawer->SetColor(myDrawer->HasLink() ? myDrawer->Link1()->Color()
                                          : Quantity_Color(Quantity_NOC_WHITE));
 
   Graphic3d_MapOfAspectsToAspects aReplaceMap;
@@ -426,36 +426,36 @@ void VisualShape::UnsetColor()
     Quantity_Color aColor = Quantity_NOC_YELLOW;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Line, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Line, aColor);
     }
     myDrawer->LineAspect()->SetColor(aColor);
     aColor = Quantity_NOC_RED;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Wire, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Wire, aColor);
     }
     myDrawer->WireAspect()->SetColor(aColor);
     aColor = Quantity_NOC_GREEN;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Free, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Free, aColor);
     }
     myDrawer->FreeBoundaryAspect()->SetColor(aColor);
     aColor = Quantity_NOC_YELLOW;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_UnFree, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_UnFree, aColor);
     }
     myDrawer->UnFreeBoundaryAspect()->SetColor(aColor);
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_Seen, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_Seen, aColor);
     }
     myDrawer->SeenLineAspect()->SetColor(aColor);
     aColor = Quantity_NOC_BLACK;
     if (myDrawer->HasLink())
     {
-      AIS_GraphicTool::GetLineColor(myDrawer->Link(), AIS_TOA_FaceBoundary, aColor);
+      AIS_GraphicTool::GetLineColor(myDrawer->Link1(), AIS_TOA_FaceBoundary, aColor);
     }
     myDrawer->FaceBoundaryAspect()->SetColor(aColor);
   }
@@ -471,20 +471,20 @@ void VisualShape::UnsetColor()
     Quantity_Color                 anInteriorColors[2] = {Quantity_NOC_CYAN1, Quantity_NOC_CYAN1};
     if (myDrawer->HasLink())
     {
-      anInteriorColors[0] = myDrawer->Link()->ShadingAspect()->Aspect()->InteriorColor();
-      anInteriorColors[1] = myDrawer->Link()->ShadingAspect()->Aspect()->BackInteriorColor();
+      anInteriorColors[0] = myDrawer->Link1()->ShadingAspect()->Aspect()->InteriorColor();
+      anInteriorColors[1] = myDrawer->Link1()->ShadingAspect()->Aspect()->BackInteriorColor();
     }
     if (HasMaterial() || myDrawer->HasLink())
     {
       const Handle(Graphic3d_AspectFillArea3d)& aSrcAspect =
-        (HasMaterial() ? myDrawer : myDrawer->Link())->ShadingAspect()->Aspect();
+        (HasMaterial() ? myDrawer : myDrawer->Link1())->ShadingAspect()->Aspect();
       mat = myCurrentFacingModel != Aspect_TOFM_BACK_SIDE ? aSrcAspect->FrontMaterial()
                                                           : aSrcAspect->BackMaterial();
     }
     if (HasMaterial())
     {
       const Quantity_Color aColor =
-        myDrawer->HasLink() ? myDrawer->Link()->ShadingAspect()->Color(myCurrentFacingModel)
+        myDrawer->HasLink() ? myDrawer->Link1()->ShadingAspect()->Color(myCurrentFacingModel)
                             : aDefaultMat.AmbientColor();
       mat.SetColor(aColor);
     }
@@ -576,17 +576,17 @@ void VisualShape::UnsetWidth()
   else
   {
     myDrawer->LineAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Line) : 1.);
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Line) : 1.);
     myDrawer->WireAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Wire) : 1.);
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Wire) : 1.);
     myDrawer->FreeBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Free) : 1.);
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Free) : 1.);
     myDrawer->UnFreeBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_UnFree) : 1.);
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_UnFree) : 1.);
     myDrawer->SeenLineAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_Seen) : 1.);
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_Seen) : 1.);
     myDrawer->FaceBoundaryAspect()->SetWidth(
-      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link(), AIS_TOA_FaceBoundary)
+      myDrawer->HasLink() ? AIS_GraphicTool::GetLineWidth(myDrawer->Link1(), AIS_TOA_FaceBoundary)
                           : 1.);
     SynchronizeAspects();
   }
@@ -652,7 +652,7 @@ void VisualShape::UnsetMaterial()
     if (myDrawer->HasLink())
     {
       myDrawer->ShadingAspect()->SetMaterial(
-        myDrawer->Link()->ShadingAspect()->Material(myCurrentFacingModel),
+        myDrawer->Link1()->ShadingAspect()->Material(myCurrentFacingModel),
         myCurrentFacingModel);
     }
     if (HasColor())
@@ -724,7 +724,7 @@ void VisualShape::UnsetTransparency()
 
 //=================================================================================================
 
-const Bnd_Box& VisualShape::BoundingBox()
+const Box2& VisualShape::BoundingBox()
 {
   if (myshape.ShapeType() == TopAbs_COMPOUND && myshape.NbChildren() == 0)
   {
@@ -792,7 +792,7 @@ void VisualShape::SetOwnDeviationAngle(const Standard_Real theAngle)
 void VisualShape::SetAngleAndDeviation(const Standard_Real anAngle)
 {
   Standard_Real OutAngl, OutDefl;
-  HLRBRep::PolyHLRAngleAndDeflection(anAngle, OutAngl, OutDefl);
+  HLRBRep1::PolyHLRAngleAndDeflection(anAngle, OutAngl, OutDefl);
   SetOwnDeviationAngle(anAngle);
   SetOwnDeviationCoefficient(OutDefl);
   myInitAng = anAngle;

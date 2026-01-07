@@ -27,19 +27,19 @@ void Extrema_GlobOptFuncConicS::value(Standard_Real su, Standard_Real sv, Standa
   switch (myCType)
   {
     case GeomAbs_Line:
-      ct = ElCLib::Parameter(myLin, aPS);
+      ct = ElCLib1::Parameter(myLin, aPS);
       break;
     case GeomAbs_Circle:
-      ct = ElCLib::Parameter(myCirc, aPS);
+      ct = ElCLib1::Parameter(myCirc, aPS);
       break;
     case GeomAbs_Ellipse:
-      ct = ElCLib::Parameter(myElips, aPS);
+      ct = ElCLib1::Parameter(myElips, aPS);
       break;
     case GeomAbs_Hyperbola:
-      ct = ElCLib::Parameter(myHypr, aPS);
+      ct = ElCLib1::Parameter(myHypr, aPS);
       break;
     case GeomAbs_Parabola:
-      ct = ElCLib::Parameter(myParab, aPS);
+      ct = ElCLib1::Parameter(myParab, aPS);
       break;
     default:
       F = Precision::Infinite();
@@ -135,7 +135,7 @@ void Extrema_GlobOptFuncConicS::LoadConic(const Adaptor3d_Curve* C,
     constexpr Standard_Real aTMax = 2. * M_PI + Precision::PConfusion();
     if (myTf > aTMax || myTf < -Precision::PConfusion() || Abs(myTl - myTf) > aTMax)
     {
-      ElCLib::AdjustPeriodic(0.,
+      ElCLib1::AdjustPeriodic(0.,
                              2. * M_PI,
                              Min(Abs(myTl - myTf) / 2, Precision::PConfusion()),
                              myTf,
@@ -199,19 +199,19 @@ Standard_Real Extrema_GlobOptFuncConicS::ConicParameter(const math_Vector& theUV
   switch (myCType)
   {
     case GeomAbs_Line:
-      ct = ElCLib::Parameter(myLin, aPS);
+      ct = ElCLib1::Parameter(myLin, aPS);
       break;
     case GeomAbs_Circle:
-      ct = ElCLib::Parameter(myCirc, aPS);
+      ct = ElCLib1::Parameter(myCirc, aPS);
       break;
     case GeomAbs_Ellipse:
-      ct = ElCLib::Parameter(myElips, aPS);
+      ct = ElCLib1::Parameter(myElips, aPS);
       break;
     case GeomAbs_Hyperbola:
-      ct = ElCLib::Parameter(myHypr, aPS);
+      ct = ElCLib1::Parameter(myHypr, aPS);
       break;
     case GeomAbs_Parabola:
-      ct = ElCLib::Parameter(myParab, aPS);
+      ct = ElCLib1::Parameter(myParab, aPS);
       break;
     default:
       ct = myTf;

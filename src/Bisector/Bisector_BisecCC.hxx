@@ -99,7 +99,7 @@ public:
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling
-  //! or a complex transformation obtained by combination of
+  //! or a complex1 transformation obtained by combination of
   //! the previous elementaries transformations.
   Standard_EXPORT void Transform(const gp_Trsf2d& T) Standard_OVERRIDE;
 
@@ -211,7 +211,7 @@ private:
 
   Standard_EXPORT void Sign(const Standard_Integer Index, const Standard_Real Sign);
 
-  Standard_EXPORT void Polygon(const Bisector_PolyBis& Poly);
+  Standard_EXPORT void Polygon(const Bisector_PolyBis& Poly1);
 
   Standard_EXPORT void DistMax(const Standard_Real DistMax);
 

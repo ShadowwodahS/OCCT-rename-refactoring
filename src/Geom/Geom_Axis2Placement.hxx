@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(Geom_Axis2Placement, Geom_AxisPlacement)
 //! retained. The "main Direction" is also the "Z Direction".
 //! Note: Geom_Axis2Placement coordinate systems
 //! provide the same kind of "geometric" services as
-//! Frame3d coordinate systems but have more complex
+//! Frame3d coordinate systems but have more complex1
 //! data structures. The geometric objects provided by
 //! the Geom package use Frame3d objects to include
 //! coordinate systems in their data structures, or to

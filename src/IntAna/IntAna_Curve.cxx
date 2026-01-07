@@ -52,7 +52,7 @@
 
 //=================================================================================================
 
-IntAna_Curve::IntAna_Curve()
+Curve1::Curve1()
     : Z0Cte(0.0),
       Z0Sin(0.0),
       Z0Cos(0.0),
@@ -92,7 +92,7 @@ IntAna_Curve::IntAna_Curve()
 // function : SetConeQuadValues
 // purpose  : Description de l intersection Cone Quadrique
 //=======================================================================
-void IntAna_Curve::SetConeQuadValues(const gp_Cone&         Cone,
+void Curve1::SetConeQuadValues(const gp_Cone&         Cone,
                                      const Standard_Real    Qxx,
                                      const Standard_Real    Qyy,
                                      const Standard_Real    Qzz,
@@ -158,7 +158,7 @@ void IntAna_Curve::SetConeQuadValues(const gp_Cone&         Cone,
 // function : SetCylinderQuadValues
 // purpose  : Description de l intersection Cylindre Quadrique
 //=======================================================================
-void IntAna_Curve::SetCylinderQuadValues(const gp_Cylinder&     Cyl,
+void Curve1::SetCylinderQuadValues(const gp_Cylinder&     Cyl,
                                          const Standard_Real    Qxx,
                                          const Standard_Real    Qyy,
                                          const Standard_Real    Qzz,
@@ -218,14 +218,14 @@ void IntAna_Curve::SetCylinderQuadValues(const gp_Cylinder&     Cyl,
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::IsOpen() const
+Standard_Boolean Curve1::IsOpen() const
 {
   return (RestrictedInf && RestrictedSup);
 }
 
 //=================================================================================================
 
-void IntAna_Curve::Domain(Standard_Real& theFirst, Standard_Real& theLast) const
+void Curve1::Domain(Standard_Real& theFirst, Standard_Real& theLast) const
 {
   if (RestrictedInf && RestrictedSup)
   {
@@ -234,13 +234,13 @@ void IntAna_Curve::Domain(Standard_Real& theFirst, Standard_Real& theLast) const
   }
   else
   {
-    throw Standard_DomainError("IntAna_Curve::Domain");
+    throw Standard_DomainError("Curve1::Domain");
   }
 }
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::IsConstant() const
+Standard_Boolean Curve1::IsConstant() const
 {
   //-- ???  Pas facile de decider a la seule vue des Param.
   return (Standard_False);
@@ -248,35 +248,35 @@ Standard_Boolean IntAna_Curve::IsConstant() const
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::IsFirstOpen() const
+Standard_Boolean Curve1::IsFirstOpen() const
 {
   return (firstbounded);
 }
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::IsLastOpen() const
+Standard_Boolean Curve1::IsLastOpen() const
 {
   return (lastbounded);
 }
 
 //=================================================================================================
 
-void IntAna_Curve::SetIsFirstOpen(const Standard_Boolean Flag)
+void Curve1::SetIsFirstOpen(const Standard_Boolean Flag)
 {
   firstbounded = Flag;
 }
 
 //=================================================================================================
 
-void IntAna_Curve::SetIsLastOpen(const Standard_Boolean Flag)
+void Curve1::SetIsLastOpen(const Standard_Boolean Flag)
 {
   lastbounded = Flag;
 }
 
 //=================================================================================================
 
-void IntAna_Curve::InternalUVValue(const Standard_Real theta,
+void Curve1::InternalUVValue(const Standard_Real theta,
                                    Standard_Real&      Param1,
                                    Standard_Real&      Param2,
                                    Standard_Real&      A,
@@ -298,7 +298,7 @@ void IntAna_Curve::InternalUVValue(const Standard_Real theta,
       || (Theta > (DomainSup + DomainSup - DomainInf) * aRelTolp))
   {
     SigneSqrtDis = 0.;
-    throw Standard_DomainError("IntAna_Curve::Domain");
+    throw Standard_DomainError("Curve1::Domain");
   }
 
   if (Abs(Theta - DomainSup) < aDT)
@@ -373,7 +373,7 @@ void IntAna_Curve::InternalUVValue(const Standard_Real theta,
 
 //=================================================================================================
 
-Point3d IntAna_Curve::Value(const Standard_Real theta)
+Point3d Curve1::Value(const Standard_Real theta)
 {
   Standard_Real A, B, C, U, V, sint, cost, SigneSqrtDis;
   //
@@ -392,7 +392,7 @@ Point3d IntAna_Curve::Value(const Standard_Real theta)
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, Point3d& Pt, Vector3d& Vec)
+Standard_Boolean Curve1::D1u(const Standard_Real theta, Point3d& Pt, Vector3d& Vec)
 {
   //-- Pour detecter le cas ou le calcul est impossible
   Standard_Real A, B, C, U, V, sint, cost, SigneSqrtDis;
@@ -433,7 +433,7 @@ Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, Point3d& Pt, Vecto
 //           Sometimes aline can be self-intersected line (see bug #29807 where
 //            ALine goes through the cone apex).
 //=======================================================================
-void IntAna_Curve::FindParameter(const Point3d& theP, TColStd_ListOfReal& theParams) const
+void Curve1::FindParameter(const Point3d& theP, TColStd_ListOfReal& theParams) const
 {
   const Standard_Real aPIpPI = M_PI + M_PI, anEpsAng = 1.e-8,
                       InternalPrecision =
@@ -448,13 +448,13 @@ void IntAna_Curve::FindParameter(const Point3d& theP, TColStd_ListOfReal& thePar
   {
     case GeomAbs_Cylinder: {
       Standard_Real aZ;
-      ElSLib::CylinderParameters(Ax3, RCyl, theP, aTheta, aZ);
+      ElSLib1::CylinderParameters(Ax3, RCyl, theP, aTheta, aZ);
     }
     break;
 
     case GeomAbs_Cone: {
       Standard_Real aZ;
-      ElSLib::ConeParameters(Ax3, RCyl, Angle, theP, aTheta, aZ);
+      ElSLib1::ConeParameters(Ax3, RCyl, Angle, theP, aTheta, aZ);
     }
     break;
 
@@ -520,7 +520,7 @@ void IntAna_Curve::FindParameter(const Point3d& theP, TColStd_ListOfReal& thePar
 
 //=================================================================================================
 
-Point3d IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _V) const
+Point3d Curve1::InternalValue(const Standard_Real U, const Standard_Real _V) const
 {
   //-- std::cout<<" ["<<U<<","<<V<<"]";
   Standard_Real V = _V;
@@ -542,14 +542,14 @@ Point3d IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _
       //--               Z = (V-RCyl) / Tan(SemiAngle)--
       //------------------------------------------------
       //-- Angle Vaut Cone.SemiAngle()
-      return (ElSLib::ConeValue(U, (V - RCyl) / Sin(Angle), Ax3, RCyl, Angle));
+      return (ElSLib1::ConeValue(U, (V - RCyl) / Sin(Angle), Ax3, RCyl, Angle));
     }
     break;
 
     case GeomAbs_Cylinder:
-      return (ElSLib::CylinderValue(U, V, Ax3, RCyl));
+      return (ElSLib1::CylinderValue(U, V, Ax3, RCyl));
     case GeomAbs_Sphere:
-      return (ElSLib::SphereValue(U, V, Ax3, RCyl));
+      return (ElSLib1::SphereValue(U, V, Ax3, RCyl));
     default:
       return (Point3d(0.0, 0.0, 0.0));
   }
@@ -558,11 +558,11 @@ Point3d IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _
 //
 //=================================================================================================
 
-void IntAna_Curve::SetDomain(const Standard_Real theFirst, const Standard_Real theLast)
+void Curve1::SetDomain(const Standard_Real theFirst, const Standard_Real theLast)
 {
   if (theLast <= theFirst)
   {
-    throw Standard_DomainError("IntAna_Curve::Domain");
+    throw Standard_DomainError("Curve1::Domain");
   }
   //
   myFirstParameter = theFirst;

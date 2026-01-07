@@ -27,7 +27,7 @@ typedef QExplicitlySharedDataPointer<DFBrowser_ItemBase> DFBrowser_ItemBasePtr;
 
 //! \class DFBrowser_ItemBase
 //! \brief Declaration of the tree model base item.
-//! This item provide method to process a TDF label.
+//! This item provide method to process a TDF1 label.
 class DFBrowser_ItemBase : public TreeModel_ItemBase
 {
 public:

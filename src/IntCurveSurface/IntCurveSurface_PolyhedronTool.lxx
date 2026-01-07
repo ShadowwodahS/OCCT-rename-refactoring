@@ -14,7 +14,7 @@
 
 #include ThePolyhedron_hxx
 
-inline const Bnd_Box& IntCurveSurface_PolyhedronTool::Bounding(const ThePolyhedron& thePolyh)
+inline const Box2& IntCurveSurface_PolyhedronTool::Bounding(const ThePolyhedron& thePolyh)
 {
   return thePolyh.Bounding();
 }
@@ -36,13 +36,13 @@ inline Standard_Integer IntCurveSurface_PolyhedronTool::NbTriangles(const ThePol
   return thePolyh.NbTriangles();
 }
 
-inline void IntCurveSurface_PolyhedronTool::Triangle(const ThePolyhedron&   thePolyh,
+inline void IntCurveSurface_PolyhedronTool::Triangle1(const ThePolyhedron&   thePolyh,
                                                      const Standard_Integer Index,
                                                      Standard_Integer&      P1,
                                                      Standard_Integer&      P2,
                                                      Standard_Integer&      P3)
 {
-  thePolyh.Triangle(Index, P1, P2, P3);
+  thePolyh.Triangle1(Index, P1, P2, P3);
 }
 
 inline const Point3d& IntCurveSurface_PolyhedronTool::Point(const ThePolyhedron&   thePolyh,

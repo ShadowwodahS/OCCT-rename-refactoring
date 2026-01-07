@@ -197,7 +197,7 @@ Standard_Boolean TopOpeBRepTool1::Regularize(const TopoFace&                  th
                  const Standard_Boolean chklarge = Standard_True)
 {
   // purpose :
-  //   Getting <ismaller>, index of the smallest Bnd Box
+  //   Getting <ismaller>, index of the smallest Bnd Box1
   //   if B(i) is IN B(j): ismaller = i,
   //                       return IN.
   //   else: ismaller = 1,

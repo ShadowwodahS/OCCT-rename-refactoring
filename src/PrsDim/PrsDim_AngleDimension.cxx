@@ -306,11 +306,11 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
   gp_Circ aCircle = aConstructCircle.Value();
 
   // compute angle parameters of arc end-points on circle
-  Standard_Real aParamBeg = ElCLib::Parameter(aCircle, theFirstAttach);
-  Standard_Real aParamEnd = ElCLib::Parameter(aCircle, theSecondAttach);
-  ElCLib::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
+  Standard_Real aParamBeg = ElCLib1::Parameter(aCircle, theFirstAttach);
+  Standard_Real aParamEnd = ElCLib1::Parameter(aCircle, theSecondAttach);
+  ElCLib1::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
 
-  return ElCLib::Value((aParamBeg + aParamEnd) * 0.5, aCircle);
+  return ElCLib1::Value((aParamBeg + aParamEnd) * 0.5, aCircle);
 }
 
 //=================================================================================================
@@ -440,9 +440,9 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
   gp_Circ aCircle = aConstructCircle.Value();
 
   // compute angle parameters of arc end-points on circle
-  Standard_Real aParamBeg = ElCLib::Parameter(aCircle, theFirstAttach);
-  Standard_Real aParamEnd = ElCLib::Parameter(aCircle, theSecondAttach);
-  ElCLib::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
+  Standard_Real aParamBeg = ElCLib1::Parameter(aCircle, theFirstAttach);
+  Standard_Real aParamEnd = ElCLib1::Parameter(aCircle, theSecondAttach);
+  ElCLib1::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
 
   // middle point of arc parameter on circle
   Standard_Real aParamMid = (aParamBeg + aParamEnd) * 0.5;
@@ -450,7 +450,7 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
   // add text graphical primitives
   if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
   {
-    Point3d aTextPos = ElCLib::Value(aParamMid, aCircle);
+    Point3d aTextPos = ElCLib1::Value(aParamMid, aCircle);
     Dir3d aTextDir = gce_MakeDir(theFirstAttach, theSecondAttach);
 
     // Drawing text
@@ -473,8 +473,8 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
     Standard_Real aSectorOfText = theTextWidth / aRadius;
     Standard_Real aTextBegin    = aParamMid - aSectorOfText * 0.5;
     Standard_Real aTextEnd      = aParamMid + aSectorOfText * 0.5;
-    Point3d        aTextPntBeg   = ElCLib::Value(aTextBegin, aCircle);
-    Point3d        aTextPntEnd   = ElCLib::Value(aTextEnd, aCircle);
+    Point3d        aTextPntBeg   = ElCLib1::Value(aTextBegin, aCircle);
+    Point3d        aTextPntEnd   = ElCLib1::Value(aTextEnd, aCircle);
 
     // Drawing arcs
     if (aTextBegin > aParamBeg)
@@ -901,12 +901,12 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     }
 
     // Handle the case of Pi angle
-    const Standard_Real aParam11 = ElCLib::Parameter(aFirstLin, aFirstPoint1);
-    const Standard_Real aParam12 = ElCLib::Parameter(aFirstLin, aLastPoint1);
-    const Standard_Real aParam21 = ElCLib::Parameter(aFirstLin, aFirstPoint2);
-    const Standard_Real aParam22 = ElCLib::Parameter(aFirstLin, aLastPoint2);
+    const Standard_Real aParam11 = ElCLib1::Parameter(aFirstLin, aFirstPoint1);
+    const Standard_Real aParam12 = ElCLib1::Parameter(aFirstLin, aLastPoint1);
+    const Standard_Real aParam21 = ElCLib1::Parameter(aFirstLin, aFirstPoint2);
+    const Standard_Real aParam22 = ElCLib1::Parameter(aFirstLin, aLastPoint2);
     myCenterPoint =
-      ElCLib::Value((Min(aParam11, aParam12) + Max(aParam21, aParam22)) * 0.5, aFirstLin);
+      ElCLib1::Value((Min(aParam11, aParam12) + Max(aParam21, aParam22)) * 0.5, aFirstLin);
     myFirstPoint  = myCenterPoint.Translated(Vector3d(aFirstLin.Direction()) * Abs(GetFlyout()));
     mySecondPoint = myCenterPoint.XYZ()
                     + (aFirstLin.Direction().IsEqual(aSecondLin.Direction(), Precision::Angular())
@@ -916,10 +916,10 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
   else
   {
     // Find intersection
-    gp_Lin2d aFirstLin2d  = ProjLib::Project(theComputedPlane, aFirstLin);
-    gp_Lin2d aSecondLin2d = ProjLib::Project(theComputedPlane, aSecondLin);
+    gp_Lin2d aFirstLin2d  = ProjLib1::Project(theComputedPlane, aFirstLin);
+    gp_Lin2d aSecondLin2d = ProjLib1::Project(theComputedPlane, aSecondLin);
 
-    IntAna2d_AnaIntersection anInt2d(aFirstLin2d, aSecondLin2d);
+    AnalyticIntersection2d anInt2d(aFirstLin2d, aSecondLin2d);
     gp_Pnt2d                 anIntersectPoint;
     if (!anInt2d.IsDone() || anInt2d.IsEmpty())
     {
@@ -927,7 +927,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     }
 
     anIntersectPoint = gp_Pnt2d(anInt2d.Point(1).Value());
-    myCenterPoint    = ElCLib::To3d(theComputedPlane.Position().Ax2(), anIntersectPoint);
+    myCenterPoint    = ElCLib1::To3d(theComputedPlane.Position().Ax2(), anIntersectPoint);
 
     if (isInfinite1 || isInfinite2)
     {
@@ -1098,9 +1098,9 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
     Vector3d aVec1(aFirst1, aLast1);
 
     // Projection <aFirst> on <aLin>
-    Point3d aFirst2 = ElCLib::Value(ElCLib::Parameter(aLin, aFirst1), aLin);
+    Point3d aFirst2 = ElCLib1::Value(ElCLib1::Parameter(aLin, aFirst1), aLin);
     // Projection <aLast> on <aLin>
-    Point3d aLast2 = ElCLib::Value(ElCLib::Parameter(aLin, aLast1), aLin);
+    Point3d aLast2 = ElCLib1::Value(ElCLib1::Parameter(aLin, aLast1), aLin);
 
     Vector3d aVec2(aFirst2, aLast2);
 
@@ -1150,8 +1150,8 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
     aCircVmin        = aTmpCirc;
   }
 
-  myFirstPoint  = ElCLib::Value(0, aCircle);
-  mySecondPoint = ElCLib::Value(M_PI, aCircle);
+  myFirstPoint  = ElCLib1::Value(0, aCircle);
+  mySecondPoint = ElCLib1::Value(M_PI, aCircle);
   return Standard_True;
 }
 
@@ -1309,8 +1309,8 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
   theExtensionSize = aDimensionAspect->ArrowAspect()->Length();
   theAlignment     = Prs3d_DTHP_Center;
 
-  Standard_Real aParamBeg = ElCLib::Parameter(aCircle, aFirstAttach);
-  Standard_Real aParamEnd = ElCLib::Parameter(aCircle, aSecondAttach);
+  Standard_Real aParamBeg = ElCLib1::Parameter(aCircle, aFirstAttach);
+  Standard_Real aParamEnd = ElCLib1::Parameter(aCircle, aSecondAttach);
   if (aParamEnd < aParamBeg)
   {
     Standard_Real aParam = aParamEnd;
@@ -1318,8 +1318,8 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
     aParamBeg            = aParam;
   }
 
-  ElCLib::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
-  Standard_Real aTextPar = ElCLib::Parameter(aCircle, theTextPos);
+  ElCLib1::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
+  Standard_Real aTextPar = ElCLib1::Parameter(aCircle, theTextPos);
 
   // Horizontal center
   if (aTextPar > aParamBeg && aTextPar < aParamEnd)
@@ -1330,7 +1330,7 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
 
   aParamBeg += M_PI;
   aParamEnd += M_PI;
-  ElCLib::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
+  ElCLib1::AdjustPeriodic(0.0, M_PI * 2, Precision::PConfusion(), aParamBeg, aParamEnd);
 
   if (aTextPar > aParamBeg && aTextPar < aParamEnd)
   {

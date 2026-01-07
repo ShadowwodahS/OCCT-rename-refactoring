@@ -787,7 +787,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
                 {
                   tpoles.SetValue(
                     ik,
-                    ElSLib::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
+                    ElSLib1::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
                 }
                 //
                 Handle(BSplineCurve3d) BS = new BSplineCurve3d(tpoles,
@@ -853,7 +853,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
                 {
                   tpoles.SetValue(
                     ik,
-                    ElSLib::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
+                    ElSLib1::Value(tpoles2d.Value(ik).X(), tpoles2d.Value(ik).Y(), Pln));
                 }
                 //
                 Handle(BSplineCurve3d) BS = new BSplineCurve3d(tpoles,
@@ -1156,7 +1156,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
   // in class ProjLib_Function the range of parameters is shrank by 1.e-09
   if ((theLast - theFirst) > 2.e-09)
   {
-    theCurve2d = GeomProjLib::Curve2d(theCurve,
+    theCurve2d = GeomProjLib1::Curve2d(theCurve,
                                       theFirst,
                                       theLast,
                                       theSurface,
@@ -1169,7 +1169,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
     {
       // proj. a circle that goes through the pole on a sphere to the sphere
       theTol += Precision::Confusion();
-      theCurve2d = GeomProjLib::Curve2d(theCurve, theFirst, theLast, theSurface, theTol);
+      theCurve2d = GeomProjLib1::Curve2d(theCurve, theFirst, theLast, theSurface, theTol);
     }
     const Handle(TypeInfo)& aType = theCurve2d->DynamicType();
     if (aType == STANDARD_TYPE(Geom2d_BSplineCurve))
@@ -1184,7 +1184,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
         Handle(Geom2d_BSplineCurve) aBspl = Handle(Geom2d_BSplineCurve)::DownCast(theCurve2d);
         TColStd_Array1OfReal        aKnots(1, aBspl->NbKnots());
         aBspl->Knots(aKnots);
-        BSplCLib::Reparametrize(theFirst, theLast, aKnots);
+        BSplCLib1::Reparametrize(theFirst, theLast, aKnots);
         aBspl->SetKnots(aKnots);
       }
     }

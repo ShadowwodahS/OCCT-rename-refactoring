@@ -210,7 +210,7 @@ static void ExtendC2d(Handle(Geom2d_BSplineCurve)& aRes,
   Standard_Real ParOnLin = 0.;
   if (theBoundDir.IsParallel(aDBnd, 100. * Precision::Angular()))
   {
-    ParOnLin = ElCLib::Parameter(aLin, thePole);
+    ParOnLin = ElCLib1::Parameter(aLin, thePole);
   }
   else
   {
@@ -519,7 +519,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
           }
           Handle(GeomCurve2d) NewCurve2d;
-          GeomLib::SameRange(Precision::PConfusion(),
+          GeomLib1::SameRange(Precision::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
                              aRes->LastParameter(),
@@ -575,7 +575,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             }
           }
           else
-            Vsingular[0] = ElCLib::Parameter(L, P);
+            Vsingular[0] = ElCLib1::Parameter(L, P);
           // SingularCase[0] = 3;
         }
 
@@ -600,7 +600,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             }
           }
           else
-            Vsingular[1] = ElCLib::Parameter(L, P);
+            Vsingular[1] = ElCLib1::Parameter(L, P);
           // SingularCase[1] = 4;
         }
       }
@@ -617,7 +617,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
       Handle(ProjLib_HCompProjectedCurve) HProjector =
         new ProjLib_HCompProjectedCurve(mySurface, myCurve, aTolU, aTolV, aMaxDist);
 
-      // Normalement, dans le cadre de ProjLib, le resultat
+      // Normalement, dans le cadre de ProjLib1, le resultat
       // doit etre une et une seule courbe !!!
       // De plus, cette courbe ne doit pas etre Single point
       Standard_Integer NbCurves = HProjector->NbCurves();
@@ -680,7 +680,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             ExtendC2d(aRes, l, dt, u1, u2, v1, Vsingular[1], 1, 4);
           }
           Handle(GeomCurve2d) NewCurve2d;
-          GeomLib::SameRange(Precision::PConfusion(),
+          GeomLib1::SameRange(Precision::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
                              aRes->LastParameter(),
@@ -723,7 +723,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
     Handle(Geom2d_BSplineCurve) aRes;
     if (Comp.BSpline().IsNull())
     {
-      aRes = Geom2dConvert::CurveToBSplineCurve(Comp.Bezier());
+      aRes = Geom2dConvert1::CurveToBSplineCurve(Comp.Bezier());
     }
     else
     {
@@ -744,7 +744,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
       }
       Handle(GeomCurve2d) NewCurve2d;
-      GeomLib::SameRange(Precision::PConfusion(),
+      GeomLib1::SameRange(Precision::PConfusion(),
                          aRes,
                          aRes->FirstParameter(),
                          aRes->LastParameter(),

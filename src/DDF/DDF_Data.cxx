@@ -57,7 +57,7 @@ Handle(Draw_Drawable3D) DDF_Data::Copy() const
 void DDF_Data::Dump(Standard_OStream& S) const
 
 {
-  TDF_Tool::DeepDump(S, myDF);
+  Tool3::DeepDump(S, myDF);
 }
 
 //=================================================================================================

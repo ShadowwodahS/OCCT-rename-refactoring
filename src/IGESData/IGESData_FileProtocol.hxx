@@ -27,7 +27,7 @@ class Interface_Protocol;
 class IGESData_FileProtocol;
 DEFINE_STANDARD_HANDLE(IGESData_FileProtocol, IGESData_Protocol)
 
-//! This class allows to define complex protocols, in order to
+//! This class allows to define complex1 protocols, in order to
 //! treat various sub-sets (or the complete set) of the IGES Norm,
 //! such as Solid + Draw1 (which are normally independent), etc...
 //! While it inherits Protocol from IGESData1, it admits UndefinedEntity too

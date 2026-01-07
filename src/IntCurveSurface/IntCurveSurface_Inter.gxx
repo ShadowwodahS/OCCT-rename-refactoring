@@ -170,7 +170,7 @@ void IntCurveSurface_Inter::DoSurface(const TheSurface&   surface,
 				      const Standard_Real v0,
 				      const Standard_Real v1,
 				      TColgp_Array2OfPnt& pntsOnSurface,
-				      Bnd_Box&            boxSurface,
+				      Box2&            boxSurface,
 				      Standard_Real&      gap)
 {
   Standard_Integer iU = 0, iV = 0;
@@ -920,25 +920,25 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      IntAna_IntConicQuad LinPlane(Line,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection LinPlane(Line,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,LinPlane);
       break;
     }
   case GeomAbs_Cylinder:
     {
-      IntAna_IntConicQuad LinCylinder(Line,TheSurfaceTool::Cylinder(surface));
+      ConicQuadIntersection LinCylinder(Line,TheSurfaceTool::Cylinder(surface));
       AppendIntAna(curve,surface,LinCylinder);
       break;
     }
   case GeomAbs_Sphere:
     {
-      IntAna_IntConicQuad LinSphere(Line,TheSurfaceTool::Sphere(surface));
+      ConicQuadIntersection LinSphere(Line,TheSurfaceTool::Sphere(surface));
       AppendIntAna(curve,surface,LinSphere);
       break;
     }
   case GeomAbs_Torus: 
     {
-      IntAna_IntLinTorus intlintorus(Line, TheSurfaceTool::Torus(surface));
+      LineTorusIntersection intlintorus(Line, TheSurfaceTool::Torus(surface));
       if (intlintorus.IsDone()) {
         Standard_Integer nbp = intlintorus.NbPoints();
         Standard_Real fi, theta, w;
@@ -959,7 +959,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
       constexpr Standard_Real correction = 1.E+5*Precision::Angular();
       gp_Cone cn = TheSurfaceTool::Cone(surface);
       if(Abs(cn.SemiAngle()) < M_PI/2.0 - correction) {
-        IntAna_IntConicQuad LinCone(Line, cn);
+        ConicQuadIntersection LinCone(Line, cn);
         AppendIntAna(curve, surface, LinCone);
       }
       else
@@ -1023,7 +1023,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
     // modified by NIZHNY-OFV  Mon Aug 20 14:57:06 2001 (60963 end)
     IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1new,V1new,U2new,V2new);
     Tool1                     bndTool;
-    Bnd_Box                       boxLine;
+    Box2                       boxLine;
     bndTool.LinBox(Line,polyhedron.Bounding(),boxLine);
     for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
       Standard_Real pinf = bndTool.BeginParam(nbseg);
@@ -1050,25 +1050,25 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Circ&        Circle,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      IntAna_IntConicQuad CircPlane(Circle,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
+      ConicQuadIntersection CircPlane(Circle,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
       AppendIntAna(curve,surface,CircPlane);
       break;
     }
   case GeomAbs_Cylinder:
     {
-      IntAna_IntConicQuad CircCylinder(Circle,TheSurfaceTool::Cylinder(surface));
+      ConicQuadIntersection CircCylinder(Circle,TheSurfaceTool::Cylinder(surface));
       AppendIntAna(curve,surface,CircCylinder);
       break;
     }
   case GeomAbs_Cone:
     {
-      IntAna_IntConicQuad CircCone(Circle,TheSurfaceTool::Cone(surface));
+      ConicQuadIntersection CircCone(Circle,TheSurfaceTool::Cone(surface));
       AppendIntAna(curve,surface,CircCone);
       break;
     }   
   case GeomAbs_Sphere:
     {
-      IntAna_IntConicQuad CircSphere(Circle,TheSurfaceTool::Sphere(surface));
+      ConicQuadIntersection CircSphere(Circle,TheSurfaceTool::Sphere(surface));
       AppendIntAna(curve,surface,CircSphere);
       break;
     }
@@ -1095,25 +1095,25 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Elips&       Ellipse,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      IntAna_IntConicQuad EllipsePlane(Ellipse,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
+      ConicQuadIntersection EllipsePlane(Ellipse,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE,TOLERANCE);
       AppendIntAna(curve,surface,EllipsePlane);
       break;
     }
   case GeomAbs_Cylinder:
     {
-      IntAna_IntConicQuad EllipseCylinder(Ellipse,TheSurfaceTool::Cylinder(surface));
+      ConicQuadIntersection EllipseCylinder(Ellipse,TheSurfaceTool::Cylinder(surface));
       AppendIntAna(curve,surface,EllipseCylinder);
       break;
     }
   case GeomAbs_Cone:
      {
-      IntAna_IntConicQuad EllipseCone(Ellipse,TheSurfaceTool::Cone(surface));
+      ConicQuadIntersection EllipseCone(Ellipse,TheSurfaceTool::Cone(surface));
       AppendIntAna(curve,surface,EllipseCone);
       break;
     }   
   case GeomAbs_Sphere:
     {
-      IntAna_IntConicQuad EllipseSphere(Ellipse,TheSurfaceTool::Sphere(surface));
+      ConicQuadIntersection EllipseSphere(Ellipse,TheSurfaceTool::Sphere(surface));
       AppendIntAna(curve,surface,EllipseSphere);
       break;
     }
@@ -1140,25 +1140,25 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Parab&       Parab,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      IntAna_IntConicQuad ParabPlane(Parab,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection ParabPlane(Parab,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,ParabPlane);
       break;
     }
   case GeomAbs_Cylinder:
     {
-      IntAna_IntConicQuad ParabCylinder(Parab,TheSurfaceTool::Cylinder(surface));
+      ConicQuadIntersection ParabCylinder(Parab,TheSurfaceTool::Cylinder(surface));
       AppendIntAna(curve,surface,ParabCylinder);
       break;
     }
   case GeomAbs_Cone:
      {
-      IntAna_IntConicQuad ParabCone(Parab,TheSurfaceTool::Cone(surface));
+      ConicQuadIntersection ParabCone(Parab,TheSurfaceTool::Cone(surface));
       AppendIntAna(curve,surface,ParabCone);
       break;
     }   
   case GeomAbs_Sphere:
     {
-      IntAna_IntConicQuad ParabSphere(Parab,TheSurfaceTool::Sphere(surface));
+      ConicQuadIntersection ParabSphere(Parab,TheSurfaceTool::Sphere(surface));
       AppendIntAna(curve,surface,ParabSphere);
       break;
     }
@@ -1171,7 +1171,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Parab&       Parab,
       if(nbsv>40) nbsv=40;
       IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1,V1,U2,V2);
       Tool1                         bndTool;
-      Bnd_Box                          boxParab;
+      Box2                          boxParab;
       bndTool.ParabBox(Parab,polyhedron.Bounding(),boxParab);
       for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
 	IntCurveSurface_ThePolygon polygon(curve,
@@ -1199,25 +1199,25 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Hypr&        Hypr,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      IntAna_IntConicQuad HyprPlane(Hypr,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
+      ConicQuadIntersection HyprPlane(Hypr,TheSurfaceTool::Plane(surface),TOLERANCE_ANGULAIRE);
       AppendIntAna(curve,surface,HyprPlane);
       break;
     }
   case GeomAbs_Cylinder:
     {
-      IntAna_IntConicQuad HyprCylinder(Hypr,TheSurfaceTool::Cylinder(surface));
+      ConicQuadIntersection HyprCylinder(Hypr,TheSurfaceTool::Cylinder(surface));
       AppendIntAna(curve,surface,HyprCylinder);
       break;
     }
   case GeomAbs_Cone:
      {
-      IntAna_IntConicQuad HyprCone(Hypr,TheSurfaceTool::Cone(surface));
+      ConicQuadIntersection HyprCone(Hypr,TheSurfaceTool::Cone(surface));
       AppendIntAna(curve,surface,HyprCone);
       break;
     }   
   case GeomAbs_Sphere:
     {
-      IntAna_IntConicQuad HyprSphere(Hypr,TheSurfaceTool::Sphere(surface));
+      ConicQuadIntersection HyprSphere(Hypr,TheSurfaceTool::Sphere(surface));
       AppendIntAna(curve,surface,HyprSphere);
       break;
     }
@@ -1230,7 +1230,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Hypr&        Hypr,
       if(nbsv>40) nbsv=40;
       IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1,V1,U2,V2);
       Tool1                         bndTool;
-      Bnd_Box                          boxHypr;
+      Box2                          boxHypr;
       bndTool.HyprBox(Hypr,polyhedron.Bounding(),boxHypr);
       for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
 	IntCurveSurface_ThePolygon polygon(curve,
@@ -1248,7 +1248,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Hypr&        Hypr,
 //=======================================================================
 void IntCurveSurface_Inter::AppendIntAna(const TheCurve& curve,
 					 const TheSurface& surface,
-					 const IntAna_IntConicQuad& intana_ConicQuad) {
+					 const ConicQuadIntersection& intana_ConicQuad) {
   if(intana_ConicQuad.IsDone()) { 
     if(intana_ConicQuad.IsInQuadric()) { 
       //-- std::cout<<" Courbe Dans la Quadrique !!! Non Traite !!!"<<std::endl;
@@ -1297,7 +1297,7 @@ void IntCurveSurface_Inter::AppendPoint(const TheCurve& curve,
   if(TheCurveTool::IsPeriodic(curve) 
      || aCType == GeomAbs_Circle 
      || aCType == GeomAbs_Ellipse) {
-    w = ElCLib::InPeriod(w, W0, W0 + TheCurveTool::Period(curve));
+    w = ElCLib1::InPeriod(w, W0, W0 + TheCurveTool::Period(curve));
   }
 
   if((W0 - w) >= TOLTANGENCY || (w - W1) >= TOLTANGENCY) return;
@@ -1307,11 +1307,11 @@ void IntCurveSurface_Inter::AppendPoint(const TheCurve& curve,
       || aSType == GeomAbs_Cylinder
       || aSType == GeomAbs_Cone
       || aSType == GeomAbs_Sphere) {
-    u = ElCLib::InPeriod(u, U0, U0 + TheSurfaceTool::UPeriod(surface));
+    u = ElCLib1::InPeriod(u, U0, U0 + TheSurfaceTool::UPeriod(surface));
   }
 
   if (TheSurfaceTool::IsVPeriodic(surface)) {
-    v = ElCLib::InPeriod(v, V0, V0 + TheSurfaceTool::VPeriod(surface));
+    v = ElCLib1::InPeriod(v, V0, V0 + TheSurfaceTool::VPeriod(surface));
   }
 
   if((U0 - u) >= TOLTANGENCY || (u - U1) >= TOLTANGENCY) return;
@@ -1379,7 +1379,7 @@ void SectionPointToParameters(const SectionPoint&              Sp,
   case Intf_FACE:
     {
       Standard_Real ua,va,ub,vb,uc,vc,ca,cb,cc,cabc;
-      Polyhedron.Triangle(Adr1,Pt1,Pt2,Pt3);
+      Polyhedron.Triangle1(Adr1,Pt1,Pt2,Pt3);
       Point3d PA(Polyhedron.Point(Pt1));
       Point3d PB(Polyhedron.Point(Pt2));
       Point3d PC(Polyhedron.Point(Pt3));
@@ -1471,22 +1471,22 @@ void IntCurveSurface_ComputeParamsOnQuadric(const TheSurface& surface,
   switch(SurfaceType) { 
   case GeomAbs_Plane: 
     {
-      ElSLib::Parameters(TheSurfaceTool::Plane(surface),P,u,v);
+      ElSLib1::Parameters(TheSurfaceTool::Plane(surface),P,u,v);
 	break;
       }
   case GeomAbs_Cylinder:
     {
-      ElSLib::Parameters(TheSurfaceTool::Cylinder(surface),P,u,v);
+      ElSLib1::Parameters(TheSurfaceTool::Cylinder(surface),P,u,v);
 	break;
       }
   case GeomAbs_Cone:
     {
-      ElSLib::Parameters(TheSurfaceTool::Cone(surface),P,u,v);
+      ElSLib1::Parameters(TheSurfaceTool::Cone(surface),P,u,v);
 	break;
       }   
   case GeomAbs_Sphere:
     {
-      ElSLib::Parameters(TheSurfaceTool::Sphere(surface),P,u,v);
+      ElSLib1::Parameters(TheSurfaceTool::Sphere(surface),P,u,v);
 	break;
       }
   default:
@@ -1538,7 +1538,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
     Standard_Real step = (U2new - U1new) / nbsu;
     Standard_Real u = U1new, v;
     Point3d aP;
-    Extrema_POnCurv aP1, aP2;
+    PointOnCurve1 aP1, aP2;
     Standard_Integer i;
 
     for(i = 0; i <= nbsu; i++) {
@@ -1547,7 +1547,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
       aL.SetLocation(aP);
       aL.SetDirection(aDirOfExt);
 
-      Extrema_ExtElC aExtr(aL, Line, tolang);
+      ExtElC aExtr(aL, Line, tolang);
       
       if(!aExtr.IsDone()) return;
 
@@ -1604,7 +1604,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
 
       gp_Lin2d aL2d = Projector.Line();
 
-      IntAna2d_AnaIntersection anInter(Line2d, aL2d);
+      AnalyticIntersection2d anInter(Line2d, aL2d);
 
       if(!anInter.IsDone()) return;
 
@@ -1614,13 +1614,13 @@ void EstLimForInfExtr(const gp_Lin&   Line,
 	return;
       }
 
-      const IntAna2d_IntPoint& anIntPnt = anInter.Point(1);
+      const IntersectionPoint2d& anIntPnt = anInter.Point(1);
       umin = umax = anIntPnt.ParamOnSecond();
     }
     else if(aCurvTyp == GeomAbs_Parabola || aCurvTyp == GeomAbs_Hyperbola) {
 
-      IntAna2d_Conic aCon(Line2d);
-      IntAna2d_AnaIntersection anInter;
+      Conic2d aCon(Line2d);
+      AnalyticIntersection2d anInter;
       
       if(aCurvTyp == GeomAbs_Parabola) {
 	Projector.Project(aBasCurv->Parabola());
@@ -1648,7 +1648,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
       Standard_Integer i, nbint = anInter.NbPoints();
       for(i = 1; i <= nbint; i++) {
 
-	const IntAna2d_IntPoint& anIntPnt = anInter.Point(i);
+	const IntersectionPoint2d& anIntPnt = anInter.Point(i);
 
 	umin = Min(anIntPnt.ParamOnFirst(), umin);
 	umax = Max(anIntPnt.ParamOnFirst(), umax);
@@ -1710,10 +1710,10 @@ void ProjectIntersectAndEstLim(const gp_Lin&        theLine,
   gp_Lin2d aLin2dsym (aP1sym, gp_Vec2d(aP1sym,aP2sym));
   
   // intersect projections
-  IntAna2d_Conic aCon    (aLin2d);
-  IntAna2d_Conic aConSym (aLin2dsym);
-  IntAna2d_AnaIntersection anIntersect;
-  IntAna2d_AnaIntersection anIntersectSym;
+  Conic2d aCon    (aLin2d);
+  Conic2d aConSym (aLin2dsym);
+  AnalyticIntersection2d anIntersect;
+  AnalyticIntersection2d anIntersectSym;
   
   switch (theBasCurvProj.GetType()) {
   case GeomAbs_Line:
@@ -1742,13 +1742,13 @@ void ProjectIntersectAndEstLim(const gp_Lin&        theLine,
   for (iPnt = 1; iPnt <= aNbPnt; iPnt++)
   {
     if (iPnt <= aNbIntPnt) {
-      const IntAna2d_IntPoint& aIntPnt = anIntersect.Point(iPnt);
+      const IntersectionPoint2d& aIntPnt = anIntersect.Point(iPnt);
       aParam = aIntPnt.ParamOnFirst();
       theVmin = Min (theVmin, aParam );
       theVmax = Max (theVmax, aParam );
     }
     if (iPnt <= aNbIntPntSym) {
-      const IntAna2d_IntPoint& aIntPnt = anIntersectSym.Point(iPnt);
+      const IntersectionPoint2d& aIntPnt = anIntersectSym.Point(iPnt);
       aParam = aIntPnt.ParamOnFirst();
       theVmin = Min (theVmin, aParam );
       theVmax = Max (theVmax, aParam );
@@ -1896,7 +1896,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
     Vector3d aT = aPln.Position().XDirection()^aPln.Position().YDirection();
     aT *= anOffVal;
     aPln.Translate(aT);
-    IntAna_IntConicQuad LinPlane(Line,aPln,TOLERANCE_ANGULAIRE);
+    ConicQuadIntersection LinPlane(Line,aPln,TOLERANCE_ANGULAIRE);
 
     if(!LinPlane.IsDone()) return;
 
@@ -1908,7 +1908,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
     }
     
     Standard_Real u, v;
-    ElSLib::Parameters(aPln, LinPlane.Point(1), u, v);
+    ElSLib1::Parameters(aPln, LinPlane.Point(1), u, v);
     U1new = Max(U1new, u - 10.);
     U2new = Min(U2new, u + 10.);
     V1new = Max(V1new, v - 10.);
@@ -1944,7 +1944,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
       
     }
 
-    IntAna_IntConicQuad LinCylinder(Line, aCyl);
+    ConicQuadIntersection LinCylinder(Line, aCyl);
 
     if(!LinCylinder.IsDone()) return;
 
@@ -1960,7 +1960,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
 
     for(i = 1; i <= nbp; i++) {
 
-      ElSLib::Parameters(aCyl, LinCylinder.Point(i), u, v);
+      ElSLib1::Parameters(aCyl, LinCylinder.Point(i), u, v);
       vmin = Min(vmin, v);
       vmax = Max(vmax, v);
 
@@ -1992,7 +1992,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
 
     }
 
-    IntAna_IntConicQuad LinCone(Line, aCon);
+    ConicQuadIntersection LinCone(Line, aCon);
 
     if(!LinCone.IsDone()) return;
 
@@ -2008,7 +2008,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
 
     for(i = 1; i <= nbp; i++) {
 
-      ElSLib::Parameters(aCon, LinCone.Point(i), u, v);
+      ElSLib1::Parameters(aCon, LinCone.Point(i), u, v);
       vmin = Min(vmin, v);
       vmax = Max(vmax, v);
 

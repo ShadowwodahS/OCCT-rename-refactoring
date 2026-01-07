@@ -81,14 +81,14 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   // compute the intersection line of Pl1 and Pl2
-  IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
+  QuadQuadGeoIntersection LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
 
   Point3d        P;
   Standard_Real Fint;
   if (LInt.IsDone())
   {
-    Fint = ElCLib::Parameter(LInt.Line(1), ElCLib::Value(First, Spine));
-    P    = ElCLib::Value(Fint, LInt.Line(1));
+    Fint = ElCLib1::Parameter(LInt.Line(1), ElCLib1::Value(First, Spine));
+    P    = ElCLib1::Value(Fint, LInt.Line(1));
   }
   else
   {
@@ -137,7 +137,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Point3d Po((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.);
 
   // compute a second point on the plane Pl2
-  Point3d Pp = ElCLib::Value(Fint + 10., LInt.Line(1));
+  Point3d Pp = ElCLib1::Value(Fint + 10., LInt.Line(1));
   Point3d P22(Pp.X() + Dis2 * VecTransl2.X(),
              Pp.Y() + Dis2 * VecTransl2.Y(),
              Pp.Z() + Dis2 * VecTransl2.Z());
@@ -184,13 +184,13 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Handle(GeomLine) GLinPln1 = new GeomLine(linPln);
 
   Standard_Real u, v;
-  ElSLib::PlaneParameters(Pos1, P1, u, v);
+  ElSLib1::PlaneParameters(Pos1, P1, u, v);
   gp_Pnt2d            p2dPln(u, v);
   gp_Dir2d            dir2dPln(xdir.Dot(Pos1.XDirection()), xdir.Dot(Pos1.YDirection()));
   gp_Lin2d            lin2dPln(p2dPln, dir2dPln);
   Handle(Geom2d_Line) GLin2dPln1 = new Geom2d_Line(lin2dPln);
 
-  ElSLib::PlaneParameters(PlanAx3, P1, u, v);
+  ElSLib1::PlaneParameters(PlanAx3, P1, u, v);
   p2dPln.SetCoord(u, v);
   lin2dPln.SetLocation(p2dPln);
   lin2dPln.SetDirection(gp::DX2d());
@@ -215,14 +215,14 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   linPln.SetLocation(P2);
   Handle(GeomLine) GLinPln2 = new GeomLine(linPln);
 
-  ElSLib::PlaneParameters(Pos2, P2, u, v);
+  ElSLib1::PlaneParameters(Pos2, P2, u, v);
   p2dPln.SetCoord(u, v);
   dir2dPln.SetCoord(xdir.Dot(Pos2.XDirection()), xdir.Dot(Pos2.YDirection()));
   lin2dPln.SetLocation(p2dPln);
   lin2dPln.SetDirection(dir2dPln);
   Handle(Geom2d_Line) GLin2dPln2 = new Geom2d_Line(lin2dPln);
 
-  ElSLib::PlaneParameters(PlanAx3, P2, u, v);
+  ElSLib1::PlaneParameters(PlanAx3, P2, u, v);
   p2dPln.SetCoord(u, v);
   lin2dPln.SetLocation(p2dPln);
   lin2dPln.SetDirection(gp::DX2d());

@@ -1297,11 +1297,11 @@ Standard_Boolean SystemFile::IsAtEnd()
 
 //=================================================================================================
 
-/*void SystemFile::Link (const AsciiString1& theToFile)
+/*void SystemFile::Link1 (const AsciiString1& theToFile)
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError ("SystemFile::Link(): file is not open");
+    throw Standard_ProgramError ("SystemFile::Link1(): file is not open");
   }
 
   AsciiString1 aFilePath;

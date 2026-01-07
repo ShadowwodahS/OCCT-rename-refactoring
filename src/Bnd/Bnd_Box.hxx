@@ -56,19 +56,19 @@ class gp_Pln;
 //! bounding box if it is infinite or empty, and
 //! -   a gap, which is included on both sides in any direction
 //! when consulting the finite bounds of the box.
-class Bnd_Box
+class Box2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Creates an empty Box.
+  //! Creates an empty Box1.
   //! The constructed box is qualified Void. Its gap is null.
-  Standard_EXPORT Bnd_Box();
+  Standard_EXPORT Box2();
 
   //! Creates a bounding box, it contains:
   //! -   minimum/maximum point of bounding box,
   //! The constructed box is qualified Void. Its gap is null.
-  Standard_EXPORT Bnd_Box(const Point3d& theMin, const Point3d& theMax);
+  Standard_EXPORT Box2(const Point3d& theMin, const Point3d& theMax);
 
   //! Sets this bounding box so that it covers the whole of 3D space.
   //! It is infinitely long in all directions.
@@ -154,27 +154,27 @@ public:
   //! if IsVoid()
   Standard_EXPORT Point3d CornerMax() const;
 
-  //! The   Box will be   infinitely   long  in the Xmin
+  //! The   Box1 will be   infinitely   long  in the Xmin
   //! direction.
   void OpenXmin() { Flags |= XminMask; }
 
-  //! The   Box will be   infinitely   long  in the Xmax
+  //! The   Box1 will be   infinitely   long  in the Xmax
   //! direction.
   void OpenXmax() { Flags |= XmaxMask; }
 
-  //! The   Box will be   infinitely   long  in the Ymin
+  //! The   Box1 will be   infinitely   long  in the Ymin
   //! direction.
   void OpenYmin() { Flags |= YminMask; }
 
-  //! The   Box will be   infinitely   long  in the Ymax
+  //! The   Box1 will be   infinitely   long  in the Ymax
   //! direction.
   void OpenYmax() { Flags |= YmaxMask; }
 
-  //! The   Box will be   infinitely   long  in the Zmin
+  //! The   Box1 will be   infinitely   long  in the Zmin
   //! direction.
   void OpenZmin() { Flags |= ZminMask; }
 
-  //! The   Box will be   infinitely   long  in the Zmax
+  //! The   Box1 will be   infinitely   long  in the Zmax
   //! direction.
   void OpenZmax() { Flags |= ZmaxMask; }
 
@@ -224,10 +224,10 @@ public:
   //! Applying a geometric transformation (for example, a
   //! rotation) to a bounding box generally increases its
   //! dimensions. This is not optimal for algorithms which use it.
-  Standard_NODISCARD Standard_EXPORT Bnd_Box Transformed(const Transform3d& T) const;
+  Standard_NODISCARD Standard_EXPORT Box2 Transformed(const Transform3d& T) const;
 
   //! Adds the box <Other> to <me>.
-  Standard_EXPORT void Add(const Bnd_Box& Other);
+  Standard_EXPORT void Add(const Box2& Other);
 
   //! Adds a Pnt to the box.
   Standard_EXPORT void Add(const Point3d& P);
@@ -235,7 +235,7 @@ public:
   //! Extends  <me> from the Pnt <P> in the direction <D>.
   Standard_EXPORT void Add(const Point3d& P, const Dir3d& D);
 
-  //! Extends the Box  in the given Direction, i.e. adds
+  //! Extends the Box1  in the given Direction, i.e. adds
   //! an  half-line. The   box  may become   infinite in
   //! 1,2 or 3 directions.
   Standard_EXPORT void Add(const Dir3d& D);
@@ -249,17 +249,17 @@ public:
   //! Returns False if the plane intersects the box.
   Standard_EXPORT Standard_Boolean IsOut(const gp_Pln& P) const;
 
-  //! Returns False if the <Box> intersects or is inside <me>.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_Box& Other) const;
+  //! Returns False if the <Box1> intersects or is inside <me>.
+  Standard_EXPORT Standard_Boolean IsOut(const Box2& Other) const;
 
-  //! Returns False if  the transformed <Box> intersects
+  //! Returns False if  the transformed <Box1> intersects
   //! or  is inside <me>.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_Box& Other, const Transform3d& T) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Box2& Other, const Transform3d& T) const;
 
-  //! Returns False  if the transformed <Box> intersects
+  //! Returns False  if the transformed <Box1> intersects
   //! or  is inside the transformed box <me>.
   Standard_EXPORT Standard_Boolean IsOut(const Transform3d& T1,
-                                         const Bnd_Box& Other,
+                                         const Box2& Other,
                                          const Transform3d& T2) const;
 
   //! Returns False  if the flat band lying between two parallel
@@ -268,7 +268,7 @@ public:
   Standard_EXPORT Standard_Boolean IsOut(const Point3d& P1, const Point3d& P2, const Dir3d& D) const;
 
   //! Computes the minimum distance between two boxes.
-  Standard_EXPORT Standard_Real Distance(const Bnd_Box& Other) const;
+  Standard_EXPORT Standard_Real Distance(const Box2& Other) const;
 
   Standard_EXPORT void Dump() const;
 
@@ -290,14 +290,14 @@ public:
   //! box). This can be a Void box in case if its sides has been defined as infinite (Open) without
   //! adding any finite points. WARNING! This method relies on Open flags, the infinite points added
   //! using Add() method will be returned as is.
-  Bnd_Box FinitePart() const
+  Box2 FinitePart() const
   {
     if (!HasFinitePart())
     {
-      return Bnd_Box();
+      return Box2();
     }
 
-    Bnd_Box aBox;
+    Box2 aBox;
     aBox.Update(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
     aBox.SetGap(Gap);
     return aBox;

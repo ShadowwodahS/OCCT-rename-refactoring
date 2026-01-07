@@ -20,7 +20,7 @@
 //=================================================================================================
 
 void Prs3d_BndBox::Add(const Handle(Prs3d_Presentation)& thePresentation,
-                       const Bnd_Box&                    theBndBox,
+                       const Box2&                    theBndBox,
                        const Handle(StyleDrawer)&       theDrawer)
 {
   if (!theBndBox.IsVoid())
@@ -37,7 +37,7 @@ void Prs3d_BndBox::Add(const Handle(Prs3d_Presentation)& thePresentation,
 //=================================================================================================
 
 void Prs3d_BndBox::Add(const Handle(Prs3d_Presentation)& thePresentation,
-                       const Bnd_OBB&                    theBndBox,
+                       const OrientedBox&                    theBndBox,
                        const Handle(StyleDrawer)&       theDrawer)
 {
   if (!theBndBox.IsVoid())

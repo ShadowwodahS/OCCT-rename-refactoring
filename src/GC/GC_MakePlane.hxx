@@ -40,7 +40,7 @@ class Axis3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed plane.
-class GC_MakePlane : public GC_Root
+class GC_MakePlane : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

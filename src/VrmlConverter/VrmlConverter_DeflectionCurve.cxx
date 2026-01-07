@@ -196,7 +196,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
     break;
 
     default: {
-      GCPnts_QuasiUniformDeflection Algo(aCurve, TheDeflection, U1, U2);
+      QuasiUniformDeflectionSampler Algo(aCurve, TheDeflection, U1, U2);
       if (Algo.IsDone())
       {
 
@@ -255,8 +255,8 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&              aCurve,
   Standard_Real theRequestedDeflection;
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE) // TOD_RELATIVE, TOD_ABSOLUTE
   {
-    Bnd_Box box;
-    BndLib_Add3dCurve::Add(aCurve, U1, U2, Precision::Confusion(), box);
+    Box2 box;
+    Add3dCurve::Add(aCurve, U1, U2, Precision::Confusion(), box);
 
     Standard_Real Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;
     box.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);

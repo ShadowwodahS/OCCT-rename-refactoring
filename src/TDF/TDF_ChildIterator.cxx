@@ -34,7 +34,7 @@
 
 //=================================================================================================
 
-TDF_ChildIterator::TDF_ChildIterator()
+ChildIterator::ChildIterator()
     : myNode(NULL),
       myFirstLevel(0)
 {
@@ -42,7 +42,7 @@ TDF_ChildIterator::TDF_ChildIterator()
 
 //=================================================================================================
 
-TDF_ChildIterator::TDF_ChildIterator(const DataLabel& aLabel, const Standard_Boolean allLevels)
+ChildIterator::ChildIterator(const DataLabel& aLabel, const Standard_Boolean allLevels)
     : myNode(aLabel.myLabelNode->FirstChild()),
       myFirstLevel(allLevels ? aLabel.Depth() : -1)
 {
@@ -50,7 +50,7 @@ TDF_ChildIterator::TDF_ChildIterator(const DataLabel& aLabel, const Standard_Boo
 
 //=================================================================================================
 
-void TDF_ChildIterator::Initialize(const DataLabel& aLabel, const Standard_Boolean allLevels)
+void ChildIterator::Initialize(const DataLabel& aLabel, const Standard_Boolean allLevels)
 {
   myNode       = aLabel.myLabelNode->FirstChild();
   myFirstLevel = allLevels ? aLabel.Depth() : -1;
@@ -58,7 +58,7 @@ void TDF_ChildIterator::Initialize(const DataLabel& aLabel, const Standard_Boole
 
 //=================================================================================================
 
-void TDF_ChildIterator::Next()
+void ChildIterator::Next()
 {
   if (myFirstLevel == -1)
   {
@@ -75,7 +75,7 @@ void TDF_ChildIterator::Next()
 
 //=================================================================================================
 
-void TDF_ChildIterator::NextBrother()
+void ChildIterator::NextBrother()
 {
   if ((myFirstLevel == -1) || myNode->Brother())
     myNode = myNode->Brother();

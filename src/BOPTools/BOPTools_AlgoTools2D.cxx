@@ -530,7 +530,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
   Standard_Real    aTolR;
   Standard_Real    aTR       = Precision::Confusion(); // 1.e-7;
   Standard_Real    aMaxTol   = 1.e3 * aTR;             // 0.0001
-  Standard_Boolean isAnaSurf = ProjLib::IsAnaSurf(aBAHS);
+  Standard_Boolean isAnaSurf = ProjLib1::IsAnaSurf(aBAHS);
 
   // when the type of surface is GeomAbs_SurfaceOfRevolution
   if (pBAS->GetType() == GeomAbs_SurfaceOfRevolution)
@@ -541,7 +541,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
     }
     //
     ProjLib_ProjectedCurve aProj1(aBAHS, aBAHC, aTR);
-    ProjLib::MakePCurveOfType(aProj1, aC2D);
+    ProjLib1::MakePCurveOfType(aProj1, aC2D);
     aTolR = aProj1.GetTolerance();
   }
   else
@@ -595,7 +595,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
     aProjCurv.SetBndPnt(aBndPnt);
     aProjCurv.SetMaxDist(aMaxDist);
     aProjCurv.Perform(aBAHC);
-    ProjLib::MakePCurveOfType(aProjCurv, aC2D);
+    ProjLib1::MakePCurveOfType(aProjCurv, aC2D);
     aTolR = aProjCurv.GetTolerance();
   }
   //
@@ -603,7 +603,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
   {
     aTR = Max(TolReached2d, aMaxTol);
     ProjLib_ProjectedCurve aProjCurvAgain(aBAHS, aBAHC, aTR); // 2
-    ProjLib::MakePCurveOfType(aProjCurvAgain, aC2D);
+    ProjLib1::MakePCurveOfType(aProjCurvAgain, aC2D);
     aTolR = aProjCurvAgain.GetTolerance();
   }
   //
@@ -629,7 +629,7 @@ void AlgoTools2D::MakePCurveOnFace(const TopoFace&              aF,
     if (aTCLast > aT2)
       aTCLast = aT2;
 
-    GeomLib::SameRange(Precision::PConfusion(), aC2D, aTCFirst, aTCLast, aT1, aT2, aC2D);
+    GeomLib1::SameRange(Precision::PConfusion(), aC2D, aTCFirst, aTCLast, aT1, aT2, aC2D);
   }
 
   // compute the appropriate tolerance for the edge

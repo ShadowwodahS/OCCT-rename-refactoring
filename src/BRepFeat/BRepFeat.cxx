@@ -336,7 +336,7 @@ void BRepFeat1::ParametricMinMax(const TopoShape&       S,
 static Standard_Boolean IsIn(BRepTopAdaptor_FClass2d& FC, const Geom2dAdaptor_Curve& AC)
 {
   constexpr Standard_Real       Def = 100 * Precision::Confusion();
-  GCPnts_QuasiUniformDeflection QU(AC, Def);
+  QuasiUniformDeflectionSampler QU(AC, Def);
 
   for (Standard_Integer i = 1; i <= QU.NbPoints(); i++)
   {
@@ -490,7 +490,7 @@ Standard_Boolean BRepFeat1::IsInside(const TopoFace& F1, const TopoFace& F2)
   {
     Standard_Real        f1, l1;
     Handle(GeomCurve3d)   C0 = BRepInspector::Curve(TopoDS::Edge(exp.Current()), f1, l1);
-    Handle(GeomCurve2d) C  = GeomProjLib::Curve2d(C0, f1, l1, S);
+    Handle(GeomCurve2d) C  = GeomProjLib1::Curve2d(C0, f1, l1, S);
     TopoEdge          E  = TopoDS::Edge(exp.Current());
     if (flagu == 1 || flagv == 1)
     {
@@ -514,7 +514,7 @@ Standard_Boolean BRepFeat1::IsInside(const TopoFace& F1, const TopoFace& F2)
 
 void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
 {
-  Bnd_Box B;
+  Box2 B;
   BRepBndLib::Add(Sbase, B);
   Standard_Real x[2], y[2], z[2];
   B.Get(x[0], y[0], z[0], x[1], y[1], z[1]);
@@ -539,7 +539,7 @@ void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
         for (Standard_Integer k = 0; k < 2; k++)
         {
           Point3d aP(x[i], y[j], z[k]);
-          ElSLib::Parameters(aPln, aP, u, v);
+          ElSLib1::Parameters(aPln, aP, u, v);
           if (u < umin)
             umin = u;
           if (u > umax)
@@ -569,7 +569,7 @@ void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
         for (Standard_Integer k = 0; k < 2; k++)
         {
           Point3d aP(x[i], y[j], z[k]);
-          ElSLib::Parameters(aCyl, aP, u, v);
+          ElSLib1::Parameters(aCyl, aP, u, v);
           if (v < vmin)
             vmin = v;
           if (v > vmax)
@@ -592,7 +592,7 @@ void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
         for (Standard_Integer k = 0; k < 2; k++)
         {
           Point3d aP(x[i], y[j], z[k]);
-          ElSLib::Parameters(aCon, aP, u, v);
+          ElSLib1::Parameters(aCon, aP, u, v);
           if (v < vmin)
             vmin = v;
           if (v > vmax)

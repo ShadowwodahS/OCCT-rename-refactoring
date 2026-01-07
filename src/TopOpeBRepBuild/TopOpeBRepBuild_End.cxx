@@ -280,7 +280,7 @@ void TopOpeBRepBuild_Builder::End()
       }
 
       Standard_Real newtol = BRepInspector::Tolerance(V);
-      Bnd_Box       BOX;
+      Box2       BOX;
       Point3d        Pv = BRepInspector::Pnt(V);
       BOX.Set(Pv);
       for (Standard_Integer i = 1; i <= nP2; i++)

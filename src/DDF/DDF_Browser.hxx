@@ -32,7 +32,7 @@ class DataLabel;
 class DDF_Browser;
 DEFINE_STANDARD_HANDLE(DDF_Browser, Draw_Drawable3D)
 
-//! Browses a data framework from TDF.
+//! Browses a data framework from TDF1.
 class DDF_Browser : public Draw_Drawable3D
 {
 

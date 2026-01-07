@@ -237,7 +237,7 @@ TopOpeBRepDS_DataStructure& BDS,const Standard_Integer SIX)
 //------------------------------------------------------
 Standard_EXPORT void FUN_unkeepEsymetrictransitions
   //------------------------------------------------------
-  // unkeepEsymetric  : pour pallier au fonctionnement limite du TopTrans_CurveTransition
+  // unkeepEsymetric  : pour pallier au fonctionnement limite du CurveTransition
   // qui ne peut pas gerer correctement deux fois la meme arete (FORWARD,REVERSED)
   // incidentes en un vertex. (cas d'un shell fait de deux faces partageant une arete.)
   (TopOpeBRepDS_ListOfInterference&  LI,

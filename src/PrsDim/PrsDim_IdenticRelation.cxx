@@ -195,9 +195,9 @@ static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
     curpos.Translate(vprec * 1e-5);
   }
 
-  Standard_Real pcurpos  = ElCLib::Parameter(thecirc, curpos);
-  Standard_Real pFAttach = ElCLib::Parameter(thecirc, aFAttach);
-  Standard_Real pSAttach = ElCLib::Parameter(thecirc, aSAttach);
+  Standard_Real pcurpos  = ElCLib1::Parameter(thecirc, curpos);
+  Standard_Real pFAttach = ElCLib1::Parameter(thecirc, aFAttach);
+  Standard_Real pSAttach = ElCLib1::Parameter(thecirc, aSAttach);
 
   Standard_Real pSAttachM = pSAttach;
   Standard_Real deltap    = pSAttachM - pFAttach;
@@ -232,7 +232,7 @@ static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
       pcurpos = pSAttach;
   }
 
-  aPosition = ElCLib::Value(pcurpos, thecirc);
+  aPosition = ElCLib1::Value(pcurpos, thecirc);
   return Standard_True;
 }
 
@@ -263,13 +263,13 @@ static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
     curpos.Translate(vprec * 1e-5);
   }
 
-  // for ellipses it's not good  Standard_Real pcurpos  = ElCLib::Parameter(theEll,curpos);
+  // for ellipses it's not good  Standard_Real pcurpos  = ElCLib1::Parameter(theEll,curpos);
   Handle(Geom_Ellipse)        theEllg = new Geom_Ellipse(theEll);
   GeomAPI_ProjectPointOnCurve aProj(curpos, theEllg);
   Standard_Real               pcurpos = aProj.LowerDistanceParameter();
 
-  Standard_Real pFAttach = ElCLib::Parameter(theEll, aFAttach);
-  Standard_Real pSAttach = ElCLib::Parameter(theEll, aSAttach);
+  Standard_Real pFAttach = ElCLib1::Parameter(theEll, aFAttach);
+  Standard_Real pSAttach = ElCLib1::Parameter(theEll, aSAttach);
 
   Standard_Real pSAttachM = pSAttach;
   Standard_Real deltap    = pSAttachM - pFAttach;
@@ -304,7 +304,7 @@ static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
       pcurpos = pSAttach;
   }
 
-  aPosition = ElCLib::Value(pcurpos, theEll);
+  aPosition = ElCLib1::Value(pcurpos, theEll);
   return Standard_True;
 }
 
@@ -421,8 +421,8 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
       if (isCircle) // case of Circles
       {
         Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv1);
-        Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), myFAttach);
-        Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), mySAttach);
+        Standard_Real       udeb    = ElCLib1::Parameter(thecirc->Circ(), myFAttach);
+        Standard_Real       ufin    = ElCLib1::Parameter(thecirc->Circ(), mySAttach);
         Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
         Handle(Select3D_SensitiveCurve) scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -435,8 +435,8 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
       {
         Handle(Geom_Ellipse) theEll = Handle(Geom_Ellipse)::DownCast(curv1);
 
-        Standard_Real      udeb  = ElCLib::Parameter(theEll->Elips(), myFAttach);
-        Standard_Real      ufin  = ElCLib::Parameter(theEll->Elips(), mySAttach);
+        Standard_Real      udeb  = ElCLib1::Parameter(theEll->Elips(), myFAttach);
+        Standard_Real      ufin  = ElCLib1::Parameter(theEll->Elips(), mySAttach);
         Handle(GeomCurve3d) thecu = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
         Handle(Select3D_SensitiveCurve) scurv = new Select3D_SensitiveCurve(own, thecu);
@@ -460,7 +460,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& 
         else
         {
           gp_Lin ll(myFAttach, Dir3d(v1));
-          attach = ElCLib::Value(ElCLib::Parameter(ll, myPosition), ll);
+          attach = ElCLib1::Value(ElCLib1::Parameter(ll, myPosition), ll);
         }
       }
       else
@@ -594,7 +594,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     else
     {
       myFAttach = mySAttach =
-        ElCLib::Value(ElCLib::Parameter(thelin->Lin(), myPosition), thelin->Lin());
+        ElCLib1::Value(ElCLib1::Parameter(thelin->Lin(), myPosition), thelin->Lin());
     }
     UtfString vals(" ==");
     DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, myPosition);
@@ -604,11 +604,11 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     // Computation of the parameters of the 4 points on the line <thelin>
     Standard_Real pf1, pf2, pl1, pl2;
 
-    pf1 = ElCLib::Parameter(thelin->Lin(), firstp1);
-    pl1 = ElCLib::Parameter(thelin->Lin(), lastp1);
+    pf1 = ElCLib1::Parameter(thelin->Lin(), firstp1);
+    pl1 = ElCLib1::Parameter(thelin->Lin(), lastp1);
 
-    pf2 = ElCLib::Parameter(thelin->Lin(), firstp2);
-    pl2 = ElCLib::Parameter(thelin->Lin(), lastp2);
+    pf2 = ElCLib1::Parameter(thelin->Lin(), firstp2);
+    pl2 = ElCLib1::Parameter(thelin->Lin(), lastp2);
 
     if (isInfinite1)
     {
@@ -661,8 +661,8 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       middle.SetXYZ((tabRang2[1].XYZ() + tabRang2[2].XYZ()) / 2.);
       Standard_Real pmiddle = (tabRang1[1] + tabRang1[2]) / 2.;
       Standard_Real delta   = (tabRang1[3] - tabRang1[0]) / 5.;
-      myFAttach             = ElCLib::Value(pmiddle - delta, thelin->Lin());
-      mySAttach             = ElCLib::Value(pmiddle + delta, thelin->Lin());
+      myFAttach             = ElCLib1::Value(pmiddle - delta, thelin->Lin());
+      mySAttach             = ElCLib1::Value(pmiddle + delta, thelin->Lin());
     }
 
     else if (tabRang1[1] == tabRang1[2])
@@ -672,8 +672,8 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       Standard_Real delta2 = tabRang1[3] - tabRang1[2];
       if (delta1 > delta2)
         delta1 = delta2;
-      myFAttach = ElCLib::Value(tabRang1[1] - delta1 / 2., thelin->Lin());
-      mySAttach = ElCLib::Value(tabRang1[1] + delta1 / 2., thelin->Lin());
+      myFAttach = ElCLib1::Value(tabRang1[1] - delta1 / 2., thelin->Lin());
+      mySAttach = ElCLib1::Value(tabRang1[1] + delta1 / 2., thelin->Lin());
     }
 
     // Case of 2 disconnected segments -> the symbol completes the gap
@@ -715,9 +715,9 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     {
 
       curpos                          = myPosition;
-      Standard_Real           pcurpos = ElCLib::Parameter(thelin->Lin(), curpos);
+      Standard_Real           pcurpos = ElCLib1::Parameter(thelin->Lin(), curpos);
       Standard_Real           dist    = thelin->Lin().Distance(curpos);
-      Point3d                  proj    = ElCLib::Value(pcurpos, thelin->Lin());
+      Point3d                  proj    = ElCLib1::Value(pcurpos, thelin->Lin());
       Vector3d                  trans;
       constexpr Standard_Real confusion(Precision::Confusion());
       if (dist >= confusion)
@@ -725,19 +725,19 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
         trans = Vector3d(proj, curpos);
         trans.Normalize();
       }
-      Standard_Real pf = ElCLib::Parameter(thelin->Lin(), myFAttach);
-      Standard_Real pl = ElCLib::Parameter(thelin->Lin(), mySAttach);
+      Standard_Real pf = ElCLib1::Parameter(thelin->Lin(), myFAttach);
+      Standard_Real pl = ElCLib1::Parameter(thelin->Lin(), mySAttach);
       if (pcurpos <= pf)
       {
         pcurpos = pf + 1e-5;
-        curpos  = ElCLib::Value(pcurpos, thelin->Lin());
+        curpos  = ElCLib1::Value(pcurpos, thelin->Lin());
         if (dist >= confusion)
           curpos.Translate(trans * dist);
       }
       else if (pcurpos >= pl)
       {
         pcurpos = pl - 1e-5;
-        curpos  = ElCLib::Value(pcurpos, thelin->Lin());
+        curpos  = ElCLib1::Value(pcurpos, thelin->Lin());
         if (dist >= confusion)
           curpos.Translate(trans * dist);
       }
@@ -783,11 +783,11 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
   {
     if (myAutomaticPosition)
     {
-      Standard_Real pfirst1 = ElCLib::Parameter(thecirc->Circ(), firstp1);
-      myFAttach             = ElCLib::Value(Modulo2PI(pfirst1 - rad), thecirc->Circ());
-      mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), thecirc->Circ());
+      Standard_Real pfirst1 = ElCLib1::Parameter(thecirc->Circ(), firstp1);
+      myFAttach             = ElCLib1::Value(Modulo2PI(pfirst1 - rad), thecirc->Circ());
+      mySAttach             = ElCLib1::Value(Modulo2PI(pfirst1 + rad), thecirc->Circ());
 
-      Point3d curpos = ElCLib::Value(pfirst1, thecirc->Circ());
+      Point3d curpos = ElCLib1::Value(pfirst1, thecirc->Circ());
       Vector3d vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
@@ -828,10 +828,10 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
   {
     // We project all the points on the circle
     Standard_Real pf1, pf2, pl1, pl2;
-    pf1 = ElCLib::Parameter(thecirc->Circ(), firstp1);
-    pf2 = ElCLib::Parameter(thecirc->Circ(), firstp2);
-    pl1 = ElCLib::Parameter(thecirc->Circ(), lastp1);
-    pl2 = ElCLib::Parameter(thecirc->Circ(), lastp2);
+    pf1 = ElCLib1::Parameter(thecirc->Circ(), firstp1);
+    pf2 = ElCLib1::Parameter(thecirc->Circ(), firstp2);
+    pl1 = ElCLib1::Parameter(thecirc->Circ(), lastp1);
+    pl2 = ElCLib1::Parameter(thecirc->Circ(), lastp2);
 
     // III. Arcs with common ends
     // III.1. First of one and last of another
@@ -854,8 +854,8 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
         rad = maxrad;
       Standard_Real pFAttach = Modulo2PI(att - rad);
       Standard_Real pSAttach = Modulo2PI(att + rad);
-      myFAttach              = ElCLib::Value(pFAttach, thecirc->Circ());
-      mySAttach              = ElCLib::Value(pSAttach, thecirc->Circ());
+      myFAttach              = ElCLib1::Value(pFAttach, thecirc->Circ());
+      mySAttach              = ElCLib1::Value(pSAttach, thecirc->Circ());
       if (myAutomaticPosition)
       {
         Vector3d vtrans(myCenter, curpos);
@@ -1019,18 +1019,18 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(GeomCircle)
   Standard_Real aSegSize = thecirc->Radius() / 5.0;
   Standard_Real rad      = M_PI / 5.0;
 
-  Standard_Real pFA    = ElCLib::Parameter(thecirc->Circ(), firstp);
-  Standard_Real pSA    = ElCLib::Parameter(thecirc->Circ(), lastp);
+  Standard_Real pFA    = ElCLib1::Parameter(thecirc->Circ(), firstp);
+  Standard_Real pSA    = ElCLib1::Parameter(thecirc->Circ(), lastp);
   Standard_Real maxrad = Modulo2PI(pSA - pFA) / 2.0;
 
   if ((rad > maxrad) || isstatic)
     rad = maxrad;
   Standard_Real pmiddle = Modulo2PI(pFA + Modulo2PI(pSA - pFA) / 2.0);
 
-  myFAttach = ElCLib::Value(Modulo2PI(pmiddle - rad), thecirc->Circ());
-  mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), thecirc->Circ());
+  myFAttach = ElCLib1::Value(Modulo2PI(pmiddle - rad), thecirc->Circ());
+  mySAttach = ElCLib1::Value(Modulo2PI(pmiddle + rad), thecirc->Circ());
 
-  Point3d curpos = ElCLib::Value(pmiddle, thecirc->Circ());
+  Point3d curpos = ElCLib1::Value(pmiddle, thecirc->Circ());
   Vector3d vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
@@ -1062,11 +1062,11 @@ void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(GeomCir
   }
 
   Standard_Real rad      = M_PI / 5.0;
-  Standard_Real pcurpos  = ElCLib::Parameter(cirNotAuto->Circ(), curpos);
+  Standard_Real pcurpos  = ElCLib1::Parameter(cirNotAuto->Circ(), curpos);
   Standard_Real pFAttach = pcurpos - rad;
   Standard_Real pSAttach = pcurpos + rad;
-  myFAttach              = ElCLib::Value(pFAttach, cirNotAuto->Circ());
-  mySAttach              = ElCLib::Value(pSAttach, cirNotAuto->Circ());
+  myFAttach              = ElCLib1::Value(pFAttach, cirNotAuto->Circ());
+  mySAttach              = ElCLib1::Value(pSAttach, cirNotAuto->Circ());
 }
 
 //=======================================================================
@@ -1085,8 +1085,8 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(GeomCirc
 
   gp_Circ cirNotAuto = thecirc->Circ();
 
-  Standard_Real pFPnt  = ElCLib::Parameter(cirNotAuto, pntfirst);
-  Standard_Real pSPnt  = ElCLib::Parameter(cirNotAuto, pntlast);
+  Standard_Real pFPnt  = ElCLib1::Parameter(cirNotAuto, pntfirst);
+  Standard_Real pSPnt  = ElCLib1::Parameter(cirNotAuto, pntlast);
   Standard_Real deltap = Modulo2PI(pSPnt - pFPnt) / 2.0;
 
   Standard_Real rad = M_PI / 5;
@@ -1097,14 +1097,14 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(GeomCirc
   }
   else
   {
-    Point3d aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), cirNotAuto);
-    Point3d aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), cirNotAuto);
+    Point3d aFPnt = ElCLib1::Value(Modulo2PI(pFPnt + rad), cirNotAuto);
+    Point3d aSPnt = ElCLib1::Value(Modulo2PI(pSPnt - rad), cirNotAuto);
 
     ComputeAttach(cirNotAuto, aFPnt, aSPnt, curpos);
 
-    Standard_Real pcurpos = ElCLib::Parameter(cirNotAuto, curpos);
-    myFAttach             = ElCLib::Value(pcurpos - rad, cirNotAuto);
-    mySAttach             = ElCLib::Value(pcurpos + rad, cirNotAuto);
+    Standard_Real pcurpos = ElCLib1::Parameter(cirNotAuto, curpos);
+    myFAttach             = ElCLib1::Value(pcurpos - rad, cirNotAuto);
+    mySAttach             = ElCLib1::Value(pcurpos + rad, cirNotAuto);
   }
 }
 
@@ -1143,11 +1143,11 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
   {
     if (myAutomaticPosition)
     {
-      Standard_Real pfirst1 = ElCLib::Parameter(theEll->Elips(), firstp1);
-      myFAttach             = ElCLib::Value(Modulo2PI(pfirst1 - rad), theEll->Elips());
-      mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), theEll->Elips());
+      Standard_Real pfirst1 = ElCLib1::Parameter(theEll->Elips(), firstp1);
+      myFAttach             = ElCLib1::Value(Modulo2PI(pfirst1 - rad), theEll->Elips());
+      mySAttach             = ElCLib1::Value(Modulo2PI(pfirst1 + rad), theEll->Elips());
 
-      Point3d curpos = ElCLib::Value(pfirst1, theEll->Elips());
+      Point3d curpos = ElCLib1::Value(pfirst1, theEll->Elips());
       Vector3d vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
@@ -1188,10 +1188,10 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
   {
     // We project all the points on the circle
     Standard_Real pf1, pf2, pl1, pl2;
-    pf1 = ElCLib::Parameter(theEll->Elips(), firstp1);
-    pf2 = ElCLib::Parameter(theEll->Elips(), firstp2);
-    pl1 = ElCLib::Parameter(theEll->Elips(), lastp1);
-    pl2 = ElCLib::Parameter(theEll->Elips(), lastp2);
+    pf1 = ElCLib1::Parameter(theEll->Elips(), firstp1);
+    pf2 = ElCLib1::Parameter(theEll->Elips(), firstp2);
+    pl1 = ElCLib1::Parameter(theEll->Elips(), lastp1);
+    pl2 = ElCLib1::Parameter(theEll->Elips(), lastp2);
 
     // III. Arcs with common ends
     // III.1. First of one and last of another
@@ -1214,8 +1214,8 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
         rad = maxrad;
       Standard_Real pFAttach = Modulo2PI(att - rad);
       Standard_Real pSAttach = Modulo2PI(att + rad);
-      myFAttach              = ElCLib::Value(pFAttach, theEll->Elips());
-      mySAttach              = ElCLib::Value(pSAttach, theEll->Elips());
+      myFAttach              = ElCLib1::Value(pFAttach, theEll->Elips());
+      mySAttach              = ElCLib1::Value(pSAttach, theEll->Elips());
       if (myAutomaticPosition)
       {
         Vector3d vtrans(myCenter, curpos);
@@ -1380,18 +1380,18 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Ellips
 
   gp_Elips anEll = theEll->Elips();
 
-  Standard_Real pFA    = ElCLib::Parameter(anEll, firstp);
-  Standard_Real pSA    = ElCLib::Parameter(anEll, lastp);
+  Standard_Real pFA    = ElCLib1::Parameter(anEll, firstp);
+  Standard_Real pSA    = ElCLib1::Parameter(anEll, lastp);
   Standard_Real maxrad = Modulo2PI(pSA - pFA) / 2.0;
 
   if ((rad > maxrad) || isstatic)
     rad = maxrad;
   Standard_Real pmiddle = Modulo2PI(pFA + Modulo2PI(pSA - pFA) / 2.0);
 
-  myFAttach = ElCLib::Value(Modulo2PI(pmiddle - rad), anEll);
-  mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), anEll);
+  myFAttach = ElCLib1::Value(Modulo2PI(pmiddle - rad), anEll);
+  mySAttach = ElCLib1::Value(Modulo2PI(pmiddle + rad), anEll);
 
-  Point3d curpos = ElCLib::Value(pmiddle, anEll);
+  Point3d curpos = ElCLib1::Value(pmiddle, anEll);
   Vector3d vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
@@ -1423,14 +1423,14 @@ void PrsDim_IdenticRelation::ComputeNotAutoElipsPresentation(const Handle(Geom_E
   }
 
   Standard_Real rad = M_PI / 5.0;
-  //  Standard_Real pcurpos = ElCLib::Parameter(anEll,curpos);
+  //  Standard_Real pcurpos = ElCLib1::Parameter(anEll,curpos);
   GeomAPI_ProjectPointOnCurve aProj(curpos, theEll);
   Standard_Real               pcurpos = aProj.LowerDistanceParameter();
 
   Standard_Real pFAttach = pcurpos - rad;
   Standard_Real pSAttach = pcurpos + rad;
-  myFAttach              = ElCLib::Value(pFAttach, anEll);
-  mySAttach              = ElCLib::Value(pSAttach, anEll);
+  myFAttach              = ElCLib1::Value(pFAttach, anEll);
+  mySAttach              = ElCLib1::Value(pSAttach, anEll);
 }
 
 //=======================================================================
@@ -1449,8 +1449,8 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Ell
 
   gp_Elips anEll = theEll->Elips();
 
-  Standard_Real pFPnt  = ElCLib::Parameter(anEll, pntfirst);
-  Standard_Real pSPnt  = ElCLib::Parameter(anEll, pntlast);
+  Standard_Real pFPnt  = ElCLib1::Parameter(anEll, pntfirst);
+  Standard_Real pSPnt  = ElCLib1::Parameter(anEll, pntlast);
   Standard_Real deltap = Modulo2PI(pSPnt - pFPnt) / 2.0;
 
   Standard_Real rad = M_PI / 5;
@@ -1461,17 +1461,17 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Ell
   }
   else
   {
-    Point3d aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), anEll);
-    Point3d aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), anEll);
+    Point3d aFPnt = ElCLib1::Value(Modulo2PI(pFPnt + rad), anEll);
+    Point3d aSPnt = ElCLib1::Value(Modulo2PI(pSPnt - rad), anEll);
 
     ComputeAttach(anEll, aFPnt, aSPnt, curpos);
 
-    //      Standard_Real pcurpos = ElCLib::Parameter(anEll,curpos);
+    //      Standard_Real pcurpos = ElCLib1::Parameter(anEll,curpos);
     GeomAPI_ProjectPointOnCurve aProj(curpos, theEll);
     Standard_Real               pcurpos = aProj.LowerDistanceParameter();
 
-    myFAttach = ElCLib::Value(pcurpos - rad, anEll);
-    mySAttach = ElCLib::Value(pcurpos + rad, anEll);
+    myFAttach = ElCLib1::Value(pcurpos - rad, anEll);
+    mySAttach = ElCLib1::Value(pcurpos + rad, anEll);
   }
 }
 

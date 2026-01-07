@@ -31,14 +31,14 @@
 class AdvApp2Var_Iso;
 class AdvApp2Var_Node;
 
-class AdvApp2Var_Framework
+class Framework
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT AdvApp2Var_Framework();
+  Standard_EXPORT Framework();
 
-  Standard_EXPORT AdvApp2Var_Framework(const AdvApp2Var_SequenceOfNode&  Frame,
+  Standard_EXPORT Framework(const AdvApp2Var_SequenceOfNode&  Frame,
                                        const AdvApp2Var_SequenceOfStrip& UFrontier,
                                        const AdvApp2Var_SequenceOfStrip& VFrontier);
 

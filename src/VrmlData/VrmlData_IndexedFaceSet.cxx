@@ -224,7 +224,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   // Normals should be defined; if they are not, compute them
   if (myNormals.IsNull())
   {
-    Poly::ComputeNormals(aTriangulation);
+    Poly1::ComputeNormals(aTriangulation);
   }
   else
   {

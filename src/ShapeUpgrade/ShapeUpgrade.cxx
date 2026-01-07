@@ -74,9 +74,9 @@ Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
       continue;
 
     Standard_Integer StartFlatIndex =
-      BSplCLib::FlatIndex(deg, StartKnotIndex, Mults, Standard_False);
+      BSplCLib1::FlatIndex(deg, StartKnotIndex, Mults, Standard_False);
     //    StartFlatIndex += Mults (StartKnotIndex) - 1;
-    Standard_Integer EndFlatIndex = BSplCLib::FlatIndex(deg, EndKnotIndex, Mults, Standard_False);
+    Standard_Integer EndFlatIndex = BSplCLib1::FlatIndex(deg, EndKnotIndex, Mults, Standard_False);
     EndFlatIndex -= Mults(EndKnotIndex) - 1;
 
     TColStd_Array1OfReal    TempKnots(1, NbKnots);
@@ -106,7 +106,7 @@ Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
       newKnots(j) = TempKnots(j + TempStartIndex - 1);
     }
 
-    Standard_Integer     NewNbPoles = BSplCLib::NbPoles(deg, Standard_False, newMults);
+    Standard_Integer     NewNbPoles = BSplCLib1::NbPoles(deg, Standard_False, newMults);
     TColgp_Array1OfPnt   newPoles(1, NewNbPoles);
     TColStd_Array1OfReal newWeights(1, NewNbPoles);
     // clang-format off

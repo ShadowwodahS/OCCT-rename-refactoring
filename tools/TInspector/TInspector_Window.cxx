@@ -62,7 +62,7 @@ TInspector_Window::TInspector_Window()
   aCentralLayout->setSpacing(0);
 
   myToolsStack = new QStackedWidget(aCentralWidget);
-  myToolsStack->setFrameShape(QFrame::Box);
+  myToolsStack->setFrameShape(QFrame::Box1);
   aCentralLayout->addWidget(myToolsStack);
 
   myEmptyWidget = new QWidget(aCentralWidget);

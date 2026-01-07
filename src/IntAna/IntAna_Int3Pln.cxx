@@ -25,19 +25,19 @@
 #include <math_Vector.hxx>
 #include <StdFail_NotDone.hxx>
 
-IntAna_Int3Pln::IntAna_Int3Pln()
+Int3Planes::Int3Planes()
     : done(Standard_False),
       empt(Standard_True)
 {
 }
 
-IntAna_Int3Pln::IntAna_Int3Pln(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3)
+Int3Planes::Int3Planes(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3)
 {
 
   Perform(P1, P2, P3);
 }
 
-void IntAna_Int3Pln::Perform(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3)
+void Int3Planes::Perform(const gp_Pln& P1, const gp_Pln& P2, const gp_Pln& P3)
 {
 
   done = Standard_False;

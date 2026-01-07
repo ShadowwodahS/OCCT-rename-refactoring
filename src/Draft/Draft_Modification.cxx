@@ -355,7 +355,7 @@ Standard_Boolean Draft_Modification::NewCurve2d(const TopoEdge& E,
     Lp                           = TC->LastParameter();
     ShapeBuilder B;
     B.Range(NewE, Fp, Lp);
-    C = GeomProjLib::Curve2d(TC, Fp, Lp, SB, Tol);
+    C = GeomProjLib1::Curve2d(TC, Fp, Lp, SB, Tol);
   }
 
   Handle(TypeInfo) typs = SB->DynamicType();

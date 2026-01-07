@@ -25,7 +25,7 @@
 #include <Extrema_FuncExtSS.hxx>
 
 class Adaptor3d_Surface;
-class Extrema_POnSurf;
+class PointOnSurface1;
 
 //! It calculates all the extremum distances
 //! between two surfaces.
@@ -116,10 +116,10 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& PointOnS1(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnS1(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& PointOnS2(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnS2(const Standard_Integer N) const;
 
 private:
   // disallow copies

@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-void AppCont_LeastSquare::FixSingleBorderPoint(const AppCont_Function&       theSSP,
+void AppCont_LeastSquare::FixSingleBorderPoint(const ContinuityFunction&       theSSP,
                                                const Standard_Real           theU,
                                                const Standard_Real           theU0,
                                                const Standard_Real           theU1,
@@ -83,7 +83,7 @@ void AppCont_LeastSquare::FixSingleBorderPoint(const AppCont_Function&       the
 
 //=================================================================================================
 
-AppCont_LeastSquare::AppCont_LeastSquare(const AppCont_Function&       SSP,
+AppCont_LeastSquare::AppCont_LeastSquare(const ContinuityFunction&       SSP,
                                          const Standard_Real           U0,
                                          const Standard_Real           U1,
                                          const AppParCurves_Constraint FirstCons,

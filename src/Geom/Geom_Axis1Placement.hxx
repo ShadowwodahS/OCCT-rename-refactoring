@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(Geom_Axis1Placement, Geom_AxisPlacement)
 //! - its unit vector, termed the "Direction" of the axis.
 //! Note: Geom_Axis1Placement axes provide the
 //! same kind of "geometric" services as Axis3d axes
-//! but have more complex data structures. The
+//! but have more complex1 data structures. The
 //! geometric objects provided by the Geom package
 //! use Axis3d objects to include axes in their data
 //! structures, or to define an axis of symmetry or axis of rotation.

@@ -22,8 +22,8 @@
 
 class Adaptor3d_Curve;
 class Adaptor3d_Surface;
-class Extrema_POnCurv;
-class Extrema_POnSurf;
+class PointOnCurve1;
+class PointOnSurface1;
 
 //! It calculates all the extremum distances
 //! between acurve and a surface.
@@ -115,10 +115,10 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnCurv& PointOnCurve(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve1& PointOnCurve(const Standard_Integer N) const;
 
   //! Returns the point of the Nth resulting distance.
-  Standard_EXPORT const Extrema_POnSurf& PointOnSurface(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnSurface(const Standard_Integer N) const;
 
 private:
   Standard_EXPORT void GlobMinGenCS(const Adaptor3d_Curve& theC,

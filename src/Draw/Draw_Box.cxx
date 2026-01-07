@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Box, Draw_Drawable3D)
 
 //=================================================================================================
 
-Draw_Box::Draw_Box(const Bnd_OBB& theOBB, const DrawColor& theColor)
+Draw_Box::Draw_Box(const OrientedBox& theOBB, const DrawColor& theColor)
     : myOBB(theOBB),
       myColor(theColor)
 {

@@ -291,7 +291,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
   const Standard_Integer                    IL1,
   const Standard_Integer                    IL2) const
 {
-  Extrema_POnCurv2d             PointOnCurv1, PointOnCurv2;
+  PointOnCurve2d             PointOnCurv1, PointOnCurv2;
   Standard_Integer              IC1, IC2, IMinC1 = 0, IMinC2 = 0, i;
   Standard_Real                 DistL1L2_2, DistP1P2_2;
   Standard_Real                 ParameterOnC1 = 0., ParameterOnC2 = 0.;

@@ -29,7 +29,7 @@ class AdvApp2Var_Patch;
 class AdvApp2Var_Context;
 
 //! this class contains a specific G0 criterion for GeomPlate_MakeApprox
-class GeomPlate_PlateG0Criterion : public AdvApp2Var_Criterion
+class GeomPlate_PlateG0Criterion : public Criterion
 {
 public:
   DEFINE_STANDARD_ALLOC

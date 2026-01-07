@@ -157,8 +157,8 @@ Standard_Real Extrema_ExtElSS::SquareDistance(const Standard_Integer N) const
 }
 
 void Extrema_ExtElSS::Points(const Standard_Integer N,
-                             Extrema_POnSurf&       P1,
-                             Extrema_POnSurf&       P2) const
+                             PointOnSurface1&       P1,
+                             PointOnSurface1&       P2) const
 {
   if (N < 1 || N > NbExt())
   {

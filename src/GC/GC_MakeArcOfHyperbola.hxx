@@ -34,7 +34,7 @@ class Point3d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the
 //! Value function returns the constructed arc of hyperbola.
-class GC_MakeArcOfHyperbola : public GC_Root
+class GC_MakeArcOfHyperbola : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

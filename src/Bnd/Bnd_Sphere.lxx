@@ -11,32 +11,32 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline Standard_Integer Bnd_Sphere::U() const
+inline Standard_Integer Sphere2::U() const
 {
   return myU;
 }
 
-inline Standard_Integer Bnd_Sphere::V() const
+inline Standard_Integer Sphere2::V() const
 {
   return myV;
 }
 
-inline Standard_Boolean Bnd_Sphere::IsValid() const
+inline Standard_Boolean Sphere2::IsValid() const
 {
   return myIsValid;
 }
 
-inline void Bnd_Sphere::SetValid(const Standard_Boolean isValid)
+inline void Sphere2::SetValid(const Standard_Boolean isValid)
 {
   myIsValid = isValid;
 }
 
-inline const gp_XYZ& Bnd_Sphere::Center() const
+inline const gp_XYZ& Sphere2::Center() const
 {
   return myCenter;
 }
 
-inline Standard_Real Bnd_Sphere::Radius() const
+inline Standard_Real Sphere2::Radius() const
 {
   return myRadius;
 }

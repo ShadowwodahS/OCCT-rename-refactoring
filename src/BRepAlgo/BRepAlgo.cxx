@@ -276,9 +276,9 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
       edge                               = WExp.Current();
       const Handle(GeomCurve3d)& aCurve   = BRepInspector::Curve(edge, L, First, Last);
       Handle(Geom_TrimmedCurve) aTrCurve = new Geom_TrimmedCurve(aCurve, First, Last);
-      tab(index) = GeomConvert::CurveToBSplineCurve(aTrCurve); // storage in a array
+      tab(index) = GeomConvert1::CurveToBSplineCurve(aTrCurve); // storage in a array
       tab(index)->Transform(L.Transformation());
-      GeomConvert::C0BSplineToC1BSplineCurve(tab(index), Precision::Confusion());
+      GeomConvert1::C0BSplineToC1BSplineCurve(tab(index), Precision::Confusion());
 
       if (index >= 1)
       { // continuity test loop
@@ -339,13 +339,13 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
     Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
     Handle(TColStd_HArray1OfInteger)       ArrayOfIndices; // array of the remaining Vertex
     if (Option == GeomAbs_G1)
-      GeomConvert::ConcatG1(tab,
+      GeomConvert1::ConcatG1(tab,
                             tabtolvertex,
                             concatcurve,
                             closed_flag,
                             closed_tolerance); // G1 concatenation
     else
-      GeomConvert::ConcatC1(tab,
+      GeomConvert1::ConcatC1(tab,
                             tabtolvertex,
                             ArrayOfIndices,
                             concatcurve,
@@ -367,9 +367,9 @@ TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
     edge                         = WExp.Current();
     const Handle(GeomCurve3d)& aC = BRepInspector::Curve(edge, L, First, Last);
     Handle(BSplineCurve3d) aBS =
-      GeomConvert::CurveToBSplineCurve(new Geom_TrimmedCurve(aC, First, Last));
+      GeomConvert1::CurveToBSplineCurve(new Geom_TrimmedCurve(aC, First, Last));
     aBS->Transform(L.Transformation());
-    GeomConvert::C0BSplineToC1BSplineCurve(aBS, Precision::Confusion());
+    GeomConvert1::C0BSplineToC1BSplineCurve(aBS, Precision::Confusion());
     if (edge.Orientation() == TopAbs_REVERSED)
     {
       aBS->Reverse();
@@ -425,7 +425,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
 
     if (aBasisCurve->IsPeriodic())
     {
-      ElCLib::AdjustPeriodic(aBasisCurve->FirstParameter(),
+      ElCLib1::AdjustPeriodic(aBasisCurve->FirstParameter(),
                              aBasisCurve->LastParameter(),
                              Precision::PConfusion(),
                              fpar,
@@ -464,11 +464,11 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
             if (aLine.Contains(PrevLine.Location(), LinTol)
                 && aLine.Direction().IsParallel(PrevLine.Direction(), AngTol))
             {
-              Point3d P1 = ElCLib::Value(fpar, aLine);
-              Point3d P2 = ElCLib::Value(lpar, aLine);
+              Point3d P1 = ElCLib1::Value(fpar, aLine);
+              Point3d P2 = ElCLib1::Value(lpar, aLine);
 
-              NewFpar     = ElCLib::Parameter(PrevLine, P1);
-              NewLpar     = ElCLib::Parameter(PrevLine, P2);
+              NewFpar     = ElCLib1::Parameter(PrevLine, P1);
+              NewLpar     = ElCLib1::Parameter(PrevLine, P2);
               isSameCurve = Standard_True;
             }
             break;
@@ -481,11 +481,11 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
                 && Abs(aCircle.Radius() - PrevCircle.Radius()) <= LinTol
                 && aCircle.Axis().IsParallel(PrevCircle.Axis(), AngTol))
             {
-              Point3d P1 = ElCLib::Value(fpar, aCircle);
-              Point3d P2 = ElCLib::Value(lpar, aCircle);
+              Point3d P1 = ElCLib1::Value(fpar, aCircle);
+              Point3d P2 = ElCLib1::Value(lpar, aCircle);
 
-              NewFpar     = ElCLib::Parameter(PrevCircle, P1);
-              NewLpar     = ElCLib::Parameter(PrevCircle, P2);
+              NewFpar     = ElCLib1::Parameter(PrevCircle, P1);
+              NewLpar     = ElCLib1::Parameter(PrevCircle, P2);
               isSameCurve = Standard_True;
             }
             break;
@@ -500,11 +500,11 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
                 && Abs(anEllipse.MinorRadius() - PrevEllipse.MinorRadius()) <= LinTol
                 && anEllipse.Axis().IsParallel(PrevEllipse.Axis(), AngTol))
             {
-              Point3d P1 = ElCLib::Value(fpar, anEllipse);
-              Point3d P2 = ElCLib::Value(lpar, anEllipse);
+              Point3d P1 = ElCLib1::Value(fpar, anEllipse);
+              Point3d P2 = ElCLib1::Value(lpar, anEllipse);
 
-              NewFpar     = ElCLib::Parameter(PrevEllipse, P1);
-              NewLpar     = ElCLib::Parameter(PrevEllipse, P2);
+              NewFpar     = ElCLib1::Parameter(PrevEllipse, P1);
+              NewLpar     = ElCLib1::Parameter(PrevEllipse, P2);
               isSameCurve = Standard_True;
             }
             break;
@@ -519,11 +519,11 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
                 && Abs(aHypr.MinorRadius() - PrevHypr.MinorRadius()) <= LinTol
                 && aHypr.Axis().IsParallel(PrevHypr.Axis(), AngTol))
             {
-              Point3d P1 = ElCLib::Value(fpar, aHypr);
-              Point3d P2 = ElCLib::Value(lpar, aHypr);
+              Point3d P1 = ElCLib1::Value(fpar, aHypr);
+              Point3d P2 = ElCLib1::Value(lpar, aHypr);
 
-              NewFpar     = ElCLib::Parameter(PrevHypr, P1);
-              NewLpar     = ElCLib::Parameter(PrevHypr, P2);
+              NewFpar     = ElCLib1::Parameter(PrevHypr, P1);
+              NewLpar     = ElCLib1::Parameter(PrevHypr, P2);
               isSameCurve = Standard_True;
             }
             break;
@@ -537,11 +537,11 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
                 && Abs(aParab.Focal() - PrevParab.Focal()) <= LinTol
                 && aParab.Axis().IsParallel(PrevParab.Axis(), AngTol))
             {
-              Point3d P1 = ElCLib::Value(fpar, aParab);
-              Point3d P2 = ElCLib::Value(lpar, aParab);
+              Point3d P1 = ElCLib1::Value(fpar, aParab);
+              Point3d P2 = ElCLib1::Value(lpar, aParab);
 
-              NewFpar     = ElCLib::Parameter(PrevParab, P1);
-              NewLpar     = ElCLib::Parameter(PrevParab, P2);
+              NewFpar     = ElCLib1::Parameter(PrevParab, P1);
+              NewLpar     = ElCLib1::Parameter(PrevParab, P2);
               isSameCurve = Standard_True;
             }
             break;
@@ -587,7 +587,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
           if (IsFwdSeq.Last())
           {
             // The current curve should be after the previous one.
-            ElCLib::AdjustPeriodic(LparSeq.Last(),
+            ElCLib1::AdjustPeriodic(LparSeq.Last(),
                                    LparSeq.Last() + aPeriod,
                                    Precision::PConfusion(),
                                    NewFpar,
@@ -596,7 +596,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
           else
           {
             // The current curve should be before the previous one.
-            ElCLib::AdjustPeriodic(FparSeq.Last() - aPeriod,
+            ElCLib1::AdjustPeriodic(FparSeq.Last() - aPeriod,
                                    FparSeq.Last(),
                                    Precision::PConfusion(),
                                    NewFpar,
@@ -678,8 +678,8 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
 
       Handle(Geom_TrimmedCurve) aTrCurve =
         new Geom_TrimmedCurve(CurveSeq(i), FparSeq(i), LparSeq(i));
-      tab(i - 1) = GeomConvert::CurveToBSplineCurve(aTrCurve);
-      GeomConvert::C0BSplineToC1BSplineCurve(tab(i - 1), Precision::Confusion());
+      tab(i - 1) = GeomConvert1::CurveToBSplineCurve(aTrCurve);
+      GeomConvert1::C0BSplineToC1BSplineCurve(tab(i - 1), Precision::Confusion());
 
       if (!IsFwdSeq(i))
       {
@@ -715,7 +715,7 @@ TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
 
     Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
     Handle(TColStd_HArray1OfInteger)       ArrayOfIndices; // array of the remaining Vertex
-    GeomConvert::ConcatC1(tab,
+    GeomConvert1::ConcatC1(tab,
                           tabtolvertex,
                           ArrayOfIndices,
                           concatcurve,

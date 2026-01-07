@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Standard_Real HLRBRep_EdgeFaceTool::CurvatureValue(const Standard_Address F,
+Standard_Real EdgeFaceTool::CurvatureValue(const Standard_Address F,
                                                    const Standard_Real    U,
                                                    const Standard_Real    V,
                                                    const Dir3d&          Tg)
@@ -58,7 +58,7 @@ Standard_Real HLRBRep_EdgeFaceTool::CurvatureValue(const Standard_Address F,
 
 //=================================================================================================
 
-Standard_Boolean HLRBRep_EdgeFaceTool::UVPoint(const Standard_Real    Par,
+Standard_Boolean EdgeFaceTool::UVPoint(const Standard_Real    Par,
                                                const Standard_Address E,
                                                const Standard_Address F,
                                                Standard_Real&         U,

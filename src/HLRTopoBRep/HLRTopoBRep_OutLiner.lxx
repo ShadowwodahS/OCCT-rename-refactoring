@@ -59,7 +59,7 @@ inline TopoShape& HLRTopoBRep_OutLiner::OutLinedShape()
 // purpose  :
 //=======================================================================
 
-inline HLRTopoBRep_Data& HLRTopoBRep_OutLiner::DataStructure()
+inline Data1& HLRTopoBRep_OutLiner::DataStructure()
 {
   return myDS;
 }

@@ -130,7 +130,7 @@ static int mma2moy_(integer*    ndgumx,
 static int mma2ds2_(integer*                            ndimen,
                     doublereal*                         uintfn,
                     doublereal*                         vintfn,
-                    const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                    const EvaluatorFunc2Var& foncnp,
                     integer*                            nbpntu,
                     integer*                            nbpntv,
                     doublereal*                         urootb,
@@ -146,7 +146,7 @@ static int mma2ds2_(integer*                            ndimen,
 
 static int mma1fdi_(integer*                            ndimen,
                     doublereal*                         uvfonc,
-                    const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                    const EvaluatorFunc2Var& foncnp,
                     integer*                            isofav,
                     doublereal*                         tconst,
                     integer*                            nbroot,
@@ -355,17 +355,17 @@ int mma1cdi_(integer*    ndimen,
   contr1 -= contr1_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1CDI", 7L);
+    SystemBase::mgenmsg_("MMA1CDI", 7L);
   }
   *iercod = 0;
 
   /* --- Recuperate 2*(IORDRE+1) coeff of 2*(IORDRE+1) of Hermite polynom ---
    */
 
-  AdvApp2Var_ApproxF2var::mma1her_(iordre, &hermit[hermit_offset], iercod);
+  FunctionApprox2var::mma1her_(iordre, &hermit[hermit_offset], iercod);
   if (*iercod > 0)
   {
     goto L9100;
@@ -381,7 +381,7 @@ int mma1cdi_(integer*    ndimen,
     i__2 = *nbroot;
     for (kk = 1; kk <= i__2; ++kk)
     {
-      AdvApp2Var_MathBase::mmmpocur_(&ncfhe,
+      MathBase::mmmpocur_(&ncfhe,
                                      &c__1,
                                      &ncfhe,
                                      &hermit[ii * hermit_dim1],
@@ -464,7 +464,7 @@ L9100:
 L9999:
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1CDI", 7L);
+    SystemBase::mgsomsg_("MMA1CDI", 7L);
   }
   return 0;
 } /* mma1cdi_ */
@@ -504,7 +504,7 @@ int mma1cnt_(integer*    ndimen,
   /*     IORDRE: Order of constraint. */
   /*     CONTR1: pt of constraint in -1, from order 0 to IORDRE. */
   /*     CONTR2: Pt of constraint in +1, from order 0 to IORDRE. */
-  /*     HERMIT: Table of Hermit polynoms of order IORDRE. */
+  /*     HERMIT: Table of Hermit1 polynoms of order IORDRE. */
   /*     CRVJAV: Curve of approximation in Jacobi base. */
 
   /*     OUTPUT ARGUMENTS : */
@@ -550,10 +550,10 @@ int mma1cnt_(integer*    ndimen,
   crvjac -= crvjac_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1CNT", 7L);
+    SystemBase::mgenmsg_("MMA1CNT", 7L);
   }
 
   /* ***********************************************************************
@@ -590,7 +590,7 @@ int mma1cnt_(integer*    ndimen,
 
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1CNT", 7L);
+    SystemBase::mgsomsg_("MMA1CNT", 7L);
   }
 
   return 0;
@@ -600,7 +600,7 @@ int mma1cnt_(integer*    ndimen,
 
 int mma1fdi_(integer*                            ndimen,
              doublereal*                         uvfonc,
-             const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+             const EvaluatorFunc2Var& foncnp,
              integer*                            isofav,
              doublereal*                         tconst,
              integer*                            nbroot,
@@ -729,10 +729,10 @@ int mma1fdi_(integer*                            ndimen,
   contr1 -= contr1_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1FDI", 7L);
+    SystemBase::mgenmsg_("MMA1FDI", 7L);
   }
   *iercod = 0;
 
@@ -764,7 +764,7 @@ int mma1fdi_(integer*                            ndimen,
     ideru = *ideriv;
     iderv = 0;
     d__1  = (uvfonc[1] - uvfonc[0]) / 2.;
-    renor = AdvApp2Var_MathBase::pow__di(&d__1, ideriv);
+    renor = MathBase::pow__di(&d__1, ideriv);
     /*    if Iso-V, derive by V of order IDERIV */
   }
   else
@@ -772,7 +772,7 @@ int mma1fdi_(integer*                            ndimen,
     ideru = 0;
     iderv = *ideriv;
     d__1  = (uvfonc[3] - uvfonc[2]) / 2.;
-    renor = AdvApp2Var_MathBase::pow__di(&d__1, ideriv);
+    renor = MathBase::pow__di(&d__1, ideriv);
   }
 
   /* ----------- Discretization on roots of the  ---------------
@@ -780,7 +780,7 @@ int mma1fdi_(integer*                            ndimen,
   /* ---------------------- Legendre polynom of degree NBROOT -------------------
    */
 
-  (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+  (*const_cast<EvaluatorFunc2Var*>(&foncnp))
     .Evaluate(ndimen,
               &uvfonc[0],
               &uvfonc[2],
@@ -861,7 +861,7 @@ int mma1fdi_(integer*                            ndimen,
       i__1 = *iordre;
       for (iderv = 1; iderv <= i__1; ++iderv)
       {
-        (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+        (*const_cast<EvaluatorFunc2Var*>(&foncnp))
           .Evaluate(ndimen,
                     &uvfonc[0],
                     &uvfonc[2],
@@ -882,7 +882,7 @@ int mma1fdi_(integer*                            ndimen,
       i__1 = *iordre;
       for (iderv = 1; iderv <= i__1; ++iderv)
       {
-        (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+        (*const_cast<EvaluatorFunc2Var*>(&foncnp))
           .Evaluate(ndimen,
                     &uvfonc[0],
                     &uvfonc[2],
@@ -909,7 +909,7 @@ int mma1fdi_(integer*                            ndimen,
       i__1 = *iordre;
       for (ideru = 1; ideru <= i__1; ++ideru)
       {
-        (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+        (*const_cast<EvaluatorFunc2Var*>(&foncnp))
           .Evaluate(ndimen,
                     &uvfonc[0],
                     &uvfonc[2],
@@ -930,7 +930,7 @@ int mma1fdi_(integer*                            ndimen,
       i__1 = *iordre;
       for (ideru = 1; ideru <= i__1; ++ideru)
       {
-        (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+        (*const_cast<EvaluatorFunc2Var*>(&foncnp))
           .Evaluate(ndimen,
                     &uvfonc[0],
                     &uvfonc[2],
@@ -976,11 +976,11 @@ L9999:
   if (*iercod > 0)
   {
     *iercod += 100;
-    AdvApp2Var_SysBase::maermsg_("MMA1FDI", iercod, 7L);
+    SystemBase::maermsg_("MMA1FDI", iercod, 7L);
   }
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1FDI", 7L);
+    SystemBase::mgsomsg_("MMA1FDI", 7L);
   }
   return 0;
 } /* mma1fdi_ */
@@ -1081,10 +1081,10 @@ int mma1fer_(integer*, // ndimen,
   crvjac -= crvjac_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1FER", 7L);
+    SystemBase::mgenmsg_("MMA1FER", 7L);
   }
   *iercod = 0;
   idim    = 1;
@@ -1104,7 +1104,7 @@ int mma1fer_(integer*, // ndimen,
     /* ------------ cutting of coeff. and calculation of Max error -------
     ---- */
 
-    AdvApp2Var_MathBase::mmtrpjj_(&ncfja,
+    MathBase::mmtrpjj_(&ncfja,
                                   &ndses,
                                   &ncfja,
                                   &epsapr[ii],
@@ -1135,7 +1135,7 @@ int mma1fer_(integer*, // ndimen,
         i__2 = ndses;
         for (kk = 1; kk <= i__2; ++kk)
         {
-          AdvApp2Var_SysBase::mvriraz_(&nbr0, &crvjac[ncfnw + (idim + kk - 1) * crvjac_dim1]);
+          SystemBase::mvriraz_(&nbr0, &crvjac[ncfnw + (idim + kk - 1) * crvjac_dim1]);
           /* L200: */
         }
       }
@@ -1155,7 +1155,7 @@ int mma1fer_(integer*, // ndimen,
       /* ------------------------- calculate the Max error ------------
       -------- */
 
-      AdvApp2Var_MathBase::mmaperx_(&ncfja,
+      MathBase::mmaperx_(&ncfja,
                                     &ndses,
                                     &ncfja,
                                     iordre,
@@ -1195,18 +1195,18 @@ L9100:
 L9999:
   if (*iercod != 0)
   {
-    AdvApp2Var_SysBase::maermsg_("MMA1FER", iercod, 7L);
+    SystemBase::maermsg_("MMA1FER", iercod, 7L);
   }
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1FER", 7L);
+    SystemBase::mgsomsg_("MMA1FER", 7L);
   }
   return 0;
 } /* mma1fer_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma1her_(const integer* iordre, doublereal* hermit, integer* iercod)
+int FunctionApprox2var::mma1her_(const integer* iordre, doublereal* hermit, integer* iercod)
 {
   /* System generated locals */
   integer hermit_dim1, hermit_offset;
@@ -1219,7 +1219,7 @@ int AdvApp2Var_ApproxF2var::mma1her_(const integer* iordre, doublereal* hermit, 
 
   /*     FUNCTION : */
   /*     ---------- */
-  /*     Calculate 2*(IORDRE+1) Hermit polynoms of  degree 2*IORDRE+1 */
+  /*     Calculate 2*(IORDRE+1) Hermit1 polynoms of  degree 2*IORDRE+1 */
   /*     on (-1,1) */
 
   /*     KEYWORDS : */
@@ -1268,14 +1268,14 @@ int AdvApp2Var_ApproxF2var::mma1her_(const integer* iordre, doublereal* hermit, 
   hermit -= hermit_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1HER", 7L);
+    SystemBase::mgenmsg_("MMA1HER", 7L);
   }
   *iercod = 0;
 
-  /* --- Recover (IORDRE+2) coeff of 2*(IORDRE+1) Hermit polynoms --
+  /* --- Recover (IORDRE+2) coeff of 2*(IORDRE+1) Hermit1 polynoms --
    */
 
   if (*iordre == 0)
@@ -1360,10 +1360,10 @@ int AdvApp2Var_ApproxF2var::mma1her_(const integer* iordre, doublereal* hermit, 
   /* ------------------------------ The End -------------------------------
    */
 
-  AdvApp2Var_SysBase::maermsg_("MMA1HER", iercod, 7L);
+  SystemBase::maermsg_("MMA1HER", iercod, 7L);
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1HER", 7L);
+    SystemBase::mgsomsg_("MMA1HER", 7L);
   }
   return 0;
 } /* mma1her_ */
@@ -1446,17 +1446,17 @@ int mma1jak_(integer*    ndimen,
   crvjac -= crvjac_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1JAK", 7L);
+    SystemBase::mgenmsg_("MMA1JAK", 7L);
   }
   *iercod = 0;
 
   /* ----------------- Recover coeffs of integration by Gauss -----------
    */
 
-  AdvApp2Var_ApproxF2var::mmapptt_(ndgjac, nbroot, iordre, cgauss, iercod);
+  FunctionApprox2var::mmapptt_(ndgjac, nbroot, iordre, cgauss, iercod);
   if (*iercod > 0)
   {
     *iercod = 33;
@@ -1481,11 +1481,11 @@ int mma1jak_(integer*    ndimen,
 L9999:
   if (*iercod != 0)
   {
-    AdvApp2Var_SysBase::maermsg_("MMA1JAK", iercod, 7L);
+    SystemBase::maermsg_("MMA1JAK", iercod, 7L);
   }
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1JAK", 7L);
+    SystemBase::mgsomsg_("MMA1JAK", 7L);
   }
   return 0;
 } /* mma1jak_ */
@@ -1582,10 +1582,10 @@ int mma1noc_(doublereal* dfuvin,
   duvout -= 3;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1NOC", 7L);
+    SystemBase::mgenmsg_("MMA1NOC", 7L);
   }
 
   /* --------------- Determination of coefficients of normalization -------
@@ -1594,16 +1594,16 @@ int mma1noc_(doublereal* dfuvin,
   if (*isofav == 1)
   {
     d__1  = (dfuvin[4] - dfuvin[3]) / (duvout[4] - duvout[3]);
-    rider = AdvApp2Var_MathBase::pow__di(&d__1, ideriv);
+    rider = MathBase::pow__di(&d__1, ideriv);
     d__1  = (dfuvin[6] - dfuvin[5]) / (duvout[6] - duvout[5]);
-    riord = AdvApp2Var_MathBase::pow__di(&d__1, iordre);
+    riord = MathBase::pow__di(&d__1, iordre);
   }
   else
   {
     d__1  = (dfuvin[6] - dfuvin[5]) / (duvout[6] - duvout[5]);
-    rider = AdvApp2Var_MathBase::pow__di(&d__1, ideriv);
+    rider = MathBase::pow__di(&d__1, ideriv);
     d__1  = (dfuvin[4] - dfuvin[3]) / (duvout[4] - duvout[3]);
-    riord = AdvApp2Var_MathBase::pow__di(&d__1, iordre);
+    riord = MathBase::pow__di(&d__1, iordre);
   }
 
   /* ------------- Renormalization of the vector of constraint ---------------
@@ -1622,7 +1622,7 @@ int mma1noc_(doublereal* dfuvin,
 
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1NOC", 7L);
+    SystemBase::mgsomsg_("MMA1NOC", 7L);
   }
   return 0;
 } /* mma1noc_ */
@@ -1682,10 +1682,10 @@ int mma1nop_(integer*    nbroot,
   uvfonc -= 3;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA1NOP", 7L);
+    SystemBase::mgenmsg_("MMA1NOP", 7L);
   }
 
   alinu = (uvfonc[4] - uvfonc[3]) / 2.;
@@ -1732,11 +1732,11 @@ L9100:
 L9999:
   if (*iercod != 0)
   {
-    AdvApp2Var_SysBase::maermsg_("MMA1NOP", iercod, 7L);
+    SystemBase::maermsg_("MMA1NOP", iercod, 7L);
   }
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA1NOP", 7L);
+    SystemBase::mgsomsg_("MMA1NOP", 7L);
   }
 
   return 0;
@@ -1745,7 +1745,7 @@ L9999:
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2ac1_(integer const*    ndimen,
+int FunctionApprox2var::mma2ac1_(integer const*    ndimen,
                                      integer const*    mxujac,
                                      integer const*    mxvjac,
                                      integer const*    iordru,
@@ -1806,8 +1806,8 @@ int AdvApp2Var_ApproxF2var::mma2ac1_(integer const*    ndimen,
   /*           extremities of F(U0,V1) and its derivatives. */
   /*   CONTR4: Contains, if IORDRU and IORDRV>=0, the values at the */
   /*           extremities of F(U1,V1) and its derivatives. */
-  /*   UHERMT: Coeff. of Hermit polynoms of order IORDRU. */
-  /*   VHERMT: Coeff. of Hermit polynoms of order IORDRV. */
+  /*   UHERMT: Coeff. of Hermit1 polynoms of order IORDRU. */
+  /*   VHERMT: Coeff. of Hermit1 polynoms of order IORDRV. */
   /*   PATJAC: Table of coefficients of the polynom P(u,v) of approximation */
   /*           of F(u,v) WITHOUT taking into account the constraints. */
 
@@ -1852,10 +1852,10 @@ int AdvApp2Var_ApproxF2var::mma2ac1_(integer const*    ndimen,
   contr1 -= contr1_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2AC1", 7L);
+    SystemBase::mgenmsg_("MMA2AC1", 7L);
   }
 
   /* ------------ SUBTRACTION OF ANGULAR CONSTRAINTS -------------------
@@ -1908,14 +1908,14 @@ int AdvApp2Var_ApproxF2var::mma2ac1_(integer const*    ndimen,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2AC1", 7L);
+    SystemBase::mgsomsg_("MMA2AC1", 7L);
   }
   return 0;
 } /* mma2ac1_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2ac2_(const integer*    ndimen,
+int FunctionApprox2var::mma2ac2_(const integer*    ndimen,
                                      const integer*    mxujac,
                                      const integer*    mxvjac,
                                      const integer*    iordrv,
@@ -1968,7 +1968,7 @@ int AdvApp2Var_ApproxF2var::mma2ac2_(const integer*    ndimen,
   /*   NCFIV2: Nb of Coeff. of curves stored in CRBIV2. */
   /*   CRBIV2: Table of coeffs of approximation of iso-V1 and its */
   /*           derivatives till order IORDRV. */
-  /*   VHERMT: Coeff. of Hermit polynoms of order IORDRV. */
+  /*   VHERMT: Coeff. of Hermit1 polynoms of order IORDRV. */
   /*   PATJAC: Table of coefficients of the polynom P(u,v) of approximation */
   /*           of F(u,v) WITHOUT taking into account the constraints. */
 
@@ -2006,13 +2006,13 @@ int AdvApp2Var_ApproxF2var::mma2ac2_(const integer*    ndimen,
   crbiv1 -= crbiv1_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2AC2", 7L);
+    SystemBase::mgenmsg_("MMA2AC2", 7L);
   }
 
-  /* ------------ ADDING of coeff by u of curves, by v of Hermit --------
+  /* ------------ ADDING of coeff by u of curves, by v of Hermit1 --------
    */
 
   i__1 = *iordrv + 1;
@@ -2054,14 +2054,14 @@ int AdvApp2Var_ApproxF2var::mma2ac2_(const integer*    ndimen,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2AC2", 7L);
+    SystemBase::mgsomsg_("MMA2AC2", 7L);
   }
   return 0;
 } /* mma2ac2_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2ac3_(const integer*    ndimen,
+int FunctionApprox2var::mma2ac3_(const integer*    ndimen,
                                      const integer*    mxujac,
                                      const integer*    mxvjac,
                                      const integer*    iordru,
@@ -2114,7 +2114,7 @@ int AdvApp2Var_ApproxF2var::mma2ac3_(const integer*    ndimen,
   /*   NCFIU2: Nb of Coeff. of curves stored in CRBIU2. */
   /*   CRBIU2: Table of coeffs of approximation of iso-U1 and its */
   /*           derivatives till order IORDRU */
-  /*   UHERMT: Coeff. of Hermit polynoms of order IORDRU. */
+  /*   UHERMT: Coeff. of Hermit1 polynoms of order IORDRU. */
   /*   PATJAC: Table of coefficients of the polynom P(u,v) of approximation */
   /*           of F(u,v) WITHOUT taking into account the constraints. */
 
@@ -2151,13 +2151,13 @@ int AdvApp2Var_ApproxF2var::mma2ac3_(const integer*    ndimen,
   crbiu1 -= crbiu1_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2AC3", 7L);
+    SystemBase::mgenmsg_("MMA2AC3", 7L);
   }
 
-  /* ------------ ADDING of coeff by u of curves, by v of Hermit --------
+  /* ------------ ADDING of coeff by u of curves, by v of Hermit1 --------
    */
 
   i__1 = *iordru + 1;
@@ -2205,14 +2205,14 @@ int AdvApp2Var_ApproxF2var::mma2ac3_(const integer*    ndimen,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2AC3", 7L);
+    SystemBase::mgsomsg_("MMA2AC3", 7L);
   }
   return 0;
 } /* mma2ac3_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2can_(const integer*    ncfmxu,
+int FunctionApprox2var::mma2can_(const integer*    ncfmxu,
                                      const integer*    ncfmxv,
                                      const integer*    ndimen,
                                      const integer*    iordru,
@@ -2289,10 +2289,10 @@ int AdvApp2Var_ApproxF2var::mma2can_(const integer*    ncfmxu,
   patjac -= patjac_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 2;
+  ldbg = SystemBase::mnfndeb_() >= 2;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CAN", 7L);
+    SystemBase::mgenmsg_("MMA2CAN", 7L);
   }
   *iercod = 0;
 
@@ -2320,7 +2320,7 @@ int AdvApp2Var_ApproxF2var::mma2can_(const integer*    ncfmxu,
            &patcan[patcan_offset]);
 
   /* --> Write all in a greater table */
-  AdvApp2Var_MathBase::mmfmca8_(ncoefu,
+  MathBase::mmfmca8_(ncoefu,
                                 ncoefv,
                                 ndimen,
                                 ncfmxu,
@@ -2340,14 +2340,14 @@ int AdvApp2Var_ApproxF2var::mma2can_(const integer*    ncfmxu,
       i__2 = *ncoefv;
       for (ii = 1; ii <= i__2; ++ii)
       {
-        AdvApp2Var_SysBase::mvriraz_(&ilon1,
+        SystemBase::mvriraz_(&ilon1,
                                      &patcan[*ncoefu + 1 + (ii + nd * patcan_dim2) * patcan_dim1]);
         /* L110: */
       }
     }
     if (ilon2 > 0)
     {
-      AdvApp2Var_SysBase::mvriraz_(&ilon2,
+      SystemBase::mvriraz_(&ilon2,
                                    &patcan[(*ncoefv + 1 + nd * patcan_dim2) * patcan_dim1 + 1]);
     }
     /* L100: */
@@ -2363,10 +2363,10 @@ L9100:
   goto L9999;
 
 L9999:
-  AdvApp2Var_SysBase::maermsg_("MMA2CAN", iercod, 7L);
+  SystemBase::maermsg_("MMA2CAN", iercod, 7L);
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CAN", 7L);
+    SystemBase::mgsomsg_("MMA2CAN", 7L);
   }
   return 0;
 } /* mma2can_ */
@@ -2539,10 +2539,10 @@ int mma2cd1_(integer*    ndimen,
   contr1 -= contr1_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CD1", 7L);
+    SystemBase::mgenmsg_("MMA2CD1", 7L);
   }
 
   /* ------------------- Discretisation of Hermite polynoms -----------
@@ -2555,7 +2555,7 @@ int mma2cd1_(integer*    ndimen,
     i__2 = *nbpntu;
     for (ll = 1; ll <= i__2; ++ll)
     {
-      AdvApp2Var_MathBase::mmmpocur_(&ncfhu,
+      MathBase::mmmpocur_(&ncfhu,
                                      &c__1,
                                      &ncfhu,
                                      &uhermt[ii * uhermt_dim1],
@@ -2572,7 +2572,7 @@ int mma2cd1_(integer*    ndimen,
     i__2 = *nbpntv;
     for (kk = 1; kk <= i__2; ++kk)
     {
-      AdvApp2Var_MathBase::mmmpocur_(&ncfhv,
+      MathBase::mmmpocur_(&ncfhv,
                                      &c__1,
                                      &ncfhv,
                                      &vhermt[jj * vhermt_dim1],
@@ -2725,7 +2725,7 @@ int mma2cd1_(integer*    ndimen,
 L9999:
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CD1", 7L);
+    SystemBase::mgsomsg_("MMA2CD1", 7L);
   }
   return 0;
 } /* mma2cd1_ */
@@ -2877,13 +2877,13 @@ int mma2cd2_(integer*    ndimen,
   sotbv1 -= sotbv1_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CD2", 7L);
+    SystemBase::mgenmsg_("MMA2CD2", 7L);
   }
 
-  /* ------------------- Discretization of Hermit polynoms -----------
+  /* ------------------- Discretization of Hermit1 polynoms -----------
    */
 
   ncfhv = (*iordrv + 1) << 1;
@@ -2893,7 +2893,7 @@ int mma2cd2_(integer*    ndimen,
     i__2 = *nbpntv;
     for (jj = 1; jj <= i__2; ++jj)
     {
-      AdvApp2Var_MathBase::mmmpocur_(&ncfhv,
+      MathBase::mmmpocur_(&ncfhv,
                                      &c__1,
                                      &ncfhv,
                                      &vhermt[ii * vhermt_dim1],
@@ -3045,7 +3045,7 @@ int mma2cd2_(integer*    ndimen,
 L9999:
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CD2", 7L);
+    SystemBase::mgsomsg_("MMA2CD2", 7L);
   }
   return 0;
 } /* mma2cd2_ */
@@ -3200,13 +3200,13 @@ int mma2cd3_(integer*    ndimen,
   sotbu1 -= sotbu1_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CD3", 7L);
+    SystemBase::mgenmsg_("MMA2CD3", 7L);
   }
 
-  /* ------------------- Discretization of polynoms of Hermit -----------
+  /* ------------------- Discretization of polynoms of Hermit1 -----------
    */
 
   ncfhu = (*iordru + 1) << 1;
@@ -3216,7 +3216,7 @@ int mma2cd3_(integer*    ndimen,
     i__2 = *nbpntu;
     for (kk = 1; kk <= i__2; ++kk)
     {
-      AdvApp2Var_MathBase::mmmpocur_(&ncfhu,
+      MathBase::mmmpocur_(&ncfhu,
                                      &c__1,
                                      &ncfhu,
                                      &uhermt[ii * uhermt_dim1],
@@ -3368,14 +3368,14 @@ int mma2cd3_(integer*    ndimen,
 L9999:
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CD3", 7L);
+    SystemBase::mgsomsg_("MMA2CD3", 7L);
   }
   return 0;
 } /* mma2cd3_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2cdi_(integer*    ndimen,
+int FunctionApprox2var::mma2cdi_(integer*    ndimen,
                                      integer*    nbpntu,
                                      doublereal* urootl,
                                      integer*    nbpntv,
@@ -3559,13 +3559,13 @@ int AdvApp2Var_ApproxF2var::mma2cdi_(integer*    ndimen,
   --sotbv2;
   --ditbv1;
   --ditbv2;
-  AdvApp2Var_SysBase anAdvApp2Var_SysBase;
+  SystemBase anAdvApp2Var_SysBase;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CDI", 7L);
+    SystemBase::mgenmsg_("MMA2CDI", 7L);
   }
   *iercod = 0;
   iofwr   = 0;
@@ -3582,11 +3582,11 @@ int AdvApp2Var_ApproxF2var::mma2cdi_(integer*    ndimen,
    */
 
   ilong = (*nbpntu / 2 + 1) * (*nbpntv / 2 + 1) * *ndimen;
-  AdvApp2Var_SysBase::mvriraz_(&ilong, &sosotb[sosotb_offset]);
-  AdvApp2Var_SysBase::mvriraz_(&ilong, &diditb[diditb_offset]);
+  SystemBase::mvriraz_(&ilong, &sosotb[sosotb_offset]);
+  SystemBase::mvriraz_(&ilong, &diditb[diditb_offset]);
   ilong = *nbpntu / 2 * (*nbpntv / 2) * *ndimen;
-  AdvApp2Var_SysBase::mvriraz_(&ilong, &soditb[soditb_offset]);
-  AdvApp2Var_SysBase::mvriraz_(&ilong, &disotb[disotb_offset]);
+  SystemBase::mvriraz_(&ilong, &soditb[soditb_offset]);
+  SystemBase::mvriraz_(&ilong, &disotb[disotb_offset]);
   if (*iordru == -1 && *iordrv == -1)
   {
     goto L9999;
@@ -3613,7 +3613,7 @@ int AdvApp2Var_ApproxF2var::mma2cdi_(integer*    ndimen,
     /* --- Return 2*(IORDRU+1) coeff of 2*(IORDRU+1) polynoms of Hermite
     --- */
 
-    AdvApp2Var_ApproxF2var::mma1her_(iordru, wrkar_off, iercod);
+    FunctionApprox2var::mma1her_(iordru, wrkar_off, iercod);
     if (*iercod > 0)
     {
       goto L9100;
@@ -3645,7 +3645,7 @@ int AdvApp2Var_ApproxF2var::mma2cdi_(integer*    ndimen,
     /* --- Return 2*(IORDRV+1) coeff of 2*(IORDRV+1) polynoms of Hermite
     --- */
 
-    AdvApp2Var_ApproxF2var::mma1her_(iordrv, &wrkar_off[ipt1], iercod);
+    FunctionApprox2var::mma1her_(iordrv, &wrkar_off[ipt1], iercod);
     if (*iercod > 0)
     {
       goto L9100;
@@ -3718,17 +3718,17 @@ L9999:
   {
     *iercod = 13;
   }
-  AdvApp2Var_SysBase::maermsg_("MMA2CDI", iercod, 7L);
+  SystemBase::maermsg_("MMA2CDI", iercod, 7L);
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CDI", 7L);
+    SystemBase::mgsomsg_("MMA2CDI", 7L);
   }
   return 0;
 } /* mma2cdi_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2ce1_(integer*    numdec,
+int FunctionApprox2var::mma2ce1_(integer*    numdec,
                                      integer*    ndimen,
                                      integer*    nbsesp,
                                      integer*    ndimse,
@@ -3914,10 +3914,10 @@ int AdvApp2Var_ApproxF2var::mma2ce1_(integer*    numdec,
   sosotb -= sosotb_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CE1", 7L);
+    SystemBase::mgenmsg_("MMA2CE1", 7L);
   }
   *iercod = 0;
   iofwr   = 0;
@@ -3930,7 +3930,7 @@ int AdvApp2Var_ApproxF2var::mma2ce1_(integer*    numdec,
   isz6  = *ndjacv + 1 - ((*iordrv + 1) << 1);
   isz7  = *ndimen << 2;
   iszwr = isz1 + isz2 + isz3 + isz4 + isz5 + isz6 + isz7;
-  AdvApp2Var_SysBase anAdvApp2Var_SysBase;
+  SystemBase anAdvApp2Var_SysBase;
   anAdvApp2Var_SysBase.mcrrqst_(&c__8, &iszwr, wrkar, &iofwr, &ier);
   wrkar_off = reinterpret_cast<double*>(iofwr * sizeof(double));
   if (ier > 0)
@@ -3947,12 +3947,12 @@ int AdvApp2Var_ApproxF2var::mma2ce1_(integer*    numdec,
   /* ----------------- Return Gauss coefficients of integration ----------------
    */
 
-  AdvApp2Var_ApproxF2var::mmapptt_(ndjacu, nbpntu, iordru, wrkar_off, iercod);
+  FunctionApprox2var::mmapptt_(ndjacu, nbpntu, iordru, wrkar_off, iercod);
   if (*iercod > 0)
   {
     goto L9999;
   }
-  AdvApp2Var_ApproxF2var::mmapptt_(ndjacv, nbpntv, iordrv, &wrkar_off[ipt1], iercod);
+  FunctionApprox2var::mmapptt_(ndjacv, nbpntv, iordrv, &wrkar_off[ipt1], iercod);
   if (*iercod > 0)
   {
     goto L9999;
@@ -3961,8 +3961,8 @@ int AdvApp2Var_ApproxF2var::mma2ce1_(integer*    numdec,
   /* ------------------- Return max polynoms of  Jacobi ------------
    */
 
-  AdvApp2Var_ApproxF2var::mma2jmx_(ndjacu, iordru, &wrkar_off[ipt5]);
-  AdvApp2Var_ApproxF2var::mma2jmx_(ndjacv, iordrv, &wrkar_off[ipt5]);
+  FunctionApprox2var::mma2jmx_(ndjacu, iordru, &wrkar_off[ipt5]);
+  FunctionApprox2var::mma2jmx_(ndjacv, iordrv, &wrkar_off[ipt5]);
 
   /* ------ Calculate the coefficients and their contribution to the error ----
    */
@@ -4022,10 +4022,10 @@ L9999:
   {
     *iercod = 13;
   }
-  AdvApp2Var_SysBase::maermsg_("MMA2CE1", iercod, 7L);
+  SystemBase::maermsg_("MMA2CE1", iercod, 7L);
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CE1", 7L);
+    SystemBase::mgsomsg_("MMA2CE1", 7L);
   }
   return 0;
 } /* mma2ce1_ */
@@ -4247,10 +4247,10 @@ int mma2ce2_(integer*    numdec,
   sosotb -= sosotb_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CE2", 7L);
+    SystemBase::mgenmsg_("MMA2CE2", 7L);
   }
   /* --> A priori everything is OK */
   *iercod = 0;
@@ -4289,12 +4289,12 @@ int mma2ce2_(integer*    numdec,
   *ndegpu = *ndminu;
   *ndegpv = *ndminv;
   /* --> For the moment, max errors are null */
-  AdvApp2Var_SysBase::mvriraz_(nbsesp, &errmax[1]);
+  SystemBase::mvriraz_(nbsesp, &errmax[1]);
   nd = *ndimen << 2;
-  AdvApp2Var_SysBase::mvriraz_(&nd, &vecerr[vecerr_offset]);
+  SystemBase::mvriraz_(&nd, &vecerr[vecerr_offset]);
   /* --> and the square, too. */
   nd = (*ndjacu + 1) * (*ndjacv + 1) * *ndimen;
-  AdvApp2Var_SysBase::mvriraz_(&nd, &patjac[patjac_offset]);
+  SystemBase::mvriraz_(&nd, &patjac[patjac_offset]);
 
   i2rdu = (*iordru + 1) << 1;
   i2rdv = (*iordrv + 1) << 1;
@@ -4581,12 +4581,12 @@ int mma2ce2_(integer*    numdec,
       vaux[1]    = vecerr[nd + (vecerr_dim1 << 2)];
       vaux[2]    = vecerr[nd + vecerr_dim1 * 3];
       ii         = 3;
-      errmax[nd] = AdvApp2Var_MathBase::mzsnorm_(&ii, vaux);
+      errmax[nd] = MathBase::mzsnorm_(&ii, vaux);
       if (errmax[nd] > epsapr[nd])
       {
         ii = 2;
-        zv = AdvApp2Var_MathBase::mzsnorm_(&ii, vaux);
-        zu = AdvApp2Var_MathBase::mzsnorm_(&ii, &vaux[1]);
+        zv = MathBase::mzsnorm_(&ii, vaux);
+        zu = MathBase::mzsnorm_(&ii, &vaux[1]);
         if (zu > epsapr[nd] && zv > epsapr[nd])
         {
           goto L9300;
@@ -4997,10 +4997,10 @@ L9300:
   goto L9999;
 
 L9999:
-  AdvApp2Var_SysBase::maermsg_("MMA2CE2", iercod, 7L);
+  SystemBase::maermsg_("MMA2CE2", iercod, 7L);
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CE2", 7L);
+    SystemBase::mgsomsg_("MMA2CE2", 7L);
   }
   return 0;
 } /* mma2ce2_ */
@@ -5109,10 +5109,10 @@ int mma2cfu_(integer*    ndujac,
   sosotb_dim1 = *nbpntu / 2 + 1;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CFU", 7L);
+    SystemBase::mgenmsg_("MMA2CFU", 7L);
   }
 
   nptu2 = *nbpntu / 2;
@@ -5231,7 +5231,7 @@ int mma2cfu_(integer*    ndujac,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CFU", 7L);
+    SystemBase::mgsomsg_("MMA2CFU", 7L);
   }
   return 0;
 } /* mma2cfu_ */
@@ -5321,10 +5321,10 @@ int mma2cfv_(integer*    ndvjac,
   chpair -= chpair_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2CFV", 7L);
+    SystemBase::mgenmsg_("MMA2CFV", 7L);
   }
   nptv2 = *nbpntv / 2;
 
@@ -5386,17 +5386,17 @@ int mma2cfv_(integer*    ndvjac,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2CFV", 7L);
+    SystemBase::mgsomsg_("MMA2CFV", 7L);
   }
   return 0;
 } /* mma2cfv_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
+int FunctionApprox2var::mma2ds1_(integer*                            ndimen,
                                      doublereal*                         uintfn,
                                      doublereal*                         vintfn,
-                                     const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                                     const EvaluatorFunc2Var& foncnp,
                                      integer*                            nbpntu,
                                      integer*                            nbpntv,
                                      doublereal*                         urootb,
@@ -5588,10 +5588,10 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
   --ttable;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2DS1", 7L);
+    SystemBase::mgenmsg_("MMA2DS1", 7L);
   }
   *iercod = 0;
   if (*isofav < 1 || *isofav > 2)
@@ -5644,7 +5644,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
     {
       isz1 = *nbpntu / 2 + 1;
       isz2 = *nbpntv / 2 + 1;
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &sosotb[nd * sosotb_dim2 * sosotb_dim1],
                                     &isz1,
                                     &isz2,
@@ -5657,7 +5657,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       {
         goto L9999;
       }
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &diditb[nd * diditb_dim2 * diditb_dim1],
                                     &isz1,
                                     &isz2,
@@ -5672,7 +5672,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       }
       isz1 = *nbpntu / 2;
       isz2 = *nbpntv / 2;
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &soditb[(nd * soditb_dim2 + 1) * soditb_dim1 + 1],
                                     &isz1,
                                     &isz2,
@@ -5685,7 +5685,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       {
         goto L9999;
       }
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &disotb[(nd * disotb_dim2 + 1) * disotb_dim1 + 1],
                                     &isz1,
                                     &isz2,
@@ -5723,7 +5723,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
     {
       isz1 = *nbpntv / 2 + 1;
       isz2 = *nbpntu / 2 + 1;
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &sosotb[nd * sosotb_dim2 * sosotb_dim1],
                                     &isz1,
                                     &isz2,
@@ -5736,7 +5736,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       {
         goto L9999;
       }
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &diditb[nd * diditb_dim2 * diditb_dim1],
                                     &isz1,
                                     &isz2,
@@ -5751,7 +5751,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       }
       isz1 = *nbpntv / 2;
       isz2 = *nbpntu / 2;
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &soditb[(nd * soditb_dim2 + 1) * soditb_dim1 + 1],
                                     &isz1,
                                     &isz2,
@@ -5764,7 +5764,7 @@ int AdvApp2Var_ApproxF2var::mma2ds1_(integer*                            ndimen,
       {
         goto L9999;
       }
-      AdvApp2Var_MathBase::mmfmtb1_(&isz1,
+      MathBase::mmfmtb1_(&isz1,
                                     &disotb[(nd * disotb_dim2 + 1) * disotb_dim1 + 1],
                                     &isz1,
                                     &isz2,
@@ -5788,11 +5788,11 @@ L9999:
   if (*iercod > 0)
   {
     *iercod += 100;
-    AdvApp2Var_SysBase::maermsg_("MMA2DS1", iercod, 7L);
+    SystemBase::maermsg_("MMA2DS1", iercod, 7L);
   }
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2DS1", 7L);
+    SystemBase::mgsomsg_("MMA2DS1", 7L);
   }
   return 0;
 } /* mma2ds1_ */
@@ -5802,7 +5802,7 @@ L9999:
 int mma2ds2_(integer*                            ndimen,
              doublereal*                         uintfn,
              doublereal*                         vintfn,
-             const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+             const EvaluatorFunc2Var& foncnp,
              integer*                            nbpntu,
              integer*                            nbpntv,
              doublereal*                         urootb,
@@ -6008,10 +6008,10 @@ int mma2ds2_(integer*                            ndimen,
   --vrootb;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2DS2", 7L);
+    SystemBase::mgenmsg_("MMA2DS2", 7L);
   }
   *iercod = 0;
 
@@ -6061,7 +6061,7 @@ int mma2ds2_(integer*                            ndimen,
   for (iv = 1; iv <= i__1; ++iv)
   {
     tcons = blinv + alinv * vrootb[iv];
-    (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+    (*const_cast<EvaluatorFunc2Var*>(&foncnp))
       .Evaluate(ndimen,
                 dbfn1,
                 dbfn2,
@@ -6111,7 +6111,7 @@ int mma2ds2_(integer*                            ndimen,
   if (*nbpntv % 2 != 0)
   {
     tcons = blinv;
-    (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+    (*const_cast<EvaluatorFunc2Var*>(&foncnp))
       .Evaluate(ndimen,
                 dbfn1,
                 dbfn2,
@@ -6156,7 +6156,7 @@ int mma2ds2_(integer*                            ndimen,
   for (iv = 1; iv <= i__1; ++iv)
   {
     tcons = alinv * vrootb[(*nbpntv + 1) / 2 + iv] + blinv;
-    (*const_cast<AdvApp2Var_EvaluatorFunc2Var*>(&foncnp))
+    (*const_cast<EvaluatorFunc2Var*>(&foncnp))
       .Evaluate(ndimen,
                 dbfn1,
                 dbfn2,
@@ -6208,11 +6208,11 @@ L9999:
   if (*iercod > 0)
   {
     *iercod += 100;
-    AdvApp2Var_SysBase::maermsg_("MMA2DS2", iercod, 7L);
+    SystemBase::maermsg_("MMA2DS2", iercod, 7L);
   }
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2DS2", 7L);
+    SystemBase::mgsomsg_("MMA2DS2", 7L);
   }
   return 0;
 } /* mma2ds2_ */
@@ -6328,10 +6328,10 @@ int mma2er1_(integer*    ndjacu,
   patjac -= patjac_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2ER1", 7L);
+    SystemBase::mgenmsg_("MMA2ER1", 7L);
   }
 
   minu = (*iordru + 1) << 1;
@@ -6366,18 +6366,18 @@ int mma2er1_(integer*    ndjacu,
 
   /* ----------------------- Calculate the max error  ----------------------*/
 
-  bid1    = AdvApp2Var_MathBase::mzsnorm_(ndimen, &vecerr[1]);
+  bid1    = MathBase::mzsnorm_(ndimen, &vecerr[1]);
   vaux[0] = *erreur;
   vaux[1] = bid1;
   nd      = 2;
-  *erreur = AdvApp2Var_MathBase::mzsnorm_(&nd, vaux);
+  *erreur = MathBase::mzsnorm_(&nd, vaux);
 
   /* ------------------------- The end ------------------------------------
    */
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2ER1", 7L);
+    SystemBase::mgsomsg_("MMA2ER1", 7L);
   }
   return 0;
 } /* mma2er1_ */
@@ -6500,10 +6500,10 @@ int mma2er2_(integer*    ndjacu,
   patjac -= patjac_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2ER2", 7L);
+    SystemBase::mgenmsg_("MMA2ER2", 7L);
   }
 
   i2rdu = (*iordru + 1) << 1;
@@ -6547,7 +6547,7 @@ L1001:
   {
     vecerr[1] = *epmscut * 2;
   }
-  errnv = AdvApp2Var_MathBase::mzsnorm_(ndimen, &vecerr[1]);
+  errnv = MathBase::mzsnorm_(ndimen, &vecerr[1]);
 
   /* ------------------- Calculate the increment of max error --------------- */
   /* ----- during the removal of coeff. of indices from MINDGV to MAXDGV ------ */
@@ -6576,7 +6576,7 @@ L1001:
   {
     vecerr[1] = *epmscut * 2;
   }
-  errnu = AdvApp2Var_MathBase::mzsnorm_(ndimen, &vecerr[1]);
+  errnu = MathBase::mzsnorm_(ndimen, &vecerr[1]);
 
   /* ----------------------- Calculate the max error ----------------------
    */
@@ -6584,9 +6584,9 @@ L1001:
   vaux[0] = *erreur;
   vaux[1] = errnu;
   nd      = 2;
-  errnu   = AdvApp2Var_MathBase::mzsnorm_(&nd, vaux);
+  errnu   = MathBase::mzsnorm_(&nd, vaux);
   vaux[1] = errnv;
-  errnv   = AdvApp2Var_MathBase::mzsnorm_(&nd, vaux);
+  errnv   = MathBase::mzsnorm_(&nd, vaux);
 
   if (errnu > errnv)
   {
@@ -6627,18 +6627,18 @@ L2001:
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2ER2", 7L);
+    SystemBase::mgsomsg_("MMA2ER2", 7L);
   }
   return 0;
 } /* mma2er2_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2fnc_(integer*                            ndimen,
+int FunctionApprox2var::mma2fnc_(integer*                            ndimen,
                                      integer*                            nbsesp,
                                      integer*                            ndimse,
                                      doublereal*                         uvfonc,
-                                     const AdvApp2Var_EvaluatorFunc2Var& foncnp,
+                                     const EvaluatorFunc2Var& foncnp,
                                      doublereal*                         tconst,
                                      integer*                            isofav,
                                      integer*                            nbroot,
@@ -6876,13 +6876,13 @@ int AdvApp2Var_ApproxF2var::mma2fnc_(integer*                            ndimen,
   courbe_dim2   = *ndimen;
   courbe_offset = courbe_dim1 * (courbe_dim2 + 1) + 1;
   courbe -= courbe_offset;
-  AdvApp2Var_SysBase anAdvApp2Var_SysBase;
+  SystemBase anAdvApp2Var_SysBase;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 1)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2FNC", 7L);
+    SystemBase::mgenmsg_("MMA2FNC", 7L);
   }
   *iercod = 0;
   iofwr   = 0;
@@ -6891,7 +6891,7 @@ int AdvApp2Var_ApproxF2var::mma2fnc_(integer*                            ndimen,
    */
 
   ilong = *ndimen * *ncflim * *nbcrmx;
-  AdvApp2Var_SysBase::mvriraz_(&ilong, &courbe[courbe_offset]);
+  SystemBase::mvriraz_(&ilong, &courbe[courbe_offset]);
 
   /* **********************************************************************
    */
@@ -6900,7 +6900,7 @@ int AdvApp2Var_ApproxF2var::mma2fnc_(integer*                            ndimen,
   /* **********************************************************************
    */
 
-  AdvApp2Var_MathBase::mmveps3_(&eps3);
+  MathBase::mmveps3_(&eps3);
   if ((d__1 = uvfonc[4] - uvfonc[3], advapp_abs(d__1)) < eps3)
   {
     goto L9100;
@@ -6949,7 +6949,7 @@ int AdvApp2Var_ApproxF2var::mma2fnc_(integer*                            ndimen,
   /* --> For the points of discretisation FPNTAB(NDIMEN,NBROOT+2), */
   /*    FPNTAB(NBROOT,2*(IORDRE+1)) and for WRKAR of MMAPCMP. */
   ipt1 = isz1;
-  /* --> For the polynoms of Hermit */
+  /* --> For the polynoms of Hermit1 */
   ipt2 = ipt1 + isz2;
   /* --> For the Gauss  coeff of integration. */
   ipt3 = ipt2 + isz3;
@@ -7142,17 +7142,17 @@ L1000:
     /* -> Compression of result in WRKAR(IPT2) */
     /*pkv f*/
     /*
-    AdvApp2Var_MathBase::mmapcmp_(ndimen,
+    MathBase::mmapcmp_(ndimen,
     &ncfja, &ncoeff[ncb1], &wrkar[ipt5], &wrkar[ipt2]);
     */
-    AdvApp2Var_MathBase::mmapcmp_((integer*)ndimen,
+    MathBase::mmapcmp_((integer*)ndimen,
                                   &ncfja,
                                   &ncoeff[ncb1],
                                   &wrkar_off[ipt4],
                                   &wrkar_off[ipt1]);
     /*pkv t*/
     ilong = *ndimen * *ncflim;
-    AdvApp2Var_SysBase::mvriraz_(&ilong, &wrkar_off[ipt4]);
+    SystemBase::mvriraz_(&ilong, &wrkar_off[ipt4]);
     /* -> Passage to canonic base (-1,1) (result in WRKAR(IPT5)).
      */
     ndgre = ncoeff[ncb1] - 1;
@@ -7161,13 +7161,13 @@ L1000:
     {
       iptt = ipt1 + ((nd - 1) << 1) * (ndgre / 2 + 1);
       jptt = ipt4 + (nd - 1) * ncoeff[ncb1];
-      AdvApp2Var_MathBase::mmjacan_(iordre, &ndgre, &wrkar_off[iptt], &wrkar_off[jptt]);
+      MathBase::mmjacan_(iordre, &ndgre, &wrkar_off[iptt], &wrkar_off[jptt]);
       /* L400: */
     }
 
     /* -> Store the calculated curve */
     ibid1 = 1;
-    AdvApp2Var_MathBase::mmfmca8_(&ncoeff[ncb1],
+    MathBase::mmfmca8_(&ncoeff[ncb1],
                                   ndimen,
                                   &ibid1,
                                   ncflim,
@@ -7243,7 +7243,7 @@ L1000:
     ideb  = *nbcrbe + 1;
     ideb1 = ideb + 1;
     ilong = (nupil - *nbcrbe) << 3;
-    AdvApp2Var_SysBase::mcrfill_(&ilong, &tabdec[ideb], &tabdec[ideb1]);
+    SystemBase::mcrfill_(&ilong, &tabdec[ideb], &tabdec[ideb1]);
     tabdec[ideb] = tmil;
     ++nupil;
   }
@@ -7284,18 +7284,18 @@ L9900:
 L9999:
   if (*iercod != 0)
   {
-    AdvApp2Var_SysBase::maermsg_("MMA2FNC", iercod, 7L);
+    SystemBase::maermsg_("MMA2FNC", iercod, 7L);
   }
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2FNC", 7L);
+    SystemBase::mgsomsg_("MMA2FNC", 7L);
   }
   return 0;
 } /* mma2fnc_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2fx6_(integer*    ncfmxu,
+int FunctionApprox2var::mma2fx6_(integer*    ncfmxu,
                                      integer*    ncfmxv,
                                      integer*    ndimen,
                                      integer*    nbsesp,
@@ -7406,10 +7406,10 @@ int AdvApp2Var_ApproxF2var::mma2fx6_(integer*    ncfmxu,
   patcan -= patcan_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2FX6", 7L);
+    SystemBase::mgenmsg_("MMA2FX6", 7L);
   }
 
   i__1 = *nbvpat;
@@ -7578,7 +7578,7 @@ int AdvApp2Var_ApproxF2var::mma2fx6_(integer*    ncfmxu,
 
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2FX6", 7L);
+    SystemBase::mgsomsg_("MMA2FX6", 7L);
   }
 
   return 0;
@@ -7586,7 +7586,7 @@ int AdvApp2Var_ApproxF2var::mma2fx6_(integer*    ncfmxu,
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2jmx_(integer* ndgjac, integer* iordre, doublereal* xjacmx)
+int FunctionApprox2var::mma2jmx_(integer* ndgjac, integer* iordre, doublereal* xjacmx)
 {
   /* Initialized data */
 
@@ -7723,10 +7723,10 @@ int AdvApp2Var_ApproxF2var::mma2jmx_(integer* ndgjac, integer* iordre, doublerea
   /* ----------------------------- Initialisations ------------------------
    */
 
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2JMX", 7L);
+    SystemBase::mgenmsg_("MMA2JMX", 7L);
   }
 
   numax = *ndgjac - ((*iordre + 1) << 1);
@@ -7773,7 +7773,7 @@ int AdvApp2Var_ApproxF2var::mma2jmx_(integer* ndgjac, integer* iordre, doublerea
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2JMX", 7L);
+    SystemBase::mgsomsg_("MMA2JMX", 7L);
   }
   return 0;
 } /* mma2jmx_ */
@@ -7867,10 +7867,10 @@ int mma2moy_(integer*    ndgumx,
   patjac -= patjac_offset;
 
   /* Function Body */
-  ldbg = AdvApp2Var_SysBase::mnfndeb_() >= 3;
+  ldbg = SystemBase::mnfndeb_() >= 3;
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2MOY", 7L);
+    SystemBase::mgenmsg_("MMA2MOY", 7L);
   }
 
   idebu   = (*iordru + 1) << 1;
@@ -7931,14 +7931,14 @@ int mma2moy_(integer*    ndgumx,
 
   if (ldbg)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2MOY", 7L);
+    SystemBase::mgsomsg_("MMA2MOY", 7L);
   }
   return 0;
 } /* mma2moy_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mma2roo_(integer*    nbpntu,
+int FunctionApprox2var::mma2roo_(integer*    nbpntu,
                                      integer*    nbpntv,
                                      doublereal* urootl,
                                      doublereal* vrootl)
@@ -7996,16 +7996,16 @@ int AdvApp2Var_ApproxF2var::mma2roo_(integer*    nbpntu,
   --vrootl;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMA2ROO", 7L);
+    SystemBase::mgenmsg_("MMA2ROO", 7L);
   }
 
   /* ---------------- Return the POSITIVE roots on U ------------------
    */
 
-  AdvApp2Var_MathBase::mmrtptt_(nbpntu, &urootl[(*nbpntu + 1) / 2 + 1]);
+  MathBase::mmrtptt_(nbpntu, &urootl[(*nbpntu + 1) / 2 + 1]);
   i__1 = *nbpntu / 2;
   for (ii = 1; ii <= i__1; ++ii)
   {
@@ -8020,7 +8020,7 @@ int AdvApp2Var_ApproxF2var::mma2roo_(integer*    nbpntu,
   /* ---------------- Return the POSITIVE roots on V ------------------
    */
 
-  AdvApp2Var_MathBase::mmrtptt_(nbpntv, &vrootl[(*nbpntv + 1) / 2 + 1]);
+  MathBase::mmrtptt_(nbpntv, &vrootl[(*nbpntv + 1) / 2 + 1]);
   i__1 = *nbpntv / 2;
   for (ii = 1; ii <= i__1; ++ii)
   {
@@ -8037,7 +8037,7 @@ int AdvApp2Var_ApproxF2var::mma2roo_(integer*    nbpntu,
 
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMA2ROO", 7L);
+    SystemBase::mgsomsg_("MMA2ROO", 7L);
   }
   return 0;
 } /* mma2roo_ */
@@ -8129,10 +8129,10 @@ int mmmapcoe_(integer*    ndim,
   somtab -= somtab_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMMAPCO", 7L);
+    SystemBase::mgenmsg_("MMMAPCO", 7L);
   }
   ikdeb  = (*iordre + 1) << 1;
   nbroot = *nbpnts / 2;
@@ -8207,7 +8207,7 @@ int mmmapcoe_(integer*    ndim,
 L9999:
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMMAPCO", 7L);
+    SystemBase::mgsomsg_("MMMAPCO", 7L);
   }
   return 0;
 } /* mmmapcoe_ */
@@ -8277,10 +8277,10 @@ int mmaperm_(integer*    ncofmx,
   crvjac -= crvjac_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMAPERM", 7L);
+    SystemBase::mgenmsg_("MMAPERM", 7L);
   }
 
   /* --------- Minimum degree that can be reached : Stop at 1 or IA -------
@@ -8322,14 +8322,14 @@ int mmaperm_(integer*    ncofmx,
 
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMAPERM", 7L);
+    SystemBase::mgsomsg_("MMAPERM", 7L);
   }
   return 0;
 } /* mmaperm_ */
 
 //=================================================================================================
 
-int AdvApp2Var_ApproxF2var::mmapptt_(const integer* ndgjac,
+int FunctionApprox2var::mmapptt_(const integer* ndgjac,
                                      const integer* nbpnts,
                                      const integer* jordre,
                                      doublereal*    cgauss,
@@ -8395,10 +8395,10 @@ int AdvApp2Var_ApproxF2var::mmapptt_(const integer* ndgjac,
   cgauss_dim1 = *nbpnts / 2 + 1;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMAPPTT", 7L);
+    SystemBase::mgenmsg_("MMAPPTT", 7L);
   }
   *iercod = 0;
 
@@ -8498,7 +8498,7 @@ L1000:
   for (kjac = 0; kjac <= i__1; ++kjac)
   {
     iptt = iptdb + kjac * (*nbpnts / 2) + 1;
-    AdvApp2Var_SysBase::mcrfill_(&ilong,
+    SystemBase::mcrfill_(&ilong,
                                  &mmapgss_.gslxjs[iptt - 1],
                                  &cgauss[kjac * cgauss_dim1 + 1]);
     /* L100: */
@@ -8533,7 +8533,7 @@ L2000:
   for (kjac = 0; kjac <= i__1; ++kjac)
   {
     iptt = iptdb + kjac * (*nbpnts / 2) + 1;
-    AdvApp2Var_SysBase::mcrfill_(&ilong,
+    SystemBase::mcrfill_(&ilong,
                                  &mmapgs0_.gslxj0[iptt - 1],
                                  &cgauss[kjac * cgauss_dim1 + 1]);
     /* L200: */
@@ -8568,7 +8568,7 @@ L3000:
   for (kjac = 0; kjac <= i__1; ++kjac)
   {
     iptt = iptdb + kjac * (*nbpnts / 2) + 1;
-    AdvApp2Var_SysBase::mcrfill_(&ilong,
+    SystemBase::mcrfill_(&ilong,
                                  &mmapgs1_.gslxj1[iptt - 1],
                                  &cgauss[kjac * cgauss_dim1 + 1]);
     /* L300: */
@@ -8603,7 +8603,7 @@ L4000:
   for (kjac = 0; kjac <= i__1; ++kjac)
   {
     iptt = iptdb + kjac * (*nbpnts / 2) + 1;
-    AdvApp2Var_SysBase::mcrfill_(&ilong,
+    SystemBase::mcrfill_(&ilong,
                                  &mmapgs2_.gslxj2[iptt - 1],
                                  &cgauss[kjac * cgauss_dim1 + 1]);
     /* L400: */
@@ -8649,11 +8649,11 @@ L9300:
 L9999:
   if (*iercod > 0)
   {
-    AdvApp2Var_SysBase::maermsg_("MMAPPTT", iercod, 7L);
+    SystemBase::maermsg_("MMAPPTT", iercod, 7L);
   }
   if (ibb >= 2)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMAPPTT", 7L);
+    SystemBase::mgsomsg_("MMAPPTT", 7L);
   }
 
   return 0;
@@ -8733,16 +8733,16 @@ int mmjacpt_(const integer*    ndimen,
   ptclgd -= ptclgd_offset;
 
   /* Function Body */
-  ibb = AdvApp2Var_SysBase::mnfndeb_();
+  ibb = SystemBase::mnfndeb_();
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgenmsg_("MMJACPT", 7L);
+    SystemBase::mgenmsg_("MMJACPT", 7L);
   }
 
   /*   Passage into canonical by u. */
 
   kdim = *ndimen * *ncoefv;
-  AdvApp2Var_MathBase::mmjaccv_(ncoefu,
+  MathBase::mmjaccv_(ncoefu,
                                 &kdim,
                                 iordru,
                                 &ptclgd[ptclgd_offset],
@@ -8772,7 +8772,7 @@ int mmjacpt_(const integer*    ndimen,
   /*   Passage into canonical by v. */
 
   kdim = *ndimen * *ncoefu;
-  AdvApp2Var_MathBase::mmjaccv_(
+  MathBase::mmjaccv_(
     ncoefv,
     &kdim,
     iordrv,
@@ -8805,7 +8805,7 @@ int mmjacpt_(const integer*    ndimen,
 
   if (ibb >= 3)
   {
-    AdvApp2Var_SysBase::mgsomsg_("MMJACPT", 7L);
+    SystemBase::mgsomsg_("MMJACPT", 7L);
   }
   return 0;
 } /* mmjacpt_ */

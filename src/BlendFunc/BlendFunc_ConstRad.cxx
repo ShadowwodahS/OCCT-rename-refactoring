@@ -1152,13 +1152,13 @@ void BlendFunc_ConstRad::Section(const Standard_Real Param,
   C.SetRadius(Abs(ray1));
   C.SetPosition(Frame3d(Center, np, ns1));
   Pdeb = 0.;
-  Pfin = ElCLib::Parameter(C, pts2);
+  Pfin = ElCLib1::Parameter(C, pts2);
   // Test negative and almost null angles : Singular Case
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
     C.SetPosition(Frame3d(Center, np, ns1));
-    Pfin = ElCLib::Parameter(C, pts2);
+    Pfin = ElCLib1::Parameter(C, pts2);
   }
   if (Pfin < Precision::PConfusion())
     Pfin += Precision::PConfusion();

@@ -135,7 +135,7 @@ static Standard_Integer proj(DrawInterpreter& di, Standard_Integer n, const char
         return 0;
       }
 
-      const Extrema_POnSurf& aP = aProjector.Point();
+      const PointOnSurface1& aP = aProjector.Point();
       Standard_Real          UU, VV;
       aP.Parameter(UU, VV);
       showProjSolution(di, 1, P, aP.Value(), UU, VV, Standard_True);

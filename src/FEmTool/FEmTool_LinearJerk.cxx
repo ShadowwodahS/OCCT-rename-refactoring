@@ -39,7 +39,7 @@ FEmTool_LinearJerk::FEmTool_LinearJerk(const Standard_Integer WorkDegree,
   static Standard_Integer Order = -333, WDeg = 14;
   static math_Vector      MatrixElemts(0, ((WDeg + 2) * (WDeg + 1)) / 2 - 1);
 
-  myOrder = PLib::NivConstr(ConstraintOrder);
+  myOrder = PLib1::NivConstr(ConstraintOrder);
 
   // Calculating RefMatrix
   if (myOrder != Order)

@@ -247,28 +247,28 @@ Standard_Boolean Geom2d_Ellipse::IsPeriodic() const
 
 void Geom2d_Ellipse::D0(const Standard_Real U, Pnt2d& P) const
 {
-  P = ElCLib::EllipseValue(U, pos, majorRadius, minorRadius);
+  P = ElCLib1::EllipseValue(U, pos, majorRadius, minorRadius);
 }
 
 //=================================================================================================
 
 void Geom2d_Ellipse::D1(const Standard_Real U, Pnt2d& P, Vec2d& V1) const
 {
-  ElCLib::EllipseD1(U, pos, majorRadius, minorRadius, P, V1);
+  ElCLib1::EllipseD1(U, pos, majorRadius, minorRadius, P, V1);
 }
 
 //=================================================================================================
 
 void Geom2d_Ellipse::D2(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2) const
 {
-  ElCLib::EllipseD2(U, pos, majorRadius, minorRadius, P, V1, V2);
+  ElCLib1::EllipseD2(U, pos, majorRadius, minorRadius, P, V1, V2);
 }
 
 //=================================================================================================
 
 void Geom2d_Ellipse::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, Vec2d& V3) const
 {
-  ElCLib::EllipseD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
+  ElCLib1::EllipseD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -276,7 +276,7 @@ void Geom2d_Ellipse::D3(const Standard_Real U, Pnt2d& P, Vec2d& V1, Vec2d& V2, V
 Vec2d Geom2d_Ellipse::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::EllipseDN(U, pos, majorRadius, minorRadius, N);
+  return ElCLib1::EllipseDN(U, pos, majorRadius, minorRadius, N);
 }
 
 //=================================================================================================

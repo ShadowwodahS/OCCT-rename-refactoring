@@ -1137,7 +1137,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       BRepInspector::UVPoints(E1, F, pfirst1, plast1);
       myDomain1.SetValues(pfirst1, first1, tolint, plast1, last1, tolint);
       //
-      BndLib_Add2dCurve::Add(C1, first1, last1, Precision::PConfusion(), boxes(i));
+      Add2dCurve::Add(C1, first1, last1, Precision::PConfusion(), boxes(i));
     } // if (i == 1) {
     else
     {
@@ -1242,7 +1242,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
           BRepInspector::UVPoints(E2, F, pfirst2, plast2);
           tabDom[j - 1].SetValues(pfirst2, first2, tolint, plast2, last2, tolint);
 
-          BndLib_Add2dCurve::Add(C2, first2, last2, Precision::PConfusion(), boxes(j));
+          Add2dCurve::Add(C2, first2, last2, Precision::PConfusion(), boxes(j));
         }
         else
         {
@@ -1615,7 +1615,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
                   aD2 = aL2.SquareDistance(aP1m);
                   if (aD2 < aTol2)
                   {
-                    aT2m = ElCLib::Parameter(aL2, aP1m);
+                    aT2m = ElCLib1::Parameter(aL2, aP1m);
                     if (aT2m > aT21 && aT2m < aT22)
                     {
                       const gp_Dir2d& aDir1 = aL1.Direction();

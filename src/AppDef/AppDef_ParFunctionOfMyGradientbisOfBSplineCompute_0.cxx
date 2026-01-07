@@ -24,11 +24,11 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
 #define Squares AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute
 #define Squares_hxx <AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute.hxx>
-#define ResolCons AppDef_ResConstraintOfMyGradientbisOfBSplineCompute
+#define ResolCons ResConstraintGradientbisBSpline
 #define ResolCons_hxx <AppDef_ResConstraintOfMyGradientbisOfBSplineCompute.hxx>
 #define AppParCurves_Function AppDef_ParFunctionOfMyGradientbisOfBSplineCompute
 #define AppParCurves_Function_hxx <AppDef_ParFunctionOfMyGradientbisOfBSplineCompute.hxx>

@@ -474,7 +474,7 @@ void PrsMgr_PresentableObject::UnsetAttributes()
   Handle(StyleDrawer) aDrawer = new StyleDrawer();
   if (myDrawer->HasLink())
   {
-    aDrawer->Link(myDrawer->Link());
+    aDrawer->Link1(myDrawer->Link1());
   }
   myDrawer = aDrawer;
 
@@ -491,7 +491,7 @@ void PrsMgr_PresentableObject::SetHilightMode(const Standard_Integer theMode)
   if (myHilightDrawer.IsNull())
   {
     myHilightDrawer = new StyleDrawer();
-    myHilightDrawer->Link(myDrawer);
+    myHilightDrawer->Link1(myDrawer);
     myHilightDrawer->SetAutoTriangulation(Standard_False);
     myHilightDrawer->SetColor(Quantity_NOC_GRAY80);
     myHilightDrawer->SetZLayer(Graphic3d_ZLayerId_UNKNOWN);
@@ -499,7 +499,7 @@ void PrsMgr_PresentableObject::SetHilightMode(const Standard_Integer theMode)
   if (myDynHilightDrawer.IsNull())
   {
     myDynHilightDrawer = new StyleDrawer();
-    myDynHilightDrawer->Link(myDrawer);
+    myDynHilightDrawer->Link1(myDrawer);
     myDynHilightDrawer->SetColor(Quantity_NOC_CYAN1);
     myDynHilightDrawer->SetAutoTriangulation(Standard_False);
     myDynHilightDrawer->SetZLayer(Graphic3d_ZLayerId_Top);
@@ -551,7 +551,7 @@ void PrsMgr_PresentableObject::replaceAspects(const Graphic3d_MapOfAspectsToAspe
 
 //=================================================================================================
 
-void PrsMgr_PresentableObject::BoundingBox(Bnd_Box& theBndBox)
+void PrsMgr_PresentableObject::BoundingBox(Box2& theBndBox)
 {
   if (myDrawer->DisplayMode() == -1)
   {
@@ -579,7 +579,7 @@ void PrsMgr_PresentableObject::BoundingBox(Bnd_Box& theBndBox)
     {
       if (const Handle(PrsMgr_PresentableObject)& aChild = aPrsIter.Value())
       {
-        Bnd_Box aBox;
+        Box2 aBox;
         aChild->BoundingBox(aBox);
         theBndBox.Add(aBox);
       }
@@ -641,7 +641,7 @@ void PrsMgr_PresentableObject::UnsetMaterial()
     if (myDrawer->HasLink())
     {
       myDrawer->ShadingAspect()->SetMaterial(
-        myDrawer->Link()->ShadingAspect()->Aspect()->BackMaterial());
+        myDrawer->Link1()->ShadingAspect()->Aspect()->BackMaterial());
     }
 
     if (HasColor())
@@ -707,7 +707,7 @@ Standard_Boolean PrsMgr_PresentableObject::HasPolygonOffsets() const
 {
   return !(
     myDrawer->HasOwnShadingAspect()
-    || (myDrawer->HasLink() && myDrawer->ShadingAspect() == myDrawer->Link()->ShadingAspect()));
+    || (myDrawer->HasLink() && myDrawer->ShadingAspect() == myDrawer->Link1()->ShadingAspect()));
 }
 
 //=================================================================================================

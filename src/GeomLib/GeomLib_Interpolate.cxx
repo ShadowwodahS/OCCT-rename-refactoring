@@ -102,7 +102,7 @@ GeomLib_Interpolate::GeomLib_Interpolate(const Standard_Integer      Degree,
     contacts(num_controls) = 0;
     poles(1)               = PointsArray(1);
     poles(num_controls)    = PointsArray(NumPoints);
-    BSplCLib::Interpolate(order - 1, flat_knots, parameters, contacts, poles, inversion_problem);
+    BSplCLib1::Interpolate(order - 1, flat_knots, parameters, contacts, poles, inversion_problem);
 
     if (!inversion_problem)
     {

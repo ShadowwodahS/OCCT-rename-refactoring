@@ -1272,7 +1272,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   Standard_Boolean quad = TOOL1::IsQuad(f);
   if (!quad)
     return Standard_False;
-  Bnd_Box bndf;
+  Box2 bndf;
   BRepBndLib::AddClose(f, bndf);
   Standard_Real f1, f2, f3, l1, l2, l3;
   bndf.Get(f1, f2, f3, l1, l2, l3);
@@ -1294,7 +1294,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   if ((S->IsUPeriodic()) && (Abs(DUV.X()) > S->UPeriod() / 2.))
   {
     Standard_Real U1 = uv.X(), U2 = uvtr.X(), period = S->UPeriod();
-    ElCLib::AdjustPeriodic(0., period, Precision::PConfusion(), U1, U2);
+    ElCLib1::AdjustPeriodic(0., period, Precision::PConfusion(), U1, U2);
     Standard_Real dx = U2 - U1;
     if (dx > period / 2.)
       dx -= period;
@@ -1303,7 +1303,7 @@ Standard_Boolean TOOL1::Getduv(const TopoFace&  f,
   if ((S->IsVPeriodic()) && (Abs(DUV.Y()) > S->VPeriod() / 2.))
   {
     Standard_Real V1 = uv.Y(), V2 = uvtr.Y(), period = S->VPeriod();
-    ElCLib::AdjustPeriodic(0., period, Precision::PConfusion(), V1, V2);
+    ElCLib1::AdjustPeriodic(0., period, Precision::PConfusion(), V1, V2);
     Standard_Real dy = V2 - V1;
     if (dy > period / 2.)
       dy -= period;

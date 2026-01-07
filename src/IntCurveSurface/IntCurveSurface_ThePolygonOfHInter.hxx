@@ -24,7 +24,7 @@
 #include <TColStd_Array1OfReal.hxx>
 class Standard_OutOfRange;
 class HCurveTool2;
-class Bnd_Box;
+class Box2;
 class Point3d;
 
 class IntCurveSurface_ThePolygonOfHInter
@@ -44,7 +44,7 @@ public:
                                                      const TColStd_Array1OfReal&    Upars);
 
   //! Give the bounding box of the polygon.
-  const Bnd_Box& Bounding() const { return TheBnd; }
+  const Box2& Bounding() const { return TheBnd; }
 
   Standard_Real DeflectionOverEstimation() const { return TheDeflection; }
 
@@ -92,7 +92,7 @@ protected:
                             const TColStd_Array1OfReal&    Upars);
 
 private:
-  Bnd_Box                       TheBnd;
+  Box2                       TheBnd;
   Standard_Real                 TheDeflection;
   Standard_Integer              NbPntIn;
   TColgp_Array1OfPnt            ThePnts;

@@ -217,7 +217,7 @@ void Convert_GridPolynomialToPoles::Perform(
       }
 
       // (2.2) Positionnement en UValue,VValue
-      PLib::EvalPoly2Var(UValue,
+      PLib1::EvalPoly2Var(UValue,
                          VValue,
                          0,
                          0,
@@ -234,7 +234,7 @@ void Convert_GridPolynomialToPoles::Perform(
   // (3)Interpolation --------------------------------------------------------------
 
   Standard_Integer InversionProblem;
-  BSplSLib::Interpolate(myUDegree,
+  BSplSLib1::Interpolate(myUDegree,
                         myVDegree,
                         myUFlatKnots->Array1(),
                         myVFlatKnots->Array1(),
@@ -270,7 +270,7 @@ void Convert_GridPolynomialToPoles::BuildArray(const Standard_Integer           
   Standard_Integer num_flat_knots = multiplicities * (NumCurves - 1) + 2 * Degree + 2;
   FlatKnots                       = new TColStd_HArray1OfReal(1, num_flat_knots);
 
-  BSplCLib::KnotSequence(Knots->Array1(),
+  BSplCLib1::KnotSequence(Knots->Array1(),
                          Mults->Array1(),
                          Degree,
                          Standard_False,
@@ -281,7 +281,7 @@ void Convert_GridPolynomialToPoles::BuildArray(const Standard_Integer           
 
   // Cacul des parametres d'interpolation
   Parameters = new (TColStd_HArray1OfReal)(1, num_poles);
-  BSplCLib::BuildSchoenbergPoints(Degree, FlatKnots->Array1(), Parameters->ChangeArray1());
+  BSplCLib1::BuildSchoenbergPoints(Degree, FlatKnots->Array1(), Parameters->ChangeArray1());
 }
 
 Standard_Integer Convert_GridPolynomialToPoles::NbUPoles() const

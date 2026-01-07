@@ -42,7 +42,7 @@ gp_Pnt2d Adaptor3d_HVertex::Value()
 
 Standard_Real Adaptor3d_HVertex::Parameter(const Handle(Adaptor2d_Curve2d)& C)
 {
-  return ElCLib::Parameter(C->Line(), myPnt);
+  return ElCLib1::Parameter(C->Line(), myPnt);
 }
 
 Standard_Real Adaptor3d_HVertex::Resolution(const Handle(Adaptor2d_Curve2d)&)

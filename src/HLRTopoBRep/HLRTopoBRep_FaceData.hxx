@@ -25,12 +25,12 @@
 
 //! Contains the  3 ListOfShape of  a Face  ( Internal
 //! OutLines, OutLines on restriction and IsoLines ).
-class HLRTopoBRep_FaceData
+class FaceData
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRTopoBRep_FaceData();
+  Standard_EXPORT FaceData();
 
   const ShapeList& FaceIntL() const;
 

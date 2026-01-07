@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-HLRAlgo_Intersection::HLRAlgo_Intersection()
+Intersection3::Intersection3()
     : mySegIndex(0),
       myIndex(0),
       myLevel(0),
@@ -29,7 +29,7 @@ HLRAlgo_Intersection::HLRAlgo_Intersection()
 
 //=================================================================================================
 
-HLRAlgo_Intersection::HLRAlgo_Intersection(const TopAbs_Orientation Ori,
+Intersection3::Intersection3(const TopAbs_Orientation Ori,
                                            const Standard_Integer   Lev,
                                            const Standard_Integer   SegInd,
                                            const Standard_Integer   Ind,

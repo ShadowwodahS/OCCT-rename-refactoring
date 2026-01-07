@@ -37,7 +37,7 @@ MeshVS_SensitiveMesh::MeshVS_SensitiveMesh(const Handle(SelectMgr_EntityOwner)& 
     Handle(MeshVS_DataSource) aDS = anOwner->GetDataSource();
     if (!aDS.IsNull())
     {
-      Bnd_Box       aBox = aDS->GetBoundingBox();
+      Box2       aBox = aDS->GetBoundingBox();
       Standard_Real aXMin, aYMin, aZMin;
       Standard_Real aXMax, aYMax, aZMax;
       aBox.Get(aXMin, aYMin, aZMin, aXMax, aYMax, aZMax);

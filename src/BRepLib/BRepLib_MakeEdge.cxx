@@ -166,7 +166,7 @@ static Standard_Boolean Project(const Handle(GeomCurve2d)& C,
 
     if (index != 0)
     {
-      Extrema_POnCurv POC = extrema.Point(index);
+      PointOnCurve1 POC = extrema.Point(index);
       if (P.SquareDistance(POC.Value()) <= Precision::SquareConfusion())
       {
         p = POC.Parameter();
@@ -623,7 +623,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
   if (periodic)
   {
     // adjust in period
-    ElCLib::AdjustPeriodic(cf, cl, epsilon, p1, p2);
+    ElCLib1::AdjustPeriodic(cf, cl, epsilon, p1, p2);
     V1 = VV1;
     V2 = VV2;
   }
@@ -905,7 +905,7 @@ void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
   if (periodic)
   {
     // adjust in period
-    ElCLib::AdjustPeriodic(cf, cl, epsilon, p1, p2);
+    ElCLib1::AdjustPeriodic(cf, cl, epsilon, p1, p2);
     V1 = VV1;
     V2 = VV2;
   }

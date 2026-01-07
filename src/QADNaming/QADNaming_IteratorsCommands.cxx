@@ -304,7 +304,7 @@ static Standard_Integer GetSameShapes(DrawInterpreter& di, Standard_Integer nb, 
       if (!anIter.Label().IsNull())
       {
         AsciiString1 Name;
-        TDF_Tool::Entry(anIter.Label(), Name);
+        Tool3::Entry(anIter.Label(), Name);
         if (aResult != 0)
           aRes = aRes + Name + " ";
         else

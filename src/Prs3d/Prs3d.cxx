@@ -64,7 +64,7 @@ void Prs3d::AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
   for (Standard_Integer anI = 1; anI <= aNbTriangles; ++anI)
   {
     aPolyConnect.Triangles(anI, aT[0], aT[1], aT[2]);
-    thePolyTri->Triangle(anI).Get(aN[0], aN[1], aN[2]);
+    thePolyTri->Triangle1(anI).Get(aN[0], aN[1], aN[2]);
     for (Standard_Integer aJ = 0; aJ < 3; aJ++)
     {
       Standard_Integer k = (aJ + 1) % 3;

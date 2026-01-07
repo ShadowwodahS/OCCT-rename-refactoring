@@ -106,7 +106,7 @@ Line2dTangentOblIter::Line2dTangentOblIter(const Geom2dGcc_QCurve& Qualified1,
       par1sol    = 0.;
       if (!Paral2)
       {
-        IntAna2d_AnaIntersection Intp(linsol, TheLin);
+        AnalyticIntersection2d Intp(linsol, TheLin);
         if (Intp.IsDone() && !Intp.IsEmpty())
         {
           if (Intp.NbPoints() == 1)

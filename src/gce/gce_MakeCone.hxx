@@ -39,7 +39,7 @@ class gp_Lin;
 //! * Create a Cone by 2 points and 2 radius.
 //! * Create a Cone by an Ax2 an angle and the radius of
 //! its reference section.
-class gce_MakeCone : public gce_Root
+class gce_MakeCone : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

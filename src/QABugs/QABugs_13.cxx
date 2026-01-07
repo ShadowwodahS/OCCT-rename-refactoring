@@ -274,7 +274,7 @@ static Standard_Integer OCC332bug(DrawInterpreter& di, Standard_Integer argc, co
   //  {
   //    test_face = TopoDS::Face(getFaces.Current());
   //    Handle(GeomSurface) S = BRepInspector::Surface(test_face);
-  //    GeomLib_IsPlanarSurface IsPl(S);
+  //    PlanarSurfaceChecker IsPl(S);
   //    if (!IsPl.IsPlanar()) {
   //	B.Add(TubeShell,getFaces.Current().Reversed());
   //    }
@@ -852,7 +852,7 @@ static Standard_Integer OCC817(DrawInterpreter& di, Standard_Integer argc, const
   //
   // build bounding box and calculate bounds for initial mesh
   //
-  Bnd_Box bndBox;
+  Box2 bndBox;
   BRepBndLib::Add(cutSolid, bndBox);
   Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
   bndBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);

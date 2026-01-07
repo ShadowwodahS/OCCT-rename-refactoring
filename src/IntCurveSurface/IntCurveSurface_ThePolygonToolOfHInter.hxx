@@ -24,7 +24,7 @@
 class Standard_OutOfRange;
 class Point3d;
 class IntCurveSurface_ThePolygonOfHInter;
-class Bnd_Box;
+class Box2;
 
 class PolygonToolHInter
 {
@@ -32,7 +32,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Give the bounding box of the polygon.
-  static const Bnd_Box& Bounding(const IntCurveSurface_ThePolygonOfHInter& thePolygon);
+  static const Box2& Bounding(const IntCurveSurface_ThePolygonOfHInter& thePolygon);
 
   static Standard_Real DeflectionOverEstimation(
     const IntCurveSurface_ThePolygonOfHInter& thePolygon);
@@ -59,7 +59,7 @@ private:
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon IntCurveSurface_ThePolygonOfHInter
 #define ThePolygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>
-#define TheBoundingBox Bnd_Box
+#define TheBoundingBox Box2
 #define TheBoundingBox_hxx <Bnd_Box.hxx>
 #define IntCurveSurface_PolygonTool PolygonToolHInter
 #define IntCurveSurface_PolygonTool_hxx <IntCurveSurface_ThePolygonToolOfHInter.hxx>

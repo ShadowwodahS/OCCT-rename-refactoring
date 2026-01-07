@@ -32,7 +32,7 @@ class LProp_NotDefined;
 class gp_Vec2d;
 class gp_Pnt2d;
 class gp_Dir2d;
-class HLRBRep_CLPropsATool;
+class CLPropsATool;
 class HLRBRep_Curve;
 
 class HLRBRep_CLProps

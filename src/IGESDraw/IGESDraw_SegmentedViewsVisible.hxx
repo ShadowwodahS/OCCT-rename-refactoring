@@ -67,7 +67,7 @@ public:
                             const Handle(IGESBasic_HArray1OfLineFontEntity)& allLineFontDefinitions,
                             const Handle(TColStd_HArray1OfInteger)&          allLineWeights);
 
-  //! Returns False (for a complex view)
+  //! Returns False (for a complex1 view)
   Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
 
   //! Returns the count of Views referenced by <me> (inherited)

@@ -45,8 +45,8 @@ public:
   //! This method is used to set the fields of the class
   //! GeneralNote
   //! - nNbChars      : number of chars strings
-  //! - widths        : Box widths
-  //! - heights       : Box heights
+  //! - widths        : Box1 widths
+  //! - heights       : Box1 heights
   //! - fontCodes     : Font codes, default = 1
   //! - fonts         : Text Font Definition Entities
   //! - slants        : Slant angles in radians
@@ -80,11 +80,11 @@ public:
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Integer NbCharacters(const Standard_Integer Index) const;
 
-  //! returns Box width of string
+  //! returns Box1 width of string
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Real BoxWidth(const Standard_Integer Index) const;
 
-  //! returns Box height of string
+  //! returns Box1 height of string
   //! raises exception if Index <= 0 or Index > NbStrings()
   Standard_EXPORT Standard_Real BoxHeight(const Standard_Integer Index) const;
 

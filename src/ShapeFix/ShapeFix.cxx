@@ -717,7 +717,7 @@ Standard_Real ShapeFix::LeastEdgeSize(TopoShape& theShape)
     Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, first, last);
     if (!c3d.IsNull())
     {
-      Bnd_Box bb;
+      Box2 bb;
       bb.Add(c3d->Value(first));
       bb.Add(c3d->Value(last));
       bb.Add(c3d->Value((last + first) / 2.));

@@ -26,16 +26,16 @@ class Transform3d;
 class Axis3d;
 class gp_Ax3;
 
-class Bnd_B3f
+class Box3f
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Bnd_B3f();
+  Box3f();
 
   //! Constructor.
-  Bnd_B3f(const gp_XYZ& theCenter, const gp_XYZ& theHSize);
+  Box3f(const gp_XYZ& theCenter, const gp_XYZ& theHSize);
 
   //! Returns True if the box is void (non-initialized).
   Standard_Boolean IsVoid() const;
@@ -50,7 +50,7 @@ public:
   void Add(const Point3d& thePnt);
 
   //! Update the box by another box.
-  void Add(const Bnd_B3f& theBox);
+  void Add(const Box3f& theBox);
 
   //! Query the lower corner: (Center - HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
@@ -66,19 +66,19 @@ public:
   //! then a very big real value is returned.
   Standard_Real SquareExtent() const;
 
-  //! Extend the Box by the absolute value of theDiff.
+  //! Extend the Box1 by the absolute value of theDiff.
   void Enlarge(const Standard_Real theDiff);
 
-  //! Limit the Box by the internals of theOtherBox.
+  //! Limit the Box1 by the internals of theOtherBox.
   //! Returns True if the limitation takes place, otherwise False
   //! indicating that the boxes do not intersect.
-  Standard_EXPORT Standard_Boolean Limit(const Bnd_B3f& theOtherBox);
+  Standard_EXPORT Standard_Boolean Limit(const Box3f& theOtherBox);
 
   //! Transform the bounding box with the given transformation.
   //! The resulting box will be larger if theTrsf contains rotation.
-  Standard_NODISCARD Standard_EXPORT Bnd_B3f Transformed(const Transform3d& theTrsf) const;
+  Standard_NODISCARD Standard_EXPORT Box3f Transformed(const Transform3d& theTrsf) const;
 
-  //! Check the given point for the inclusion in the Box.
+  //! Check the given point for the inclusion in the Box1.
   //! Returns True if the point is outside.
   Standard_Boolean IsOut(const gp_XYZ& thePnt) const;
 
@@ -94,12 +94,12 @@ public:
 
   //! Check the given box for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
-  Standard_Boolean IsOut(const Bnd_B3f& theOtherBox) const;
+  Standard_Boolean IsOut(const Box3f& theOtherBox) const;
 
   //! Check the given box oriented by the given transformation
   //! for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_B3f& theOtherBox, const Transform3d& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Box3f& theOtherBox, const Transform3d& theTrsf) const;
 
   //! Check the given Line for the intersection with the current box.
   //! Returns True if there is no intersection.
@@ -117,12 +117,12 @@ public:
 
   //! Check that the box 'this' is inside the given box 'theBox'. Returns
   //! True if 'this' box is fully inside 'theBox'.
-  Standard_Boolean IsIn(const Bnd_B3f& theBox) const;
+  Standard_Boolean IsIn(const Box3f& theBox) const;
 
   //! Check that the box 'this' is inside the given box 'theBox'
   //! transformed by 'theTrsf'. Returns True if 'this' box is fully
   //! inside the transformed 'theBox'.
-  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B3f& theBox, const Transform3d& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsIn(const Box3f& theBox, const Transform3d& theTrsf) const;
 
   //! Set the Center coordinates
   void SetCenter(const gp_XYZ& theCenter);
@@ -140,7 +140,7 @@ private:
 
 #define RealType Standard_ShortReal
 #define RealType_hxx <Standard_ShortReal.hxx>
-#define Bnd_B3x Bnd_B3f
+#define Bnd_B3x Box3f
 #define Bnd_B3x_hxx <Bnd_B3f.hxx>
 
 #include <Bnd_B3x.lxx>

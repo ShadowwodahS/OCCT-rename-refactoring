@@ -60,12 +60,12 @@ class gp_Dir2d;
 //! -   various elementary computations which allow you to
 //! position parameterized values within the period of a curve.
 //! Notes:
-//! -   ElCLib stands for Elementary Curves Library.
+//! -   ElCLib1 stands for Elementary Curves Library.
 //! -   If the curves provided by the gp package are not
 //! explicitly parameterized, they still have an implicit
 //! parameterization, analogous to that which they infer
 //! for the equivalent Geom or Geom2d curves.
-class ElCLib
+class ElCLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

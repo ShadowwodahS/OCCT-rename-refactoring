@@ -31,7 +31,7 @@
 //! functions for constructing lines defined by geometric
 //! constraints
 //! gce_MakeLin2d which provides functions for more
-//! complex line constructions
+//! complex1 line constructions
 //! Geom2d_Line which provides additional functions for
 //! constructing lines and works, in particular, with the
 //! parametric equations of lines

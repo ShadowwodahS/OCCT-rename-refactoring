@@ -310,7 +310,7 @@ static Handle(GeomCurve2d) TranslatePCurve(const Handle(GeomSurface)& aSurf,
 // modified in order to be able to fix seam edges
 // NOTE: It is to be removed when is fixed either BRepLib::SameRange()
 // (concerning seam edges) or BRepLib::SameParameter() (concerning call
-// to GeomLib::SameRange() with 3d tolerance)
+// to GeomLib1::SameRange() with 3d tolerance)
 
 static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
 {
@@ -393,7 +393,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
               oldLastCurve1  = 1;
             }
 
-            GeomLib::SameRange(Tolerance,
+            GeomLib1::SameRange(Tolerance,
                                Curve2dPtr,
                                oldFirstCurve1,
                                oldLastCurve1,
@@ -422,7 +422,7 @@ static void TempSameRange(const TopoEdge& AnEdge, const Standard_Real Tolerance)
               oldLastCurve2  = 1;
             }
 
-            GeomLib::SameRange(Tolerance,
+            GeomLib1::SameRange(Tolerance,
                                Curve2dPtr2,
                                oldFirstCurve2,
                                oldLastCurve2,

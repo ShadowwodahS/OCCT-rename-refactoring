@@ -98,7 +98,7 @@ private:
   TopTools_IndexedMapOfShape         mySubShapeIds; //!< Map of sub-shapes by their IDs
   TopoShape                       myTopoDSShape; //!< The wrapped main OCCT shape
   Handle(StyleDrawer)               myOCCTDrawer;  //!< presentation attributes
-  Handle(SelectMgr_SelectableObject) mySelectable;  //!< Link to a holder of selection primitives
+  Handle(SelectMgr_SelectableObject) mySelectable;  //!< Link1 to a holder of selection primitives
 };
 
 #endif // __IVTKOCC_SHAPE_H__

@@ -62,14 +62,14 @@ void DrawDim1::DrawShapeName(const TopoShape& ashape, const Standard_CString ana
       if (curve->IsKind(STANDARD_TYPE(GeomLine)))
       {
         parameter = (f + l) / 2.;
-        position  = ElCLib::Value(parameter, Handle(GeomLine)::DownCast(curve)->Lin());
+        position  = ElCLib1::Value(parameter, Handle(GeomLine)::DownCast(curve)->Lin());
       }
       else if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
       {
         parameter = (f + l) / 2.;
         if (f > l)
           parameter = parameter + M_PI;
-        position = ElCLib::Value(parameter, Handle(GeomCircle)::DownCast(curve)->Circ());
+        position = ElCLib1::Value(parameter, Handle(GeomCircle)::DownCast(curve)->Circ());
       }
     }
     break;

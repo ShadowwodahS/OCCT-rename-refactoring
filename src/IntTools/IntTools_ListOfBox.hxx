@@ -19,7 +19,7 @@
 #include <Bnd_Box.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Bnd_Box>           IntTools_ListOfBox;
-typedef NCollection_List<Bnd_Box>::Iterator IntTools_ListIteratorOfListOfBox;
+typedef NCollection_List<Box2>           IntTools_ListOfBox;
+typedef NCollection_List<Box2>::Iterator IntTools_ListIteratorOfListOfBox;
 
 #endif

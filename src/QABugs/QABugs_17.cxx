@@ -404,7 +404,7 @@ static int geom_get_2Dpt_from_3Dpt(const Point3d& pnt3d, const gp_Pln& pln, gp_P
     int index;
     for (index = 1; index <= extps.NbExt(); index++)
     {
-      Extrema_POnSurf pons = extps.Point(index);
+      PointOnSurface1 pons = extps.Point(index);
       Standard_Real   U, V;
       pons.Parameter(U, V);
       pnt2d.SetCoord(U, V);
@@ -532,7 +532,7 @@ static Standard_Integer OCC566(DrawInterpreter& di, Standard_Integer n, const ch
   TopoShape S = DBRep1::Get(a[1]);
   if (S.IsNull())
     return 1;
-  Bnd_Box B;
+  Box2 B;
   BRepBndLib::AddClose(S, B);
   Standard_Real axmin, aymin, azmin, axmax, aymax, azmax;
   B.Get(axmin, aymin, azmin, axmax, aymax, azmax);

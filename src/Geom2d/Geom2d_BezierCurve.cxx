@@ -143,7 +143,7 @@ void Geom2d_BezierCurve::Increase(const Standard_Integer Deg)
   if (IsRational())
   {
     nweights = new TColStd_HArray1OfReal(1, Deg + 1);
-    BSplCLib::IncreaseDegree(Degree(),
+    BSplCLib1::IncreaseDegree(Degree(),
                              Deg,
                              0,
                              poles->Array1(),
@@ -157,15 +157,15 @@ void Geom2d_BezierCurve::Increase(const Standard_Integer Deg)
   }
   else
   {
-    BSplCLib::IncreaseDegree(Degree(),
+    BSplCLib1::IncreaseDegree(Degree(),
                              Deg,
                              0,
                              poles->Array1(),
-                             BSplCLib::NoWeights(),
+                             BSplCLib1::NoWeights(),
                              bidknots,
                              bidmults,
                              npoles->ChangeArray1(),
-                             BSplCLib::NoWeights(),
+                             BSplCLib1::NoWeights(),
                              bidknots,
                              bidmults);
   }
@@ -177,7 +177,7 @@ void Geom2d_BezierCurve::Increase(const Standard_Integer Deg)
 
 Standard_Integer Geom2d_BezierCurve::MaxDegree()
 {
-  return BSplCLib::MaxDegree();
+  return BSplCLib1::MaxDegree();
 }
 
 //=================================================================================================
@@ -335,12 +335,12 @@ void Geom2d_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
   //   WARNING : when calling trimming be careful that the cache
   //   is computed regarding 0.0e0 and not 1.0e0
   //
-  TColStd_Array1OfReal bidflatknots(BSplCLib::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
+  TColStd_Array1OfReal bidflatknots(BSplCLib1::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
   TColgp_Array1OfPnt2d coeffs(1, poles->Size());
   if (IsRational())
   {
     TColStd_Array1OfReal wcoeffs(1, poles->Size());
-    BSplCLib::BuildCache(0.0,
+    BSplCLib1::BuildCache(0.0,
                          1.0,
                          0,
                          Degree(),
@@ -349,22 +349,22 @@ void Geom2d_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
                          &weights->Array1(),
                          coeffs,
                          &wcoeffs);
-    PLib::Trimming(U1, U2, coeffs, &wcoeffs);
-    PLib::CoefficientsPoles(coeffs, &wcoeffs, poles->ChangeArray1(), &weights->ChangeArray1());
+    PLib1::Trimming(U1, U2, coeffs, &wcoeffs);
+    PLib1::CoefficientsPoles(coeffs, &wcoeffs, poles->ChangeArray1(), &weights->ChangeArray1());
   }
   else
   {
-    BSplCLib::BuildCache(0.0,
+    BSplCLib1::BuildCache(0.0,
                          1.0,
                          0,
                          Degree(),
                          bidflatknots,
                          poles->Array1(),
-                         BSplCLib::NoWeights(),
+                         BSplCLib1::NoWeights(),
                          coeffs,
-                         BSplCLib::NoWeights());
-    PLib::Trimming(U1, U2, coeffs, PLib::NoWeights());
-    PLib::CoefficientsPoles(coeffs, PLib::NoWeights(), poles->ChangeArray1(), PLib::NoWeights());
+                         BSplCLib1::NoWeights());
+    PLib1::Trimming(U1, U2, coeffs, PLib1::NoWeights());
+    PLib1::CoefficientsPoles(coeffs, PLib1::NoWeights(), poles->ChangeArray1(), PLib1::NoWeights());
   }
 }
 
@@ -469,21 +469,21 @@ Standard_Integer Geom2d_BezierCurve::Degree() const
 
 void Geom2d_BezierCurve::D0(const Standard_Real U, gp_Pnt2d& P) const
 {
-  BSplCLib::D0(U, Poles(), Weights(), P);
+  BSplCLib1::D0(U, Poles(), Weights(), P);
 }
 
 //=================================================================================================
 
 void Geom2d_BezierCurve::D1(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V1) const
 {
-  BSplCLib::D1(U, Poles(), Weights(), P, V1);
+  BSplCLib1::D1(U, Poles(), Weights(), P, V1);
 }
 
 //=================================================================================================
 
 void Geom2d_BezierCurve::D2(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V1, gp_Vec2d& V2) const
 {
-  BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
+  BSplCLib1::D2(U, Poles(), Weights(), P, V1, V2);
 }
 
 //=================================================================================================
@@ -494,7 +494,7 @@ void Geom2d_BezierCurve::D3(const Standard_Real U,
                             gp_Vec2d&           V2,
                             gp_Vec2d&           V3) const
 {
-  BSplCLib::D3(U, Poles(), Weights(), P, V1, V2, V3);
+  BSplCLib1::D3(U, Poles(), Weights(), P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -511,7 +511,7 @@ gp_Vec2d Geom2d_BezierCurve::DN(const Standard_Real U, const Standard_Integer N)
   bidmults.Init(Degree() + 1);
 
   if (IsRational())
-    BSplCLib::DN(U,
+    BSplCLib1::DN(U,
                  N,
                  0,
                  Degree(),
@@ -522,13 +522,13 @@ gp_Vec2d Geom2d_BezierCurve::DN(const Standard_Real U, const Standard_Integer N)
                  &bidmults,
                  V);
   else
-    BSplCLib::DN(U,
+    BSplCLib1::DN(U,
                  N,
                  0,
                  Degree(),
                  Standard_False,
                  poles->Array1(),
-                 BSplCLib::NoWeights(),
+                 BSplCLib1::NoWeights(),
                  bidknots,
                  &bidmults,
                  V);
@@ -641,7 +641,7 @@ void Geom2d_BezierCurve::Resolution(const Standard_Real ToleranceUV, Standard_Re
 
     if (IsRational())
     {
-      BSplCLib::Resolution(poles->Array1(),
+      BSplCLib1::Resolution(poles->Array1(),
                            &weights->Array1(),
                            poles->Length(),
                            bidflatknots,
@@ -651,8 +651,8 @@ void Geom2d_BezierCurve::Resolution(const Standard_Real ToleranceUV, Standard_Re
     }
     else
     {
-      BSplCLib::Resolution(poles->Array1(),
-                           BSplCLib::NoWeights(),
+      BSplCLib1::Resolution(poles->Array1(),
+                           BSplCLib1::NoWeights(),
                            poles->Length(),
                            bidflatknots,
                            Degree(),

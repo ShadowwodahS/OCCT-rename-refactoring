@@ -131,7 +131,7 @@ public:
 
 private:
   class BRepLib_BndBoxVertexSelector
-      : public NCollection_UBTree<Standard_Integer, Bnd_Box>::Selector
+      : public NCollection_UBTree<Standard_Integer, Box2>::Selector
   {
   public:
     BRepLib_BndBoxVertexSelector(const TopTools_IndexedMapOfShape& theMapOfShape)
@@ -142,7 +142,7 @@ private:
     {
     }
 
-    Standard_Boolean Reject(const Bnd_Box& theBox) const { return theBox.IsOut(myVBox); }
+    Standard_Boolean Reject(const Box2& theBox) const { return theBox.IsOut(myVBox); }
 
     Standard_Boolean Accept(const Standard_Integer& theObj);
 
@@ -160,7 +160,7 @@ private:
     Point3d                             myP;
     Standard_Real                      myTolP;
     Standard_Integer                   myVInd;
-    Bnd_Box                            myVBox;
+    Box2                            myVBox;
     NCollection_List<Standard_Integer> myResultInd;
   };
 

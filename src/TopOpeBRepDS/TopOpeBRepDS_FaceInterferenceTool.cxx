@@ -120,7 +120,7 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoShape& F,
     {
       Point3d center = surf.Sphere().Location();
       Point3d value  = surf.Value(uu, vv);
-      Norm = Dir3d(Vector3d(center, value)); // recall : input data for TopTrans_SurfaceTransition
+      Norm = Dir3d(Vector3d(center, value)); // recall : input data for SurfaceTransition
                                             //          describes "direct" geometry
     }
     else
@@ -159,7 +159,7 @@ TopOpeBRepDS_FaceInterferenceTool::TopOpeBRepDS_FaceInterferenceTool(
 
 //=======================================================================
 // function : Init
-// purpose  : Initializes reference data for face/curve complex transition
+// purpose  : Initializes reference data for face/curve complex1 transition
 //=======================================================================
 void TopOpeBRepDS_FaceInterferenceTool::Init(const TopoShape&                      FFI,
                                              const TopoShape&                      EE,

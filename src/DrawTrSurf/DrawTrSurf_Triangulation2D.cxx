@@ -64,7 +64,7 @@ DrawTrSurf_Triangulation2D::DrawTrSurf_Triangulation2D(const Handle(MeshTriangul
   for (i = 1; i <= nbTriangles; i++)
   {
     pc.Triangles(i, t[0], t[1], t[2]);
-    T->Triangle(i).Get(n[0], n[1], n[2]);
+    T->Triangle1(i).Get(n[0], n[1], n[2]);
     for (j = 0; j < 3; j++)
     {
       Standard_Integer k = (j + 1) % 3;
@@ -132,7 +132,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Triangulation2D::Copy() const
 
 void DrawTrSurf_Triangulation2D::Dump(Standard_OStream& S) const
 {
-  Poly::Dump(myTriangulation, S);
+  Poly1::Dump(myTriangulation, S);
 }
 
 //=================================================================================================

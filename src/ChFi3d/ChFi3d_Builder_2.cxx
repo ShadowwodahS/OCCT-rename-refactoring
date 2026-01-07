@@ -1743,7 +1743,7 @@ static void ChFi3d_MakeExtremities(Handle(ChFiDS_Stripe)&      Stripe,
   Standard_Real         tolreached;
   if (sp->IsPeriodic())
   {
-    Bnd_Box                        b1, b2;
+    Box2                        b1, b2;
     const Handle(ChFiDS_SurfData)& SDF = Stripe->SetOfSurfData()->Sequence().First();
     const ChFiDS_CommonPoint&      CV1 = SDF->VertexFirstOnS1();
     const ChFiDS_CommonPoint&      CV2 = SDF->VertexFirstOnS2();
@@ -1833,7 +1833,7 @@ static void ChFi3d_MakeExtremities(Handle(ChFiDS_Stripe)&      Stripe,
   if (freedeb)
   {
     sp->SetFirstStatus(ChFiDS_FreeBoundary);
-    Bnd_Box b1, b2;
+    Box2 b1, b2;
     if (!cpdeb1.Point().IsEqual(cpdeb2.Point(), 0))
     {
       Standard_Boolean plane;
@@ -1918,7 +1918,7 @@ static void ChFi3d_MakeExtremities(Handle(ChFiDS_Stripe)&      Stripe,
   if (freefin)
   {
     sp->SetLastStatus(ChFiDS_FreeBoundary);
-    Bnd_Box b1, b2;
+    Box2 b1, b2;
     if (!cpfin1.Point().IsEqual(cpfin2.Point(), 0))
     {
       Standard_Boolean plane;
@@ -3054,7 +3054,7 @@ void ChFi3d_Builder::PerformSetOfKPart(Handle(ChFiDS_Stripe)& Stripe, const Stan
           {
             WStartPeriodic = WFirst;
             WEndPeriodic   = WStartPeriodic + Spine->Period();
-            WLast          = ElCLib::InPeriod(WLast, WStartPeriodic, WEndPeriodic);
+            WLast          = ElCLib1::InPeriod(WLast, WStartPeriodic, WEndPeriodic);
             if (WLast <= WFirst + tolesp)
               WLast += Spine->Period();
             PEndPeriodic = PFirst;
@@ -3181,7 +3181,7 @@ void ChFi3d_Builder::PerformSetOfKPart(Handle(ChFiDS_Stripe)& Stripe, const Stan
   Spine->SplitDone(Standard_True);
 }
 
-static Standard_Real ChFi3d_BoxDiag(const Bnd_Box& box)
+static Standard_Real ChFi3d_BoxDiag(const Box2& box)
 {
   Standard_Real a, b, c, d, e, f;
   box.Get(a, b, c, d, e, f);
@@ -3584,7 +3584,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
       curp2.SetTolerance(tol2);
       nextp2.SetTolerance(tol2);
 
-      Bnd_Box b1, b2;
+      Box2 b1, b2;
       if (curp1.IsOnArc())
       {
         ChFi3d_EnlargeBox(curp1.Arc(), myEFMap(curp1.Arc()), curp1.ParameterOnArc(), b1);
@@ -3616,9 +3616,9 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
       if (periodic)
       {
         period = Spine->Period();
-        nwf    = ElCLib::InPeriod(WF, -tolesp, period - tolesp);
+        nwf    = ElCLib1::InPeriod(WF, -tolesp, period - tolesp);
         IF     = Spine->Index(nwf, 1);
-        nwl    = ElCLib::InPeriod(WL, tolesp, period + tolesp);
+        nwl    = ElCLib1::InPeriod(WL, tolesp, period + tolesp);
         IL     = Spine->Index(nwl, 0);
         if (nwl < nwf + tolesp)
           IL += nbed;
@@ -3663,7 +3663,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
             iloc = (i - 1) % nbed + 1;
           Standard_Real wi = Spine->LastParameter(iloc);
           if (periodic)
-            wi = ElCLib::InPeriod(wi, WF, WF + period);
+            wi = ElCLib1::InPeriod(wi, WF, WF + period);
           Point3d pv = Spine->Value(wi);
 #ifdef OCCT_DEBUG
           Point3d        pelsapp  = curhels->Value(wi);

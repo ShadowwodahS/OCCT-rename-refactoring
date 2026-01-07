@@ -26,8 +26,8 @@
 #include <gp_Pnt.hxx>
 
 class Adaptor3d_Curve;
-class Extrema_POnCurv;
-class Extrema_ExtElC;
+class PointOnCurve1;
+class ExtElC;
 
 //! It calculates all the distance between two curves.
 //! These distances can be maximum or minimum.
@@ -101,8 +101,8 @@ public:
   //! Returns the points of the Nth extremum distance.
   //! P1 is on the first curve, P2 on the second one.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv&       P1,
-                              Extrema_POnCurv&       P2) const;
+                              PointOnCurve1&       P1,
+                              PointOnCurve1&       P2) const;
 
   //! if the curve is a trimmed curve,
   //! dist11 is a square distance between the point on C1
@@ -125,7 +125,7 @@ public:
 
 protected:
   //! Prepares the extrema result(s) for analytical cases (line, circle, ellipsis etc.)
-  Standard_EXPORT void PrepareResults(const Extrema_ExtElC&  AlgExt,
+  Standard_EXPORT void PrepareResults(const ExtElC&  AlgExt,
                                       const Standard_Boolean theIsInverse,
                                       const Standard_Real    Ut11,
                                       const Standard_Real    Ut12,
@@ -133,7 +133,7 @@ protected:
                                       const Standard_Real    Ut22);
 
   //! Prepares the extrema result(s) for general cases (e.g. with B-spline curves).
-  Standard_EXPORT void PrepareResults(const Extrema_ECC&  AlgExt,
+  Standard_EXPORT void PrepareResults(const CurveCurveExtrema1&  AlgExt,
                                       const Standard_Real Ut11,
                                       const Standard_Real Ut12,
                                       const Standard_Real Ut21,
@@ -161,7 +161,7 @@ private:
 
 private:
   Standard_Boolean          myIsFindSingleSolution; // Default value is false.
-  Extrema_ECC               myECC;
+  CurveCurveExtrema1               myECC;
   Standard_Boolean          myDone;
   Standard_Boolean          myIsParallel;
   Extrema_SequenceOfPOnCurv mypoints;

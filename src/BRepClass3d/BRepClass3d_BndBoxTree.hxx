@@ -27,7 +27,7 @@
 #include <Precision.hxx>
 
 // Typedef to reduce code complexity.
-typedef NCollection_UBTree<Standard_Integer, Bnd_Box> BRepClass3d_BndBoxTree;
+typedef NCollection_UBTree<Standard_Integer, Box2> BRepClass3d_BndBoxTree;
 
 // Class representing tree selector for point object.
 class BRepClass3d_BndBoxTreeSelectorPoint : public BRepClass3d_BndBoxTree::Selector
@@ -39,7 +39,7 @@ public:
   {
   }
 
-  Standard_Boolean Reject(const Bnd_Box& theBox) const { return (theBox.IsOut(myP)); }
+  Standard_Boolean Reject(const Box2& theBox) const { return (theBox.IsOut(myP)); }
 
   Standard_Boolean Accept(const Standard_Integer& theObj);
 
@@ -80,7 +80,7 @@ public:
   {
   }
 
-  Standard_Boolean Reject(const Bnd_Box& theBox) const { return (theBox.IsOut(myL)); }
+  Standard_Boolean Reject(const Box2& theBox) const { return (theBox.IsOut(myL)); }
 
   Standard_Boolean Accept(const Standard_Integer& theObj);
 

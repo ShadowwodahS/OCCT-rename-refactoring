@@ -596,7 +596,7 @@ void StdSelect_BRepSelectionTool::GetEdgeSensitive(const TopoShape&             
             aV1 = Max(aV1, aParamFirst);
             aV2 = Min(aV2, aParamLast);
 
-            GCPnts_TangentialDeflection anAlgo(cu3d, aV1, aV2, theDeviationAngle, theDeflection);
+            TangentialDeflectionSampler anAlgo(cu3d, aV1, aV2, theDeviationAngle, theDeflection);
             aNumberOfPoints = anAlgo.NbPoints();
 
             for (Standard_Integer aPntId = 1; aPntId < aNumberOfPoints; ++aPntId)

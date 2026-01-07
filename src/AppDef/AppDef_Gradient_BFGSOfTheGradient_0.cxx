@@ -26,11 +26,11 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
 #define AppParCurves_ParLeastSquare AppDef_ParLeastSquareOfTheGradient
 #define AppParCurves_ParLeastSquare_hxx <AppDef_ParLeastSquareOfTheGradient.hxx>
-#define AppParCurves_ResConstraint AppDef_ResConstraintOfTheGradient
+#define AppParCurves_ResConstraint ResConstraintGradient
 #define AppParCurves_ResConstraint_hxx <AppDef_ResConstraintOfTheGradient.hxx>
 #define AppParCurves_ParFunction AppDef_ParFunctionOfTheGradient
 #define AppParCurves_ParFunction_hxx <AppDef_ParFunctionOfTheGradient.hxx>

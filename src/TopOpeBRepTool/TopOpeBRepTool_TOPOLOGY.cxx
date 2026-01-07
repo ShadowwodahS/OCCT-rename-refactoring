@@ -712,7 +712,7 @@ Standard_EXPORT void FUN_tool_mkBnd2d(const TopoShape& W, const TopoShape& FF, B
       BB.UpdateEdge(E, pc, F, newtol);
     }
     BRepAdaptor_Curve2d BC2d(E, F);
-    BndLib_Add2dCurve::Add(BC2d, tol, newB2d);
+    Add2dCurve::Add(BC2d, tol, newB2d);
   } // ex(W,EDGE)
 
   FUN_tool_UpdateBnd2d(B2d, newB2d);
@@ -1133,10 +1133,10 @@ Standard_EXPORT Standard_Integer FUN_tool_comparebndkole(const TopoShape& sh1,
 //          returns k =1,2 if shi is contained in shk
 //          else returns 0
 {
-  Bnd_Box bnd1;
+  Box2 bnd1;
   BRepBndLib::Add(sh1, bnd1);
   bnd1.SetGap(0.);
-  Bnd_Box bnd2;
+  Box2 bnd2;
   BRepBndLib::Add(sh2, bnd2);
   bnd2.SetGap(0.);
 
@@ -1479,7 +1479,7 @@ Standard_EXPORT void FUN_ds_Parameter(const TopoShape& E,
       {
         if (p < f)
         {
-          Standard_Real pp = ElCLib::InPeriod(p, f, f + per);
+          Standard_Real pp = ElCLib1::InPeriod(p, f, f + per);
           p                = pp;
         }
       }

@@ -27,7 +27,7 @@
 #include <math_Vector.hxx>
 class Adaptor3d_Surface;
 class math_Matrix;
-class Extrema_POnSurf;
+class PointOnSurface1;
 
 //! Function to find extrema of the
 //! distance between two surfaces.
@@ -69,10 +69,10 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Return the Nth extremum on S1.
-  Standard_EXPORT const Extrema_POnSurf& PointOnS1(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnS1(const Standard_Integer N) const;
 
   //! Renvoie le Nieme extremum sur S2.
-  Standard_EXPORT const Extrema_POnSurf& PointOnS2(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnS2(const Standard_Integer N) const;
 
 private:
   const Adaptor3d_Surface*  myS1;

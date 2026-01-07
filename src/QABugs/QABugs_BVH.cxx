@@ -58,8 +58,8 @@ public:
   //! Constructor
   ShapeSelector() {}
 
-  //! Sets the Box for selection
-  void SetBox(const Bnd_Box& theBox) { myBox = Bnd_Tools::Bnd2BVH(theBox); }
+  //! Sets the Box1 for selection
+  void SetBox(const Box2& theBox) { myBox = Tools5::Bnd2BVH(theBox); }
 
   //! Returns the selected shapes
   const NCollection_List<TopoShape>& Shapes() const { return myShapes; }
@@ -85,7 +85,7 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer  theIndex,
                                   const Standard_Boolean& theIsInside) Standard_OVERRIDE
   {
-    if (theIsInside || !myBox.IsOut(myBVHSet->Box(theIndex)))
+    if (theIsInside || !myBox.IsOut(myBVHSet->Box1(theIndex)))
     {
       myShapes.Append(myBVHSet->Element(theIndex));
       return Standard_True;
@@ -108,14 +108,14 @@ public:
   //! Constructor
   ShapeSelectorVoid() {}
 
-  //! Sets the Box for selection
-  void SetBox(const Bnd_Box& theBox) { myBox = Bnd_Tools::Bnd2BVH(theBox); }
+  //! Sets the Box1 for selection
+  void SetBox(const Box2& theBox) { myBox = Tools5::Bnd2BVH(theBox); }
 
   //! Returns the selected shapes
   const NCollection_List<TopoShape>& Shapes() const { return myShapes; }
 
 public:
-  //! Sets the Box Set
+  //! Sets the Box1 Set
   void SetShapeBoxSet(
     const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>>& theBoxSet)
   {
@@ -143,7 +143,7 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer  theIndex,
                                   const Standard_Boolean& theIsInside) Standard_OVERRIDE
   {
-    if (theIsInside || !myBox.IsOut(myBoxSet->Box(theIndex)))
+    if (theIsInside || !myBox.IsOut(myBoxSet->Box1(theIndex)))
     {
       myShapes.Append(myBoxSet->Element(theIndex));
       return Standard_True;
@@ -179,7 +179,7 @@ static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
     return 1;
   }
 
-  // Get the shape to get the Box for selection
+  // Get the shape to get the Box1 for selection
   TopoShape aBShape = DBRep1::Get(theArgv[3]);
   if (aBShape.IsNull())
   {
@@ -213,10 +213,10 @@ static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
   {
     const TopoShape& aS = aMapShapes(iS);
 
-    Bnd_Box aSBox;
+    Box2 aSBox;
     BRepBndLib::Add(aS, aSBox);
 
-    aShapeBoxSet->Add(aS, Bnd_Tools::Bnd2BVH(aSBox));
+    aShapeBoxSet->Add(aS, Tools5::Bnd2BVH(aSBox));
   }
 
   // Build BVH
@@ -224,8 +224,8 @@ static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
 
   ShapeList aSelectedShapes;
 
-  // Prepare a Box for selection
-  Bnd_Box aSelectionBox;
+  // Prepare a Box1 for selection
+  Box2 aSelectionBox;
   BRepBndLib::Add(aBShape, aSelectionBox);
 
   // Perform selection
@@ -287,8 +287,8 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer theIndex1,
                                   const Standard_Integer theIndex2) Standard_OVERRIDE
   {
-    BVH_Box<Standard_Real, 3> aBox1 = myBVHSet1->Box(theIndex1);
-    BVH_Box<Standard_Real, 3> aBox2 = myBVHSet2->Box(theIndex2);
+    BVH_Box<Standard_Real, 3> aBox1 = myBVHSet1->Box1(theIndex1);
+    BVH_Box<Standard_Real, 3> aBox2 = myBVHSet2->Box1(theIndex2);
     if (!aBox1.IsOut(aBox2))
     {
       myPairs.Append(std::pair<TopoShape, TopoShape>(myBVHSet1->Element(theIndex1),
@@ -341,8 +341,8 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer theIndex1,
                                   const Standard_Integer theIndex2) Standard_OVERRIDE
   {
-    BVH_Box<Standard_Real, 3> aBox1 = mySBSet1->Box(theIndex1);
-    BVH_Box<Standard_Real, 3> aBox2 = mySBSet2->Box(theIndex2);
+    BVH_Box<Standard_Real, 3> aBox1 = mySBSet1->Box1(theIndex1);
+    BVH_Box<Standard_Real, 3> aBox2 = mySBSet2->Box1(theIndex2);
     if (!aBox1.IsOut(aBox2))
     {
       myPairs.Append(std::pair<TopoShape, TopoShape>(mySBSet1->Element(theIndex1),
@@ -416,10 +416,10 @@ static Standard_Integer QABVH_PairSelect(DrawInterpreter& theDI,
     {
       const TopoShape& aS = aMapShapes(iS);
 
-      Bnd_Box aSBox;
+      Box2 aSBox;
       BRepBndLib::Add(aS, aSBox);
 
-      aShapeBoxSet[i]->Add(aS, Bnd_Tools::Bnd2BVH(aSBox));
+      aShapeBoxSet[i]->Add(aS, Tools5::Bnd2BVH(aSBox));
     }
     // Build BVH
     aShapeBoxSet[i]->Build();
@@ -466,14 +466,14 @@ static Standard_Integer QABVH_PairSelect(DrawInterpreter& theDI,
 }
 
 //=======================================================================
-// function : Triangle
+// function : Triangle1
 // purpose : Auxiliary structure to keep the nodes of the triangle
 //=======================================================================
-struct Triangle
+struct Triangle1
 {
-  Triangle() {}
+  Triangle1() {}
 
-  Triangle(const BVH_Vec3d& theP1, const BVH_Vec3d& theP2, const BVH_Vec3d& theP3)
+  Triangle1(const BVH_Vec3d& theP1, const BVH_Vec3d& theP2, const BVH_Vec3d& theP3)
       : _Node1(theP1),
         _Node2(theP2),
         _Node3(theP3)
@@ -487,7 +487,7 @@ struct Triangle
 
 //=======================================================================
 // function : TriangleTriangleSqDistance
-// purpose : Computes the Triangle-Triangle square distance
+// purpose : Computes the Triangle1-Triangle1 square distance
 //=======================================================================
 static Standard_Real TriangleTriangleSqDistance(const BVH_Vec3d& theNode11,
                                                 const BVH_Vec3d& theNode12,
@@ -559,7 +559,7 @@ static Standard_Real TriangleTriangleSqDistance(const BVH_Vec3d& theNode11,
 // purpose : Class to compute the distance between two meshes
 //=======================================================================
 class MeshMeshDistance
-    : public BVH_PairDistance<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, Triangle>>
+    : public BVH_PairDistance<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, Triangle1>>
 {
 public:
   //! Constructor
@@ -570,8 +570,8 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer theIndex1,
                                   const Standard_Integer theIndex2) Standard_OVERRIDE
   {
-    const Triangle& aTri1 = myBVHSet1->Element(theIndex1);
-    const Triangle& aTri2 = myBVHSet2->Element(theIndex2);
+    const Triangle1& aTri1 = myBVHSet1->Element(theIndex1);
+    const Triangle1& aTri2 = myBVHSet2->Element(theIndex2);
 
     Standard_Real aDistance = TriangleTriangleSqDistance(aTri1._Node1,
                                                          aTri1._Node2,
@@ -624,11 +624,11 @@ static Standard_Integer QABVH_PairDistance(DrawInterpreter& theDI,
     new BVH_LinearBuilder<Standard_Real, 3>();
 
   // Create the ShapeSet
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, Triangle>> aTriangleBoxSet[2];
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, Triangle1>> aTriangleBoxSet[2];
 
   for (Standard_Integer i = 0; i < 2; ++i)
   {
-    aTriangleBoxSet[i] = new BVH_BoxSet<Standard_Real, 3, Triangle>(aLBuilder);
+    aTriangleBoxSet[i] = new BVH_BoxSet<Standard_Real, 3, Triangle1>(aLBuilder);
 
     TopTools_IndexedMapOfShape aMapShapes;
     TopExp1::MapShapes(aShape[i], TopAbs_FACE, aMapShapes);
@@ -642,7 +642,7 @@ static Standard_Integer QABVH_PairDistance(DrawInterpreter& theDI,
       const int aNbTriangles = aTriangulation->NbTriangles();
       for (int iT = 1; iT <= aNbTriangles; ++iT)
       {
-        const Poly_Triangle aTriangle = aTriangulation->Triangle(iT);
+        const Poly_Triangle aTriangle = aTriangulation->Triangle1(iT);
         // Nodes indices
         Standard_Integer id1, id2, id3;
         aTriangle.Get(id1, id2, id3);
@@ -660,7 +660,7 @@ static Standard_Integer QABVH_PairDistance(DrawInterpreter& theDI,
         aBox.Add(aBVHP2);
         aBox.Add(aBVHP3);
 
-        aTriangleBoxSet[i]->Add(Triangle(aBVHP1, aBVHP2, aBVHP3), aBox);
+        aTriangleBoxSet[i]->Add(Triangle1(aBVHP1, aBVHP2, aBVHP3), aBox);
       }
     }
     // Build BVH
@@ -702,7 +702,7 @@ public:
     const int aNbTriangles = aTriangulation->NbTriangles();
     for (int iT = 1; iT <= aNbTriangles; ++iT)
     {
-      const Poly_Triangle aTriangle = aTriangulation->Triangle(iT);
+      const Poly_Triangle aTriangle = aTriangulation->Triangle1(iT);
       // Nodes indices
       Standard_Integer id1, id2, id3;
       aTriangle.Get(id1, id2, id3);

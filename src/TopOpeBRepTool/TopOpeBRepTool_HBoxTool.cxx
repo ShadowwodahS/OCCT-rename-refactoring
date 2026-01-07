@@ -71,13 +71,13 @@ void TopOpeBRepTool_HBoxTool::AddBox(const TopoShape& S)
   if (hasb)
     return;
 
-  Bnd_Box B;
+  Box2 B;
   ComputeBox(S, B);
   myIMS.Add(S, B);
 #ifdef OCCT_DEBUG
   if (TBOX)
   {
-    DumpB(Box(S));
+    DumpB(Box1(S));
     std::cout << "; # HBT::AddBox " << Index(S) << " : ";
     TopAbs1::Print(t, std::cout);
     std::cout << "\n";
@@ -88,7 +88,7 @@ void TopOpeBRepTool_HBoxTool::AddBox(const TopoShape& S)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Bnd_Box& B)
+void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Box2& B)
 {
   TopAbs_ShapeEnum t = S.ShapeType();
   if (t == TopAbs_FACE)
@@ -111,7 +111,7 @@ void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Bnd_Box& B)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Bnd_Box& B)
+void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Box2& B)
 {
   ShapeExplorer ex(S, TopAbs_VERTEX);
   if (!ex.More())
@@ -132,7 +132,7 @@ void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Bnd_Box& 
 
 //=================================================================================================
 
-const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const TopoShape& S)
+const Box2& TopOpeBRepTool_HBoxTool::Box1(const TopoShape& S)
 {
   Standard_Boolean hb = HasBox(S);
   if (!hb)
@@ -140,13 +140,13 @@ const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const TopoShape& S)
     throw Standard_ProgramError("HBT::Box1");
   }
 
-  const Bnd_Box& B = myIMS.FindFromKey(S);
+  const Box2& B = myIMS.FindFromKey(S);
   return B;
 }
 
 //=================================================================================================
 
-const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const Standard_Integer I) const
+const Box2& TopOpeBRepTool_HBoxTool::Box1(const Standard_Integer I) const
 {
   Standard_Integer iu = Extent();
   Standard_Integer hb = (I >= 1 && I <= iu);
@@ -154,7 +154,7 @@ const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const Standard_Integer I) const
   {
     throw Standard_ProgramError("HBT::Box2");
   }
-  const Bnd_Box& B = myIMS.FindFromIndex(I);
+  const Box2& B = myIMS.FindFromIndex(I);
   return B;
 }
 
@@ -214,7 +214,7 @@ const TopOpeBRepTool_IndexedDataMapOfShapeBox& TopOpeBRepTool_HBoxTool::IMS() co
 
 void TopOpeBRepTool_HBoxTool::DumpB
 #ifdef OCCT_DEBUG
-  (const Bnd_Box& B)
+  (const Box2& B)
 {
   if (B.IsVoid())
     std::cout << "# IsVoid";
@@ -229,7 +229,7 @@ void TopOpeBRepTool_HBoxTool::DumpB
   }
 }
 #else
-  (const Bnd_Box&)
+  (const Box2&)
 {
 }
 #endif

@@ -24,17 +24,17 @@
 class Point3d;
 
 //! Definition of a point on surface.
-class Extrema_POnSurf
+class PointOnSurface1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creation of an indefinite point on surface.
-  Extrema_POnSurf();
+  PointOnSurface1();
 
   //! Creation of a point on surface with parameter
   //! values on the surface and a Pnt from gp.
-  Extrema_POnSurf(const Standard_Real U, const Standard_Real V, const Point3d& P);
+  PointOnSurface1(const Standard_Real U, const Standard_Real V, const Point3d& P);
 
   //! Returns the 3d point.
   const Point3d& Value() const;

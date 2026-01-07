@@ -584,7 +584,7 @@ void AIS_ColoredShape::addShapesWithCustomProps(
 
       // It is supposed that absolute deflection contains previously computed relative deflection
       // (if deflection type is relative).
-      // In case of CustomDrawer it is taken from Link().
+      // In case of CustomDrawer it is taken from Link1().
       Aspect_TypeOfDeflection aPrevType = aDrawer->TypeOfDeflection();
       aDrawer->SetTypeOfDeflection(Aspect_TOD_ABSOLUTE);
 

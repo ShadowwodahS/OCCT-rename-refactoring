@@ -22,16 +22,16 @@
 
 #define Curve1 Standard_Address
 #define Curve1_hxx <Standard_Address.hxx>
-#define Tool1 HLRBRep_CurveTool
+#define Tool1 CurveTool5
 #define Tool1_hxx <HLRBRep_CurveTool.hxx>
 #define Curve2 Standard_Address
 #define Curve2_hxx <Standard_Address.hxx>
-#define Tool2 HLRBRep_CurveTool
+#define Tool2 CurveTool5
 #define Tool2_hxx <HLRBRep_CurveTool.hxx>
-#define POnC Extrema_POnCurv2d
+#define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>
-#define Extrema_CurveLocator HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter
+#define Extrema_CurveLocator HLRBRepProjPCurCurveLocator
 #define Extrema_CurveLocator_hxx <HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx>
 #include "../Extrema/Extrema_CurveLocator.gxx"

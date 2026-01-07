@@ -2260,7 +2260,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
                                      const Standard_Real                     theFact,
                                      TopoShape&                           thePresentation,
                                      Handle(TCollection_HAsciiString)&       thePresentName,
-                                     Bnd_Box&                                theBox,
+                                     Box2&                                theBox,
                                      const ConversionFactors&                 theLocalFactors)
 {
   if (thePresentEntity.IsNull())
@@ -2309,7 +2309,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
   TopoCompound aResAnnotation;
   aB.MakeCompound(aResAnnotation);
 
-  Bnd_Box          aBox;
+  Box2          aBox;
   Standard_Integer aNbShapes = 0;
   for (Standard_Integer i = 0; i < anAnnotations.Length(); i++)
   {
@@ -2557,7 +2557,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
   }
 
   // Retrieve presentation
-  Bnd_Box aBox;
+  Box2 aBox;
   if (!readPMIPresentation(aDMIAE, theTR, aFact, aResAnnotation, aPresentName, aBox, aLocalFactors))
     return;
   Point3d aPtext(0., 0., 0.);
@@ -4888,7 +4888,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadGDTs(const Handle(ExchangeSession)& 
       // Presentation
       TopoShape                     aPresentation;
       Handle(TCollection_HAsciiString) aPresentName;
-      Bnd_Box                          aBox;
+      Box2                          aBox;
       if (!readPMIPresentation(anEnt, aTR, aFact, aPresentation, aPresentName, aBox, aLocalFactors))
         continue;
       // Annotation plane
@@ -5229,7 +5229,7 @@ Handle(TCollection_HAsciiString) buildClippingPlanes(
         DataLabel aPlaneL = theTool->AddClippingPlane(aPlane->Pln(), aPlaneEnt->Name());
         theClippingPlanes.Append(aPlaneL);
         AsciiString1 anEntry;
-        TDF_Tool::Entry(aPlaneL, anEntry);
+        Tool3::Entry(aPlaneL, anEntry);
         anExpression->AssignCat(new TCollection_HAsciiString(anEntry));
       }
     }

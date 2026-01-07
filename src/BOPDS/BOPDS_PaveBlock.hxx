@@ -154,7 +154,7 @@ public:
   //! <theIsSplittable> - defines whether the edge can be split
   Standard_EXPORT void SetShrunkData(const Standard_Real    theTS1,
                                      const Standard_Real    theTS2,
-                                     const Bnd_Box&         theBox,
+                                     const Box2&         theBox,
                                      const Standard_Boolean theIsSplittable);
 
   //! Selector
@@ -164,7 +164,7 @@ public:
   //! <theIsSplittable> - defines whether the edge can be split
   Standard_EXPORT void ShrunkData(Standard_Real&    theTS1,
                                   Standard_Real&    theTS2,
-                                  Bnd_Box&          theBox,
+                                  Box2&          theBox,
                                   Standard_Boolean& theIsSplittable) const;
 
   //! Query
@@ -190,7 +190,7 @@ protected:
   BOPDS_ListOfPave                  myExtPaves;
   Standard_Real                     myTS1;
   Standard_Real                     myTS2;
-  Bnd_Box                           myShrunkBox;
+  Box2                           myShrunkBox;
   TColStd_MapOfInteger              myMFence;
   Standard_Boolean                  myIsSplittable;
 

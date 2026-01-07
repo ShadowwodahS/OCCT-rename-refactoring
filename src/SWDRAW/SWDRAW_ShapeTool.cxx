@@ -259,12 +259,12 @@ static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, co
     Standard_Real           current_last  = Draw1::Atof(argv[6]);
     constexpr Standard_Real Tol           = Precision::PConfusion();
     Handle(GeomCurve2d)    NewC2d;
-    GeomLib::SameRange(Tol, C, oldFirst, oldLast, current_first, current_last, NewC2d);
+    GeomLib1::SameRange(Tol, C, oldFirst, oldLast, current_first, current_last, NewC2d);
     DrawTrSurf1::Set(argv[1], NewC2d);
   }
   else
   {
-    di << "Apply BRepLib::SameRange() to shape or GeomLib::SameRange() to pcurve:\n";
+    di << "Apply BRepLib::SameRange() to shape or GeomLib1::SameRange() to pcurve:\n";
     di << "> samerange shape\n";
     di << "or\n";
     di << "> samerange newcurve curve2d first last newfirst newlast\n";

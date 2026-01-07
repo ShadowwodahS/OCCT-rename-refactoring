@@ -70,15 +70,15 @@ void IFSelect_SignatureList::Add(const Handle(RefObject)& ent, const Standard_CS
 
   if (thelistat)
   {
-    Handle(TColStd_HSequenceOfTransient) alist;
+    Handle(TColStd_HSequenceOfTransient) alist1;
     if (thediclist.Contains(sign))
-      alist = Handle(TColStd_HSequenceOfTransient)::DownCast(thediclist.FindFromKey(sign));
+      alist1 = Handle(TColStd_HSequenceOfTransient)::DownCast(thediclist.FindFromKey(sign));
     else
     {
-      alist = new TColStd_HSequenceOfTransient();
-      thediclist.Add(sign, alist);
+      alist1 = new TColStd_HSequenceOfTransient();
+      thediclist.Add(sign, alist1);
     }
-    alist->Append(ent);
+    alist1->Append(ent);
   }
 }
 

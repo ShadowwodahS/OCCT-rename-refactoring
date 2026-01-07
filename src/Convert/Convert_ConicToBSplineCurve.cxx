@@ -147,12 +147,12 @@ void CosAndSinRationalC1(Standard_Real                  Parameter,
                          Standard_Real                  Result[2])
 {
   gp_Pnt2d a_point;
-  BSplCLib::D0(Parameter,
+  BSplCLib1::D0(Parameter,
                0,
                EvalDegree,
                Standard_False,
                EvalPoles,
-               BSplCLib::NoWeights(),
+               BSplCLib1::NoWeights(),
                EvalKnots,
                EvalMults,
                a_point);
@@ -195,7 +195,7 @@ void CosAndSinQuasiAngular(Standard_Real               Parameter,
   //   rational_function_coeff[i][1] is the numerator
   //
   param = Parameter * 0.5e0;
-  PLib::NoDerivativeEvalPolynomial(param, EvalDegree, 2, EvalDegree << 1, coeff[0], Result[0]);
+  PLib1::NoDerivativeEvalPolynomial(param, EvalDegree, 2, EvalDegree << 1, coeff[0], Result[0]);
 }
 
 //=======================================================================
@@ -229,7 +229,7 @@ void AlgorithmicCosAndSin(Standard_Integer               Degree,
   TColStd_Array1OfReal    parameters(1, num_poles);
   TColgp_Array1OfPnt      poles_array(1, num_poles);
   TColStd_Array1OfInteger contact_order_array(1, num_poles);
-  BSplCLib::BuildSchoenbergPoints(Degree, FlatKnots, parameters);
+  BSplCLib1::BuildSchoenbergPoints(Degree, FlatKnots, parameters);
   for (ii = parameters.Lower(); ii <= parameters.Upper(); ii++)
   {
     Evaluator(parameters(ii), EvalDegree, EvalPoles, EvalKnots, EvalMults, result);
@@ -239,7 +239,7 @@ void AlgorithmicCosAndSin(Standard_Integer               Degree,
     poles_array(ii).SetCoord(2, 2.0e0 * result[1] * result[0]);
     poles_array(ii).SetCoord(3, result[1] * result[1] + result[0] * result[0]);
   }
-  BSplCLib::Interpolate(Degree,
+  BSplCLib1::Interpolate(Degree,
                         FlatKnots,
                         parameters,
                         contact_order_array,
@@ -631,7 +631,7 @@ void Convert_ConicToBSplineCurve::BuildCosAndSin(
     TColStd_Array1OfReal    parameters(1, num_poles);
     TColgp_Array1OfPnt      poles_array(1, num_poles);
     TColStd_Array1OfInteger contact_order_array(1, num_poles);
-    BSplCLib::BuildSchoenbergPoints(Degree, flat_knots, parameters);
+    BSplCLib1::BuildSchoenbergPoints(Degree, flat_knots, parameters);
     inverse = 1.0e0;
     for (ii = parameters.Lower(); ii <= parameters.Upper(); ii++)
     {
@@ -641,7 +641,7 @@ void Convert_ConicToBSplineCurve::BuildCosAndSin(
         inverse = -1.0e0;
         param -= M_PI;
       }
-      BSplCLib::D0(param,
+      BSplCLib1::D0(param,
                    0,
                    temp_degree,
                    Standard_False,
@@ -651,7 +651,7 @@ void Convert_ConicToBSplineCurve::BuildCosAndSin(
                    &temp_mults_ptr->Array1(),
                    value1);
 
-      BSplCLib::D0(param,
+      BSplCLib1::D0(param,
                    0,
                    temp_degree,
                    Standard_False,
@@ -660,12 +660,12 @@ void Convert_ConicToBSplineCurve::BuildCosAndSin(
                    temp_knots_ptr->Array1(),
                    &temp_mults_ptr->Array1(),
                    value2);
-      BSplCLib::D0(param,
+      BSplCLib1::D0(param,
                    0,
                    temp_degree,
                    Standard_False,
                    temp_denominator_ptr->Array1(),
-                   BSplCLib::NoWeights(),
+                   BSplCLib1::NoWeights(),
                    temp_knots_ptr->Array1(),
                    &temp_mults_ptr->Array1(),
                    value3);
@@ -675,7 +675,7 @@ void Convert_ConicToBSplineCurve::BuildCosAndSin(
       poles_array(ii).SetCoord(2, value2 * value3 * inverse);
       poles_array(ii).SetCoord(3, value3);
     }
-    BSplCLib::Interpolate(Degree,
+    BSplCLib1::Interpolate(Degree,
                           flat_knots,
                           parameters,
                           contact_order_array,

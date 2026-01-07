@@ -74,7 +74,7 @@ AppParCurves_Function::
   Contraintes = Standard_False;
   Standard_Integer myindex;
   Standard_Integer low = TheConstraints->Lower(), upp= TheConstraints->Upper();
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint Cons;
 
   for (i = low; i <= upp; i++) {
@@ -133,7 +133,7 @@ AppParCurves_Constraint AppParCurves_Function::FirstConstraint
 {
   Standard_Integer i, myindex;
   Standard_Integer low = TheConstraints->Lower(), upp= TheConstraints->Upper();
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint Cons = AppParCurves_NoConstraint;
 
   for (i = low; i <= upp; i++) {
@@ -154,7 +154,7 @@ AppParCurves_Constraint AppParCurves_Function::LastConstraint
 {
   Standard_Integer i, myindex;
   Standard_Integer low = TheConstraints->Lower(), upp= TheConstraints->Upper();
-  AppParCurves_ConstraintCouple mycouple;
+  ConstraintCouple mycouple;
   AppParCurves_Constraint Cons = AppParCurves_NoConstraint;
 
   for (i = low; i <= upp; i++) {

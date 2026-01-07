@@ -82,9 +82,9 @@ public:
 
   //! end of building  of the Data and updating
   //! all the information linked to the projection.
-  Standard_EXPORT void Update(const HLRAlgo_Projector& P);
+  Standard_EXPORT void Update(const HLRAlgoProjector& P);
 
-  HLRAlgo_Projector& Projector();
+  HLRAlgoProjector& Projector();
 
   Standard_Integer NbVertices() const;
 
@@ -97,7 +97,7 @@ public:
   TopTools_IndexedMapOfShape& FaceMap();
 
   //! to compare with only non rejected edges.
-  Standard_EXPORT void InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices& MinMaxTot,
+  Standard_EXPORT void InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxTot,
                                      const Standard_Integer                   e1,
                                      const Standard_Integer                   e2);
 
@@ -232,17 +232,17 @@ private:
   HLRBRep_Array1OfFData              myFData;
   TColStd_Array1OfInteger            myEdgeIndices;
   Standard_ShortReal                 myToler;
-  HLRAlgo_Projector                  myProj;
+  HLRAlgoProjector                  myProj;
   HLRBRep_CLProps                    myLLProps;
   HLRBRep_CLProps                    myFLProps;
-  HLRBRep_SLProps                    mySLProps;
+  SLProps                    mySLProps;
   Standard_Real                      myBigSize;
   HLRBRep_FaceIterator               myFaceItr1;
   HLRBRep_FaceIterator               myFaceItr2;
   Standard_Integer                   iFace;
   HLRBRep_FaceData*                  iFaceData;
   Standard_Address                   iFaceGeom;
-  HLRAlgo_EdgesBlock::MinMaxIndices* iFaceMinMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1* iFaceMinMax;
   GeomAbs_SurfaceType                iFaceType;
   Standard_Boolean                   iFaceBack;
   Standard_Boolean                   iFaceSimp;
@@ -260,7 +260,7 @@ private:
   Standard_Boolean                   myLEIsoLine;
   HLRBRep_EdgeData*                  myLEData;
   const HLRBRep_Curve*               myLEGeom;
-  HLRAlgo_EdgesBlock::MinMaxIndices* myLEMinMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1* myLEMinMax;
   GeomAbs_CurveType                  myLEType;
   Standard_ShortReal                 myLETol;
   Standard_Integer                   myFE;

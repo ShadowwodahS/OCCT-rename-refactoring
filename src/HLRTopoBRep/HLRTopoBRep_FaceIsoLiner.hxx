@@ -23,27 +23,27 @@
 
 #include <Standard_Integer.hxx>
 class TopoFace;
-class HLRTopoBRep_Data;
+class Data1;
 class TopoVertex;
 class TopoEdge;
 class Point3d;
 class Geom2d_Line;
 
-class HLRTopoBRep_FaceIsoLiner
+class FaceIsoLiner
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static void Perform(const Standard_Integer FI,
                                       const TopoFace&     F,
-                                      HLRTopoBRep_Data&      DS,
+                                      Data1&      DS,
                                       const Standard_Integer nbIsos);
 
   Standard_EXPORT static TopoVertex MakeVertex(const TopoEdge&  E,
                                                   const Point3d&       P,
                                                   const Standard_Real Par,
                                                   const Standard_Real Tol,
-                                                  HLRTopoBRep_Data&   DS);
+                                                  Data1&   DS);
 
   Standard_EXPORT static void MakeIsoLine(const TopoFace&         F,
                                           const Handle(Geom2d_Line)& Iso,
@@ -52,7 +52,7 @@ public:
                                           const Standard_Real        U1,
                                           const Standard_Real        U2,
                                           const Standard_Real        Tol,
-                                          HLRTopoBRep_Data&          DS);
+                                          Data1&          DS);
 
 protected:
 private:

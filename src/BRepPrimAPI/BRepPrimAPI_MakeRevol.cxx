@@ -265,7 +265,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
   anExtr.Perform();
   if (anExtr.IsDone() && anExtr.NbExt() > 0)
   {
-    Extrema_POnCurv aP1, aP2;
+    PointOnCurve1 aP1, aP2;
     for (Standard_Integer i = 1; i <= anExtr.NbExt(); i++)
     {
       if (anExtr.SquareDistance(i) > Precision::SquareConfusion())

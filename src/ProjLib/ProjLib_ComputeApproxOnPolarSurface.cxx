@@ -230,7 +230,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
     {
       case GeomAbs_Cylinder: {
         gp_Cylinder Cylinder = theData.mySurf->Cylinder();
-        ElSLib::Parameters(Cylinder, p, S, T);
+        ElSLib1::Parameters(Cylinder, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
         if (U0 > Usup)
@@ -240,7 +240,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       }
       case GeomAbs_Cone: {
         gp_Cone Cone = theData.mySurf->Cone();
-        ElSLib::Parameters(Cone, p, S, T);
+        ElSLib1::Parameters(Cone, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
         if (U0 > Usup)
@@ -250,7 +250,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       }
       case GeomAbs_Sphere: {
         gp_Sphere Sphere = theData.mySurf->Sphere();
-        ElSLib::Parameters(Sphere, p, S, T);
+        ElSLib1::Parameters(Sphere, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
         if (U0 > Usup)
@@ -273,7 +273,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       }
       case GeomAbs_Torus: {
         gp_Torus Torus = theData.mySurf->Torus();
-        ElSLib::Parameters(Torus, p, S, T);
+        ElSLib1::Parameters(Torus, p, S, T);
         if (U0 < Uinf)
           decalU = -int((Uinf - U0) / (2 * M_PI)) - 1;
         if (U0 > Usup)
@@ -430,7 +430,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
 // purpose  : (OCC217 - apo)- This class produce interface to call "gp_Pnt2d Function_Value(...)"
 //=======================================================================
 
-class ProjLib_PolarFunction : public AppCont_Function
+class ProjLib_PolarFunction : public ContinuityFunction
 {
   aFuncStruct myStruct;
 
@@ -985,7 +985,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         //      {
         //	gp_Pln Plane = Surf->Plane();
         //	for ( i = 1 ; i <= NbOfPnts ; i++) {
-        //	  ElSLib::Parameters( Plane, Pts(i), S, T);
+        //	  ElSLib1::Parameters( Plane, Pts(i), S, T);
         //	  Pts2d(i).SetCoord(S,T);
         //	}
         //	myProjIsDone = Standard_True;
@@ -996,12 +996,12 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         Standard_Real    Sloc;
         Standard_Integer usens    = 0;
         gp_Cylinder      Cylinder = Surf->Cylinder();
-        ElSLib::Parameters(Cylinder, Pts(1), S, T);
+        ElSLib1::Parameters(Cylinder, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
         {
           Sloc = S;
-          ElSLib::Parameters(Cylinder, Pts(i), S, T);
+          ElSLib1::Parameters(Cylinder, Pts(i), S, T);
           if (Abs(Sloc - S) > M_PI)
           {
             if (Sloc > S)
@@ -1019,12 +1019,12 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         Standard_Real    Sloc;
         Standard_Integer usens = 0;
         gp_Cone          Cone  = Surf->Cone();
-        ElSLib::Parameters(Cone, Pts(1), S, T);
+        ElSLib1::Parameters(Cone, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
         {
           Sloc = S;
-          ElSLib::Parameters(Cone, Pts(i), S, T);
+          ElSLib1::Parameters(Cone, Pts(i), S, T);
           if (Abs(Sloc - S) > M_PI)
           {
             if (Sloc > S)
@@ -1042,13 +1042,13 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         Standard_Integer usens = 0, vsens = 0; // usens steps by half-period
         Standard_Boolean vparit = Standard_False;
         gp_Sphere        Sphere = Surf->Sphere();
-        ElSLib::Parameters(Sphere, Pts(1), S, T);
+        ElSLib1::Parameters(Sphere, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
         {
           Sloc = S;
           Tloc = T;
-          ElSLib::Parameters(Sphere, Pts(i), S, T);
+          ElSLib1::Parameters(Sphere, Pts(i), S, T);
           if (1.6 * M_PI < Abs(Sloc - S))
           {
             if (Sloc > S)
@@ -1084,13 +1084,13 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
         Standard_Real    Sloc, Tloc;
         Standard_Integer usens = 0, vsens = 0;
         gp_Torus         Torus = Surf->Torus();
-        ElSLib::Parameters(Torus, Pts(1), S, T);
+        ElSLib1::Parameters(Torus, Pts(1), S, T);
         Pts2d(1).SetCoord(S, T);
         for (i = 2; i <= NbOfPnts; i++)
         {
           Sloc = S;
           Tloc = T;
-          ElSLib::Parameters(Torus, Pts(i), S, T);
+          ElSLib1::Parameters(Torus, Pts(i), S, T);
           if (Abs(Sloc - S) > M_PI)
           {
             if (Sloc > S)
@@ -1689,7 +1689,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
-        ElSLib::Parameters(Plane, BSC->Pole(i), S, T);
+        ElSLib1::Parameters(Plane, BSC->Pole(i), S, T);
         Poles2d(i).SetCoord(S, T);
       }
       TColStd_Array1OfReal Knots(1, BSC->NbKnots());
@@ -1716,7 +1716,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
-        ElSLib::Parameters(Plane, BC->Pole(i), S, T);
+        ElSLib1::Parameters(Plane, BC->Pole(i), S, T);
         Poles2d(i).SetCoord(S, T);
       }
       TColStd_Array1OfReal Knots(1, 2);
@@ -2095,12 +2095,12 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       Standard_Integer Inc = MaxDeg - MC.Degree();
       if (Inc > 0)
       {
-        //	BSplCLib::IncreaseDegree( Inc, Poles2d, PLib::NoWeights(),
-        BSplCLib::IncreaseDegree(MaxDeg,
+        //	BSplCLib1::IncreaseDegree( Inc, Poles2d, PLib1::NoWeights(),
+        BSplCLib1::IncreaseDegree(MaxDeg,
                                  Poles2d,
-                                 BSplCLib::NoWeights(),
+                                 BSplCLib1::NoWeights(),
                                  TempPoles,
-                                 BSplCLib::NoWeights());
+                                 BSplCLib1::NoWeights());
         // update of tops of the PCurve
         for (Standard_Integer k = 1; k <= MaxDeg + 1; k++)
         {

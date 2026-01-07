@@ -228,7 +228,7 @@ void Geom2dAPI_PointsToBSpline::Init(const TColStd_Array1OfReal& YValues,
   TColStd_Array1OfReal    NewTempPoles(1, Degree + 1);
   TColStd_Array1OfReal    NewTempKnots(1, 2);
   TColStd_Array1OfInteger NewTempMults(1, 2);
-  BSplCLib::IncreaseDegree(1,
+  BSplCLib1::IncreaseDegree(1,
                            Degree,
                            Standard_False,
                            1,
@@ -240,7 +240,7 @@ void Geom2dAPI_PointsToBSpline::Init(const TColStd_Array1OfReal& YValues,
                            NewTempMults);
 
   // insert the Knots
-  BSplCLib::InsertKnots(Degree,
+  BSplCLib1::InsertKnots(Degree,
                         Standard_False,
                         1,
                         NewTempPoles,
@@ -382,7 +382,7 @@ void Geom2dAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt2d& Points,
 
   for (i = 1; i <= NbPoint; ++i)
   {
-    AppParCurves_ConstraintCouple ACC(i, Constraint);
+    ConstraintCouple ACC(i, Constraint);
     TABofCC->SetValue(i, ACC);
   }
 

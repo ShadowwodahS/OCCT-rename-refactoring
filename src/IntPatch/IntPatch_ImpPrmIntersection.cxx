@@ -118,13 +118,13 @@ static IntPatch_SpecPntType IsSeamOrPole(const Handle(Adaptor3d_Surface)& theQSu
   else if (aType == GeomAbs_Sphere)
   {
     const Standard_Real aSqTol = theTol3D * theTol3D;
-    Point3d              aP(ElSLib::Value(0.0, M_PI_2, theQSurf->Sphere()));
+    Point3d              aP(ElSLib1::Value(0.0, M_PI_2, theQSurf->Sphere()));
     if (aP.SquareDistance(aP3d) < aSqTol)
     {
       return IntPatch_SPntPoleSeamU;
     }
 
-    aP = ElSLib::Value(0.0, -M_PI_2, theQSurf->Sphere());
+    aP = ElSLib1::Value(0.0, -M_PI_2, theQSurf->Sphere());
     if (aP.SquareDistance(aP3d) < aSqTol)
     {
       return IntPatch_SPntPoleSeamU;
@@ -318,7 +318,7 @@ void ComputeTangency(const SOnBounds&       solrst,
           Dir3d                   bidnorm(1., 1., 1.);
           Standard_Real            tole = 1.e-8;
           TopAbs_Orientation       LocTrans;
-          TopTrans_CurveTransition comptrans;
+          CurveTransition comptrans;
           comptrans.Reset(vectg, bidnorm, 0.);
           if (arcorien == TopAbs_FORWARD || arcorien == TopAbs_REVERSED)
           {
@@ -2684,7 +2684,7 @@ static void PutIntVertices(const Handle(IntPatch_PointLine)& Line,
             aPSurf.SetCoord(U2, V2);
           }
 
-          aParam = ElCLib::Parameter(aLin, aPSurf);
+          aParam = ElCLib1::Parameter(aLin, aPSurf);
         }
 
         thePnt.SetParameter(aParam);
@@ -3446,7 +3446,7 @@ static Standard_Boolean DecomposeResult(const Handle(IntPatch_PointLine)&  theLi
           aPSurf.SetCoord(aU2, aV2);
         }
 
-        Standard_Real aPar = ElCLib::Parameter(aLin, aPSurf);
+        Standard_Real aPar = ElCLib1::Parameter(aLin, aPSurf);
 
         if (aFLIndex == 0)
         {
@@ -3561,10 +3561,10 @@ Standard_Boolean IsCoincide(
     {
       const Standard_Real aRf = theArc->FirstParameter(), aRl = theArc->LastParameter();
       const Standard_Real aParf = anArc->FirstParameter(), aParl = anArc->LastParameter();
-      const gp_Pnt2d      aP1(ElCLib::Value(aParf, aLin2)), aP2(ElCLib::Value(aParl, aLin2));
+      const gp_Pnt2d      aP1(ElCLib1::Value(aParf, aLin2)), aP2(ElCLib1::Value(aParl, aLin2));
 
-      Standard_Real aParam1 = ElCLib::Parameter(aLin1, aP1),
-                    aParam2 = ElCLib::Parameter(aLin1, aP2);
+      Standard_Real aParam1 = ElCLib1::Parameter(aLin1, aP1),
+                    aParam2 = ElCLib1::Parameter(aLin1, aP2);
 
       if (CheckSegmSegm(aRf, aRl, aParam1, aParam2))
         return Standard_True;
@@ -3597,12 +3597,12 @@ Standard_Boolean IsCoincide(
     // 2d-line in parametric surface).
     const gp_Pnt2d aPloc(aUf, aVf);
 
-    const Standard_Real aRParam = ElCLib::Parameter(anArcLin, aPloc);
+    const Standard_Real aRParam = ElCLib1::Parameter(anArcLin, aPloc);
 
     if ((aRParam < aUAf) || (aRParam > aUAl))
       return Standard_False;
 
-    const gp_Pnt2d aPmin(ElCLib::Value(aRParam, anArcLin));
+    const gp_Pnt2d aPmin(ElCLib1::Value(aRParam, anArcLin));
 
     const Standard_Real aDist = aPloc.Distance(aPmin);
     if ((aDist < theToler2D) || (Abs(aDist - thePeriod) < theToler2D))

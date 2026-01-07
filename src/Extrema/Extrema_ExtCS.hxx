@@ -28,8 +28,8 @@
 
 class Adaptor3d_Curve;
 class Adaptor3d_Surface;
-class Extrema_POnCurv;
-class Extrema_POnSurf;
+class PointOnCurve1;
+class PointOnSurface1;
 class Point3d;
 
 //! It calculates all the extremum distances
@@ -97,8 +97,8 @@ public:
 
   //! Returns the point of the Nth resulting distance.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv&       P1,
-                              Extrema_POnSurf&       P2) const;
+                              PointOnCurve1&       P1,
+                              PointOnSurface1&       P2) const;
 
 private:
   Standard_EXPORT Standard_Boolean AddSolution(const Adaptor3d_Curve& Curve,

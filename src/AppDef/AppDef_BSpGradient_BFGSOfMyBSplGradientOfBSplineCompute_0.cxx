@@ -25,7 +25,7 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
 #define AppParCurves_BSpParLeastSquare AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute
 #define AppParCurves_BSpParLeastSquare_hxx                                                         \

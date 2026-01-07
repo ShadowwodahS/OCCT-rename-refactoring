@@ -224,7 +224,7 @@ public:
   //! Computes the point P and the first derivatives in the directions U and V at this point.
   //! Raised if the continuity of the surface is not C1.
   //!
-  //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
+  //! Tip: use GeomLib1::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   const Standard_Real V,
                                   Point3d&             P,
@@ -272,7 +272,7 @@ public:
   //! Computes the point of parameter (U, V) on the surface.
   //!
   //! It is implemented with D0.
-  //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
+  //! Tip: use GeomLib1::NormEstim() to calculate surface normal at specified (U, V) point.
   //!
   //! Raised only for an "OffsetSurface" if it is not possible to compute the current point.
   Standard_EXPORT Point3d Value(const Standard_Real U, const Standard_Real V) const;

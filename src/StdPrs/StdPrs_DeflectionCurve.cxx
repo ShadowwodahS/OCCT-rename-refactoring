@@ -45,8 +45,8 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&      aCurve,
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE)
   {
     // On calcule la fleche en fonction des min max globaux de la piece:
-    Bnd_Box Total;
-    BndLib_Add3dCurve::Add(aCurve, U1, U2, 0., Total);
+    Box2 Total;
+    Add3dCurve::Add(aCurve, U1, U2, 0., Total);
     Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
     Total.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
     Standard_Real m = RealLast();
@@ -170,7 +170,7 @@ static void drawCurve(Adaptor3d_Curve&               aCurve,
           theU1 = Max(theU1, U1);
           theU2 = Min(theU2, U2);
 
-          GCPnts_TangentialDeflection Algo(aCurve, theU1, theU2, anAngle, TheDeflection);
+          TangentialDeflectionSampler Algo(aCurve, theU1, theU2, anAngle, TheDeflection);
           NumberOfPoints = Algo.NbPoints();
 
           if (NumberOfPoints > 0)
@@ -254,7 +254,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
       break;
     }
     default: {
-      GCPnts_TangentialDeflection Algo(aCurve, U1, U2, anAngle, TheDeflection);
+      TangentialDeflectionSampler Algo(aCurve, U1, U2, anAngle, TheDeflection);
       const Standard_Integer      NumberOfPoints = Algo.NbPoints();
       if (NumberOfPoints > 0)
       {

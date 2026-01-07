@@ -224,7 +224,7 @@ static int BUC60610(DrawInterpreter& di, Standard_Integer argc, const char** arg
   {
     const TopoEdge&       E = TopoDS::Edge(ex.Current());
     BRepAdaptor_Curve        aCurve(E);
-    GCPnts_UniformDeflection plin(aCurve, 0.1);
+    UniformDeflection1 plin(aCurve, 0.1);
     di << "Num points = " << plin.NbPoints() << "\n";
     if (argc > 2)
     {
@@ -610,7 +610,7 @@ static Standard_Integer OCC297(DrawInterpreter& di, Standard_Integer /*argc*/, c
 
   BoxMaker box(Point3d(x, y, z), Point3d(x + 150, y + 200, z + 200));
 
-  DBRep1::Set("Box", box.Shape());
+  DBRep1::Set("Box1", box.Shape());
 
   return 0;
 }
@@ -1424,9 +1424,9 @@ static Standard_Integer OCC578(DrawInterpreter& di, Standard_Integer argc, const
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoShape wedge1 = BRepPrimAPI_MakeWedge(0.5, 0.05, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  Transform3d rotate = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795);
+  Transform3d rotate = RotationBuilder(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795);
 
-  Transform3d translate = gce_MakeTranslation(Point3d(0.0, -0.5, 0.0), Point3d(0.25, 0.25, 0.5));
+  Transform3d translate = TranslationBuilder(Point3d(0.0, -0.5, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate.PreMultiply(translate);
 
@@ -1446,9 +1446,9 @@ static Standard_Integer OCC578(DrawInterpreter& di, Standard_Integer argc, const
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoShape wedge2 = BRepPrimAPI_MakeWedge(0.5, 0.3, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  Transform3d rotate2 = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795 * 3.0);
+  Transform3d rotate2 = RotationBuilder(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795 * 3.0);
 
-  Transform3d translate2 = gce_MakeTranslation(Point3d(0.0, 0.0, 0.0), Point3d(0.25, 0.25, 0.5));
+  Transform3d translate2 = TranslationBuilder(Point3d(0.0, 0.0, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate2.PreMultiply(translate2);
 
@@ -2875,8 +2875,8 @@ static Standard_Integer OCC8169(DrawInterpreter& di, Standard_Integer argc, cons
 
   Handle(GeomCurve3d)   aCurve1   = BRepInspector::Curve(theEdge1, aP1first, aP1last);
   Handle(GeomCurve3d)   aCurve2   = BRepInspector::Curve(theEdge2, aP2first, aP2last);
-  Handle(GeomCurve2d) aCurve2d1 = GeomProjLib::Curve2d(aCurve1, aP1first, aP1last, thePlane);
-  Handle(GeomCurve2d) aCurve2d2 = GeomProjLib::Curve2d(aCurve2, aP2first, aP2last, thePlane);
+  Handle(GeomCurve2d) aCurve2d1 = GeomProjLib1::Curve2d(aCurve1, aP1first, aP1last, thePlane);
+  Handle(GeomCurve2d) aCurve2d2 = GeomProjLib1::Curve2d(aCurve2, aP2first, aP2last, thePlane);
 
   Geom2dAPI_InterCurveCurve anInter(aCurve2d1, aCurve2d2, aConfusion);
 
@@ -4175,9 +4175,9 @@ int TestOpenSave(const UtfString& aFile1,
   // TDataStd_ReferenceList:
   AsciiString1 entry1, entry2, entry_first, entry_last;
   DataLabel               Lstd1 = doc_std->Main().FindChild(100);
-  TDF_Tool::Entry(Lstd1, entry1);
+  Tool3::Entry(Lstd1, entry1);
   DataLabel Lstd2 = doc_std->Main().FindChild(101);
-  TDF_Tool::Entry(Lstd2, entry2);
+  Tool3::Entry(Lstd2, entry2);
   Handle(TDataStd_ReferenceList) reflist = TDataStd_ReferenceList::Set(doc_std->Main());
   reflist->Append(Lstd1);
   reflist->Append(Lstd2);
@@ -4247,10 +4247,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 6;
   if (!doc_std_open->Main().FindAttribute(TDataStd_ReferenceList::GetID(), reflist))
     return 4;
-  TDF_Tool::Entry(reflist->First(), entry_first);
+  Tool3::Entry(reflist->First(), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(reflist->Last(), entry_last);
+  Tool3::Entry(reflist->Last(), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_std_open->Main().FindAttribute(TDataStd_BooleanArray::GetID(), boolarr))
@@ -4265,10 +4265,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 5;
   if (!doc_std_open->Main().FindAttribute(TDataStd_ReferenceArray::GetID(), refarr))
     return 4;
-  TDF_Tool::Entry(refarr->Value(45), entry_first);
+  Tool3::Entry(refarr->Value(45), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(refarr->Value(46), entry_last);
+  Tool3::Entry(refarr->Value(46), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_std_open->Main().FindAttribute(TDataStd_ByteArray::GetID(), bytearr))
@@ -4311,9 +4311,9 @@ int TestOpenSave(const UtfString& aFile1,
   boollist->Append(Standard_True);
   // TDataStd_ReferenceList:
   DataLabel Lxml1 = doc_xml->Main().FindChild(100);
-  TDF_Tool::Entry(Lxml1, entry1);
+  Tool3::Entry(Lxml1, entry1);
   DataLabel Lxml2 = doc_xml->Main().FindChild(101);
-  TDF_Tool::Entry(Lxml2, entry2);
+  Tool3::Entry(Lxml2, entry2);
   reflist = TDataStd_ReferenceList::Set(doc_xml->Main());
   reflist->Append(Lxml1);
   reflist->Append(Lxml2);
@@ -4388,10 +4388,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 6;
   if (!doc_xml_open->Main().FindAttribute(TDataStd_ReferenceList::GetID(), reflist))
     return 4;
-  TDF_Tool::Entry(reflist->First(), entry_first);
+  Tool3::Entry(reflist->First(), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(reflist->Last(), entry_last);
+  Tool3::Entry(reflist->Last(), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_xml_open->Main().FindAttribute(TDataStd_BooleanArray::GetID(), boolarr))
@@ -4418,10 +4418,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 5;
   if (!doc_xml_open->Main().FindAttribute(TDataStd_ReferenceArray::GetID(), refarr))
     return 4;
-  TDF_Tool::Entry(refarr->Value(444), entry_first);
+  Tool3::Entry(refarr->Value(444), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(refarr->Value(445), entry_last);
+  Tool3::Entry(refarr->Value(445), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_xml_open->Main().FindAttribute(TDataStd_ByteArray::GetID(), bytearr))
@@ -4476,9 +4476,9 @@ int TestOpenSave(const UtfString& aFile1,
   boollist->Append(Standard_True);
   // TDataStd_ReferenceList:
   DataLabel Lbin1 = doc_bin->Main().FindChild(100);
-  TDF_Tool::Entry(Lbin1, entry1);
+  Tool3::Entry(Lbin1, entry1);
   DataLabel Lbin2 = doc_bin->Main().FindChild(101);
-  TDF_Tool::Entry(Lbin2, entry2);
+  Tool3::Entry(Lbin2, entry2);
   reflist = TDataStd_ReferenceList::Set(doc_bin->Main());
   reflist->Append(Lbin1);
   reflist->Append(Lbin2);
@@ -4549,10 +4549,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 6;
   if (!doc_bin_open->Main().FindAttribute(TDataStd_ReferenceList::GetID(), reflist))
     return 4;
-  TDF_Tool::Entry(reflist->First(), entry_first);
+  Tool3::Entry(reflist->First(), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(reflist->Last(), entry_last);
+  Tool3::Entry(reflist->Last(), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_bin_open->Main().FindAttribute(TDataStd_BooleanArray::GetID(), boolarr))
@@ -4579,10 +4579,10 @@ int TestOpenSave(const UtfString& aFile1,
     return 5;
   if (!doc_bin_open->Main().FindAttribute(TDataStd_ReferenceArray::GetID(), refarr))
     return 4;
-  TDF_Tool::Entry(refarr->Value(0), entry_first);
+  Tool3::Entry(refarr->Value(0), entry_first);
   if (entry1 != entry_first)
     return 5;
-  TDF_Tool::Entry(refarr->Value(1), entry_last);
+  Tool3::Entry(refarr->Value(1), entry_last);
   if (entry2 != entry_last)
     return 6;
   if (!doc_bin_open->Main().FindAttribute(TDataStd_ByteArray::GetID(), bytearr))

@@ -27,7 +27,7 @@ class Graphic3d_BvhCStructureSet : public BVH_PrimitiveSet3d
 {
   DEFINE_STANDARD_RTTIEXT(Graphic3d_BvhCStructureSet, BVH_PrimitiveSet3d)
 protected:
-  using BVH_PrimitiveSet3d::Box;
+  using BVH_PrimitiveSet3d::Box1;
 
 public:
   //! Creates an empty primitive set for BVH clipping.
@@ -37,7 +37,7 @@ public:
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
 
   //! Returns AABB of the structure.
-  Standard_EXPORT virtual Graphic3d_BndBox3d Box(const Standard_Integer theIdx) const
+  Standard_EXPORT virtual Graphic3d_BndBox3d Box1(const Standard_Integer theIdx) const
     Standard_OVERRIDE;
 
   //! Calculates center of the AABB along given axis.

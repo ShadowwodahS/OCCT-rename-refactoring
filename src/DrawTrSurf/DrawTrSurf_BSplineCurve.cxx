@@ -347,7 +347,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve::Restore(std::istream& theStream
 {
   const DrawTrSurf_Params&  aParams = DrawTrSurf1::Parameters();
   Handle(BSplineCurve3d) aGeomCurve =
-    Handle(BSplineCurve3d)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
+    Handle(BSplineCurve3d)::DownCast(CurveSet1::ReadCurve(theStream));
   Handle(DrawTrSurf_BSplineCurve) aDrawCurve = new DrawTrSurf_BSplineCurve(aGeomCurve,
                                                                            aParams.CurvColor,
                                                                            aParams.PolesColor,

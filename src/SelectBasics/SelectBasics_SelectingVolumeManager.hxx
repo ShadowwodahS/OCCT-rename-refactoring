@@ -250,7 +250,7 @@ public:
   static const SelectMgr_SelectionType Point = SelectMgr_SelectionType_Point;
 
   Standard_DEPRECATED("Deprecated alias - SelectMgr_SelectionType should be used instead")
-  static const SelectMgr_SelectionType Box = SelectMgr_SelectionType_Box;
+  static const SelectMgr_SelectionType Box1 = SelectMgr_SelectionType_Box;
 
   Standard_DEPRECATED("Deprecated alias - SelectMgr_SelectionType should be used instead")
   static const SelectMgr_SelectionType Polyline = SelectMgr_SelectionType_Polyline;

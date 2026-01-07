@@ -45,7 +45,7 @@ class BSplineCurve3d;
 
 //! The  LineTool  class  provides  class  methods to
 //! access the methodes of the Line.
-class HLRBRep_LineTool
+class LineTool3
 {
 public:
   DEFINE_STANDARD_ALLOC

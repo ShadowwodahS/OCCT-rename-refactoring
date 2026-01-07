@@ -35,7 +35,7 @@
 // function : Catenate
 // purpose  : Join several triangulations to one new triangulation object
 //=======================================================================
-Handle(MeshTriangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri)
+Handle(MeshTriangulation) Poly1::Catenate(const Poly_ListOfTriangulation& lstTri)
 {
   Standard_Integer nNodes(0);
   Standard_Integer nTrian(0);
@@ -77,7 +77,7 @@ Handle(MeshTriangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri)
     }
     for (Standard_Integer i = 1; i <= nbTrian; i++)
     {
-      aTri->Triangle(i).Get(iNode[0], iNode[1], iNode[2]);
+      aTri->Triangle1(i).Get(iNode[0], iNode[1], iNode[2]);
       aResult->SetTriangle(i + nTrian,
                            Poly_Triangle(iNode[0] + nNodes, iNode[1] + nNodes, iNode[2] + nNodes));
     }
@@ -89,7 +89,7 @@ Handle(MeshTriangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri)
 
 //=================================================================================================
 
-void Poly::Write(const Handle(MeshTriangulation)& T,
+void Poly1::Write(const Handle(MeshTriangulation)& T,
                  Standard_OStream&                 OS,
                  const Standard_Boolean            Compact)
 {
@@ -160,7 +160,7 @@ void Poly::Write(const Handle(MeshTriangulation)& T,
   {
     if (!Compact)
       OS << std::setw(10) << i << " : ";
-    T->Triangle(i).Get(n1, n2, n3);
+    T->Triangle1(i).Get(n1, n2, n3);
     if (!Compact)
       OS << std::setw(10);
     OS << n1 << " ";
@@ -175,7 +175,7 @@ void Poly::Write(const Handle(MeshTriangulation)& T,
 
 //=================================================================================================
 
-void Poly::Write(const Handle(Poly_Polygon3D)& P,
+void Poly1::Write(const Handle(Poly_Polygon3D)& P,
                  Standard_OStream&             OS,
                  const Standard_Boolean        Compact)
 {
@@ -234,7 +234,7 @@ void Poly::Write(const Handle(Poly_Polygon3D)& P,
 
 //=================================================================================================
 
-void Poly::Write(const Handle(Poly_Polygon2D)& P,
+void Poly1::Write(const Handle(Poly_Polygon2D)& P,
                  Standard_OStream&             OS,
                  const Standard_Boolean        Compact)
 {
@@ -276,28 +276,28 @@ void Poly::Write(const Handle(Poly_Polygon2D)& P,
 
 //=================================================================================================
 
-void Poly::Dump(const Handle(MeshTriangulation)& T, Standard_OStream& OS)
+void Poly1::Dump(const Handle(MeshTriangulation)& T, Standard_OStream& OS)
 {
-  Poly::Write(T, OS, Standard_False);
+  Poly1::Write(T, OS, Standard_False);
 }
 
 //=================================================================================================
 
-void Poly::Dump(const Handle(Poly_Polygon3D)& P, Standard_OStream& OS)
+void Poly1::Dump(const Handle(Poly_Polygon3D)& P, Standard_OStream& OS)
 {
-  Poly::Write(P, OS, Standard_False);
+  Poly1::Write(P, OS, Standard_False);
 }
 
 //=================================================================================================
 
-void Poly::Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS)
+void Poly1::Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS)
 {
-  Poly::Write(P, OS, Standard_False);
+  Poly1::Write(P, OS, Standard_False);
 }
 
 //=================================================================================================
 
-Handle(MeshTriangulation) Poly::ReadTriangulation(Standard_IStream& IS)
+Handle(MeshTriangulation) Poly1::ReadTriangulation(Standard_IStream& IS)
 {
   // Read a triangulation
 
@@ -364,7 +364,7 @@ Handle(MeshTriangulation) Poly::ReadTriangulation(Standard_IStream& IS)
 
 //=================================================================================================
 
-Handle(Poly_Polygon3D) Poly::ReadPolygon3D(Standard_IStream& IS)
+Handle(Poly_Polygon3D) Poly1::ReadPolygon3D(Standard_IStream& IS)
 {
   // Read a 3d polygon
 
@@ -420,7 +420,7 @@ Handle(Poly_Polygon3D) Poly::ReadPolygon3D(Standard_IStream& IS)
 
 //=================================================================================================
 
-Handle(Poly_Polygon2D) Poly::ReadPolygon2D(Standard_IStream& IS)
+Handle(Poly_Polygon2D) Poly1::ReadPolygon2D(Standard_IStream& IS)
 {
   // Read a 2d polygon
 
@@ -460,14 +460,14 @@ Handle(Poly_Polygon2D) Poly::ReadPolygon2D(Standard_IStream& IS)
 
 //=================================================================================================
 
-void Poly::ComputeNormals(const Handle(MeshTriangulation)& theTri)
+void Poly1::ComputeNormals(const Handle(MeshTriangulation)& theTri)
 {
   theTri->ComputeNormals();
 }
 
 //=================================================================================================
 
-Standard_Real Poly::PointOnTriangle(const Coords2d& theP1,
+Standard_Real Poly1::PointOnTriangle(const Coords2d& theP1,
                                     const Coords2d& theP2,
                                     const Coords2d& theP3,
                                     const Coords2d& theP,
@@ -568,7 +568,7 @@ Standard_Real Poly::PointOnTriangle(const Coords2d& theP1,
 
 //=================================================================================================
 
-Standard_Boolean Poly::Intersect(const Handle(MeshTriangulation)& theTri,
+Standard_Boolean Poly1::Intersect(const Handle(MeshTriangulation)& theTri,
                                  const Axis3d&                     theAxis,
                                  const Standard_Boolean            theIsClosest,
                                  Poly_Triangle&                    theTriangle,
@@ -583,7 +583,7 @@ Standard_Boolean Poly::Intersect(const Handle(MeshTriangulation)& theTri,
   Standard_Integer aTriNodes[3] = {};
   for (Standard_Integer aTriIter = 1; aTriIter <= theTri->NbTriangles(); ++aTriIter)
   {
-    const Poly_Triangle& aTri = theTri->Triangle(aTriIter);
+    const Poly_Triangle& aTri = theTri->Triangle1(aTriIter);
     aTri.Get(aTriNodes[0], aTriNodes[1], aTriNodes[2]);
     if (IntersectTriLine(aLoc,
                          aDir,
@@ -631,7 +631,7 @@ static double Determinant(const double a[3][4], const int c1, const int c2, cons
 // function : IntersectTriLine
 // purpose  : Intersect a triangle with a line
 //=======================================================================
-Standard_Integer Poly::IntersectTriLine(const gp_XYZ&  theStart,
+Standard_Integer Poly1::IntersectTriLine(const gp_XYZ&  theStart,
                                         const Dir3d&  theDir,
                                         const gp_XYZ&  theV0,
                                         const gp_XYZ&  theV1,

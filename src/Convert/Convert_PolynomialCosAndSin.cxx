@@ -37,7 +37,7 @@ static Standard_Real Locate(const Standard_Real         Angfin,
   {
     Standard_Real ptest = (umax + umin) / 2.;
     gp_Pnt2d      valP;
-    BSplCLib::D0(ptest, TPoles, BSplCLib::NoWeights(), valP);
+    BSplCLib1::D0(ptest, TPoles, BSplCLib1::NoWeights(), valP);
     Standard_Real theta = ATan2(valP.Y(), valP.X());
     if (theta < 0.)
     {
@@ -138,18 +138,18 @@ void BuildPolynomialCosAndSin(const Standard_Real            UFirst,
   TColStd_Array1OfReal    the_knots(knot_array[0], 1, 2), the_new_knots(knot_array[0], 1, 2);
   TColStd_Array1OfInteger the_mults(mults_array[0], 1, 2), the_new_mults(mults_array[0], 1, 2);
 
-  BSplCLib::Trimming(degree,
+  BSplCLib1::Trimming(degree,
                      Standard_False,
                      the_knots,
                      the_mults,
                      TPoles,
-                     BSplCLib::NoWeights(),
+                     BSplCLib1::NoWeights(),
                      trim_min,
                      trim_max,
                      the_new_knots,
                      the_new_mults,
                      NewTPoles,
-                     BSplCLib::NoWeights());
+                     BSplCLib1::NoWeights());
 
   // readjustment is obviously redundant
   Standard_Real SinD = Sin(Delta), CosD = Cos(Delta);
@@ -271,7 +271,7 @@ void BuildHermitePolynomialCosAndSin
   }
 
   Standard_Integer InversionPb;
-  BSplCLib::Interpolate(Degree,FlatKnots,Parameters,
+  BSplCLib1::Interpolate(Degree,FlatKnots,Parameters,
             ContactOrderArray,Poles,InversionPb);
 
   if (InversionPb !=0) {

@@ -35,7 +35,7 @@ class gp_Lin;
 class Point3d;
 class IntCurveSurface_HInter;
 class gp_Pnt2d;
-class Bnd_Box;
+class Box2;
 
 DEFINE_STANDARD_HANDLE(IntCurvesFace_Intersector, RefObject)
 
@@ -125,7 +125,7 @@ public:
 
   Standard_EXPORT TopAbs_State ClassifyUVPoint(const gp_Pnt2d& Puv) const;
 
-  Standard_EXPORT Bnd_Box Bounding() const;
+  Standard_EXPORT Box2 Bounding() const;
 
   //! Sets the boundary tolerance flag
   Standard_EXPORT void SetUseBoundToler(Standard_Boolean UseBToler);

@@ -194,7 +194,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
 {
   Standard_Integer i1, i2, i3;
 
-  Triangle(Triang, i1, i2, i3);
+  Triangle1(Triang, i1, i2, i3);
   //-- Calcul de l eqution du plan
   Standard_Real u1, v1, u2, v2, u3, v3;
   Point3d        P1, P2, P3;
@@ -260,7 +260,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOverEstimation() const
 
 //=================================================================================================
 
-const Bnd_Box& IntPatch_Polyhedron::Bounding() const
+const Box2& IntPatch_Polyhedron::Bounding() const
 {
   return TheBnd;
 }
@@ -270,12 +270,12 @@ const Bnd_Box& IntPatch_Polyhedron::Bounding() const
 void IntPatch_Polyhedron::FillBounding()
 {
   TheComponentsBnd = new Bnd_HArray1OfBox(1, NbTriangles());
-  Bnd_Box          Boite;
+  Box2          Boite;
   Standard_Integer p1, p2, p3;
   Standard_Integer nbtriangles = NbTriangles();
   for (Standard_Integer iTri = 1; iTri <= nbtriangles; iTri++)
   {
-    Triangle(iTri, p1, p2, p3);
+    Triangle1(iTri, p1, p2, p3);
     Boite.SetVoid();
     const Point3d& P1 = Point(p1);
     const Point3d& P2 = Point(p2);
@@ -356,7 +356,7 @@ Standard_Integer IntPatch_Polyhedron::TriConnex(const Standard_Integer Triang,
     typE = 0;
   }
 
-  // Triangle position General case :
+  // Triangle1 position General case :
   Standard_Integer linT = 0, colT = 0;
   Standard_Integer linO = 0, colO = 0;
   Standard_Integer t, tt;
@@ -438,7 +438,7 @@ Standard_Integer IntPatch_Polyhedron::TriConnex(const Standard_Integer Triang,
   }
   else
   {
-    // Unknown Triangle position :
+    // Unknown Triangle1 position :
     if (Pedge == 0)
     {
       // Unknown edge :
@@ -555,7 +555,7 @@ Standard_Integer IntPatch_Polyhedron::TriConnex(const Standard_Integer Triang,
   //--
   //-- Si En entree : Point(Pivot)==Point(Pedge)
   //-- Alors on retourne OtherP a 0
-  //-- et Tricon = Triangle
+  //-- et Tricon = Triangle1
   //--
   if (Point(Pivot).SquareDistance(Point(Pedge)) <= LONGUEUR_MINI_EDGE_TRIANGLE)
   {
@@ -588,7 +588,7 @@ void IntPatch_Polyhedron::PlaneEquation(const Standard_Integer Triang,
                                         Standard_Real&         PolarDistance) const
 {
   Standard_Integer i1, i2, i3;
-  Triangle(Triang, i1, i2, i3);
+  Triangle1(Triang, i1, i2, i3);
 
   gp_XYZ Pointi1(Point(i1).XYZ());
   gp_XYZ Pointi2(Point(i2).XYZ());
@@ -633,7 +633,7 @@ Standard_Boolean IntPatch_Polyhedron::Contain(const Standard_Integer Triang,
                                               const Point3d&          ThePnt) const
 {
   Standard_Integer i1, i2, i3;
-  Triangle(Triang, i1, i2, i3);
+  Triangle1(Triang, i1, i2, i3);
   gp_XYZ Pointi1(Point(i1).XYZ());
   gp_XYZ Pointi2(Point(i2).XYZ());
   gp_XYZ Pointi3(Point(i3).XYZ());
@@ -661,7 +661,7 @@ void IntPatch_Polyhedron::Size(Standard_Integer& nbdu, Standard_Integer& nbdv) c
 
 //=================================================================================================
 
-void IntPatch_Polyhedron::Triangle(const Standard_Integer Index,
+void IntPatch_Polyhedron::Triangle1(const Standard_Integer Index,
                                    Standard_Integer&      P1,
                                    Standard_Integer&      P2,
                                    Standard_Integer&      P3) const

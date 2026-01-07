@@ -24,7 +24,7 @@ class Vector3d;
 
 //! Internal tool used  to compute the  normal and its
 //! derivatives.
-class Contap_SurfProps
+class SurfaceProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -99,7 +99,7 @@ static bool ProjCurve3d(TopoEdge& E, const Handle(GeomSurface)& S, TopLoc_Locati
   TopLoc_Location LL = L.Inverted().Multiplied(LE);
   CT->Transform(LL.Transformation());
 
-  Handle(GeomCurve2d) C2 = GeomProjLib::Curve2d(CT, S);
+  Handle(GeomCurve2d) C2 = GeomProjLib1::Curve2d(CT, S);
   BB.UpdateEdge(E, C2, S, L, Precision::Confusion());
   return true;
 }

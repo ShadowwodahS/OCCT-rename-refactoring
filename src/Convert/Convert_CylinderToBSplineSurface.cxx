@@ -65,7 +65,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cyli
                                                                    const Standard_Real U2,
                                                                    const Standard_Real V1,
                                                                    const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(TheNbUPoles,
+    : ElementaryToBSplineSurface(TheNbUPoles,
                                                 TheNbVPoles,
                                                 TheNbUKnots,
                                                 TheNbVKnots,
@@ -135,7 +135,7 @@ Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cyli
 Convert_CylinderToBSplineSurface::Convert_CylinderToBSplineSurface(const gp_Cylinder&  Cyl,
                                                                    const Standard_Real V1,
                                                                    const Standard_Real V2)
-    : Convert_ElementarySurfaceToBSplineSurface(TheNbUPoles,
+    : ElementaryToBSplineSurface(TheNbUPoles,
                                                 TheNbVPoles,
                                                 TheNbUKnots,
                                                 TheNbVKnots,

@@ -355,7 +355,7 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelectio
         switch (mySelectionMethod)
         {
           case MeshVS_MSM_BOX: {
-            Bnd_Box aBndBox;
+            Box2 aBndBox;
             BoundingBox(aBndBox);
             if (!aBndBox.IsVoid())
             {

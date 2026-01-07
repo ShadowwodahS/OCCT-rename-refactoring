@@ -31,7 +31,7 @@ class ShapeAttribute;
 class TopoShape;
 class TDF_RelocationTable;
 class TDF_DataSet;
-class TDF_IDFilter;
+class IDFilter;
 
 class TNaming_Naming;
 DEFINE_STANDARD_HANDLE(TNaming_Naming, TDF_Attribute)
@@ -103,7 +103,7 @@ public:
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ExtendedDump(Standard_OStream&        anOS,
-                                            const TDF_IDFilter&      aFilter,
+                                            const IDFilter&      aFilter,
                                             TDF_AttributeIndexedMap& aMap) const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream

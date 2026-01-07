@@ -365,7 +365,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     //
     if (aTS == TopAbs_VERTEX)
     {
-      Bnd_Box&             aBox = aSI.ChangeBox();
+      Box2&             aBox = aSI.ChangeBox();
       const TopoVertex& aV   = *((TopoVertex*)&aS);
       const Point3d&        aP   = BRepInspector::Pnt(aV);
       aTol                      = BRepInspector::Tolerance(aV);
@@ -439,7 +439,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
         aSI.SetFlag(j);
       }
       //
-      Bnd_Box& aBox = aSI.ChangeBox();
+      Box2& aBox = aSI.ChangeBox();
       BRepBndLib::Add(aE, aBox);
       //
       const TColStd_ListOfInteger& aLV = aSI.SubShapes();
@@ -448,7 +448,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
       {
         nV                    = aIt1.Value();
         BOPDS_ShapeInfo& aSIV = ChangeShapeInfo(nV);
-        Bnd_Box&         aBx  = aSIV.ChangeBox();
+        Box2&         aBx  = aSIV.ChangeBox();
         aBox.Add(aBx);
       }
       aBox.SetGap(aBox.GetGap() + aTolAdd);
@@ -469,7 +469,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     {
       const TopoShape& aS = aSI.Shape();
       //
-      Bnd_Box& aBox = aSI.ChangeBox();
+      Box2& aBox = aSI.ChangeBox();
       BRepBndLib::Add(aS, aBox);
       //
       TColStd_ListOfInteger& aLW = aSI.ChangeSubShapes();
@@ -485,7 +485,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
         {
           nE                    = aIt2.Value();
           BOPDS_ShapeInfo& aSIE = ChangeShapeInfo(nE);
-          Bnd_Box&         aBx  = aSIE.ChangeBox();
+          Box2&         aBx  = aSIE.ChangeBox();
           aBox.Add(aBx);
           aMI.Add(nE);
           //
@@ -547,7 +547,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
       {
         continue;
       }
-      Bnd_Box& aBox = aSI.ChangeBox();
+      Box2& aBox = aSI.ChangeBox();
       BuildBndBoxSolid(j, aBox);
       //
       //
@@ -1996,7 +1996,7 @@ Standard_Real ComputeParameter(const TopoVertex& aV, const TopoEdge& aE)
 //=================================================================================================
 
 void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
-                                Bnd_Box&               aBoxS,
+                                Box2&               aBoxS,
                                 const Standard_Boolean theCheckInverted)
 {
   Standard_Boolean                    bIsOpenBox, bIsInverted;
@@ -2033,7 +2033,7 @@ void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
         continue;
       }
       //
-      const Bnd_Box& aBFc = aSIFc.Box();
+      const Box2& aBFc = aSIFc.Box1();
       aBoxS.Add(aBFc);
       //
       if (!bIsOpenBox)
@@ -2215,7 +2215,7 @@ Standard_Boolean BOPDS_DS::IsValidShrunkData(const Handle(BOPDS_PaveBlock)& theP
 
   // Shrunk range
   Standard_Real    aTS[2];
-  Bnd_Box          aBox;
+  Box2          aBox;
   Standard_Boolean bIsSplit;
   //
   thePB->ShrunkData(aTS[0], aTS[1], aBox, bIsSplit);

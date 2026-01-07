@@ -48,7 +48,7 @@ static void HermiteCoeff(const Handle(BSplineCurve3d)& BS, TColStd_Array1OfReal&
   Standard_Boolean Periodic;
 
   BS->Knots(Knots);
-  BSplCLib::Reparametrize(0.0, 1.0, Knots); // affinity on the nodal vector
+  BSplCLib1::Reparametrize(0.0, 1.0, Knots); // affinity on the nodal vector
   BS->Weights(Weights);
   BS->Multiplicities(Mults);
   Degree   = BS->Degree();
@@ -56,27 +56,27 @@ static void HermiteCoeff(const Handle(BSplineCurve3d)& BS, TColStd_Array1OfReal&
   Index0   = BS->FirstUKnotIndex();
   Index1   = BS->LastUKnotIndex() - 1;
 
-  BSplCLib::D1(0.0,
+  BSplCLib1::D1(0.0,
                Index0,
                Degree,
                Periodic,
                Weights,
-               BSplCLib::NoWeights(),
+               BSplCLib1::NoWeights(),
                Knots,
                &Mults,
                Denom0,
                Deriv0);
-  BSplCLib::D1(1.0,
+  BSplCLib1::D1(1.0,
                Index1,
                Degree,
                Periodic,
                Weights,
-               BSplCLib::NoWeights(),
+               BSplCLib1::NoWeights(),
                Knots,
                &Mults,
                Denom1,
                Deriv1);
-  TAB(0) = 1 / Denom0; // Hermit coefficients
+  TAB(0) = 1 / Denom0; // Hermit1 coefficients
   TAB(1) = -Deriv0 / (Denom0 * Denom0);
   TAB(2) = -Deriv1 / (Denom1 * Denom1);
   TAB(3) = 1 / Denom1;
@@ -102,7 +102,7 @@ static void HermiteCoeff(const Handle(Geom2d_BSplineCurve)& BS, TColStd_Array1Of
                                           // clang-format on
 
   BS->Knots(Knots);
-  BSplCLib::Reparametrize(0.0, 1.0, Knots); // affinity on the nodal vector
+  BSplCLib1::Reparametrize(0.0, 1.0, Knots); // affinity on the nodal vector
   BS->Weights(Weights);
   BS->Multiplicities(Mults);
   Degree   = BS->Degree();
@@ -110,27 +110,27 @@ static void HermiteCoeff(const Handle(Geom2d_BSplineCurve)& BS, TColStd_Array1Of
   Index0   = BS->FirstUKnotIndex();
   Index1   = BS->LastUKnotIndex() - 1;
 
-  BSplCLib::D1(0.0,
+  BSplCLib1::D1(0.0,
                Index0,
                Degree,
                Periodic,
                Weights,
-               BSplCLib::NoWeights(),
+               BSplCLib1::NoWeights(),
                Knots,
                &Mults,
                Denom0,
                Deriv0);
-  BSplCLib::D1(1.0,
+  BSplCLib1::D1(1.0,
                Index1,
                Degree,
                Periodic,
                Weights,
-               BSplCLib::NoWeights(),
+               BSplCLib1::NoWeights(),
                Knots,
                &Mults,
                Denom1,
                Deriv1);
-  TAB(0) = 1 / Denom0; // Hermit coefficients
+  TAB(0) = 1 / Denom0; // Hermit1 coefficients
   TAB(1) = -Deriv0 / (Denom0 * Denom0);
   TAB(2) = -Deriv1 / (Denom1 * Denom1);
   TAB(3) = 1 / Denom1;
@@ -277,7 +277,7 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
     {
       if (Polesinit(0).Y() >= (1 / TolPoles) * Polesinit(3).Y()
           || Polesinit(0).Y() <= TolPoles * Polesinit(3).Y())
-        throw Standard_DimensionError("Hermit Impossible Tolerance");
+        throw Standard_DimensionError("Hermit1 Impossible Tolerance");
       if ((max == 0) || (max == 3))
       {
         for (i = 0; i <= 3; i++)
@@ -369,7 +369,7 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
     if (boucle == 1)
       if (Ux != 0.0)
         Us1 = Us1 * Ux;
-    BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+    BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
     if (I1 < 2)
       U4 = Us1;
     else
@@ -384,7 +384,7 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
     if (boucle == 1)
       if (Ux != 0.0)
         Us2 = Uy + Us2 * (1 - Uy);
-    BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I1, Us2);
+    BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I1, Us2);
     if (I1 >= (knots.Length() - 1))
       U5 = Us2;
     else
@@ -406,7 +406,7 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
       }
     if (Us2 <= Us1)
     {
-      BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+      BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
       if (knots(I1) >= Us2) // insertion of one knot for the two poles
         U4 = knots(I1);
       else
@@ -414,7 +414,7 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
         if (I1 >= 2)
         {                 // insertion to the left and
           U4 = knots(I1); // to the right without a new knot
-          BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
+          BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
           if (I3 < (BS->NbKnots() - 1))
           {
             U5  = knots(I3 + 1);
@@ -427,12 +427,12 @@ static void PolyTest(const TColStd_Array1OfReal&      Herm,
     }
     else
     { // insertion of two knots
-      BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+      BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
       if (I1 >= 2)
         U4 = knots(I1);
       else
         U4 = Us1;
-      BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
+      BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
       if (I3 < (BS->NbKnots() - 1))
         U5 = knots(I3 + 1);
       else
@@ -535,7 +535,7 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
     {
       if (Polesinit(0).Y() >= (1 / TolPoles) * Polesinit(3).Y()
           || Polesinit(0).Y() <= TolPoles * Polesinit(3).Y())
-        throw Standard_DimensionError("Hermit Impossible Tolerance");
+        throw Standard_DimensionError("Hermit1 Impossible Tolerance");
       if ((max == 0) || (max == 3))
       {
         for (i = 0; i <= 3; i++)
@@ -628,7 +628,7 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
     if (boucle == 1)
       if (Ux != 0.0)
         Us1 = Us1 * Ux;
-    BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+    BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
     if (I1 < 2)
       U4 = Us1;
     else
@@ -643,7 +643,7 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
     if (boucle == 1)
       if (Ux != 0.0)
         Us2 = Uy + Us2 * (1 - Uy);
-    BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I1, Us2);
+    BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I1, Us2);
     if (I1 >= (knots.Length() - 1))
       U5 = Us2;
     else
@@ -665,7 +665,7 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
       }
     if (Us2 <= Us1)
     {
-      BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+      BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
       if (knots(I1) >= Us2) // insertion of one knot for the two poles
         U4 = knots(I1);
       else
@@ -673,7 +673,7 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
         if (I1 >= 2)
         {                 // insertion to the left and
           U4 = knots(I1); // to the right without a new knot
-          BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
+          BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
           if (I3 < (BS->NbKnots() - 1))
           {
             U5  = knots(I3 + 1);
@@ -686,12 +686,12 @@ static void PolyTest(const TColStd_Array1OfReal&        Herm,
     }
     else
     { // insertion of two knots
-      BSplCLib::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
+      BSplCLib1::LocateParameter(3, knots, Us1, Standard_False, 1, knots.Length(), I1, Us1);
       if (I1 >= 2)
         U4 = knots(I1);
       else
         U4 = Us1;
-      BSplCLib::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
+      BSplCLib1::LocateParameter(3, knots, Us2, Standard_False, 1, knots.Length(), I3, Us2);
       if (I3 < (BS->NbKnots() - 1))
         U5 = knots(I3 + 1);
       else
@@ -738,7 +738,7 @@ static void MovePoles(Handle(Geom2d_BSplineCurve)& BS)
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(BSplineCurve3d)& BS,
+Handle(Geom2d_BSplineCurve) Hermit1::Solution(const Handle(BSplineCurve3d)& BS,
                                              const Standard_Real              TolPoles,
                                              const Standard_Real              TolKnots)
 
@@ -818,7 +818,7 @@ Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(BSplineCurve3d)& BS,
   }
   if ((BS2->Knot(2) < TolKnots)
       || (BS2->Knot(BS2->NbKnots() - 1) > (1 - TolKnots))) // checking of the knots tolerance
-    throw Standard_DimensionError("Hermit Impossible Tolerance");
+    throw Standard_DimensionError("Hermit1 Impossible Tolerance");
   else
   {
     if ((Upos2 == 1.0) && (Utol2 == 1.0) && (Uint2 == 1.0)) // test on the final inserted knots
@@ -839,7 +839,7 @@ Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(BSplineCurve3d)& BS,
 // Solution
 //=======================================================================
 
-Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(Geom2d_BSplineCurve)& BS,
+Handle(Geom2d_BSplineCurve) Hermit1::Solution(const Handle(Geom2d_BSplineCurve)& BS,
                                              const Standard_Real                TolPoles,
                                              const Standard_Real                TolKnots)
 
@@ -919,7 +919,7 @@ Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(Geom2d_BSplineCurve)& 
   }
   if ((BS2->Knot(2) < TolKnots)
       || (BS2->Knot(BS2->NbKnots() - 1) > (1 - TolKnots))) // checking of the knots tolerance
-    throw Standard_DimensionError("Hermit Impossible Tolerance");
+    throw Standard_DimensionError("Hermit1 Impossible Tolerance");
   else
   {
     if ((Upos2 == 1.0) && (Utol2 == 1.0) && (Uint2 == 1.0)) // test on the final inserted knots
@@ -938,7 +938,7 @@ Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(Geom2d_BSplineCurve)& 
 
 //=================================================================================================
 
-void Hermit::Solutionbis(const Handle(BSplineCurve3d)& BS,
+void Hermit1::Solutionbis(const Handle(BSplineCurve3d)& BS,
                          Standard_Real&                   Knotmin,
                          Standard_Real&                   Knotmax,
                          const Standard_Real              TolPoles,
@@ -1020,7 +1020,7 @@ void Hermit::Solutionbis(const Handle(BSplineCurve3d)& BS,
   }
   if ((BS2->Knot(2) < TolKnots)
       || (BS2->Knot(BS2->NbKnots() - 1) > (1 - TolKnots))) // checking of the knots tolerance
-    throw Standard_DimensionError("Hermit Impossible Tolerance");
+    throw Standard_DimensionError("Hermit1 Impossible Tolerance");
   else
   {
     if ((Upos2 == 1.0) && (Utol2 == 1.0) && (Uint2 == 1.0)) // test on the final inserted knots

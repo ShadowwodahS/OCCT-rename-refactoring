@@ -49,7 +49,7 @@ Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const DataLabel&          acces
 
   // put TPrsStd_AISPresentation attribute at all labels containing
   // TDataXtd_Presentation attribute
-  for (TDF_ChildIterator anIt(acces.Root(), Standard_True); anIt.More(); anIt.Next())
+  for (ChildIterator anIt(acces.Root(), Standard_True); anIt.More(); anIt.Next())
   {
     Handle(TDataXtd_Presentation) aPrsData;
     if (anIt.Value().FindAttribute(TDataXtd_Presentation::GetID(), aPrsData))
@@ -77,7 +77,7 @@ Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const DataLabel&               
 
   // put TPrsStd_AISPresentation attribute at all labels containing
   // TDataXtd_Presentation attribute
-  for (TDF_ChildIterator anIt(acces.Root(), Standard_True); anIt.More(); anIt.Next())
+  for (ChildIterator anIt(acces.Root(), Standard_True); anIt.More(); anIt.Next())
   {
     Handle(TDataXtd_Presentation) aPrsData;
     if (anIt.Value().FindAttribute(TDataXtd_Presentation::GetID(), aPrsData))

@@ -40,7 +40,7 @@ static Standard_Boolean FaceNormal(const TopoFace&  aF,
                                    const Standard_Real V,
                                    Dir3d&             aDN);
 
-static Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Box& B);
+static Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Box2& B);
 
 // gets transition of line <L> passing through/near the edge <e> of faces <f1>, <f2>. <param> is
 //  a parameter on the edge where the minimum distance between <l> and <e> was found
@@ -360,7 +360,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
             Standard_Real addW = Max(10 * Tol, 0.01 * Par);
             Standard_Real AddW = addW;
 
-            Bnd_Box aBoxF = Intersector3d.Bounding();
+            Box2 aBoxF = Intersector3d.Bounding();
 
             // The box must be finite in order to correctly prolong the segment to its bounds.
             if (!aBoxF.IsVoid() && !aBoxF.IsWhole())
@@ -400,7 +400,7 @@ void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
                     {
                       if (d <= Tol * Tol)
                       {
-                        const Extrema_POnSurf& aPonS = aProj.Point(indmin);
+                        const PointOnSurface1& aPonS = aProj.Point(indmin);
                         Standard_Real          anU, anV;
                         aPonS.Parameter(anU, anV);
                         gp_Pnt2d     aP2d(anU, anV);
@@ -530,7 +530,7 @@ void BRepClass3d_SClassifier::ForceOut()
   myState = 4;
 }
 
-Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Box& B)
+Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Box2& B)
 {
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
   B.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
@@ -549,7 +549,7 @@ Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Bo
         if (X < 1.e+20 && Y < 1.e+20 && Z < 1.e+20)
         {
           Point3d        aP(x[i], y[j], z[k]);
-          Standard_Real par = ElCLib::Parameter(L, aP);
+          Standard_Real par = ElCLib1::Parameter(L, aP);
           if (par > Par)
             Par = par;
         }

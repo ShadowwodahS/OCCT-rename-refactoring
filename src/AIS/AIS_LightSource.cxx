@@ -219,7 +219,7 @@ AIS_LightSource::AIS_LightSource(const Handle(Graphic3d_CLight)& theLight)
 
   myDrawer->SetDisplayMode(0);
   myDynHilightDrawer = new StyleDrawer();
-  myDynHilightDrawer->Link(myDrawer);
+  myDynHilightDrawer->Link1(myDrawer);
   myDynHilightDrawer->SetDisplayMode(1);
   myDynHilightDrawer->SetColor(Quantity_NOC_CYAN1);
 

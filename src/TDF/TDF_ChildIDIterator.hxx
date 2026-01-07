@@ -28,7 +28,7 @@ class DataLabel;
 //! Iterates on the children of a label, to find
 //! attributes having ID as Attribute ID.
 //!
-//! Level option works as TDF_ChildIterator.
+//! Level option works as ChildIterator.
 class TDF_ChildIDIterator
 {
 public:
@@ -71,7 +71,7 @@ public:
 protected:
 private:
   Standard_GUID         myID;
-  TDF_ChildIterator     myItr;
+  ChildIterator     myItr;
   Handle(TDF_Attribute) myAtt;
 };
 

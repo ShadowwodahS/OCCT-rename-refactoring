@@ -19,7 +19,7 @@
 #include <IntAna2d_IntPoint.hxx>
 #include <StdFail_NotDone.hxx>
 
-void IntAna2d_AnaIntersection::Perform(const gp_Lin2d& L1, const gp_Lin2d& L2)
+void AnalyticIntersection2d::Perform(const gp_Lin2d& L1, const gp_Lin2d& L2)
 {
 
   done = Standard_False;

@@ -26,7 +26,7 @@ Plate_PlaneConstraint::Plate_PlaneConstraint(const Coords2d&           point2d,
     : myLSC(1, 1)
 {
   gp_XYZ point = pln.Location().XYZ();
-  myLSC.SetPPC(1, Plate_PinpointConstraint(point2d, point, iu, iv));
+  myLSC.SetPPC(1, PinpointConstraint(point2d, point, iu, iv));
   gp_XYZ dir = pln.Axis().Direction().XYZ();
   dir.Normalize();
   myLSC.SetCoeff(1, 1, dir);

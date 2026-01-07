@@ -30,14 +30,14 @@ class HLRAlgo_PolyShellData : public RefObject
 {
 
 public:
-  struct ShellIndices
+  struct ShellIndices1
   {
     Standard_Integer Min, Max;
   };
 
   Standard_EXPORT HLRAlgo_PolyShellData(const Standard_Integer nbFace);
 
-  Standard_EXPORT void UpdateGlobalMinMax(HLRAlgo_PolyData::Box& theBox);
+  Standard_EXPORT void UpdateGlobalMinMax(HLRAlgo_PolyData::Box1& theBox);
 
   Standard_EXPORT void UpdateHiding(const Standard_Integer nbHiding);
 
@@ -49,12 +49,12 @@ public:
 
   HLRAlgo_ListOfBPoint& Edges() { return mySegList; }
 
-  ShellIndices& Indices() { return myIndices; }
+  ShellIndices1& Indices() { return myIndices; }
 
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, RefObject)
 
 private:
-  ShellIndices                                 myIndices;
+  ShellIndices1                                 myIndices;
   NCollection_Array1<Handle(HLRAlgo_PolyData)> myPolyg;
   NCollection_Array1<Handle(HLRAlgo_PolyData)> myHPolHi;
   HLRAlgo_ListOfBPoint                         mySegList;

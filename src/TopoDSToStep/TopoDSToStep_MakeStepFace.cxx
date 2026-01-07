@@ -362,7 +362,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           if ((C2d->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
               || (C2d->IsKind(STANDARD_TYPE(Geom2d_BezierCurve))))
           {
-            C2d = Geom2dConvert::CurveToBSplineCurve(C2d);
+            C2d = Geom2dConvert1::CurveToBSplineCurve(C2d);
           }
 
           // if the Surface is a RectangularTrimmedSurface,
@@ -374,14 +374,14 @@ void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
           {
             Handle(Geom_RectangularTrimmedSurface) alocalRTS =
               Handle(Geom_RectangularTrimmedSurface)::DownCast(Su);
-            C2dMapped = GeomConvert_Units::RadianToDegree(C2d,
+            C2dMapped = Units1::RadianToDegree(C2d,
                                                           alocalRTS->BasisSurface(),
                                                           theLocalFactors.LengthFactor(),
                                                           theLocalFactors.FactorRadianDegree());
           }
           else
           {
-            C2dMapped = GeomConvert_Units::RadianToDegree(C2d,
+            C2dMapped = Units1::RadianToDegree(C2d,
                                                           Su,
                                                           theLocalFactors.LengthFactor(),
                                                           theLocalFactors.FactorRadianDegree());

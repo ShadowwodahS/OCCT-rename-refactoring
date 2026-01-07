@@ -34,7 +34,7 @@ class gp_Pnt2d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed arc of hyperbola.
-class GCE2d_MakeArcOfHyperbola : public GCE2d_Root
+class GCE2d_MakeArcOfHyperbola : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

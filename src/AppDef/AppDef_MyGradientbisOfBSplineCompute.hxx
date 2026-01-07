@@ -29,9 +29,9 @@
 class Standard_OutOfRange;
 class StdFail_NotDone;
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_ParLeastSquareOfMyGradientbisOfBSplineCompute;
-class AppDef_ResConstraintOfMyGradientbisOfBSplineCompute;
+class ResConstraintGradientbisBSpline;
 class AppDef_ParFunctionOfMyGradientbisOfBSplineCompute;
 class AppDef_Gradient_BFGSOfMyGradientbisOfBSplineCompute;
 class AppParCurves_MultiCurve;

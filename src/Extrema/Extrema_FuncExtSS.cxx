@@ -196,8 +196,8 @@ Standard_Integer Extrema_FuncExtSS::GetStateNumber()
 #endif
 
   mySqDist.Append(myP1.SquareDistance(myP2));
-  myPoint1.Append(Extrema_POnSurf(myU1, myV1, myP1));
-  myPoint2.Append(Extrema_POnSurf(myU2, myV2, myP2));
+  myPoint1.Append(PointOnSurface1(myU1, myV1, myP1));
+  myPoint2.Append(PointOnSurface1(myU2, myV2, myP2));
   return 0;
 }
 
@@ -219,7 +219,7 @@ Standard_Real Extrema_FuncExtSS::SquareDistance(const Standard_Integer N) const
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_FuncExtSS::PointOnS1(const Standard_Integer N) const
+const PointOnSurface1& Extrema_FuncExtSS::PointOnS1(const Standard_Integer N) const
 {
   if (!myS1init || !myS2init)
     throw Standard_TypeMismatch();
@@ -228,7 +228,7 @@ const Extrema_POnSurf& Extrema_FuncExtSS::PointOnS1(const Standard_Integer N) co
 
 //=================================================================================================
 
-const Extrema_POnSurf& Extrema_FuncExtSS::PointOnS2(const Standard_Integer N) const
+const PointOnSurface1& Extrema_FuncExtSS::PointOnS2(const Standard_Integer N) const
 {
   if (!myS1init || !myS2init)
     throw Standard_TypeMismatch();

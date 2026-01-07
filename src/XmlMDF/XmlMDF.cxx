@@ -117,7 +117,7 @@ Standard_Integer XmlMDF::WriteSubTree(const DataLabel&                   theLabe
   }
 
   // write sub-labels
-  TDF_ChildIterator itr2(theLabel);
+  ChildIterator itr2(theLabel);
   Standard_Real     child_count = 0;
   for (; itr2.More(); ++child_count, itr2.Next())
   {

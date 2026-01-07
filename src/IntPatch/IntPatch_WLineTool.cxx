@@ -606,7 +606,7 @@ static Standard_Boolean IsSeamOrBound(const PointOn2Surfaces& thePtf,
   thePtf.Parameters(aParF[0], aParF[1], aParF[2], aParF[3]);
   thePtl.Parameters(aParL[0], aParL[1], aParL[2], aParL[3]);
 
-  Bnd_Range aBndR[4];
+  Range1 aBndR[4];
 
   for (Standard_Integer i = 0; i < 4; i++)
   {
@@ -659,7 +659,7 @@ static Standard_Boolean IsSeamOrBound(const PointOn2Surfaces& thePtf,
 
   for (Standard_Integer i = 0; i < 4; i++)
   {
-    const Bnd_Range aBR(aMPar[i], aMPar[i]);
+    const Range1 aBR(aMPar[i], aMPar[i]);
     if (aBR.IsIntersected(theFBound[i], theArrPeriods[i]))
       return Standard_True;
 
@@ -693,23 +693,23 @@ static Standard_Boolean IsIntersectionPoint(const Point3d&                    th
   switch (theS1->GetType())
   {
     case GeomAbs_Plane:
-      ElSLib::Parameters(theS1->Plane(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Plane(), thePmid, aU1, aV1);
       break;
 
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(theS1->Cylinder(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Cylinder(), thePmid, aU1, aV1);
       break;
 
     case GeomAbs_Sphere:
-      ElSLib::Parameters(theS1->Sphere(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Sphere(), thePmid, aU1, aV1);
       break;
 
     case GeomAbs_Cone:
-      ElSLib::Parameters(theS1->Cone(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Cone(), thePmid, aU1, aV1);
       break;
 
     case GeomAbs_Torus:
-      ElSLib::Parameters(theS1->Torus(), thePmid, aU1, aV1);
+      ElSLib1::Parameters(theS1->Torus(), thePmid, aU1, aV1);
       break;
 
     default:
@@ -719,23 +719,23 @@ static Standard_Boolean IsIntersectionPoint(const Point3d&                    th
   switch (theS2->GetType())
   {
     case GeomAbs_Plane:
-      ElSLib::Parameters(theS2->Plane(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Plane(), thePmid, aU2, aV2);
       break;
 
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(theS2->Cylinder(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Cylinder(), thePmid, aU2, aV2);
       break;
 
     case GeomAbs_Sphere:
-      ElSLib::Parameters(theS2->Sphere(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Sphere(), thePmid, aU2, aV2);
       break;
 
     case GeomAbs_Cone:
-      ElSLib::Parameters(theS2->Cone(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Cone(), thePmid, aU2, aV2);
       break;
 
     case GeomAbs_Torus:
-      ElSLib::Parameters(theS2->Torus(), thePmid, aU2, aV2);
+      ElSLib1::Parameters(theS2->Torus(), thePmid, aU2, aV2);
       break;
 
     default:
@@ -845,10 +845,10 @@ static Standard_Boolean IsOutOfDomain(const Bnd_Box2d&           theBoxS1,
   theBoxS1.Get(aU1min, aV1min, aU1max, aV1max);
   theBoxS2.Get(aU2min, aV2min, aU2max, aV2max);
 
-  aU1 = ElCLib::InPeriod(aU1, aU1min, aU1min + theArrPeriods[0]);
-  aV1 = ElCLib::InPeriod(aV1, aV1min, aV1min + theArrPeriods[1]);
-  aU2 = ElCLib::InPeriod(aU2, aU2min, aU2min + theArrPeriods[2]);
-  aV2 = ElCLib::InPeriod(aV2, aV2min, aV2min + theArrPeriods[3]);
+  aU1 = ElCLib1::InPeriod(aU1, aU1min, aU1min + theArrPeriods[0]);
+  aV1 = ElCLib1::InPeriod(aV1, aV1min, aV1min + theArrPeriods[1]);
+  aU2 = ElCLib1::InPeriod(aU2, aU2min, aU2min + theArrPeriods[2]);
+  aV2 = ElCLib1::InPeriod(aV2, aV2min, aV2min + theArrPeriods[3]);
 
   return (theBoxS1.IsOut(gp_Pnt2d(aU1, aV1)) || theBoxS2.IsOut(gp_Pnt2d(aU2, aV2)));
 }
@@ -916,7 +916,7 @@ static IntPatchWT_WLsConnectionType CheckArgumentsToExtend(const Handle(Adaptor3
   thePtWL2.Parameters(aParWL2[0], aParWL2[1], aParWL2[2], aParWL2[3]);
   theNewPoint.Parameters(aNewPar[0], aNewPar[1], aNewPar[2], aNewPar[3]);
 
-  Bnd_Range aR1, aR2;
+  Range1 aR1, aR2;
 
   Standard_Boolean isOnBoundary = Standard_False;
   for (Standard_Integer i = 0; i < 4; i++)

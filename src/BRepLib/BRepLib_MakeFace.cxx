@@ -496,7 +496,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
   if (S->IsUPeriodic())
   {
-    ElCLib::AdjustPeriodic(umin, umax, epsilon, UMin, UMax);
+    ElCLib1::AdjustPeriodic(umin, umax, epsilon, UMin, UMax);
   }
   else if (UMin > UMax)
   {
@@ -512,7 +512,7 @@ void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
 
   if (S->IsVPeriodic())
   {
-    ElCLib::AdjustPeriodic(vmin, vmax, epsilon, VMin, VMax);
+    ElCLib1::AdjustPeriodic(vmin, vmax, epsilon, VMin, VMax);
   }
   else if (VMin > VMax)
   {

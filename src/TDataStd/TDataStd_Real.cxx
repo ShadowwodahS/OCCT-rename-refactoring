@@ -199,7 +199,7 @@ void TDataStd_Real::Paste(const Handle(TDF_Attribute)& Into,
 Standard_OStream& TDataStd_Real::Dump(Standard_OStream& anOS) const
 {
   anOS << "Real ";
-  Standard_DISABLE_DEPRECATION_WARNINGS TDataStd::Print(GetDimension(), anOS);
+  Standard_DISABLE_DEPRECATION_WARNINGS TDataStd1::Print(GetDimension(), anOS);
   Standard_ENABLE_DEPRECATION_WARNINGS  anOS << myValue;
   Standard_Character                    sguid[Standard_GUID_SIZE_ALLOC];
   myID.ToCString(sguid);

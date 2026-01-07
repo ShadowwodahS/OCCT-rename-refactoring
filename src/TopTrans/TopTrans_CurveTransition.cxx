@@ -22,11 +22,11 @@
 #define LOWER -1
 
 //=======================================================================
-// function : TopTrans_CurveTransition
+// function : CurveTransition
 // purpose  : Empty Constructor.
 //=======================================================================
 
-TopTrans_CurveTransition::TopTrans_CurveTransition()
+CurveTransition::CurveTransition()
     : myCurv(0.0),
       Init(Standard_False),
       CurvFirst(0.0),
@@ -36,11 +36,11 @@ TopTrans_CurveTransition::TopTrans_CurveTransition()
 
 //=======================================================================
 // function : Reset
-// purpose  : Initializer for a complex curve transition with the elements
+// purpose  : Initializer for a complex1 curve transition with the elements
 //           of the intersecting curve.
 //=======================================================================
 
-void TopTrans_CurveTransition::Reset(const Dir3d&       Tgt,
+void CurveTransition::Reset(const Dir3d&       Tgt,
                                      const Dir3d&       Norm,
                                      const Standard_Real Curv)
 {
@@ -52,11 +52,11 @@ void TopTrans_CurveTransition::Reset(const Dir3d&       Tgt,
 
 //=======================================================================
 // function : Reset
-// purpose  : Initializer for a complex curve transition with the elements
+// purpose  : Initializer for a complex1 curve transition with the elements
 //           of the intersecting straight line.
 //=======================================================================
 
-void TopTrans_CurveTransition::Reset(const Dir3d& Tgt)
+void CurveTransition::Reset(const Dir3d& Tgt)
 {
   myTgt  = Tgt;
   myCurv = 0.;
@@ -66,10 +66,10 @@ void TopTrans_CurveTransition::Reset(const Dir3d& Tgt)
 //=======================================================================
 // function : Compare
 // purpose  : Compare the elements of  an interference  on  an intersected
-//           curve with the interference stored in the complex Transition.
+//           curve with the interference stored in the complex1 Transition.
 //=======================================================================
 
-void TopTrans_CurveTransition::Compare(const Standard_Real      Tole,
+void CurveTransition::Compare(const Standard_Real      Tole,
                                        const Dir3d&            T,
                                        const Dir3d&            N,
                                        const Standard_Real      C,
@@ -90,7 +90,7 @@ void TopTrans_CurveTransition::Compare(const Standard_Real      Tole,
       S = O;
   }
 
-  // It is the first comparison for this complex transition
+  // It is the first comparison for this complex1 transition
   if (Init)
   {
     Init      = Standard_False;
@@ -260,7 +260,7 @@ void TopTrans_CurveTransition::Compare(const Standard_Real      Tole,
 // purpose  : Give the state of the curv before the interference.
 //=======================================================================
 
-TopAbs_State TopTrans_CurveTransition::StateBefore() const
+TopAbs_State CurveTransition::StateBefore() const
 {
   if (Init)
     return TopAbs_UNKNOWN;
@@ -281,7 +281,7 @@ TopAbs_State TopTrans_CurveTransition::StateBefore() const
 // purpose  : give the state of the curve after the interference.
 //=======================================================================
 
-TopAbs_State TopTrans_CurveTransition::StateAfter() const
+TopAbs_State CurveTransition::StateAfter() const
 {
   if (Init)
     return TopAbs_UNKNOWN;
@@ -303,7 +303,7 @@ TopAbs_State TopTrans_CurveTransition::StateAfter() const
 //           if T1 is before T2
 //=======================================================================
 
-Standard_Boolean TopTrans_CurveTransition::IsBefore(const Standard_Real Tole,
+Standard_Boolean CurveTransition::IsBefore(const Standard_Real Tole,
                                                     const Standard_Real CosAngl,
                                                     const Dir3d&       N1,
                                                     const Standard_Real C1,
@@ -399,7 +399,7 @@ Standard_Boolean TopTrans_CurveTransition::IsBefore(const Standard_Real Tole,
 // purpose  : Compare two angles
 //=======================================================================
 
-Standard_Integer TopTrans_CurveTransition::Compare(const Standard_Real Ang1,
+Standard_Integer CurveTransition::Compare(const Standard_Real Ang1,
                                                    const Standard_Real Ang2,
                                                    const Standard_Real Tole) const
 {

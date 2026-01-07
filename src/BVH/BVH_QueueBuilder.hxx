@@ -27,7 +27,7 @@
 //! CPU cores plus one). Note that to support parallel mode,
 //! a corresponding BVH primitive set should provide thread
 //! safe implementations of interface functions (e.g., Swap,
-//! Box, Center). Otherwise, the results will be undefined.
+//! Box1, Center). Otherwise, the results will be undefined.
 //! \tparam T Numeric data type
 //! \tparam N Vector dimension
 template <class T, int N>
@@ -112,7 +112,7 @@ protected:
   };
 
   //! Wrapper for BVH build data.
-  class BVH_TypedBuildTool : public BVH_BuildTool
+  class BVH_TypedBuildTool : public BuildTool
   {
   public:
     //! Creates new BVH build thread.

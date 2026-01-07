@@ -31,7 +31,7 @@
 #define Curve_hxx <Adaptor2d_Curve2d.hxx>
 #define Tool Geom2dCurveTool
 #define Tool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define POnC Extrema_POnCurv2d
+#define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>

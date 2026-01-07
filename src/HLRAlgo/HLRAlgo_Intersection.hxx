@@ -28,14 +28,14 @@
 //! Describes  an intersection  on   an edge to  hide.
 //! Contains a parameter and   a state (ON =   on  the
 //! face, OUT = above the face, IN = under the Face)
-class HLRAlgo_Intersection
+class Intersection3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRAlgo_Intersection();
+  Standard_EXPORT Intersection3();
 
-  Standard_EXPORT HLRAlgo_Intersection(const TopAbs_Orientation Ori,
+  Standard_EXPORT Intersection3(const TopAbs_Orientation Ori,
                                        const Standard_Integer   Lev,
                                        const Standard_Integer   SegInd,
                                        const Standard_Integer   Ind,

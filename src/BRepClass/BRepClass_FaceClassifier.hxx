@@ -44,7 +44,7 @@ public:
 
   //! Creates an algorithm to classify the Point  P with
   //! Tolerance <T> on the face <F>.
-  //! Recommended to use Bnd_Box if the number of edges > 10
+  //! Recommended to use Box2 if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT BRepClass_FaceClassifier(const TopoFace&     theF,
                                            const gp_Pnt2d&        theP,
@@ -54,7 +54,7 @@ public:
 
   //! Classify  the Point  P  with  Tolerance <T> on the
   //! face described by <F>.
-  //! Recommended to use Bnd_Box if the number of edges > 10
+  //! Recommended to use Box2 if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT void Perform(const TopoFace&     theF,
                                const gp_Pnt2d&        theP,
@@ -64,7 +64,7 @@ public:
 
   //! Creates an algorithm to classify the Point  P with
   //! Tolerance <T> on the face <F>.
-  //! Recommended to use Bnd_Box if the number of edges > 10
+  //! Recommended to use Box2 if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT BRepClass_FaceClassifier(const TopoFace&     theF,
                                            const Point3d&          theP,
@@ -74,7 +74,7 @@ public:
 
   //! Classify  the Point  P  with  Tolerance <T> on the
   //! face described by <F>.
-  //! Recommended to use Bnd_Box if the number of edges > 10
+  //! Recommended to use Box2 if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT void Perform(const TopoFace&     theF,
                                const Point3d&          theP,

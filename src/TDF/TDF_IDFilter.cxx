@@ -27,14 +27,14 @@
 
 //=================================================================================================
 
-TDF_IDFilter::TDF_IDFilter(const Standard_Boolean ignoreMode)
+IDFilter::IDFilter(const Standard_Boolean ignoreMode)
     : myIgnore(ignoreMode)
 {
 }
 
 //=================================================================================================
 
-void TDF_IDFilter::IgnoreAll(const Standard_Boolean ignore)
+void IDFilter::IgnoreAll(const Standard_Boolean ignore)
 {
   myIgnore = ignore;
   myIDMap.Clear();
@@ -43,7 +43,7 @@ void TDF_IDFilter::IgnoreAll(const Standard_Boolean ignore)
 
 //=================================================================================================
 
-void TDF_IDFilter::Keep(const Standard_GUID& anID)
+void IDFilter::Keep(const Standard_GUID& anID)
 {
   if (myIgnore)
     myIDMap.Add(anID);
@@ -56,7 +56,7 @@ void TDF_IDFilter::Keep(const Standard_GUID& anID)
 // purpose  : Keeps a list of ID.
 //=======================================================================
 
-void TDF_IDFilter::Keep(const TDF_IDList& anIDList)
+void IDFilter::Keep(const TDF_IDList& anIDList)
 {
   if (!anIDList.IsEmpty())
   {
@@ -81,7 +81,7 @@ void TDF_IDFilter::Keep(const TDF_IDList& anIDList)
 // purpose  : Ignores an ID.
 //=======================================================================
 
-void TDF_IDFilter::Ignore(const Standard_GUID& anID)
+void IDFilter::Ignore(const Standard_GUID& anID)
 {
   if (myIgnore)
     myIDMap.Remove(anID);
@@ -94,7 +94,7 @@ void TDF_IDFilter::Ignore(const Standard_GUID& anID)
 // purpose  : Ignores a list of ID.
 //=======================================================================
 
-void TDF_IDFilter::Ignore(const TDF_IDList& anIDList)
+void IDFilter::Ignore(const TDF_IDList& anIDList)
 {
   if (!anIDList.IsEmpty())
   {
@@ -116,7 +116,7 @@ void TDF_IDFilter::Ignore(const TDF_IDList& anIDList)
 
 //=================================================================================================
 
-void TDF_IDFilter::IDList(TDF_IDList& anIDList) const
+void IDFilter::IDList(TDF_IDList& anIDList) const
 {
   anIDList.Clear();
   for (TDF_MapIteratorOfIDMap itr(myIDMap); itr.More(); itr.Next())
@@ -125,7 +125,7 @@ void TDF_IDFilter::IDList(TDF_IDList& anIDList) const
 
 //=================================================================================================
 
-void TDF_IDFilter::Copy(const TDF_IDFilter& fromFilter)
+void IDFilter::Copy(const IDFilter& fromFilter)
 {
   myIgnore = fromFilter.IgnoreAll();
   TDF_IDList idl;
@@ -138,7 +138,7 @@ void TDF_IDFilter::Copy(const TDF_IDFilter& fromFilter)
 
 //=================================================================================================
 
-void TDF_IDFilter::Dump(Standard_OStream& anOS) const
+void IDFilter::Dump(Standard_OStream& anOS) const
 {
   if (myIgnore)
     anOS << "EX";

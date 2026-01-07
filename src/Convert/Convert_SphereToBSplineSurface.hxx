@@ -36,7 +36,7 @@ class gp_Sphere;
 //! V [-PI/2, PI/2].
 //! KeyWords :
 //! Convert, Sphere, BSplineSurface.
-class Convert_SphereToBSplineSurface : public Convert_ElementarySurfaceToBSplineSurface
+class Convert_SphereToBSplineSurface : public ElementaryToBSplineSurface
 {
 public:
   DEFINE_STANDARD_ALLOC

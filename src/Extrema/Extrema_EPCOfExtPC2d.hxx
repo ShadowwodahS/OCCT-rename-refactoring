@@ -26,8 +26,8 @@ class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
 class Adaptor2d_Curve2d;
-class Extrema_Curve2dTool;
-class Extrema_POnCurv2d;
+class Curve2dTool1;
+class PointOnCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class Extrema_PCFOfEPCOfExtPC2d;
@@ -117,7 +117,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin(const Standard_Integer N) const;
 
   //! Returns the point of the Nth extremum distance.
-  Standard_EXPORT const Extrema_POnCurv2d& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve2d& Point(const Standard_Integer N) const;
 
 protected:
 private:

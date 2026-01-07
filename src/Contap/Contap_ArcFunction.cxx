@@ -33,7 +33,7 @@ void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
 {
   mySurf = S;
   Standard_Integer i;
-  Standard_Integer nbs = Contap_HContTool::NbSamplePoints(S);
+  Standard_Integer nbs = HContTool::NbSamplePoints(S);
   Standard_Real    U, V;
   //  Vector3d d1u,d1v;
   Vector3d norm;
@@ -42,10 +42,10 @@ void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
     myMean = 0.;
     for (i = 1; i <= nbs; i++)
     {
-      Contap_HContTool::SamplePoint(S, i, U, V);
+      HContTool::SamplePoint(S, i, U, V);
       //      HSurfaceTool::D1(S,U,V,solpt,d1u,d1v);
       //      myMean = myMean + d1u.Crossed(d1v).Magnitude();
-      Contap_SurfProps::Normale(S, U, V, solpt, norm);
+      SurfaceProperties::Normale(S, U, V, solpt, norm);
       myMean = myMean + norm.Magnitude();
     }
     myMean = myMean / ((Standard_Real)nbs);
@@ -55,11 +55,11 @@ void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
 Standard_Boolean Contap_ArcFunction::Value(const Standard_Real U, Standard_Real& F)
 {
   // Vector3d d1u,d1v;
-  gp_Pnt2d pt2d(Contap_HCurve2dTool::Value(myArc, U));
+  gp_Pnt2d pt2d(HCurve2dTool2::Value(myArc, U));
   //  HSurfaceTool::D1(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm;
-  Contap_SurfProps::Normale(mySurf, pt2d.X(), pt2d.Y(), solpt, norm);
+  SurfaceProperties::Normale(mySurf, pt2d.X(), pt2d.Y(), solpt, norm);
 
   switch (myType)
   {
@@ -88,10 +88,10 @@ Standard_Boolean Contap_ArcFunction::Derivative(const Standard_Real U, Standard_
   gp_Vec2d      d2d;
   Standard_Real dfu = 0., dfv = 0.;
   //  Vector3d d1u,d1v,d2u,d2v,d2uv;
-  Contap_HCurve2dTool::D1(myArc, U, pt2d, d2d);
+  HCurve2dTool2::D1(myArc, U, pt2d, d2d);
   //  HSurfaceTool::D2(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v,d2u,d2v,d2uv);
   Vector3d norm, dnu, dnv;
-  Contap_SurfProps::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
+  SurfaceProperties::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
 
   switch (myType)
   {
@@ -139,11 +139,11 @@ Standard_Boolean Contap_ArcFunction::Values(const Standard_Real U,
   gp_Vec2d      d2d;
   Standard_Real dfu = 0., dfv = 0.;
   // Vector3d d1u,d1v,d2u,d2v,d2uv;
-  Contap_HCurve2dTool::D1(myArc, U, pt2d, d2d);
+  HCurve2dTool2::D1(myArc, U, pt2d, d2d);
   //  HSurfaceTool::D2(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v,d2u,d2v,d2uv);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm, dnu, dnv;
-  Contap_SurfProps::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
+  SurfaceProperties::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
 
   switch (myType)
   {
@@ -195,8 +195,8 @@ Standard_Integer Contap_ArcFunction::GetStateNumber()
 Standard_Integer Contap_ArcFunction::NbSamples() const
 {
   return Max(
-    Max(Contap_HContTool::NbSamplesU(mySurf, 0., 0.), Contap_HContTool::NbSamplesV(mySurf, 0., 0.)),
-    Contap_HContTool::NbSamplesOnArc(myArc));
+    Max(HContTool::NbSamplesU(mySurf, 0., 0.), HContTool::NbSamplesV(mySurf, 0., 0.)),
+    HContTool::NbSamplesOnArc(myArc));
 }
 
 // modified by NIZNHY-PKV Thu Mar 29 16:53:07 2001f

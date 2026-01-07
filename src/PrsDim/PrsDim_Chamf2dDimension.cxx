@@ -143,8 +143,8 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
     myPntAttach.SetXYZ((pfirst.XYZ() + plast.XYZ()) / 2);
     Handle(GeomLine) dimLin    = new GeomLine(myPntAttach, myDir);
-    Standard_Real     parcurpos = ElCLib::Parameter(dimLin->Lin(), myPosition);
-    curpos                      = ElCLib::Value(parcurpos, dimLin->Lin());
+    Standard_Real     parcurpos = ElCLib1::Parameter(dimLin->Lin(), myPosition);
+    curpos                      = ElCLib1::Value(parcurpos, dimLin->Lin());
     // static Standard_Real minlength = 0.005;
     // taille minimale de la dimension
 

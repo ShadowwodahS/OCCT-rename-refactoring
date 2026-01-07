@@ -115,7 +115,7 @@ void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
   }
   gp_Lin2d l2 = Handle(Geom2d_Line)::DownCast(L2)->Lin2d();
   //
-  IntAna2d_AnaIntersection inter;
+  AnalyticIntersection2d inter;
   inter.Perform(l1, l2);
   if (!inter.IsDone() || !inter.NbPoints())
     return;
@@ -155,7 +155,7 @@ void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
   // affichage
   dis.Draw1(circle, p1, p2);
   Standard_Real ptext   = (p1 + p2) / 2;
-  Point3d        pnttext = ElCLib::Value(ptext, circle);
+  Point3d        pnttext = ElCLib1::Value(ptext, circle);
   //
   DrawText(pnttext, dis);
 }

@@ -38,19 +38,19 @@
 
 #define TheCurve gp_Lin
 #define TheCurve_hxx <gp_Lin.hxx>
-#define TheCurveTool HLRBRep_LineTool
+#define TheCurveTool LineTool3
 #define TheCurveTool_hxx <HLRBRep_LineTool.hxx>
 #define TheSurface Standard_Address
 #define TheSurface_hxx <Standard_Address.hxx>
-#define TheSurfaceTool HLRBRep_SurfaceTool
+#define TheSurfaceTool SurfaceTool3
 #define TheSurfaceTool_hxx <HLRBRep_SurfaceTool.hxx>
 #define IntCurveSurface_ThePolygon HLRBRep_ThePolygonOfInterCSurf
 #define IntCurveSurface_ThePolygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>
-#define IntCurveSurface_ThePolygonTool HLRBRep_ThePolygonToolOfInterCSurf
+#define IntCurveSurface_ThePolygonTool PolygonToolInterCSurf
 #define IntCurveSurface_ThePolygonTool_hxx <HLRBRep_ThePolygonToolOfInterCSurf.hxx>
 #define IntCurveSurface_ThePolyhedron HLRBRep_ThePolyhedronOfInterCSurf
 #define IntCurveSurface_ThePolyhedron_hxx <HLRBRep_ThePolyhedronOfInterCSurf.hxx>
-#define IntCurveSurface_ThePolyhedronTool HLRBRep_ThePolyhedronToolOfInterCSurf
+#define IntCurveSurface_ThePolyhedronTool PolyhedronToolInterCSurf
 #define IntCurveSurface_ThePolyhedronTool_hxx <HLRBRep_ThePolyhedronToolOfInterCSurf.hxx>
 #define IntCurveSurface_TheInterference HLRBRep_TheInterferenceOfInterCSurf
 #define IntCurveSurface_TheInterference_hxx <HLRBRep_TheInterferenceOfInterCSurf.hxx>
@@ -58,7 +58,7 @@
 #define IntCurveSurface_TheCSFunction_hxx <HLRBRep_TheCSFunctionOfInterCSurf.hxx>
 #define IntCurveSurface_TheExactInter HLRBRep_TheExactInterCSurf
 #define IntCurveSurface_TheExactInter_hxx <HLRBRep_TheExactInterCSurf.hxx>
-#define IntCurveSurface_TheQuadCurvExactInter HLRBRep_TheQuadCurvExactInterCSurf
+#define IntCurveSurface_TheQuadCurvExactInter QuadCurvExactInterCSurf
 #define IntCurveSurface_TheQuadCurvExactInter_hxx <HLRBRep_TheQuadCurvExactInterCSurf.hxx>
 #define IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactInter                                     \
   HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf

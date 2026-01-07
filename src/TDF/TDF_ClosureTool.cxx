@@ -34,11 +34,11 @@
 // purpose  : Builds the transitive closure without attribute filter.
 //=======================================================================
 
-void TDF_ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet)
+void ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet)
 {
-  TDF_IDFilter    Filter(Standard_False); // "Keep all"
-  TDF_ClosureMode Mode;                   // All modes are set to true.
-  TDF_ClosureTool::Closure(aDataSet, Filter, Mode);
+  IDFilter    Filter(Standard_False); // "Keep all"
+  ClosureMode Mode;                   // All modes are set to true.
+  ClosureTool::Closure(aDataSet, Filter, Mode);
 }
 
 //=======================================================================
@@ -46,9 +46,9 @@ void TDF_ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet)
 // purpose  : Builds the transitive closure with an attribute filter.
 //=======================================================================
 
-void TDF_ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet,
-                              const TDF_IDFilter&        aFilter,
-                              const TDF_ClosureMode&     aMode)
+void ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet,
+                              const IDFilter&        aFilter,
+                              const ClosureMode&     aMode)
 {
   TDF_LabelMap&     labMap  = aDataSet->Labels();
   TDF_AttributeMap& attMap  = aDataSet->Attributes();
@@ -66,9 +66,9 @@ void TDF_ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet,
   {
     const DataLabel& lab = labLItr.Value();
     if (lab.HasAttribute())
-      TDF_ClosureTool::LabelAttributes(lab, labMap, attMap, aFilter, aMode);
+      ClosureTool::LabelAttributes(lab, labMap, attMap, aFilter, aMode);
     if (aMode.Descendants())
-      TDF_ClosureTool::Closure(lab, labMap, attMap, aFilter, aMode);
+      ClosureTool::Closure(lab, labMap, attMap, aFilter, aMode);
   }
 }
 
@@ -77,14 +77,14 @@ void TDF_ClosureTool::Closure(const Handle(TDF_DataSet)& aDataSet,
 // purpose  : Internal closure method.
 //=======================================================================
 
-void TDF_ClosureTool::Closure(const DataLabel&       aLabel,
+void ClosureTool::Closure(const DataLabel&       aLabel,
                               TDF_LabelMap&          aLabMap,
                               TDF_AttributeMap&      anAttMap,
-                              const TDF_IDFilter&    aFilter,
-                              const TDF_ClosureMode& aMode)
+                              const IDFilter&    aFilter,
+                              const ClosureMode& aMode)
 {
   DataLabel upLab;
-  for (TDF_ChildIterator childItr(aLabel, Standard_True); childItr.More(); childItr.Next())
+  for (ChildIterator childItr(aLabel, Standard_True); childItr.More(); childItr.Next())
   {
     const DataLabel& locLab = childItr.Value();
     // On ne peut faire cette optimisation car il faudrait d'abord
@@ -95,7 +95,7 @@ void TDF_ClosureTool::Closure(const DataLabel&       aLabel,
       upLab = locLab.Father();
       while (aLabMap.Add(upLab))
         upLab = upLab.Father();
-      TDF_ClosureTool::LabelAttributes(locLab, aLabMap, anAttMap, aFilter, aMode);
+      ClosureTool::LabelAttributes(locLab, aLabMap, anAttMap, aFilter, aMode);
     }
   }
 }
@@ -105,11 +105,11 @@ void TDF_ClosureTool::Closure(const DataLabel&       aLabel,
 // purpose  : Internal method: adds the attributes to <aDataSet>.
 //=======================================================================
 
-void TDF_ClosureTool::LabelAttributes(const DataLabel&       aLabel,
+void ClosureTool::LabelAttributes(const DataLabel&       aLabel,
                                       TDF_LabelMap&          aLabMap,
                                       TDF_AttributeMap&      anAttMap,
-                                      const TDF_IDFilter&    aFilter,
-                                      const TDF_ClosureMode& aMode)
+                                      const IDFilter&    aFilter,
+                                      const ClosureMode& aMode)
 {
   Handle(TDF_DataSet)           tmpDataSet;
   Standard_Boolean              BindLabel;
@@ -151,7 +151,7 @@ void TDF_ClosureTool::LabelAttributes(const DataLabel&       aLabel,
               {
                 // 1.1 - A referenced attribute has a label.
                 if (aLabMap.Add(locLab2))
-                  TDF_ClosureTool::Closure(locLab2, aLabMap, anAttMap, aFilter, aMode);
+                  ClosureTool::Closure(locLab2, aLabMap, anAttMap, aFilter, aMode);
               }
               else
               {
@@ -168,7 +168,7 @@ void TDF_ClosureTool::LabelAttributes(const DataLabel&       aLabel,
           {
             const DataLabel& locLab1 = labMItr.Key();
             if (aLabMap.Add(locLab1))
-              TDF_ClosureTool::Closure(locLab1, aLabMap, anAttMap, aFilter, aMode);
+              ClosureTool::Closure(locLab1, aLabMap, anAttMap, aFilter, aMode);
           }
         }
       }

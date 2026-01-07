@@ -182,15 +182,15 @@ const Handle(Graphic3d_ArrayOfPoints) AIS_PointCloud::GetPoints() const
 
 //=================================================================================================
 
-Bnd_Box AIS_PointCloud::GetBoundingBox() const
+Box2 AIS_PointCloud::GetBoundingBox() const
 {
   return myBndBox;
 }
 
 //! Auxiliary method
-static inline Bnd_Box getBoundingBox(const Handle(Graphic3d_ArrayOfPoints)& thePoints)
+static inline Box2 getBoundingBox(const Handle(Graphic3d_ArrayOfPoints)& thePoints)
 {
-  Bnd_Box aBndBox;
+  Box2 aBndBox;
   if (thePoints.IsNull())
   {
     return aBndBox;
@@ -282,11 +282,11 @@ void AIS_PointCloud::UnsetColor()
     Quantity_Color           aColor = aDefaultMat.Color();
     if (myDrawer->HasLink())
     {
-      aColor = myDrawer->Link()->ShadingAspect()->Color(myCurrentFacingModel);
+      aColor = myDrawer->Link1()->ShadingAspect()->Color(myCurrentFacingModel);
     }
     if (HasMaterial() || myDrawer->HasLink())
     {
-      aMat = AIS_GraphicTool::GetMaterial(HasMaterial() ? myDrawer : myDrawer->Link());
+      aMat = AIS_GraphicTool::GetMaterial(HasMaterial() ? myDrawer : myDrawer->Link1());
     }
     if (HasMaterial())
     {
@@ -331,7 +331,7 @@ void AIS_PointCloud::UnsetMaterial()
   {
     Graphic3d_MaterialAspect aDefaultMat(Graphic3d_NameOfMaterial_Brass);
     myDrawer->ShadingAspect()->SetMaterial(
-      myDrawer->HasLink() ? myDrawer->Link()->ShadingAspect()->Material(myCurrentFacingModel)
+      myDrawer->HasLink() ? myDrawer->Link1()->ShadingAspect()->Material(myCurrentFacingModel)
                           : aDefaultMat,
       myCurrentFacingModel);
     if (HasColor())
@@ -365,7 +365,7 @@ void AIS_PointCloud::Compute(const Handle(PrsMgr_PresentationManager)&,
       break;
     }
     case AIS_PointCloud::DM_BndBox: {
-      Bnd_Box aBndBox = GetBoundingBox();
+      Box2 aBndBox = GetBoundingBox();
       if (aBndBox.IsVoid())
       {
         return;
@@ -421,7 +421,7 @@ void AIS_PointCloud::ComputeSelection(const Handle(SelectionContainer)& theSelec
     }
   }
 
-  Bnd_Box aBndBox = GetBoundingBox();
+  Box2 aBndBox = GetBoundingBox();
   if (aBndBox.IsVoid())
   {
     return;

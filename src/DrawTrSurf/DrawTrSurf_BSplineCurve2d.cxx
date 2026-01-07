@@ -167,7 +167,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Restore(Standard_IStream& the
 {
   const DrawTrSurf_Params&    aParams = DrawTrSurf1::Parameters();
   Handle(Geom2d_BSplineCurve) aGeomCurve =
-    Handle(Geom2d_BSplineCurve)::DownCast(GeomTools_Curve2dSet::ReadCurve2d(theStream));
+    Handle(Geom2d_BSplineCurve)::DownCast(Curve2dSet1::ReadCurve2d(theStream));
   Handle(DrawTrSurf_BSplineCurve2d) aDrawCurve = new DrawTrSurf_BSplineCurve2d(aGeomCurve,
                                                                                aParams.CurvColor,
                                                                                aParams.PolesColor,

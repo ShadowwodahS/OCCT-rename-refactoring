@@ -36,8 +36,8 @@ static void             BndBuildBox(const BRepAdaptor_Curve& theBAC,
                                     const Standard_Real      aT1,
                                     const Standard_Real      aT2,
                                     const Standard_Real      theTol,
-                                    Bnd_Box&                 theBox);
-static Standard_Real    PointBoxDistance(const Bnd_Box& aB, const Point3d& aP);
+                                    Box2&                 theBox);
+static Standard_Real    PointBoxDistance(const Box2& aB, const Point3d& aP);
 static Standard_Integer SplitRangeOnSegments(const Standard_Real        aT1,
                                              const Standard_Real        aT2,
                                              const Standard_Real        theResolution,
@@ -294,7 +294,7 @@ void IntTools_EdgeEdge::FindSolutions(IntTools_SequenceOfRanges& theRanges1,
 {
   Standard_Boolean bIsClosed2;
   Standard_Real    aT11, aT12, aT21, aT22;
-  Bnd_Box          aB1, aB2;
+  Box2          aB1, aB2;
   //
   bSplit2 = Standard_False;
   myRange1.Range(aT11, aT12);
@@ -352,9 +352,9 @@ void IntTools_EdgeEdge::FindSolutions(IntTools_SequenceOfRanges& theRanges1,
 //=================================================================================================
 
 void IntTools_EdgeEdge::FindSolutions(const IntToolsRange&      theR1,
-                                      const Bnd_Box&             theBox1,
+                                      const Box2&             theBox1,
                                       const IntToolsRange&      theR2,
-                                      const Bnd_Box&             theBox2,
+                                      const Box2&             theBox2,
                                       IntTools_SequenceOfRanges& theRanges1,
                                       IntTools_SequenceOfRanges& theRanges2)
 {
@@ -363,7 +363,7 @@ void IntTools_EdgeEdge::FindSolutions(const IntToolsRange&      theR1,
   Standard_Real    aTB11, aTB12, aTB21, aTB22;
   Standard_Real    aSmallStep1, aSmallStep2;
   Standard_Integer iCom;
-  Bnd_Box          aB1, aB2;
+  Box2          aB1, aB2;
   //
   theR1.Range(aT11, aT12);
   theR2.Range(aT21, aT22);
@@ -554,7 +554,7 @@ Standard_Boolean IntTools_EdgeEdge::FindParameters(const BRepAdaptor_Curve& theB
                                                    const Standard_Real      theRes,
                                                    const Standard_Real      thePTol,
                                                    const Standard_Real      theResCoeff,
-                                                   const Bnd_Box&           theCBox,
+                                                   const Box2&           theCBox,
                                                    Standard_Real&           aTB1,
                                                    Standard_Real&           aTB2)
 {
@@ -563,7 +563,7 @@ Standard_Boolean IntTools_EdgeEdge::FindParameters(const BRepAdaptor_Curve& theB
   Standard_Real    aCf, aDiff, aDt, aT, aTB, aTOut, aTIn;
   Standard_Real    aDist, aDistP;
   Point3d           aP;
-  Bnd_Box          aCBx;
+  Box2          aCBx;
   //
   bRet = Standard_False;
   aCf  = 0.6180339887498948482045868343656; // =0.5*(1.+sqrt(5.))/2.;
@@ -925,14 +925,14 @@ void IntTools_EdgeEdge::ComputeLineLine()
   myRange1.Range(aT11, aT12);
   myRange2.Range(aT21, aT22);
 
-  Point3d aP11 = ElCLib::Value(aT11, aL1);
-  Point3d aP12 = ElCLib::Value(aT12, aL1);
+  Point3d aP11 = ElCLib1::Value(aT11, aL1);
+  Point3d aP12 = ElCLib1::Value(aT12, aL1);
 
   if (!IsCoincide)
   {
     Point3d O2(aL2.Location());
     if (!Precision::IsInfinite(aT21) && !Precision::IsInfinite(aT22))
-      O2 = ElCLib::Value((aT21 + aT22) / 2., aL2);
+      O2 = ElCLib1::Value((aT21 + aT22) / 2., aL2);
 
     Vector3d aVec1 = Vector3d(O2, aP11).Crossed(aD2);
     Vector3d aVec2 = Vector3d(O2, aP12).Crossed(aD2);
@@ -953,8 +953,8 @@ void IntTools_EdgeEdge::ComputeLineLine()
 
   if (IsCoincide)
   {
-    Standard_Real t21 = ElCLib::Parameter(aL2, aP11);
-    Standard_Real t22 = ElCLib::Parameter(aL2, aP12);
+    Standard_Real t21 = ElCLib1::Parameter(aL2, aP11);
+    Standard_Real t22 = ElCLib1::Parameter(aL2, aP12);
 
     if ((t21 > aT22 && t22 > aT22) || (t21 < aT21 && t22 < aT21))
       // projections are out of range
@@ -1013,14 +1013,14 @@ void IntTools_EdgeEdge::ComputeLineLine()
     // out of range
     return;
 
-  Point3d        aP2 = ElCLib::Value(aT2, aL2);
+  Point3d        aP2 = ElCLib1::Value(aT2, aL2);
   Standard_Real aT1 = Vector3d(aL1.Location(), aP2).Dot(aD1);
 
   if (aT1 < aT11 || aT1 > aT12)
     // out of range
     return;
 
-  Point3d        aP1   = ElCLib::Value(aT1, aL1);
+  Point3d        aP1   = ElCLib1::Value(aT1, aL1);
   Standard_Real aDist = aP1.SquareDistance(aP2);
 
   if (aDist > aTol)
@@ -1396,16 +1396,16 @@ void BndBuildBox(const BRepAdaptor_Curve& theBAC,
                  const Standard_Real      aT1,
                  const Standard_Real      aT2,
                  const Standard_Real      theTol,
-                 Bnd_Box&                 theBox)
+                 Box2&                 theBox)
 {
-  Bnd_Box aB;
-  BndLib_Add3dCurve::Add(theBAC, aT1, aT2, theTol, aB);
+  Box2 aB;
+  Add3dCurve::Add(theBAC, aT1, aT2, theTol, aB);
   theBox = aB;
 }
 
 //=================================================================================================
 
-Standard_Real PointBoxDistance(const Bnd_Box& aB, const Point3d& aP)
+Standard_Real PointBoxDistance(const Box2& aB, const Point3d& aP)
 {
   Standard_Real    aPCoord[3];
   Standard_Real    aBMinCoord[3], aBMaxCoord[3];

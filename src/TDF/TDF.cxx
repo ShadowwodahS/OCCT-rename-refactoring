@@ -21,7 +21,7 @@ static TDF_GUIDProgIDMap guidprogidmap;
 
 //=================================================================================================
 
-const Standard_GUID& TDF::LowestID()
+const Standard_GUID& TDF1::LowestID()
 {
   static Standard_GUID lowestID("00000000-0000-0000-0000-000000000000");
   return lowestID;
@@ -29,7 +29,7 @@ const Standard_GUID& TDF::LowestID()
 
 //=================================================================================================
 
-const Standard_GUID& TDF::UppestID()
+const Standard_GUID& TDF1::UppestID()
 {
   static Standard_GUID uppestID("ffffffff-ffff-ffff-ffff-ffffffffffff");
   return uppestID;
@@ -37,7 +37,7 @@ const Standard_GUID& TDF::UppestID()
 
 //=================================================================================================
 
-void TDF::AddLinkGUIDToProgID(const Standard_GUID& ID, const UtfString& ProgID)
+void TDF1::AddLinkGUIDToProgID(const Standard_GUID& ID, const UtfString& ProgID)
 {
   guidprogidmap.UnBind1(ID);
   guidprogidmap.UnBind2(ProgID);
@@ -47,7 +47,7 @@ void TDF::AddLinkGUIDToProgID(const Standard_GUID& ID, const UtfString& ProgID)
 
 //=================================================================================================
 
-Standard_Boolean TDF::GUIDFromProgID(const UtfString& ProgID, Standard_GUID& ID)
+Standard_Boolean TDF1::GUIDFromProgID(const UtfString& ProgID, Standard_GUID& ID)
 {
   if (guidprogidmap.IsBound2(ProgID))
   {
@@ -59,7 +59,7 @@ Standard_Boolean TDF::GUIDFromProgID(const UtfString& ProgID, Standard_GUID& ID)
 
 //=================================================================================================
 
-Standard_Boolean TDF::ProgIDFromGUID(const Standard_GUID& ID, UtfString& ProgID)
+Standard_Boolean TDF1::ProgIDFromGUID(const Standard_GUID& ID, UtfString& ProgID)
 {
   if (guidprogidmap.IsBound1(ID))
   {

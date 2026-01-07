@@ -183,7 +183,7 @@ Bnd_B3x Bnd_B3x::Transformed (const Transform3d& theTrsf) const
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - Sphere
+//purpose  : Intersection Box1 - Sphere
 //=======================================================================
 
 Standard_Boolean Bnd_B3x::IsOut (const gp_XYZ&          theCenter,
@@ -241,7 +241,7 @@ Standard_Boolean Bnd_B3x::IsOut (const gp_XYZ&          theCenter,
 
 //=======================================================================
 //function : IsOut
-//purpose  : Intersection Box - transformed Box
+//purpose  : Intersection Box1 - transformed Box1
 //=======================================================================
 
 Standard_Boolean Bnd_B3x::IsOut (const Bnd_B3x& theBox,

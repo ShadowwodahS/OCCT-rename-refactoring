@@ -67,8 +67,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(GeomCurve3d)& C3
     Vector3d        avec(P1, P2);
     Dir3d        adir(avec);
     gp_Lin        alin(P1, adir);
-    Standard_Real theParam = ElCLib::Parameter(alin, L3D->Lin().Location());
-    alin.SetLocation(ElCLib::Value(theParam, alin));
+    Standard_Real theParam = ElCLib1::Parameter(alin, L3D->Lin().Location());
+    alin.SetLocation(ElCLib1::Value(theParam, alin));
     L3D->SetLin(alin);
     return Standard_True;
   }
@@ -107,8 +107,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(GeomCurve
     Vector3d        avec(P1, P2);
     Dir3d        adir(avec);
     gp_Lin        alin(P1, adir);
-    Standard_Real theParam = ElCLib::Parameter(alin, L3D->Lin().Location());
-    alin.SetLocation(ElCLib::Value(theParam, alin));
+    Standard_Real theParam = ElCLib1::Parameter(alin, L3D->Lin().Location());
+    alin.SetLocation(ElCLib1::Value(theParam, alin));
     L3D->SetLin(alin);
     return Standard_True;
   }
@@ -144,8 +144,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(GeomCurve2d)& 
     gp_Vec2d      avec(P1, P2);
     gp_Dir2d      adir(avec);
     gp_Lin2d      alin(P1, adir);
-    Standard_Real theParam = ElCLib::Parameter(alin, L2D->Lin2d().Location());
-    alin.SetLocation(ElCLib::Value(theParam, alin));
+    Standard_Real theParam = ElCLib1::Parameter(alin, L2D->Lin2d().Location());
+    alin.SetLocation(ElCLib1::Value(theParam, alin));
     L2D->SetLin2d(alin);
     return Standard_True;
   }
@@ -172,12 +172,12 @@ Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomC
     try
     {
       OCC_CATCH_SIGNALS
-      bspl = GeomConvert::CurveToBSplineCurve(tc);
+      bspl = GeomConvert1::CurveToBSplineCurve(tc);
     }
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
-      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in GeomConvert: ";
+      std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in GeomConvert1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif
@@ -265,13 +265,13 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
     try
     {
       OCC_CATCH_SIGNALS
-      bspl = Geom2dConvert::CurveToBSplineCurve(tc);
+      bspl = Geom2dConvert1::CurveToBSplineCurve(tc);
     }
     catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout
-        << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Geom2dConvert: ";
+        << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Geom2dConvert1: ";
       anException.Print(std::cout);
       std::cout << std::endl;
 #endif

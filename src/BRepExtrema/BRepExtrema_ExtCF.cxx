@@ -89,8 +89,8 @@ void BRepExtrema_ExtCF::Perform(const TopoEdge& E, const TopoFace& F2)
     // so there is no point to adjust it in classifier.
     Standard_Boolean isAdjustPeriodic = Standard_False;
 
-    Extrema_POnCurv P1;
-    Extrema_POnSurf P2;
+    PointOnCurve1 P1;
+    PointOnSurface1 P2;
 
     for (Standard_Integer i = 1; i <= myExtCS.NbExt(); i++)
     {

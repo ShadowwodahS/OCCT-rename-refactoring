@@ -41,7 +41,7 @@ void Geom2dHatch_Intersector::Perform(const gp_Lin2d&            L,
   // Standard_Real pfbid,plbid;
   Domain2 DL;
   if (P != RealLast())
-    DL.SetValues(L.Location(), 0., Tol, ElCLib::Value(P, L), P, Tol);
+    DL.SetValues(L.Location(), 0., Tol, ElCLib1::Value(P, L), P, Tol);
   else
     DL.SetValues(L.Location(), 0., Tol, Standard_True);
 

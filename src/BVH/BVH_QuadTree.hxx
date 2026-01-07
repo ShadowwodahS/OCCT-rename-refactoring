@@ -20,7 +20,7 @@
 
 //! Specialization of quad BVH (QBVH) tree.
 template <class T, int N>
-class BVH_Tree<T, N, BVH_QuadTree> : public BVH_TreeBase<T, N>
+class BVH_Tree<T, N, QuadTree> : public BVH_TreeBase<T, N>
 {
 public: //! @name general methods
   //! Creates new empty BVH tree.

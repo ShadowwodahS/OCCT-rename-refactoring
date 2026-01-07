@@ -37,7 +37,7 @@ Standard_Integer Graphic3d_BvhCStructureSetTrsfPers::Size() const
 
 //=================================================================================================
 
-Graphic3d_BndBox3d Graphic3d_BvhCStructureSetTrsfPers::Box(const Standard_Integer theIdx) const
+Graphic3d_BndBox3d Graphic3d_BvhCStructureSetTrsfPers::Box1(const Standard_Integer theIdx) const
 {
   return *myStructBoxes(theIdx + 1);
 }
@@ -149,7 +149,7 @@ const opencascade::handle<BVH_Tree<Standard_Real, 3>>& Graphic3d_BvhCStructureSe
     myStructBoxes.Add(aBoundingBox);
   }
 
-  myBuilder->Build(this, myBVH.operator->(), BVH_Set<Standard_Real, 3>::Box());
+  myBuilder->Build(this, myBVH.operator->(), BVH_Set<Standard_Real, 3>::Box1());
 
   myStructBoxesState = theWVPState;
   myStructBoxes.Clear();

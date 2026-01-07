@@ -160,7 +160,7 @@ TopoShape Tool11::GetShape(const Handle(ShapeAttribute)& NS)
               else
               {
                 Handle(TNaming_Naming) aNaming2;
-                TDF_ChildIterator      it(aNaming->Label());
+                ChildIterator      it(aNaming->Label());
                 for (; it.More(); it.Next())
                 {
                   const DataLabel& aLabel = it.Value();
@@ -251,7 +251,7 @@ TopoShape Tool11::CurrentShape(const Handle(ShapeAttribute)& Att)
           else
           {
             Handle(TNaming_Naming) aNaming2;
-            TDF_ChildIterator      it(aNaming->Label());
+            ChildIterator      it(aNaming->Label());
             for (; it.More(); it.Next())
             {
               const DataLabel& aLabel = it.Value();
@@ -329,7 +329,7 @@ TopoShape Tool11::CurrentShape(const Handle(ShapeAttribute)& Att,
           else
           {
             Handle(TNaming_Naming) aNaming2;
-            TDF_ChildIterator      it(aNaming->Label());
+            ChildIterator      it(aNaming->Label());
             for (; it.More(); it.Next())
             {
               const DataLabel& aLabel = it.Value();
@@ -611,7 +611,7 @@ void Tool11::FindShape(const TDF_LabelMap& Valid,
   // Looking for external arguments:
   TNaming_ListOfNamedShape extArgs;
   TDF_AttributeMap         outRefs;
-  TDF_Tool::OutReferences(Arg->Label(), outRefs);
+  Tool3::OutReferences(Arg->Label(), outRefs);
   if (outRefs.IsEmpty())
   {
 #ifdef OCCT_DEBUG

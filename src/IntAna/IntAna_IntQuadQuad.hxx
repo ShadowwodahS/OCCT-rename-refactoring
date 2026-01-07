@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <gp_Pnt.hxx>
 class gp_Cylinder;
-class IntAna_Quadric;
+class Quadric2;
 class gp_Cone;
 
 //! This class provides the analytic intersection between a
@@ -36,35 +36,35 @@ class gp_Cone;
 //! The result of the intersection may be
 //! - Curves as defined in the class Curve from IntAna
 //! - Points (Pnt from gp)
-class IntAna_IntQuadQuad
+class QuadQuadIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor
-  Standard_EXPORT IntAna_IntQuadQuad();
+  Standard_EXPORT QuadQuadIntersection();
 
   //! Creates the intersection between a cylinder and a quadric .
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT IntAna_IntQuadQuad(const gp_Cylinder&    C,
-                                     const IntAna_Quadric& Q,
+  Standard_EXPORT QuadQuadIntersection(const gp_Cylinder&    C,
+                                     const Quadric2& Q,
                                      const Standard_Real   Tol);
 
   //! Creates the intersection between a cone and a quadric.
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT IntAna_IntQuadQuad(const gp_Cone&        C,
-                                     const IntAna_Quadric& Q,
+  Standard_EXPORT QuadQuadIntersection(const gp_Cone&        C,
+                                     const Quadric2& Q,
                                      const Standard_Real   Tol);
 
   //! Intersects a cylinder and a quadric .
   //! Tol est a definir plus precisemment.
   Standard_EXPORT void Perform(const gp_Cylinder&    C,
-                               const IntAna_Quadric& Q,
+                               const Quadric2& Q,
                                const Standard_Real   Tol);
 
   //! Intersects a cone and a quadric.
   //! Tol est a definir plus precisemment.
-  Standard_EXPORT void Perform(const gp_Cone& C, const IntAna_Quadric& Q, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const gp_Cone& C, const Quadric2& Q, const Standard_Real Tol);
 
   //! Returns True if the computation was successful.
   Standard_Boolean IsDone() const;
@@ -77,7 +77,7 @@ public:
   Standard_Integer NbCurve() const;
 
   //! Returns the curve of range N.
-  Standard_EXPORT const IntAna_Curve& Curve(const Standard_Integer N) const;
+  Standard_EXPORT const Curve1& Curve(const Standard_Integer N) const;
 
   //! Returns the number of contact point.
   Standard_Integer NbPnt() const;
@@ -129,7 +129,7 @@ protected:
 protected:
   Standard_Boolean done;
   Standard_Boolean identical;
-  IntAna_Curve     TheCurve[12];
+  Curve1     TheCurve[12];
   Standard_Integer previouscurve[12];
   Standard_Integer nextcurve[12];
   Standard_Integer NbCurves;

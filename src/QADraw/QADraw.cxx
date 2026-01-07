@@ -75,7 +75,7 @@ static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
   }
 
   // Get bounding box of the shape
-  Bnd_Box aBounds;
+  Box2 aBounds;
   BRepBndLib::Add(aShape, aBounds);
 
   Standard_Real aXmin, aYmin, aZmin;

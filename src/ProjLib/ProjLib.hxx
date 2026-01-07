@@ -39,10 +39,10 @@ class gp_Sphere;
 class gp_Torus;
 class ProjLib_ProjectedCurve;
 
-//! The ProjLib package first provides projection of curves on a plane along a given Direction.
+//! The ProjLib1 package first provides projection of curves on a plane along a given Direction.
 //! The result will be a 3D curve.
 //!
-//! The ProjLib package provides projection of curves on surfaces to compute the curve in the
+//! The ProjLib1 package provides projection of curves on surfaces to compute the curve in the
 //! parametric space. It is assumed that the curve is on the surface.
 //!
 //! It provides:
@@ -60,7 +60,7 @@ class ProjLib_ProjectedCurve;
 //!  - Torus.
 //!
 //! * A generic class to handle a Adaptor3d_Curve on a Adaptor3d_Surface.
-class ProjLib
+class ProjLib1
 {
 public:
   DEFINE_STANDARD_ALLOC

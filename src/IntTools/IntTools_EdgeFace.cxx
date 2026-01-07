@@ -399,8 +399,8 @@ Standard_Boolean IntTools_EdgeFace::CheckTouch(const IntTools_CommonPrt& aCP, St
           }
         }
         aDist2 = anExtrema.SquareDistance(iLower);
-        Extrema_POnCurv aPOnC;
-        Extrema_POnSurf aPOnS;
+        PointOnCurve1 aPOnC;
+        PointOnSurface1 aPOnS;
         anExtrema.Points(iLower, aPOnC, aPOnS);
         aTx = aPOnC.Parameter();
       }
@@ -740,8 +740,8 @@ Standard_Boolean IntTools_EdgeFace::CheckTouchVertex(const IntTools_CommonPrt& a
     return theflag;
   }
 
-  Extrema_POnCurv aPOnC;
-  Extrema_POnSurf aPOnS;
+  PointOnCurve1 aPOnC;
+  PointOnSurface1 aPOnS;
   anExtrema.Points(iLower, aPOnC, aPOnS);
 
   aTx = aPOnC.Parameter();

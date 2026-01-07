@@ -33,7 +33,7 @@
 #include <math_IntegerVector.hxx>
 #include <AppParCurves_Constraint.hxx>
 class AppDef_MultiLine;
-class AppDef_MyLineTool;
+class MultiLineTool;
 class AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

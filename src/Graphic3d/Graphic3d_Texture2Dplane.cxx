@@ -168,7 +168,7 @@ void Graphic3d_Texture2Dplane::PlaneS(Standard_ShortReal& theA,
 
 //=================================================================================================
 
-void Graphic3d_Texture2Dplane::PlaneT(Standard_ShortReal& theA,
+void Graphic3d_Texture2Dplane::PlaneT1(Standard_ShortReal& theA,
                                       Standard_ShortReal& theB,
                                       Standard_ShortReal& theC,
                                       Standard_ShortReal& theD) const

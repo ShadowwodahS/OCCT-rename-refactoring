@@ -107,7 +107,7 @@ static void SetLabelNameByLink(const DataLabel L)
     return;
   }
   AsciiString1 Entry;
-  TDF_Tool::Entry(Node->Father()->Label(), Entry);
+  Tool3::Entry(Node->Father()->Label(), Entry);
   Entry.Insert(1, "=>[");
   Entry += "]";
 
@@ -668,7 +668,7 @@ Standard_Boolean XCAFDoc_ShapeTool::AutoNaming()
 
 void XCAFDoc_ShapeTool::ComputeShapes(const DataLabel& L)
 {
-  TDF_ChildIterator it(L);
+  ChildIterator it(L);
   for (; it.More(); it.Next())
   {
     DataLabel    L1 = it.Value();
@@ -698,7 +698,7 @@ void XCAFDoc_ShapeTool::GetShapes(TDF_LabelSequence& Labels) const
 {
   Labels.Clear();
 
-  TDF_ChildIterator it(Label());
+  ChildIterator it(Label());
   for (; it.More(); it.Next())
   {
     DataLabel    L = it.Value();
@@ -714,7 +714,7 @@ void XCAFDoc_ShapeTool::GetFreeShapes(TDF_LabelSequence& FreeLabels) const
 {
   FreeLabels.Clear();
 
-  TDF_ChildIterator it(Label());
+  ChildIterator it(Label());
   for (; it.More(); it.Next())
   {
     DataLabel    L = it.Value();
@@ -855,7 +855,7 @@ Standard_Boolean XCAFDoc_ShapeTool::GetComponents(const DataLabel&       L,
   if (!IsAssembly(L))
     return Standard_False;
 
-  TDF_ChildIterator It(L);
+  ChildIterator It(L);
   for (; It.More(); It.Next())
   {
     DataLabel comp = It.Value();
@@ -1045,7 +1045,7 @@ Standard_Boolean XCAFDoc_ShapeTool::FindSubShape(const DataLabel&    shapeL,
   // if subshape was found wrong, try to do it manually
   // it can be possible if several part shapes has the same subshapes
   L = DataLabel();
-  TDF_ChildIterator aChldLabIt(shapeL);
+  ChildIterator aChldLabIt(shapeL);
   for (; aChldLabIt.More(); aChldLabIt.Next())
   {
     DataLabel                  aSubLabel = aChldLabIt.Value();
@@ -1139,7 +1139,7 @@ DataLabel XCAFDoc_ShapeTool::FindMainShapeUsingMap(const TopoShape& sub) const
 
 DataLabel XCAFDoc_ShapeTool::FindMainShape(const TopoShape& sub) const
 {
-  TDF_ChildIterator it(Label());
+  ChildIterator it(Label());
   for (; it.More(); it.Next())
   {
     DataLabel L = it.Value();
@@ -1155,7 +1155,7 @@ DataLabel XCAFDoc_ShapeTool::FindMainShape(const TopoShape& sub) const
 
 Standard_Boolean XCAFDoc_ShapeTool::GetSubShapes(const DataLabel& L, TDF_LabelSequence& Labels)
 {
-  TDF_ChildIterator It(L);
+  ChildIterator It(L);
   for (; It.More(); It.Next())
   {
     DataLabel sub = It.Value();
@@ -1190,7 +1190,7 @@ static void DumpAssembly(Standard_OStream&      theDumpLog,
     theDumpLog << "\t";
 
   AsciiString1 Entry;
-  TDF_Tool::Entry(L, Entry);
+  Tool3::Entry(L, Entry);
 
   if (XCAFDoc_ShapeTool::IsAssembly(L))
   {
@@ -1212,7 +1212,7 @@ static void DumpAssembly(Standard_OStream&      theDumpLog,
   {
     Handle(TDataStd_TreeNode) aRef;
     L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
-    TDF_Tool::Entry(aRef->Father()->Label(), Entry);
+    Tool3::Entry(aRef->Father()->Label(), Entry);
     theDumpLog << " (refers to " << Entry << ")";
   }
   Handle(NameAttribute) Name;
@@ -1229,7 +1229,7 @@ static void DumpAssembly(Standard_OStream&      theDumpLog,
   theDumpLog << std::endl;
 
   Handle(TDataStd_TreeNode) Node;
-  TDF_ChildIterator         NodeIterator(L);
+  ChildIterator         NodeIterator(L);
   for (; NodeIterator.More(); NodeIterator.Next())
   {
     DumpAssembly(theDumpLog, NodeIterator.Value(), level + 1, deep);
@@ -1305,13 +1305,13 @@ void XCAFDoc_ShapeTool::DumpShape(Standard_OStream&      theDumpLog,
   TopAbs1::Print(S.ShapeType(), theDumpLog);
 
   AsciiString1 Entry;
-  TDF_Tool::Entry(L, Entry);
+  Tool3::Entry(L, Entry);
   theDumpLog << "  " << Entry;
   if (XCAFDoc_ShapeTool::IsReference(L))
   {
     Handle(TDataStd_TreeNode) aRef;
     L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
-    TDF_Tool::Entry(aRef->Father()->Label(), Entry);
+    Tool3::Entry(aRef->Father()->Label(), Entry);
     theDumpLog << " (refers to " << Entry << ")";
   }
   // std::cout<<std::endl;
@@ -1407,7 +1407,7 @@ Standard_Boolean XCAFDoc_ShapeTool::GetSHUO(const DataLabel&           SHUOLabel
 Standard_Boolean XCAFDoc_ShapeTool::GetAllComponentSHUO(const DataLabel&       theCompLabel,
                                                         TDF_AttributeSequence& theSHUOAttrs)
 {
-  TDF_ChildIterator it(theCompLabel);
+  ChildIterator it(theCompLabel);
   for (; it.More(); it.Next())
   {
     DataLabel                 L = it.Value();
@@ -2136,7 +2136,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aShape)
 
     AsciiString1 aShapeLabel;
-    TDF_Tool::Entry(aShapeLabelIt.Value(), aShapeLabel);
+    Tool3::Entry(aShapeLabelIt.Value(), aShapeLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aShapeLabel)
   }
 
@@ -2147,7 +2147,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aSubShape)
 
     AsciiString1 aSubShapeLabel;
-    TDF_Tool::Entry(aSubShapeIt.Value(), aSubShapeLabel);
+    Tool3::Entry(aSubShapeIt.Value(), aSubShapeLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aSubShapeLabel)
   }
 
@@ -2158,7 +2158,7 @@ void XCAFDoc_ShapeTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
     OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, &aSimpleShape)
 
     AsciiString1 aSimpleShapeLabel;
-    TDF_Tool::Entry(aSimpleShapeIt.Value(), aSimpleShapeLabel);
+    Tool3::Entry(aSimpleShapeIt.Value(), aSimpleShapeLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aSimpleShapeLabel)
   }
 

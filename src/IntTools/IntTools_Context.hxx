@@ -40,8 +40,8 @@ class Point3d;
 class TopoVertex;
 class gp_Pnt2d;
 class IntTools_Curve;
-class Bnd_Box;
-class Bnd_OBB;
+class Box2;
+class OrientedBox;
 
 //! The intersection Context contains geometrical
 //! and topological toolkit (classifiers, projectors, etc).
@@ -86,9 +86,9 @@ public:
   //! Returns a reference to surface adaptor for given face
   Standard_EXPORT BRepAdaptor_Surface& SurfaceAdaptor(const TopoFace& theFace);
 
-  //! Builds and stores an Oriented Bounding Box for the shape.
+  //! Builds and stores an Oriented Bounding Box1 for the shape.
   //! Returns a reference to OBB.
-  Standard_EXPORT Bnd_OBB& OBB(const TopoShape& theShape,
+  Standard_EXPORT OrientedBox& OBB(const TopoShape& theShape,
                                const Standard_Real theFuzzyValue = Precision::Confusion());
 
   //! Computes the boundaries of the face using surface adaptor
@@ -229,7 +229,7 @@ public:
                                                       const TopoEdge& aE,
                                                       Standard_Real&     aT);
 
-  Standard_EXPORT Bnd_Box& BndBox(const TopoShape& theS);
+  Standard_EXPORT Box2& BndBox(const TopoShape& theS);
 
   //! Returns true if the solid <theFace> has
   //! infinite bounds
@@ -255,10 +255,10 @@ protected:
   NCollection_DataMap<TopoShape, Geom2dHatch_Hatcher*, ShapeHasher> myHatcherMap;
   NCollection_DataMap<TopoShape, IntTools_SurfaceRangeLocalizeData*, ShapeHasher>
                                                                                    myProjSDataMap;
-  NCollection_DataMap<TopoShape, Bnd_Box*, ShapeHasher>             myBndBoxDataMap;
+  NCollection_DataMap<TopoShape, Box2*, ShapeHasher>             myBndBoxDataMap;
   NCollection_DataMap<TopoShape, BRepAdaptor_Surface*, ShapeHasher> mySurfAdaptorMap;
   // clang-format off
-  NCollection_DataMap<TopoShape, Bnd_OBB*, ShapeHasher> myOBBMap; // Map of oriented bounding boxes
+  NCollection_DataMap<TopoShape, OrientedBox*, ShapeHasher> myOBBMap; // Map of oriented bounding boxes
   // clang-format on
   Standard_Integer myCreateFlag;
   Standard_Real    myPOnSTolerance;

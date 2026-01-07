@@ -90,7 +90,7 @@ protected:
    * Fields
    */
   DataLabel           myNode;     //!< Current node
-  TDF_ChildIterator   myIterator; //!< OCAF Child iterator
+  ChildIterator   myIterator; //!< OCAF Child iterator
   Handle(TObj_Object) myObject;   //!< Current Object
 
 public:

@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveBox, Select3D_SensitiveEntity)
 //=================================================================================================
 
 Select3D_SensitiveBox::Select3D_SensitiveBox(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                             const Bnd_Box&                       theBox)
+                                             const Box2&                       theBox)
     : Select3D_SensitiveEntity(theOwnerId)
 {
   Standard_Real aXMax, aYMax, aZMax;
@@ -62,7 +62,7 @@ Standard_Integer Select3D_SensitiveBox::NbSubElements() const
 
 Handle(Select3D_SensitiveEntity) Select3D_SensitiveBox::GetConnected()
 {
-  Bnd_Box aBox;
+  Box2 aBox;
   aBox.Update(myBox.CornerMin().x(),
               myBox.CornerMin().y(),
               myBox.CornerMin().z(),

@@ -73,7 +73,7 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
     if (anObject.IsNull())
     {
       AsciiString1 anEntry;
-      TDF_Tool::Entry(theTarget->Label(), anEntry);
+      Tool3::Entry(theTarget->Label(), anEntry);
       myMessageDriver->Send(
         UtfString("TObj_TObject retrieval: wrong object type name ") + aName
           + ", entry " + anEntry,

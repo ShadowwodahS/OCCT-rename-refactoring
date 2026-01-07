@@ -26,7 +26,7 @@ class StepGeom_BoundedCurve;
 class StepGeom_SurfaceCurveAndBoundedCurve;
 DEFINE_STANDARD_HANDLE(StepGeom_SurfaceCurveAndBoundedCurve, StepGeom_SurfaceCurve)
 
-//! complex type: bounded_curve + surface_curve
+//! complex1 type: bounded_curve + surface_curve
 //! needed for curve_bounded_surfaces (S4132)
 class StepGeom_SurfaceCurveAndBoundedCurve : public StepGeom_SurfaceCurve
 {

@@ -187,7 +187,7 @@ Ax1 Geom_Ellipse::Directrix2() const
 void Geom_Ellipse::D0(const Standard_Real U, Point3d& P) const
 {
 
-  P = ElCLib::EllipseValue(U, pos, majorRadius, minorRadius);
+  P = ElCLib1::EllipseValue(U, pos, majorRadius, minorRadius);
 }
 
 //=================================================================================================
@@ -195,7 +195,7 @@ void Geom_Ellipse::D0(const Standard_Real U, Point3d& P) const
 void Geom_Ellipse::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 {
 
-  ElCLib::EllipseD1(U, pos, majorRadius, minorRadius, P, V1);
+  ElCLib1::EllipseD1(U, pos, majorRadius, minorRadius, P, V1);
 }
 
 //=================================================================================================
@@ -203,7 +203,7 @@ void Geom_Ellipse::D1(const Standard_Real U, Pnt& P, Vec& V1) const
 void Geom_Ellipse::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 {
 
-  ElCLib::EllipseD2(U, pos, majorRadius, minorRadius, P, V1, V2);
+  ElCLib1::EllipseD2(U, pos, majorRadius, minorRadius, P, V1, V2);
 }
 
 //=================================================================================================
@@ -211,7 +211,7 @@ void Geom_Ellipse::D2(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2) const
 void Geom_Ellipse::D3(const Standard_Real U, Pnt& P, Vec& V1, Vec& V2, Vec& V3) const
 {
 
-  ElCLib::EllipseD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
+  ElCLib1::EllipseD3(U, pos, majorRadius, minorRadius, P, V1, V2, V3);
 }
 
 //=================================================================================================
@@ -220,7 +220,7 @@ Vec Geom_Ellipse::DN(const Standard_Real U, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N < 1, " ");
-  return ElCLib::EllipseDN(U, pos, majorRadius, minorRadius, N);
+  return ElCLib1::EllipseDN(U, pos, majorRadius, minorRadius, N);
 }
 
 //=================================================================================================

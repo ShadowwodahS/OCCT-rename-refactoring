@@ -39,7 +39,7 @@ static const Standard_Real PARTOLERANCE = 1.e-9;
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameter(const Handle(GeomCurve3d)& Curve,
+Standard_Boolean Tool2::Parameter(const Handle(GeomCurve3d)& Curve,
                                          const Point3d&             Point,
                                          const Standard_Real       MaxDist,
                                          Standard_Real&            U)
@@ -89,7 +89,7 @@ Standard_Boolean GeomLib_Tool::Parameter(const Handle(GeomCurve3d)& Curve,
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameters(const Handle(GeomSurface)& Surface,
+Standard_Boolean Tool2::Parameters(const Handle(GeomSurface)& Surface,
                                           const Point3d&               Point,
                                           const Standard_Real         MaxDist,
                                           Standard_Real&              U,
@@ -143,7 +143,7 @@ Standard_Boolean GeomLib_Tool::Parameters(const Handle(GeomSurface)& Surface,
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameter(const Handle(GeomCurve2d)& Curve,
+Standard_Boolean Tool2::Parameter(const Handle(GeomCurve2d)& Curve,
                                          const gp_Pnt2d&             Point,
                                          const Standard_Real         MaxDist,
                                          Standard_Real&              U)
@@ -305,7 +305,7 @@ private:
 //            where D1 and D2 are 1st and 2nd derivative of the function, computed in
 //            the point U(n). U(0) = theStartParameter.
 //=======================================================================
-Standard_Real GeomLib_Tool::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
+Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
                                              const Standard_Real        theFPar,
                                              const Standard_Real        theLPar,
                                              const Standard_Real        theStartParameter,
@@ -405,7 +405,7 @@ Standard_Real GeomLib_Tool::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve
 //           (fast but not precisely).
 //           math_PSO Algorithm is used.
 //=======================================================================
-Standard_Real GeomLib_Tool::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
+Standard_Real Tool2::ComputeDeviation(const Geom2dAdaptor_Curve& theCurve,
                                              const Standard_Real        theFPar,
                                              const Standard_Real        theLPar,
                                              const Standard_Integer     theNbSubIntervals,

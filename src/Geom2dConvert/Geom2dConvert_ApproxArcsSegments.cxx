@@ -38,7 +38,7 @@ static Standard_Boolean checkContinuity(const Handle(GeomCurve2d)& theCurve1,
                                         const Handle(GeomCurve2d)& theCurve2,
                                         const Standard_Real         theAnglTol);
 
-static Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
+static ParameterPoint getParameter(const Coords2d&             theXY1,
                                          const Standard_Real      theFirstPar,
                                          const Standard_Real      theLastPar,
                                          const Adaptor2d_Curve2d& theCurve);
@@ -47,7 +47,7 @@ static Standard_Boolean isInflectionPoint(const Standard_Real      theParam,
                                           const Adaptor2d_Curve2d& theCurve);
 
 static Standard_Boolean isInflectionPoint(const Standard_Real         theParam,
-                                          const Geom2dConvert_PPoint& theFirstInf,
+                                          const ParameterPoint& theFirstInf,
                                           const Adaptor2d_Curve2d&    theCurve,
                                           const Standard_Real         theAnglTol);
 
@@ -64,8 +64,8 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
       mySeqParams(myAlloc),
       myStatus(StatusNotDone)
 {
-  myExt[0] = Geom2dConvert_PPoint(myCurve.FirstParameter(), myCurve);
-  myExt[1] = Geom2dConvert_PPoint(myCurve.LastParameter(), myCurve);
+  myExt[0] = ParameterPoint(myCurve.FirstParameter(), myCurve);
+  myExt[1] = ParameterPoint(myCurve.LastParameter(), myCurve);
 
   switch (myCurve.GetType())
   {
@@ -83,7 +83,7 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
     break;
     case GeomAbs_Circle: {
       // Create a couple of arcs of equal size.
-      const Geom2dConvert_PPoint aPP(.5 * (myExt[0].Parameter() + myExt[1].Parameter()), myCurve);
+      const ParameterPoint aPP(.5 * (myExt[0].Parameter() + myExt[1].Parameter()), myCurve);
       Handle(GeomCurve2d)       aCurve = makeCircle(myExt[0], aPP);
       if (aCurve.IsNull() == Standard_False)
       {
@@ -117,8 +117,8 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
 //=======================================================================
 
 Handle(GeomCurve2d) Geom2dConvert_ApproxArcsSegments::makeCircle(
-  const Geom2dConvert_PPoint& theFirst,
-  const Geom2dConvert_PPoint& theLast) const
+  const ParameterPoint& theFirst,
+  const ParameterPoint& theLast) const
 {
   Handle(GeomCurve2d) aResult;
   gp_Pnt2d             aPointM(0.0, 0.0);
@@ -140,8 +140,8 @@ Handle(GeomCurve2d) Geom2dConvert_ApproxArcsSegments::makeCircle(
 //=======================================================================
 
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
-  const Geom2dConvert_PPoint&  theParam1,
-  Geom2dConvert_PPoint&        theParam2,
+  const ParameterPoint&  theParam1,
+  ParameterPoint&        theParam2,
   const Standard_Boolean       isFirst,
   Handle(Geom2d_TrimmedCurve)& theCurve) const
 {
@@ -182,13 +182,13 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
     Standard_Real anAlpha1, anAlpha2;
     if (isFirst)
     {
-      anAlpha1 = ElCLib::Parameter(aCir, aP1);
-      anAlpha2 = ElCLib::Parameter(aCir, aP2);
+      anAlpha1 = ElCLib1::Parameter(aCir, aP1);
+      anAlpha2 = ElCLib1::Parameter(aCir, aP2);
     }
     else
     {
-      anAlpha1 = ElCLib::Parameter(aCir, aP2);
-      anAlpha2 = ElCLib::Parameter(aCir, aP1);
+      anAlpha1 = ElCLib1::Parameter(aCir, aP2);
+      anAlpha2 = ElCLib1::Parameter(aCir, aP1);
       aSense   = -aSense;
     }
 
@@ -220,8 +220,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
 //=======================================================================
 
 Handle(Geom2d_TrimmedCurve) Geom2dConvert_ApproxArcsSegments::makeLine(
-  Geom2dConvert_PPoint&  theFirst,
-  Geom2dConvert_PPoint&  theLast,
+  ParameterPoint&  theFirst,
+  ParameterPoint&  theLast,
   const Standard_Boolean isCheck) const
 {
   Handle(Geom2d_TrimmedCurve) aResult;
@@ -289,7 +289,7 @@ Handle(Geom2d_TrimmedCurve) Geom2dConvert_ApproxArcsSegments::makeLine(
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
 {
   Geom2dConvert_SequenceOfPPoint seqParamPoints(myAlloc);
-  Geom2dConvert_PPoint*          aPrevParam = &myExt[0];
+  ParameterPoint*          aPrevParam = &myExt[0];
 
   // calculation of the inflection points.
   getLinearParts(seqParamPoints);
@@ -301,8 +301,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
   for (i = 1; i < seqParamPoints.Length(); i += 2)
   {
     Handle(GeomCurve2d)  aLineCurve;
-    Geom2dConvert_PPoint& aParam0 = seqParamPoints.ChangeValue(i);
-    Geom2dConvert_PPoint& aParam1 = seqParamPoints.ChangeValue(i + 1);
+    ParameterPoint& aParam0 = seqParamPoints.ChangeValue(i);
+    ParameterPoint& aParam1 = seqParamPoints.ChangeValue(i + 1);
     if (aParam0 != aParam1)
       // linear part of the curve lies between odd and even values of i.
       // parameters from parameter's sequence.
@@ -333,8 +333,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
       mySeqCurves.Append(aCurve);
     else
     {
-      Geom2dConvert_PPoint&  aParam0  = seqParamPoints.ChangeValue(i);
-      Geom2dConvert_PPoint&  aParam1  = seqParamPoints.ChangeValue(i + 1);
+      ParameterPoint&  aParam0  = seqParamPoints.ChangeValue(i);
+      ParameterPoint&  aParam1  = seqParamPoints.ChangeValue(i + 1);
       const Standard_Integer aLastInd = mySeqCurves.Length();
       isDone                          = makeApproximation(aParam0, aParam1);
       if (isDone && aLastInd && mySeqCurves.Length() > aLastInd)
@@ -358,7 +358,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
     // Case of a closed edge like an ellipse
     if (isNoInfPoints && (myExt[0].Point() - myExt[1].Point()).Modulus() < myTolerance)
     {
-      Geom2dConvert_PPoint aPPoint(0.5 * (myExt[0].Parameter() + myExt[1].Parameter()), myCurve);
+      ParameterPoint aPPoint(0.5 * (myExt[0].Parameter() + myExt[1].Parameter()), myCurve);
       isDone = makeApproximation(myExt[0], aPPoint);
       if (isDone)
         isDone = makeApproximation(aPPoint, myExt[1]);
@@ -388,7 +388,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
   // Fill the sequences with values along the curve
   mySeqParams.Clear();
   Adaptor2d_Curve2d&            myCurveMut = const_cast<Adaptor2d_Curve2d&>(myCurve);
-  GCPnts_QuasiUniformDeflection aQUDefAlgo(myCurveMut, myTolerance * 0.5);
+  QuasiUniformDeflectionSampler aQUDefAlgo(myCurveMut, myTolerance * 0.5);
   Standard_Boolean              isUniformDone = aQUDefAlgo.IsDone();
 
   Coords2d aLastPnt(myExt[0].Point());
@@ -396,7 +396,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
   {
     for (i = 1; i <= aQUDefAlgo.NbPoints(); i++)
     {
-      const Geom2dConvert_PPoint aPP(aQUDefAlgo.Parameter(i), myCurve);
+      const ParameterPoint aPP(aQUDefAlgo.Parameter(i), myCurve);
       mySeqParams.Append(aPP);
       aLastPnt = aPP.Point();
     }
@@ -407,7 +407,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
     for (i = 1; i <= MAXPOINTS; i++)
     {
       const Standard_Real        aParam = myExt[0].Parameter() + aParamStep * i;
-      const Geom2dConvert_PPoint aPP(aParam, myCurve);
+      const ParameterPoint aPP(aParam, myCurve);
       mySeqParams.Append(aPP);
       aLastPnt = aPP.Point();
     }
@@ -440,14 +440,14 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
 
   // check if point for First Parameter is inflection point.
   Standard_Integer     indStartLinear(0);
-  Geom2dConvert_PPoint aLastInflParam  = myExt[0];
-  Geom2dConvert_PPoint aFirstInflParam = myExt[0];
+  ParameterPoint aLastInflParam  = myExt[0];
+  ParameterPoint aFirstInflParam = myExt[0];
 
   // Getting further inflection points with step by parameter.
   // The point with index 1 is the same as myExt[0]
   for (i = 1; i <= mySeqParams.Length(); i++)
   {
-    const Geom2dConvert_PPoint& aCurParam = mySeqParams(i);
+    const ParameterPoint& aCurParam = mySeqParams(i);
     if (indStartLinear)
     {
       Standard_Boolean isStillInflectionFirst =
@@ -511,9 +511,9 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
 //           two parameters on the Curve
 //=======================================================================
 
-Geom2dConvert_PPoint Geom2dConvert_ApproxArcsSegments::findInflection(
-  const Geom2dConvert_PPoint& theParamIsInfl,
-  const Geom2dConvert_PPoint& theParamNoInfl) const
+ParameterPoint Geom2dConvert_ApproxArcsSegments::findInflection(
+  const ParameterPoint& theParamIsInfl,
+  const ParameterPoint& theParamNoInfl) const
 {
   Standard_Real aLower(theParamIsInfl.Parameter());
   Standard_Real anUpper(theParamNoInfl.Parameter());
@@ -526,7 +526,7 @@ Geom2dConvert_PPoint Geom2dConvert_ApproxArcsSegments::findInflection(
     else
       anUpper = aTest;
   }
-  return Geom2dConvert_PPoint(aTest, myCurve);
+  return ParameterPoint(aTest, myCurve);
 }
 
 //=======================================================================
@@ -535,8 +535,8 @@ Geom2dConvert_PPoint Geom2dConvert_ApproxArcsSegments::findInflection(
 //=======================================================================
 
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
-  Geom2dConvert_PPoint& theFirstParam,
-  Geom2dConvert_PPoint& theLastParam)
+  ParameterPoint& theFirstParam,
+  ParameterPoint& theLastParam)
 {
   // if difference between parameters is less than Precision::PConfusion
   // approximation was not made.
@@ -562,7 +562,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
     // if biarc was not calculated calculation is repeated on half the interval.
     if (!isDone)
     {
-      Geom2dConvert_PPoint aParaM(theFirstParam.Parameter()
+      ParameterPoint aParaM(theFirstParam.Parameter()
                                     + (theLastParam.Parameter() - theFirstParam.Parameter()) * 0.55,
                                   myCurve);
       isDone = makeApproximation(theFirstParam, aParaM);
@@ -579,8 +579,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
 //=======================================================================
 
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
-  Geom2dConvert_PPoint& theFirstParam,
-  Geom2dConvert_PPoint& theLastParam)
+  ParameterPoint& theFirstParam,
+  ParameterPoint& theLastParam)
 {
   const Standard_Real aResolution = gp::Resolution();
 
@@ -613,7 +613,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
     Handle(Geom2d_TrimmedCurve) aCurve;
     // protect the theLastParam from modification of D1, when
     // the created arc is rejected.
-    Geom2dConvert_PPoint aLastParam(theLastParam);
+    ParameterPoint aLastParam(theLastParam);
     if (!makeArc(theFirstParam, aLastParam, Standard_True, aCurve))
       return Standard_False;
     if (checkCurve(aCurve, theFirstParam.Parameter(), aLastParam.Parameter()))
@@ -658,7 +658,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
                   aPnt[1] + aDir[1].XY() * ad12 * ad2 / (ad12 + ad1 + ad2)};
 
   const Coords2d          aXYmidArc(aXY[0] + aB1 * (aXY[1] - aXY[0]));
-  Geom2dConvert_PPoint aParamMidArc =
+  ParameterPoint aParamMidArc =
     getParameter(aXYmidArc, theFirstParam.Parameter(), theLastParam.Parameter(), myCurve);
 
   // building first arc from biarc.
@@ -688,13 +688,13 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
 //=======================================================================
 
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateLines(
-  Geom2dConvert_PPoint& theFirstParam,
-  Geom2dConvert_PPoint& theLastParam)
+  ParameterPoint& theFirstParam,
+  ParameterPoint& theLastParam)
 {
-  Geom2dConvert_PPoint* aPrevParam = &theFirstParam;
+  ParameterPoint* aPrevParam = &theFirstParam;
   for (int i = 1; i <= mySeqParams.Length(); i++)
   {
-    Geom2dConvert_PPoint& aCurParam = mySeqParams.ChangeValue(i);
+    ParameterPoint& aCurParam = mySeqParams.ChangeValue(i);
     if (aCurParam.Parameter() < (*aPrevParam).Parameter())
     {
       continue;
@@ -783,14 +783,14 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
     // getting point from geom curve by specified parameter.
     if (isLine)
     {
-      aParameterCurve = ElCLib::Parameter(aLin2d, aPointAdaptor);
-      aProjPoint      = ElCLib::Value(aParameterCurve, aLin2d);
+      aParameterCurve = ElCLib1::Parameter(aLin2d, aPointAdaptor);
+      aProjPoint      = ElCLib1::Value(aParameterCurve, aLin2d);
     }
     else if (isCircle)
     {
 
-      aParameterCurve = ElCLib::Parameter(aCirc2d, aPointAdaptor);
-      aProjPoint      = ElCLib::Value(aParameterCurve, aCirc2d);
+      aParameterCurve = ElCLib1::Parameter(aCirc2d, aPointAdaptor);
+      aProjPoint      = ElCLib1::Value(aParameterCurve, aCirc2d);
     }
 
     isLess = (aProjPoint.Distance(aPointAdaptor) < myTolerance + Precision::PConfusion());
@@ -821,12 +821,12 @@ Standard_Boolean checkContinuity(const Handle(GeomCurve2d)& theCurve1,
 // purpose  : getting the nearest point on AdaptorCurve to the specified point.
 //=======================================================================
 
-Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
+ParameterPoint getParameter(const Coords2d&             theXY1,
                                   const Standard_Real      theFirstParam,
                                   const Standard_Real      theLastParam,
                                   const Adaptor2d_Curve2d& theCurve)
 {
-  Geom2dConvert_PPoint aResult;
+  ParameterPoint aResult;
   Standard_Real        prevParam = theFirstParam;
   Standard_Real        af1       = theFirstParam;
   Standard_Real        af2       = theLastParam;
@@ -836,14 +836,14 @@ Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
   Standard_Integer i        = 1;
   for (; i <= MAXPOINTS; i++)
   {
-    aResult              = Geom2dConvert_PPoint(af1, theCurve);
+    aResult              = ParameterPoint(af1, theCurve);
     Standard_Real adist1 = (theXY1 - aResult.Point()).Modulus();
     if (adist1 < Precision::Confusion())
     {
       return aResult;
     }
 
-    aResult              = Geom2dConvert_PPoint(af2, theCurve);
+    aResult              = ParameterPoint(af2, theCurve);
     Standard_Real adist2 = (theXY1 - aResult.Point()).Modulus();
     if (adist2 < Precision::Confusion())
     {
@@ -868,7 +868,7 @@ Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
       af1       = (af1 + af2) * 0.5;
     }
   }
-  aResult = Geom2dConvert_PPoint(prevParam, theCurve);
+  aResult = ParameterPoint(prevParam, theCurve);
   return aResult;
 }
 
@@ -895,7 +895,7 @@ Standard_Boolean isInflectionPoint(const Standard_Real theParam, const Adaptor2d
 //=======================================================================
 
 Standard_Boolean isInflectionPoint(const Standard_Real         theParam,
-                                   const Geom2dConvert_PPoint& theFirstInfl,
+                                   const ParameterPoint& theFirstInfl,
                                    const Adaptor2d_Curve2d&    theCurve,
                                    const Standard_Real         theAngleTol)
 {

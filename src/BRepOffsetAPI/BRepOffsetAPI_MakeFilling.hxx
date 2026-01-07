@@ -138,7 +138,7 @@ public:
   //! Loads the initial surface Surf to
   //! begin the construction of the surface.
   //! This optional function is useful if the surface resulting from
-  //! construction for the algorithm is likely to be complex.
+  //! construction for the algorithm is likely to be complex1.
   //! The support surface of the face under construction is computed by a
   //! deformation of Surf which satisfies the given constraints.
   //! The set of bounding edges defines the wire of the face.

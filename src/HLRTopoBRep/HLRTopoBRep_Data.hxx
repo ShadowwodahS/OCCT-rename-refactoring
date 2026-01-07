@@ -36,12 +36,12 @@ class TopoVertex;
 
 //! Stores  the results  of  the  OutLine and  IsoLine
 //! processes.
-class HLRTopoBRep_Data
+class Data1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRTopoBRep_Data();
+  Standard_EXPORT Data1();
 
   //! Clear of all the maps.
   Standard_EXPORT void Clear();

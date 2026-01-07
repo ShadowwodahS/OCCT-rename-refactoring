@@ -66,7 +66,7 @@ GeomToStep_MakeBoundedSurface::GeomToStep_MakeBoundedSurface(
   else if (S->IsKind(STANDARD_TYPE(Geom_BezierSurface)))
   {
     Handle(Geom_BezierSurface)  Sur = Handle(Geom_BezierSurface)::DownCast(S);
-    Handle(Geom_BSplineSurface) BS  = GeomConvert::SurfaceToBSplineSurface(Sur);
+    Handle(Geom_BSplineSurface) BS  = GeomConvert1::SurfaceToBSplineSurface(Sur);
     if (BS->IsURational() || BS->IsVRational())
     {
       GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface MkRatBSplineS(

@@ -28,7 +28,7 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
 #define AppParCurves_LeastSquare AppDef_TheLeastSquares
 #define AppParCurves_LeastSquare_hxx <AppDef_TheLeastSquares.hxx>

@@ -21,12 +21,12 @@
 #include <gp_Lin.hxx>
 #include <gp_Circ.hxx>
 
-inline Standard_Boolean Contap_ContAna::IsDone() const
+inline Standard_Boolean ContourAnalyzer::IsDone() const
 {
   return done;
 }
 
-inline Standard_Integer Contap_ContAna::NbContours() const
+inline Standard_Integer ContourAnalyzer::NbContours() const
 {
   if (!done)
   {
@@ -35,7 +35,7 @@ inline Standard_Integer Contap_ContAna::NbContours() const
   return nbSol;
 }
 
-inline GeomAbs_CurveType Contap_ContAna::TypeContour() const
+inline GeomAbs_CurveType ContourAnalyzer::TypeContour() const
 {
   if (!done)
   {
@@ -48,7 +48,7 @@ inline GeomAbs_CurveType Contap_ContAna::TypeContour() const
   return typL;
 }
 
-inline gp_Circ Contap_ContAna::Circle() const
+inline gp_Circ ContourAnalyzer::Circle() const
 {
   if (!done)
   {

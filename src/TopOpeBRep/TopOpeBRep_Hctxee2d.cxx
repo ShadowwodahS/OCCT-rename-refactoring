@@ -171,12 +171,12 @@ void TopOpeBRep_Hctxee2d::SetEdges(const TopoEdge&         E1,
       {
         std::cout << "------------ projection de curve" << std::endl;
         std::cout << "--- Curve : " << std::endl;
-        GeomTools_CurveSet::PrintCurve(NC, std::cout);
+        CurveSet1::PrintCurve(NC, std::cout);
         std::cout << "--- nouvelle PCurve : " << std::endl;
-        GeomTools_Curve2dSet::PrintCurve2d(PC2on1, std::cout);
+        Curve2dSet1::PrintCurve2d(PC2on1, std::cout);
         Handle(GeomSurface) aS1 = BRepInspector::Surface(F1);
         std::cout << "--- sur surface : " << std::endl;
-        GeomTools_SurfaceSet::PrintSurface(aS1, std::cout);
+        SurfaceSet1::PrintSurface(aS1, std::cout);
         std::cout << std::endl;
       }
 #endif

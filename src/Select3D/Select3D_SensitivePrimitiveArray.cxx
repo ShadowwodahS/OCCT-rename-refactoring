@@ -666,7 +666,7 @@ Standard_Integer Select3D_SensitivePrimitiveArray::Size() const
 
 //=================================================================================================
 
-Select3D_BndBox3d Select3D_SensitivePrimitiveArray::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_SensitivePrimitiveArray::Box1(const Standard_Integer theIdx) const
 {
   const Standard_Integer anElemIdx  = myBvhIndices.Index(theIdx);
   const Standard_Integer aPatchSize = myBvhIndices.PatchSize(theIdx);
@@ -750,7 +750,7 @@ Standard_Real Select3D_SensitivePrimitiveArray::Center(const Standard_Integer th
     return theAxis == 0 ? aCenter.X() : (theAxis == 1 ? aCenter.Y() : aCenter.Z());
   }
 
-  const Select3D_BndBox3d& aBox    = Box(theIdx);
+  const Select3D_BndBox3d& aBox    = Box1(theIdx);
   SelectMgr_Vec3           aCenter = (aBox.CornerMin() + aBox.CornerMax()) * 0.5;
   return theAxis == 0 ? aCenter.x() : (theAxis == 1 ? aCenter.y() : aCenter.z());
 }

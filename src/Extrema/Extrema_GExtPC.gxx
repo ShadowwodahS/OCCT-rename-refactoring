@@ -384,7 +384,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
         
         if (isPeriodic) {
           Standard_Real aPeriod = TheCurveTool::Period(aCurve);
-          anInfToCheck = ElCLib::InPeriod(myintuinf, myuinf, myuinf+aPeriod);
+          anInfToCheck = ElCLib1::InPeriod(myintuinf, myuinf, myuinf+aPeriod);
           aSupToCheck = myintusup+(anInfToCheck-myintuinf);
         }    
         IntIsNotValid = (myuinf > aSupToCheck) || (myusup < anInfToCheck);
@@ -469,7 +469,7 @@ void Extrema_GExtPC::Perform(const ThePoint& P)
         U = PC.Parameter();
         if (TheCurveTool::IsPeriodic(aCurve))
         {
-          U = ElCLib::InPeriod(U, myuinf, myuinf+TheCurveTool::Period(aCurve));
+          U = ElCLib1::InPeriod(U, myuinf, myuinf+TheCurveTool::Period(aCurve));
         }
         if ((U >= myuinf-mytolu) && (U <= myusup+mytolu))
         {
@@ -529,7 +529,7 @@ void Extrema_GExtPC::IntervalPerform(const ThePoint& P)
       U = PC.Parameter();
       if (TheCurveTool::IsPeriodic(*((TheCurve*)myC)))
       {
-        U = ElCLib::InPeriod(U, myuinf, myuinf+TheCurveTool::Period(*((TheCurve*)myC)));
+        U = ElCLib1::InPeriod(U, myuinf, myuinf+TheCurveTool::Period(*((TheCurve*)myC)));
       }
       if ((U >= myuinf - mytolu) && (U <= myusup + mytolu))
       {

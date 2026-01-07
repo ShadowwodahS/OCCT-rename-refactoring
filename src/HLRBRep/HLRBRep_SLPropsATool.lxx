@@ -23,7 +23,7 @@
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_SLPropsATool::Value(const Standard_Address A,
+inline void SLPropsATool::Value(const Standard_Address A,
                                         const Standard_Real    U,
                                         const Standard_Real    V,
                                         Point3d&                P)
@@ -36,7 +36,7 @@ inline void HLRBRep_SLPropsATool::Value(const Standard_Address A,
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_SLPropsATool::D1(const Standard_Address A,
+inline void SLPropsATool::D1(const Standard_Address A,
                                      const Standard_Real    U,
                                      const Standard_Real    V,
                                      Point3d&                P,
@@ -51,7 +51,7 @@ inline void HLRBRep_SLPropsATool::D1(const Standard_Address A,
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_SLPropsATool::D2(const Standard_Address A,
+inline void SLPropsATool::D2(const Standard_Address A,
                                      const Standard_Real    U,
                                      const Standard_Real    V,
                                      Point3d&                P,
@@ -69,7 +69,7 @@ inline void HLRBRep_SLPropsATool::D2(const Standard_Address A,
 // purpose  :
 //=======================================================================
 
-inline Vector3d HLRBRep_SLPropsATool::DN(const Standard_Address A,
+inline Vector3d SLPropsATool::DN(const Standard_Address A,
                                        const Standard_Real    U,
                                        const Standard_Real    V,
                                        const Standard_Integer Nu,
@@ -83,7 +83,7 @@ inline Vector3d HLRBRep_SLPropsATool::DN(const Standard_Address A,
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer HLRBRep_SLPropsATool::Continuity(const Standard_Address)
+inline Standard_Integer SLPropsATool::Continuity(const Standard_Address)
 {
   return 2;
 } // et boum ! cky le 27 - 04 - 1993
@@ -93,7 +93,7 @@ inline Standard_Integer HLRBRep_SLPropsATool::Continuity(const Standard_Address)
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_SLPropsATool::Bounds(const Standard_Address,
+inline void SLPropsATool::Bounds(const Standard_Address,
                                          Standard_Real& U1,
                                          Standard_Real& V1,
                                          Standard_Real& U2,

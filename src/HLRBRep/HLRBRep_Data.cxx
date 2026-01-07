@@ -600,20 +600,20 @@ void HLRBRep_Data::Write(const Handle(HLRBRep_Data)& DS,
 
 //=================================================================================================
 
-void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
+void HLRBRep_Data::Update(const HLRAlgoProjector& P)
 {
   myProj             = P;
   const Transform3d&   T = myProj.Transformation();
   Standard_Integer i;
   Standard_Real    tolMinMax = 0;
 
-  HLRAlgo_EdgesBlock::MinMaxIndices FaceMin, FaceMax;
-  HLRAlgo_EdgesBlock::MinMaxIndices MinMaxFace;
-  HLRAlgo_EdgesBlock::MinMaxIndices WireMin, WireMax, MinMaxWire;
-  HLRAlgo_EdgesBlock::MinMaxIndices EdgeMin, EdgeMax;
-  HLRAlgo_EdgesBlock::MinMaxIndices MinMaxEdge;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 FaceMin, FaceMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 MinMaxFace;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 WireMin, WireMax, MinMaxWire;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 EdgeMin, EdgeMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 MinMaxEdge;
   Standard_Real                     TotMin[16], TotMax[16];
-  HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+  HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
 
   // compute the global MinMax
   // *************************
@@ -628,7 +628,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
     if (enl > tolMinMax)
       tolMinMax = enl;
   }
-  HLRAlgo::EnlargeMinMax(tolMinMax, TotMin, TotMax);
+  HLRAlgo1::EnlargeMinMax(tolMinMax, TotMin, TotMax);
   Standard_Real d[16];
   Standard_Real precad = -Precision::Infinite();
 
@@ -659,14 +659,14 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
 
     HLRBRep_EdgeData& ed = myEData.ChangeValue(edge);
     HLRBRep_Curve&    EC = ed.ChangeGeometry();
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
     tolMinMax = EC.UpdateMinMax(TotMin, TotMax);
     tol       = (Standard_Real)(ed.Tolerance());
     ed.Vertical(TotMax[0] - TotMin[0] < tol && TotMax[1] - TotMin[1] < tol
                 && TotMax[2] - TotMin[2] < tol && TotMax[3] - TotMin[3] < tol
                 && TotMax[4] - TotMin[4] < tol && TotMax[5] - TotMin[5] < tol
                 && TotMax[6] - TotMin[6] < tol);
-    HLRAlgo::EnlargeMinMax(tolMinMax, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tolMinMax, TotMin, TotMax);
     // Linux warning :  assignment to `int' from `double'. Cast has been added.
     EdgeMin.Min[0] = (Standard_Integer)((myDeca[0] + TotMin[0]) * mySurD[0]);
     EdgeMax.Min[0] = (Standard_Integer)((myDeca[0] + TotMax[0]) * mySurD[0]);
@@ -701,7 +701,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
     EdgeMin.Max[7] = (Standard_Integer)((myDeca[15] + TotMin[15]) * mySurD[15]);
     EdgeMax.Max[7] = (Standard_Integer)((myDeca[15] + TotMax[15]) * mySurD[15]);
 
-    HLRAlgo::EncodeMinMax(EdgeMin, EdgeMax, MinMaxEdge);
+    HLRAlgo1::EncodeMinMax(EdgeMin, EdgeMax, MinMaxEdge);
     ed.UpdateMinMax(MinMaxEdge);
     if (ed.Vertical())
     {
@@ -840,7 +840,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
           myFEGeom                = &(EDataFE1.ChangeGeometry());
           const HLRBRep_Curve& EC = EDataFE1.Geometry();
           p                       = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
-          if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
+          if (EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
           {
             mySLProps.SetParameters(pu, pv);
             Point3d Pt;
@@ -916,38 +916,38 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
       HLRBRep_EdgeData& EDataFE2 = myEData(myFE);
       if (!fd.Simple())
         EDataFE2.AutoIntersectionDone(Standard_False);
-      HLRAlgo::DecodeMinMax(EDataFE2.MinMax(), EdgeMin, EdgeMax);
+      HLRAlgo1::DecodeMinMax(EDataFE2.MinMax(), EdgeMin, EdgeMax);
       if (myFaceItr1.BeginningOfWire())
-        HLRAlgo::CopyMinMax(EdgeMin, EdgeMax, WireMin, WireMax);
+        HLRAlgo1::CopyMinMax(EdgeMin, EdgeMax, WireMin, WireMax);
       else
-        HLRAlgo::AddMinMax(EdgeMin, EdgeMax, WireMin, WireMax);
+        HLRAlgo1::AddMinMax(EdgeMin, EdgeMax, WireMin, WireMax);
       if (myFaceItr1.EndOfWire())
       {
-        HLRAlgo::EncodeMinMax(WireMin, WireMax, MinMaxWire);
+        HLRAlgo1::EncodeMinMax(WireMin, WireMax, MinMaxWire);
         myFaceItr1.Wire()->UpdateMinMax(MinMaxWire);
         if (FirstTime)
         {
           FirstTime = Standard_False;
-          HLRAlgo::CopyMinMax(WireMin, WireMax, FaceMin, FaceMax);
+          HLRAlgo1::CopyMinMax(WireMin, WireMax, FaceMin, FaceMax);
         }
         else
-          HLRAlgo::AddMinMax(WireMin, WireMax, FaceMin, FaceMax);
+          HLRAlgo1::AddMinMax(WireMin, WireMax, FaceMin, FaceMax);
       }
     }
-    HLRAlgo::EncodeMinMax(FaceMin, FaceMax, MinMaxFace);
+    HLRAlgo1::EncodeMinMax(FaceMin, FaceMax, MinMaxFace);
     fd.Wires()->UpdateMinMax(MinMaxFace);
-    fd.Size(HLRAlgo::SizeBox(FaceMin, FaceMax));
+    fd.Size(HLRAlgo1::SizeBox(FaceMin, FaceMax));
   }
 }
 
 //=================================================================================================
 
-void HLRBRep_Data::InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices& MinMaxTot,
+void HLRBRep_Data::InitBoundSort(const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxTot,
                                  const Standard_Integer                   e1,
                                  const Standard_Integer                   e2)
 {
   myNbrSortEd                                         = 0;
-  const HLRAlgo_EdgesBlock::MinMaxIndices& MinMaxShap = MinMaxTot;
+  const HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxShap = MinMaxTot;
 
   for (Standard_Integer e = e1; e <= e2; e++)
   {
@@ -1188,7 +1188,7 @@ void HLRBRep_Data::NextInterference()
     // rejection of current wire
     if (myFaceItr1.BeginningOfWire())
     {
-      HLRAlgo_EdgesBlock::MinMaxIndices& MinMaxWire = myFaceItr1.Wire()->MinMax();
+      HLRAlgo_EdgesBlock::MinMaxIndices1& MinMaxWire = myFaceItr1.Wire()->MinMax();
       if (((MinMaxWire.Max[0] - myLEMinMax->Min[0]) & 0x80008000) != 0
           || ((myLEMinMax->Max[0] - MinMaxWire.Min[0]) & 0x80008000) != 0
           || ((MinMaxWire.Max[1] - myLEMinMax->Min[1]) & 0x80008000) != 0
@@ -1225,7 +1225,7 @@ void HLRBRep_Data::NextInterference()
       if (!((HLRBRep_EdgeData*)myFEData)->Vertical() && !(myFEDouble && !myFEOutLine))
       {
         // not a vertical edge and not a double Edge
-        HLRAlgo_EdgesBlock::MinMaxIndices* MinMaxFEdg = &((HLRBRep_EdgeData*)myFEData)->MinMax();
+        HLRAlgo_EdgesBlock::MinMaxIndices1* MinMaxFEdg = &((HLRBRep_EdgeData*)myFEData)->MinMax();
         //-- -----------------------------------------------------------------------
         //-- Max - Min doit etre positif pour toutes les directions
         //--
@@ -1516,7 +1516,7 @@ void HLRBRep_Data::EdgeState(const Standard_Real p1,
   // it should get the parameters on the surface
 
   Standard_Real pu, pv;
-  if (HLRBRep_EdgeFaceTool::UVPoint(p2, myFEGeom, iFaceGeom, pu, pv))
+  if (EdgeFaceTool::UVPoint(p2, myFEGeom, iFaceGeom, pu, pv))
   {
     mySLProps.SetParameters(pu, pv);
     if (mySLProps.IsNormalDefined())
@@ -1703,7 +1703,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
           p = EC.Parameter3d(EC.FirstParameter());
         else
           p = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
-        if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
+        if (EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
           Point3d Pt;
           Vector3d Tg;
@@ -1723,7 +1723,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
           V.Transform(TI);
           if (mySLProps.IsNormalDefined())
           {
-            Standard_Real curv = HLRBRep_EdgeFaceTool::CurvatureValue(iFaceGeom, pu, pv, V);
+            Standard_Real curv = EdgeFaceTool::CurvatureValue(iFaceGeom, pu, pv, V);
             Vector3d        Nm   = mySLProps.Normal();
             if (curv == 0)
             {
@@ -1805,7 +1805,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
         myFEGeom                = &(ed1.ChangeGeometry());
         const HLRBRep_Curve& EC = ed1.Geometry();
         p                       = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
-        if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
+        if (EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
           Point3d Pt = EC.Value3D(p);
           mySLProps.SetParameters(pu, pv);
@@ -1853,8 +1853,8 @@ static void REJECT1(const Standard_Real                theDeca[],
                     const Standard_Real                theTotMin[],
                     const Standard_Real                theTotMax[],
                     const Standard_Real                theSurD[],
-                    HLRAlgo_EdgesBlock::MinMaxIndices& theVertMin,
-                    HLRAlgo_EdgesBlock::MinMaxIndices& theVertMax)
+                    HLRAlgo_EdgesBlock::MinMaxIndices1& theVertMin,
+                    HLRAlgo_EdgesBlock::MinMaxIndices1& theVertMax)
 {
   theVertMin.Min[0] = (Standard_Integer)((theDeca[0] + theTotMin[0]) * theSurD[0]);
   theVertMax.Min[0] = (Standard_Integer)((theDeca[0] + theTotMax[0]) * theSurD[0]);
@@ -1901,7 +1901,7 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
   (void)E; // avoid compiler warning
 
   nbClassification++;
-  HLRAlgo_EdgesBlock::MinMaxIndices VertMin, VertMax, MinMaxVert;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
   Standard_Real                     TotMin[16], TotMax[16];
 
   Standard_Integer i;
@@ -1919,12 +1919,12 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
-    HLRAlgo::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
-    HLRAlgo::EnlargeMinMax(tol, TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
 
-    HLRAlgo::EncodeMinMax(VertMin, VertMax, MinMaxVert);
+    HLRAlgo1::EncodeMinMax(VertMin, VertMax, MinMaxVert);
     if (((iFaceMinMax->Max[0] - MinMaxVert.Min[0]) & 0x80008000) != 0
         || ((MinMaxVert.Max[0] - iFaceMinMax->Min[0]) & 0x80008000) != 0
         || ((iFaceMinMax->Max[1] - MinMaxVert.Min[1]) & 0x80008000) != 0
@@ -1951,13 +1951,13 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
-    HLRAlgo::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
-    HLRAlgo::EnlargeMinMax(tol, TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
 
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
 
-    HLRAlgo::EncodeMinMax(VertMin, VertMax, MinMaxVert);
+    HLRAlgo1::EncodeMinMax(VertMin, VertMax, MinMaxVert);
     if (((iFaceMinMax->Max[0] - MinMaxVert.Min[0]) & 0x80008000) != 0
         || ((MinMaxVert.Max[0] - iFaceMinMax->Min[0]) & 0x80008000) != 0
         || ((iFaceMinMax->Max[1] - MinMaxVert.Min[1]) & 0x80008000) != 0
@@ -1979,13 +1979,13 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
     end = EC.Parameter3d(EC.LastParameter());
     myProj.Project(EC.Value3D(end), xend, yend, zend);
 
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
-    HLRAlgo::UpdateMinMax(xend, yend, zend, TotMin, TotMax);
-    HLRAlgo::EnlargeMinMax(tol, TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::UpdateMinMax(xend, yend, zend, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
 
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
 
-    HLRAlgo::EncodeMinMax(VertMin, VertMax, MinMaxVert);
+    HLRAlgo1::EncodeMinMax(VertMin, VertMax, MinMaxVert);
     if (((iFaceMinMax->Max[0] - MinMaxVert.Min[0]) & 0x80008000) != 0
         || ((MinMaxVert.Max[0] - iFaceMinMax->Min[0]) & 0x80008000) != 0
         || ((iFaceMinMax->Max[1] - MinMaxVert.Min[1]) & 0x80008000) != 0
@@ -2009,12 +2009,12 @@ TopAbs_State HLRBRep_Data::Classify(const Standard_Integer  E,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
-    HLRAlgo::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
-    HLRAlgo::EnlargeMinMax(tol, TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
 
-    HLRAlgo::EncodeMinMax(VertMin, VertMax, MinMaxVert);
+    HLRAlgo1::EncodeMinMax(VertMin, VertMax, MinMaxVert);
     /*
 #ifdef OCCT_DEBUG
     {
@@ -2093,7 +2093,7 @@ q1,(q2>32768)? (32768-q2) : q2,q&0x80008000);
   }
 
   gp_Lin        L    = myProj.Shoot(Psta.X(), Psta.Y());
-  Standard_Real wLim = ElCLib::Parameter(L, PLim);
+  Standard_Real wLim = ElCLib1::Parameter(L, PLim);
   myIntersector.Perform(L, wLim);
   if (myIntersector.IsDone())
   {
@@ -2167,7 +2167,7 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
                                          const Standard_Real     p2)
 {
   nbClassification++;
-  HLRAlgo_EdgesBlock::MinMaxIndices VertMin, VertMax, MinMaxVert;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 VertMin, VertMax, MinMaxVert;
   Standard_Real                     TotMin[16], TotMax[16];
 
   Standard_Integer i;
@@ -2185,12 +2185,12 @@ TopAbs_State HLRBRep_Data::SimplClassify(const Standard_Integer /*E*/,
 
     //-- les rejections sont faites dans l intersecteur a moindre frais
     //-- puisque la surface sera chargee
-    HLRAlgo::InitMinMax(Precision::Infinite(), TotMin, TotMax);
-    HLRAlgo::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
-    HLRAlgo::EnlargeMinMax(tol, TotMin, TotMax);
+    HLRAlgo1::InitMinMax(Precision::Infinite(), TotMin, TotMax);
+    HLRAlgo1::UpdateMinMax(xsta, ysta, zsta, TotMin, TotMax);
+    HLRAlgo1::EnlargeMinMax(tol, TotMin, TotMax);
     REJECT1(myDeca, TotMin, TotMax, mySurD, VertMin, VertMax);
 
-    HLRAlgo::EncodeMinMax(VertMin, VertMax, MinMaxVert);
+    HLRAlgo1::EncodeMinMax(VertMin, VertMax, MinMaxVert);
     if (((iFaceMinMax->Max[0] - MinMaxVert.Min[0]) & 0x80008000) != 0
         || ((MinMaxVert.Max[0] - iFaceMinMax->Min[0]) & 0x80008000) != 0
         || ((iFaceMinMax->Max[1] - MinMaxVert.Min[1]) & 0x80008000) != 0
@@ -2441,7 +2441,7 @@ Standard_Boolean HLRBRep_Data::RejectedPoint(const IntRes2d_IntersectionPoint& P
     if (st == TopAbs_IN && Ori == TopAbs_FORWARD && Orie == TopAbs_FORWARD)
       decal = 0;
   }
-  HLRAlgo_Intersection& inter = myIntf.ChangeIntersection();
+  Intersection3& inter = myIntf.ChangeIntersection();
   inter.Orientation(Ori);
   inter.Level(decal);
   inter.SegIndex(NumSeg);

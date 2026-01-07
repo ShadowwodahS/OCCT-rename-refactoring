@@ -23,7 +23,7 @@
 #include <IntAna2d_Outils.hxx>
 #include <StdFail_NotDone.hxx>
 
-void IntAna2d_AnaIntersection::Perform(const gp_Parab2d& P, const IntAna2d_Conic& Conic)
+void AnalyticIntersection2d::Perform(const gp_Parab2d& P, const Conic2d& Conic)
 {
   Standard_Boolean PIsDirect = P.IsDirect();
   Standard_Real    A, B, C, D, E, F;
@@ -50,7 +50,7 @@ void IntAna2d_AnaIntersection::Perform(const gp_Parab2d& P, const IntAna2d_Conic
   px3 = (C + C) * un_sur_2p;
   px4 = A * (un_sur_2p * un_sur_2p);
 
-  MyDirectPolynomialRoots Sol(px4, px3, px2, px1, px0);
+  MyDirectPolynomialRoots1 Sol(px4, px3, px2, px1, px0);
 
   if (!Sol.IsDone())
   {

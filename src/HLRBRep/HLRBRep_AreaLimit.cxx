@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_AreaLimit, RefObject)
 
 //=================================================================================================
 
-HLRBRep_AreaLimit::HLRBRep_AreaLimit(const HLRAlgo_Intersection& V,
+HLRBRep_AreaLimit::HLRBRep_AreaLimit(const Intersection3& V,
                                      const Standard_Boolean      Boundary,
                                      const Standard_Boolean      Interference,
                                      const TopAbs_State          StateBefore,
@@ -83,7 +83,7 @@ void HLRBRep_AreaLimit::Next(const Handle(HLRBRep_AreaLimit)& N)
 
 //=================================================================================================
 
-const HLRAlgo_Intersection& HLRBRep_AreaLimit::Vertex() const
+const Intersection3& HLRBRep_AreaLimit::Vertex() const
 {
   return myVertex;
 }

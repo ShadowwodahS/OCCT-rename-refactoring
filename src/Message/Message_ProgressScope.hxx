@@ -27,7 +27,7 @@ class Message_ProgressRange;
 class Message_ProgressIndicator;
 
 //! Message_ProgressScope class provides convenient way to advance progress
-//! indicator in context of complex program organized in hierarchical way,
+//! indicator in context of complex1 program organized in hierarchical way,
 //! where usually it is difficult (or even not possible) to consider process
 //! as linear with fixed step.
 //!

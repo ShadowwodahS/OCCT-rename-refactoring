@@ -140,7 +140,7 @@ void AdvApprox_SimpleApprox::Perform(const TColStd_Array1OfInteger& LocalDimensi
     }
   }
 
-  PLib::HermiteInterpolate(myTotalDimension,
+  PLib1::HermiteInterpolate(myTotalDimension,
                            -1.,
                            1.,
                            myNivConstr,
@@ -183,9 +183,9 @@ void AdvApprox_SimpleApprox::Perform(const TColStd_Array1OfInteger& LocalDimensi
     Evaluator(&Dimension, FirstLast, &tin, &derive, pFti, &ErrorCode);
     if (ErrorCode != 0)
       return; // Evaluation error
-    PLib::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rpti(1));
+    PLib1::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rpti(1));
     ti = -ti;
-    PLib::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rmti(1));
+    PLib1::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rmti(1));
 
     for (idim = 1; idim <= myTotalDimension; idim++)
     {
@@ -203,7 +203,7 @@ void AdvApprox_SimpleApprox::Perform(const TColStd_Array1OfInteger& LocalDimensi
     Evaluator(&Dimension, FirstLast, &tip, &derive, pFti, &ErrorCode);
     if (ErrorCode != 0)
       return; // Evaluation error
-    PLib::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rpti(1));
+    PLib1::EvalPolynomial(ti, derive, DegreeR, myTotalDimension, Coef1[0], Rpti(1));
     for (idim = 1; idim <= myTotalDimension; idim++)
     {
       mySomTab->SetValue(idim - 1, Fti(idim) - Rpti(idim));

@@ -41,20 +41,20 @@ public:
     LF_Reversed = 4  // means the link is reversed
   };
 
-  //! The Link structure
-  struct Link
+  //! The Link1 structure
+  struct Link1
   {
     Standard_Integer node1, node2;
     Standard_Integer flags;
 
-    Link()
+    Link1()
         : node1(0),
           node2(0),
           flags(0)
     {
     }
 
-    Link(Standard_Integer theNode1, Standard_Integer theNode2)
+    Link1(Standard_Integer theNode1, Standard_Integer theNode2)
         : node1(theNode1),
           node2(theNode2),
           flags(1)
@@ -69,7 +69,7 @@ public:
 
     Standard_Boolean IsNull() const { return node1 == 0 || node2 == 0; }
 
-    bool operator==(const Link& theOther) const
+    bool operator==(const Link1& theOther) const
     {
       return (theOther.node1 == node1 && theOther.node2 == node2)
              || (theOther.node1 == node2 && theOther.node2 == node1);
@@ -78,7 +78,7 @@ public:
 
   struct Hasher1
   {
-    size_t operator()(const Poly_MakeLoops::Link& theLink) const noexcept
+    size_t operator()(const Poly_MakeLoops::Link1& theLink) const noexcept
     {
       // Combine two int values into a single hash value.
       int aCombination[2]{theLink.node1, theLink.node2};
@@ -89,26 +89,26 @@ public:
       return opencascade::hashBytes(aCombination, sizeof(aCombination));
     }
 
-    bool operator()(const Poly_MakeLoops::Link& theLink1,
-                    const Poly_MakeLoops::Link& theLink2) const noexcept
+    bool operator()(const Poly_MakeLoops::Link1& theLink1,
+                    const Poly_MakeLoops::Link1& theLink2) const noexcept
     {
       return theLink1 == theLink2;
     }
   };
 
   // Define the Loop as a list of links
-  typedef NCollection_List<Link> ListOfLink;
+  typedef NCollection_List<Link1> ListOfLink;
   typedef ListOfLink             Loop;
 
   //! The abstract helper class
-  class Helper
+  class Helper1
   {
   public:
     //! returns the links adjacent to the given node
     virtual const ListOfLink& GetAdjacentLinks(Standard_Integer theNode) const = 0;
 
     //! hook function called from AddLink in _DEBUG mode
-    virtual void OnAddLink(Standard_Integer /*theNum*/, const Link& /*theLink*/) const {}
+    virtual void OnAddLink(Standard_Integer /*theNum*/, const Link1& /*theLink*/) const {}
   };
 
   //! This class implements a heap of integers. The most effective usage
@@ -178,27 +178,27 @@ public:
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
-  Standard_EXPORT Poly_MakeLoops(const Helper*                            theHelper,
+  Standard_EXPORT Poly_MakeLoops(const Helper1*                            theHelper,
                                  const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   //! It is to reset the algorithm to the initial state.
-  Standard_EXPORT void Reset(const Helper*                            theHelper,
+  Standard_EXPORT void Reset(const Helper1*                            theHelper,
                              const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   //! Adds a link to the set. theOrient defines which orientations of the link
   //! are allowed.
-  Standard_EXPORT void AddLink(const Link& theLink);
+  Standard_EXPORT void AddLink(const Link1& theLink);
 
   //! Replace one link with another (e.g. to change order of nodes)
-  Standard_EXPORT void ReplaceLink(const Link& theLink, const Link& theNewLink);
+  Standard_EXPORT void ReplaceLink(const Link1& theLink, const Link1& theNewLink);
 
   //! Set a new value of orientation of a link already added earlier.
   //! It can be used with LF_None to exclude the link from consideration.
   //! Returns the old value of orientation.
-  Standard_EXPORT LinkFlag SetLinkOrientation(const Link& theLink, const LinkFlag theOrient);
+  Standard_EXPORT LinkFlag SetLinkOrientation(const Link1& theLink, const LinkFlag theOrient);
 
   //! Find the link stored in algo by value
-  Standard_EXPORT Link FindLink(const Link& theLink) const;
+  Standard_EXPORT Link1 FindLink(const Link1& theLink) const;
 
   enum ResultCode
   {
@@ -228,11 +228,11 @@ protected:
     const Standard_Integer                    theSegIndex,
     const NCollection_List<Standard_Integer>& theLstIndS) const = 0;
 
-  const Helper* getHelper() const { return myHelper; }
+  const Helper1* getHelper() const { return myHelper; }
 
-  Link getLink(const Standard_Integer theSegIndex) const
+  Link1 getLink(const Standard_Integer theSegIndex) const
   {
-    Link aLink = myMapLink(Abs(theSegIndex));
+    Link1 aLink = myMapLink(Abs(theSegIndex));
     if (theSegIndex < 0)
       aLink.Reverse();
     return aLink;
@@ -254,9 +254,9 @@ private:
   Standard_Boolean canLinkBeTaken(Standard_Integer theIndexS) const;
 
   // FIELDS
-  const Helper*                        myHelper;
+  const Helper1*                        myHelper;
   Handle(NCollection_BaseAllocator)    myAlloc;
-  NCollection_IndexedMap<Link, Hasher1> myMapLink;
+  NCollection_IndexedMap<Link1, Hasher1> myMapLink;
   NCollection_Sequence<Loop>           myLoops;
   HeapOfInteger                        myStartIndices;
   TColStd_PackedMapOfInteger           myHangIndices;
@@ -271,17 +271,17 @@ class Poly_MakeLoops3D : public Poly_MakeLoops
 {
 public:
   //! The abstract helper class
-  class Helper : public Poly_MakeLoops::Helper
+  class Helper1 : public Poly_MakeLoops::Helper1
   {
   public:
     // all the following methods should return False if
     // it is impossible to return a valid direction
 
     //! returns the tangent vector at the first node of a link
-    virtual Standard_Boolean GetFirstTangent(const Link& theLink, Dir3d& theDir) const = 0;
+    virtual Standard_Boolean GetFirstTangent(const Link1& theLink, Dir3d& theDir) const = 0;
 
     //! returns the tangent vector at the last node of a link
-    virtual Standard_Boolean GetLastTangent(const Link& theLink, Dir3d& theDir) const = 0;
+    virtual Standard_Boolean GetLastTangent(const Link1& theLink, Dir3d& theDir) const = 0;
 
     //! returns the normal to the surface at a given node
     virtual Standard_Boolean GetNormal(Standard_Integer theNode, Dir3d& theDir) const = 0;
@@ -289,7 +289,7 @@ public:
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
-  Standard_EXPORT Poly_MakeLoops3D(const Helper*                            theHelper,
+  Standard_EXPORT Poly_MakeLoops3D(const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc);
 
 protected:
@@ -298,9 +298,9 @@ protected:
     const Standard_Integer                    theSegIndex,
     const NCollection_List<Standard_Integer>& theLstIndS) const;
 
-  const Helper* getHelper() const
+  const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops3D::Helper*>(Poly_MakeLoops::getHelper());
+    return static_cast<const Poly_MakeLoops3D::Helper1*>(Poly_MakeLoops::getHelper());
   }
 };
 
@@ -313,23 +313,23 @@ class Poly_MakeLoops2D : public Poly_MakeLoops
 {
 public:
   //! The abstract helper class
-  class Helper : public Poly_MakeLoops::Helper
+  class Helper1 : public Poly_MakeLoops::Helper1
   {
   public:
     // all the following methods should return False if
     // it is impossible to return a valid direction
 
     //! returns the tangent vector at the first node of a link
-    virtual Standard_Boolean GetFirstTangent(const Link& theLink, gp_Dir2d& theDir) const = 0;
+    virtual Standard_Boolean GetFirstTangent(const Link1& theLink, gp_Dir2d& theDir) const = 0;
 
     //! returns the tangent vector at the last node of a link
-    virtual Standard_Boolean GetLastTangent(const Link& theLink, gp_Dir2d& theDir) const = 0;
+    virtual Standard_Boolean GetLastTangent(const Link1& theLink, gp_Dir2d& theDir) const = 0;
   };
 
   //! Constructor. If helper is NULL then the algorithm will
   //! probably return a wrong result
   Standard_EXPORT Poly_MakeLoops2D(const Standard_Boolean                   theLeftWay,
-                                   const Helper*                            theHelper,
+                                   const Helper1*                            theHelper,
                                    const Handle(NCollection_BaseAllocator)& theAlloc);
 
 protected:
@@ -338,9 +338,9 @@ protected:
     const Standard_Integer                    theSegIndex,
     const NCollection_List<Standard_Integer>& theLstIndS) const;
 
-  const Helper* getHelper() const
+  const Helper1* getHelper() const
   {
-    return static_cast<const Poly_MakeLoops2D::Helper*>(Poly_MakeLoops::getHelper());
+    return static_cast<const Poly_MakeLoops2D::Helper1*>(Poly_MakeLoops::getHelper());
   }
 
 private:
@@ -351,19 +351,19 @@ private:
 namespace std
 {
 template <>
-struct hash<Poly_MakeLoops::Link>
+struct hash<Poly_MakeLoops::Link1>
 {
-  size_t operator()(const Poly_MakeLoops::Link& theLink) const noexcept
+  size_t operator()(const Poly_MakeLoops::Link1& theLink) const noexcept
   {
     return Poly_MakeLoops::Hasher1{}(theLink);
   }
 };
 
 template <>
-struct equal_to<Poly_MakeLoops::Link>
+struct equal_to<Poly_MakeLoops::Link1>
 {
-  bool operator()(const Poly_MakeLoops::Link& theLink1,
-                  const Poly_MakeLoops::Link& theLink2) const noexcept
+  bool operator()(const Poly_MakeLoops::Link1& theLink1,
+                  const Poly_MakeLoops::Link1& theLink2) const noexcept
   {
     return theLink1 == theLink2;
   }

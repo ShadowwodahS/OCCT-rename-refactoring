@@ -48,7 +48,7 @@ class GeomPlate_Surface : public GeomSurface
 
 public:
   Standard_EXPORT GeomPlate_Surface(const Handle(GeomSurface)& Surfinit,
-                                    const Plate_Plate&          Surfinter);
+                                    const PlateSurface&          Surfinter);
 
   //! Reverses the U direction of parametrization of <me>.
   //! The bounds of the surface are not modified.
@@ -261,7 +261,7 @@ public:
 
   //! Transformation of a geometric object. This transformation
   //! can be a translation, a rotation, a symmetry, a scaling
-  //! or a complex transformation obtained by combination of
+  //! or a complex1 transformation obtained by combination of
   //! the previous elementaries transformations.
   //! (see class Transformation of the package Geom).
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
@@ -284,7 +284,7 @@ public:
 
 protected:
 private:
-  Plate_Plate          mySurfinter;
+  PlateSurface          mySurfinter;
   Handle(GeomSurface) mySurfinit;
   Standard_Real        myUmin;
   Standard_Real        myUmax;

@@ -348,7 +348,7 @@ static void StatAssembly(const DataLabel                   L,
       di << "  ";
   }
   AsciiString1 Entry;
-  TDF_Tool::Entry(L, Entry);
+  Tool3::Entry(L, Entry);
   if (PrintStructMode)
     di << Entry.ToCString();
 
@@ -644,7 +644,7 @@ static Standard_Integer setPrs(DrawInterpreter& di, Standard_Integer argc, const
     for (Standard_Integer i = 2; i < argc; i++)
     {
       DataLabel aLabel;
-      TDF_Tool::Label(Doc->GetData(), argv[i], aLabel);
+      Tool3::Label(Doc->GetData(), argv[i], aLabel);
       if (aLabel.IsNull() || !shapes->IsShape(aLabel))
       {
         di << argv[i] << " is not a valid shape label!";
@@ -714,7 +714,7 @@ static Standard_Integer show(DrawInterpreter& di, Standard_Integer argc, const c
     for (Standard_Integer i = 2; i < argc; i++)
     {
       DataLabel aLabel;
-      TDF_Tool::Label(aDoc->GetData(), argv[i], aLabel);
+      Tool3::Label(aDoc->GetData(), argv[i], aLabel);
       if (aLabel.IsNull() || !shapes->IsShape(aLabel))
       {
         di << argv[i] << " is not a valid shape label!";
@@ -801,7 +801,7 @@ private:
 
       if (aName.IsEmpty())
       {
-        TDF_Tool::Entry(theLabel, aName);
+        Tool3::Entry(theLabel, aName);
       }
       for (Standard_Integer aNameIndex = 1;; ++aNameIndex)
       {
@@ -814,7 +814,7 @@ private:
     }
     else
     {
-      TDF_Tool::Entry(theLabel, aName);
+      Tool3::Entry(theLabel, aName);
     }
     aName = theNamePrefix + aName;
 
@@ -826,7 +826,7 @@ private:
       {
         aName += "/";
         const TopLoc_Location aLoc = theLoc * XCAFDoc_ShapeTool::GetLocation(theLabel);
-        for (TDF_ChildIterator aChildIter(aRefLabel); aChildIter.More(); aChildIter.Next())
+        for (ChildIterator aChildIter(aRefLabel); aChildIter.More(); aChildIter.Next())
         {
           if (displayLabel(theDI, aChildIter.Value(), aName, aLoc, theOutDispList) == 1)
           {
@@ -996,7 +996,7 @@ private:
         }
 
         DataLabel aLabel;
-        TDF_Tool::Label(myDoc->GetData(), aValue.ToCString(), aLabel);
+        Tool3::Label(myDoc->GetData(), aValue.ToCString(), aLabel);
         if (aLabel.IsNull() || !XCAFDoc_ShapeTool::IsShape(aLabel))
         {
           theDI << "Syntax error: " << aValue << " is not a valid shape label";
@@ -1113,7 +1113,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
   }
 
   DataLabel lab;
-  TDF_Tool::Label(browser->Data(), argv[2], lab);
+  Tool3::Label(browser->Data(), argv[2], lab);
   if (lab.IsNull())
   {
     std::cout << "Syntax error: label is Null: " << argv[2] << "\n";
@@ -1198,7 +1198,7 @@ static Standard_Integer XSetTransparency(DrawInterpreter& di,
     for (Standard_Integer i = 3; i < argc; i++)
     {
       DataLabel aLabel;
-      TDF_Tool::Label(Doc->GetData(), argv[i], aLabel);
+      Tool3::Label(Doc->GetData(), argv[i], aLabel);
       if (aLabel.IsNull() || !shapes->IsShape(aLabel))
       {
         di << argv[i] << " is not a valid shape label!";
@@ -1368,7 +1368,7 @@ static Standard_Integer XShowFaceBoundary(DrawInterpreter& di,
 
   // get label and validate that it is a shape label
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aShapes->IsShape(aLabel))
   {
     di << argv[2] << " is not a valid shape label!";
@@ -1507,7 +1507,7 @@ static Standard_Integer XDumpAssemblyTree(DrawInterpreter& di,
           if (!aFirst)
             aSS << "/";
           DataLabel aL;
-          TDF_Tool::Label(aDoc->GetData(), anIt.Value(), aL, Standard_False);
+          Tool3::Label(aDoc->GetData(), anIt.Value(), aL, Standard_False);
           if (!aL.IsNull())
           {
             UtfString aName;
@@ -1593,7 +1593,7 @@ static Standard_Integer XDumpAssemblyGraph(DrawInterpreter& di,
     if (strcmp(argv[iarg], "-root") == 0)
     {
       Standard_ProgramError_Raise_if(iarg + 1 >= argc, "Root is expected!");
-      TDF_Tool::Label(aDoc->GetData(), argv[++iarg], aLabel, Standard_False);
+      Tool3::Label(aDoc->GetData(), argv[++iarg], aLabel, Standard_False);
     }
     else if (strcmp(argv[iarg], "-names") == 0)
     {
@@ -1628,7 +1628,7 @@ static Standard_Integer XDumpAssemblyGraph(DrawInterpreter& di,
       }
       if (aNodeEntry.IsEmpty())
       {
-        TDF_Tool::Entry(aLabel, aNodeEntry);
+        Tool3::Entry(aLabel, aNodeEntry);
       }
 
       aSS << theNode << " " << graphNodeTypename(aNodeType) << " " << aNodeEntry;
@@ -1718,7 +1718,7 @@ static Standard_Integer XDumpNomenclature(DrawInterpreter& di,
       }
       if (aNodeEntry.IsEmpty())
       {
-        TDF_Tool::Entry(aLabel, aNodeEntry);
+        Tool3::Entry(aLabel, aNodeEntry);
       }
 
       aSS << theNode << " " << graphNodeTypename(aNodeType) << " " << aNodeEntry << " "
@@ -1777,7 +1777,7 @@ static Standard_Integer XRescaleGeometry(DrawInterpreter& di,
     if (strcmp(argv[iarg], "-root") == 0)
     {
       Standard_ProgramError_Raise_if(iarg + 1 >= argc, "Root is expected!");
-      TDF_Tool::Label(aDoc->GetData(), argv[++iarg], aLabel, Standard_False);
+      Tool3::Label(aDoc->GetData(), argv[++iarg], aLabel, Standard_False);
     }
     else if (strcmp(argv[iarg], "-force") == 0)
     {

@@ -49,11 +49,11 @@ public:
   Standard_EXPORT void Remove(const Handle(SelectionContainer)& theSelection);
 
   //! Returns bounding box of entity with index theIdx
-  Standard_EXPORT virtual Select3D_BndBox3d Box(const Standard_Integer theIndex) const
+  Standard_EXPORT virtual Select3D_BndBox3d Box1(const Standard_Integer theIndex) const
     Standard_OVERRIDE;
 
-  //! Make inherited method Box() visible to avoid CLang warning
-  using BVH_PrimitiveSet3d::Box;
+  //! Make inherited method Box1() visible to avoid CLang warning
+  using BVH_PrimitiveSet3d::Box1;
 
   //! Returns geometry center of sensitive entity index theIdx
   //! along the given axis theAxis

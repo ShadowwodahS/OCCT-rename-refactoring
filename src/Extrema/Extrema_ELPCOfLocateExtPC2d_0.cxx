@@ -30,15 +30,15 @@
 
 #define TheCurve Adaptor2d_Curve2d
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define TheCurveTool Extrema_Curve2dTool
+#define TheCurveTool Curve2dTool1
 #define TheCurveTool_hxx <Extrema_Curve2dTool.hxx>
-#define TheExtPElC Extrema_ExtPElC2d
+#define TheExtPElC PointElCCurveExtrema2d
 #define TheExtPElC_hxx <Extrema_ExtPElC2d.hxx>
 #define ThePoint gp_Pnt2d
 #define ThePoint_hxx <gp_Pnt2d.hxx>
 #define TheVector gp_Vec2d
 #define TheVector_hxx <gp_Vec2d.hxx>
-#define ThePOnC Extrema_POnCurv2d
+#define ThePOnC PointOnCurve2d
 #define ThePOnC_hxx <Extrema_POnCurv2d.hxx>
 #define TheSequenceOfPOnC Extrema_SequenceOfPOnCurv2d
 #define TheSequenceOfPOnC_hxx <Extrema_SequenceOfPOnCurv2d.hxx>

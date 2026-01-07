@@ -482,13 +482,13 @@ void SelectMgr_SelectableObject::SetAssemblyOwner(const Handle(SelectMgr_EntityO
 
 //=================================================================================================
 
-Bnd_Box SelectMgr_SelectableObject::BndBoxOfSelected(
+Box2 SelectMgr_SelectableObject::BndBoxOfSelected(
   const Handle(SelectMgr_IndexedMapOfOwner)& theOwners)
 {
   if (theOwners->IsEmpty())
-    return Bnd_Box();
+    return Box2();
 
-  Bnd_Box aBnd;
+  Box2 aBnd;
   for (SelectMgr_SequenceOfSelection::Iterator aSelIter(myselections); aSelIter.More();
        aSelIter.Next())
   {

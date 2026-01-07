@@ -38,7 +38,7 @@ void Geom2dGcc_FunctionTanCuCu::InitDerivative(const math_Vector& X,
     }
     break;
     case Geom2dGcc_CiCu: {
-      ElCLib::D2(X(1), TheCirc1, Point1, Tan1, D21);
+      ElCLib1::D2(X(1), TheCirc1, Point1, Tan1, D21);
       CurveTool3::D2(TheCurve2, X(2), Point2, Tan2, D22);
     }
     break;

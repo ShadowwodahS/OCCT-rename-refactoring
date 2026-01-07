@@ -108,7 +108,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Restore(Standard_IStream& theStr
 {
   const DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
   Handle(BezierCurve3d) aGeomCurve =
-    Handle(BezierCurve3d)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
+    Handle(BezierCurve3d)::DownCast(CurveSet1::ReadCurve(theStream));
   Handle(DrawTrSurf_BezierCurve) aDrawCurve = new DrawTrSurf_BezierCurve(aGeomCurve,
                                                                          aParams.CurvColor,
                                                                          aParams.PolesColor,

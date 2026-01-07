@@ -1588,7 +1588,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseF
     return Standard_False;
 
   // create a point in the area and get the normal to aBaseFace at it
-  gp_Pnt2d            aP2d = ElCLib::Value(pLinMin * T, aLin);
+  gp_Pnt2d            aP2d = ElCLib1::Value(pLinMin * T, aLin);
   BRepAdaptor_Surface aBAS(aBaseFace);
   Point3d              aPnt;
   Vector3d              d1u, d1v;

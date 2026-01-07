@@ -38,7 +38,7 @@ class gp_Dir2d;
 //! * Create a Lin2d from its axis (Ax1 from gp).
 //! * Create a Lin2d from a point and a direction.
 //! * Create a Lin2d from its equation.
-class gce_MakeLin2d : public gce_Root
+class gce_MakeLin2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

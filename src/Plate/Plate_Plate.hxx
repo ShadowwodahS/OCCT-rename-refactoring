@@ -29,7 +29,7 @@
 #include <TColgp_SequenceOfXY.hxx>
 #include <Message_ProgressScope.hxx>
 
-class Plate_PinpointConstraint;
+class PinpointConstraint;
 class Plate_LinearXYZConstraint;
 class Plate_LinearScalarConstraint;
 class Plate_GlobalTranslationConstraint;
@@ -37,7 +37,7 @@ class Plate_LineConstraint;
 class Plate_PlaneConstraint;
 class Plate_SampledCurveConstraint;
 class Plate_GtoCConstraint;
-class Plate_FreeGtoCConstraint;
+class FreeGtoCConstraint;
 class gp_XYZ;
 class Coords2d;
 class math_Matrix;
@@ -45,20 +45,20 @@ class math_Matrix;
 //! This class implement a variational spline algorithm able
 //! to define a two variable function satisfying some constraints
 //! and minimizing an energy like criterion.
-class Plate_Plate
+class PlateSurface
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_Plate();
+  Standard_EXPORT PlateSurface();
 
-  Standard_EXPORT Plate_Plate(const Plate_Plate& Ref);
+  Standard_EXPORT PlateSurface(const PlateSurface& Ref);
 
-  Standard_EXPORT Plate_Plate& Copy(const Plate_Plate& Ref);
+  Standard_EXPORT PlateSurface& Copy(const PlateSurface& Ref);
 
-  Plate_Plate& operator=(const Plate_Plate& Ref) { return Copy(Ref); }
+  PlateSurface& operator=(const PlateSurface& Ref) { return Copy(Ref); }
 
-  Standard_EXPORT void Load(const Plate_PinpointConstraint& PConst);
+  Standard_EXPORT void Load(const PinpointConstraint& PConst);
 
   Standard_EXPORT void Load(const Plate_LinearXYZConstraint& LXYZConst);
 
@@ -74,7 +74,7 @@ public:
 
   Standard_EXPORT void Load(const Plate_GtoCConstraint& GtoCConst);
 
-  Standard_EXPORT void Load(const Plate_FreeGtoCConstraint& FGtoCConst);
+  Standard_EXPORT void Load(const FreeGtoCConstraint& FGtoCConst);
 
   Standard_EXPORT void SolveTI(const Standard_Integer       ord         = 4,
                                const Standard_Real          anisotropie = 1.0,
@@ -85,7 +85,7 @@ public:
 
   Standard_EXPORT void destroy();
 
-  ~Plate_Plate() { destroy(); }
+  ~PlateSurface() { destroy(); }
 
   //! reset the Plate in the initial state
   //! ( same as after Create())

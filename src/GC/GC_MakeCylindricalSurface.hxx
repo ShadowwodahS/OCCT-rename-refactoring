@@ -54,7 +54,7 @@ class gp_Circ;
 //! the symmetry axis. The "XAxis" defines the origin of the
 //! parameter U = 0.  The trigonometric sense gives the positive
 //! orientation for the parameter U.
-class GC_MakeCylindricalSurface : public GC_Root
+class GC_MakeCylindricalSurface : public Root4
 {
 public:
   DEFINE_STANDARD_ALLOC

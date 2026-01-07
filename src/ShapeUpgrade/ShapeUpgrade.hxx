@@ -46,7 +46,7 @@ public:
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.
   //! This method splits B-Spline at the knots with multiplicities equal to degree,
-  //! i.e. unlike method GeomConvert::C0BSplineToArrayOfC1BSplineCurve
+  //! i.e. unlike method GeomConvert1::C0BSplineToArrayOfC1BSplineCurve
   //! this one does not use any tolerance and therefore does not change the geometry of B-Spline.
   //! Returns True if C0 B-Spline was successfully split,
   //! else returns False (if BS is C1 B-Spline).

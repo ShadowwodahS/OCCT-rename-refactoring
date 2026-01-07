@@ -31,7 +31,7 @@
 //! on its positioning axis. In addition, however, a line has
 //! specific functions for computing distances and positions.
 //! See Also
-//! gce_MakeLin which provides functions for more complex
+//! gce_MakeLin which provides functions for more complex1
 //! line constructions
 //! GeomLine which provides additional functions for
 //! constructing lines and works, in particular, with the

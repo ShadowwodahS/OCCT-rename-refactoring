@@ -327,7 +327,7 @@ static Standard_Integer DDataStd_GetReference(DrawInterpreter& di,
     if (!DDF1::Find(DF, arg[2], TDF_Reference::GetID(), REF))
       return 1;
     AsciiString1 entry;
-    TDF_Tool::Entry(REF->Get(), entry);
+    Tool3::Entry(REF->Get(), entry);
     di << entry.ToCString();
     return 0;
   }
@@ -375,10 +375,10 @@ static Standard_Integer DDataStd_Self(DrawInterpreter& di, Standard_Integer nb, 
     DataLabel L;
     if (!DDF1::FindLabel(DF, arg[2], L))
       return 1;
-    //    TDataStd::MakeSelfContained(L,removed);
+    //    TDataStd1::MakeSelfContained(L,removed);
     //    if (removed.IsEmpty()) std::cout << "no attribute removed" << std::endl;
     //    for (TDF_ListIteratorOfAttributeList it(removed);it.More();it.Next()) {
-    //      TDF_Tool::Entry(it.Value()->Label(),s); std::cout  << s << " ";
+    //      Tool3::Entry(it.Value()->Label(),s); std::cout  << s << " ";
     //      std::cout << std::endl;
     //    }
     return 0;
@@ -1178,7 +1178,7 @@ static Standard_Integer DDataStd_DumpRelation(DrawInterpreter& di,
       if (!aV.IsNull())
       {
         label = aV->Label();
-        TDF_Tool::Entry(label, anEntry);
+        Tool3::Entry(label, anEntry);
         di << anEntry.ToCString() << " ";
       }
     }
@@ -1581,7 +1581,7 @@ static Standard_Integer DDataStd_GetUTFtoFile(DrawInterpreter& di,
 
     UtfString aES;
     Standard_Boolean           aF = Standard_False;
-    TDF_ChildIterator          anIt(L);
+    ChildIterator          anIt(L);
     for (; anIt.More(); anIt.Next())
     {
       const DataLabel& aLab = anIt.Value();
@@ -3151,7 +3151,7 @@ static Standard_Integer DDataStd_GetReferenceList(DrawInterpreter& di,
         if (!aLabel.IsNull())
         {
           AsciiString1 entry;
-          TDF_Tool::Entry(aLabel, entry);
+          Tool3::Entry(aLabel, entry);
           di << entry.ToCString() << " ";
         }
       }
@@ -4611,7 +4611,7 @@ static Standard_Integer DDataStd_GetRefArray(DrawInterpreter& di,
     {
       const DataLabel&        aLabel = A->Value(i);
       AsciiString1 entry;
-      TDF_Tool::Entry(aLabel, entry);
+      Tool3::Entry(aLabel, entry);
       di << entry.ToCString();
       if (i < A->Upper())
         di << " ";
@@ -4673,7 +4673,7 @@ static Standard_Integer DDataStd_GetRefArrayValue(DrawInterpreter& di,
     {
       const DataLabel&        value = A->Value(index);
       AsciiString1 entry;
-      TDF_Tool::Entry(value, entry);
+      Tool3::Entry(value, entry);
       di << entry.ToCString() << "\n";
     }
     return 0;

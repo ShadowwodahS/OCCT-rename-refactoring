@@ -143,7 +143,7 @@ AdvApp2Var_Context::AdvApp2Var_Context(const Standard_Integer               ifav
   Standard_Integer              i, j, size = JDegU - 2 * iu - 1;
   Handle(TColStd_HArray1OfReal) JMaxU    = new TColStd_HArray1OfReal(1, size);
   Standard_Real*                JU_array = (Standard_Real*)&JMaxU->ChangeArray1()(JMaxU->Lower());
-  AdvApp2Var_ApproxF2var::mma2jmx_(&JDegU, (integer*)&iu, JU_array);
+  FunctionApprox2var::mma2jmx_(&JDegU, (integer*)&iu, JU_array);
   myJMaxU = JMaxU;
 
   // myNbVRoot,myJDegV
@@ -164,7 +164,7 @@ AdvApp2Var_Context::AdvApp2Var_Context(const Standard_Integer               ifav
   size                                   = JDegV - 2 * iv - 1;
   Handle(TColStd_HArray1OfReal) JMaxV    = new TColStd_HArray1OfReal(1, size);
   Standard_Real*                JV_array = (Standard_Real*)&JMaxV->ChangeArray1()(JMaxV->Lower());
-  AdvApp2Var_ApproxF2var::mma2jmx_(&JDegV, (integer*)&iv, JV_array);
+  FunctionApprox2var::mma2jmx_(&JDegV, (integer*)&iv, JV_array);
   myJMaxV = JMaxV;
 
   // myURoots, myVRoots
@@ -172,7 +172,7 @@ AdvApp2Var_Context::AdvApp2Var_Context(const Standard_Integer               ifav
   Standard_Real*                U_array = (Standard_Real*)&URoots->ChangeArray1()(URoots->Lower());
   Handle(TColStd_HArray1OfReal) VRoots  = new TColStd_HArray1OfReal(1, myNbVRoot);
   Standard_Real*                V_array = (Standard_Real*)&VRoots->ChangeArray1()(VRoots->Lower());
-  AdvApp2Var_ApproxF2var::mma2roo_(&NbPntU, &NbPntV, U_array, V_array);
+  FunctionApprox2var::mma2roo_(&NbPntU, &NbPntV, U_array, V_array);
   myURoots = URoots;
   myVRoots = VRoots;
 
@@ -180,7 +180,7 @@ AdvApp2Var_Context::AdvApp2Var_Context(const Standard_Integer               ifav
   size                                   = (NbPntU / 2 + 1) * (myJDegU - 2 * iu - 1);
   Handle(TColStd_HArray1OfReal) UGauss   = new TColStd_HArray1OfReal(1, size);
   Standard_Real*                UG_array = (Standard_Real*)&UGauss->ChangeArray1()(UGauss->Lower());
-  AdvApp2Var_ApproxF2var::mmapptt_(&JDegU, &NbPntU, &iu, UG_array, &ErrorCode);
+  FunctionApprox2var::mmapptt_(&JDegU, &NbPntU, &iu, UG_array, &ErrorCode);
   if (ErrorCode != 0)
   {
     throw Standard_ConstructionError("AdvApp2Var_Context : Error in FORTRAN");
@@ -191,7 +191,7 @@ AdvApp2Var_Context::AdvApp2Var_Context(const Standard_Integer               ifav
   size                                   = (NbPntV / 2 + 1) * (myJDegV - 2 * iv - 1);
   Handle(TColStd_HArray1OfReal) VGauss   = new TColStd_HArray1OfReal(1, size);
   Standard_Real*                VG_array = (Standard_Real*)&VGauss->ChangeArray1()(VGauss->Lower());
-  AdvApp2Var_ApproxF2var::mmapptt_(&JDegV, &NbPntV, &iv, VG_array, &ErrorCode);
+  FunctionApprox2var::mmapptt_(&JDegV, &NbPntV, &iv, VG_array, &ErrorCode);
   if (ErrorCode != 0)
   {
     throw Standard_ConstructionError("AdvApp2Var_Context : Error in FORTRAN");

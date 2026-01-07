@@ -161,7 +161,7 @@ inline bool isInfiniteBndBox(const Graphic3d_BndBox3d& theBndBox)
 }
 
 //! Extend bounding box with another box.
-static void addBox3dToBndBox(Bnd_Box& theResBox, const Graphic3d_BndBox3d& theBox)
+static void addBox3dToBndBox(Box2& theResBox, const Graphic3d_BndBox3d& theBox)
 {
   // skip too big boxes to prevent float overflow at camera parameters calculation
   if (theBox.IsValid() && !isInfiniteBndBox(theBox))
@@ -173,7 +173,7 @@ static void addBox3dToBndBox(Bnd_Box& theResBox, const Graphic3d_BndBox3d& theBo
 
 //=================================================================================================
 
-Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
+Box2 Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
                                      const Handle(CameraOn3d)& theCamera,
                                      Standard_Integer                theWindowWidth,
                                      Standard_Integer                theWindowHeight,
@@ -267,7 +267,7 @@ Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
     myIsBoundingBoxNeedsReset[aBoxId] = false;
   }
 
-  Bnd_Box aResBox = myBoundingBox[aBoxId];
+  Box2 aResBox = myBoundingBox[aBoxId];
   if (!theToIncludeAuxiliary || myAlwaysRenderedMap.IsEmpty())
   {
     return aResBox;

@@ -351,7 +351,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSelfIntersection()
     {
       Bnd_Box2d           box;
       Geom2dAdaptor_Curve gac(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes(i) = box;
     }
   }

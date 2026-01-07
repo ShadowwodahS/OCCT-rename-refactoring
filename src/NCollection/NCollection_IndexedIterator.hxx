@@ -17,7 +17,7 @@
 #include <Standard_Assert.hxx>
 #include <iterator>
 
-//! Helper class that allows to use NCollection iterators as STL iterators.
+//! Helper1 class that allows to use NCollection iterators as STL iterators.
 //! NCollection iterator can be extended to STL iterator of any category by
 //! adding necessary methods: STL forward iterator requires IsEqual method,
 //! STL bidirectional iterator requires Previous method, and STL random access

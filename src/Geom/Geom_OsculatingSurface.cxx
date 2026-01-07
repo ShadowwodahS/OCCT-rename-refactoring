@@ -351,8 +351,8 @@ Standard_Boolean Geom_OsculatingSurface::UOscSurf(const Standard_Real          U
       TColStd_Array1OfReal VKnots(1, NbVK);
       BSur->UKnots(UKnots);
       BSur->VKnots(VKnots);
-      BSplCLib::Hunt(UKnots, U, NU);
-      BSplCLib::Hunt(VKnots, V, NV);
+      BSplCLib1::Hunt(UKnots, U, NU);
+      BSplCLib1::Hunt(VKnots, V, NV);
       if (NU < 1)
         NU = 1;
       if (NU >= NbUK)
@@ -413,8 +413,8 @@ Standard_Boolean Geom_OsculatingSurface::VOscSurf(const Standard_Real          U
       TColStd_Array1OfReal VKnots(1, NbVK);
       BSur->UKnots(UKnots);
       BSur->VKnots(VKnots);
-      BSplCLib::Hunt(UKnots, U, NU);
-      BSplCLib::Hunt(VKnots, V, NV);
+      BSplCLib1::Hunt(UKnots, U, NU);
+      BSplCLib1::Hunt(VKnots, V, NV);
       if (NV < 1)
         NV = 1;
       if (NV >= NbVK)
@@ -544,14 +544,14 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
     {
       TColStd_Array1OfInteger aMults(1, BS->NbUKnots());
       BS->UMultiplicities(aMults);
-      aUfKnotsLength = BSplCLib::KnotSequenceLength(aMults, BS->UDegree(), Standard_True);
+      aUfKnotsLength = BSplCLib1::KnotSequenceLength(aMults, BS->UDegree(), Standard_True);
     }
 
     if (BS->IsVPeriodic())
     {
       TColStd_Array1OfInteger aMults(1, BS->NbVKnots());
       BS->VMultiplicities(aMults);
-      aVfKnotsLength = BSplCLib::KnotSequenceLength(aMults, BS->VDegree(), Standard_True);
+      aVfKnotsLength = BSplCLib1::KnotSequenceLength(aMults, BS->VDegree(), Standard_True);
     }
 
     TColStd_Array1OfReal UFlatKnots(1, aUfKnotsLength);
@@ -578,7 +578,7 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
     if (IsAlongV() && (Param > ucacheparameter + uspanlength / 2))
       ucacheparameter = ucacheparameter + uspanlength;
 
-    BSplSLib::BuildCache(ucacheparameter,
+    BSplSLib1::BuildCache(ucacheparameter,
                          vcacheparameter,
                          uspanlength,
                          vspanlength,
@@ -591,9 +591,9 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
                          UFlatKnots,
                          VFlatKnots,
                          NewPoles,
-                         BSplSLib::NoWeights(),
+                         BSplSLib1::NoWeights(),
                          cachepoles,
-                         BSplSLib::NoWeights());
+                         BSplSLib1::NoWeights());
     Standard_Integer   m, n, index;
     TColgp_Array2OfPnt OscCoeff(1, OscUNumCoeff, 1, OscVNumCoeff);
 
@@ -612,7 +612,7 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
             OscCoeff(n, m) = cachepoles(m + 1, n);
       }
       if (IsVNegative)
-        PLib::VTrimming(-1, 0, OscCoeff, PLib::NoWeights2());
+        PLib1::VTrimming(-1, 0, OscCoeff, PLib1::NoWeights2());
 
       index = 1;
       for (n = 1; n <= udeg + 1; n++)
@@ -639,7 +639,7 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
             OscCoeff(n, m) = cachepoles(m, n + 1);
       }
       if (IsUNegative)
-        PLib::UTrimming(-1, 0, OscCoeff, PLib::NoWeights2());
+        PLib1::UTrimming(-1, 0, OscCoeff, PLib1::NoWeights2());
       index = 1;
       for (n = 1; n <= udeg; n++)
         for (m = 1; m <= vdeg + 1; m++)

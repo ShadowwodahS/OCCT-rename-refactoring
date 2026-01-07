@@ -20,6 +20,6 @@
 #include <Extrema_POnCurv2d.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Extrema_POnCurv2d> Extrema_Array1OfPOnCurv2d;
+typedef NCollection_Array1<PointOnCurve2d> Extrema_Array1OfPOnCurv2d;
 
 #endif

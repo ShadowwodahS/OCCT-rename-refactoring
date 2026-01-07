@@ -328,7 +328,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
   Standard_Integer   size = 4;
   math_Matrix        MatCoefs(1, size, 1, size);
   TColgp_Array1OfXYZ Cont(1, size);
-  PLib::HermiteCoefficients(0, 1, 1, 1, MatCoefs);
+  PLib1::HermiteCoefficients(0, 1, 1, 1, MatCoefs);
   Standard_Real L1     = p01.Distance(p02);
   Standard_Real lambda = ((Standard_Real)1) / Max(d11.Magnitude() / L1, 1.e-6);
   Cont(1)              = p01.XYZ();
@@ -353,7 +353,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
       ExtraCoeffs(jj).ChangeCoord() += MatCoefs(ii, jj) * Cont(ii);
     }
   }
-  PLib::CoefficientsPoles(ExtraCoeffs, PLib::NoWeights(), ExtrapPoles, PLib::NoWeights());
+  PLib1::CoefficientsPoles(ExtraCoeffs, PLib1::NoWeights(), ExtrapPoles, PLib1::NoWeights());
   Handle(BezierCurve3d) Bezier = new (BezierCurve3d)(ExtrapPoles);
   BRepLib_MakeEdge         Bedge(Bezier);
   TopoEdge              edg = Bedge.Edge();
@@ -435,7 +435,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
     {
       if (!ext.IsParallel() && ext.NbExt() != 0)
       {
-        Extrema_POnCurv POnC, POnL;
+        PointOnCurve1 POnC, POnL;
         ext.Points(1, POnC, POnL);
         if (POnC.Value().Distance(POnL.Value()) < Precision::Confusion())
           param.ChangeValue(nb) = POnC.Parameter();
@@ -469,7 +469,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
         {
           if (ext1.NbExt() != 0)
           {
-            Extrema_POnCurv POnC(ext1.Point(1));
+            PointOnCurve1 POnC(ext1.Point(1));
             param.ChangeValue(nb) = POnC.Parameter();
           }
         }
@@ -576,7 +576,7 @@ static void CalculBatten(const Handle(GeomAdaptor_Surface)& ASurf,
       BRepTools1::UVBounds(Face, umin, umax, vmin, vmax);
       Bnd_Box2d           bf, bc;
       Geom2dAdaptor_Curve acur(pcurve);
-      BndLib_Add2dCurve::Add(acur, 0, bc);
+      Add2dCurve::Add(acur, 0, bc);
       bf.Update(umin, vmin, umax, vmax);
       Standard_Real uminc, vminc, umaxc, vmaxc;
       bc.Get(uminc, vminc, umaxc, vmaxc);
@@ -2439,7 +2439,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 
       // calculate indexes of points and of the curve for the DS
       isfirst = (sens.Value(ic) == 1);
-      GeomLib::BuildCurve3d(tolapp,
+      GeomLib1::BuildCurve3d(tolapp,
                             CurvOnS,
                             CurvOnS.FirstParameter(),
                             CurvOnS.LastParameter(),
@@ -2810,7 +2810,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           // calculation of curve 3d if it is not a projection
           if (curveint.IsNull())
           {
-            GeomLib::BuildCurve3d(tolapp,
+            GeomLib1::BuildCurve3d(tolapp,
                                   CurvOnS,
                                   CurvOnS.FirstParameter(),
                                   CurvOnS.LastParameter(),

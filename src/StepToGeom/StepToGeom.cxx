@@ -2366,7 +2366,7 @@ Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_Tr
     {
       if (theCurve->IsPeriodic())
       {
-        ElCLib::AdjustPeriodic(cf, cl, Precision::PConfusion(), trim1, trim2);
+        ElCLib1::AdjustPeriodic(cf, cl, Precision::PConfusion(), trim1, trim2);
       }
       else if (theCurve->IsClosed())
       {
@@ -2453,7 +2453,7 @@ Handle(Geom2d_BSplineCurve) StepToGeom1::MakeTrimmedCurve2d(const Handle(StepGeo
 
     const Handle(Geom2d_TrimmedCurve) theTrimmed =
       new Geom2d_TrimmedCurve(theGeomBasis, newU1, newU2, SC->SenseAgreement());
-    return Geom2dConvert::CurveToBSplineCurve(theTrimmed);
+    return Geom2dConvert1::CurveToBSplineCurve(theTrimmed);
   }
   return 0;
 }

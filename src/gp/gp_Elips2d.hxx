@@ -37,7 +37,7 @@
 //! @endcode
 //! See Also
 //! gce_MakeElips2d which provides functions for more
-//! complex ellipse constructions
+//! complex1 ellipse constructions
 //! Geom2d_Ellipse which provides additional functions for
 //! constructing ellipses and works, in particular, with the
 //! parametric equations of ellipses

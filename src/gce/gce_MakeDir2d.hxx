@@ -33,7 +33,7 @@ class gp_Pnt2d;
 //! * Create a Dir2d with a Vec2d.
 //! * Create a Dir2d with a XY from gp.
 //! * Create a Dir2d with a 2 Reals (Coordinates).
-class gce_MakeDir2d : public gce_Root
+class gce_MakeDir2d : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

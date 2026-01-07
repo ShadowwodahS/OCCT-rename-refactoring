@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 
 //! to Update OutLines.
-struct HLRAlgo_PolyInternalSegment
+struct PolyInternalSegment
 {
   DEFINE_STANDARD_ALLOC
 

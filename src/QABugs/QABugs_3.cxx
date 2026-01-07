@@ -141,7 +141,7 @@ static Standard_Integer BUC60729(DrawInterpreter& /*di*/,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  Bnd_Box      aMainBox;
+  Box2      aMainBox;
   TopoShape aShape = BoxMaker(1, 1, 1).Solid();
 
   BRepBndLib::Add(aShape, aMainBox);
@@ -152,13 +152,13 @@ static Standard_Integer BUC60729(DrawInterpreter& /*di*/,
   ShapeExplorer  aExplorer(aShape, TopAbs_FACE);
   Standard_Integer i;
 
-  //  Bnd_Box __emptyBox; // Box is void !
+  //  Box2 __emptyBox; // Box1 is void !
   //  Handle(Bnd_HArray1OfBox) __aSetOfBox = new Bnd_HArray1OfBox( 1, siMaxNbrBox, __emptyBox );
 
   for (i = 1, aExplorer.ReInit(); aExplorer.More(); aExplorer.Next(), i++)
   {
     const TopoShape& aFace = aExplorer.Current();
-    Bnd_Box             aBox;
+    Box2             aBox;
     BRepBndLib::Add(aFace, aBox);
     m_BoundSortBox.Add(aBox, i);
     //      __aSetOfBox->SetValue( i, aBox );
@@ -227,7 +227,7 @@ static Standard_Integer BUC60792(DrawInterpreter& di, Standard_Integer /*argc*/,
   DBRep1::Set("sh0", sh1);
   gp_Pnt2d thepoint;
   //  local_get_2Dpointfrom3Dpoint(pt3d, pln->Pln(), thepoint);
-  thepoint                               = ProjLib::Project(pln->Pln(), pt3d);
+  thepoint                               = ProjLib1::Project(pln->Pln(), pt3d);
   Handle(Geom2d_CartesianPoint) ThePoint = new Geom2d_CartesianPoint(thepoint);
   Geom2dAdaptor_Curve           acur1(gcir1);
   Geom2dGcc_QualifiedCurve      qcur1(acur1, GccEnt_outside);
@@ -282,7 +282,7 @@ static Standard_Integer BUC60811(DrawInterpreter& di, Standard_Integer argc, con
     Handle(GeomCurve3d)   GC            = BRepInspector::Curve(aEdge, f, l);
     Handle(GeomSurface) GS            = BRepInspector::Surface(aFace, L1);
     GC                                 = new Geom_TrimmedCurve(GC, f, l);
-    Handle(GeomCurve3d)       projCurve = GeomProjLib::Project(GC, GS);
+    Handle(GeomCurve3d)       projCurve = GeomProjLib1::Project(GC, GS);
     BRepBuilderAPI_MakeWire* myWire;
     myWire = new BRepBuilderAPI_MakeWire();
     myWire->Add((EdgeMaker(projCurve)).Edge());
@@ -402,7 +402,7 @@ static Standard_Integer BUC60811(DrawInterpreter& di, Standard_Integer argc, con
     Standard_Real      f = 0.0, l = 0.0;
     Handle(GeomCurve3d) newBSplin = BRepInspector::Curve(e1, f, l);
     newBSplin                    = new Geom_TrimmedCurve(newBSplin, f, l);
-    Handle(GeomCurve3d) projCurve = GeomProjLib::Project(newBSplin, offsurf);
+    Handle(GeomCurve3d) projCurve = GeomProjLib1::Project(newBSplin, offsurf);
     myWire->Add((EdgeMaker(projCurve)).Edge());
   }
   Handle(VisualShape) ais33 = new VisualShape(myWire->Wire());

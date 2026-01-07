@@ -113,7 +113,7 @@ void BRepMesh_Classifier::RegisterWire(const NCollection_Sequence<const gp_Pnt2d
   if (Abs(anAngle) < aAngTol)
     anAngle = 0.0;
 
-  myTabClass.Append(new CSLib_Class2d(aPClass,
+  myTabClass.Append(new Class2d(aPClass,
                                       theTolUV.first,
                                       theTolUV.second,
                                       theRangeU.first,

@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0G1Constraint, NLPlate_HPG0Constraint)
 
 NLPlate_HPG0G1Constraint::NLPlate_HPG0G1Constraint(const Coords2d&    UV,
                                                    const gp_XYZ&   Value,
-                                                   const Plate_D1& D1T)
+                                                   const D1& D1T)
     : NLPlate_HPG0Constraint(UV, Value),
       myG1Target(D1T)
 {
@@ -48,7 +48,7 @@ Standard_Integer NLPlate_HPG0G1Constraint::Orientation()
   return myOrientation;
 }
 
-const Plate_D1& NLPlate_HPG0G1Constraint::G1Target() const
+const D1& NLPlate_HPG0G1Constraint::G1Target() const
 {
   return myG1Target;
 }

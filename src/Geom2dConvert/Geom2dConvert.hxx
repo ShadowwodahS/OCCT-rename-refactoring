@@ -52,7 +52,7 @@ class GeomCurve2d;
 //! 1987
 //! . A survey of curve and surface methods in CAGD (Wolfgang BOHM)
 //! CAGD 1 1984
-class Geom2dConvert
+class Geom2dConvert1
 {
 public:
   DEFINE_STANDARD_ALLOC

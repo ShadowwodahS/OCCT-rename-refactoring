@@ -46,7 +46,7 @@ public:
 
   //! Initializes this comparison algorithm with
   //! -   the set of bounding boxes SetOfBox.
-  Standard_EXPORT void Initialize(const Bnd_Box&                  CompleteBox,
+  Standard_EXPORT void Initialize(const Box2&                  CompleteBox,
                                   const Handle(Bnd_HArray1OfBox)& SetOfBox);
 
   //! Initializes this comparison algorithm with
@@ -58,7 +58,7 @@ public:
   //! -   the maximum number nbComponents
   //! of the bounding boxes to be managed. Use the Add
   //! function to define the array of bounding boxes to be sorted by this algorithm.
-  Standard_EXPORT void Initialize(const Bnd_Box& CompleteBox, const Standard_Integer nbComponents);
+  Standard_EXPORT void Initialize(const Box2& CompleteBox, const Standard_Integer nbComponents);
 
   //! Adds the bounding box theBox at position boxIndex in
   //! the array of boxes to be sorted by this comparison algorithm.
@@ -76,14 +76,14 @@ public:
   //! - Standard_MultiplyDefined if a box already exists at
   //! position boxIndex in the array of boxes to be sorted by
   //! this comparison algorithm.
-  Standard_EXPORT void Add(const Bnd_Box& theBox, const Standard_Integer boxIndex);
+  Standard_EXPORT void Add(const Box2& theBox, const Standard_Integer boxIndex);
 
   //! Compares the bounding box theBox,
   //! with the set of bounding boxes to be sorted by this
   //! comparison algorithm, and returns the list of intersecting
   //! bounding boxes as a list of indexes on the array of
   //! bounding boxes used by this algorithm.
-  Standard_EXPORT const TColStd_ListOfInteger& Compare(const Bnd_Box& theBox);
+  Standard_EXPORT const TColStd_ListOfInteger& Compare(const Box2& theBox);
 
   //! Compares the plane P
   //! with the set of bounding boxes to be sorted by this
@@ -104,7 +104,7 @@ private:
   //! <SetOfBox> .
   Standard_EXPORT void SortBoxes();
 
-  Bnd_Box                         myBox;
+  Box2                         myBox;
   Handle(Bnd_HArray1OfBox)        myBndComponents;
   Standard_Real                   Xmin;
   Standard_Real                   Ymin;

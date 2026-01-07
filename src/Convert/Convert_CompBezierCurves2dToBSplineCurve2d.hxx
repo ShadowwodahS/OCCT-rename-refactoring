@@ -32,7 +32,7 @@
 //! BSplineCurve 2d.
 //! if possible, the continuity of the BSpline will be
 //! increased to more than C0.
-class Convert_CompBezierCurves2dToBSplineCurve2d
+class BezierToBSpline2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,7 +52,7 @@ public:
   //! -   Perform to compute the data needed to build the BSpline curve,
   //! -   and the available consultation functions to access the
   //! computed data. This data may be used to construct the BSpline curve.
-  Standard_EXPORT Convert_CompBezierCurves2dToBSplineCurve2d(
+  Standard_EXPORT BezierToBSpline2d(
     const Standard_Real AngularTolerance = 1.0e-4);
 
   //! Adds the Bezier curve defined by the table of poles Poles, to

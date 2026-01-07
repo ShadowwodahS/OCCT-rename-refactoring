@@ -282,8 +282,8 @@ void BOPDS_Iterator::Intersect(const Handle(IntTools_Context)& theCtx,
     const BOPDS_ShapeInfo& aSI = myDS->ShapeInfo(i);
     if (!aSI.HasBRep())
       continue;
-    const Bnd_Box& aBox = aSI.Box();
-    aBoxTree.Add(i, Bnd_Tools::Bnd2BVH(aBox));
+    const Box2& aBox = aSI.Box1();
+    aBoxTree.Add(i, Tools5::Bnd2BVH(aBox));
   }
 
   // Build BVH
@@ -335,8 +335,8 @@ void BOPDS_Iterator::Intersect(const Handle(IntTools_Context)& theCtx,
       if (theCheckOBB)
       {
         // Check intersection of Oriented bounding boxes of the shapes
-        const Bnd_OBB& anOBB1 = theCtx->OBB(aSI1.Shape(), theFuzzyValue);
-        const Bnd_OBB& anOBB2 = theCtx->OBB(aSI2.Shape(), theFuzzyValue);
+        const OrientedBox& anOBB1 = theCtx->OBB(aSI1.Shape(), theFuzzyValue);
+        const OrientedBox& anOBB2 = theCtx->OBB(aSI2.Shape(), theFuzzyValue);
 
         if (anOBB1.IsOut(anOBB2))
           continue;
@@ -372,18 +372,18 @@ void BOPDS_Iterator::IntersectExt(const TColStd_MapOfInteger& theIndices)
       Standard_Integer nVSD = i;
       myDS->HasShapeSD(i, nVSD);
       const BOPDS_ShapeInfo& aSISD = myDS->ShapeInfo(nVSD);
-      const Bnd_Box&         aBox  = aSISD.Box();
-      aBoxTree.Add(i, Bnd_Tools::Bnd2BVH(aBox));
+      const Box2&         aBox  = aSISD.Box1();
+      aBoxTree.Add(i, Tools5::Bnd2BVH(aBox));
 
       BOPDS_TSR& aTSR = aVTSR.Appended();
       aTSR.SetHasBRep(Standard_True);
       aTSR.SetBVHSet(&aBoxTree);
-      aTSR.SetBox(Bnd_Tools::Bnd2BVH(aBox));
+      aTSR.SetBox(Tools5::Bnd2BVH(aBox));
       aTSR.SetIndex(i);
     }
     else
     {
-      aBoxTree.Add(i, Bnd_Tools::Bnd2BVH(aSI.Box()));
+      aBoxTree.Add(i, Tools5::Bnd2BVH(aSI.Box1()));
     }
   }
 

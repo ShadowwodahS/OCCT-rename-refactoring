@@ -127,7 +127,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
     if (GetType() == GeomAbs_Cone)
     {
       if (gp_Lin(myAxis).Distance(P) <= Precision::Confusion())
-        Q = ElCLib::Value(1., myBasisCurve->Line());
+        Q = ElCLib1::Value(1., myBasisCurve->Line());
       else
         Q = P;
     }

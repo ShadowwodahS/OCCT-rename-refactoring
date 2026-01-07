@@ -24,7 +24,7 @@
 #include <IntAna2d_IntPoint.hxx>
 class gp_Lin2d;
 class gp_Circ2d;
-class IntAna2d_Conic;
+class Conic2d;
 class gp_Elips2d;
 class gp_Parab2d;
 class gp_Hypr2d;
@@ -37,37 +37,37 @@ class gp_Hypr2d;
 //! and another conic.
 //! No tolerance is given for all the intersections: the tolerance
 //! will be the "precision machine".
-class IntAna2d_AnaIntersection
+class AnalyticIntersection2d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor. IsDone returns False.
-  Standard_EXPORT IntAna2d_AnaIntersection();
+  Standard_EXPORT AnalyticIntersection2d();
 
   //! Intersection between two lines.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Lin2d& L1, const gp_Lin2d& L2);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Lin2d& L1, const gp_Lin2d& L2);
 
   //! Intersection between two circles.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Circ2d& C1, const gp_Circ2d& C2);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Circ2d& C1, const gp_Circ2d& C2);
 
   //! Intersection between a line and a circle.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Lin2d& L, const gp_Circ2d& C);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Lin2d& L, const gp_Circ2d& C);
 
   //! Intersection between a line and a conic.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Lin2d& L, const IntAna2d_Conic& C);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Lin2d& L, const Conic2d& C);
 
   //! Intersection between a circle and another conic.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Circ2d& C, const IntAna2d_Conic& Co);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Circ2d& C, const Conic2d& Co);
 
   //! Intersection between an ellipse and another conic.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Elips2d& E, const IntAna2d_Conic& C);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Elips2d& E, const Conic2d& C);
 
   //! Intersection between a parabola and another conic.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Parab2d& P, const IntAna2d_Conic& C);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Parab2d& P, const Conic2d& C);
 
   //! Intersection between an hyperbola and another conic.
-  Standard_EXPORT IntAna2d_AnaIntersection(const gp_Hypr2d& H, const IntAna2d_Conic& C);
+  Standard_EXPORT AnalyticIntersection2d(const gp_Hypr2d& H, const Conic2d& C);
 
   //! Intersection between two lines.
   Standard_EXPORT void Perform(const gp_Lin2d& L1, const gp_Lin2d& L2);
@@ -79,19 +79,19 @@ public:
   Standard_EXPORT void Perform(const gp_Lin2d& L, const gp_Circ2d& C);
 
   //! Intersection between a line and a conic.
-  Standard_EXPORT void Perform(const gp_Lin2d& L, const IntAna2d_Conic& C);
+  Standard_EXPORT void Perform(const gp_Lin2d& L, const Conic2d& C);
 
   //! Intersection between a circle and another conic.
-  Standard_EXPORT void Perform(const gp_Circ2d& C, const IntAna2d_Conic& Co);
+  Standard_EXPORT void Perform(const gp_Circ2d& C, const Conic2d& Co);
 
   //! Intersection between an ellipse and another conic.
-  Standard_EXPORT void Perform(const gp_Elips2d& E, const IntAna2d_Conic& C);
+  Standard_EXPORT void Perform(const gp_Elips2d& E, const Conic2d& C);
 
   //! Intersection between a parabola and another conic.
-  Standard_EXPORT void Perform(const gp_Parab2d& P, const IntAna2d_Conic& C);
+  Standard_EXPORT void Perform(const gp_Parab2d& P, const Conic2d& C);
 
   //! Intersection between an hyperbola and another conic.
-  Standard_EXPORT void Perform(const gp_Hypr2d& H, const IntAna2d_Conic& C);
+  Standard_EXPORT void Perform(const gp_Hypr2d& H, const Conic2d& C);
 
   //! Returns TRUE if the computation was successful.
   Standard_Boolean IsDone() const;
@@ -120,7 +120,7 @@ public:
 
   //! returns the intersection point of range N;
   //! If (N<=0) or (N>NbPoints), an exception is raised.
-  const IntAna2d_IntPoint& Point(const Standard_Integer N) const;
+  const IntersectionPoint2d& Point(const Standard_Integer N) const;
 
 protected:
 private:
@@ -129,7 +129,7 @@ private:
   Standard_Boolean  iden;
   Standard_Boolean  empt;
   Standard_Integer  nbp;
-  IntAna2d_IntPoint lpnt[4];
+  IntersectionPoint2d lpnt[4];
 };
 
 #include <IntAna2d_AnaIntersection.lxx>

@@ -118,7 +118,7 @@ void KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_Real>& theC
     }
     Par[j] = thePars(k);
   }
-  PLib::EvalLagrange(Par[0], 2, 2, dim, *Val, *Par, *Res);
+  PLib1::EvalLagrange(Par[0], 2, 2, dim, *Val, *Par, *Res);
   //
   theCurv(i) = EvalCurv(dim, &Res[dim], &Res[2 * dim]);
   //
@@ -140,7 +140,7 @@ void KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_Real>& theC
       }
       Par[j] = thePars(k);
     }
-    PLib::EvalLagrange(Par[1], 2, 2, dim, *Val, *Par, *Res);
+    PLib1::EvalLagrange(Par[1], 2, 2, dim, *Val, *Par, *Res);
     //
     theCurv(i) = EvalCurv(dim, &Res[dim], &Res[2 * dim]);
     if (theCurv(i) > theMaxCurv)
@@ -161,7 +161,7 @@ void KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_Real>& theC
     }
     Par[j] = thePars(k);
   }
-  PLib::EvalLagrange(Par[2], 2, 2, dim, *Val, *Par, *Res);
+  PLib1::EvalLagrange(Par[2], 2, 2, dim, *Val, *Par, *Res);
   //
   theCurv(i) = EvalCurv(dim, &Res[dim], &Res[2 * dim]);
   if (theCurv(i) > theMaxCurv)

@@ -29,12 +29,12 @@ class AdvApp2Var_Patch;
 class AdvApp2Var_Context;
 
 //! this class contains a given criterion to be satisfied
-class AdvApp2Var_Criterion
+class Criterion
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT virtual ~AdvApp2Var_Criterion();
+  Standard_EXPORT virtual ~Criterion();
 
   Standard_EXPORT virtual void Value(AdvApp2Var_Patch& P, const AdvApp2Var_Context& C) const = 0;
 

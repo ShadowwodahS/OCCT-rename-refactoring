@@ -24,7 +24,7 @@
 #include <AppParCurves_Constraint.hxx>
 #include <math_Vector.hxx>
 
-struct PeriodicityInfo
+struct PeriodicityInfo1
 {
   Standard_Boolean isPeriodic;
   Standard_Real    myPeriod;
@@ -33,7 +33,7 @@ struct PeriodicityInfo
 class AppCont_LeastSquare
 {
 public:
-  Standard_EXPORT AppCont_LeastSquare(const AppCont_Function&       SSP,
+  Standard_EXPORT AppCont_LeastSquare(const ContinuityFunction&       SSP,
                                       const Standard_Real           U0,
                                       const Standard_Real           U1,
                                       const AppParCurves_Constraint FirstCons,
@@ -49,7 +49,7 @@ public:
 
 private:
   //! Fix border point evaluation.
-  void FixSingleBorderPoint(const AppCont_Function&       theSSP,
+  void FixSingleBorderPoint(const ContinuityFunction&       theSSP,
                             const Standard_Real           theU,
                             const Standard_Real           theU0,
                             const Standard_Real           theU1,
@@ -61,7 +61,7 @@ private:
   math_Matrix                         myPoles;
   math_Vector                         myParam;
   math_Matrix                         myVB;
-  NCollection_Array1<PeriodicityInfo> myPerInfo;
+  NCollection_Array1<PeriodicityInfo1> myPerInfo;
   Standard_Boolean                    myDone;
   Standard_Integer                    myDegre;
   Standard_Integer                    myNbdiscret, myNbP, myNbP2d;

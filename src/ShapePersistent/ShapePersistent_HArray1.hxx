@@ -43,7 +43,7 @@ public:
   typedef instance<TColgp_HArray1OfVec2d>  Vec2d;
   typedef instance<TColgp_HArray1OfLin2d>  Lin2d;
   typedef instance<TColgp_HArray1OfCirc2d> Circ2d;
-  typedef instance<Poly_HArray1OfTriangle> Triangle;
+  typedef instance<Poly_HArray1OfTriangle> Triangle1;
 };
 
 inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Poly_Triangle& theTriangle)

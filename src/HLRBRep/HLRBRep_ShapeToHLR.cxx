@@ -35,14 +35,14 @@
 
 //=================================================================================================
 
-Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)& S,
-                                              const HLRAlgo_Projector&            P,
+Handle(HLRBRep_Data) ShapeToHLRConverter::Load(const Handle(HLRTopoBRep_OutLiner)& S,
+                                              const HLRAlgoProjector&            P,
                                               BRepTopAdaptor_MapOfShapeTool&      MST,
                                               const Standard_Integer              nbIso)
 {
   S->Fill(P, MST, nbIso);
 
-  HLRTopoBRep_Data&                         TopDS = S->DataStructure();
+  Data1&                         TopDS = S->DataStructure();
   TopTools_IndexedMapOfShape                FM;
   TopTools_IndexedMapOfShape                EM;
   TopTools_IndexedDataMapOfShapeListOfShape VerticesToEdges;
@@ -162,7 +162,7 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
 
 //=================================================================================================
 
-void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
+void ShapeToHLRConverter::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
                                      const Handle(HLRBRep_Data)&         DS,
                                      const TopTools_IndexedMapOfShape&   FM,
                                      const TopTools_IndexedMapOfShape&   EM,
@@ -172,7 +172,7 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
 {
   i++;
   ShapeExplorer    Ex1, Ex2;
-  HLRTopoBRep_Data&  TopDS   = S->DataStructure();
+  Data1&  TopDS   = S->DataStructure();
   TopAbs_Orientation orient  = FM(i).Orientation();
   TopoFace        theFace = TopoDS::Face(FM(i));
   theFace.Orientation(TopAbs_FORWARD);
@@ -221,7 +221,7 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
 
 //=================================================================================================
 
-void HLRBRep_ShapeToHLR::ExploreShape(const Handle(HLRTopoBRep_OutLiner)& S,
+void ShapeToHLRConverter::ExploreShape(const Handle(HLRTopoBRep_OutLiner)& S,
                                       const Handle(HLRBRep_Data)&         DS,
                                       const TopTools_IndexedMapOfShape&   FM,
                                       const TopTools_IndexedMapOfShape&   EM)

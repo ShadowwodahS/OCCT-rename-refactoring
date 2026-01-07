@@ -15,7 +15,7 @@
 
 //=================================================================================================
 
-mmcmcnp_1_& AdvApp2Var_Data::Getmmcmcnp()
+mmcmcnp_1_1& Data::Getmmcmcnp()
 {
   static doublereal e_1[3721] = {1.,
                                  1.,
@@ -3740,5 +3740,5 @@ mmcmcnp_1_& AdvApp2Var_Data::Getmmcmcnp()
                                  1.
 
   };
-  return *((mmcmcnp_1_*)&e_1);
+  return *((mmcmcnp_1_1*)&e_1);
 }

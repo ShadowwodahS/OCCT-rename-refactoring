@@ -30,8 +30,8 @@
 #include <math_Vector.hxx>
 class Standard_OutOfRange;
 class Adaptor3d_Curve;
-class Extrema_CurveTool;
-class Extrema_POnCurv;
+class CurveTool4;
+class PointOnCurve1;
 class Point3d;
 class Vector3d;
 class math_Matrix;
@@ -79,8 +79,8 @@ public:
 
   //! Return the points of the Nth extreme distance.
   Standard_EXPORT void Points(const Standard_Integer N,
-                              Extrema_POnCurv&       P1,
-                              Extrema_POnCurv&       P2) const;
+                              PointOnCurve1&       P1,
+                              PointOnCurve1&       P2) const;
 
   //! Returns a pointer to the curve specified in the constructor
   //! or in SetCurve() method.
@@ -123,13 +123,13 @@ private:
 
 #define Curve1 Adaptor3d_Curve
 #define Curve1_hxx <Adaptor3d_Curve.hxx>
-#define Tool1 Extrema_CurveTool
+#define Tool1 CurveTool4
 #define Tool1_hxx <Extrema_CurveTool.hxx>
 #define Curve2 Adaptor3d_Curve
 #define Curve2_hxx <Adaptor3d_Curve.hxx>
-#define Tool2 Extrema_CurveTool
+#define Tool2 CurveTool4
 #define Tool2_hxx <Extrema_CurveTool.hxx>
-#define POnC Extrema_POnCurv
+#define POnC PointOnCurve1
 #define POnC_hxx <Extrema_POnCurv.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>

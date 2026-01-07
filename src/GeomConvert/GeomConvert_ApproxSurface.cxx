@@ -25,7 +25,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-class GeomConvert_ApproxSurface_Eval : public AdvApp2Var_EvaluatorFunc2Var
+class GeomConvert_ApproxSurface_Eval : public EvaluatorFunc2Var
 {
 
 public:

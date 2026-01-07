@@ -43,11 +43,11 @@ public:
   Standard_EXPORT StepData_FreeFormEntity();
 
   //! Sets the type of an entity
-  //! For a complex one, the type of this member
+  //! For a complex1 one, the type of this member
   Standard_EXPORT void SetStepType(const Standard_CString typenam);
 
   //! Returns the recorded StepType
-  //! For a complex one, the type of this member
+  //! For a complex1 one, the type of this member
   Standard_EXPORT Standard_CString StepType() const;
 
   //! Sets a next member, in order to define or complete a Complex

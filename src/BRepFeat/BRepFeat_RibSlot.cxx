@@ -480,19 +480,19 @@ Dir3d BRepFeat_RibSlot::Normal(const TopoFace& F, const Point3d& P)
   {
 
     case GeomAbs_Plane:
-      ElSLib::Parameters(AS.Plane(), P, U, V);
+      ElSLib1::Parameters(AS.Plane(), P, U, V);
       break;
 
     case GeomAbs_Cylinder:
-      ElSLib::Parameters(AS.Cylinder(), P, U, V);
+      ElSLib1::Parameters(AS.Cylinder(), P, U, V);
       break;
 
     case GeomAbs_Cone:
-      ElSLib::Parameters(AS.Cone(), P, U, V);
+      ElSLib1::Parameters(AS.Cone(), P, U, V);
       break;
 
     case GeomAbs_Torus:
-      ElSLib::Parameters(AS.Torus(), P, U, V);
+      ElSLib1::Parameters(AS.Torus(), P, U, V);
       break;
 
     default: {
@@ -505,7 +505,7 @@ Dir3d BRepFeat_RibSlot::Normal(const TopoFace& F, const Point3d& P)
   AS.D1(U, V, pt, D1U, D1V);
   Dir3d                 N;
   CSLib_DerivativeStatus St;
-  CSLib::Normal(D1U, D1V, Precision::Confusion(), St, N);
+  CSLib1::Normal(D1U, D1V, Precision::Confusion(), St, N);
   if (F.Orientation() == TopAbs_FORWARD)
     N.Reverse();
   return N;
@@ -529,23 +529,23 @@ Standard_Real BRepFeat_RibSlot::IntPar(const Handle(GeomCurve3d)& C, const Point
   {
 
     case GeomAbs_Line:
-      U = ElCLib::Parameter(AC.Line(), P);
+      U = ElCLib1::Parameter(AC.Line(), P);
       break;
 
     case GeomAbs_Circle:
-      U = ElCLib::Parameter(AC.Circle(), P);
+      U = ElCLib1::Parameter(AC.Circle(), P);
       break;
 
     case GeomAbs_Ellipse:
-      U = ElCLib::Parameter(AC.Ellipse(), P);
+      U = ElCLib1::Parameter(AC.Ellipse(), P);
       break;
 
     case GeomAbs_Hyperbola:
-      U = ElCLib::Parameter(AC.Hyperbola(), P);
+      U = ElCLib1::Parameter(AC.Hyperbola(), P);
       break;
 
     case GeomAbs_Parabola:
-      U = ElCLib::Parameter(AC.Parabola(), P);
+      U = ElCLib1::Parameter(AC.Parabola(), P);
       break;
 
     default:
@@ -603,7 +603,7 @@ void BRepFeat_RibSlot::EdgeExtention(TopoEdge&           e,
       C->D1(f, pnt, vct);
       ln = new GeomLine(pnt, -vct);
       ln->D0(bnd / 1000., Pt);
-      GeomLib::ExtendCurveToPoint(C, Pt, GeomAbs_G1, Standard_False);
+      GeomLib1::ExtendCurveToPoint(C, Pt, GeomAbs_G1, Standard_False);
       BRepLib_MakeEdge Edg(C, Pt, BRepInspector::Pnt(TopExp1::LastVertex(e, Standard_True)));
       E = TopoDS::Edge(Edg.Shape());
     }
@@ -612,7 +612,7 @@ void BRepFeat_RibSlot::EdgeExtention(TopoEdge&           e,
       C->D1(l, pnt, vct);
       ln = new GeomLine(pnt, vct);
       ln->D0(bnd / 1000., Pt);
-      GeomLib::ExtendCurveToPoint(C, Pt, GeomAbs_G1, Standard_True);
+      GeomLib1::ExtendCurveToPoint(C, Pt, GeomAbs_G1, Standard_True);
       BRepLib_MakeEdge Edg(C, BRepInspector::Pnt(TopExp1::FirstVertex(e, Standard_True)), Pt);
       E = TopoDS::Edge(Edg.Shape());
     }
@@ -699,14 +699,14 @@ Standard_Real BRepFeat_RibSlot::HeightMax(const TopoShape& theSbase,
   if (trc)
     std::cout << "BRepFeat_RibSlot::HeightMax" << std::endl;
 #endif
-  Bnd_Box Box;
-  BRepBndLib::Add(theSbase, Box);
+  Box2 Box1;
+  BRepBndLib::Add(theSbase, Box1);
   if (!theSUntil.IsNull())
   {
-    BRepBndLib::Add(theSUntil, Box);
+    BRepBndLib::Add(theSUntil, Box1);
   }
   Standard_Real c[6], bnd;
-  Box.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
+  Box1.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
   bnd = c[0];
   for (Standard_Integer i = 0; i < 6; i++)
   {
@@ -1440,8 +1440,8 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
     d2 = ln2->Position().Direction();
     if (d1.IsOpposite(d2, myTol))
     {
-      Standard_Real par1 = ElCLib::Parameter(ln1->Lin(), myFirstPnt);
-      Standard_Real par2 = ElCLib::Parameter(ln2->Lin(), myLastPnt);
+      Standard_Real par1 = ElCLib1::Parameter(ln1->Lin(), myFirstPnt);
+      Standard_Real par2 = ElCLib1::Parameter(ln2->Lin(), myLastPnt);
       if (par1 >= myTol || par2 >= myTol)
       {
         Concavite = 2; // parallel and concave
@@ -1701,7 +1701,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
     // Bndface  : face/cut of the bounding box in the plane of the profile
     BRepTopAdaptor_FClass2d Cl(fac, BRepInspector::Tolerance(fac));
     Standard_Real           u, v;
-    ElSLib::Parameters(myPln->Pln(), CheckPnt, u, v);
+    ElSLib1::Parameters(myPln->Pln(), CheckPnt, u, v);
     gp_Pnt2d checkpnt2d(u, v);
     if (Cl.Perform(checkpnt2d, Standard_True) == TopAbs_OUT)
     {
@@ -1799,8 +1799,8 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
     d2 = lastln->Position().Direction();
     if (d1.IsOpposite(d2, myTol))
     {
-      Standard_Real par1 = ElCLib::Parameter(firstln->Lin(), myFirstPnt);
-      Standard_Real par2 = ElCLib::Parameter(lastln->Lin(), myLastPnt);
+      Standard_Real par1 = ElCLib1::Parameter(firstln->Lin(), myFirstPnt);
+      Standard_Real par2 = ElCLib1::Parameter(lastln->Lin(), myLastPnt);
       if (par1 >= myTol || par2 >= myTol)
         Concavite = 2; // parallel and concave
     }
@@ -2518,7 +2518,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
   {
     BRepTopAdaptor_FClass2d Cl(fac, BRepInspector::Tolerance(fac));
     Standard_Real           u, v;
-    ElSLib::Parameters(myPln->Pln(), CheckPnt, u, v);
+    ElSLib1::Parameters(myPln->Pln(), CheckPnt, u, v);
     gp_Pnt2d checkpnt2d(u, v);
     if (Cl.Perform(checkpnt2d, Standard_True) == TopAbs_OUT)
     {

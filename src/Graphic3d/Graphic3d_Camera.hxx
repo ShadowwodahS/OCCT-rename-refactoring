@@ -346,7 +346,7 @@ public:
   Standard_EXPORT void SetFOV2d(Standard_Real theFOV);
 
   //! Adjust camera to fit in specified AABB.
-  Standard_EXPORT bool FitMinMax(const Bnd_Box&      theBox,
+  Standard_EXPORT bool FitMinMax(const Box2&      theBox,
                                  const Standard_Real theResolution,
                                  const bool          theToEnlargeIfLine);
 
@@ -363,15 +363,15 @@ public:
   //! @param[in] theMinMax applicative min max boundaries.
   //! @param[in] theGraphicBB real graphical boundaries (not accounting infinite flag).
   Standard_EXPORT bool ZFitAll(const Standard_Real theScaleFactor,
-                               const Bnd_Box&      theMinMax,
-                               const Bnd_Box&      theGraphicBB,
+                               const Box2&      theMinMax,
+                               const Box2&      theGraphicBB,
                                Standard_Real&      theZNear,
                                Standard_Real&      theZFar) const;
 
   //! Change Z-min and Z-max planes of projection volume to match the displayed objects.
   void ZFitAll(const Standard_Real theScaleFactor,
-               const Bnd_Box&      theMinMax,
-               const Bnd_Box&      theGraphicBB)
+               const Box2&      theMinMax,
+               const Box2&      theGraphicBB)
   {
     Standard_Real aZNear = 0.0, aZFar = 1.0;
     ZFitAll(theScaleFactor, theMinMax, theGraphicBB, aZNear, aZFar);

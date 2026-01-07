@@ -115,8 +115,8 @@ void BOPDS_SubIterator::Intersect()
     {
       const Standard_Integer nS     = it.Value();
       const BOPDS_ShapeInfo& aSI    = myDS->ShapeInfo(nS);
-      const Bnd_Box&         aBoxEx = aSI.Box();
-      aBBTree[i].Add(nS, Bnd_Tools::Bnd2BVH(aBoxEx));
+      const Box2&         aBoxEx = aSI.Box1();
+      aBBTree[i].Add(nS, Tools5::Bnd2BVH(aBoxEx));
     }
     aBBTree[i].Build();
   }

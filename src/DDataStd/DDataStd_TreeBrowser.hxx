@@ -29,7 +29,7 @@ class TDataStd_TreeNode;
 class DDataStd_TreeBrowser;
 DEFINE_STANDARD_HANDLE(DDataStd_TreeBrowser, Draw_Drawable3D)
 
-//! Browses a TreeNode from TDataStd.
+//! Browses a TreeNode from TDataStd1.
 //! =================================
 class DDataStd_TreeBrowser : public Draw_Drawable3D
 {

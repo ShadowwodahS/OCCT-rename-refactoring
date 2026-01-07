@@ -78,7 +78,7 @@ Standard_Boolean XCAFDoc_ViewTool::IsView(const DataLabel& theLabel) const
 void XCAFDoc_ViewTool::GetViewLabels(TDF_LabelSequence& theLabels) const
 {
   theLabels.Clear();
-  TDF_ChildIterator aChildIterator(Label());
+  ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
     DataLabel aLabel = aChildIterator.Value();

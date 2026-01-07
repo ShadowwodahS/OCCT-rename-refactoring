@@ -38,8 +38,8 @@ static Standard_Real GetDeflection(const Handle(BRepAdaptor_Surface)&  aFace,
   Standard_Real theRequestedDeflection;
   if (aDrawer->TypeOfDeflection() == Aspect_TOD_RELATIVE) // TOD_RELATIVE, TOD_ABSOLUTE
   {
-    Bnd_Box box;
-    BndLib_AddSurface::Add(aFace->Surface(), Precision::Confusion(), box);
+    Box2 box;
+    AddSurface::Add(aFace->Surface(), Precision::Confusion(), box);
 
     Standard_Real Xmin, Xmax, Ymin, Ymax, Zmin, Zmax, diagonal;
     box.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
@@ -148,7 +148,7 @@ void WFDeflectionRestrictedFaceConverter::Add(Standard_OStream&                 
     const Adaptor2d_Curve2d* TheRCurve = &ToolRst.Value();
     if (TheRCurve->GetType() != GeomAbs_Line)
     {
-      GCPnts_QuasiUniformDeflection UDP(*TheRCurve, Deflection);
+      QuasiUniformDeflectionSampler UDP(*TheRCurve, Deflection);
       if (UDP.IsDone())
       {
         Standard_Integer NumberOfPoints = UDP.NbPoints();

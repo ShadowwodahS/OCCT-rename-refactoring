@@ -398,7 +398,7 @@ Handle(GeomCurve2d) BRepInspector::CurveOnPlane(const TopoEdge&          E,
 
   // Perform projection
   Handle(GeomCurve3d) ProjOnPlane =
-    GeomProjLib::ProjectOnPlane(new Geom_TrimmedCurve(C3D, f, l, Standard_True, Standard_False),
+    GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3D, f, l, Standard_True, Standard_False),
                                 GP,
                                 GP->Position().Direction(),
                                 Standard_True);
@@ -999,7 +999,7 @@ void BRepInspector::UVPoints(const TopoEdge&          E,
     if (!Vf.IsNull())
     {
       Point3d PF = BRepInspector::Pnt(Vf);
-      ElSLib::Parameters(pln, PF, u, v);
+      ElSLib1::Parameters(pln, PF, u, v);
     }
     PFirst.SetCoord(u, v);
 
@@ -1007,7 +1007,7 @@ void BRepInspector::UVPoints(const TopoEdge&          E,
     if (!Vl.IsNull())
     {
       Point3d PL = BRepInspector::Pnt(Vl);
-      ElSLib::Parameters(pln, PL, u, v);
+      ElSLib1::Parameters(pln, PL, u, v);
     }
     PLast.SetCoord(u, v);
   }

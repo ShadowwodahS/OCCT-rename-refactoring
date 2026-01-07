@@ -40,7 +40,7 @@ class gp_Pnt2d;
 //! * Create a Circle with its center and the normal of its
 //! plane and its radius.
 //! * Create a Circle with its axis and radius.
-class GCE2d_MakeCircle : public GCE2d_Root
+class GCE2d_MakeCircle : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

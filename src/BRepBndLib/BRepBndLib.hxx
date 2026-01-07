@@ -21,8 +21,8 @@
 #include <Standard_DefineAlloc.hxx>
 
 class TopoShape;
-class Bnd_Box;
-class Bnd_OBB;
+class Box2;
+class OrientedBox;
 
 //! This package provides the bounding boxes for curves
 //! and surfaces from BRepAdaptor.
@@ -50,7 +50,7 @@ public:
   //! been inserted inside the data structure of the shape S.
   //! -   The resulting bounding box may be somewhat larger than the object.
   Standard_EXPORT static void Add(const TopoShape&    S,
-                                  Bnd_Box&               B,
+                                  Box2&               B,
                                   const Standard_Boolean useTriangulation = Standard_True);
 
   //! Adds the shape S to the bounding box B.
@@ -64,7 +64,7 @@ public:
   //! tolerance value of the sub-shapes as is the case with the
   //! Add function. So the added part of the resulting bounding
   //! box is closer to the shape S.
-  Standard_EXPORT static void AddClose(const TopoShape& S, Bnd_Box& B);
+  Standard_EXPORT static void AddClose(const TopoShape& S, Box2& B);
 
   //! Adds the shape S to the bounding box B.
   //! This algorithm builds precise bounding box,
@@ -76,7 +76,7 @@ public:
   //! otherwise bounding box is built according to sizes of uderlined geometrical entities,
   //! numerical calculation use tolerance Precision::Confusion().
   Standard_EXPORT static void AddOptimal(const TopoShape&    S,
-                                         Bnd_Box&               B,
+                                         Box2&               B,
                                          const Standard_Boolean useTriangulation  = Standard_True,
                                          const Standard_Boolean useShapeTolerance = Standard_False);
 
@@ -94,7 +94,7 @@ public:
   //! OBB for the cost of performance or not.
   Standard_EXPORT static void AddOBB(
     const TopoShape&    theS,
-    Bnd_OBB&               theOBB,
+    OrientedBox&               theOBB,
     const Standard_Boolean theIsTriangulationUsed  = Standard_True,
     const Standard_Boolean theIsOptimal            = Standard_False,
     const Standard_Boolean theIsShapeToleranceUsed = Standard_True);

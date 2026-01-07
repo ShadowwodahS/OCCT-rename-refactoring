@@ -25,14 +25,14 @@
 #include <gp_XY.hxx>
 
 //! define a constraint on the Plate
-class Plate_PinpointConstraint
+class PinpointConstraint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_PinpointConstraint();
+  Standard_EXPORT PinpointConstraint();
 
-  Standard_EXPORT Plate_PinpointConstraint(const Coords2d&           point2d,
+  Standard_EXPORT PinpointConstraint(const Coords2d&           point2d,
                                            const gp_XYZ&          ImposedValue,
                                            const Standard_Integer iu = 0,
                                            const Standard_Integer iv = 0);

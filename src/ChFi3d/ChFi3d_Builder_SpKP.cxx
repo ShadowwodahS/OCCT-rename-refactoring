@@ -166,8 +166,8 @@ static Standard_Boolean AdjustParam(const HatchGen_Domain& Dom,
   if (period == 0.)
     return Standard_False;
 
-  f = ElCLib::InPeriod(f, wref - pitol, wref + period - pitol);
-  l = ElCLib::InPeriod(l, wref + pitol, wref + period + pitol);
+  f = ElCLib1::InPeriod(f, wref - pitol, wref + period - pitol);
+  l = ElCLib1::InPeriod(l, wref + pitol, wref + period + pitol);
   if (l < f)
   {
     f -= period;

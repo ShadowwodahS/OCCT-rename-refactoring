@@ -32,7 +32,7 @@
 #include <AdvApp2Var_EvaluatorFunc2Var.hxx>
 #include <Standard_OStream.hxx>
 class CuttingTool;
-class AdvApp2Var_Criterion;
+class Criterion;
 class Geom_BSplineSurface;
 
 //! Perform   the  approximation of  <Func>     F(U,V)
@@ -69,7 +69,7 @@ class Geom_BSplineSurface;
 //! and Num3DSS must be equal to 1.
 //! Warning:
 //! the Function of type EvaluatorFunc2Var from Approx
-//! must be a subclass of AdvApp2Var_EvaluatorFunc2Var
+//! must be a subclass of EvaluatorFunc2Var
 //!
 //! the result should be formatted in the following way :
 //! <--Num1DSS--> <--2 * Num2DSS--> <--3 * Num3DSS-->
@@ -106,7 +106,7 @@ public:
                                              const Standard_Integer               MaxDegInU,
                                              const Standard_Integer               MaxDegInV,
                                              const Standard_Integer               MaxPatch,
-                                             const AdvApp2Var_EvaluatorFunc2Var&  Func,
+                                             const EvaluatorFunc2Var&  Func,
                                              CuttingTool&                   UChoice,
                                              CuttingTool&                   VChoice);
 
@@ -130,8 +130,8 @@ public:
                                              const Standard_Integer               MaxDegInU,
                                              const Standard_Integer               MaxDegInV,
                                              const Standard_Integer               MaxPatch,
-                                             const AdvApp2Var_EvaluatorFunc2Var&  Func,
-                                             const AdvApp2Var_Criterion&          Crit,
+                                             const EvaluatorFunc2Var&  Func,
+                                             const Criterion&          Crit,
                                              CuttingTool&                   UChoice,
                                              CuttingTool&                   VChoice);
 
@@ -205,35 +205,35 @@ private:
   //! Computation of the approximation result ; used by Create
   Standard_EXPORT void Perform(const CuttingTool&            UChoice,
                                const CuttingTool&            VChoice,
-                               const AdvApp2Var_EvaluatorFunc2Var& Func);
+                               const EvaluatorFunc2Var& Func);
 
   //! Computation of the approximation result ; used by Create
   Standard_EXPORT void Perform(const CuttingTool&            UChoice,
                                const CuttingTool&            VChoice,
-                               const AdvApp2Var_EvaluatorFunc2Var& Func,
-                               const AdvApp2Var_Criterion&         Crit);
+                               const EvaluatorFunc2Var& Func,
+                               const Criterion&         Crit);
 
   //! Computation of the polynomial approximations ; used by Perform
   Standard_EXPORT void ComputePatches(const CuttingTool&            UChoice,
                                       const CuttingTool&            VChoice,
-                                      const AdvApp2Var_EvaluatorFunc2Var& Func);
+                                      const EvaluatorFunc2Var& Func);
 
   //! Computation of the polynomial approximations ; used by Perform
   Standard_EXPORT void ComputePatches(const CuttingTool&            UChoice,
                                       const CuttingTool&            VChoice,
-                                      const AdvApp2Var_EvaluatorFunc2Var& Func,
-                                      const AdvApp2Var_Criterion&         Crit);
+                                      const EvaluatorFunc2Var& Func,
+                                      const Criterion&         Crit);
 
   //! Approximation of the constraints ; used by ComputePatches
   Standard_EXPORT void ComputeConstraints(const CuttingTool&            UChoice,
                                           const CuttingTool&            VChoice,
-                                          const AdvApp2Var_EvaluatorFunc2Var& Func);
+                                          const EvaluatorFunc2Var& Func);
 
   //! Approximation of the constraints ; used by ComputePatches
   Standard_EXPORT void ComputeConstraints(const CuttingTool&            UChoice,
                                           const CuttingTool&            VChoice,
-                                          const AdvApp2Var_EvaluatorFunc2Var& Func,
-                                          const AdvApp2Var_Criterion&         Crit);
+                                          const EvaluatorFunc2Var& Func,
+                                          const Criterion&         Crit);
 
   //! Computation of the 3D errors on the approximation result ; used by Perform
   Standard_EXPORT void Compute3DErrors();
@@ -264,8 +264,8 @@ private:
   Standard_Integer                  myMaxDegInV;
   Standard_Integer                  myMaxPatches;
   AdvApp2Var_Context                myConditions;
-  AdvApp2Var_Network                myResult;
-  AdvApp2Var_Framework              myConstraints;
+  Network                myResult;
+  Framework              myConstraints;
   Standard_Boolean                  myDone;
   Standard_Boolean                  myHasResult;
   Handle(TColGeom_HArray1OfSurface) mySurfaces;

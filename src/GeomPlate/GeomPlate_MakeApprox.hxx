@@ -25,7 +25,7 @@
 #include <GeomAbs_Shape.hxx>
 class GeomPlate_Surface;
 class Geom_BSplineSurface;
-class AdvApp2Var_Criterion;
+class Criterion;
 
 //! Allows you to convert a GeomPlate surface into a BSpline.
 class GeomPlate_MakeApprox
@@ -38,7 +38,7 @@ public:
   //! and an approximation error < Tol3d if possible
   //! the criterion CritPlate is satisfied if possible
   Standard_EXPORT GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& SurfPlate,
-                                       const AdvApp2Var_Criterion&      PlateCrit,
+                                       const Criterion&      PlateCrit,
                                        const Standard_Real              Tol3d,
                                        const Standard_Integer           Nbmax,
                                        const Standard_Integer           dgmax,

@@ -20,7 +20,7 @@
 #include <gp_XYZ.hxx>
 
 /**
- *  Implementation of the Box node.
+ *  Implementation of the Box1 node.
  *  This node is defined by Size vector, assuming that the box center is located
  *  in (0., 0., 0.) and that each corner is 0.5*|Size| distance from the center.
  */
@@ -51,12 +51,12 @@ public:
   }
 
   /**
-   * Query the Box size
+   * Query the Box1 size
    */
   inline const gp_XYZ& Size() const { return mySize; }
 
   /**
-   * Set the Box Size
+   * Set the Box1 Size
    */
   inline void SetSize(const gp_XYZ& theSize)
   {

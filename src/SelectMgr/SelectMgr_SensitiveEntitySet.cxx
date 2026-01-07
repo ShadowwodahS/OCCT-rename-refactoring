@@ -121,10 +121,10 @@ void SelectMgr_SensitiveEntitySet::Remove(const Handle(SelectionContainer)& theS
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns bounding box of entity with index theIdx
 //=======================================================================
-Select3D_BndBox3d SelectMgr_SensitiveEntitySet::Box(const Standard_Integer theIndex) const
+Select3D_BndBox3d SelectMgr_SensitiveEntitySet::Box1(const Standard_Integer theIndex) const
 {
   const Handle(Select3D_SensitiveEntity)& aSensitive = GetSensitiveById(theIndex)->BaseSensitive();
   if (!aSensitive->TransformPersistence().IsNull())

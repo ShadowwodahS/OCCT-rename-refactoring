@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 
 //! Geometrical intersection between two 2d elements.
-class IntAna2d_IntPoint
+class IntersectionPoint2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -33,7 +33,7 @@ public:
   //! Create an intersection point between 2 parametric 2d lines.
   //! X,Y are the coordinate of the point. U1 is the parameter
   //! on the first element, U2 the parameter on the second one.
-  Standard_EXPORT IntAna2d_IntPoint(const Standard_Real X,
+  Standard_EXPORT IntersectionPoint2d(const Standard_Real X,
                                     const Standard_Real Y,
                                     const Standard_Real U1,
                                     const Standard_Real U2);
@@ -44,11 +44,11 @@ public:
   //! on the parametric element.
   //! Empty constructor. It's necessary to use one of
   //! the SetValue method after this one.
-  Standard_EXPORT IntAna2d_IntPoint(const Standard_Real X,
+  Standard_EXPORT IntersectionPoint2d(const Standard_Real X,
                                     const Standard_Real Y,
                                     const Standard_Real U1);
 
-  Standard_EXPORT IntAna2d_IntPoint();
+  Standard_EXPORT IntersectionPoint2d();
 
   //! Set the values for a "non-implicit" point.
   Standard_EXPORT virtual void SetValue(const Standard_Real X,

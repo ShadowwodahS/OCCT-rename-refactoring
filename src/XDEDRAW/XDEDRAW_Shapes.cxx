@@ -81,7 +81,7 @@ static Standard_Integer addShape(DrawInterpreter& di, Standard_Integer argc, con
   if (aLabel.IsNull())
     di << "Null Label\n";
   AsciiString1 Entry;
-  TDF_Tool::Entry(aLabel, Entry);
+  Tool3::Entry(aLabel, Entry);
   di << Entry.ToCString();
   return 0;
 }
@@ -108,7 +108,7 @@ static Standard_Integer newShape(DrawInterpreter& di, Standard_Integer argc, con
   aLabel = myAssembly->NewShape();
   //  di<<"New Shape at ChildTag"<<aLabel.Tag()<<"\n";
   AsciiString1 Entry;
-  TDF_Tool::Entry(aLabel, Entry);
+  Tool3::Entry(aLabel, Entry);
   di << Entry.ToCString();
   return 0;
 }
@@ -129,7 +129,7 @@ static Standard_Integer setShape(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   TopoShape aShape;
   //   if (aLabel.IsNull()) di<<"Null Label\n";
   aShape = DBRep1::Get(argv[3]);
@@ -156,7 +156,7 @@ static Standard_Integer getShape(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
+  Tool3::Label(Doc->GetData(), argv[3], aLabel);
   if (aLabel.IsNull())
   {
     di << "No such Label\n";
@@ -189,7 +189,7 @@ static Standard_Integer removeShape(DrawInterpreter& di, Standard_Integer argc, 
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "No such Label\n";
@@ -231,7 +231,7 @@ static Standard_Integer findShape(DrawInterpreter& di, Standard_Integer argc, co
   Standard_Boolean          findInstance = ((argc == 4) && argv[3][0] == '1');
   aLabel                                 = myAssembly->FindShape(aShape, findInstance);
   AsciiString1 Entry;
-  TDF_Tool::Entry(aLabel, Entry);
+  Tool3::Entry(aLabel, Entry);
   di << Entry.ToCString();
   // di<<"Label with Shape is "<<Entry<<"\n";
   return 0;
@@ -256,14 +256,14 @@ static Standard_Integer findSubShape(DrawInterpreter& di, Standard_Integer argc,
   aShape = DBRep1::Get(argv[2]);
 
   DataLabel aParentLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[3], aParentLabel);
+  Tool3::Label(aDoc->GetData(), argv[3], aParentLabel);
 
   DataLabel                 aLabel;
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aShapeTool->FindSubShape(aParentLabel, aShape, aLabel);
 
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aLabel, anEntry);
+  Tool3::Entry(aLabel, anEntry);
   di << anEntry.ToCString();
   return 0;
 }
@@ -292,7 +292,7 @@ static Standard_Integer findMainShape(DrawInterpreter& di,
   DataLabel                 aLabel     = aShapeTool->FindMainShape(aShape);
 
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aLabel, anEntry);
+  Tool3::Entry(aLabel, anEntry);
   di << anEntry.ToCString();
   return 0;
 }
@@ -316,14 +316,14 @@ static Standard_Integer addSubShape(DrawInterpreter& di, Standard_Integer argc, 
   aShape = DBRep1::Get(argv[2]);
 
   DataLabel aParentLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[3], aParentLabel);
+  Tool3::Label(aDoc->GetData(), argv[3], aParentLabel);
 
   DataLabel                 aLabel;
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aLabel                               = aShapeTool->AddSubShape(aParentLabel, aShape);
 
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aLabel, anEntry);
+  Tool3::Entry(aLabel, anEntry);
   di << anEntry.ToCString();
   return 0;
 }
@@ -344,7 +344,7 @@ static Standard_Integer labelInfo(DrawInterpreter& di, Standard_Integer argc, co
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   //  XCAFDoc_ShapeTool myAssembly;
   //  myAssembly.Init(Doc);
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -397,7 +397,7 @@ static Standard_Integer getUsers(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   TDF_LabelSequence         labseq;
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   AsciiString1   Entry;
@@ -426,7 +426,7 @@ static Standard_Integer nbComponents(DrawInterpreter& di, Standard_Integer argc,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   //  XCAFDoc_ShapeTool myAssembly->
   //  myAssembly->Init(Doc);
@@ -456,7 +456,7 @@ static Standard_Integer addComponent(DrawInterpreter& di, Standard_Integer argc,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   TopoShape aShape;
   aShape                               = DBRep1::Get(argv[3]);
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -464,7 +464,7 @@ static Standard_Integer addComponent(DrawInterpreter& di, Standard_Integer argc,
   //  myAssembly->Init(Doc);
   myAssembly->AddComponent(aLabel, aShape);
   AsciiString1 Entry;
-  TDF_Tool::Entry(aLabel, Entry);
+  Tool3::Entry(aLabel, Entry);
   di << Entry.ToCString();
 
   return 0;
@@ -488,7 +488,7 @@ static Standard_Integer removeComponent(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   //  XCAFDoc_ShapeTool myAssembly->
   //  myAssembly->Init(Doc);
@@ -514,14 +514,14 @@ static Standard_Integer getReferredShape(DrawInterpreter& di,
   }
 
   DataLabel aLabel, RootLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   //  XCAFDoc_ShapeTool myAssembly->
   //  myAssembly->Init(Doc);
   myAssembly->GetReferredShape(aLabel, RootLabel);
 
   AsciiString1 Entry;
-  TDF_Tool::Entry(RootLabel, Entry);
+  Tool3::Entry(RootLabel, Entry);
   // di<<"Label with Shape is ";
   di << Entry.ToCString();
   return 0;
@@ -557,7 +557,7 @@ static Standard_Integer getTopLevelShapes(DrawInterpreter& di,
     for (Standard_Integer i = 1; i <= Labels.Length(); i++)
     {
       aLabel = Labels.Value(i);
-      TDF_Tool::Entry(aLabel, Entry);
+      Tool3::Entry(aLabel, Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -596,7 +596,7 @@ static Standard_Integer getFreeShapes(DrawInterpreter& di,
     for (Standard_Integer i = 1; i <= Labels.Length(); i++)
     {
       AsciiString1 Entry;
-      TDF_Tool::Entry(Labels.Value(i), Entry);
+      Tool3::Entry(Labels.Value(i), Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -674,7 +674,7 @@ static Standard_Integer XDumpLocation(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
+  Tool3::Label(Doc->GetData(), argv[2], aLabel);
 
   Handle(XCAFDoc_Location) aLoc;
   if (!aLabel.FindAttribute(XCAFDoc_Location::GetID(), aLoc))
@@ -721,7 +721,7 @@ static Standard_Integer setSHUO(DrawInterpreter& di, Standard_Integer argc, cons
   for (Standard_Integer i = 3; i <= argc; i++)
   {
     DataLabel L;
-    TDF_Tool::Label(Doc->GetData(), argv[i - 1], L);
+    Tool3::Label(Doc->GetData(), argv[i - 1], L);
     if (!L.IsNull())
       aLabSeq.Append(L);
     else
@@ -760,7 +760,7 @@ static Standard_Integer getSHUOUpperUsage(DrawInterpreter& di,
     return 1;
   }
   DataLabel NL;
-  TDF_Tool::Label(Doc->GetData(), argv[2], NL);
+  Tool3::Label(Doc->GetData(), argv[2], NL);
   if (NL.IsNull())
   {
     di << argv[2] << " is null label" << "\n";
@@ -775,7 +775,7 @@ static Standard_Integer getSHUOUpperUsage(DrawInterpreter& di,
     for (Standard_Integer i = 1; i <= labseq.Length(); i++)
     {
       DataLabel aLabel = labseq.Value(i);
-      TDF_Tool::Entry(aLabel, Entry);
+      Tool3::Entry(aLabel, Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -799,7 +799,7 @@ static Standard_Integer getSHUONextUsage(DrawInterpreter& di,
     return 1;
   }
   DataLabel UL;
-  TDF_Tool::Label(Doc->GetData(), argv[2], UL);
+  Tool3::Label(Doc->GetData(), argv[2], UL);
   if (UL.IsNull())
   {
     di << argv[2] << " is null label" << "\n";
@@ -814,7 +814,7 @@ static Standard_Integer getSHUONextUsage(DrawInterpreter& di,
     for (Standard_Integer i = 1; i <= labseq.Length(); i++)
     {
       DataLabel aLabel = labseq.Value(i);
-      TDF_Tool::Entry(aLabel, Entry);
+      Tool3::Entry(aLabel, Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -836,7 +836,7 @@ static Standard_Integer removeSHUO(DrawInterpreter& di, Standard_Integer argc, c
     return 1;
   }
   DataLabel UL;
-  TDF_Tool::Label(Doc->GetData(), argv[2], UL);
+  Tool3::Label(Doc->GetData(), argv[2], UL);
   if (UL.IsNull())
   {
     di << argv[2] << " is null label" << "\n";
@@ -863,7 +863,7 @@ static Standard_Integer hasSHUO(DrawInterpreter& di, Standard_Integer argc, cons
     return 1;
   }
   DataLabel UL;
-  TDF_Tool::Label(Doc->GetData(), argv[2], UL);
+  Tool3::Label(Doc->GetData(), argv[2], UL);
   if (UL.IsNull())
   {
     di << argv[2] << " is null label" << "\n";
@@ -895,7 +895,7 @@ static Standard_Integer getAllSHUO(DrawInterpreter& di, Standard_Integer argc, c
   }
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   DataLabel                 UL;
-  TDF_Tool::Label(Doc->GetData(), argv[2], UL);
+  Tool3::Label(Doc->GetData(), argv[2], UL);
   if (UL.IsNull())
   {
     di << argv[2] << " is null label" << "\n";
@@ -909,7 +909,7 @@ static Standard_Integer getAllSHUO(DrawInterpreter& di, Standard_Integer argc, c
     for (Standard_Integer i = 1; i <= SHUOAttrs.Length(); i++)
     {
       DataLabel aLabel = SHUOAttrs.Value(i)->Label();
-      TDF_Tool::Entry(aLabel, Entry);
+      Tool3::Entry(aLabel, Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -943,7 +943,7 @@ static Standard_Integer findComponent(DrawInterpreter& di,
     for (Standard_Integer i = 1; i <= labseq.Length(); i++)
     {
       DataLabel aLabel = labseq.Value(i);
-      TDF_Tool::Entry(aLabel, Entry);
+      Tool3::Entry(aLabel, Entry);
       di << Entry.ToCString() << " ";
     }
   }
@@ -969,7 +969,7 @@ static Standard_Integer getStyledComponent(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   TopoShape              aShape;
   DataLabel                 aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
+  Tool3::Label(Doc->GetData(), argv[3], aLabel);
   Handle(XCAFDoc_GraphNode) SHUO;
   if (myAssembly->GetSHUO(aLabel, SHUO))
     aShape = myAssembly->GetSHUOInstance(SHUO);
@@ -1003,7 +1003,7 @@ static Standard_Integer getAllStyledComponents(DrawInterpreter& di,
   Handle(XCAFDoc_ShapeTool) myAssembly = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
   TopTools_SequenceOfShape  aShapes;
   DataLabel                 aLabel;
-  TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
+  Tool3::Label(Doc->GetData(), argv[3], aLabel);
   Handle(XCAFDoc_GraphNode) SHUO;
   if (myAssembly->GetSHUO(aLabel, SHUO))
     if (myAssembly->GetAllSHUOInstances(SHUO, aShapes))
@@ -1042,7 +1042,7 @@ static Standard_Integer findSHUO(DrawInterpreter& di, Standard_Integer argc, con
   for (Standard_Integer i = 3; i <= argc; i++)
   {
     DataLabel L;
-    TDF_Tool::Label(Doc->GetData(), argv[i - 1], L);
+    Tool3::Label(Doc->GetData(), argv[i - 1], L);
     if (!L.IsNull())
       aLabSeq.Append(L);
     else
@@ -1060,7 +1060,7 @@ static Standard_Integer findSHUO(DrawInterpreter& di, Standard_Integer argc, con
     return 1;
   }
   AsciiString1 Entry;
-  TDF_Tool::Entry(SHUO->Label(), Entry);
+  Tool3::Entry(SHUO->Label(), Entry);
   di << Entry.ToCString() << " ";
 
   return 0;
@@ -1098,7 +1098,7 @@ static Standard_Integer setStyledComponent(DrawInterpreter& di,
     return 1;
   }
   AsciiString1 Entry;
-  TDF_Tool::Entry(aSHUOAttr->Label(), Entry);
+  Tool3::Entry(aSHUOAttr->Label(), Entry);
   di << Entry.ToCString() << " ";
 
   return 0;
@@ -1152,7 +1152,7 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
   {
     DataLabel                     aLabel;
     const AsciiString1 anEntry = theArgv[anInd];
-    TDF_Tool::Label(aDoc->GetData(), anEntry, aLabel);
+    Tool3::Label(aDoc->GetData(), anEntry, aLabel);
     if (aLabel.IsNull())
     {
       TopoShape aShape = DBRep1::Get(theArgv[anInd]);
@@ -1177,11 +1177,11 @@ static Standard_Integer XGetProperties(DrawInterpreter& theDI,
   }
   if (theArgc == 2)
   {
-    for (TDF_ChildIterator anIter(aShapeTool->Label(), Standard_True); anIter.More(); anIter.Next())
+    for (ChildIterator anIter(aShapeTool->Label(), Standard_True); anIter.More(); anIter.Next())
     {
       const DataLabel&        aLabel = anIter.Value();
       AsciiString1 anEntry;
-      TDF_Tool::Entry(aLabel, anEntry);
+      Tool3::Entry(aLabel, anEntry);
       Handle(TDataStd_NamedData) aNamedData = aShapeTool->GetNamedProperties(aLabel);
       if (!aNamedData.IsNull())
       {
@@ -1355,7 +1355,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
   }
   // get and check the label
   DataLabel aShapeLabel;
-  TDF_Tool::Label(aDoc->GetData(), theArgVec[2], aShapeLabel);
+  Tool3::Label(aDoc->GetData(), theArgVec[2], aShapeLabel);
   if (aShapeLabel.IsNull())
   {
     Message::SendFail() << "Error: no such Label: " << theArgVec[2];
@@ -1423,7 +1423,7 @@ static Standard_Integer setLocation(DrawInterpreter&,
     else
     {
       AsciiString1 aLabelStr;
-      TDF_Tool::Entry(aRefLabel, aLabelStr);
+      Tool3::Entry(aRefLabel, aLabelStr);
       Message::SendInfo() << "Reference to the shape at label " << aLabelStr
                           << " was created and location was set";
     }
@@ -1625,7 +1625,7 @@ void XDEDRAW_Shapes::InitCommands(DrawInterpreter& di)
   di.Add("XSetLocation",
          R"(
 Doc Label transformation [transformation ... ]
-Applies given complex transformation to the shape at Label from Document.
+Applies given complex1 transformation to the shape at Label from Document.
 The label may contain a reference to a shape, an assembly or simple shape.
 The assembly or simple shape should not be referred by any reference.
 Transformations:

@@ -470,9 +470,9 @@ Handle(TColStd_HSequenceOfTransient) Interface_Graph::GetSharings(
   if (!num)
     return 0;
   // return Handle(TColStd_HSequenceOfTransient)::DownCast(thesharings->Value(num));
-  const TColStd_ListOfInteger&         alist     = thesharings->Value(num);
+  const TColStd_ListOfInteger&         alist1     = thesharings->Value(num);
   Handle(TColStd_HSequenceOfTransient) aSharings = new TColStd_HSequenceOfTransient;
-  TColStd_ListIteratorOfListOfInteger  aIt(alist);
+  TColStd_ListIteratorOfListOfInteger  aIt(alist1);
   for (; aIt.More(); aIt.Next())
     aSharings->Append(Entity(aIt.Value()));
   return aSharings;

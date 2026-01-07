@@ -97,7 +97,7 @@ public:
   //! Considers a category number, by default 0
   Standard_EXPORT Standard_Boolean IsAlreadyUsed(const Handle(RefObject)& start) const;
 
-  //! Creates a Link a starting Object with a Binder. This Binder
+  //! Creates a Link1 a starting Object with a Binder. This Binder
   //! can either bring a Result (effective Binding) or none (it can
   //! be set later : pre-binding).
   //! Considers a category number, by default 0

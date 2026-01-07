@@ -66,7 +66,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  Standard_Real    parat     = ElCLib::Parameter(aCircle, AttachmentPoint);
+  Standard_Real    parat     = ElCLib1::Parameter(aCircle, AttachmentPoint);
   Point3d           attpoint  = AttachmentPoint;
   Standard_Boolean otherside = Standard_False;
   if (!DsgPrs_InDomain(fpara, lpara, parat))
@@ -92,20 +92,20 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
         otherside = Standard_True;
         parat     = (otherpar < fpara) ? fpara : lpara;
       }
-      Point3d              ptdir = ElCLib::Value(parat, aCircle);
+      Point3d              ptdir = ElCLib1::Value(parat, aCircle);
       gp_Lin              lsup(aCircle.Location(), Dir3d(ptdir.XYZ() - aCircle.Location().XYZ()));
-      const Standard_Real parpos = ElCLib::Parameter(lsup, AttachmentPoint);
-      attpoint                   = ElCLib::Value(parpos, lsup);
+      const Standard_Real parpos = ElCLib1::Parameter(lsup, AttachmentPoint);
+      attpoint                   = ElCLib1::Value(parpos, lsup);
     }
   }
-  Point3d ptoncirc = ElCLib::Value(parat, aCircle);
+  Point3d ptoncirc = ElCLib1::Value(parat, aCircle);
   gp_Lin L(aCircle.Location(), Dir3d(attpoint.XYZ() - aCircle.Location().XYZ()));
   Point3d firstpoint  = attpoint;
   Point3d drawtopoint = ptoncirc;
   if (drawFromCenter && !otherside)
   {
-    const Standard_Real uatt = ElCLib::Parameter(L, attpoint);
-    const Standard_Real uptc = ElCLib::Parameter(L, ptoncirc);
+    const Standard_Real uatt = ElCLib1::Parameter(L, attpoint);
+    const Standard_Real uptc = ElCLib1::Parameter(L, ptoncirc);
     if (Abs(uatt) > Abs(uptc))
       drawtopoint = aCircle.Location();
     else

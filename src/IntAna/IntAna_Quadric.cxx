@@ -41,7 +41,7 @@
 //----------------------------------------------------------------------
 //-- Quadric Vide
 //----------------------------------------------------------------------
-IntAna_Quadric::IntAna_Quadric(void)
+Quadric2::Quadric2(void)
 {
   CXX = CYY = CZZ = CXY = CXZ = CYZ = CX = CY = CZ = 0.0;
   CCte                                             = 1.0;
@@ -55,7 +55,7 @@ IntAna_Quadric::IntAna_Quadric(void)
 //--
 //--  que l on identifie a        2(  CX x   + CY y  +  CZ z ) + CCte
 //----------------------------------------------------------------------
-void IntAna_Quadric::SetQuadric(const gp_Pln& P)
+void Quadric2::SetQuadric(const gp_Pln& P)
 {
   P.Coefficients(CX, CY, CZ, CCte);
   CX *= 0.5;
@@ -64,7 +64,7 @@ void IntAna_Quadric::SetQuadric(const gp_Pln& P)
   CXX = CYY = CZZ = CXY = CXZ = CYZ = 0.0;
 }
 
-IntAna_Quadric::IntAna_Quadric(const gp_Pln& P)
+Quadric2::Quadric2(const gp_Pln& P)
 {
   P.Coefficients(CX, CY, CZ, CCte);
   CX *= 0.5;
@@ -76,12 +76,12 @@ IntAna_Quadric::IntAna_Quadric(const gp_Pln& P)
 //----------------------------------------------------------------------
 //-- Cylinder -----> Quadric
 //----------------------------------------------------------------------
-void IntAna_Quadric::SetQuadric(const gp_Cylinder& Cyl)
+void Quadric2::SetQuadric(const gp_Cylinder& Cyl)
 {
   Cyl.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
 }
 
-IntAna_Quadric::IntAna_Quadric(const gp_Cylinder& Cyl)
+Quadric2::Quadric2(const gp_Cylinder& Cyl)
 {
   Cyl.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
 }
@@ -89,29 +89,29 @@ IntAna_Quadric::IntAna_Quadric(const gp_Cylinder& Cyl)
 //----------------------------------------------------------------------
 //-- Cone -----> Quadric
 //----------------------------------------------------------------------
-IntAna_Quadric::IntAna_Quadric(const gp_Cone& Cone)
+Quadric2::Quadric2(const gp_Cone& Cone)
 {
   SetQuadric(Cone);
 }
 
-void IntAna_Quadric::SetQuadric(const gp_Cone& Cone)
+void Quadric2::SetQuadric(const gp_Cone& Cone)
 {
   Cone.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
   const Standard_Real aVParam = -Cone.RefRadius() / Sin(Cone.SemiAngle());
-  mySpecialPoints.Append(ElSLib::Value(0.0, aVParam, Cone));
+  mySpecialPoints.Append(ElSLib1::Value(0.0, aVParam, Cone));
 }
 
 //----------------------------------------------------------------------
 //-- Sphere -----> Quadric
 //----------------------------------------------------------------------
-void IntAna_Quadric::SetQuadric(const gp_Sphere& Sph)
+void Quadric2::SetQuadric(const gp_Sphere& Sph)
 {
   Sph.Coefficients(CXX, CYY, CZZ, CXY, CXZ, CYZ, CX, CY, CZ, CCte);
-  mySpecialPoints.Append(ElSLib::Value(0.0, -M_PI_2, Sph));
-  mySpecialPoints.Append(ElSLib::Value(0.0, M_PI_2, Sph));
+  mySpecialPoints.Append(ElSLib1::Value(0.0, -M_PI_2, Sph));
+  mySpecialPoints.Append(ElSLib1::Value(0.0, M_PI_2, Sph));
 }
 
-IntAna_Quadric::IntAna_Quadric(const gp_Sphere& Sph)
+Quadric2::Quadric2(const gp_Sphere& Sph)
 {
   SetQuadric(Sph);
 }
@@ -119,7 +119,7 @@ IntAna_Quadric::IntAna_Quadric(const gp_Sphere& Sph)
 //----------------------------------------------------------------------
 //-- Returns the Coefficients of the Quadric
 //----------------------------------------------------------------------
-void IntAna_Quadric::Coefficients(Standard_Real& _CXX,
+void Quadric2::Coefficients(Standard_Real& _CXX,
                                   Standard_Real& _CYY,
                                   Standard_Real& _CZZ,
                                   Standard_Real& _CXY,
@@ -145,7 +145,7 @@ void IntAna_Quadric::Coefficients(Standard_Real& _CXX,
 //----------------------------------------------------------------------
 //-- Computes the Coefficients in a new coordinate system
 //----------------------------------------------------------------------
-void IntAna_Quadric::NewCoefficients(Standard_Real& _CXX,
+void Quadric2::NewCoefficients(Standard_Real& _CXX,
                                      Standard_Real& _CYY,
                                      Standard_Real& _CZZ,
                                      Standard_Real& _CXY,

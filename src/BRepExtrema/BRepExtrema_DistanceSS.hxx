@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 class TopoShape;
-class Bnd_Box;
+class Box2;
 class TopoVertex;
 class TopoEdge;
 class TopoFace;
@@ -48,8 +48,8 @@ public: //! @name Constructor from two shapes
   //!                     (default is Grad algo, applied only to point-face extrema)
   BRepExtrema_DistanceSS(const TopoShape&   theS1,
                          const TopoShape&   theS2,
-                         const Bnd_Box&        theBox1,
-                         const Bnd_Box&        theBox2,
+                         const Box2&        theBox1,
+                         const Box2&        theBox2,
                          const Standard_Real   theDstRef,
                          const Standard_Real   theDeflection = Precision::Confusion(),
                          const Extrema_ExtFlag theExtFlag    = Extrema_ExtFlag_MINMAX,
@@ -81,8 +81,8 @@ private: //! @name private methods performing the search
   //! General method to sort out the shape types and call the specific method.
   Standard_EXPORT void Perform(const TopoShape& theS1,
                                const TopoShape& theS2,
-                               const Bnd_Box&      theBox1,
-                               const Bnd_Box&      theBox2);
+                               const Box2&      theBox1,
+                               const Box2&      theBox2);
 
   //! Computes the distance between two vertices.
   void Perform(const TopoVertex&       S1,

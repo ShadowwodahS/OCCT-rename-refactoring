@@ -21,14 +21,14 @@
 class Poly_CoherentTriangle;
 
 /**
- * Link between two mesh nodes that is created by existing triangle(s).
+ * Link1 between two mesh nodes that is created by existing triangle(s).
  * Keeps reference to the opposite node of each incident triangle.
  * The referred node with index "0" is always on the left side of the link,
  * the one with the index "1" is always on the right side.
  * It is possible to find both incident triangles using the method
  * Poly_CoherentTriangulation::FindTriangle().
  * <p>
- * Any Link can store an arbitrary pointer that is called Attribute.
+ * Any Link1 can store an arbitrary pointer that is called Attribute.
  */
 
 class Poly_CoherentLink
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT Poly_CoherentLink();
 
   /**
-   * Constructor. Creates a Link that has no reference to 'opposite nodes'.
+   * Constructor. Creates a Link1 that has no reference to 'opposite nodes'.
    * This constructor is useful to create temporary object that is not
    * inserted into any existing triangulation.
    */
@@ -61,7 +61,7 @@ public:
    * assigns the 'opposite node' fields. This constructor is used when a
    * link is inserted into a Poly_CoherentTriangulation structure.
    * @param theTri
-   *   Triangle containing the link that is created
+   *   Triangle1 containing the link that is created
    * @param iSide
    *   Can be 0, 1 or 2. Index of the node
    */
@@ -70,7 +70,7 @@ public:
   /**
    * Return the node index in the current triangulation.
    * @param ind
-   *   0 or 1 making distinction of the two nodes that constitute the Link.
+   *   0 or 1 making distinction of the two nodes that constitute the Link1.
    *   Node(0) always returns a smaller number than Node(1).
    */
   inline Standard_Integer Node(const Standard_Integer ind) const { return myNode[ind & 0x1]; }
@@ -80,7 +80,7 @@ public:
    * index in the current triangulation.
    * @param ind
    *   0 or 1 making distinction of the two involved triangles: 0 on the left,
-   *   1 on the right side of the Link.
+   *   1 on the right side of the Link1.
    */
   inline Standard_Integer OppositeNode(const Standard_Integer ind) const
   {
@@ -88,12 +88,12 @@ public:
   }
 
   /**
-   * Query the attribute of the Link.
+   * Query the attribute of the Link1.
    */
   inline Standard_Address GetAttribute() const { return myAttribute; }
 
   /**
-   * Set the attribute of the Link.
+   * Set the attribute of the Link1.
    */
   inline void SetAttribute(const Standard_Address theAtt) { myAttribute = theAtt; }
 
@@ -104,7 +104,7 @@ public:
   inline Standard_Boolean IsEmpty() const { return myNode[0] < 0 || myNode[1] < 0; }
 
   /**
-   * Invalidate this Link.
+   * Invalidate this Link1.
    */
   inline void Nullify()
   {

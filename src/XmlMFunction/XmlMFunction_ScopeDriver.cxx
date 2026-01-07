@@ -155,7 +155,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
     DataLabel tLab; // Null label.
     if (anEntry.Length() > 0)
     {
-      TDF_Tool::Label(S->Label().Data(), anEntry, tLab, Standard_True);
+      Tool3::Label(S->Label().Data(), anEntry, tLab, Standard_True);
     }
     Labels.Append(tLab);
     aCurNode    = aCurElement->getNextSibling();
@@ -181,7 +181,7 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   DataLabel tLab; // Null label.
   if (anEntry.Length() > 0)
   {
-    TDF_Tool::Label(S->Label().Data(), anEntry, tLab, Standard_True);
+    Tool3::Label(S->Label().Data(), anEntry, tLab, Standard_True);
   }
   Labels.Append(tLab);
 
@@ -251,7 +251,7 @@ void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
     DataLabel L = itrd.Key2();
 
     AsciiString1 anEntry;
-    TDF_Tool::Entry(L, anEntry);
+    Tool3::Entry(L, anEntry);
 
     XmlObjMgt_DOMString aDOMString;
     XmlObjMgt::SetTagEntryString(aDOMString, anEntry);

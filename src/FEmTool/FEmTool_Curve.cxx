@@ -187,7 +187,7 @@ void FEmTool_Curve::D0(const Standard_Real U, TColStd_Array1OfReal& Pnt)
 
   // Parameter normalization: S [-1, 1]
   S = (2 * U - USum) * Denom;
-  PLib::NoDerivativeEvalPolynomial(S,
+  PLib1::NoDerivativeEvalPolynomial(S,
                                    deg,
                                    myDimension,
                                    deg * myDimension,
@@ -229,7 +229,7 @@ void FEmTool_Curve::D1(const Standard_Real U, TColStd_Array1OfReal& Vec)
 
   // Parameter normalization: S [-1, 1]
   S = (2 * U - USum) * Denom;
-  PLib::NoDerivativeEvalPolynomial(S,
+  PLib1::NoDerivativeEvalPolynomial(S,
                                    deg - 1,
                                    myDimension,
                                    (deg - 1) * myDimension,
@@ -275,7 +275,7 @@ void FEmTool_Curve::D2(const Standard_Real U, TColStd_Array1OfReal& Vec)
 
   // Parameter normalization: S [-1, 1]
   S = (2 * U - USum) * Denom;
-  PLib::NoDerivativeEvalPolynomial(
+  PLib1::NoDerivativeEvalPolynomial(
     S,
     deg - 2,
     myDimension,
@@ -334,7 +334,7 @@ void FEmTool_Curve::Length(const Standard_Real FirstU,
 
     if (!HasPoly(Low))
       Update(Low, 0);
-    PLib::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, LastS, Length);
+    PLib1::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, LastS, Length);
     return;
   }
 
@@ -345,18 +345,18 @@ void FEmTool_Curve::Length(const Standard_Real FirstU,
     Update(Low, 0);
   if (FirstS < -1.)
   {
-    PLib::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, -1., Li);
+    PLib1::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, -1., Li);
     Length += Li;
     if (myLength(Low) < 0.)
     {
-      PLib::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
+      PLib1::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
       myLength(Low) = Li;
     }
     Length += myLength(Low);
   }
   else
   {
-    PLib::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, 1., Li);
+    PLib1::EvalLength(deg, myDimension, myPoly(Ptr), FirstS, 1., Li);
     Length += Li;
   }
 
@@ -367,18 +367,18 @@ void FEmTool_Curve::Length(const Standard_Real FirstU,
     Update(High, 0);
   if (LastS > 1.)
   {
-    PLib::EvalLength(deg, myDimension, myPoly(Ptr), 1., LastS, Li);
+    PLib1::EvalLength(deg, myDimension, myPoly(Ptr), 1., LastS, Li);
     Length += Li;
     if (myLength(High) < 0.)
     {
-      PLib::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
+      PLib1::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
       myLength(High) = Li;
     }
     Length += myLength(High);
   }
   else
   {
-    PLib::EvalLength(deg, myDimension, myPoly(Ptr), -1., LastS, Li);
+    PLib1::EvalLength(deg, myDimension, myPoly(Ptr), -1., LastS, Li);
     Length += Li;
   }
 
@@ -390,7 +390,7 @@ void FEmTool_Curve::Length(const Standard_Real FirstU,
       deg = myDegree(i);
       if (!HasPoly(i))
         Update(i, 0);
-      PLib::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
+      PLib1::EvalLength(deg, myDimension, myPoly(Ptr), -1., 1., Li);
       myLength(i) = Li;
     }
     Length += myLength(i);

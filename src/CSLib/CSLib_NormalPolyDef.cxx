@@ -43,7 +43,7 @@ Standard_Boolean CSLib_NormalPolyDef::Value(const Standard_Real X, Standard_Real
   }
   for (Standard_Integer i = 0; i <= myK0; i++)
   {
-    F = F + PLib::Bin(myK0, i) * pow(co, i) * pow(si, (myK0 - i)) * myTABli(i);
+    F = F + PLib1::Bin(myK0, i) * pow(co, i) * pow(si, (myK0 - i)) * myTABli(i);
   }
   return Standard_True;
 }
@@ -63,7 +63,7 @@ Standard_Boolean CSLib_NormalPolyDef::Derivative(const Standard_Real X, Standard
   }
   for (Standard_Integer i = 0; i <= myK0; i++)
   {
-    D = D + PLib::Bin(myK0, i) * pow(co, (i - 1)) * pow(si, (myK0 - i - 1)) * (myK0 * co * co - i);
+    D = D + PLib1::Bin(myK0, i) * pow(co, (i - 1)) * pow(si, (myK0 - i - 1)) * (myK0 * co * co - i);
   }
   return Standard_True;
 }
@@ -87,9 +87,9 @@ Standard_Boolean CSLib_NormalPolyDef::Values(const Standard_Real X,
   }
   for (Standard_Integer i = 0; i <= myK0; i++)
   {
-    F = F + PLib::Bin(myK0, i) * pow(co, i) * pow(si, (myK0 - i)) * myTABli(i);
+    F = F + PLib1::Bin(myK0, i) * pow(co, i) * pow(si, (myK0 - i)) * myTABli(i);
     D = D
-        + PLib::Bin(myK0, i) * pow(co, (i - 1)) * pow(si, (myK0 - i - 1)) * (myK0 * co * co - i)
+        + PLib1::Bin(myK0, i) * pow(co, (i - 1)) * pow(si, (myK0 - i - 1)) * (myK0 * co * co - i)
             * myTABli(i);
   }
   return Standard_True;

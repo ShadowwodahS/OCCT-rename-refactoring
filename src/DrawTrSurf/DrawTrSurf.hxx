@@ -44,7 +44,7 @@ struct DrawTrSurf_Params;
 //! and  can be  used  to  draw a   single  curve from
 //! packages Geom or Geom2d or a surface from Geom.
 //!
-//! The Triangulation and Polygon from the package Poly are also supported.
+//! The Triangulation and Polygon from the package Poly1 are also supported.
 class DrawTrSurf1
 {
 public:

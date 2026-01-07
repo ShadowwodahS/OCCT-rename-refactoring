@@ -153,8 +153,8 @@ void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrow
   gp_Lin FirstLin(AttachmentPoint1, DirAttach);
   gp_Lin SecondLin(AttachmentPoint2, DirAttach);
 
-  EndOfArrow1 = ElCLib::Value(ElCLib::Parameter(FirstLin, OffsetPoint), FirstLin);
-  EndOfArrow2 = ElCLib::Value(ElCLib::Parameter(SecondLin, OffsetPoint), SecondLin);
+  EndOfArrow1 = ElCLib1::Value(ElCLib1::Parameter(FirstLin, OffsetPoint), FirstLin);
+  EndOfArrow2 = ElCLib1::Value(ElCLib1::Parameter(SecondLin, OffsetPoint), SecondLin);
 
   if (EndOfArrow1.SquareDistance(EndOfArrow2) > Precision::SquareConfusion()) // not null length
   {
@@ -299,8 +299,8 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     Point3d p2 = CenterPoint.Translated(vec2);
 
     Standard_Real Par1 = 0.;
-    Standard_Real Par2 = ElCLib::Parameter(AngleCirc, p2);
-    Standard_Real Par0 = ElCLib::Parameter(AngleCirc, OffsetPoint);
+    Standard_Real Par2 = ElCLib1::Parameter(AngleCirc, p2);
+    Standard_Real Par0 = ElCLib1::Parameter(AngleCirc, OffsetPoint);
 
     Vector3d PosVec(CenterPoint, OffsetPoint);
     Vector3d NormalOfPlane = vec1 ^ vec2;
@@ -330,20 +330,20 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     {
       AngleCirc.SetPosition(Frame3d(CenterPoint, axisdir, Dir3d(PosVec)));
       Par0              = 0.;
-      Par1              = ElCLib::Parameter(AngleCirc, p1);
-      Par2              = ElCLib::Parameter(AngleCirc, p2);
+      Par1              = ElCLib1::Parameter(AngleCirc, p1);
+      Par2              = ElCLib1::Parameter(AngleCirc, p2);
       FirstParAngleCirc = Par0;
       LastParAngleCirc  = Par2;
     }
 
     // Computing presentation of arrows
-    EndOfArrow1        = ElCLib::Value(Par1, AngleCirc);
-    EndOfArrow2        = ElCLib::Value(Par2, AngleCirc);
+    EndOfArrow1        = ElCLib1::Value(Par1, AngleCirc);
+    EndOfArrow2        = ElCLib1::Value(Par2, AngleCirc);
     Standard_Real beta = 0.;
     if (AngleCirc.Radius() > Precision::Confusion())
       beta = ArrowLength / AngleCirc.Radius();
-    Point3d OriginOfArrow1 = ElCLib::Value(Par1 + beta, AngleCirc);
-    Point3d OriginOfArrow2 = ElCLib::Value(Par2 - beta, AngleCirc);
+    Point3d OriginOfArrow1 = ElCLib1::Value(Par1 + beta, AngleCirc);
+    Point3d OriginOfArrow2 = ElCLib1::Value(Par2 - beta, AngleCirc);
     DirOfArrow1           = Dir3d(Vector3d(OriginOfArrow1, EndOfArrow1));
     DirOfArrow2           = Dir3d(Vector3d(OriginOfArrow2, EndOfArrow2));
     if (EndOfArrow1.SquareDistance(EndOfArrow2)
@@ -359,7 +359,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     DirOfArrow1     = ArrowDir;
     DirOfArrow2     = -ArrowDir;
     gp_Lin DirLine(AttachmentPoint1, dir1);
-    EndOfArrow1 = ElCLib::Value(ElCLib::Parameter(DirLine, OffsetPoint), DirLine);
+    EndOfArrow1 = ElCLib1::Value(ElCLib1::Parameter(DirLine, OffsetPoint), DirLine);
     EndOfArrow2 = EndOfArrow1;
   }
 
@@ -370,12 +370,12 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
   else
   {
     if (isPlane)
-      ProjAttachPoint2 = ElCLib::Value(ElCLib::Parameter(SecondLin, AttachmentPoint2), SecondLin);
+      ProjAttachPoint2 = ElCLib1::Value(ElCLib1::Parameter(SecondLin, AttachmentPoint2), SecondLin);
     else
     {
       gp_Lin LineOfAxis(AxisOfSurf);
       Point3d CenterOfArc =
-        ElCLib::Value(ElCLib::Parameter(LineOfAxis, AttachmentPoint2), LineOfAxis);
+        ElCLib1::Value(ElCLib1::Parameter(LineOfAxis, AttachmentPoint2), LineOfAxis);
 
       Frame3d Ax2(CenterOfArc,
                  AxisOfSurf.Direction(),
@@ -386,7 +386,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
       GeomAPI_ExtremaCurveCurve Intersection(new GeomCircle(AttachCirc), new GeomLine(SecondLin));
       Intersection.NearestPoints(ProjAttachPoint2, ProjAttachPoint2);
 
-      Standard_Real U2 = ElCLib::Parameter(AttachCirc, ProjAttachPoint2);
+      Standard_Real U2 = ElCLib1::Parameter(AttachCirc, ProjAttachPoint2);
       if (U2 <= M_PI)
       {
         FirstParAttachCirc = 0;
@@ -457,19 +457,19 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
         angle = -angle;
       if (Sign1 == -1)
         angle += M_PI;
-      EndOfArrow = ElCLib::Value(angle, FilletCirc); //***
+      EndOfArrow = ElCLib1::Value(angle, FilletCirc); //***
     }
     else
     {
       if (L1.Distance(Position) < L2.Distance(Position))
       {
         EndOfArrow   = FirstPoint; //***
-        DrawPosition = ElCLib::Value(ElCLib::Parameter(L1, Position), L1);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L1, Position), L1);
       }
       else
       {
         EndOfArrow   = SecondPoint; //***
-        DrawPosition = ElCLib::Value(ElCLib::Parameter(L2, Position), L2);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L2, Position), L2);
       }
     }
     if ((dir1 ^ dir2).IsOpposite(NormalDir, Precision::Angular()))
@@ -478,8 +478,8 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
       Frame3d axnew(Center, newdir, dir1);
       FilletCirc.SetPosition(axnew);
     }
-    FirstParCirc = ElCLib::Parameter(FilletCirc, FirstPoint);
-    LastParCirc  = ElCLib::Parameter(FilletCirc, SecondPoint);
+    FirstParCirc = ElCLib1::Parameter(FilletCirc, FirstPoint);
+    LastParCirc  = ElCLib1::Parameter(FilletCirc, SecondPoint);
   }
   else // Angle equal 0 or PI or R = 0
   {
@@ -507,8 +507,8 @@ void DsgPrs::ComputeRadiusLine(const Point3d&          aCenter,
   if (drawFromCenter)
   {
     gp_Lin        RadiusLine    = gce_MakeLin(aCenter, anEndOfArrow);
-    Standard_Real PosParOnLine  = ElCLib::Parameter(RadiusLine, aPosition);
-    Standard_Real EndOfArrowPar = ElCLib::Parameter(RadiusLine, anEndOfArrow);
+    Standard_Real PosParOnLine  = ElCLib1::Parameter(RadiusLine, aPosition);
+    Standard_Real EndOfArrowPar = ElCLib1::Parameter(RadiusLine, anEndOfArrow);
     if (PosParOnLine < 0.0)
     {
       aRadLineOrign = aPosition;
@@ -539,7 +539,7 @@ Standard_Real DsgPrs::DistanceFromApex(const gp_Elips&     elips,
                                        const Standard_Real par)
 {
   Standard_Real dist;
-  Standard_Real parApex = ElCLib::Parameter(elips, Apex);
+  Standard_Real parApex = ElCLib1::Parameter(elips, Apex);
   if (parApex == 0.0 || parApex == M_PI)
   {                     // Major case
     if (parApex == 0.0) // pos Apex

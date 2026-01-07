@@ -1154,20 +1154,20 @@ static Standard_Real HeightMax(const TopoShape& theSbase,  // shape initial
                                const TopoShape& theSFrom,  // shape from
                                const TopoShape& theSUntil) // shape until
 {
-  Bnd_Box Box;
-  BRepBndLib::Add(theSbase, Box);
-  BRepBndLib::Add(theSkface, Box);
+  Box2 Box1;
+  BRepBndLib::Add(theSbase, Box1);
+  BRepBndLib::Add(theSkface, Box1);
   if (!theSFrom.IsNull())
   {
-    BRepBndLib::Add(theSFrom, Box);
+    BRepBndLib::Add(theSFrom, Box1);
   }
   if (!theSUntil.IsNull())
   {
-    BRepBndLib::Add(theSUntil, Box);
+    BRepBndLib::Add(theSUntil, Box1);
   }
   Standard_Real c[6];
 
-  Box.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
+  Box1.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
   //  Standard_Real parmin=c[0], parmax = c[0];
   //  for(Standard_Integer i = 0 ; i < 6; i++) {
   //    if(c[i] > parmax) parmax = c[i];

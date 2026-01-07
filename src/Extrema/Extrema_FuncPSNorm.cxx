@@ -150,7 +150,7 @@ Standard_Integer Extrema_FuncPSNorm::GetStateNumber()
   if (i <= nbSol)
     return 0;
   mySqDist.Append(myPs.SquareDistance(myP));
-  myPoint.Append(Extrema_POnSurf(myU, myV, myPs));
+  myPoint.Append(PointOnSurface1(myU, myV, myPs));
   return 0;
 }
 
@@ -172,7 +172,7 @@ Standard_Real Extrema_FuncPSNorm::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnSurf& Extrema_FuncPSNorm::Point(const Standard_Integer N) const
+const PointOnSurface1& Extrema_FuncPSNorm::Point(const Standard_Integer N) const
 {
   if (!myPinit || !mySinit)
     throw Standard_TypeMismatch();

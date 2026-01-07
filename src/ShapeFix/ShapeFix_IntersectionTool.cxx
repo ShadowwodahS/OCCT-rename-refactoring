@@ -298,12 +298,12 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge1(const Handle(ShapeExtend_
     Standard_Real       aLast  = c2d->LastParameter();
     if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
     {
-      // pdn avoiding problems with segment in Bnd_Box
+      // pdn avoiding problems with segment in Box2
       gac.Load(c2d);
     }
     else
       gac.Load(c2d, cf, cl);
-    BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+    Add2dCurve::Add(gac, ::Precision::Confusion(), box);
     boxes.Bind(newE1, box);
   }
   if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -314,12 +314,12 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge1(const Handle(ShapeExtend_
     Standard_Real       aLast  = c2d->LastParameter();
     if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
     {
-      // pdn avoiding problems with segment in Bnd_Box
+      // pdn avoiding problems with segment in Box2
       gac.Load(c2d);
     }
     else
       gac.Load(c2d, cf, cl);
-    BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+    Add2dCurve::Add(gac, ::Precision::Confusion(), box);
     boxes.Bind(newE2, box);
   }
 
@@ -418,12 +418,12 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge2(const Handle(ShapeExtend_
     Standard_Real       aLast  = c2d->LastParameter();
     if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
     {
-      // pdn avoiding problems with segment in Bnd_Box
+      // pdn avoiding problems with segment in Box2
       gac.Load(c2d);
     }
     else
       gac.Load(c2d, cf, cl);
-    BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+    Add2dCurve::Add(gac, ::Precision::Confusion(), box);
     boxes.Bind(newE1, box);
   }
   if (sae.PCurve(newE2, S, L, c2d, cf, cl, Standard_False))
@@ -434,12 +434,12 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge2(const Handle(ShapeExtend_
     Standard_Real       aLast  = c2d->LastParameter();
     if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
     {
-      // pdn avoiding problems with segment in Bnd_Box
+      // pdn avoiding problems with segment in Box2
       gac.Load(c2d);
     }
     else
       gac.Load(c2d, cf, cl);
-    BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+    Add2dCurve::Add(gac, ::Precision::Confusion(), box);
     boxes.Bind(newE2, box);
   }
 
@@ -794,12 +794,12 @@ static Bnd_Box2d CreateBoxes2d(const Handle(ShapeExtend_WireData)& sewd,
       Standard_Real       aLast  = c2d->LastParameter();
       if (c2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)) && (cf < aFirst || cl > aLast))
       {
-        // pdn avoiding problems with segment in Bnd_Box
+        // pdn avoiding problems with segment in Box2
         gac.Load(c2d);
       }
       else
         gac.Load(c2d, cf, cl);
-      BndLib_Add2dCurve::Add(gac, ::Precision::Confusion(), box);
+      Add2dCurve::Add(gac, ::Precision::Confusion(), box);
       boxes.Bind(E, box);
       aTotalBox.Add(box);
     }

@@ -141,16 +141,16 @@ inline TColStd_ListOfInteger& BOPDS_Curve::ChangeTechnoVertices()
 // function : SetBox
 // purpose  :
 //=======================================================================
-inline void BOPDS_Curve::SetBox(const Bnd_Box& theBox)
+inline void BOPDS_Curve::SetBox(const Box2& theBox)
 {
   myBox = theBox;
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  :
 //=======================================================================
-inline const Bnd_Box& BOPDS_Curve::Box() const
+inline const Box2& BOPDS_Curve::Box1() const
 {
   return myBox;
 }
@@ -159,7 +159,7 @@ inline const Bnd_Box& BOPDS_Curve::Box() const
 // function : ChangeBox
 // purpose  :
 //=======================================================================
-inline Bnd_Box& BOPDS_Curve::ChangeBox()
+inline Box2& BOPDS_Curve::ChangeBox()
 {
   return myBox;
 }

@@ -194,8 +194,8 @@ public: //! @name methods for accessing serialized tree data
 
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, theNodeIndex)
 
-    Bnd_Box  aBndBox  = BVH::ToBndBox(MinPoint(theNodeIndex), MaxPoint(theNodeIndex));
-    Bnd_Box* aPointer = &aBndBox;
+    Box2  aBndBox  = BVH::ToBndBox(MinPoint(theNodeIndex), MaxPoint(theNodeIndex));
+    Box2* aPointer = &aBndBox;
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, aPointer)
 
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, BegPrimitive(theNodeIndex))
@@ -219,17 +219,17 @@ public: //! @name protected fields
 };
 
 //! Type corresponding to quad BVH.
-struct BVH_QuadTree
+struct QuadTree
 {
 };
 
 //! Type corresponding to binary BVH.
-struct BVH_BinaryTree
+struct BinaryTree
 {
 };
 
 //! BVH tree with given arity (2 or 4).
-template <class T, int N, class Arity = BVH_BinaryTree>
+template <class T, int N, class Arity = BinaryTree>
 class BVH_Tree
 {
   // Invalid type

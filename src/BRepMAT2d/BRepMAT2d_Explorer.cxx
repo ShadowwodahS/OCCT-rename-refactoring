@@ -328,7 +328,7 @@ void BRepMAT2d_Explorer::Add(const TopoWire& Spine,
 // 	  {
 // 	    Handle( Geom2d_BSplineCurve ) BCurve;
 // 	    if (theCurves(i)(j)->DynamicType() != STANDARD_TYPE(Geom2d_BSplineCurve))
-// 	      BCurve = Geom2dConvert::CurveToBSplineCurve( theCurves(i)(j) );
+// 	      BCurve = Geom2dConvert1::CurveToBSplineCurve( theCurves(i)(j) );
 // 	    else
 // 	      BCurve = Handle( Geom2d_BSplineCurve )::DownCast( theCurves(i)(j) );
 // 	    BCurve->SetPole( 1, P1 );
@@ -569,7 +569,7 @@ Handle(Geom2d_TrimmedCurve) AdjustCurveEnd(const Handle(Geom2d_BoundedCurve)& th
   {
     // Convert to BSpline and adjust first pole
     Handle(Geom2d_BSplineCurve) BCurve =
-      Geom2dConvert::CurveToBSplineCurve(theC2d, Convert_QuasiAngular);
+      Geom2dConvert1::CurveToBSplineCurve(theC2d, Convert_QuasiAngular);
     if (isFirst)
     {
       BCurve->SetPole(1, theP);

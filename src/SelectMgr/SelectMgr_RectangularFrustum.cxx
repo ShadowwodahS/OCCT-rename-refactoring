@@ -532,7 +532,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsBox(
     return !theClipRange.IsClipped(thePickResult.Depth());
   }
 
-  Bnd_Range aRange(Max(aTimeEnter, 0.0), aTimeLeave);
+  Range1 aRange(Max(aTimeEnter, 0.0), aTimeLeave);
   aRange.GetMin(aDepth);
 
   if (!theClipRange.GetNearestDepth(aRange, aDepth))

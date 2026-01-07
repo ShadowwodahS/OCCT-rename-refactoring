@@ -135,7 +135,7 @@ static Standard_Integer BUC60889(DrawInterpreter& di, Standard_Integer argc, con
     }
     BRepAdaptor_Curve curve(ed);
     Dir3d            d = curve.Line().Direction();
-    Bnd_Box           bnd_box;
+    Box2           bnd_box;
     bnd_box.Update(Draw1::Atof(argv[4]),
                    Draw1::Atof(argv[5]),
                    Draw1::Atof(argv[6]),
@@ -165,7 +165,7 @@ static Standard_Integer BUC60852(DrawInterpreter& di, Standard_Integer argc, con
     {
       BRepAdaptor_Curve curve(shape);
       gp_Lin            lin = curve.Line();
-      Bnd_Box           bnd_box;
+      Box2           bnd_box;
       bnd_box.Update(Draw1::Atof(argv[2]),
                      Draw1::Atof(argv[3]),
                      Draw1::Atof(argv[4]),
@@ -1174,19 +1174,19 @@ static Standard_Integer OCC16485(DrawInterpreter& di, Standard_Integer argc, con
 
   Standard_Real tol    = 1e-3;
   int           nbstep = 1000;
-  Bnd_Box       Box;
+  Box2       Box1;
   for (int i = 0; i <= nbstep; i++)
   {
     Point3d  p(i, 0., 0.);
-    Bnd_Box B;
+    Box2 B;
     B.Add(p);
     B.Enlarge(tol);
-    B.Add(Box);
-    Box = B; // in this case XMin of Box will grow each time
+    B.Add(Box1);
+    Box1 = B; // in this case XMin of Box1 will grow each time
   }
 
   Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
-  Box.Get(xmin, ymin, zmin, xmax, ymax, zmax);
+  Box1.Get(xmin, ymin, zmin, xmax, ymax, zmax);
   // std::cout.precision(16);
   // std::cout << "Resulting dimensions: Xmin = " << xmin << " , Xmax = " << xmax << " , Tolerance =
   // " << tol << std::endl;

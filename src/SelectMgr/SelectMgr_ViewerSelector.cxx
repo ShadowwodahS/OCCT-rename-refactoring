@@ -633,7 +633,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
     }
   }
 
-  // in case of Box/Polyline selection - keep only Owners having all Entities detected
+  // in case of Box1/Polyline selection - keep only Owners having all Entities detected
   if (mySelectingVolumeMgr.IsOverlapAllowed()
       || (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Box
           && theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Polyline))

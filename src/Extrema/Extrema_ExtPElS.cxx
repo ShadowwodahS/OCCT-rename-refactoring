@@ -29,7 +29,7 @@ static const Standard_Real ExtPElS_MyEps = Epsilon(2. * M_PI);
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS()
+PointElSurfaceExtrema::PointElSurfaceExtrema()
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -41,7 +41,7 @@ Extrema_ExtPElS::Extrema_ExtPElS()
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
 {
 
   Perform(P, S, Tol);
@@ -64,7 +64,7 @@ Method:
      and  (U2,V) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
+void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -95,12 +95,12 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cylinder& S, const Stan
   }
 
   Point3d Ps;
-  Ps          = ElSLib::Value(U1, V, S);
+  Ps          = ElSLib1::Value(U1, V, S);
   mySqDist[0] = Ps.SquareDistance(P);
-  myPoint[0]  = Extrema_POnSurf(U1, V, Ps);
-  Ps          = ElSLib::Value(U2, V, S);
+  myPoint[0]  = PointOnSurface1(U1, V, Ps);
+  Ps          = ElSLib1::Value(U2, V, S);
   mySqDist[1] = Ps.SquareDistance(P);
-  myPoint[1]  = Extrema_POnSurf(U2, V, Ps);
+  myPoint[1]  = PointOnSurface1(U2, V, Ps);
 
   myNbExt = 2;
   myDone  = Standard_True;
@@ -108,7 +108,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cylinder& S, const Stan
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -143,7 +143,7 @@ Method:
        then (U1,V1) and (U2,V2) correspond to min distances.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
+void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -163,7 +163,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
   if (L2 < Tol * Tol)
   {
     mySqDist[0] = L2;
-    myPoint[0]  = Extrema_POnSurf(0., Vm, M);
+    myPoint[0]  = PointOnSurface1(0., Vm, M);
     myNbExt     = 1;
     myDone      = Standard_True;
     return;
@@ -224,12 +224,12 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
   V2 += Vm;
 
   Point3d Ps;
-  Ps          = ElSLib::Value(U1, V1, S);
+  Ps          = ElSLib1::Value(U1, V1, S);
   mySqDist[0] = Ps.SquareDistance(P);
-  myPoint[0]  = Extrema_POnSurf(U1, V1, Ps);
-  Ps          = ElSLib::Value(U2, V2, S);
+  myPoint[0]  = PointOnSurface1(U1, V1, Ps);
+  Ps          = ElSLib1::Value(U2, V2, S);
   mySqDist[1] = Ps.SquareDistance(P);
-  myPoint[1]  = Extrema_POnSurf(U2, V2, Ps);
+  myPoint[1]  = PointOnSurface1(U2, V2, Ps);
 
   myNbExt = 2;
   myDone  = Standard_True;
@@ -237,7 +237,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -264,7 +264,7 @@ Method:
     and  (U2,-V1) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
+void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -321,12 +321,12 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standa
   }
 
   Point3d Ps;
-  Ps          = ElSLib::Value(U1, V, S);
+  Ps          = ElSLib1::Value(U1, V, S);
   mySqDist[0] = Ps.SquareDistance(P);
-  myPoint[0]  = Extrema_POnSurf(U1, V, Ps);
-  Ps          = ElSLib::Value(U2, -V, S);
+  myPoint[0]  = PointOnSurface1(U1, V, Ps);
+  Ps          = ElSLib1::Value(U2, -V, S);
   mySqDist[1] = Ps.SquareDistance(P);
-  myPoint[1]  = Extrema_POnSurf(U2, -V, Ps);
+  myPoint[1]  = PointOnSurface1(U2, -V, Ps);
 
   myNbExt = 2;
   myDone  = Standard_True;
@@ -334,7 +334,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standa
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -358,7 +358,7 @@ Function:
      then (U1,V1) corresponds to the min distance
      and  (U2,V2) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
-void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
+void PointElSurfaceExtrema::Perform(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
 {
   const Standard_Real tol2 = Tol * Tol;
   myDone                   = Standard_False;
@@ -426,32 +426,32 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standar
   }
 
   Point3d Ps;
-  Ps          = ElSLib::Value(U1, V1, S);
+  Ps          = ElSLib1::Value(U1, V1, S);
   mySqDist[0] = Ps.SquareDistance(P);
-  myPoint[0]  = Extrema_POnSurf(U1, V1, Ps);
+  myPoint[0]  = PointOnSurface1(U1, V1, Ps);
 
-  Ps          = ElSLib::Value(U1, V1 + M_PI, S);
+  Ps          = ElSLib1::Value(U1, V1 + M_PI, S);
   mySqDist[1] = Ps.SquareDistance(P);
-  myPoint[1]  = Extrema_POnSurf(U1, V1 + M_PI, Ps);
+  myPoint[1]  = PointOnSurface1(U1, V1 + M_PI, Ps);
 
-  Ps          = ElSLib::Value(U2, V2, S);
+  Ps          = ElSLib1::Value(U2, V2, S);
   mySqDist[2] = Ps.SquareDistance(P);
-  myPoint[2]  = Extrema_POnSurf(U2, V2, Ps);
+  myPoint[2]  = PointOnSurface1(U2, V2, Ps);
 
-  Ps          = ElSLib::Value(U2, V2 + M_PI, S);
+  Ps          = ElSLib1::Value(U2, V2 + M_PI, S);
   mySqDist[3] = Ps.SquareDistance(P);
-  myPoint[3]  = Extrema_POnSurf(U2, V2 + M_PI, Ps);
+  myPoint[3]  = PointOnSurface1(U2, V2 + M_PI, Ps);
 
   myNbExt = 4;
   myDone  = Standard_True;
 }
 
-Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Pln& S, const Standard_Real Tol)
+PointElSurfaceExtrema::PointElSurfaceExtrema(const Point3d& P, const gp_Pln& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
 
-void Extrema_ExtPElS::Perform(const Point3d& P,
+void PointElSurfaceExtrema::Perform(const Point3d& P,
                               const gp_Pln& S,
                               //			       const Standard_Real Tol)
                               const Standard_Real)
@@ -465,23 +465,23 @@ void Extrema_ExtPElS::Perform(const Point3d& P,
   Standard_Real U, V = Vector3d(O, P).Dot(OZ);
   Point3d        Pp = P.Translated(OZ.Multiplied(-V));
 
-  ElSLib::Parameters(S, P, U, V);
+  ElSLib1::Parameters(S, P, U, V);
   mySqDist[0] = Pp.SquareDistance(P);
-  myPoint[0]  = Extrema_POnSurf(U, V, Pp);
+  myPoint[0]  = PointOnSurface1(U, V, Pp);
   myNbExt     = 1;
   myDone      = Standard_True;
 }
 
 //=============================================================================
 
-Standard_Boolean Extrema_ExtPElS::IsDone() const
+Standard_Boolean PointElSurfaceExtrema::IsDone() const
 {
   return myDone;
 }
 
 //=============================================================================
 
-Standard_Integer Extrema_ExtPElS::NbExt() const
+Standard_Integer PointElSurfaceExtrema::NbExt() const
 {
   if (!IsDone())
   {
@@ -492,7 +492,7 @@ Standard_Integer Extrema_ExtPElS::NbExt() const
 
 //=============================================================================
 
-Standard_Real Extrema_ExtPElS::SquareDistance(const Standard_Integer N) const
+Standard_Real PointElSurfaceExtrema::SquareDistance(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {
@@ -503,7 +503,7 @@ Standard_Real Extrema_ExtPElS::SquareDistance(const Standard_Integer N) const
 
 //=============================================================================
 
-const Extrema_POnSurf& Extrema_ExtPElS::Point(const Standard_Integer N) const
+const PointOnSurface1& PointElSurfaceExtrema::Point(const Standard_Integer N) const
 {
   if ((N < 1) || (N > NbExt()))
   {

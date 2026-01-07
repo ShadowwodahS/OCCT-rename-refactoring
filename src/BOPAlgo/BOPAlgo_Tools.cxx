@@ -1116,10 +1116,10 @@ void BooleanTools::IntersectVertices(const TopTools_IndexedDataMapOfShapeReal& t
       aTol = theVertices(i);
 
     // Build bnd box for vertex
-    Bnd_Box aBox;
+    Box2 aBox;
     aBox.Add(BRepInspector::Pnt(aV));
     aBox.SetGap(aTol + aTolAdd);
-    aBBTree.Add(i, Bnd_Tools::Bnd2BVH(aBox));
+    aBBTree.Add(i, Tools5::Bnd2BVH(aBox));
   }
 
   aBBTree.Build();
@@ -1191,14 +1191,14 @@ public:
   const TopoShape& Shape() const { return myShape; };
 
   //! Sets the bounding box
-  void SetBox(const Bnd_Box& theBox) { myBox = theBox; };
+  void SetBox(const Box2& theBox) { myBox = theBox; };
 
   //! Returns the bounding box
-  const Bnd_Box& Box() const { return myBox; };
+  const Box2& Box1() const { return myBox; };
 
 private:
   TopoShape myShape;
-  Bnd_Box      myBox;
+  Box2      myBox;
 };
 
 // Vector of ShapeBox
@@ -1230,10 +1230,10 @@ public:
   const TopoSolid& Solid() const { return mySolid; };
 
   //! Sets the box for the solid
-  void SetBoxS(const Bnd_Box& theBox) { myBoxS = theBox; };
+  void SetBoxS(const Box2& theBox) { myBoxS = theBox; };
 
   //! Returns the solid's box
-  const Bnd_Box& BoxS() const { return myBoxS; };
+  const Box2& BoxS() const { return myBoxS; };
 
   //! Sets own INTERNAL faces of the solid
   void SetOwnIF(const ShapeList& theLIF) { myOwnIF = theLIF; };
@@ -1241,7 +1241,7 @@ public:
   //! Returns own INTERNAL faces of the solid
   const ShapeList& OwnIF() const { return myOwnIF; };
 
-  //! Sets the Bounding Box tree
+  //! Sets the Bounding Box1 tree
   void SetBBTree(BOPTools_BoxTree* theBBTree) { myBBTree = theBBTree; };
 
   //! Sets the ShapeBox structure
@@ -1277,7 +1277,7 @@ private:
                           TopoFace&                                     theFaceToClassify);
 
   TopoSolid         mySolid;   //! Solid
-  Bnd_Box              myBoxS;    // Bounding box of the solid
+  Box2              myBoxS;    // Bounding box of the solid
   ShapeList myOwnIF;   //! Own INTERNAL faces of the solid
   ShapeList myInFaces; //! Faces classified as IN
 
@@ -1304,7 +1304,7 @@ void BOPAlgo_FillIn3DParts::Perform()
 
   // 1. Select boxes of faces that are not out of aBoxS
   BOPTools_BoxTreeSelector aSelector;
-  aSelector.SetBox(Bnd_Tools::Bnd2BVH(myBoxS));
+  aSelector.SetBox(Tools5::Bnd2BVH(myBoxS));
   aSelector.SetBVHSet(myBBTree);
   //
   if (!aSelector.Select())
@@ -1414,7 +1414,7 @@ void BOPAlgo_FillIn3DParts::Perform()
         for (; anExpV.More() && !bOut; anExpV.Next())
         {
           const TopoVertex& aV = TopoDS::Vertex(anExpV.Current());
-          Bnd_Box              aBBV;
+          Box2              aBBV;
           aBBV.Add(BRepInspector::Pnt(aV));
           aBBV.SetGap(BRepInspector::Tolerance(aV));
           bOut = myBoxS.IsOut(aBBV);
@@ -1559,13 +1559,13 @@ void BooleanTools::ClassifyFaces(const ShapeList&                theFaces,
     aSB.SetShape(aF);
 
     // Get bounding box for the face
-    const Bnd_Box* pBox = theShapeBoxMap.Seek(aF);
+    const Box2* pBox = theShapeBoxMap.Seek(aF);
     if (pBox)
       aSB.SetBox(*pBox);
     else
     {
       // Build the bounding box
-      Bnd_Box aBox;
+      Box2 aBox;
       BRepBndLib::Add(aF, aBox);
       aSB.SetBox(aBox);
     }
@@ -1578,7 +1578,7 @@ void BooleanTools::ClassifyFaces(const ShapeList&                theFaces,
   aBBTree.SetSize(aNbF);
   for (Standard_Integer i = 0; i < aNbF; ++i)
   {
-    aBBTree.Add(i, Bnd_Tools::Bnd2BVH(aVSB(i).Box()));
+    aBBTree.Add(i, Tools5::Bnd2BVH(aVSB(i).Box1()));
   }
 
   // Shake tree filler
@@ -1596,13 +1596,13 @@ void BooleanTools::ClassifyFaces(const ShapeList&                theFaces,
     aFIP.SetSolid(aSolid);
 
     // Get bounding box for the solid
-    const Bnd_Box* pBox = theShapeBoxMap.Seek(aSolid);
+    const Box2* pBox = theShapeBoxMap.Seek(aSolid);
     if (pBox)
       aFIP.SetBoxS(*pBox);
     else
     {
       // Build the bounding box
-      Bnd_Box aBox;
+      Box2 aBox;
       BRepBndLib::Add(aSolid, aBox);
       if (!aBox.IsWhole())
       {
@@ -1788,14 +1788,14 @@ void BooleanTools::FillInternals(const ShapeList&               theSolids,
 
 //=================================================================================================
 
-Standard_Boolean BooleanTools::TrsfToPoint(const Bnd_Box&      theBox1,
-                                            const Bnd_Box&      theBox2,
+Standard_Boolean BooleanTools::TrsfToPoint(const Box2&      theBox1,
+                                            const Box2&      theBox2,
                                             Transform3d&            theTrsf,
                                             const Point3d&       thePoint,
                                             const Standard_Real theCriteria)
 {
   // Unify two boxes
-  Bnd_Box aBox = theBox1;
+  Box2 aBox = theBox1;
   aBox.Add(theBox2);
 
   gp_XYZ        aBCenter = (aBox.CornerMin().XYZ() + aBox.CornerMax().XYZ()) / 2.;

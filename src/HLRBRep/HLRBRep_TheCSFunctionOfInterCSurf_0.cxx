@@ -24,11 +24,11 @@
 
 #define ThePSurface Standard_Address
 #define ThePSurface_hxx <Standard_Address.hxx>
-#define ThePSurfaceTool HLRBRep_SurfaceTool
+#define ThePSurfaceTool SurfaceTool3
 #define ThePSurfaceTool_hxx <HLRBRep_SurfaceTool.hxx>
 #define TheCurve gp_Lin
 #define TheCurve_hxx <gp_Lin.hxx>
-#define TheCurveTool HLRBRep_LineTool
+#define TheCurveTool LineTool3
 #define TheCurveTool_hxx <HLRBRep_LineTool.hxx>
 #define IntImp_ZerCSParFunc HLRBRep_TheCSFunctionOfInterCSurf
 #define IntImp_ZerCSParFunc_hxx <HLRBRep_TheCSFunctionOfInterCSurf.hxx>

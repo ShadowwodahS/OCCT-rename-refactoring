@@ -29,7 +29,7 @@
 
 //=================================================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d()
+ExtElC2d::ExtElC2d()
 {
   myDone  = Standard_False;
   myIsPar = Standard_False;
@@ -42,7 +42,7 @@ Extrema_ExtElC2d::Extrema_ExtElC2d()
 
 //=================================================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Lin2d& C2, const Standard_Real)
+ExtElC2d::ExtElC2d(const gp_Lin2d& C1, const gp_Lin2d& C2, const Standard_Real)
 /*-----------------------------------------------------------------------------
 Function:
    Find min distance between 2 straight lines.
@@ -88,12 +88,12 @@ Method:
     Standard_Real aParam1 = (aP1P2 ^ D2) * aDelim;
     Standard_Real aParam2 = -(D1 ^ aP1P2) * aDelim; // -1.0 coefficient before t2.
 
-    gp_Pnt2d P1 = ElCLib::Value(aParam1, C1);
-    gp_Pnt2d P2 = ElCLib::Value(aParam2, C2);
+    gp_Pnt2d P1 = ElCLib1::Value(aParam1, C1);
+    gp_Pnt2d P2 = ElCLib1::Value(aParam2, C2);
 
     mySqDist[myNbExt]   = 0.0;
-    myPoint[myNbExt][0] = Extrema_POnCurv2d(aParam1, P1);
-    myPoint[myNbExt][1] = Extrema_POnCurv2d(aParam2, P2);
+    myPoint[myNbExt][0] = PointOnCurve2d(aParam1, P1);
+    myPoint[myNbExt][1] = PointOnCurve2d(aParam2, P2);
     myNbExt             = 1;
   }
 
@@ -101,7 +101,7 @@ Method:
 }
 //=============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Circ2d& C2, const Standard_Real)
+ExtElC2d::ExtElC2d(const gp_Lin2d& C1, const gp_Circ2d& C2, const Standard_Real)
 /*-----------------------------------------------------------------------------
 Function:
   Find extreme distances between straight line C1 and circle C2.
@@ -144,26 +144,26 @@ Method:
   if (teta[0] < 0.0)
     teta[0] = teta[0] + 2.0 * M_PI;
 
-  P2                  = ElCLib::Value(teta[0], C2);
+  P2                  = ElCLib1::Value(teta[0], C2);
   U1                  = (gp_Vec2d(O1, P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(teta[0], P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(teta[0], P2);
   myNbExt++;
 
-  P2                  = ElCLib::Value(teta[1], C2);
+  P2                  = ElCLib1::Value(teta[1], C2);
   U1                  = (gp_Vec2d(O1, P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(teta[1], P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(teta[1], P2);
   myNbExt++;
   myDone = Standard_True;
 }
 
 // =============================================================================
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Elips2d& C2)
+ExtElC2d::ExtElC2d(const gp_Lin2d& C1, const gp_Elips2d& C2)
 {
   myDone  = Standard_True;
   myIsPar = Standard_False;
@@ -195,27 +195,27 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Elips2d& C2)
   teta[1] = teta[0] + M_PI;
   if (teta[0] < 0.0)
     teta[0] += 2.0 * M_PI;
-  P2                  = ElCLib::Value(teta[0], C2);
+  P2                  = ElCLib1::Value(teta[0], C2);
   U1                  = (gp_Vec2d(O1, P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(teta[0], P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(teta[0], P2);
   myNbExt++;
 
-  P2                  = ElCLib::Value(teta[1], C2);
+  P2                  = ElCLib1::Value(teta[1], C2);
   U1                  = (gp_Vec2d(O1, P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(teta[1], P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(teta[1], P2);
   myNbExt++;
   myDone = Standard_True;
 }
 
 //=============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Hypr2d& C2)
+ExtElC2d::ExtElC2d(const gp_Lin2d& C1, const gp_Hypr2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -245,20 +245,20 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Hypr2d& C2)
   v2 = (R + r * Dx / Dy) / (R - r * Dx / Dy);
   if (v2 > 0.0)
     U2 = Log(Sqrt(v2));
-  P2 = ElCLib::Value(U2, C2);
+  P2 = ElCLib1::Value(U2, C2);
 
   U1                  = (gp_Vec2d(C1.Location(), P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(U2, P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(U2, P2);
   myNbExt++;
   myDone = Standard_True;
 }
 
 //============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Parab2d& C2)
+ExtElC2d::ExtElC2d(const gp_Lin2d& C1, const gp_Parab2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -283,20 +283,20 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Lin2d& C1, const gp_Parab2d& C2)
     return;
   }
   U2 = Dx * P / Dy;
-  P2 = ElCLib::Value(U2, C2);
+  P2 = ElCLib1::Value(U2, C2);
 
   U1                  = (gp_Vec2d(C1.Location(), P2)).Dot(D);
-  P1                  = ElCLib::Value(U1, C1);
+  P1                  = ElCLib1::Value(U1, C1);
   mySqDist[myNbExt]   = P1.SquareDistance(P2);
-  myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1);
-  myPoint[myNbExt][1] = Extrema_POnCurv2d(U2, P2);
+  myPoint[myNbExt][0] = PointOnCurve2d(U1, P1);
+  myPoint[myNbExt][1] = PointOnCurve2d(U2, P2);
   myNbExt++;
   myDone = Standard_True;
 }
 
 //============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
+ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -330,14 +330,14 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
   gp_Vec2d         O1O2(DO1O2 / Sqrt(aSqDCenters));
 
   P1[0]    = O1.Translated(r1 * O1O2);
-  Usol1[0] = ElCLib::Parameter(C1, P1[0]);
+  Usol1[0] = ElCLib1::Parameter(C1, P1[0]);
   P1[1]    = O1.Translated(-r1 * O1O2);
-  Usol1[1] = ElCLib::Parameter(C1, P1[1]);
+  Usol1[1] = ElCLib1::Parameter(C1, P1[1]);
 
   P2[0]    = O2.Translated(r2 * O1O2);
-  Usol2[0] = ElCLib::Parameter(C2, P2[0]);
+  Usol2[0] = ElCLib1::Parameter(C2, P2[0]);
   P2[1]    = O2.Translated(-r2 * O1O2);
-  Usol2[1] = ElCLib::Parameter(C2, P2[1]);
+  Usol2[1] = ElCLib1::Parameter(C2, P2[1]);
 
   for (NoSol = 0; NoSol <= 1; NoSol++)
   {
@@ -346,8 +346,8 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
     {
       U2                  = Usol2[kk];
       mySqDist[myNbExt]   = P2[kk].SquareDistance(P1[NoSol]);
-      myPoint[myNbExt][0] = Extrema_POnCurv2d(U1, P1[NoSol]);
-      myPoint[myNbExt][1] = Extrema_POnCurv2d(U2, P2[kk]);
+      myPoint[myNbExt][0] = PointOnCurve2d(U1, P1[NoSol]);
+      myPoint[myNbExt][1] = PointOnCurve2d(U2, P2[kk]);
       myNbExt++;
     }
   }
@@ -355,7 +355,7 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Circ2d& C2)
 
 //===========================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
+ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -367,13 +367,13 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
 
   Standard_Integer i, j;
 
-  Extrema_ExtPElC2d ExtElip(C1.Location(), C2, Precision::Confusion(), 0.0, 2.0 * M_PI);
+  PointElCCurveExtrema2d ExtElip(C1.Location(), C2, Precision::Confusion(), 0.0, 2.0 * M_PI);
 
   if (ExtElip.IsDone())
   {
     for (i = 1; i <= ExtElip.NbExt(); i++)
     {
-      Extrema_ExtPElC2d ExtCirc(ExtElip.Point(i).Value(),
+      PointElCCurveExtrema2d ExtCirc(ExtElip.Point(i).Value(),
                                 C1,
                                 Precision::Confusion(),
                                 0.0,
@@ -395,7 +395,7 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Elips2d& C2)
 
 //============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
+ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -407,13 +407,13 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
 
   Standard_Integer i, j;
 
-  Extrema_ExtPElC2d ExtHyp(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
+  PointElCCurveExtrema2d ExtHyp(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
 
   if (ExtHyp.IsDone())
   {
     for (i = 1; i <= ExtHyp.NbExt(); i++)
     {
-      Extrema_ExtPElC2d ExtCirc(ExtHyp.Point(i).Value(),
+      PointElCCurveExtrema2d ExtCirc(ExtHyp.Point(i).Value(),
                                 C1,
                                 Precision::Confusion(),
                                 0.0,
@@ -435,7 +435,7 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Hypr2d& C2)
 
 //============================================================================
 
-Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
+ExtElC2d::ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
 {
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -447,13 +447,13 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
 
   Standard_Integer i, j;
 
-  Extrema_ExtPElC2d ExtParab(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
+  PointElCCurveExtrema2d ExtParab(C1.Location(), C2, Precision::Confusion(), RealFirst(), RealLast());
 
   if (ExtParab.IsDone())
   {
     for (i = 1; i <= ExtParab.NbExt(); i++)
     {
-      Extrema_ExtPElC2d ExtCirc(ExtParab.Point(i).Value(),
+      PointElCCurveExtrema2d ExtCirc(ExtParab.Point(i).Value(),
                                 C1,
                                 Precision::Confusion(),
                                 0.0,
@@ -475,14 +475,14 @@ Extrema_ExtElC2d::Extrema_ExtElC2d(const gp_Circ2d& C1, const gp_Parab2d& C2)
 
 //============================================================================
 
-Standard_Boolean Extrema_ExtElC2d::IsDone() const
+Standard_Boolean ExtElC2d::IsDone() const
 {
   return myDone;
 }
 
 //============================================================================
 
-Standard_Boolean Extrema_ExtElC2d::IsParallel() const
+Standard_Boolean ExtElC2d::IsParallel() const
 {
   if (!IsDone())
   {
@@ -493,7 +493,7 @@ Standard_Boolean Extrema_ExtElC2d::IsParallel() const
 
 //============================================================================
 
-Standard_Integer Extrema_ExtElC2d::NbExt() const
+Standard_Integer ExtElC2d::NbExt() const
 {
   if (!IsDone())
   {
@@ -505,7 +505,7 @@ Standard_Integer Extrema_ExtElC2d::NbExt() const
 
 //============================================================================
 
-Standard_Real Extrema_ExtElC2d::SquareDistance(const Standard_Integer N) const
+Standard_Real ExtElC2d::SquareDistance(const Standard_Integer N) const
 {
   if (N < 1 || N > NbExt())
   {
@@ -517,9 +517,9 @@ Standard_Real Extrema_ExtElC2d::SquareDistance(const Standard_Integer N) const
 
 //============================================================================
 
-void Extrema_ExtElC2d::Points(const Standard_Integer N,
-                              Extrema_POnCurv2d&     P1,
-                              Extrema_POnCurv2d&     P2) const
+void ExtElC2d::Points(const Standard_Integer N,
+                              PointOnCurve2d&     P1,
+                              PointOnCurve2d&     P2) const
 {
   if (N < 1 || N > NbExt())
   {

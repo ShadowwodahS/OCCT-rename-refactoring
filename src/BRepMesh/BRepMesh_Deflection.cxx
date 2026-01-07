@@ -37,7 +37,7 @@ Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
     return theRelativeDeflection;
   }
 
-  Bnd_Box aBox;
+  Box2 aBox;
   BRepBndLib::Add(theShape, aBox, Standard_False);
 
   Standard_Real aShapeSize = theRelativeDeflection;

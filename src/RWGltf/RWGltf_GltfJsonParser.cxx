@@ -66,7 +66,7 @@ private:
   Handle(NCollection_Buffer) myBaseBuffer;
 };
 
-//! Helper class to parse "extras" section of glTF node.
+//! Helper1 class to parse "extras" section of glTF node.
 //! In order to use, provide the ID and the "extras" value of the node
 //! in the constructor, and then call Parse().
 //! Alternatively, just call ParseExtras() static function.
@@ -2133,7 +2133,7 @@ bool RWGltf_GltfJsonParser::gltfParseAccessor(
           myCSTrsf.TransformPosition(aMinPnt.ChangeCoord());
           myCSTrsf.TransformPosition(aMaxPnt.ChangeCoord());
 
-          Bnd_Box aBox;
+          Box2 aBox;
           aBox.Add(aMinPnt);
           aBox.Add(aMaxPnt);
 

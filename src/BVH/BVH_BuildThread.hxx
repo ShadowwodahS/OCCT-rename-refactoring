@@ -20,7 +20,7 @@
 #include <BVH_BuildQueue.hxx>
 
 //! Tool object to call BVH builder subroutines.
-struct BVH_BuildTool
+struct BuildTool
 {
   //! Performs splitting of the given BVH node.
   virtual void Perform(const Standard_Integer theNode) = 0;
@@ -34,7 +34,7 @@ class BVH_BuildThread : public RefObject
 
 public:
   //! Creates new BVH build thread.
-  Standard_EXPORT BVH_BuildThread(BVH_BuildTool& theBuildTool, BVH_BuildQueue& theBuildQueue);
+  Standard_EXPORT BVH_BuildThread(BuildTool& theBuildTool, BVH_BuildQueue& theBuildQueue);
 
   //! Starts execution of BVH build thread.
   void Run() { myWorkThread.Run(this); }
@@ -54,7 +54,7 @@ protected:
 
 protected:
   //! Data needed to build the BVH.
-  BVH_BuildTool& myBuildTool;
+  BuildTool& myBuildTool;
 
   //! Reference to BVH build queue.
   BVH_BuildQueue& myBuildQueue;

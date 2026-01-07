@@ -119,8 +119,8 @@ void ChFi2d_FilletAlgo::Init(const TopoEdge& theEdge1,
   Handle(GeomCurve3d) aCurve1 = BRepInspector::Curve(myEdge1, myStart1, myEnd1);
   Handle(GeomCurve3d) aCurve2 = BRepInspector::Curve(myEdge2, myStart2, myEnd2);
 
-  myCurve1 = GeomProjLib::Curve2d(aCurve1, myStart1, myEnd1, myPlane);
-  myCurve2 = GeomProjLib::Curve2d(aCurve2, myStart2, myEnd2, myPlane);
+  myCurve1 = GeomProjLib1::Curve2d(aCurve1, myStart1, myEnd1, myPlane);
+  myCurve2 = GeomProjLib1::Curve2d(aCurve2, myStart2, myEnd2, myPlane);
 
   while (myCurve1->IsPeriodic() && myStart1 >= myEnd1)
     myEnd1 += myCurve1->Period();
@@ -511,7 +511,7 @@ int ChFi2d_FilletAlgo::NbResults(const Point3d& thePoint)
 {
   Standard_Real aX, aY;
   gp_Pnt2d      aTargetPoint2d;
-  ElSLib::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
+  ElSLib1::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
   aTargetPoint2d.SetCoord(aX, aY);
 
   // iterate through all possible solutions.
@@ -540,7 +540,7 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   TopoEdge   aResult;
   gp_Pnt2d      aTargetPoint2d;
   Standard_Real aX, aY;
-  ElSLib::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
+  ElSLib1::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
   aTargetPoint2d.SetCoord(aX, aY);
 
   // choose the nearest circle
@@ -585,7 +585,7 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
     return aResult;
 
   // create circle edge
-  Point3d              aCenter = ElSLib::PlaneValue(aNearest->getCenter().X(),
+  Point3d              aCenter = ElSLib1::PlaneValue(aNearest->getCenter().X(),
                                       aNearest->getCenter().Y(),
                                       myPlane->Pln().Position());
   Handle(GeomCircle) aCircle =
@@ -593,8 +593,8 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   gp_Pnt2d aPoint2d1, aPoint2d2;
   myCurve1->D0(aNearest->getParam(), aPoint2d1);
   myCurve2->D0(aNearest->getParam2(), aPoint2d2);
-  Point3d aPoint1 = ElSLib::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position());
-  Point3d aPoint2 = ElSLib::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position());
+  Point3d aPoint1 = ElSLib1::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position());
+  Point3d aPoint2 = ElSLib1::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position());
 
   GeomAPI_ProjectPointOnCurve aProj(thePoint, aCircle);
   Standard_Real               aTargetParam   = aProj.LowerDistanceParameter();
@@ -602,7 +602,7 @@ TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
 
   // There is a bug in Open CASCADE in calculation of nearest point to a circle near the parameter
   // 0.0 Therefore I check this extrema point manually:
-  Point3d p0 = ElCLib::Value(0.0, aCircle->Circ());
+  Point3d p0 = ElCLib1::Value(0.0, aCircle->Circ());
   if (p0.Distance(thePoint) < aPointOnCircle.Distance(thePoint))
   {
     aTargetParam   = 0.0;

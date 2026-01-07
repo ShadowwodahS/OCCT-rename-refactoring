@@ -67,7 +67,7 @@ void HLRAlgo_PolyAlgo::Update()
   Standard_Real           xSegmnMin, ySegmnMin, zSegmnMin;
   Standard_Real           xSegmnMax, ySegmnMax, zSegmnMax;
   constexpr Standard_Real Big = Precision::Infinite();
-  HLRAlgo_PolyData::Box   aBox(Big, Big, Big, -Big, -Big, -Big);
+  HLRAlgo_PolyData::Box1   aBox(Big, Big, Big, -Big, -Big, -Big);
 
   myNbrShell = myHShell.Size();
   for (Standard_Integer aShellIter = myHShell.Lower(); aShellIter <= myHShell.Upper(); ++aShellIter)
@@ -97,7 +97,7 @@ void HLRAlgo_PolyAlgo::Update()
   for (Standard_Integer aShellIter = myHShell.Lower(); aShellIter <= myHShell.Upper(); ++aShellIter)
   {
     const Handle(HLRAlgo_PolyShellData)& aPsd          = myHShell.ChangeValue(aShellIter);
-    HLRAlgo_PolyShellData::ShellIndices& aShellIndices = aPsd->Indices();
+    HLRAlgo_PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
     xShellMin                                          = Big;
     yShellMin                                          = Big;
     zShellMin                                          = Big;
@@ -107,9 +107,9 @@ void HLRAlgo_PolyAlgo::Update()
 
     for (mySegListIt.Initialize(aPsd->Edges()); mySegListIt.More(); mySegListIt.Next())
     {
-      HLRAlgo_BiPoint&           BP         = mySegListIt.ChangeValue();
-      HLRAlgo_BiPoint::PointsT&  aPoints    = BP.Points();
-      HLRAlgo_BiPoint::IndicesT& theIndices = BP.Indices();
+      BiPoint&           BP         = mySegListIt.ChangeValue();
+      BiPoint::PointsT1&  aPoints    = BP.Points();
+      BiPoint::IndicesT1& theIndices = BP.Indices();
       if (aPoints.PntP1.X() < aPoints.PntP2.X())
       {
         xSegmnMin = aPoints.PntP1.X();
@@ -185,7 +185,7 @@ void HLRAlgo_PolyAlgo::Update()
         Standard_Real                  dn, dnx, dny, dnz, dx1, dy1, dz1, dx2, dy2, dz2, dx3, dy3;
         Standard_Real                  adx1, ady1, adx2, ady2, adx3, ady3;
         Standard_Real                  a = 0., b = 0., c = 0., d = 0.;
-        HLRAlgo_PolyData::FaceIndices& PolyTIndices = aPd->Indices();
+        HLRAlgo_PolyData::FaceIndices1& PolyTIndices = aPd->Indices();
         TColgp_Array1OfXYZ&            Nodes        = aPd->Nodes();
         HLRAlgo_Array1OfTData&         TData        = aPd->TData();
         HLRAlgo_Array1OfPHDat&         PHDat        = aPd->PHDat();
@@ -193,7 +193,7 @@ void HLRAlgo_PolyAlgo::Update()
 
         for (otheri = 1; otheri <= nbT; otheri++)
         {
-          HLRAlgo_TriangleData& aTD = TData.ChangeValue(otheri);
+          TriangleData& aTD = TData.ChangeValue(otheri);
           if (aTD.Flags & HLRAlgo_PolyMask_FMskHiding)
           {
             const gp_XYZ& P1 = Nodes.Value(aTD.Node1);
@@ -407,16 +407,16 @@ void HLRAlgo_PolyAlgo::NextHide()
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::PointsT& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
+BiPoint::PointsT1& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
                                                  Standard_Integer&   theIndex,
                                                  Standard_Boolean&   theReg1,
                                                  Standard_Boolean&   theRegn,
                                                  Standard_Boolean&   theOutl,
                                                  Standard_Boolean&   theIntl)
 {
-  HLRAlgo_BiPoint&           aBP       = mySegListIt.ChangeValue();
-  HLRAlgo_BiPoint::PointsT&  aPoints   = aBP.Points();
-  HLRAlgo_BiPoint::IndicesT& anIndices = aBP.Indices();
+  BiPoint&           aBP       = mySegListIt.ChangeValue();
+  BiPoint::PointsT1&  aPoints   = aBP.Points();
+  BiPoint::IndicesT1& anIndices = aBP.Indices();
   theStatus                            = HLRAlgo_EdgeStatus(0.0,
                                  (Standard_ShortReal)myTriangle.TolParam,
                                  1.0,
@@ -440,7 +440,7 @@ HLRAlgo_BiPoint::PointsT& HLRAlgo_PolyAlgo::Hide(HLRAlgo_EdgeStatus& theStatus,
       continue;
     }
 
-    HLRAlgo_PolyShellData::ShellIndices& aShellIndices = aPsd->Indices();
+    HLRAlgo_PolyShellData::ShellIndices1& aShellIndices = aPsd->Indices();
     if (((aShellIndices.Max - anIndices.MinSeg) & 0x80100200) == 0
         && ((anIndices.MaxSeg - aShellIndices.Min) & 0x80100000) == 0)
     {
@@ -489,15 +489,15 @@ void HLRAlgo_PolyAlgo::NextShow()
 
 //=================================================================================================
 
-HLRAlgo_BiPoint::PointsT& HLRAlgo_PolyAlgo::Show(Standard_Integer& Index,
+BiPoint::PointsT1& HLRAlgo_PolyAlgo::Show(Standard_Integer& Index,
                                                  Standard_Boolean& reg1,
                                                  Standard_Boolean& regn,
                                                  Standard_Boolean& outl,
                                                  Standard_Boolean& intl)
 {
-  HLRAlgo_BiPoint&           BP         = mySegListIt.ChangeValue();
-  HLRAlgo_BiPoint::IndicesT& theIndices = BP.Indices();
-  HLRAlgo_BiPoint::PointsT&  aPoints    = BP.Points();
+  BiPoint&           BP         = mySegListIt.ChangeValue();
+  BiPoint::IndicesT1& theIndices = BP.Indices();
+  BiPoint::PointsT1&  aPoints    = BP.Points();
   Index                                 = theIndices.ShapeIndex;
   reg1                                  = BP.Rg1Line();
   regn                                  = BP.RgNLine();

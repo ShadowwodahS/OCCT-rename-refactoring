@@ -122,12 +122,12 @@ public:
 
   void VEnd(const Standard_Integer I);
 
-  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices& theTotMinMax)
+  void UpdateMinMax(const HLRAlgo_EdgesBlock::MinMaxIndices1& theTotMinMax)
   {
     myMinMax = theTotMinMax;
   }
 
-  HLRAlgo_EdgesBlock::MinMaxIndices& MinMax() { return myMinMax; }
+  HLRAlgo_EdgesBlock::MinMaxIndices1& MinMax() { return myMinMax; }
 
   HLRAlgo_EdgeStatus& Status();
 
@@ -162,7 +162,7 @@ private:
   Standard_Integer                  myHideCount;
   Standard_Integer                  myVSta;
   Standard_Integer                  myVEnd;
-  HLRAlgo_EdgesBlock::MinMaxIndices myMinMax;
+  HLRAlgo_EdgesBlock::MinMaxIndices1 myMinMax;
   HLRAlgo_EdgeStatus                myStatus;
   HLRBRep_Curve                     myGeometry;
   Standard_ShortReal                myTolerance;

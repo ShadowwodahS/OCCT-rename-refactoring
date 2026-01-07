@@ -388,7 +388,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
           Handle(Geom2d_BSplineCurve)::DownCast(theCurve2d->Copy());
         TColStd_Array1OfReal aNewKnots(1, aBspl->NbKnots());
         aBspl->Knots(aNewKnots);
-        BSplCLib::Reparametrize(cf, cl, aNewKnots);
+        BSplCLib1::Reparametrize(cf, cl, aNewKnots);
         aBspl->SetKnots(aNewKnots);
         theCurve2d = aBspl;
       }
@@ -607,7 +607,7 @@ void ShapeFix_EdgeProjAux::UpdateParam2d(const Handle(GeomCurve2d)& theCurve2d)
   // 15.11.2002 PTV OCC966
   if (ShapeAnalysis_Curve::IsPeriodic(theCurve2d))
   {
-    ElCLib::AdjustPeriodic(cf, cl, preci2d, myFirstParam, myLastParam);
+    ElCLib1::AdjustPeriodic(cf, cl, preci2d, myFirstParam, myLastParam);
   }
   else if (theCurve2d->IsClosed())
   {

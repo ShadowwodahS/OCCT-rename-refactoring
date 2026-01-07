@@ -240,10 +240,10 @@ Standard_Boolean OpenGl_View::updateRaytraceGeometry(const RaytraceUpdateMode   
     myRaytraceGeometry.ProcessAcceleration();
 
     myRaytraceSceneRadius = 2.f /* scale factor */
-                            * std::max(myRaytraceGeometry.Box().CornerMin().cwiseAbs().maxComp(),
-                                       myRaytraceGeometry.Box().CornerMax().cwiseAbs().maxComp());
+                            * std::max(myRaytraceGeometry.Box1().CornerMin().cwiseAbs().maxComp(),
+                                       myRaytraceGeometry.Box1().CornerMax().cwiseAbs().maxComp());
 
-    const BVH_Vec3f aSize = myRaytraceGeometry.Box().Size();
+    const BVH_Vec3f aSize = myRaytraceGeometry.Box1().Size();
 
     myRaytraceSceneEpsilon = Max(1.0e-6f, 1.0e-4f * aSize.Modulus());
 
@@ -1348,7 +1348,7 @@ Handle(OpenGl_ShaderProgram) OpenGl_View::initProgram(
 
   AsciiString1 aLinkLog;
 
-  if (!aProgram->Link(theGlContext))
+  if (!aProgram->Link1(theGlContext))
   {
     aProgram->FetchInfoLog(theGlContext, aLinkLog);
 
@@ -1549,8 +1549,8 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       myRaytraceProgram->SetAttributeName(theGlContext, Graphic3d_TOA_POS, "occVertex");
       myPostFSAAProgram->SetAttributeName(theGlContext, Graphic3d_TOA_POS, "occVertex");
       myOutImageProgram->SetAttributeName(theGlContext, Graphic3d_TOA_POS, "occVertex");
-      if (!myRaytraceProgram->Link(theGlContext) || !myPostFSAAProgram->Link(theGlContext)
-          || !myOutImageProgram->Link(theGlContext))
+      if (!myRaytraceProgram->Link1(theGlContext) || !myPostFSAAProgram->Link1(theGlContext)
+          || !myOutImageProgram->Link1(theGlContext))
       {
         return safeFailBack("Failed to initialize vertex attributes for ray-tracing program",
                             theGlContext);

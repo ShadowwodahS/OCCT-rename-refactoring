@@ -69,7 +69,7 @@ DataLabel StdLPersistent_HString::instance<StringClass, CharType>::Label(
   DataLabel aLabel;
 
   if (!myValue.IsNull())
-    TDF_Tool::Label(theDF, myValue->String(), aLabel, Standard_True);
+    Tool3::Label(theDF, myValue->String(), aLabel, Standard_True);
 
   return aLabel;
 }

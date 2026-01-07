@@ -790,7 +790,7 @@ Standard_Boolean STEPCAFControl_Writer::transfer(StepFileWriter&             the
     {
       const DataLabel& aCurL = aLabelIter.Value();
 
-      for (TDF_ChildIterator aChildIter(aCurL, Standard_True); aChildIter.More(); aChildIter.Next())
+      for (ChildIterator aChildIter(aCurL, Standard_True); aChildIter.More(); aChildIter.Next())
       {
         const DataLabel& aSubL = aChildIter.Value();
 
@@ -2730,7 +2730,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
   NCollection_Sequence<Handle(StepRepr_ShapeAspect)> aSASeq;
   Handle(StepAP242_GeometricItemSpecificUsage)       aGISU;
   Standard_Integer                                   aSANum = 0, aGISUNum = 0;
-  // Link with datum feature
+  // Link1 with datum feature
   for (TDF_LabelSequence::Iterator aLabelIter(theShapeL); aLabelIter.More(); aLabelIter.Next())
   {
     Handle(RefObject)  anEnt;
@@ -2951,7 +2951,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
         aModel->AddWithRefs(aSDR);
       }
     }
-    // Link datum target to datum feature
+    // Link1 datum target to datum feature
     // if aSASeq.Length() == 0 nothing to do
     if (aSASeq.Length() == 1)
     {

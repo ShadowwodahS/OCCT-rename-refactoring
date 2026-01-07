@@ -38,7 +38,7 @@
 class DFBrowserPane_AttributePaneAPI;
 
 //! \namespace DFBrowser_Tools
-//! The namespace that gives auxiliary methods for TDF elements manipulation
+//! The namespace that gives auxiliary methods for TDF1 elements manipulation
 namespace DFBrowser_Tools
 {
 

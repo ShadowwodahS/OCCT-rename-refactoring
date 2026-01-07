@@ -1309,9 +1309,9 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
     {
       Standard_Real u, v;
       Point3d        aPi(thePoints->Value(i));
-      ElSLib::ConeParameters(thePos, anR, anAng, aPi, u, v);
+      ElSLib1::ConeParameters(thePos, anR, anAng, aPi, u, v);
       Point3d aPp;
-      ElSLib::ConeD0(u, v, thePos, anR, anAng, aPp);
+      ElSLib1::ConeD0(u, v, thePos, anR, anAng, aPp);
       aGap = Max(aGap, aPi.SquareDistance(aPp));
     }
     aGap = Sqrt(aGap);

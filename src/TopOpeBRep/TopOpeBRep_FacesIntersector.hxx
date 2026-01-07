@@ -26,7 +26,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 
 class BRepTopAdaptor_TopolTool;
-class Bnd_Box;
+class Box2;
 
 //! Describes the intersection of two faces.
 class TopOpeBRep_FacesIntersector
@@ -42,8 +42,8 @@ public:
   //! Computes the intersection of faces S1 and S2.
   Standard_EXPORT void Perform(const TopoShape& S1,
                                const TopoShape& S2,
-                               const Bnd_Box&      B1,
-                               const Bnd_Box&      B2);
+                               const Box2&      B1,
+                               const Box2&      B2);
 
   Standard_EXPORT Standard_Boolean IsEmpty();
 

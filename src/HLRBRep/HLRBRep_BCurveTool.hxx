@@ -39,7 +39,7 @@ class Vector3d;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-class HLRBRep_BCurveTool
+class BCurveTool
 {
 public:
   DEFINE_STANDARD_ALLOC

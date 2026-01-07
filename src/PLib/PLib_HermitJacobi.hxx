@@ -52,7 +52,7 @@ DEFINE_STANDARD_HANDLE(PLib_HermitJacobi, PLib_Base)
 //! c2*ordre+1(1)                ...          c2*ordre+1(dimension)
 //! @endcode
 //! represents the  part  of the polynomial in  the
-//! Hermit's base: H(t)
+//! Hermit1's base: H(t)
 //! @code
 //! H(t) = c0H00(t) + c1H01(t) + ...c(iordre)H(0 ;iorder)+ c(iordre+1)H10(t)+...
 //! @endcode

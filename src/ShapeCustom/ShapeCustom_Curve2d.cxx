@@ -39,9 +39,9 @@ static gp_Lin2d GetLine(const gp_Pnt2d&     P1,
   gp_Vec2d avec(P1, P2);
   gp_Dir2d adir(avec);
   gp_Lin2d alin(P1, adir);
-  alin.SetLocation(ElCLib::Value(c1, alin));
-  cf = ElCLib::Parameter(alin, P1);
-  cl = ElCLib::Parameter(alin, P2);
+  alin.SetLocation(ElCLib1::Value(c1, alin));
+  cf = ElCLib1::Parameter(alin, P1);
+  cl = ElCLib1::Parameter(alin, P2);
   return alin;
 }
 

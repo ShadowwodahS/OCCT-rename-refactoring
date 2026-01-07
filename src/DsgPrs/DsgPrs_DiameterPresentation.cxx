@@ -45,8 +45,8 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  Standard_Real parat    = ElCLib::Parameter(aCircle, AttachmentPoint);
-  Point3d        ptoncirc = ElCLib::Value(parat, aCircle);
+  Standard_Real parat    = ElCLib1::Parameter(aCircle, AttachmentPoint);
+  Point3d        ptoncirc = ElCLib1::Value(parat, aCircle);
 
   // sideline
   Point3d center = aCircle.Location();
@@ -147,13 +147,13 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
-  Standard_Real parEndOfArrow = ElCLib::Parameter(aCircle, AttachmentPoint);
+  Standard_Real parEndOfArrow = ElCLib1::Parameter(aCircle, AttachmentPoint);
   Point3d        EndOfArrow;
   Point3d        DrawPosition = AttachmentPoint; // point of attachment
 
   Point3d Center      = aCircle.Location();
-  Point3d FirstPoint  = ElCLib::Value(uFirst, aCircle);
-  Point3d SecondPoint = ElCLib::Value(uLast, aCircle);
+  Point3d FirstPoint  = ElCLib1::Value(uFirst, aCircle);
+  Point3d SecondPoint = ElCLib1::Value(uLast, aCircle);
 
   if (!DsgPrs_InDomain(fpara, lpara, parEndOfArrow))
   {
@@ -163,7 +163,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     if (DsgPrs_InDomain(fpara, lpara, otherpar))
     {
       parEndOfArrow = otherpar; // parameter on circle
-      EndOfArrow    = ElCLib::Value(parEndOfArrow, aCircle);
+      EndOfArrow    = ElCLib1::Value(parEndOfArrow, aCircle);
     }
     else
     {
@@ -174,18 +174,18 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
       if (L1.Distance(AttachmentPoint) < L2.Distance(AttachmentPoint))
       {
         EndOfArrow   = FirstPoint; //***
-        DrawPosition = ElCLib::Value(ElCLib::Parameter(L1, AttachmentPoint), L1);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L1, AttachmentPoint), L1);
       }
       else
       {
         EndOfArrow   = SecondPoint; //***
-        DrawPosition = ElCLib::Value(ElCLib::Parameter(L2, AttachmentPoint), L2);
+        DrawPosition = ElCLib1::Value(ElCLib1::Parameter(L2, AttachmentPoint), L2);
       }
     }
   }
   else
   {
-    EndOfArrow   = ElCLib::Value(parEndOfArrow, aCircle);
+    EndOfArrow   = ElCLib1::Value(parEndOfArrow, aCircle);
     DrawPosition = AttachmentPoint;
   }
 

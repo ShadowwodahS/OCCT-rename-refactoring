@@ -143,7 +143,7 @@ BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoShape& S,
 
   if (isaholeinspace == Standard_False)
   {
-    if (explorer.Box().IsOut(P))
+    if (explorer.Box1().IsOut(P))
     {
       ForceOut();
     }
@@ -154,7 +154,7 @@ BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoShape& S,
   }
   else
   {
-    if (explorer.Box().IsOut(P))
+    if (explorer.Box1().IsOut(P))
     {
       ForceIn();
     }
@@ -178,7 +178,7 @@ void BRepClass3d_SolidClassifier::Perform(const Point3d& P, const Standard_Real 
   {
     if (isaholeinspace == Standard_False)
     {
-      if (explorer.Box().IsOut(P))
+      if (explorer.Box1().IsOut(P))
       {
         ForceOut();
   #if LBRCOMPT
@@ -192,7 +192,7 @@ void BRepClass3d_SolidClassifier::Perform(const Point3d& P, const Standard_Real 
     }
     else
     {
-      if (explorer.Box().IsOut(P))
+      if (explorer.Box1().IsOut(P))
       {
         ForceIn();
   #if LBRCOMPT

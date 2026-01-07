@@ -38,10 +38,10 @@ class HLRAlgo_PolyData : public RefObject
 {
 
 public:
-  struct FaceIndices
+  struct FaceIndices1
   {
     //! The default constructor.
-    FaceIndices()
+    FaceIndices1()
         : Index(0),
           Min(0),
           Max(0)
@@ -51,18 +51,18 @@ public:
     Standard_Integer Index, Min, Max;
   };
 
-  struct Triangle
+  struct Triangle1
   {
     Coords2d         V1, V2, V3;
     Standard_Real Param, TolParam, TolAng, Tolerance;
   };
 
-  struct Box
+  struct Box1
   {
     Standard_Real XMin, YMin, ZMin, XMax, YMax, ZMax;
 
     //! The default constructor.
-    Box()
+    Box1()
         : XMin(0.0),
           YMin(0.0),
           ZMin(0.0),
@@ -73,7 +73,7 @@ public:
     }
 
     //! The initializing constructor.
-    Box(const Standard_Real& theXMin,
+    Box1(const Standard_Real& theXMin,
         const Standard_Real& theYMin,
         const Standard_Real& theZMin,
         const Standard_Real& theXMax,
@@ -107,31 +107,31 @@ public:
 
   HLRAlgo_Array1OfPHDat& PHDat() const;
 
-  Standard_EXPORT void UpdateGlobalMinMax(Box& theBox);
+  Standard_EXPORT void UpdateGlobalMinMax(Box1& theBox);
 
   Standard_Boolean Hiding() const;
 
   //! process hiding between <Pt1> and <Pt2>.
-  Standard_EXPORT void HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
-                                      Triangle&                       theTriangle,
-                                      HLRAlgo_BiPoint::IndicesT&      theIndices,
+  Standard_EXPORT void HideByPolyData(const BiPoint::PointsT1& thePoints,
+                                      Triangle1&                       theTriangle,
+                                      BiPoint::IndicesT1&      theIndices,
                                       const Standard_Boolean          HidingShell,
                                       HLRAlgo_EdgeStatus&             status);
 
-  FaceIndices& Indices() { return myFaceIndices; }
+  FaceIndices1& Indices() { return myFaceIndices; }
 
   DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyData, RefObject)
 
 private:
   //! evident.
-  void hideByOneTriangle(const HLRAlgo_BiPoint::PointsT& thePoints,
-                         Triangle&                       theTriangle,
+  void hideByOneTriangle(const BiPoint::PointsT1& thePoints,
+                         Triangle1&                       theTriangle,
                          const Standard_Boolean          Crossing,
                          const Standard_Boolean          HideBefore,
                          const Standard_Integer          TrFlags,
                          HLRAlgo_EdgeStatus&             status);
 
-  FaceIndices                    myFaceIndices;
+  FaceIndices1                    myFaceIndices;
   Handle(TColgp_HArray1OfXYZ)    myHNodes;
   Handle(HLRAlgo_HArray1OfTData) myHTData;
   Handle(HLRAlgo_HArray1OfPHDat) myHPHDat;

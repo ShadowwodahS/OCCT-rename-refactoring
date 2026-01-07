@@ -106,8 +106,8 @@ public:
   //! Compute the common box  witch is the intersection
   //! of the two bounding boxes,  and mark the points of
   //! the two surfaces that are inside.
-  Standard_EXPORT void CommonBox(const Bnd_Box& B1,
-                                 const Bnd_Box& B2,
+  Standard_EXPORT void CommonBox(const Box2& B1,
+                                 const Box2& B2,
                                  Standard_Real& xMin,
                                  Standard_Real& yMin,
                                  Standard_Real& zMin,
@@ -216,7 +216,7 @@ public:
 
   Standard_EXPORT Standard_Integer GetFinTT(const Standard_Integer SurfID) const;
 
-  Standard_EXPORT Bnd_Box GetBox(const Standard_Integer SurfID) const;
+  Standard_EXPORT Box2 GetBox(const Standard_Integer SurfID) const;
 
   //! This method returns list of couples of contact triangles.
   Standard_EXPORT IntPolyh_ListOfCouples& GetCouples();
@@ -234,8 +234,8 @@ public:
 private:
   Handle(Adaptor3d_Surface) MaSurface1;
   Handle(Adaptor3d_Surface) MaSurface2;
-  Bnd_Box                   MyBox1;
-  Bnd_Box                   MyBox2;
+  Box2                   MyBox1;
+  Box2                   MyBox2;
   Standard_Integer          NbSamplesU1;
   Standard_Integer          NbSamplesU2;
   Standard_Integer          NbSamplesV1;

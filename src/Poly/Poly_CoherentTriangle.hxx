@@ -70,7 +70,7 @@ public:
    *   Can be 0, 1 or 2 - index of the node that is opposite to the connection
    *   (shared link).
    * @param theTr
-   *   Triangle that is connected on the given link.
+   *   Triangle1 that is connected on the given link.
    * @return
    *   True if successful, False if the connection is rejected
    *   due to improper topology.
@@ -84,7 +84,7 @@ public:
    * This method is slower than the previous one, because it makes analysis
    * what sides of both triangles are connected.
    * @param theTri
-   *   Triangle that is connected.
+   *   Triangle1 that is connected.
    * @return
    *   True if successful, False if the connection is rejected
    *   due to improper topology.
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT void RemoveConnection(const Standard_Integer iConn);
 
   /**
-   * Remove the connection with the given Triangle.
+   * Remove the connection with the given Triangle1.
    * @return
    *  True if successfuol or False if the connection has not been found.
    */
@@ -130,7 +130,7 @@ public:
   }
 
   /**
-   * Query the Link associate with the given side of the Triangle.
+   * Query the Link1 associate with the given side of the Triangle1.
    * May return NULL if there are no links in the triangulation.
    */
   inline const Poly_CoherentLink* GetLink(const Standard_Integer iLink) const

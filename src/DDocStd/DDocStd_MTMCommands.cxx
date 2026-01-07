@@ -227,7 +227,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
   }
 
   DataLabel lab;
-  TDF_Tool::Label(browser->Data(), argv[2], lab);
+  Tool3::Label(browser->Data(), argv[2], lab);
   if (lab.IsNull())
   {
     di << "Syntax error: label is Null: " << argv[2] << "\n";
@@ -252,7 +252,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
     AsciiString1   ref;
     if (TN->HasFather())
     {
-      TDF_Tool::Entry(TN->Father()->Label(), ref);
+      Tool3::Entry(TN->Father()->Label(), ref);
       di << " ==> " << ref.ToCString();
     }
     else
@@ -261,7 +261,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
       Handle(TDataStd_TreeNode) child = TN->First();
       while (!child.IsNull())
       {
-        TDF_Tool::Entry(child->Label(), ref);
+        Tool3::Entry(child->Label(), ref);
         if (child != TN->First())
           di << ", ";
         di << ref.ToCString();
@@ -274,7 +274,7 @@ static Standard_Integer XAttributeValue(DrawInterpreter& di,
   {
     Handle(TDF_Reference)   val = Handle(TDF_Reference)::DownCast(att);
     AsciiString1 ref;
-    TDF_Tool::Entry(val->Get(), ref);
+    Tool3::Entry(val->Get(), ref);
     di << "==> " << ref.ToCString();
   }
   else if (att->IsKind(STANDARD_TYPE(IntAttribute)))

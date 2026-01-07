@@ -945,7 +945,7 @@ void CorrectEdgeTolerance(const TopoEdge&                myShape,
         Handle(GeomAdaptor_Curve) Gac  = Handle(GeomAdaptor_Curve)::DownCast(myHCurve);
         Handle(GeomCurve3d)        C3dx = Gac->Curve();
         Handle(GeomCurve3d)        ProjOnPlane =
-          GeomProjLib::ProjectOnPlane(new Geom_TrimmedCurve(C3dx, First, Last),
+          GeomProjLib1::ProjectOnPlane(new Geom_TrimmedCurve(C3dx, First, Last),
                                       P,
                                       P->Position().Direction(),
                                       Standard_True);

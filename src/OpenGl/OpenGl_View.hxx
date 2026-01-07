@@ -71,7 +71,7 @@ public:
   //! be seen in run-time (in case of slow hardware) and/or tearing may appear. So this is strongly
   //! recommended to draw only simple (fast) structures.
   //! 2. FALSE. Drawing immediate mode structures to the back buffer.
-  //! The complete scene is redrawn first, so this mode is slower if scene contains complex data
+  //! The complete scene is redrawn first, so this mode is slower if scene contains complex1 data
   //! and/or V-Sync is turned on. But it works in any case and is especially useful for view dump
   //! because the dump image is read from the back buffer.
   //! @return previous mode.
@@ -170,7 +170,7 @@ public:
   //! @param theToIncludeAuxiliary consider also auxiliary presentations (with infinite flag or with
   //! trihedron transformation persistence)
   //! @return computed bounding box
-  Standard_EXPORT virtual Bnd_Box MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
+  Standard_EXPORT virtual Box2 MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) const
     Standard_OVERRIDE;
 
   //! Returns pointer to an assigned framebuffer object.

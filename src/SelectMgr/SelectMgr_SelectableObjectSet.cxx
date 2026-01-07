@@ -39,10 +39,10 @@ public:
       : myObjects(theObjects) {};
 
   //! Returns bounding box of object with index theIndex
-  virtual Select3D_BndBox3d Box(const Standard_Integer theIndex) const Standard_OVERRIDE
+  virtual Select3D_BndBox3d Box1(const Standard_Integer theIndex) const Standard_OVERRIDE
   {
     const Handle(SelectMgr_SelectableObject)& anObject = myObjects.FindKey(theIndex + 1);
-    Bnd_Box                                   aBox;
+    Box2                                   aBox;
     anObject->BoundingBox(aBox);
     if (aBox.IsVoid())
       return Select3D_BndBox3d();
@@ -53,24 +53,24 @@ public:
   }
 
   //! Returns bounding box of the whole subset.
-  virtual Select3D_BndBox3d Box() const Standard_OVERRIDE
+  virtual Select3D_BndBox3d Box1() const Standard_OVERRIDE
   {
     if (!myBox.IsValid())
     {
-      myBox = BVH_Set<Standard_Real, 3>::Box();
+      myBox = BVH_Set<Standard_Real, 3>::Box1();
     }
     return myBox;
   }
 
-  //! Make inherited method Box() visible to avoid CLang warning
-  using BVH_Set<Standard_Real, 3>::Box;
+  //! Make inherited method Box1() visible to avoid CLang warning
+  using BVH_Set<Standard_Real, 3>::Box1;
 
   //! Returns center of object with index theIndex in the set
   //! along the given axis theAxis
   virtual Standard_Real Center(const Standard_Integer theIndex,
                                const Standard_Integer theAxis) const Standard_OVERRIDE
   {
-    const Select3D_BndBox3d aBndBox = Box(theIndex);
+    const Select3D_BndBox3d aBndBox = Box1(theIndex);
 
     return (aBndBox.CornerMin()[theAxis] + aBndBox.CornerMax()[theAxis]) * 0.5;
   }
@@ -119,7 +119,7 @@ public:
     {
       const Handle(SelectMgr_SelectableObject)& anObject = myObjects(anI);
 
-      Bnd_Box aBoundingBox;
+      Box2 aBoundingBox;
       anObject->BoundingBox(aBoundingBox);
       if (!aBoundingBox.IsVoid() && !anObject->TransformPersistence().IsNull())
       {
@@ -151,7 +151,7 @@ public:
             continue;
           }
 
-          Bnd_Box aGroupBox;
+          Box2 aGroupBox;
           aGroupBox.Update(aBndBox.CornerMin().x(),
                            aBndBox.CornerMin().y(),
                            aBndBox.CornerMin().z(),
@@ -183,23 +183,23 @@ public:
   }
 
   //! Returns bounding box of object with index theIndex
-  virtual Select3D_BndBox3d Box(const Standard_Integer theIndex) const Standard_OVERRIDE
+  virtual Select3D_BndBox3d Box1(const Standard_Integer theIndex) const Standard_OVERRIDE
   {
     return *myBoundings(theIndex + 1);
   }
 
   //! Returns bounding box of the whole subset.
-  virtual Select3D_BndBox3d Box() const Standard_OVERRIDE
+  virtual Select3D_BndBox3d Box1() const Standard_OVERRIDE
   {
     if (!myBox.IsValid())
     {
-      myBox = BVH_Set<Standard_Real, 3>::Box();
+      myBox = BVH_Set<Standard_Real, 3>::Box1();
     }
     return myBox;
   }
 
-  //! Make inherited method Box() visible to avoid CLang warning
-  using BVH_Set<Standard_Real, 3>::Box;
+  //! Make inherited method Box1() visible to avoid CLang warning
+  using BVH_Set<Standard_Real, 3>::Box1;
 
   //! Returns center of object with index theIndex in the set
   //! along the given axis theAxis
@@ -368,7 +368,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
     BVHBuilderAdaptorRegular anAdaptor(myObjects[BVHSubset_3d]);
 
     // update corresponding BVH tree data structure
-    myBuilder[BVHSubset_3d]->Build(&anAdaptor, myBVH[BVHSubset_3d].get(), anAdaptor.Box());
+    myBuilder[BVHSubset_3d]->Build(&anAdaptor, myBVH[BVHSubset_3d].get(), anAdaptor.Box1());
 
     // release dirty state
     myIsDirty[BVHSubset_3d] = Standard_False;
@@ -398,7 +398,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
       // update corresponding BVH tree data structure
       myBuilder[BVHSubset_3dPersistent]->Build(&anAdaptor,
                                                myBVH[BVHSubset_3dPersistent].get(),
-                                               anAdaptor.Box());
+                                               anAdaptor.Box1());
     }
 
     // -----------------------------------------------------
@@ -418,7 +418,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
       // update corresponding BVH tree data structure
       myBuilder[BVHSubset_2dPersistent]->Build(&anAdaptor,
                                                myBVH[BVHSubset_2dPersistent].get(),
-                                               anAdaptor.Box());
+                                               anAdaptor.Box1());
     }
 
     // -------------------------------------------------------------------
@@ -443,7 +443,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
       // update corresponding BVH tree data structure
       myBuilder[BVHSubset_ortho3dPersistent]->Build(&anAdaptor,
                                                     myBVH[BVHSubset_ortho3dPersistent].get(),
-                                                    anAdaptor.Box());
+                                                    anAdaptor.Box1());
     }
 
     // -------------------------------------------------------------------
@@ -468,7 +468,7 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
       // update corresponding BVH tree data structure
       myBuilder[BVHSubset_ortho2dPersistent]->Build(&anAdaptor,
                                                     myBVH[BVHSubset_ortho2dPersistent].get(),
-                                                    anAdaptor.Box());
+                                                    anAdaptor.Box1());
     }
 
     // release dirty state for every subset

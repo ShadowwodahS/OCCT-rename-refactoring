@@ -174,7 +174,7 @@ static Standard_Integer Expand(DrawInterpreter& theDI,
     for (Standard_Integer i = 3; i < theNbArgs; i++)
     {
       DataLabel aLabel;
-      TDF_Tool::Label(Doc->GetData(), theArgVec[i], aLabel);
+      Tool3::Label(Doc->GetData(), theArgVec[i], aLabel);
       if (aLabel.IsNull())
       {
         TopoShape aShape;
@@ -221,7 +221,7 @@ static Standard_Integer Extract(DrawInterpreter& theDI,
   }
   DataLabel        aDstLabel;
   Standard_Integer anArgInd = 3;
-  TDF_Tool::Label(aDstDoc->GetData(), theArgVec[2], aDstLabel);
+  Tool3::Label(aDstDoc->GetData(), theArgVec[2], aDstLabel);
   Handle(XCAFDoc_ShapeTool) aDstShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDstDoc->Main());
   if (aDstLabel.IsNull())
   {
@@ -239,7 +239,7 @@ static Standard_Integer Extract(DrawInterpreter& theDI,
   for (; anArgInd < theNbArgs; anArgInd++)
   {
     DataLabel aSrcLabel;
-    TDF_Tool::Label(aSrcDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
+    Tool3::Label(aSrcDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
     if (aSrcLabel.IsNull())
     {
       theDI << "[" << theArgVec[anArgInd] << "] is not valid Src label\n";
@@ -284,7 +284,7 @@ static Standard_Integer Filter(DrawInterpreter& theDI,
   for (Standard_Integer anArgInd = 2; anArgInd < theNbArgs; anArgInd++)
   {
     DataLabel aSrcLabel;
-    TDF_Tool::Label(aDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
+    Tool3::Label(aDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
     if (aSrcLabel.IsNull() || !XCAFDoc_ShapeTool::IsShape(aSrcLabel))
     {
       theDI << "[" << theArgVec[anArgInd] << "] is not valid shape label\n";

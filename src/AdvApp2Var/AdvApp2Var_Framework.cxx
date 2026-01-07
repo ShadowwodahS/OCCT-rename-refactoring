@@ -29,11 +29,11 @@
 
 //=================================================================================================
 
-AdvApp2Var_Framework::AdvApp2Var_Framework() {}
+Framework::Framework() {}
 
 //=================================================================================================
 
-AdvApp2Var_Framework::AdvApp2Var_Framework(const AdvApp2Var_SequenceOfNode&  Frame,
+Framework::Framework(const AdvApp2Var_SequenceOfNode&  Frame,
                                            const AdvApp2Var_SequenceOfStrip& UFrontier,
                                            const AdvApp2Var_SequenceOfStrip& VFrontier)
 {
@@ -47,7 +47,7 @@ AdvApp2Var_Framework::AdvApp2Var_Framework(const AdvApp2Var_SequenceOfNode&  Fra
 // purpose  : return the first Iso not approximated
 //==========================================================================================
 
-Handle(AdvApp2Var_Iso) AdvApp2Var_Framework::FirstNotApprox(Standard_Integer& IndexIso,
+Handle(AdvApp2Var_Iso) Framework::FirstNotApprox(Standard_Integer& IndexIso,
                                                             Standard_Integer& IndexStrip) const
 {
   for (int anUVIter = 0; anUVIter < 2; ++anUVIter)
@@ -79,7 +79,7 @@ Handle(AdvApp2Var_Iso) AdvApp2Var_Framework::FirstNotApprox(Standard_Integer& In
 // purpose  : return the first node of an iso
 //==========================================================================================
 
-Standard_Integer AdvApp2Var_Framework::FirstNode(const GeomAbs_IsoType  Type,
+Standard_Integer Framework::FirstNode(const GeomAbs_IsoType  Type,
                                                  const Standard_Integer IndexIso,
                                                  const Standard_Integer IndexStrip) const
 {
@@ -102,7 +102,7 @@ Standard_Integer AdvApp2Var_Framework::FirstNode(const GeomAbs_IsoType  Type,
 // purpose  : return the last node of an iso
 //==========================================================================================
 
-Standard_Integer AdvApp2Var_Framework::LastNode(const GeomAbs_IsoType  Type,
+Standard_Integer Framework::LastNode(const GeomAbs_IsoType  Type,
                                                 const Standard_Integer IndexIso,
                                                 const Standard_Integer IndexStrip) const
 {
@@ -125,7 +125,7 @@ Standard_Integer AdvApp2Var_Framework::LastNode(const GeomAbs_IsoType  Type,
 // purpose  : replace the iso IndexIso of the strip IndexStrip by anIso
 //==========================================================================================
 
-void AdvApp2Var_Framework::ChangeIso(const Standard_Integer        IndexIso,
+void Framework::ChangeIso(const Standard_Integer        IndexIso,
                                      const Standard_Integer        IndexStrip,
                                      const Handle(AdvApp2Var_Iso)& theIso)
 {
@@ -139,7 +139,7 @@ void AdvApp2Var_Framework::ChangeIso(const Standard_Integer        IndexIso,
 // purpose  : return the node of coordinates (U,V)
 //==========================================================================================
 
-const Handle(AdvApp2Var_Node)& AdvApp2Var_Framework::Node(const Standard_Real U,
+const Handle(AdvApp2Var_Node)& Framework::Node(const Standard_Real U,
                                                           const Standard_Real V) const
 {
   for (AdvApp2Var_SequenceOfNode::Iterator aNodeIter(myNodeConstraints); aNodeIter.More();
@@ -159,7 +159,7 @@ const Handle(AdvApp2Var_Node)& AdvApp2Var_Framework::Node(const Standard_Real U,
 // purpose  : return the Iso U=U with V0<=V<=V1
 //==========================================================================================
 
-const AdvApp2Var_Iso& AdvApp2Var_Framework::IsoU(const Standard_Real U,
+const AdvApp2Var_Iso& Framework::IsoU(const Standard_Real U,
                                                  const Standard_Real V0,
                                                  const Standard_Real V1) const
 {
@@ -184,7 +184,7 @@ const AdvApp2Var_Iso& AdvApp2Var_Framework::IsoU(const Standard_Real U,
 // purpose  : return the Iso V=V with U0<=U<=U1
 //==========================================================================================
 
-const AdvApp2Var_Iso& AdvApp2Var_Framework::IsoV(const Standard_Real U0,
+const AdvApp2Var_Iso& Framework::IsoV(const Standard_Real U0,
                                                  const Standard_Real U1,
                                                  const Standard_Real V) const
 {
@@ -209,7 +209,7 @@ const AdvApp2Var_Iso& AdvApp2Var_Framework::IsoV(const Standard_Real U0,
 // purpose  : modification and insertion of nodes and isos
 //==========================================================================================
 
-void AdvApp2Var_Framework::UpdateInU(const Standard_Real CuttingValue)
+void Framework::UpdateInU(const Standard_Real CuttingValue)
 {
   Standard_Integer i = 1;
   for (AdvApp2Var_SequenceOfStrip::Iterator anUConstIter(myUConstraints); anUConstIter.More();
@@ -301,7 +301,7 @@ void AdvApp2Var_Framework::UpdateInU(const Standard_Real CuttingValue)
 // purpose  : modification and insertion of nodes and isos
 //==========================================================================================
 
-void AdvApp2Var_Framework::UpdateInV(const Standard_Real CuttingValue)
+void Framework::UpdateInV(const Standard_Real CuttingValue)
 {
   Standard_Integer j = 1;
   while (myVConstraints.Value(j).First()->V0() > CuttingValue
@@ -388,7 +388,7 @@ void AdvApp2Var_Framework::UpdateInV(const Standard_Real CuttingValue)
 // purpose  : return the coefficients of the polynomial equation which approximates an iso U
 //==========================================================================================
 
-const Handle(TColStd_HArray1OfReal)& AdvApp2Var_Framework::UEquation(
+const Handle(TColStd_HArray1OfReal)& Framework::UEquation(
   const Standard_Integer IndexIso,
   const Standard_Integer IndexStrip) const
 {
@@ -400,7 +400,7 @@ const Handle(TColStd_HArray1OfReal)& AdvApp2Var_Framework::UEquation(
 // purpose  : return the coefficients of the polynomial equation which approximates an iso V
 //==========================================================================================
 
-const Handle(TColStd_HArray1OfReal)& AdvApp2Var_Framework::VEquation(
+const Handle(TColStd_HArray1OfReal)& Framework::VEquation(
   const Standard_Integer IndexIso,
   const Standard_Integer IndexStrip) const
 {

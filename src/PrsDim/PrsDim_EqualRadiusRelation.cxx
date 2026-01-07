@@ -103,18 +103,18 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
   // ota -- begin --
   if (myAutomaticPosition)
   {
-    myFirstPoint  = ElCLib::Value((FirstPar1 + LastPar1) * 0.5, FirstCirc);
-    mySecondPoint = ElCLib::Value((FirstPar2 + LastPar2) * 0.5, SecondCirc);
+    myFirstPoint  = ElCLib1::Value((FirstPar1 + LastPar1) * 0.5, FirstCirc);
+    mySecondPoint = ElCLib1::Value((FirstPar2 + LastPar2) * 0.5, SecondCirc);
   }
   else
   {
-    Standard_Real aPar = ElCLib::Parameter(FirstCirc, myFirstPoint);
+    Standard_Real aPar = ElCLib1::Parameter(FirstCirc, myFirstPoint);
     if (IntegerPart(0.5 * LastPar1 / M_PI) != 0 && aPar < FirstPar1)
       aPar += 2 * M_PI * IntegerPart(0.5 * LastPar1 / M_PI);
     Standard_Real aRadius = FirstCirc.Radius();
 
     if (Abs(myFirstPoint.Distance(myFirstCenter) - aRadius) >= Precision::Confusion())
-      myFirstPoint = ElCLib::Value(aPar, FirstCirc);
+      myFirstPoint = ElCLib1::Value(aPar, FirstCirc);
     if (FirstPoint1.Distance(LastPoint1) > Precision::Confusion())
     {
       // check where is myFirstPoint
@@ -128,13 +128,13 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
       }
     }
 
-    aPar = ElCLib::Parameter(SecondCirc, mySecondPoint);
+    aPar = ElCLib1::Parameter(SecondCirc, mySecondPoint);
     if (IntegerPart(0.5 * LastPar2 / M_PI) != 0 && aPar < FirstPar2)
       aPar += 2 * M_PI * IntegerPart(0.5 * LastPar2 / M_PI);
 
     aRadius = SecondCirc.Radius();
     if (Abs(mySecondPoint.Distance(mySecondCenter) - aRadius) >= Precision::Confusion())
-      mySecondPoint = ElCLib::Value(aPar, SecondCirc);
+      mySecondPoint = ElCLib1::Value(aPar, SecondCirc);
     if (FirstPoint2.Distance(LastPoint2) > Precision::Confusion())
     {
       if (aPar > LastPar2 || aPar < FirstPar2)

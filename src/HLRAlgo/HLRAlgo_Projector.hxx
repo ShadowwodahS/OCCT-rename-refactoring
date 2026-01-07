@@ -41,28 +41,28 @@ class gp_Lin;
 //! The choice depends on the algorithm, which you are using.
 //! The parameters of the view are defined at the
 //! time of construction of a Prs3d_Projector object.
-class HLRAlgo_Projector
+class HLRAlgoProjector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT HLRAlgo_Projector();
+  Standard_EXPORT HLRAlgoProjector();
 
   //! Creates   an axonometric  projector.   <CS> is the
   //! viewing coordinate system.
-  Standard_EXPORT HLRAlgo_Projector(const Frame3d& CS);
+  Standard_EXPORT HLRAlgoProjector(const Frame3d& CS);
 
   //! Creates  a  perspective  projector.   <CS>  is the
   //! viewing coordinate system.
-  Standard_EXPORT HLRAlgo_Projector(const Frame3d& CS, const Standard_Real Focus);
+  Standard_EXPORT HLRAlgoProjector(const Frame3d& CS, const Standard_Real Focus);
 
   //! build a Projector with automatic minmax directions.
-  Standard_EXPORT HLRAlgo_Projector(const Transform3d&         T,
+  Standard_EXPORT HLRAlgoProjector(const Transform3d&         T,
                                     const Standard_Boolean Persp,
                                     const Standard_Real    Focus);
 
   //! build a Projector with given minmax directions.
-  Standard_EXPORT HLRAlgo_Projector(const Transform3d&         T,
+  Standard_EXPORT HLRAlgoProjector(const Transform3d&         T,
                                     const Standard_Boolean Persp,
                                     const Standard_Real    Focus,
                                     const gp_Vec2d&        v1,

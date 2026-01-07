@@ -606,16 +606,16 @@ void Graphic3d_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrs
 
 //=================================================================================================
 
-Bnd_Box Graphic3d_Structure::MinMaxValues(const Standard_Boolean theToIgnoreInfiniteFlag) const
+Box2 Graphic3d_Structure::MinMaxValues(const Standard_Boolean theToIgnoreInfiniteFlag) const
 {
   Graphic3d_BndBox3d aBox;
   addTransformed(aBox, theToIgnoreInfiniteFlag);
   if (!aBox.IsValid())
   {
-    return Bnd_Box();
+    return Box2();
   }
 
-  Bnd_Box aResult;
+  Box2 aResult;
   aResult.Update(aBox.CornerMin().x(),
                  aBox.CornerMin().y(),
                  aBox.CornerMin().z(),

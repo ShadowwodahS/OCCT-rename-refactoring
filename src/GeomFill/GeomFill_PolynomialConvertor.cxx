@@ -88,7 +88,7 @@ void PolynomialConverter::Init()
     }
   }
   // Calcul de H
-  myinit = PLib::HermiteCoefficients(-1, 1, Ordre / 2 - 1, Ordre / 2 - 1, H);
+  myinit = PLib1::HermiteCoefficients(-1, 1, Ordre / 2 - 1, Ordre / 2 - 1, H);
   H.Transpose();
 
   if (!myinit)

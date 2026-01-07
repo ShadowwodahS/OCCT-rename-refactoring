@@ -105,8 +105,8 @@ void Approx_MCurvesToBSpCurve::Perform(const AppParCurves_SequenceOfMultiCurve& 
     Standard_Integer        nb3d = P.NbPoints();
     Standard_Integer        nb2d = P.NbPoints2d();
 
-    Convert_CompBezierCurvesToBSplineCurve     conv;
-    Convert_CompBezierCurves2dToBSplineCurve2d conv2d;
+    BezierToBSpline     conv;
+    BezierToBSpline2d conv2d;
 
     if (nb3d != 0)
     {
@@ -213,11 +213,11 @@ void Approx_MCurvesToBSpCurve::Perform(const AppParCurves_SequenceOfMultiCurve& 
         TColgp_Array1OfPnt Points(1, deg + 1);
         if (Inc > 0)
         {
-          BSplCLib::IncreaseDegree(deg,
+          BSplCLib1::IncreaseDegree(deg,
                                    ThePoles,
-                                   BSplCLib::NoWeights(),
+                                   BSplCLib1::NoWeights(),
                                    Points,
-                                   BSplCLib::NoWeights());
+                                   BSplCLib1::NoWeights());
         }
         else
         {
@@ -241,11 +241,11 @@ void Approx_MCurvesToBSpCurve::Perform(const AppParCurves_SequenceOfMultiCurve& 
         TColgp_Array1OfPnt2d Points2d(1, deg + 1);
         if (Inc > 0)
         {
-          BSplCLib::IncreaseDegree(deg,
+          BSplCLib1::IncreaseDegree(deg,
                                    ThePoles2d,
-                                   BSplCLib::NoWeights(),
+                                   BSplCLib1::NoWeights(),
                                    Points2d,
-                                   BSplCLib::NoWeights());
+                                   BSplCLib1::NoWeights());
         }
         else
         {

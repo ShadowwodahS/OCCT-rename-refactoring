@@ -592,7 +592,7 @@ public:
   //! @param[in] theBox  the custom bounding box to fit.
   //! @param[in] theMargin  the margin coefficient for view borders.
   //! @param[in] theToUpdate  flag to perform view update.
-  Standard_EXPORT void FitAll(const Bnd_Box&         theBox,
+  Standard_EXPORT void FitAll(const Box2&         theBox,
                               const Standard_Real    theMargin   = 0.01,
                               const Standard_Boolean theToUpdate = Standard_True);
 
@@ -946,7 +946,7 @@ public:
   //! @return TRUE if the fit all operation can be done
   Standard_EXPORT Standard_Boolean
     FitMinMax(const Handle(CameraOn3d)& theCamera,
-              const Bnd_Box&                  theBox,
+              const Box2&                  theBox,
               const Standard_Real             theMargin,
               const Standard_Real             theResolution      = 0.0,
               const Standard_Boolean          theToEnlargeIfLine = Standard_True) const;

@@ -116,7 +116,7 @@ static DataLabel findVisMaterial(const Handle(AppDocument)& theDoc,
 {
   Handle(XCAFDoc_VisMaterialTool) aMatTool = XCAFDoc_DocumentTool::VisMaterialTool(theDoc->Main());
   DataLabel                       aMatLab;
-  TDF_Tool::Label(theDoc->GetData(), theKey, aMatLab);
+  Tool3::Label(theDoc->GetData(), theKey, aMatLab);
   if (!aMatLab.IsNull())
   {
     return aMatTool->IsMaterial(aMatLab) ? aMatLab : DataLabel();
@@ -198,7 +198,7 @@ static Standard_Integer setColor(DrawInterpreter&, Standard_Integer argc, const 
 
   DataLabel    aLabel;
   TopoShape aShape;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     aShape = DBRep1::Get(argv[2]);
@@ -271,7 +271,7 @@ static Standard_Integer getColor(DrawInterpreter& di, Standard_Integer argc, con
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ColorTool) myColors = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   Quantity_ColorRGBA        aColor;
   if (!myColors->GetColor(aLabel, aColor))
@@ -309,7 +309,7 @@ static Standard_Integer getShapeColor(DrawInterpreter& di,
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     Message::SendFail() << "Syntax error: '" << argv[2] << "' label is not found in the document";
@@ -411,7 +411,7 @@ static Standard_Integer addColor(DrawInterpreter& di, Standard_Integer argc, con
   AsciiString1   anEntry;
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   DataLabel                 aLabel     = aColorTool->AddColor(aColRGBA);
-  TDF_Tool::Entry(aLabel, anEntry);
+  Tool3::Entry(aLabel, anEntry);
   di << anEntry;
   return 0;
 }
@@ -432,7 +432,7 @@ static Standard_Integer removeColor(DrawInterpreter&, Standard_Integer argc, con
     Message::SendFail() << "Syntax error: " << argv[1] << " is not a document";
     return 1;
   }
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     Message::SendFail() << "Syntax error: " << argv[2] << " label is not found in the document";
@@ -470,7 +470,7 @@ static Standard_Integer findColor(DrawInterpreter& di, Standard_Integer argc, co
 
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   AsciiString1   anEntry;
-  TDF_Tool::Entry(aColorTool->FindColor(aColRGBA), anEntry);
+  Tool3::Entry(aColorTool->FindColor(aColRGBA), anEntry);
   di << anEntry;
   return 0;
 }
@@ -499,7 +499,7 @@ static Standard_Integer unsetColor(DrawInterpreter&, Standard_Integer argc, cons
   }
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ColorTool) myColors = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   if (!aLabel.IsNull())
   {
@@ -534,7 +534,7 @@ static Standard_Integer setVisibility(DrawInterpreter&, Standard_Integer argc, c
     return 1;
   }
 
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   if (aLabel.IsNull())
   {
@@ -593,7 +593,7 @@ static Standard_Integer getVisibility(DrawInterpreter& di,
 
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   DataLabel                 aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     // get label by shape
@@ -785,7 +785,7 @@ static Standard_Integer XGetAllVisMaterials(DrawInterpreter& theDI,
     if (!toPrintNames)
     {
       AsciiString1 anEntryId;
-      TDF_Tool::Entry(aMatLab, anEntryId);
+      Tool3::Entry(aMatLab, anEntryId);
       theDI << anEntryId << " ";
       continue;
     }
@@ -834,7 +834,7 @@ static Standard_Integer XGetVisMaterial(DrawInterpreter& theDI,
   else
   {
     DataLabel aShapeLab;
-    TDF_Tool::Label(aDoc->GetData(), theArgVec[2], aShapeLab);
+    Tool3::Label(aDoc->GetData(), theArgVec[2], aShapeLab);
     if (aShapeLab.IsNull())
     {
       TopoShape aShape = DBRep1::Get(theArgVec[2]);
@@ -863,7 +863,7 @@ static Standard_Integer XGetVisMaterial(DrawInterpreter& theDI,
   }
 
   AsciiString1 anEntryId;
-  TDF_Tool::Entry(aMat->Label(), anEntryId);
+  Tool3::Entry(aMat->Label(), anEntryId);
   theDI << "Label:                  " << anEntryId << "\n";
 
   Handle(NameAttribute) aNodeName;
@@ -1238,7 +1238,7 @@ static Standard_Integer XSetVisMaterial(DrawInterpreter&,
     return 1;
   }
 
-  TDF_Tool::Label(aDoc->GetData(), theArgVec[2], aShapeLab);
+  Tool3::Label(aDoc->GetData(), theArgVec[2], aShapeLab);
   Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(aDoc->Main());
   if (aShapeLab.IsNull())
   {

@@ -22,7 +22,7 @@
 //=========================================================================
 //   Creation d une translation 3d de gp de vecteur de translation Vec.   +
 //=========================================================================
-gce_MakeTranslation::gce_MakeTranslation(const Vector3d& Vec)
+TranslationBuilder::TranslationBuilder(const Vector3d& Vec)
 {
   TheTranslation.SetTranslation(Vec);
 }
@@ -32,22 +32,22 @@ gce_MakeTranslation::gce_MakeTranslation(const Vector3d& Vec)
 //   vecteur reliant Point1 a Point2.                                     +
 //=========================================================================
 
-gce_MakeTranslation::gce_MakeTranslation(const Point3d& Point1, const Point3d& Point2)
+TranslationBuilder::TranslationBuilder(const Point3d& Point1, const Point3d& Point2)
 {
   TheTranslation.SetTranslation(Vector3d(Point1, Point2));
 }
 
-const Transform3d& gce_MakeTranslation::Value() const
+const Transform3d& TranslationBuilder::Value() const
 {
   return TheTranslation;
 }
 
-const Transform3d& gce_MakeTranslation::Operator() const
+const Transform3d& TranslationBuilder::Operator() const
 {
   return TheTranslation;
 }
 
-gce_MakeTranslation::operator Transform3d() const
+TranslationBuilder::operator Transform3d() const
 {
   return TheTranslation;
 }

@@ -35,7 +35,7 @@ class gp_Vec2d;
 //! -   implementing the construction algorithm, and
 //! -   consulting the results. In particular, the Value
 //! function returns the constructed arc of circle.
-class GCE2d_MakeArcOfCircle : public GCE2d_Root
+class GCE2d_MakeArcOfCircle : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

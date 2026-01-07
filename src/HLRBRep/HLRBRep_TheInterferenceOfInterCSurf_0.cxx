@@ -27,11 +27,11 @@
 
 #define Polygon3d HLRBRep_ThePolygonOfInterCSurf
 #define Polygon3d_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>
-#define ToolPolygon3d HLRBRep_ThePolygonToolOfInterCSurf
+#define ToolPolygon3d PolygonToolInterCSurf
 #define ToolPolygon3d_hxx <HLRBRep_ThePolygonToolOfInterCSurf.hxx>
 #define Polyhedron HLRBRep_ThePolyhedronOfInterCSurf
 #define Polyhedron_hxx <HLRBRep_ThePolyhedronOfInterCSurf.hxx>
-#define ToolPolyh HLRBRep_ThePolyhedronToolOfInterCSurf
+#define ToolPolyh PolyhedronToolInterCSurf
 #define ToolPolyh_hxx <HLRBRep_ThePolyhedronToolOfInterCSurf.hxx>
 #define Intf_InterferencePolygonPolyhedron HLRBRep_TheInterferenceOfInterCSurf
 #define Intf_InterferencePolygonPolyhedron_hxx <HLRBRep_TheInterferenceOfInterCSurf.hxx>

@@ -71,7 +71,7 @@ void PrsDim_RadiusDimension::SetMeasuredGeometry(const gp_Circ&         theCircl
   myCircle          = theCircle;
   myGeometryType    = GeometryType_Edge;
   myShape           = BRepLib_MakeEdge(theCircle);
-  myAnchorPoint     = theHasAnchor ? theAnchorPoint : ElCLib::Value(0, myCircle);
+  myAnchorPoint     = theHasAnchor ? theAnchorPoint : ElCLib1::Value(0, myCircle);
   myIsGeometryValid = IsValidCircle(myCircle) && IsValidAnchor(myCircle, myAnchorPoint);
 
   if (myIsGeometryValid)

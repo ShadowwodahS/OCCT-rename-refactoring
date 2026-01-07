@@ -109,17 +109,17 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
   {
     const DataLabel&        aLabel = anItr.Key();
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aLabel, anEntry);
+    Tool3::Entry(aLabel, anEntry);
     std::cout << "\tLabel = " << anEntry << std::endl;
   }
 #endif
   //***
-  //  TDF_IDFilter aFilterForReferers;
+  //  IDFilter aFilterForReferers;
   //  aFilterForReferers.Keep(ShapeAttribute::GetID());
-  //  TDF_IDFilter aFilterForReferences;
+  //  IDFilter aFilterForReferences;
   //  aFilterForReferences.Keep(ShapeAttribute::GetID());
   //   TDF_LabelMap aMap1;
-  //  TDF_Tool::OutReferences(aLabel, /*aFilterForReferers, aFilterForReferences, */outRefs);
+  //  Tool3::OutReferences(aLabel, /*aFilterForReferers, aFilterForReferences, */outRefs);
   //***
 
   if (aSelector.Solve(aMap))

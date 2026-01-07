@@ -120,10 +120,10 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
           switch (Int.Intersection().State())
           {
             case TopAbs_IN:
-              HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+              EdgeIList::AddInterference(ILHidden, Int, EIT);
               break;
             case TopAbs_ON:
-              HLRBRep_EdgeIList::AddInterference(ILOn, Int, EIT);
+              EdgeIList::AddInterference(ILOn, Int, EIT);
               break;
             case TopAbs_OUT:
             case TopAbs_UNKNOWN:
@@ -190,7 +190,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                       if (nind != -1)
                       {
                         //-- printf("\n Segment Supprime\n"); fflush(stdout);
-                        HLRAlgo_Intersection& inter = Int1.ChangeIntersection();
+                        Intersection3& inter = Int1.ChangeIntersection();
                         inter.SegIndex(nind);
                         Standard_Real p1 = Int1.Intersection().Parameter();
                         Standard_Real p2 = Int2.Intersection().Parameter();
@@ -223,7 +223,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
       { // process the interferences on ILOn
         // *********************************
 
-        HLRBRep_EdgeIList::ProcessComplex // complex transition on ILOn
+        EdgeIList::ProcessComplex // complex1 transition on ILOn
           (ILOn, EIT);                    // **************************
 
         HLRAlgo_ListIteratorOfInterferenceList It(ILOn);
@@ -245,7 +245,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                   ILOn.Remove(It);
                   break;
                 case TopAbs_IN:
-                  HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+                  EdgeIList::AddInterference(ILHidden, Int, EIT);
                   ILOn.Remove(It);
                   break;
                 case TopAbs_UNKNOWN:
@@ -264,7 +264,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                   ILOn.Remove(It);
                   break;
                 case TopAbs_IN:
-                  HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+                  EdgeIList::AddInterference(ILHidden, Int, EIT);
                   ILOn.Remove(It);
                   break;
                 case TopAbs_UNKNOWN:
@@ -286,12 +286,12 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                   switch (staft)
                   {
                     case TopAbs_IN:
-                      HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+                      EdgeIList::AddInterference(ILHidden, Int, EIT);
                       ILOn.Remove(It);
                       break;
                     case TopAbs_ON:
                       Int.Transition(TopAbs_FORWARD);    // FORWARD  in ILOn,
-                      HLRBRep_EdgeIList::AddInterference // REVERSED in ILHidden
+                      EdgeIList::AddInterference // REVERSED in ILHidden
                         (ILHidden,
                          HLRAlgo_Interference(Int.Intersection(),
                                               Int.Boundary(),
@@ -303,7 +303,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                       break;
                     case TopAbs_OUT:
                       Int.Transition(TopAbs_REVERSED); // set REVERSED
-                      HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+                      EdgeIList::AddInterference(ILHidden, Int, EIT);
                       ILOn.Remove(It);
                       break;
                     case TopAbs_UNKNOWN:
@@ -319,7 +319,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                   {
                     case TopAbs_IN:
                       Int.Transition(TopAbs_REVERSED);   // REVERSED in ILOn,
-                      HLRBRep_EdgeIList::AddInterference // REVERSED in ILHidden
+                      EdgeIList::AddInterference // REVERSED in ILHidden
                         (ILHidden,
                          HLRAlgo_Interference(Int.Intersection(),
                                               Int.Boundary(),
@@ -346,7 +346,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
                   {
                     case TopAbs_IN:
                       Int.Transition(TopAbs_FORWARD); // set FORWARD
-                      HLRBRep_EdgeIList::AddInterference(ILHidden, Int, EIT);
+                      EdgeIList::AddInterference(ILHidden, Int, EIT);
                       ILOn.Remove(It);
                       break;
                     case TopAbs_ON:
@@ -394,7 +394,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
         if (!ILHidden.IsEmpty())
         {
 
-          HLRBRep_EdgeIList::ProcessComplex // complex transition on ILHidden
+          EdgeIList::ProcessComplex // complex1 transition on ILHidden
             (ILHidden, EIT);                // ******************************
           Standard_Integer level = 0;
           if (!myDS->SimpleHidingFace())                     // Level at Start

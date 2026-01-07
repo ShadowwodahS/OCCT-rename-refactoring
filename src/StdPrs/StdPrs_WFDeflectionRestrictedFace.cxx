@@ -135,7 +135,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
     const Adaptor2d_Curve2d* TheRCurve = &ToolRst.Value();
     if (TheRCurve->GetType() != GeomAbs_Line)
     {
-      GCPnts_QuasiUniformDeflection UDP(*TheRCurve, ddefle);
+      QuasiUniformDeflectionSampler UDP(*TheRCurve, ddefle);
       if (UDP.IsDone())
       {
         const Standard_Integer aNumberOfPoints = UDP.NbPoints();
@@ -480,7 +480,7 @@ Standard_Boolean StdPrs_WFDeflectionRestrictedFace::Match(const Standard_Real X,
   {
     TopAbs_Orientation            Orient    = ToolRst.Orientation();
     const Adaptor2d_Curve2d*      TheRCurve = &ToolRst.Value();
-    GCPnts_QuasiUniformDeflection UDP(*TheRCurve, Deflection);
+    QuasiUniformDeflectionSampler UDP(*TheRCurve, Deflection);
     if (UDP.IsDone())
     {
       Standard_Integer NumberOfPoints = UDP.NbPoints();

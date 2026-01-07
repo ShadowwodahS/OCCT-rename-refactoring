@@ -23,19 +23,19 @@
 
 #include <TColStd_SequenceOfReal.hxx>
 #include <Standard_Boolean.hxx>
-class HLRBRep_SurfaceTool;
+class SurfaceTool3;
 class gp_Lin;
-class HLRBRep_LineTool;
+class LineTool3;
 class HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf;
 
-class HLRBRep_TheQuadCurvExactInterCSurf
+class QuadCurvExactInterCSurf
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Provides the signed distance function : Q(w)
   //! and its first derivative dQ(w)/dw
-  Standard_EXPORT HLRBRep_TheQuadCurvExactInterCSurf(const Standard_Address& S, const gp_Lin& C);
+  Standard_EXPORT QuadCurvExactInterCSurf(const Standard_Address& S, const gp_Lin& C);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 

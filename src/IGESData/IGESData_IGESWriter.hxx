@@ -142,7 +142,7 @@ public:
   Standard_EXPORT void Send(const Handle(IGESData_IGESEntity)& val,
                             const Standard_Boolean             negative = Standard_False);
 
-  //! Helper method to avoid ambiguity of calls to above methods Send() for
+  //! Helper1 method to avoid ambiguity of calls to above methods Send() for
   //! classes derived from IGESData_IGESEntity, for VC++ 10 and 11 compilers
   template <class T>
   void Send(const Handle(T)& val,

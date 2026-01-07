@@ -151,7 +151,7 @@ void BinMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
     // Write triangles
     for (Standard_Integer i = 1; i <= nbTriangles; i++)
     {
-      PT->Triangle(i).Get(n1, n2, n3);
+      PT->Triangle1(i).Get(n1, n2, n3);
       theTarget << n1;
       theTarget << n2;
       theTarget << n3;

@@ -28,13 +28,13 @@
 
 #define Curve1 Adaptor2d_Curve2d
 #define Curve1_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool1 Extrema_Curve2dTool
+#define Tool1 Curve2dTool1
 #define Tool1_hxx <Extrema_Curve2dTool.hxx>
 #define Curve2 Adaptor2d_Curve2d
 #define Curve2_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool2 Extrema_Curve2dTool
+#define Tool2 Curve2dTool1
 #define Tool2_hxx <Extrema_Curve2dTool.hxx>
-#define POnC Extrema_POnCurv2d
+#define POnC PointOnCurve2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>

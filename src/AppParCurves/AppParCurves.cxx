@@ -20,7 +20,7 @@
 #include <math_Matrix.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-void AppParCurves::BernsteinMatrix(const Standard_Integer NbPoles,
+void AppParCurves1::BernsteinMatrix(const Standard_Integer NbPoles,
                                    const math_Vector&     U,
                                    math_Matrix&           A)
 {
@@ -59,7 +59,7 @@ void AppParCurves::BernsteinMatrix(const Standard_Integer NbPoles,
   }
 }
 
-void AppParCurves::Bernstein(const Standard_Integer NbPoles,
+void AppParCurves1::Bernstein(const Standard_Integer NbPoles,
                              const math_Vector&     U,
                              math_Matrix&           A,
                              math_Matrix&           DA)
@@ -104,7 +104,7 @@ void AppParCurves::Bernstein(const Standard_Integer NbPoles,
   }
 }
 
-void AppParCurves::SecondDerivativeBernstein(const Standard_Real U, math_Vector& DDA)
+void AppParCurves1::SecondDerivativeBernstein(const Standard_Real U, math_Vector& DDA)
 {
   //  Standard_Real U1 = 1-U, Y0, Y1, Xs;
   Standard_Real    Y0, Y1, Xs;
@@ -156,7 +156,7 @@ void AppParCurves::SecondDerivativeBernstein(const Standard_Real U, math_Vector&
   }
 }
 
-void AppParCurves::SplineFunction(const Standard_Integer nbpoles,
+void AppParCurves1::SplineFunction(const Standard_Integer nbpoles,
                                   const Standard_Integer deg,
                                   const math_Vector&     Parameters,
                                   const math_Vector&     flatknots,
@@ -192,7 +192,7 @@ void AppParCurves::SplineFunction(const Standard_Integer nbpoles,
     U      = Parameters(i);
     NewU   = U;
     kindex = oldkindex;
-    BSplCLib::LocateParameter(deg, Aflatknots, U, Standard_False, deg1, nbpoles + 1, kindex, NewU);
+    BSplCLib1::LocateParameter(deg, Aflatknots, U, Standard_False, deg1, nbpoles + 1, kindex, NewU);
 
     oldkindex = kindex;
 

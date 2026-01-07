@@ -20,6 +20,6 @@
 #include <Intrv_Interval.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Intrv_Interval> Intrv_SequenceOfInterval;
+typedef NCollection_Sequence<Interval2> Intrv_SequenceOfInterval;
 
 #endif

@@ -57,7 +57,7 @@ static Standard_Integer DDF_Children(DrawInterpreter& di, Standard_Integer n, co
 
   DataLabel lab;
   if (n == 3)
-    TDF_Tool::Label(DF, a[2], lab);
+    Tool3::Label(DF, a[2], lab);
 
   if (lab.IsNull())
   {
@@ -65,9 +65,9 @@ static Standard_Integer DDF_Children(DrawInterpreter& di, Standard_Integer n, co
   }
   else
   {
-    for (TDF_ChildIterator itr(lab); itr.More(); itr.Next())
+    for (ChildIterator itr(lab); itr.More(); itr.Next())
     {
-      TDF_Tool::Entry(itr.Value(), entry);
+      Tool3::Entry(itr.Value(), entry);
       // AsciiString1 entry(itr.Value().Tag());
       di << entry.ToCString() << " ";
     }
@@ -91,7 +91,7 @@ static Standard_Integer DDF_Attributes(DrawInterpreter& di, Standard_Integer n, 
     return 1;
 
   DataLabel lab;
-  TDF_Tool::Label(DF, a[2], lab);
+  Tool3::Label(DF, a[2], lab);
 
   if (lab.IsNull())
     return 1;
@@ -121,12 +121,12 @@ static Standard_Integer DDF_SetEmptyAttribute(DrawInterpreter& di,
     return 1;
 
   DataLabel lab;
-  TDF_Tool::Label(DF, a[2], lab);
+  Tool3::Label(DF, a[2], lab);
 
   if (lab.IsNull())
     return 1;
 
-  Handle(TDF_Attribute) anAttrByType = TDF_DerivedAttribute::Attribute(a[3]);
+  Handle(TDF_Attribute) anAttrByType = DerivedAttribute::Attribute(a[3]);
   if (anAttrByType.IsNull())
   {
     di << "DDF1: Not registered attribute type '" << a[3] << "'\n";
@@ -154,7 +154,7 @@ static Standard_Integer DDF_ForgetAll(DrawInterpreter& /*di*/, Standard_Integer 
     return 1;
 
   DataLabel label;
-  TDF_Tool::Label(DF, a[2], label);
+  Tool3::Label(DF, a[2], label);
   if (label.IsNull())
     return 1;
   label.ForgetAllAttributes();
@@ -178,13 +178,13 @@ static Standard_Integer DDF_ForgetAttribute(DrawInterpreter& di,
     return 1;
 
   DataLabel aLabel;
-  TDF_Tool::Label(DF, a[2], aLabel);
+  Tool3::Label(DF, a[2], aLabel);
   if (aLabel.IsNull())
     return 1;
   if (!Standard_GUID::CheckGUIDFormat(a[3]))
   {
     // check this may be derived attribute by its type
-    Handle(TDF_Attribute) anAttrByType = TDF_DerivedAttribute::Attribute(a[3]);
+    Handle(TDF_Attribute) anAttrByType = DerivedAttribute::Attribute(a[3]);
     if (!anAttrByType.IsNull())
     {
       aLabel.ForgetAttribute(anAttrByType->ID());

@@ -262,7 +262,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsBox(
   }
 
   Standard_Real aDepth = 0.0;
-  Bnd_Range     aRange(Max(aTimeEnter, 0.0), aTimeLeave);
+  Range1     aRange(Max(aTimeEnter, 0.0), aTimeLeave);
   aRange.GetMin(aDepth);
 
   if (!theClipRange.GetNearestDepth(aRange, aDepth))
@@ -545,7 +545,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsSphere(
   }
 
   Standard_Real aDepth = 0.0;
-  Bnd_Range     aRange(Max(aTimeEnter, 0.0), aTimeLeave);
+  Range1     aRange(Max(aTimeEnter, 0.0), aTimeLeave);
   aRange.GetMin(aDepth);
   if (!theClipRange.GetNearestDepth(aRange, aDepth))
   {
@@ -591,7 +591,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   }
 
   Standard_Real aDepth = 0.0;
-  Bnd_Range     aRange(Max(aTimeEnter, 0.0), Max(aTimeEnter, aTimeLeave));
+  Range1     aRange(Max(aTimeEnter, 0.0), Max(aTimeEnter, aTimeLeave));
   aRange.GetMin(aDepth);
   if (!theClipRange.GetNearestDepth(aRange, aDepth))
   {

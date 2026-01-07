@@ -24,8 +24,8 @@
 
 #define MultiLine AppDef_MultiLine
 #define MultiLine_hxx <AppDef_MultiLine.hxx>
-#define ToolLine AppDef_MyLineTool
+#define ToolLine MultiLineTool
 #define ToolLine_hxx <AppDef_MyLineTool.hxx>
-#define AppParCurves_ResolConstraint AppDef_ResConstraintOfMyGradientbisOfBSplineCompute
+#define AppParCurves_ResolConstraint ResConstraintGradientbisBSpline
 #define AppParCurves_ResolConstraint_hxx <AppDef_ResConstraintOfMyGradientbisOfBSplineCompute.hxx>
 #include "../AppParCurves/AppParCurves_ResolConstraint.gxx"

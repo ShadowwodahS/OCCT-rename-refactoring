@@ -30,7 +30,7 @@ class gp_Pnt2d;
 
 //! *** Class2d    : Low level algorithm for 2d classification
 //! this class was moved from package BRepTopAdaptor
-class CSLib_Class2d
+class Class2d
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,7 +43,7 @@ public:
   //! theTolu and theTolv are tolerances.
   //! theUmin, theVmin, theUmax, theVmax are
   //! UV-bounds of the polygon.
-  Standard_EXPORT CSLib_Class2d(const TColgp_Array1OfPnt2d& thePnts2d,
+  Standard_EXPORT Class2d(const TColgp_Array1OfPnt2d& thePnts2d,
                                 const Standard_Real         theTolU,
                                 const Standard_Real         theTolV,
                                 const Standard_Real         theUMin,
@@ -59,7 +59,7 @@ public:
   //! theTolu and theTolv are tolerances.
   //! theUmin, theVmin, theUmax, theVmax are
   //! UV-bounds of the polygon.
-  Standard_EXPORT CSLib_Class2d(const TColgp_SequenceOfPnt2d& thePnts2d,
+  Standard_EXPORT Class2d(const TColgp_SequenceOfPnt2d& thePnts2d,
                                 const Standard_Real           theTolU,
                                 const Standard_Real           theTolV,
                                 const Standard_Real           theUMin,
@@ -90,7 +90,7 @@ private:
             const Standard_Real      vmax);
 
   //! Assign operator is forbidden
-  const CSLib_Class2d& operator=(const CSLib_Class2d& Other) const;
+  const Class2d& operator=(const Class2d& Other) const;
 
   NCollection_Handle<TColStd_Array1OfReal> MyPnts2dX, MyPnts2dY;
   Standard_Real                            Tolu{};

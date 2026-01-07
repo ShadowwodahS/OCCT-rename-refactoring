@@ -26,9 +26,9 @@
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <Standard_Boolean.hxx>
 #include <math_Vector.hxx>
-class HLRBRep_SurfaceTool;
+class SurfaceTool3;
 class gp_Lin;
-class HLRBRep_LineTool;
+class LineTool3;
 class math_Matrix;
 class Point3d;
 

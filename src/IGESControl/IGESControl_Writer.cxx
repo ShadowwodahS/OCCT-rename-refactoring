@@ -162,7 +162,7 @@ Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
   gs.SetResolution(newtol / gs.UnitValue()); // rln 28.12.98 CCI60005
 
   // #34 22.10.98 rln BUC60081
-  Bnd_Box box;
+  Box2 box;
   BRepBndLib::Add(Shape, box);
   if (!(box.IsVoid() || box.IsOpenXmax() || box.IsOpenYmax() || box.IsOpenZmax() || box.IsOpenXmin()
         || box.IsOpenYmin() || box.IsOpenZmin()))
@@ -197,19 +197,19 @@ Standard_Boolean IgesFileWriter::AddGeom(const Handle(RefObject)& geom)
 
   // #34 22.10.98 rln BUC60081
   IGESData_GlobalSection gs = myModel->GlobalSection();
-  Bnd_Box                box;
+  Box2                box;
 
   if (!Curve.IsNull())
   {
     ent = GC.TransferCurve(Curve, Curve->FirstParameter(), Curve->LastParameter());
-    BndLib_Add3dCurve::Add(GeomAdaptor_Curve(Curve), 0, box);
+    Add3dCurve::Add(GeomAdaptor_Curve(Curve), 0, box);
   }
   else if (!Surf.IsNull())
   {
     Standard_Real U1, U2, V1, V2;
     Surf->Bounds(U1, U2, V1, V2);
     ent = GS.TransferSurface(Surf, U1, U2, V1, V2);
-    BndLib_AddSurface::Add(GeomAdaptor_Surface(Surf), 0, box);
+    AddSurface::Add(GeomAdaptor_Surface(Surf), 0, box);
   }
 
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;

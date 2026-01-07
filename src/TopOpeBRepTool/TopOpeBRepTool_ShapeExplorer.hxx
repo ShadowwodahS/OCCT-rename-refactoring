@@ -39,7 +39,7 @@ public:
   //!
   //! <ToAvoid>   is the type   of shape to  skip in the
   //! exploration.   If   <ToAvoid>  is  equal  or  less
-  //! complex than <ToFind> or if  <ToAVoid> is SHAPE it
+  //! complex1 than <ToFind> or if  <ToAVoid> is SHAPE it
   //! has no effect on the exploration.
   TopOpeBRepTool_ShapeExplorer(const TopoShape&    S,
                                const TopAbs_ShapeEnum ToFind,

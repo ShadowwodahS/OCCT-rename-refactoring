@@ -28,7 +28,7 @@ class TopoShape;
 
 //! This class is intended to
 //! explore shapes and convert different representations
-//! (list, sequence, compound) of complex shapes. It provides tools for:
+//! (list, sequence, compound) of complex1 shapes. It provides tools for:
 //! - obtaining type of the shapes in context of TopoCompound,
 //! - exploring shapes in context of  TopoCompound,
 //! - converting different representations of shapes (list, sequence, compound).

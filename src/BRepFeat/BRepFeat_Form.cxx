@@ -820,14 +820,14 @@ void BRepFeat_Form::GlobalPerform()
           prmax                = prmax2;
           if (flag1)
           {
-            prmin = ElCLib::InPeriod(prmin1, prmax - period, prmax);
+            prmin = ElCLib1::InPeriod(prmin1, prmax - period, prmax);
           }
           else
           {
             prmin = Min(prmin1, prmin2);
           }
           pbmax = prbmax2;
-          pbmin = ElCLib::InPeriod(prbmin1, pbmax - period, pbmax);
+          pbmin = ElCLib1::InPeriod(prbmin1, pbmax - period, pbmax);
         }
         else
         {
@@ -1106,13 +1106,13 @@ void BRepFeat_Form::GlobalPerform()
                                        Standard_True);
             if (flag2)
             {
-              prmin1 = ElCLib::InPeriod(pr, prmax1 - period, prmax1);
+              prmin1 = ElCLib1::InPeriod(pr, prmax1 - period, prmax1);
             }
             else
             {
               prmin1 = pr;
             }
-            prbmin1 = ElCLib::InPeriod(prb, prbmax1 - period, prbmax1);
+            prbmin1 = ElCLib1::InPeriod(prb, prbmax1 - period, prbmax1);
           }
           else
           {

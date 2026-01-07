@@ -74,7 +74,7 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
     if (aModel.IsNull())
     {
       AsciiString1 anEntry;
-      TDF_Tool::Entry(theTarget->Label(), anEntry);
+      Tool3::Entry(theTarget->Label(), anEntry);
       myMessageDriver->Send(UtfString("TObj_TReference retrieval: ")
                               + "wrong model ID " + aName + ", entry " + anEntry,
                             Message_Fail);

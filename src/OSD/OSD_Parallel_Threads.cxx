@@ -105,8 +105,8 @@ public:
     Task& operator=(const Task& theCopy);
 
   private:                               //! @name private fields
-    const FunctorInterface& myPerformer; //!< Link on functor
-    const Range&            myRange;     //!< Link on processed data block
+    const FunctorInterface& myPerformer; //!< Link1 on functor
+    const Range&            myRange;     //!< Link1 on processed data block
   };
 
   //! Launcher specialization.

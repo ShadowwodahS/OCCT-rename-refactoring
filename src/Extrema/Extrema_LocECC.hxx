@@ -25,8 +25,8 @@
 class Standard_DomainError;
 class StdFail_NotDone;
 class Adaptor3d_Curve;
-class Extrema_CurveTool;
-class Extrema_POnCurv;
+class CurveTool4;
+class PointOnCurve1;
 class Point3d;
 class Vector3d;
 class Extrema_CCLocFOfLocECC;
@@ -57,14 +57,14 @@ public:
 
   //! Returns the points of the extremum distance.
   //! P1 is on the first curve, P2 on the second one.
-  Standard_EXPORT void Point(Extrema_POnCurv& P1, Extrema_POnCurv& P2) const;
+  Standard_EXPORT void Point(PointOnCurve1& P1, PointOnCurve1& P2) const;
 
 protected:
 private:
   Standard_Boolean myDone;
   Standard_Real    mySqDist;
-  Extrema_POnCurv  myPoint1;
-  Extrema_POnCurv  myPoint2;
+  PointOnCurve1  myPoint1;
+  PointOnCurve1  myPoint2;
 };
 
 #endif // _Extrema_LocECC_HeaderFile

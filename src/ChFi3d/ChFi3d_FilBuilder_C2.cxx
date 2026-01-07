@@ -609,11 +609,11 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
           {
             Handle(Geom2d_TrimmedCurve) trc =
               new Geom2d_TrimmedCurve(pcpivot.Curve(), Min(parCP1, parCP2), Max(parCP1, parCP2));
-            PCurveOnPiv = Geom2dConvert::CurveToBSplineCurve(trc);
+            PCurveOnPiv = Geom2dConvert1::CurveToBSplineCurve(trc);
           }
           else
           {
-            PCurveOnPiv = Geom2dConvert::SplitBSplineCurve(
+            PCurveOnPiv = Geom2dConvert1::SplitBSplineCurve(
               Handle(Geom2d_BSplineCurve)::DownCast(pcpivot.Curve()),
               Min(parCP1, parCP2),
               Max(parCP1, parCP2),
@@ -621,7 +621,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
           }
           TColStd_Array1OfReal kk(1, PCurveOnPiv->NbKnots());
           PCurveOnPiv->Knots(kk);
-          BSplCLib::Reparametrize(0., 1., kk);
+          BSplCLib1::Reparametrize(0., 1., kk);
           PCurveOnPiv->SetKnots(kk);
           if (pcfalenvers)
           {

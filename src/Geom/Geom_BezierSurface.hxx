@@ -550,7 +550,7 @@ public:
   {
     if (!weights.IsNull())
       return &weights->Array2();
-    return BSplSLib::NoWeights();
+    return BSplSLib1::NoWeights();
   }
 
   //! Returns True if the first control points row and the

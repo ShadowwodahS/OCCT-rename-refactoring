@@ -27,25 +27,25 @@ class GeomSurface;
 //! Approximation of a  PCurve  on a surface to  make its
 //! parameter be the same that the parameter of a given 3d
 //! reference curve.
-class Approx_SameParameter
+class SameParameterTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT Approx_SameParameter(const Handle(GeomCurve3d)&   C3D,
+  Standard_EXPORT SameParameterTool(const Handle(GeomCurve3d)&   C3D,
                                        const Handle(GeomCurve2d)& C2D,
                                        const Handle(GeomSurface)& S,
                                        const Standard_Real         Tol);
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
+  Standard_EXPORT SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                        const Handle(GeomCurve2d)&      C2D,
                                        const Handle(Adaptor3d_Surface)& S,
                                        const Standard_Real              Tol);
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
+  Standard_EXPORT SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                        const Handle(Adaptor2d_Curve2d)& C2D,
                                        const Handle(Adaptor3d_Surface)& S,
                                        const Standard_Real              Tol);
@@ -118,8 +118,8 @@ private:
     }
   };
 
-  Approx_SameParameter(const Approx_SameParameter&);
-  Approx_SameParameter& operator=(const Approx_SameParameter&);
+  SameParameterTool(const SameParameterTool&);
+  SameParameterTool& operator=(const SameParameterTool&);
 
   //! Computes the pcurve (internal use only).
   Standard_EXPORT void Build(const Standard_Real Tol);

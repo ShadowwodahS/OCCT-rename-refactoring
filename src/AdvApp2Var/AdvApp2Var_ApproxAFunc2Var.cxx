@@ -63,7 +63,7 @@ AdvApp2Var_ApproxAFunc2Var::AdvApp2Var_ApproxAFunc2Var(
   const Standard_Integer               MaxDegInU,
   const Standard_Integer               MaxDegInV,
   const Standard_Integer               MaxPatch,
-  const AdvApp2Var_EvaluatorFunc2Var&  Func,
+  const EvaluatorFunc2Var&  Func,
   CuttingTool&                   UChoice,
   CuttingTool&                   VChoice)
     : my1DTolerances(OneDTol),
@@ -121,8 +121,8 @@ AdvApp2Var_ApproxAFunc2Var::AdvApp2Var_ApproxAFunc2Var(
   const Standard_Integer               MaxDegInU,
   const Standard_Integer               MaxDegInV,
   const Standard_Integer               MaxPatch,
-  const AdvApp2Var_EvaluatorFunc2Var&  Func,
-  const AdvApp2Var_Criterion&          Crit,
+  const EvaluatorFunc2Var&  Func,
+  const Criterion&          Crit,
   CuttingTool&                   UChoice,
   CuttingTool&                   VChoice)
     : my1DTolerances(OneDTol),
@@ -252,7 +252,7 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
   TheU.Append(myLastParInU);
   TheV.Append(myLastParInV);
 
-  AdvApp2Var_Network Result(Net, TheU, TheV);
+  Network Result(Net, TheU, TheV);
 
   Coords2d                     UV1(myFirstParInU, myFirstParInV);
   Handle(AdvApp2Var_Node)   C1 = new AdvApp2Var_Node(UV1, iu, iv);
@@ -315,7 +315,7 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
   UStrip.Append(BU0);
   VStrip.Append(BV0);
 
-  AdvApp2Var_Framework Constraints(Bag, UStrip, VStrip);
+  Framework Constraints(Bag, UStrip, VStrip);
 
   // regular cutting if NbInt>1
   Standard_Real deltu = (myLastParInU - myFirstParInU) / NbInt,
@@ -338,7 +338,7 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
 
 void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
                                          const CuttingTool&            VChoice,
-                                         const AdvApp2Var_EvaluatorFunc2Var& Func)
+                                         const EvaluatorFunc2Var& Func)
 {
   ComputePatches(UChoice, VChoice, Func);
   myHasResult = myDone = Standard_True;
@@ -352,8 +352,8 @@ void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
 
 void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
                                          const CuttingTool&            VChoice,
-                                         const AdvApp2Var_EvaluatorFunc2Var& Func,
-                                         const AdvApp2Var_Criterion&         Crit)
+                                         const EvaluatorFunc2Var& Func,
+                                         const Criterion&         Crit)
 {
   ComputePatches(UChoice, VChoice, Func, Crit);
   myHasResult = myDone = Standard_True;
@@ -368,7 +368,7 @@ void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
 
 void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UChoice,
                                                 const CuttingTool&            VChoice,
-                                                const AdvApp2Var_EvaluatorFunc2Var& Func)
+                                                const EvaluatorFunc2Var& Func)
 {
   Standard_Real    Udec, Vdec;
   Standard_Boolean Umore, Vmore;
@@ -474,8 +474,8 @@ void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UC
 
 void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UChoice,
                                                 const CuttingTool&            VChoice,
-                                                const AdvApp2Var_EvaluatorFunc2Var& Func,
-                                                const AdvApp2Var_Criterion&         Crit)
+                                                const EvaluatorFunc2Var& Func,
+                                                const Criterion&         Crit)
 {
   Standard_Real    Udec, Vdec, CritValue, m1 = 0.;
   Standard_Boolean Umore, Vmore, CritAbs = (Crit.Type() == AdvApp2Var_Absolute);
@@ -612,7 +612,7 @@ void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UC
 
 void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&            UChoice,
                                                     const CuttingTool&            VChoice,
-                                                    const AdvApp2Var_EvaluatorFunc2Var& Func)
+                                                    const EvaluatorFunc2Var& Func)
 {
   Standard_Real    dec;
   Standard_Boolean more;
@@ -703,8 +703,8 @@ void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&          
 
 void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&            UChoice,
                                                     const CuttingTool&            VChoice,
-                                                    const AdvApp2Var_EvaluatorFunc2Var& Func,
-                                                    const AdvApp2Var_Criterion&         Crit)
+                                                    const EvaluatorFunc2Var& Func,
+                                                    const Criterion&         Crit)
 {
   Standard_Real    dec;
   Standard_Boolean more, CritRel = (Crit.Type() == AdvApp2Var_Relative);
@@ -923,7 +923,7 @@ void AdvApp2Var_ApproxAFunc2Var::ConvertBS()
                    Size_eq = myConditions.ULimit() * myConditions.VLimit() * 3;
 
   Handle(TColStd_HArray2OfInteger) NbCoeff = new (TColStd_HArray2OfInteger)(1, nmax, 1, 2);
-  Handle(TColStd_HArray1OfReal)    Poly    = new (TColStd_HArray1OfReal)(1, nmax * Size_eq);
+  Handle(TColStd_HArray1OfReal)    Poly1    = new (TColStd_HArray1OfReal)(1, nmax * Size_eq);
 
   Standard_Integer SSP, i;
   for (SSP = 1; SSP <= myNumSubSpaces[2]; SSP++)
@@ -940,7 +940,7 @@ void AdvApp2Var_ApproxAFunc2Var::ConvertBS()
         NbCoeff->SetValue(n, 2, myResult.Patch(i, j).NbCoeffInV());
         for (ieq = 1; ieq <= Size_eq; ieq++)
         {
-          Poly->SetValue(icf, (myResult.Patch(i, j).Coefficients(SSP, myConditions))->Value(ieq));
+          Poly1->SetValue(icf, (myResult.Patch(i, j).Coefficients(SSP, myConditions))->Value(ieq));
           icf++;
         }
       }
@@ -954,7 +954,7 @@ void AdvApp2Var_ApproxAFunc2Var::ConvertBS()
                                       myMaxDegInU,
                                       myMaxDegInV,
                                       NbCoeff,
-                                      Poly,
+                                      Poly1,
                                       Uint1,
                                       Vint1,
                                       Uint2,

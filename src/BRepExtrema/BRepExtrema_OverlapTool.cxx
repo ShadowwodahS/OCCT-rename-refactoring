@@ -241,7 +241,7 @@ Standard_Boolean segmentsIntersected(const BVH_Vec2d& theOriginSeg0,
 // =======================================================================
 // function : trianglesIntersected
 // purpose  : Checks if two triangles are intersected
-//            ("A Fast Triangle-Triangle Intersection Test" by T. Moller)
+//            ("A Fast Triangle1-Triangle1 Intersection Test" by T. Moller)
 // =======================================================================
 Standard_Boolean trianglesIntersected(const BVH_Vec3d& theTrng0Vert0,
                                       const BVH_Vec3d& theTrng0Vert1,

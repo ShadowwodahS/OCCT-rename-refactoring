@@ -56,7 +56,7 @@ public:
 
   Standard_EXPORT const Handle(Bnd_HArray1OfBox)& HAB() const;
 
-  Standard_EXPORT static void MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Bnd_Box& COB);
+  Standard_EXPORT static void MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Box2& COB);
 
   Standard_EXPORT const TopoShape& HABShape(const Standard_Integer I) const;
 
@@ -73,16 +73,16 @@ public:
   Standard_EXPORT const TopoShape& TouchedShape(
     const TColStd_ListIteratorOfListOfInteger& I) const;
 
-  Standard_EXPORT const Bnd_Box& Box(const TopoShape& S) const;
+  Standard_EXPORT const Box2& Box1(const TopoShape& S) const;
 
   Standard_EXPORT ~TopOpeBRepTool_BoxSort();
 
 private:
-  Bnd_Box                             myCOB;
+  Box2                             myCOB;
   Bnd_BoundSortBox                    myBSB;
   TColStd_ListIteratorOfListOfInteger myIterator;
   TopoShape                        myLastCompareShape;
-  Bnd_Box                             myLastCompareShapeBox;
+  Box2                             myLastCompareShapeBox;
   Handle(TopOpeBRepTool_HBoxTool)     myHBT;
   Handle(Bnd_HArray1OfBox)            myHAB;
   Handle(TColStd_HArray1OfInteger)    myHAI;

@@ -61,7 +61,7 @@ static gp_Pnt2d Project(const TopoVertex& Ve)
 {
   Point3d        P = BRepInspector::Pnt(Ve);
   Standard_Real U, V;
-  ElSLib::Parameters(BRepLib::Plane()->Pln(), P, U, V);
+  ElSLib1::Parameters(BRepLib::Plane()->Pln(), P, U, V);
   return gp_Pnt2d(U, V);
 }
 
@@ -78,11 +78,11 @@ static Standard_Boolean Project(const Handle(GeomCurve2d)& C,
   Geom2dAdaptor_Curve AC(C);
   if (AC.GetType() == GeomAbs_Line)
   {
-    p = ElCLib::LineParameter(AC.Line().Position(), P);
+    p = ElCLib1::LineParameter(AC.Line().Position(), P);
   }
   else if (AC.GetType() == GeomAbs_Circle)
   {
-    p = ElCLib::CircleParameter(AC.Circle().Position(), P);
+    p = ElCLib1::CircleParameter(AC.Circle().Position(), P);
   }
   else
   {
@@ -491,7 +491,7 @@ void BRepLib_MakeEdge2d::Init(const Handle(GeomCurve2d)& CC,
   if (periodic)
   {
     // adjust in period
-    ElCLib::AdjustPeriodic(cf, cl, epsilon, p1, p2);
+    ElCLib1::AdjustPeriodic(cf, cl, epsilon, p1, p2);
     V1 = VV1;
     V2 = VV2;
   }

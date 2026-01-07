@@ -34,7 +34,7 @@ class Dir3d;
 //! * Create a Lin passing through 2 points.
 //! * Create a lin from its axis (Ax1 from gp).
 //! * Create a lin from a point and a direction.
-class gce_MakeLin : public gce_Root
+class gce_MakeLin : public Root6
 {
 public:
   DEFINE_STANDARD_ALLOC

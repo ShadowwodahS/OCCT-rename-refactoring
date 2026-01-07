@@ -555,7 +555,7 @@ static Standard_Boolean InitialPoint(const Point3d&                    Point,
       {
         continue;
       }
-      Extrema_POnSurf POnS = aExtPS.Point(i);
+      PointOnSurface1 POnS = aExtPS.Point(i);
       POnS.Parameter(ParU, ParV);
       aPrjPS.Perform(t,
                      ParU,
@@ -574,7 +574,7 @@ static Standard_Boolean InitialPoint(const Point3d&                    Point,
     return Standard_False;
   else
   {
-    Extrema_POnSurf POnS = aExtPS.Point(argmin);
+    PointOnSurface1 POnS = aExtPS.Point(argmin);
     POnS.Parameter(U, V);
     return Standard_True;
   }
@@ -770,8 +770,8 @@ void ProjLib_CompProjectedCurve::Init()
       {
         for (i = 1; i <= Nend; i++)
         {
-          Extrema_POnCurv P1;
-          Extrema_POnSurf P2;
+          PointOnCurve1 P1;
+          PointOnSurface1 P2;
           CExt.Points(i, P1, P2);
           ParT = P1.Parameter();
           P2.Parameter(ParU, ParV);
@@ -1648,7 +1648,7 @@ void ProjLib_CompProjectedCurve::D0(const Standard_Real U, gp_Pnt2d& P) const
       for (k = 2; k <= Nend; k++)
         if (aExtPS.SquareDistance(k) < aExtPS.SquareDistance(imin))
           imin = k;
-      const Extrema_POnSurf& POnS = aExtPS.Point(imin);
+      const PointOnSurface1& POnS = aExtPS.Point(imin);
       Standard_Real          ParU, ParV;
       POnS.Parameter(ParU, ParV);
       P.SetCoord(ParU, ParV);
@@ -1971,7 +1971,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
   TColStd_SequenceOfReal Fusion;
   if (!CArr.IsNull())
   {
-    GeomLib::FuseIntervals(BArr->ChangeArray1(),
+    GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            CArr->ChangeArray1(),
                            Fusion,
                            Precision::PConfusion());
@@ -1985,7 +1985,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
 
   if (!UArr.IsNull())
   {
-    GeomLib::FuseIntervals(BArr->ChangeArray1(),
+    GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            UArr->ChangeArray1(),
                            Fusion,
                            Precision::PConfusion());
@@ -1999,7 +1999,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
 
   if (!VArr.IsNull())
   {
-    GeomLib::FuseIntervals(BArr->ChangeArray1(),
+    GeomLib1::FuseIntervals(BArr->ChangeArray1(),
                            VArr->ChangeArray1(),
                            Fusion,
                            Precision::PConfusion());
@@ -2258,7 +2258,7 @@ void FindSplitPoint(SplitDS&            theSplitDS,
     const Standard_Integer aNbExt = anExtCC.NbExt();
     for (Standard_Integer anIdx = 1; anIdx <= aNbExt; ++anIdx)
     {
-      Extrema_POnCurv aPOnC1, aPOnC2;
+      PointOnCurve1 aPOnC1, aPOnC2;
       anExtCC.Points(anIdx, aPOnC1, aPOnC2);
 
       theSplitDS.myExtPS->Perform(aPOnC2.Value());
@@ -2282,7 +2282,7 @@ void FindSplitPoint(SplitDS&            theSplitDS,
       }
 
       // Check that is point will be projected to the periodic border.
-      const Extrema_POnSurf& aPOnS = theSplitDS.myExtPS->Point(aMinIdx);
+      const PointOnSurface1& aPOnS = theSplitDS.myExtPS->Point(aMinIdx);
       Standard_Real          U, V, aProjParam;
       aPOnS.Parameter(U, V);
       aProjParam = theSplitDS.myPeriodicDir ? V : U;

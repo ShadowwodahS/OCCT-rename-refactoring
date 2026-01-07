@@ -40,7 +40,7 @@ class gp_Pnt2d;
 //! The "XAxis" of the ellipse defines the origin of the
 //! parametrization, it is the major axis of the ellipse.
 //! The YAxis is the minor axis of the ellipse.
-class GCE2d_MakeEllipse : public GCE2d_Root
+class GCE2d_MakeEllipse : public Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

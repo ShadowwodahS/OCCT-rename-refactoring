@@ -32,9 +32,9 @@
 // function : Compare
 // purpose  : Comparison method between 2 DataSets.
 //=======================================================================
-void TDF_ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataSet,
+void ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataSet,
                                  const Handle(TDF_DataSet)&         aTargetDataSet,
-                                 const TDF_IDFilter&                aFilter,
+                                 const IDFilter&                aFilter,
                                  const Handle(TDF_RelocationTable)& aRelocationTable)
 {
   if (aSourceDataSet->IsEmpty() || aTargetDataSet->IsEmpty())
@@ -59,7 +59,7 @@ void TDF_ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataS
       {
         the2LabMap.Bind(srcLab, trgLab);
         // Now, compare recursively!
-        TDF_ComparisonTool::Compare(srcLab,
+        ComparisonTool::Compare(srcLab,
                                     trgLab,
                                     aSourceDataSet,
                                     aTargetDataSet,
@@ -80,11 +80,11 @@ void TDF_ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataS
 // purpose  : Internal recursive comparison method.
 //=======================================================================
 
-void TDF_ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
+void ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
                                  const DataLabel&                   aTrgLabel,
                                  const Handle(TDF_DataSet)&         aSourceDataSet,
                                  const Handle(TDF_DataSet)&         aTargetDataSet,
-                                 const TDF_IDFilter&                aFilter,
+                                 const IDFilter&                aFilter,
                                  const Handle(TDF_RelocationTable)& aRelocationTable)
 {
   TDF_LabelDataMap&     the2LabMap = aRelocationTable->LabelTable();
@@ -107,7 +107,7 @@ void TDF_ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
   }
 
   // Do the same for the children.
-  TDF_ChildIterator childItr1, childItr2;
+  ChildIterator childItr1, childItr2;
   for (childItr1.Initialize(aSrcLabel); childItr1.More(); childItr1.Next())
   {
     const DataLabel& childSrcLab = childItr1.Value();
@@ -121,7 +121,7 @@ void TDF_ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
           if (childSrcLab.Tag() == childTrgLab.Tag())
           {
             the2LabMap.Bind(childSrcLab, childTrgLab);
-            TDF_ComparisonTool::Compare(childSrcLab,
+            ComparisonTool::Compare(childSrcLab,
                                         childTrgLab,
                                         aSourceDataSet,
                                         aTargetDataSet,
@@ -137,10 +137,10 @@ void TDF_ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
 
 //=================================================================================================
 
-Standard_Boolean TDF_ComparisonTool::SourceUnbound(
+Standard_Boolean ComparisonTool::SourceUnbound(
   const Handle(TDF_DataSet)&         aRefDataSet,
   const Handle(TDF_RelocationTable)& aRelocationTable,
-  const TDF_IDFilter&                aFilter,
+  const IDFilter&                aFilter,
   const Handle(TDF_DataSet)&         aDiffDataSet,
   const Standard_Integer             anOption)
 {
@@ -152,10 +152,10 @@ Standard_Boolean TDF_ComparisonTool::SourceUnbound(
 
 //=================================================================================================
 
-Standard_Boolean TDF_ComparisonTool::TargetUnbound(
+Standard_Boolean ComparisonTool::TargetUnbound(
   const Handle(TDF_DataSet)&         aRefDataSet,
   const Handle(TDF_RelocationTable)& aRelocationTable,
-  const TDF_IDFilter&                aFilter,
+  const IDFilter&                aFilter,
   const Handle(TDF_DataSet)&         aDiffDataSet,
   const Standard_Integer             anOption)
 {
@@ -170,9 +170,9 @@ Standard_Boolean TDF_ComparisonTool::TargetUnbound(
 // purpose  : Internal function used by SourceUnbound and TargetUnbound.
 //=======================================================================
 
-Standard_Boolean TDF_ComparisonTool::Unbound(const Handle(TDF_DataSet)&         aRefDataSet,
+Standard_Boolean ComparisonTool::Unbound(const Handle(TDF_DataSet)&         aRefDataSet,
                                              const Handle(TDF_RelocationTable)& aRelocationTable,
-                                             const TDF_IDFilter&                aFilter,
+                                             const IDFilter&                aFilter,
                                              const Handle(TDF_DataSet)&         aDiffDataSet,
                                              const Standard_Integer             anOption,
                                              const Standard_Boolean             theSource)
@@ -226,7 +226,7 @@ Standard_Boolean TDF_ComparisonTool::Unbound(const Handle(TDF_DataSet)&         
 // purpose  : Removes the attributes contained into <aDataSet>
 //=======================================================================
 
-void TDF_ComparisonTool::Cut(const Handle(TDF_DataSet)& aDataSet)
+void ComparisonTool::Cut(const Handle(TDF_DataSet)& aDataSet)
 {
   if (aDataSet->IsEmpty())
     return;
@@ -248,7 +248,7 @@ void TDF_ComparisonTool::Cut(const Handle(TDF_DataSet)& aDataSet)
 //          descendant of <aLabel>.
 //=======================================================================
 
-Standard_Boolean TDF_ComparisonTool::IsSelfContained(const DataLabel&           aLabel,
+Standard_Boolean ComparisonTool::IsSelfContained(const DataLabel&           aLabel,
                                                      const Handle(TDF_DataSet)& aDataSet)
 {
   if (!aDataSet->IsEmpty())

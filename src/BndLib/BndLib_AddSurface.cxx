@@ -66,10 +66,10 @@ static void ComputePolesIndexes(const TColStd_Array1OfReal&    theKnots,
 
 //=================================================================================================
 
-void BndLib_AddSurface::Add(const Adaptor3d_Surface& S, const Standard_Real Tol, Bnd_Box& B)
+void AddSurface::Add(const Adaptor3d_Surface& S, const Standard_Real Tol, Box2& B)
 {
 
-  BndLib_AddSurface::Add(S,
+  AddSurface::Add(S,
                          S.FirstUParameter(),
                          S.LastUParameter(),
                          S.FirstVParameter(),
@@ -155,7 +155,7 @@ static Point3d BaryCenter(const gp_Pln&       aPlane,
   else
     aV = (aVMin + aVMax) / 2.;
 
-  Point3d aCenter = ElSLib::Value(aU, aV, aPlane);
+  Point3d aCenter = ElSLib1::Value(aU, aV, aPlane);
 
   return aCenter;
 }
@@ -166,7 +166,7 @@ static void TreatInfinitePlane(const gp_Pln&       aPlane,
                                const Standard_Real aVMin,
                                const Standard_Real aVMax,
                                const Standard_Real aTol,
-                               Bnd_Box&            aB)
+                               Box2&            aB)
 {
   // Get 3 coordinate axes of the plane.
   const Dir3d&           aNorm        = aPlane.Axis().Direction();
@@ -225,17 +225,17 @@ void ComputePolesIndexes(const TColStd_Array1OfReal&    theKnots,
                          Standard_Integer&              theOutMinIdx,
                          Standard_Integer&              theOutMaxIdx)
 {
-  BSplCLib::Hunt(theKnots, theMin, theOutMinIdx);
+  BSplCLib1::Hunt(theKnots, theMin, theOutMinIdx);
   theOutMinIdx = Max(theOutMinIdx, theKnots.Lower());
 
-  BSplCLib::Hunt(theKnots, theMax, theOutMaxIdx);
+  BSplCLib1::Hunt(theKnots, theMax, theOutMaxIdx);
   theOutMaxIdx++;
   theOutMaxIdx          = Min(theOutMaxIdx, theKnots.Upper());
   Standard_Integer mult = theMults(theOutMaxIdx);
 
-  theOutMinIdx = BSplCLib::PoleIndex(theDegree, theOutMinIdx, theIsPeriodic, theMults) + 1;
+  theOutMinIdx = BSplCLib1::PoleIndex(theDegree, theOutMinIdx, theIsPeriodic, theMults) + 1;
   theOutMinIdx = Max(theOutMinIdx, 1);
-  theOutMaxIdx = BSplCLib::PoleIndex(theDegree, theOutMaxIdx, theIsPeriodic, theMults) + 1;
+  theOutMaxIdx = BSplCLib1::PoleIndex(theDegree, theOutMaxIdx, theIsPeriodic, theMults) + 1;
   theOutMaxIdx += theDegree - mult;
   if (!theIsPeriodic)
     theOutMaxIdx = Min(theOutMaxIdx, theMaxPoleIdx);
@@ -244,13 +244,13 @@ void ComputePolesIndexes(const TColStd_Array1OfReal&    theKnots,
 //  Modified by skv - Fri Aug 27 12:29:04 2004 OCC6503 End
 //=================================================================================================
 
-void BndLib_AddSurface::Add(const Adaptor3d_Surface& S,
+void AddSurface::Add(const Adaptor3d_Surface& S,
                             const Standard_Real      UMin,
                             const Standard_Real      UMax,
                             const Standard_Real      VMin,
                             const Standard_Real      VMax,
                             const Standard_Real      Tol,
-                            Bnd_Box&                 B)
+                            Box2&                 B)
 {
   GeomAbs_SurfaceType Type = S.GetType(); // skv OCC6503
 
@@ -281,32 +281,32 @@ void BndLib_AddSurface::Add(const Adaptor3d_Surface& S,
 
     case GeomAbs_Plane: {
       gp_Pln Plan = S.Plane();
-      B.Add(ElSLib::Value(UMin, VMin, Plan));
-      B.Add(ElSLib::Value(UMin, VMax, Plan));
-      B.Add(ElSLib::Value(UMax, VMin, Plan));
-      B.Add(ElSLib::Value(UMax, VMax, Plan));
+      B.Add(ElSLib1::Value(UMin, VMin, Plan));
+      B.Add(ElSLib1::Value(UMin, VMax, Plan));
+      B.Add(ElSLib1::Value(UMax, VMin, Plan));
+      B.Add(ElSLib1::Value(UMax, VMax, Plan));
       B.Enlarge(Tol);
       break;
     }
     case GeomAbs_Cylinder: {
-      BndLib::Add(S.Cylinder(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Cylinder(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_Cone: {
-      BndLib::Add(S.Cone(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Cone(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_Torus: {
-      BndLib::Add(S.Torus(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Torus(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_Sphere: {
       if (Abs(UMin) < Precision::Angular() && Abs(UMax - 2. * M_PI) < Precision::Angular()
           && Abs(VMin + M_PI / 2.) < Precision::Angular()
           && Abs(VMax - M_PI / 2.) < Precision::Angular()) // a whole sphere
-        BndLib::Add(S.Sphere(), Tol, B);
+        BndLib1::Add(S.Sphere(), Tol, B);
       else
-        BndLib::Add(S.Sphere(), UMin, UMax, VMin, VMax, Tol, B);
+        BndLib1::Add(S.Sphere(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_OffsetSurface: {
@@ -463,10 +463,10 @@ void BndLib_AddSurface::Add(const Adaptor3d_Surface& S,
 
 //=================================================================================================
 
-void BndLib_AddSurface::AddOptimal(const Adaptor3d_Surface& S, const Standard_Real Tol, Bnd_Box& B)
+void AddSurface::AddOptimal(const Adaptor3d_Surface& S, const Standard_Real Tol, Box2& B)
 {
 
-  BndLib_AddSurface::AddOptimal(S,
+  AddSurface::AddOptimal(S,
                                 S.FirstUParameter(),
                                 S.LastUParameter(),
                                 S.FirstVParameter(),
@@ -477,13 +477,13 @@ void BndLib_AddSurface::AddOptimal(const Adaptor3d_Surface& S, const Standard_Re
 
 //=================================================================================================
 
-void BndLib_AddSurface::AddOptimal(const Adaptor3d_Surface& S,
+void AddSurface::AddOptimal(const Adaptor3d_Surface& S,
                                    const Standard_Real      UMin,
                                    const Standard_Real      UMax,
                                    const Standard_Real      VMin,
                                    const Standard_Real      VMax,
                                    const Standard_Real      Tol,
-                                   Bnd_Box&                 B)
+                                   Box2&                 B)
 {
   GeomAbs_SurfaceType Type = S.GetType();
 
@@ -508,23 +508,23 @@ void BndLib_AddSurface::AddOptimal(const Adaptor3d_Surface& S,
 
     case GeomAbs_Plane: {
       gp_Pln Plan = S.Plane();
-      B.Add(ElSLib::Value(UMin, VMin, Plan));
-      B.Add(ElSLib::Value(UMin, VMax, Plan));
-      B.Add(ElSLib::Value(UMax, VMin, Plan));
-      B.Add(ElSLib::Value(UMax, VMax, Plan));
+      B.Add(ElSLib1::Value(UMin, VMin, Plan));
+      B.Add(ElSLib1::Value(UMin, VMax, Plan));
+      B.Add(ElSLib1::Value(UMax, VMin, Plan));
+      B.Add(ElSLib1::Value(UMax, VMax, Plan));
       B.Enlarge(Tol);
       break;
     }
     case GeomAbs_Cylinder: {
-      BndLib::Add(S.Cylinder(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Cylinder(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_Cone: {
-      BndLib::Add(S.Cone(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Cone(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     case GeomAbs_Sphere: {
-      BndLib::Add(S.Sphere(), UMin, UMax, VMin, VMax, Tol, B);
+      BndLib1::Add(S.Sphere(), UMin, UMax, VMin, VMax, Tol, B);
       break;
     }
     default: {
@@ -535,13 +535,13 @@ void BndLib_AddSurface::AddOptimal(const Adaptor3d_Surface& S,
 
 //=================================================================================================
 
-void BndLib_AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
+void AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
                                    const Standard_Real      UMin,
                                    const Standard_Real      UMax,
                                    const Standard_Real      VMin,
                                    const Standard_Real      VMax,
                                    const Standard_Real      Tol,
-                                   Bnd_Box&                 B)
+                                   Box2&                 B)
 {
   Standard_Integer Nu = NbUSamples(S, UMin, UMax);
   Standard_Integer Nv = NbVSamples(S, VMin, VMax);

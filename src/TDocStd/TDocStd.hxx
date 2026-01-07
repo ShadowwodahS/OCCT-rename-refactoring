@@ -33,7 +33,7 @@
 //!
 //! * Attributes for Document management
 //! Standard documents offer you a ready-to-use
-//! document containing a TDF-based data
+//! document containing a TDF1-based data
 //! structure. The documents themselves are
 //! contained in a class inheriting from
 //! AppManager which manages creation,
@@ -53,7 +53,7 @@
 //! For information on the relations between this
 //! component of OCAF and the others, refer to the
 //! OCAF User's Guide.
-class TDocStd
+class TDocStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

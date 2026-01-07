@@ -119,7 +119,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
       return;
 
     Standard_Integer     anIdx[3];
-    const Poly_Triangle& aTriangle = myMesh->Triangle(i);
+    const Poly_Triangle& aTriangle = myMesh->Triangle1(i);
     aTriangle.Get(anIdx[0], anIdx[1], anIdx[2]);
 
     // Skip degenerated triangles.
@@ -180,7 +180,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
       return;
 
     Standard_Integer     anIdx[3];
-    const Poly_Triangle& aTriangle = myMesh->Triangle(i);
+    const Poly_Triangle& aTriangle = myMesh->Triangle1(i);
     aTriangle.Get(anIdx[0], anIdx[1], anIdx[2]);
 
     const Edge             aMeshEdge1(anIdx[0], anIdx[1]);

@@ -24,9 +24,9 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Real.hxx>
 class gp_XYZ;
-class Plate_D1;
-class Plate_D2;
-class Plate_D3;
+class D1;
+class D2;
+class D3;
 
 class NLPlate_HGPPConstraint;
 DEFINE_STANDARD_HANDLE(NLPlate_HGPPConstraint, RefObject)
@@ -73,11 +73,11 @@ public:
 
   Standard_EXPORT virtual const gp_XYZ& G0Target() const;
 
-  Standard_EXPORT virtual const Plate_D1& G1Target() const;
+  Standard_EXPORT virtual const D1& G1Target() const;
 
-  Standard_EXPORT virtual const Plate_D2& G2Target() const;
+  Standard_EXPORT virtual const D2& G2Target() const;
 
-  Standard_EXPORT virtual const Plate_D3& G3Target() const;
+  Standard_EXPORT virtual const D3& G3Target() const;
 
   Standard_EXPORT virtual Standard_Real G0Criterion() const;
 

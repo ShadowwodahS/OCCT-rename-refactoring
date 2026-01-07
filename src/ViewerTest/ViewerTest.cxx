@@ -3914,7 +3914,7 @@ inline void bndPresentation(DrawInterpreter&                         theDI,
       break;
     }
     case BndAction_Print: {
-      Bnd_Box aBox;
+      Box2 aBox;
       for (PrsMgr_Presentations::Iterator aPrsIter(theObj->Presentations()); aPrsIter.More();
            aPrsIter.Next())
       {
@@ -5592,7 +5592,7 @@ static Standard_Integer VState(DrawInterpreter& theDI,
       else if (Handle(Select3D_SensitiveTriangulation) aTriSens =
                  Handle(Select3D_SensitiveTriangulation)::DownCast(anEntity))
       {
-        theDI << "                       Detected Triangle: "
+        theDI << "                       Detected Triangle1: "
               << aTriSens->LastDetectedTriangleIndex() << "\n";
       }
     }

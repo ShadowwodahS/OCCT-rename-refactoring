@@ -276,7 +276,7 @@ Standard_Boolean toSplitIntervals(const Handle(GeomSurface)& theSurf,
       if (Precision::IsInfinite(aParamV))
         continue;
 
-      if (GeomLib::NormEstim(theSurf, gp_Pnt2d(aParamU, aParamV), Precision::Confusion(), aNorm)
+      if (GeomLib1::NormEstim(theSurf, gp_Pnt2d(aParamU, aParamV), Precision::Confusion(), aNorm)
           != 0)
       {
         return Standard_True;

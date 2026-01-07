@@ -29,8 +29,8 @@
 class Adaptor3d_Curve;
 class Adaptor3d_Surface;
 class math_Matrix;
-class Extrema_POnCurv;
-class Extrema_POnSurf;
+class PointOnCurve1;
+class PointOnSurface1;
 
 //! Function to find extrema of the
 //! distance between a curve and a surface.
@@ -72,10 +72,10 @@ public:
   Standard_EXPORT Standard_Real SquareDistance(const Standard_Integer N) const;
 
   //! Returns the Nth extremum on C.
-  Standard_EXPORT const Extrema_POnCurv& PointOnCurve(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve1& PointOnCurve(const Standard_Integer N) const;
 
   //! Return the Nth extremum on S.
-  Standard_EXPORT const Extrema_POnSurf& PointOnSurface(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnSurface1& PointOnSurface(const Standard_Integer N) const;
 
   //! Change Sequence of SquareDistance
   TColStd_SequenceOfReal& SquareDistances() { return mySqDist; }

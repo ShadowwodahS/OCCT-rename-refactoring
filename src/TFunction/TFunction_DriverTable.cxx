@@ -131,7 +131,7 @@ Standard_OStream& TFunction_DriverTable::Dump(Standard_OStream& anOS) const
     itr.Key().ShallowDump(anOS);
     anOS << "\t";
     UtfString es;
-    TDF::ProgIDFromGUID(itr.Key(), es);
+    TDF1::ProgIDFromGUID(itr.Key(), es);
     anOS << es << "\n";
   }
   return anOS;

@@ -361,7 +361,7 @@ void TDataStd_ReferenceList::DumpJson(Standard_OStream& theOStream, Standard_Int
   for (TDF_LabelList::Iterator aListIt(myList); aListIt.More(); aListIt.Next())
   {
     aLabel.Clear();
-    TDF_Tool::Entry(aListIt.Value(), aLabel);
+    Tool3::Entry(aListIt.Value(), aLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
   }
 }

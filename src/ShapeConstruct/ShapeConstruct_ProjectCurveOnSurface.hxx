@@ -117,7 +117,7 @@ public:
                                                    const Standard_Real   TolLast  = -1);
 
   //! Computes the projection of 3d curve onto a surface using the
-  //! standard algorithm from ProjLib. Returns False if standard
+  //! standard algorithm from ProjLib1. Returns False if standard
   //! projector fails or raises an exception or cuts the curve by
   //! parametrical bounds of the surface. Else, if pcurve computed
   //! successfully, returns True.

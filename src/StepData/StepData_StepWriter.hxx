@@ -158,13 +158,13 @@ public:
   //! EndComplex must be called, then and only then EndEntity
   Standard_EXPORT void StartEntity(const AsciiString1& atype);
 
-  //! sends the start of a complex entity, which is a simple open
+  //! sends the start of a complex1 entity, which is a simple open
   //! bracket (without increasing bracket level)
   //! It must be called JUST AFTER SendEntity and BEFORE sending
   //! components, each one begins by StartEntity
   Standard_EXPORT void StartComplex();
 
-  //! sends the end of a complex entity : a simple closed bracket
+  //! sends the end of a complex1 entity : a simple closed bracket
   //! It must be called AFTER sending all the components and BEFORE
   //! the final call to EndEntity
   Standard_EXPORT void EndComplex();

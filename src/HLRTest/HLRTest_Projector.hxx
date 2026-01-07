@@ -30,9 +30,9 @@ class HLRTest_Projector : public Draw_Drawable3D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      HLRTest_Projector(const HLRAlgo_Projector& P);
+      HLRTest_Projector(const HLRAlgoProjector& P);
 
-  const HLRAlgo_Projector& Projector() const { return myProjector; }
+  const HLRAlgoProjector& Projector() const { return myProjector; }
 
   //! Does nothing,
   Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
@@ -51,7 +51,7 @@ class HLRTest_Projector : public Draw_Drawable3D
   Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
-  HLRAlgo_Projector myProjector;
+  HLRAlgoProjector myProjector;
 };
 
 #endif // _HLRTest_Projector_HeaderFile

@@ -15,12 +15,12 @@
 #include <StdFail_NotDone.hxx>
 #include <Standard_DomainError.hxx>
 
-inline Standard_Boolean IntAna_IntQuadQuad::IsDone() const
+inline Standard_Boolean QuadQuadIntersection::IsDone() const
 {
   return (done);
 }
 
-inline Standard_Boolean IntAna_IntQuadQuad::IdenticalElements() const
+inline Standard_Boolean QuadQuadIntersection::IdenticalElements() const
 {
   if (!done)
   {
@@ -29,7 +29,7 @@ inline Standard_Boolean IntAna_IntQuadQuad::IdenticalElements() const
   return (identical);
 }
 
-inline Standard_Integer IntAna_IntQuadQuad::NbCurve() const
+inline Standard_Integer QuadQuadIntersection::NbCurve() const
 {
   if (!done)
   {
@@ -42,7 +42,7 @@ inline Standard_Integer IntAna_IntQuadQuad::NbCurve() const
   return (NbCurves);
 }
 
-inline Standard_Integer IntAna_IntQuadQuad::NbPnt() const
+inline Standard_Integer QuadQuadIntersection::NbPnt() const
 {
   if (!done)
   {

@@ -20,6 +20,6 @@
 #include <Plate_PinpointConstraint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Plate_PinpointConstraint> Plate_SequenceOfPinpointConstraint;
+typedef NCollection_Sequence<PinpointConstraint> Plate_SequenceOfPinpointConstraint;
 
 #endif

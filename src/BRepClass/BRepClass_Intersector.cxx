@@ -129,7 +129,7 @@ Standard_Boolean IsInter(Bnd_Box2d& theBox, const gp_Lin2d& theL, const Standard
   else
   {
     gp_Pnt2d aPntF = theL.Location();
-    gp_Pnt2d aPntL = ElCLib::Value(theP, theL);
+    gp_Pnt2d aPntL = ElCLib1::Value(theP, theL);
     aStatusInter   = theBox.IsOut(aPntF, aPntL);
   }
   return !aStatusInter;
@@ -260,8 +260,8 @@ void CheckSkip(Geom2dInt_GInter&           theInter,
   aP2 = aLC2D->Value(at2);
 
   // Check if points belong to DL domain
-  Standard_Real aPar1 = ElCLib::Parameter(theL, aP1);
-  Standard_Real aPar2 = ElCLib::Parameter(theL, aP2);
+  Standard_Real aPar1 = ElCLib1::Parameter(theL, aP1);
+  Standard_Real aPar2 = ElCLib1::Parameter(theL, aP2);
 
   if (!(aPar1 > theDL.FirstParameter() && aPar1 < theDL.LastParameter())
       || !(aPar2 > theDL.FirstParameter() && aPar2 < theDL.LastParameter()))
@@ -351,7 +351,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
   Standard_Boolean anUseBndBox = E.UseBndBox();
   if (anUseBndBox)
   {
-    BndLib_Add2dCurve::Add(aC2D, deb, fin, 0., aBond);
+    Add2dCurve::Add(aC2D, deb, fin, 0., aBond);
     aBond.SetGap(aTolZ);
     aPntF = L.Location();
   }
@@ -408,7 +408,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
     DL.SetValues(L.Location(),
                  0.,
                  Precision::PConfusion(),
-                 ElCLib::Value(P, L),
+                 ElCLib1::Value(P, L),
                  P,
                  Precision::PConfusion());
   }

@@ -32,16 +32,16 @@ class gp_Parab;
 //! It calculates all the distances between a point
 //! and an elementary curve.
 //! These distances can be minimum or maximum.
-class Extrema_ExtPElC
+class PointElCCurveExtrema
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Extrema_ExtPElC();
+  Standard_EXPORT PointElCCurveExtrema();
 
   //! Calculates the extremum distance between the
   //! point P and the segment [Uinf,Usup] of the line C.
-  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
+  Standard_EXPORT PointElCCurveExtrema(const Point3d&       P,
                                   const gp_Lin&       C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
@@ -64,7 +64,7 @@ public:
   //! 0. <= Uinf <= 2.*PI and Usup > Uinf.
   //! If Usup > Uinf + 2.*PI, then only the solutions in
   //! the range [Uinf,Uinf+2.*PI[ are computed.
-  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
+  Standard_EXPORT PointElCCurveExtrema(const Point3d&       P,
                                   const gp_Circ&      C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
@@ -88,7 +88,7 @@ public:
   //! 0. <= Uinf <= 2.*PI and Usup > Uinf.
   //! If Usup > Uinf + 2.*PI, then only the solutions in
   //! the range [Uinf,Uinf+2.*PI[ are computed.
-  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
+  Standard_EXPORT PointElCCurveExtrema(const Point3d&       P,
                                   const gp_Elips&     C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
@@ -106,7 +106,7 @@ public:
   //! Tol is used to determine if two solutions u and v
   //! are identical; the condition is:
   //! dist(C(u),C(v)) < Tol.
-  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
+  Standard_EXPORT PointElCCurveExtrema(const Point3d&       P,
                                   const gp_Hypr&      C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
@@ -124,7 +124,7 @@ public:
   //! Tol is used to determine if two solutions u and v
   //! are identical; the condition is:
   //! dist(C(u),C(v)) < Tol.
-  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
+  Standard_EXPORT PointElCCurveExtrema(const Point3d&       P,
                                   const gp_Parab&     C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
@@ -150,7 +150,7 @@ public:
   Standard_EXPORT Standard_Boolean IsMin(const Standard_Integer N) const;
 
   //! Returns the point of the Nth extremum distance.
-  Standard_EXPORT const Extrema_POnCurv& Point(const Standard_Integer N) const;
+  Standard_EXPORT const PointOnCurve1& Point(const Standard_Integer N) const;
 
 protected:
 private:
@@ -158,7 +158,7 @@ private:
   Standard_Integer myNbExt;
   Standard_Real    mySqDist[4];
   Standard_Boolean myIsMin[4];
-  Extrema_POnCurv  myPoint[4];
+  PointOnCurve1  myPoint[4];
 };
 
 #endif // _Extrema_ExtPElC_HeaderFile

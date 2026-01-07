@@ -29,7 +29,7 @@
 
 //! This class implements the common services for
 //! all classes of gce which report error.
-class GCE2d_Root
+class Root5
 {
 public:
   DEFINE_STANDARD_ALLOC

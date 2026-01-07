@@ -27,8 +27,8 @@ GCE2d_MakeArcOfParabola::GCE2d_MakeArcOfParabola(const gp_Parab2d&      Parab,
                                                  const gp_Pnt2d&        P2,
                                                  const Standard_Boolean Sense)
 {
-  Standard_Real           Alpha1 = ElCLib::Parameter(Parab, P1);
-  Standard_Real           Alpha2 = ElCLib::Parameter(Parab, P2);
+  Standard_Real           Alpha1 = ElCLib1::Parameter(Parab, P1);
+  Standard_Real           Alpha2 = ElCLib1::Parameter(Parab, P2);
   Handle(Geom2d_Parabola) P      = new Geom2d_Parabola(Parab);
   TheArc                         = new Geom2d_TrimmedCurve(P, Alpha1, Alpha2, Sense);
   TheError                       = gce_Done;
@@ -39,7 +39,7 @@ GCE2d_MakeArcOfParabola::GCE2d_MakeArcOfParabola(const gp_Parab2d&      Parab,
                                                  const Standard_Real    Alpha,
                                                  const Standard_Boolean Sense)
 {
-  Standard_Real           Alphafirst = ElCLib::Parameter(Parab, P);
+  Standard_Real           Alphafirst = ElCLib1::Parameter(Parab, P);
   Handle(Geom2d_Parabola) Parabola   = new Geom2d_Parabola(Parab);
   TheArc                             = new Geom2d_TrimmedCurve(Parabola, Alphafirst, Alpha, Sense);
   TheError                           = gce_Done;

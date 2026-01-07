@@ -199,7 +199,7 @@ public:
   //! Splits the current triangle and new triangles until the refinement
   //! criterion is not achieved
   Standard_EXPORT void MultipleMiddleRefinement(const Standard_Real              theRefineCriterion,
-                                                const Bnd_Box&                   theBox,
+                                                const Box2&                   theBox,
                                                 const Standard_Integer           theTriangleNumber,
                                                 const Handle(Adaptor3d_Surface)& theSurface,
                                                 IntPolyh_ArrayOfPoints&          TPoints,
@@ -217,7 +217,7 @@ public:
                                              const Standard_Integer theEdgeIndex);
 
   //! Returns the bounding box of the triangle.
-  Standard_EXPORT const Bnd_Box& BoundingBox(const IntPolyh_ArrayOfPoints& thePoints);
+  Standard_EXPORT const Box2& BoundingBox(const IntPolyh_ArrayOfPoints& thePoints);
 
   //! Dumps the contents of the triangle.
   Standard_EXPORT void Dump(const Standard_Integer v) const;
@@ -231,7 +231,7 @@ private:
   Standard_Boolean myIsIntersectionPossible : 1;
   Standard_Boolean myIsDegenerated : 1;
   Standard_Real    myDeflection;
-  Bnd_Box          myBox;
+  Box2          myBox;
 };
 
 #endif // _IntPolyh_Triangle_HeaderFile

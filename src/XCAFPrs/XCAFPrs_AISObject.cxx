@@ -64,7 +64,7 @@ static void DisplayText(const DataLabel&                  aLabel,
     {
       // find the position to display as middle of the bounding box
       aShape.Move(aLocation);
-      Bnd_Box aBox;
+      Box2 aBox;
       BRepBndLib::Add(aShape, aBox);
       if (!aBox.IsVoid())
       {

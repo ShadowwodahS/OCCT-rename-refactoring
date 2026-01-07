@@ -100,7 +100,7 @@ void BRepOffset_Inter3d::CompletInt(const ShapeList&  SetOfFaces,
   BOPTools_BoxTree aBBTree;
   aBBTree.SetSize(SetOfFaces.Extent());
   //
-  NCollection_IndexedDataMap<TopoShape, Bnd_Box, ShapeHasher> aMFaces;
+  NCollection_IndexedDataMap<TopoShape, Box2, ShapeHasher> aMFaces;
   // Construct bounding boxes for faces and add them to the tree
   TopTools_ListIteratorOfListOfShape aItL(SetOfFaces);
   for (; aItL.More(); aItL.Next())
@@ -108,12 +108,12 @@ void BRepOffset_Inter3d::CompletInt(const ShapeList&  SetOfFaces,
     const TopoFace& aF = TopoDS::Face(aItL.Value());
     //
     // compute bounding box
-    Bnd_Box aBoxF;
+    Box2 aBoxF;
     BRepBndLib::Add(aF, aBoxF);
     //
     Standard_Integer i = aMFaces.Add(aF, aBoxF);
     //
-    aBBTree.Add(i, Bnd_Tools::Bnd2BVH(aBoxF));
+    aBBTree.Add(i, Tools5::Bnd2BVH(aBoxF));
   }
 
   // Build BVH

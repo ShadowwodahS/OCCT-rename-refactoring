@@ -33,7 +33,7 @@ std::pair<Standard_Real, Standard_Real> BRepMesh_ConeRangeSplitter::GetSplitStep
   Standard_Real aRadius =
     Max(Abs(aRefR + aRangeV.first * Sin(aSAng)), Abs(aRefR + aRangeV.second * Sin(aSAng)));
 
-  Standard_Real Dv, Du = GCPnts_TangentialDeflection::ArcAngularStep(aRadius,
+  Standard_Real Dv, Du = TangentialDeflectionSampler::ArcAngularStep(aRadius,
                                                                      GetDFace()->GetDeflection(),
                                                                      theParameters.Angle,
                                                                      theParameters.MinSize);

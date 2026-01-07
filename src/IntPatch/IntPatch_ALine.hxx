@@ -37,21 +37,21 @@ class IntPatch_ALine : public IntPatch_Line
 public:
   //! Creates an analytic intersection line
   //! when the transitions are In or Out.
-  Standard_EXPORT IntPatch_ALine(const IntAna_Curve&     C,
+  Standard_EXPORT IntPatch_ALine(const Curve1&     C,
                                  const Standard_Boolean  Tang,
                                  const IntSurf_TypeTrans Trans1,
                                  const IntSurf_TypeTrans Trans2);
 
   //! Creates an analytic intersection line
   //! when the transitions are Touch.
-  Standard_EXPORT IntPatch_ALine(const IntAna_Curve&     C,
+  Standard_EXPORT IntPatch_ALine(const Curve1&     C,
                                  const Standard_Boolean  Tang,
                                  const IntSurf_Situation Situ1,
                                  const IntSurf_Situation Situ2);
 
   //! Creates an analytic intersection line
   //! when the transitions are Undecided.
-  Standard_EXPORT IntPatch_ALine(const IntAna_Curve& C, const Standard_Boolean Tang);
+  Standard_EXPORT IntPatch_ALine(const Curve1& C, const Standard_Boolean Tang);
 
   //! To add a vertex in the list.
   Standard_EXPORT void AddVertex(const IntPatch_Point& Pnt);
@@ -130,13 +130,13 @@ public:
   //! else a new point in the line is inserted.
   Standard_EXPORT void ComputeVertexParameters(const Standard_Real Tol);
 
-  Standard_EXPORT const IntAna_Curve& Curve() const;
+  Standard_EXPORT const Curve1& Curve() const;
 
   DEFINE_STANDARD_RTTIEXT(IntPatch_ALine, IntPatch_Line)
 
 protected:
 private:
-  IntAna_Curve             curv;
+  Curve1             curv;
   Standard_Boolean         fipt;
   Standard_Boolean         lapt;
   Standard_Integer         indf;

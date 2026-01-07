@@ -377,7 +377,7 @@ public: //! @name parent/children properties
   //! This method requires presentation to be already computed, since it relies on bounding box of
   //! presentation structures, which are supposed to be same/close amongst different display modes
   //! of this object.
-  Standard_EXPORT virtual void BoundingBox(Bnd_Box& theBndBox);
+  Standard_EXPORT virtual void BoundingBox(Box2& theBndBox);
 
 protected: //! @name interface methods
   //! Protected empty constructor.

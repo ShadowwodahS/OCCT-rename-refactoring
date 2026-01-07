@@ -62,7 +62,7 @@ void XmlMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInsta
 
 const Handle(TypeInfo)& XmlMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
 {
-  if (Handle(TDF_Attribute) anInstance = TDF_DerivedAttribute::Attribute(theDerivedType))
+  if (Handle(TDF_Attribute) anInstance = DerivedAttribute::Attribute(theDerivedType))
   {
     AddDerivedDriver(anInstance);
     return anInstance->DynamicType();
@@ -94,7 +94,7 @@ void XmlMDF_ADriverTable::CreateDrvMap(XmlMDF_MapOfDriver& theDriverMap)
 {
   // add derived drivers not yet registered in the map
   TDF_AttributeList aDerived;
-  TDF_DerivedAttribute::Attributes(aDerived);
+  DerivedAttribute::Attributes(aDerived);
   for (TDF_AttributeList::Iterator aDerIter(aDerived); aDerIter.More(); aDerIter.Next())
   {
     if (!myMap.IsBound(aDerIter.Value()->DynamicType()))

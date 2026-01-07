@@ -102,7 +102,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
     {
       Handle(GccInt_Bisec)     Sol1 = Bis1.ThisSolution(i);
       GccInt_IType             typ1 = Sol1->ArcType();
-      IntAna2d_AnaIntersection Intp;
+      AnalyticIntersection2d Intp;
       for (Standard_Integer k = 1; k <= nbsolution2; k++)
       {
         if (typ1 == GccInt_Lin)
@@ -111,7 +111,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
         }
         else if (typ1 == GccInt_Par)
         {
-          Intp.Perform(Bis2.ThisSolution(k), IntAna2d_Conic(Sol1->Parabola()));
+          Intp.Perform(Bis2.ThisSolution(k), Conic2d(Sol1->Parabola()));
         }
         if (Intp.IsDone())
         {
@@ -293,8 +293,8 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                     TheSame1(NbrSol) = 0;
                     gp_Dir2d dc(center1.XY() - Center.XY());
                     pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(m) * dc.XY());
-                    par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-                    pararg1(NbrSol)   = ElCLib::Parameter(C1, pnttg1sol(NbrSol));
+                    par1sol(NbrSol)   = ElCLib1::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
+                    pararg1(NbrSol)   = ElCLib1::Parameter(C1, pnttg1sol(NbrSol));
                   }
                   TheSame2(NbrSol) = 0;
                   TheSame3(NbrSol) = 0;
@@ -302,14 +302,14 @@ Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                   Standard_Real sign = dc.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
                   dc                 = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
                   pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius(m) * dc.XY());
-                  par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
-                  pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
+                  par2sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
+                  pararg2(NbrSol)    = ElCLib1::Parameter(L2, pnttg2sol(NbrSol));
                   dc                 = gp_Dir2d(origin3.XY() - Center.XY());
                   sign               = dc.Dot(gp_Dir2d(-dir3.Y(), dir3.X()));
                   dc                 = gp_Dir2d(sign * Coords2d(-dir3.Y(), dir3.X()));
                   pnttg3sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius(m) * dc.XY());
-                  par3sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
-                  pararg3(NbrSol)    = ElCLib::Parameter(L3, pnttg3sol(NbrSol));
+                  par3sol(NbrSol)    = ElCLib1::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
+                  pararg3(NbrSol)    = ElCLib1::Parameter(L3, pnttg3sol(NbrSol));
                 }
               }
             }

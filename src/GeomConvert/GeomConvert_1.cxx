@@ -65,7 +65,7 @@ typedef Point3d                  Pnt;
 //=================================================================================================
 
 static Handle(Geom_BSplineSurface) BSplineSurfaceBuilder(
-  const Convert_ElementarySurfaceToBSplineSurface& Convert)
+  const ElementaryToBSplineSurface& Convert)
 {
   Handle(Geom_BSplineSurface) TheSurface;
   Standard_Integer            UDegree  = Convert.UDegree();
@@ -114,7 +114,7 @@ static Handle(Geom_BSplineSurface) BSplineSurfaceBuilder(
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
+Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
   const Handle(Geom_BSplineSurface)& S,
   const Standard_Integer             FromUK1,
   const Standard_Integer             ToUK2,
@@ -167,7 +167,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(const Handle(Geom_BSplineSurface)& S,
+Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(const Handle(Geom_BSplineSurface)& S,
                                                              const Standard_Integer FromK1,
                                                              const Standard_Integer ToK2,
                                                              const Standard_Boolean USplit,
@@ -235,7 +235,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(const Handle(Geom_B
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
+Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
   const Handle(Geom_BSplineSurface)& S,
   const Standard_Real                FromU1,
   const Standard_Real                ToU2,
@@ -280,7 +280,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
+Handle(Geom_BSplineSurface) GeomConvert1::SplitBSplineSurface(
   const Handle(Geom_BSplineSurface)& S,
   const Standard_Real                FromParam1,
   const Standard_Real                ToParam2,
@@ -339,7 +339,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(GeomSurface)& Sr)
+Handle(Geom_BSplineSurface) GeomConvert1::SurfaceToBSplineSurface(const Handle(GeomSurface)& Sr)
 {
 
   Standard_Real U1, U2, V1, V2;
@@ -353,7 +353,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
   if (Precision::IsNegativeInfinite(UFirst) || Precision::IsPositiveInfinite(ULast)
       || Precision::IsNegativeInfinite(VFirst) || Precision::IsPositiveInfinite(VLast))
   {
-    throw Standard_DomainError("GeomConvert::SurfaceToBSplineSurface() - infinite surface");
+    throw Standard_DomainError("GeomConvert1::SurfaceToBSplineSurface() - infinite surface");
   }
 
   Handle(Geom_BSplineSurface) TheSurface;
@@ -540,12 +540,12 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       Handle(BSplineCurve3d) C;
       if (Strim->IsVClosed())
       {
-        C = GeomConvert::CurveToBSplineCurve(Meridian);
+        C = GeomConvert1::CurveToBSplineCurve(Meridian);
       }
       else
       {
         Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(Meridian, VFirst, VLast);
-        C                            = GeomConvert::CurveToBSplineCurve(CT);
+        C                            = GeomConvert1::CurveToBSplineCurve(CT);
       }
       Standard_Integer NbUPoles, NbUKnots;
       Standard_Integer NbVPoles, NbVKnots;
@@ -652,12 +652,12 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       Handle(BSplineCurve3d) C;
       if (Strim->IsUClosed())
       {
-        C = GeomConvert::CurveToBSplineCurve(Meridian);
+        C = GeomConvert1::CurveToBSplineCurve(Meridian);
       }
       else
       {
         Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(Meridian, UFirst, ULast);
-        C                            = GeomConvert::CurveToBSplineCurve(CT);
+        C                            = GeomConvert1::CurveToBSplineCurve(CT);
       }
       TColgp_Array2OfPnt   Poles(1, C->NbPoles(), 1, 2);
       TColStd_Array2OfReal Weights(1, C->NbPoles(), 1, 2);
@@ -800,7 +800,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       Handle(Geom_SurfaceOfRevolution) Revol = Handle(Geom_SurfaceOfRevolution)::DownCast(S);
 
       Handle(GeomCurve3d)        Meridian = Revol->BasisCurve();
-      Handle(BSplineCurve3d) C        = GeomConvert::CurveToBSplineCurve(Meridian);
+      Handle(BSplineCurve3d) C        = GeomConvert1::CurveToBSplineCurve(Meridian);
 
       Standard_Integer NbUPoles, NbUKnots;
       Standard_Integer NbVPoles, NbVKnots;

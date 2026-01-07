@@ -25,8 +25,8 @@
 #include <TColStd_Array1OfReal.hxx>
 class Standard_ConstructionError;
 class ConicTool;
-class HLRBRep_CurveTool;
-class HLRBRep_TheProjPCurOfCInter;
+class CurveTool5;
+class ProjPCurOfCInter;
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter;
 class Domain2;
 class gp_Pnt2d;

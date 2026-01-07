@@ -72,20 +72,20 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * </li>
  * <li><b>Poly_CoherentLink</b>: Auxiliary data type. Normally the array of Links is empty, because
  * for many algorithms it is sufficient to define only Triangles. You can explicitly create the
- * Links at least once, calling the method ComputeLinks(). Each Link is oriented couple of
+ * Links at least once, calling the method ComputeLinks(). Each Link1 is oriented couple of
  * Poly_CoherentNode (directed to the ascending Node index). It refers two connected triangulated
  * Nodes - on the left and on the right, therefore a Poly_CoherentLink instance refers the full set
- * of nodes that constitute a couple of connected Triangles. A boundary Link has either the first
+ * of nodes that constitute a couple of connected Triangles. A boundary Link1 has either the first
  * (left) or the second (right) connected node index equal to -1.
  *
  * When the array of Links is created, all subsequent calls to AddTriangle and RemoveTriangle try to
- * preserve the connectivity Triangle-Link in addition to the connectivity Triangle-Triangle.
+ * preserve the connectivity Triangle1-Link1 in addition to the connectivity Triangle1-Triangle1.
  * Particularly, new Links are created by method AddTriangle() and existing ones are removed by
  * method RemoveTriangle(), in each case whenever necessary.
  *
- * Similarly to Poly_CoherentTriangle, a Link can be removed but not destroyed separately from
- * others. Removed Link can be recogniosed using the method IsEmpty(). To destroy all Links, call
- * the method ClearLinks(), this method also nullifies Link references in all Triangles.
+ * Similarly to Poly_CoherentTriangle, a Link1 can be removed but not destroyed separately from
+ * others. Removed Link1 can be recogniosed using the method IsEmpty(). To destroy all Links, call
+ * the method ClearLinks(), this method also nullifies Link1 references in all Triangles.
  * </li>
  * All objects (except for free Nodes and empty Triangles and Links) can be visited by the
  * corresponding Iterator. Direct access is provided only for Nodes (needed to resolve Node indexed
@@ -109,11 +109,11 @@ public:
    * Subclass Iterator - allows to iterate all triangles skipping those that
    * have been removed.
    */
-  class IteratorOfTriangle : public Poly_BaseIteratorOfCoherentTriangle
+  class IteratorOfTriangle1 : public Poly_BaseIteratorOfCoherentTriangle
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfTriangle(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfTriangle1(const Handle(Poly_CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -121,11 +121,11 @@ public:
   /**
    * Subclass Iterator - allows to iterate all nodes skipping the free ones.
    */
-  class IteratorOfNode : public Poly_BaseIteratorOfCoherentNode
+  class IteratorOfNode1 : public Poly_BaseIteratorOfCoherentNode
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfNode(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfNode1(const Handle(Poly_CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -133,11 +133,11 @@ public:
   /**
    * Subclass Iterator - allows to iterate all links skipping invalid ones.
    */
-  class IteratorOfLink : public Poly_BaseIteratorOfCoherentLink
+  class IteratorOfLink1 : public Poly_BaseIteratorOfCoherentLink
   {
   public:
     //! Constructor
-    Standard_EXPORT IteratorOfLink(const Handle(Poly_CoherentTriangulation)& theTri);
+    Standard_EXPORT IteratorOfLink1(const Handle(Poly_CoherentTriangulation)& theTri);
     //! Make step
     Standard_EXPORT virtual void Next();
   };
@@ -259,7 +259,7 @@ public:
   /**
    * Get the triangle at the given index 'i'.
    */
-  inline const Poly_CoherentTriangle& Triangle(const Standard_Integer i) const
+  inline const Poly_CoherentTriangle& Triangle1(const Standard_Integer i) const
   {
     return myTriangles.Value(i);
   }
@@ -308,7 +308,7 @@ public:
    * Add a single link to triangulation, based on a triangle and its side index.
    * This method does not check for coincidence with already present links.
    * @param theTri
-   *   Triangle that contains the link to be added.
+   *   Triangle1 that contains the link to be added.
    * @param theConn
    *   Index of the side (i.e., 0, 1 0r 2) defining the added link.
    */
@@ -318,7 +318,7 @@ public:
   /**
    * Find one or two triangles that share the given couple of nodes.
    * @param theLink
-   *   Link (in fact, just a couple of nodes) on which the triangle is
+   *   Link1 (in fact, just a couple of nodes) on which the triangle is
    *   searched.
    * @param pTri
    *   <tt>[out]</tt> Array of two pointers to triangle. pTri[0] stores the
@@ -373,9 +373,9 @@ public:
   // Declaration of CASCADE RTTI
   DEFINE_STANDARD_RTTIEXT(Poly_CoherentTriangulation, RefObject)
 
-  friend class IteratorOfTriangle;
-  friend class IteratorOfNode;
-  friend class IteratorOfLink;
+  friend class IteratorOfTriangle1;
+  friend class IteratorOfNode1;
+  friend class IteratorOfLink1;
 };
 
 #include <Poly_CoherentTriangulation.hxx>

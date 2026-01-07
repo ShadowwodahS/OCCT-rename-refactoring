@@ -97,7 +97,7 @@ void GeomPlate_PlateG0Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Con
       //   u,v recadres sur (-1,1)
       up = (2 * P2d.X() - UInt[0] - UInt[1]) / (UInt[1] - UInt[0]);
       vp = (2 * P2d.Y() - VInt[0] - VInt[1]) / (VInt[1] - VInt[0]);
-      PLib::EvalPoly2Var(up, vp, 0, 0, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
+      PLib1::EvalPoly2Var(up, vp, 0, 0, NbCoeff[0] - 1, NbCoeff[1] - 1, 3, Coeffs[0], Digit[0]);
 
       P3d.SetCoord(1, Digit[0]);
       P3d.SetCoord(2, Digit[1]);

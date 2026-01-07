@@ -28,7 +28,7 @@
 #include <TColStd_MapOfInteger.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-typedef NCollection_UBTree<Standard_Integer, Bnd_Box> ShapeAnalysis_BoxBndTree;
+typedef NCollection_UBTree<Standard_Integer, Box2> ShapeAnalysis_BoxBndTree;
 
 class ShapeAnalysis_BoxBndTreeSelector : public ShapeAnalysis_BoxBndTree::Selector
 {
@@ -46,7 +46,7 @@ public:
     myArrIndices.Init(0);
   }
 
-  void DefineBoxes(const Bnd_Box& theFBox, const Bnd_Box& theLBox)
+  void DefineBoxes(const Box2& theFBox, const Box2& theLBox)
   {
     myFBox = theFBox;
     myLBox = theLBox;
@@ -89,12 +89,12 @@ public:
     return ShapeExtend::DecodeStatus(myStatus, theStatus);
   }
 
-  Standard_Boolean Reject(const Bnd_Box& theBnd) const;
+  Standard_Boolean Reject(const Box2& theBnd) const;
   Standard_Boolean Accept(const Standard_Integer&);
 
 private:
-  Bnd_Box                         myFBox;
-  Bnd_Box                         myLBox;
+  Box2                         myFBox;
+  Box2                         myLBox;
   Handle(TopTools_HArray1OfShape) mySeq;
   Standard_Boolean                myShared;
   Standard_Integer                myNb;

@@ -358,7 +358,7 @@ protected:
               const Handle(AppDocument)&      theDoc,
               const ConversionFactors&              theLocalFactors = ConversionFactors()) const;
 
-  //! Populates the sub-Label of the passed TDF Label with shape
+  //! Populates the sub-Label of the passed TDF1 Label with shape
   //! data associated with the given STEP Representation Item,
   //! including naming and topological information.
   Standard_EXPORT DataLabel SettleShapeData(const Handle(StepRepr_RepresentationItem)& theItem,
@@ -485,7 +485,7 @@ private:
     const Handle(ExchangeSession)&       theWorkSession,
     const Handle(StepRepr_PropertyDefinition)& theProperty) const;
 
-  //! Helper method to get NamedData attribute assigned to the given label.
+  //! Helper1 method to get NamedData attribute assigned to the given label.
   //! @param theLabel The label to get NamedData attribute from.
   //! @return Handle to the NamedData attribute. Guarantees that the attribute is never null.
   Handle(TDataStd_NamedData) getNamedData(const DataLabel& theLabel) const;

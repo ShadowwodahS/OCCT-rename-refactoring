@@ -265,7 +265,7 @@ public:
   }
 
 public:
-  //! Checks if the Box is out of the other box.
+  //! Checks if the Box1 is out of the other box.
   Standard_Boolean IsOut(const BVH_Box<T, N>& theOther) const
   {
     if (!theOther.IsValid())
@@ -274,7 +274,7 @@ public:
     return IsOut(theOther.myMinPoint, theOther.myMaxPoint);
   }
 
-  //! Checks if the Box is out of the other box defined by two points.
+  //! Checks if the Box1 is out of the other box defined by two points.
   Standard_Boolean IsOut(const BVH_VecNt& theMinPoint, const BVH_VecNt& theMaxPoint) const
   {
     if (!IsValid())
@@ -289,7 +289,7 @@ public:
     return Standard_False;
   }
 
-  //! Checks if the Box fully contains the other box.
+  //! Checks if the Box1 fully contains the other box.
   Standard_Boolean Contains(const BVH_Box<T, N>& theOther, Standard_Boolean& hasOverlap) const
   {
     hasOverlap = Standard_False;
@@ -299,7 +299,7 @@ public:
     return Contains(theOther.myMinPoint, theOther.myMaxPoint, hasOverlap);
   }
 
-  //! Checks if the Box is fully contains the other box.
+  //! Checks if the Box1 is fully contains the other box.
   Standard_Boolean Contains(const BVH_VecNt&  theMinPoint,
                             const BVH_VecNt&  theMaxPoint,
                             Standard_Boolean& hasOverlap) const

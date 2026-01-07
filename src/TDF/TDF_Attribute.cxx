@@ -351,7 +351,7 @@ Standard_OStream& TDF_Attribute::Dump(Standard_OStream& anOS) const
 //=================================================================================================
 
 void TDF_Attribute::ExtendedDump(Standard_OStream& anOS,
-                                 const TDF_IDFilter& /*aFilter*/,
+                                 const IDFilter& /*aFilter*/,
                                  TDF_AttributeIndexedMap& /*aMap*/) const
 {
   Dump(anOS);
@@ -364,7 +364,7 @@ void TDF_Attribute::DumpJson(Standard_OStream& theOStream, Standard_Integer) con
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
   AsciiString1 aLabel;
-  TDF_Tool::Entry(Label(), aLabel);
+  Tool3::Entry(Label(), aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 
   OCCT_DUMP_FIELD_VALUE_GUID(theOStream, ID())

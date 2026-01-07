@@ -55,7 +55,7 @@ static Standard_Integer setView(DrawInterpreter& di, Standard_Integer argc, cons
   for (Standard_Integer i = 2; i < argc; i++)
   {
     DataLabel aLabel;
-    TDF_Tool::Label(aDoc->GetData(), argv[i], aLabel);
+    Tool3::Label(aDoc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
       continue;
     if (aShapeTool->IsShape(aLabel))
@@ -71,7 +71,7 @@ static Standard_Integer setView(DrawInterpreter& di, Standard_Integer argc, cons
   DataLabel aViewL = aViewTool->AddView();
   aViewTool->SetView(aShapes, aGDTs, aViewL);
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aViewL, anEntry);
+  Tool3::Entry(aViewL, anEntry);
   di << anEntry << "\n";
   return 0;
 }
@@ -95,7 +95,7 @@ static Standard_Integer removeView(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -131,7 +131,7 @@ static Standard_Integer setClippingPlanes(DrawInterpreter& di,
   for (Standard_Integer i = 3; i < argc; i++)
   {
     DataLabel aLabel;
-    TDF_Tool::Label(aDoc->GetData(), argv[i], aLabel);
+    Tool3::Label(aDoc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
       continue;
     if (aCPlaneTool->IsClippingPlane(aLabel))
@@ -142,7 +142,7 @@ static Standard_Integer setClippingPlanes(DrawInterpreter& di,
     return 1;
 
   DataLabel aViewL;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aViewL);
+  Tool3::Label(aDoc->GetData(), argv[2], aViewL);
   aViewTool->SetClippingPlanes(aCPlanes, aViewL);
   return 0;
 }
@@ -166,7 +166,7 @@ static Standard_Integer isView(DrawInterpreter& di, Standard_Integer argc, const
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "Invalid label\n";
@@ -200,7 +200,7 @@ static Standard_Integer getRefShapes(DrawInterpreter& di, Standard_Integer argc,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
     di << "Invalid label\n";
@@ -212,7 +212,7 @@ static Standard_Integer getRefShapes(DrawInterpreter& di, Standard_Integer argc,
   for (Standard_Integer i = 1; i <= aShapes.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aShapes.Value(i), anEntry);
+    Tool3::Entry(aShapes.Value(i), anEntry);
     di << anEntry << " ";
   }
   return 0;
@@ -237,7 +237,7 @@ static Standard_Integer getRefGDTs(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
     di << "Invalid label\n";
@@ -253,7 +253,7 @@ static Standard_Integer getRefGDTs(DrawInterpreter& di, Standard_Integer argc, c
   for (Standard_Integer i = 1; i <= aGDTs.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aGDTs.Value(i), anEntry);
+    Tool3::Entry(aGDTs.Value(i), anEntry);
     di << anEntry << " ";
   }
   return 0;
@@ -280,7 +280,7 @@ static Standard_Integer getRefClippingPlanes(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
     di << "Invalid label\n";
@@ -296,7 +296,7 @@ static Standard_Integer getRefClippingPlanes(DrawInterpreter& di,
   for (Standard_Integer i = 1; i <= aCPlanes.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aCPlanes.Value(i), anEntry);
+    Tool3::Entry(aCPlanes.Value(i), anEntry);
     di << anEntry << " ";
   }
   return 0;
@@ -321,7 +321,7 @@ static Standard_Integer setName(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -356,7 +356,7 @@ static Standard_Integer getName(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -389,7 +389,7 @@ static Standard_Integer setType(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -429,7 +429,7 @@ static Standard_Integer getType(DrawInterpreter& di, Standard_Integer argc, cons
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -476,7 +476,7 @@ static Standard_Integer setProjectionPoint(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -514,7 +514,7 @@ static Standard_Integer getProjectionPoint(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -548,7 +548,7 @@ static Standard_Integer setViewDir(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -583,7 +583,7 @@ static Standard_Integer getViewDir(DrawInterpreter& di, Standard_Integer argc, c
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -617,7 +617,7 @@ static Standard_Integer setUpDir(DrawInterpreter& di, Standard_Integer argc, con
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -652,7 +652,7 @@ static Standard_Integer getUpDir(DrawInterpreter& di, Standard_Integer argc, con
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -688,7 +688,7 @@ static Standard_Integer setZoomFactor(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -725,7 +725,7 @@ static Standard_Integer getZoomFactor(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -760,7 +760,7 @@ static Standard_Integer setWindowSize(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -798,7 +798,7 @@ static Standard_Integer getWindowSize(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -834,7 +834,7 @@ static Standard_Integer setFrontPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -871,7 +871,7 @@ static Standard_Integer unsetFrontPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -908,7 +908,7 @@ static Standard_Integer getFrontPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -946,7 +946,7 @@ static Standard_Integer setBackPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -983,7 +983,7 @@ static Standard_Integer unsetBackPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1020,7 +1020,7 @@ static Standard_Integer getBackPlaneDistance(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1058,7 +1058,7 @@ static Standard_Integer setViewVolumeSidesClipping(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1095,7 +1095,7 @@ static Standard_Integer getViewVolumeSidesClipping(DrawInterpreter& di,
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "View " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1128,7 +1128,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_View) aView;
   if (aLabel.IsNull() || !(aLabel.FindAttribute(XCAFDoc_View::GetID(), aView)))
   {
@@ -1142,7 +1142,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
   for (Standard_Integer i = 1; i <= aShapes.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aShapes.Value(i), anEntry);
+    Tool3::Entry(aShapes.Value(i), anEntry);
     di << anEntry << " ";
   }
   di << "\n";
@@ -1153,7 +1153,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
   for (Standard_Integer i = 1; i <= aGDTs.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aGDTs.Value(i), anEntry);
+    Tool3::Entry(aGDTs.Value(i), anEntry);
     di << anEntry << " ";
   }
   di << "\n";
@@ -1164,7 +1164,7 @@ static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const c
   for (Standard_Integer i = 1; i <= aCPlanes.Length(); i++)
   {
     AsciiString1 anEntry;
-    TDF_Tool::Entry(aCPlanes.Value(i), anEntry);
+    Tool3::Entry(aCPlanes.Value(i), anEntry);
     di << anEntry << " ";
   }
   di << "\n";
@@ -1247,7 +1247,7 @@ static Standard_Integer addClippingPlane(DrawInterpreter& di,
 
   DataLabel               aCPlaneL = aCPlaneTool->AddClippingPlane(aPlane, aName, aCapping);
   AsciiString1 anEntry;
-  TDF_Tool::Entry(aCPlaneL, anEntry);
+  Tool3::Entry(aCPlaneL, anEntry);
   di << anEntry << "\n";
   return 0;
 }
@@ -1274,7 +1274,7 @@ static Standard_Integer getClippingPlane(DrawInterpreter& di,
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "ClippingPlane " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1312,7 +1312,7 @@ static Standard_Integer removeClippingPlane(DrawInterpreter& di,
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "ClippingPlane " << argv[2] << " is absent in " << argv[1] << "\n";
@@ -1348,7 +1348,7 @@ static Standard_Integer getClippingPlaneCapping(DrawInterpreter& di,
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
   DataLabel aLabel;
-  TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
+  Tool3::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "ClippingPlane " << argv[2] << " is absent in " << argv[1] << "\n";

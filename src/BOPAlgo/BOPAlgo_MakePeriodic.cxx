@@ -118,7 +118,7 @@ void BOPAlgo_MakePeriodic::Trim()
   // Compute bounding box for the shape to use it as a starting
   // volume for trimming. If required, the volume will be modified
   // to the requested trimming size in requested directions.
-  Bnd_Box aBox;
+  Box2 aBox;
   BRepBndLib::Add(myInputShape, aBox);
   // Enlarge box to avoid overlapping with the shape
   aBox.Enlarge(0.1 * sqrt(aBox.SquareExtent()));

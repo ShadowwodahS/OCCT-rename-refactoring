@@ -40,7 +40,7 @@ HLRBRep_EdgeBuilder::HLRBRep_EdgeBuilder(HLRBRep_VertexList& VList)
 
   Handle(HLRBRep_AreaLimit) last, cur;
   TopAbs_State              before, after, ebefore, eafter;
-  HLRAlgo_Intersection      V;
+  Intersection3      V;
 
   // loop on the Vertices
   for (; VList.More(); VList.Next())
@@ -371,7 +371,7 @@ void HLRBRep_EdgeBuilder::NextVertex()
 
 //=================================================================================================
 
-const HLRAlgo_Intersection& HLRBRep_EdgeBuilder::Current() const
+const Intersection3& HLRBRep_EdgeBuilder::Current() const
 {
   if (current == 1)
     return left->Vertex();

@@ -47,7 +47,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfRevolution, Geom_SweptSurface)
 #define VKNOTS (vknots->Array1())
 #define UFKNOTS (ufknots->Array1())
 #define VFKNOTS (vfknots->Array1())
-#define FMULTS (BSplCLib::NoMults())
+#define FMULTS (BSplCLib1::NoMults())
 
 typedef Geom_SurfaceOfRevolution SurfaceOfRevolution;
 typedef GeomCurve3d               Curve;

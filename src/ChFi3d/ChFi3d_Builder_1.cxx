@@ -292,7 +292,7 @@ static TopoEdge MakeOffsetEdge(const TopoEdge&         theEdge,
     Handle(BSplineCurve3d) BsplCurve = Handle(BSplineCurve3d)::DownCast(IntCurve);
     TColStd_Array1OfReal aKnots(1, BsplCurve->NbKnots());
     BsplCurve->Knots(aKnots);
-    BSplCLib::Reparametrize(aBAcurve.FirstParameter(), aBAcurve.LastParameter(), aKnots);
+    BSplCLib1::Reparametrize(aBAcurve.FirstParameter(), aBAcurve.LastParameter(), aKnots);
     BsplCurve->SetKnots(aKnots);
     if (aBAcurve.IsPeriodic() && !BsplCurve->IsPeriodic())
       BsplCurve->SetPeriodic();

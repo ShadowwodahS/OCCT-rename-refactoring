@@ -80,7 +80,7 @@
 void PrintEntry(const DataLabel& label)
 {
   AsciiString1 entry;
-  TDF_Tool::Entry(label, entry);
+  Tool3::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
 }
 
@@ -92,7 +92,7 @@ void PrintEntries(const TDF_LabelMap& map)
   TDF_MapIteratorOfLabelMap it(map);
   for (; it.More(); it.Next())
   {
-    TDF_Tool::Entry(it.Key(), entry);
+    Tool3::Entry(it.Key(), entry);
     std::cout << "LabelEntry = " << entry << std::endl;
   }
 }
@@ -179,7 +179,7 @@ static Standard_Boolean ValidArgs(const TNaming_ListOfNamedShape& Args)
     {
 #ifdef OCCT_DEBUG_ARG
       AsciiString1 entry;
-      TDF_Tool::Entry(aNS->Label(), entry);
+      Tool3::Entry(aNS->Label(), entry);
       std::cout << "ValidArgs:: Empty NS, Label = " << entry << std::endl;
 #endif
       return Standard_False;
@@ -188,7 +188,7 @@ static Standard_Boolean ValidArgs(const TNaming_ListOfNamedShape& Args)
     {
 #ifdef OCCT_DEBUG_ARG
       AsciiString1 entry;
-      TDF_Tool::Entry(aNS->Label(), entry);
+      Tool3::Entry(aNS->Label(), entry);
       std::cout << "ValidArgs::Not valid NS Label = " << entry << std::endl;
 #endif
       return Standard_False;
@@ -396,7 +396,7 @@ static TopoShape ShapeWithType(const TopoShape& theShape, const TopAbs_ShapeEnum
       return aResult;
   }
   else
-  { // if the shape type more complex than shapes from aShapes list, try make it
+  { // if the shape type more complex1 than shapes from aShapes list, try make it
     switch (aType)
     {
       case TopAbs_VERTEX: // can't do something from vertex
@@ -963,7 +963,7 @@ static Standard_Boolean Union(const DataLabel&                  L,
 // clang-format on
 #ifdef OCCT_DEBUG_UNN
   AsciiString1 entry;
-  TDF_Tool::Entry(it.Value()->Label(), entry);
+  Tool3::Entry(it.Value()->Label(), entry);
   AsciiString1 Nam("Arg_");
   AsciiString1 aNam = Nam + entry + "_" + "1.brep";
   DbgTools_Write(CS, aNam.ToCString());
@@ -973,7 +973,7 @@ static Standard_Boolean Union(const DataLabel&                  L,
   for (; it.More(); it.Next())
   {
 #ifdef OCCT_DEBUG_UNN
-    TDF_Tool::Entry(it.Value()->Label(), entry);
+    Tool3::Entry(it.Value()->Label(), entry);
 #endif
     MS.Clear();
     // clang-format off
@@ -1008,7 +1008,7 @@ static Standard_Boolean Union(const DataLabel&                  L,
       aContext = MakeShape(MS);
 #ifdef OCCT_DEBUG_UNN
       AsciiString1 anEntry;
-      TDF_Tool::Entry(ContextLabel, anEntry);
+      Tool3::Entry(ContextLabel, anEntry);
       std::cout << "UNION: Context Label = " << anEntry << std::endl;
       DbgTools_Write(aContext, "Union_Context.brep");
       AsciiString1          aN("aMap_");
@@ -1421,8 +1421,8 @@ static Standard_Boolean Identity(const DataLabel&                L,
   NamingTool1::CurrentShape(Valid, Forbiden, A, MS);
 #ifdef OCCT_DEBUG_SOL2
   // AsciiString1 entry;
-  // TDF_Tool::Entry(L, entry);
-  // TDF_Tool::Entry(A->Label(), entry);
+  // Tool3::Entry(L, entry);
+  // Tool3::Entry(A->Label(), entry);
 #endif
   TNaming_Builder B(L);
   for (Standard_Integer anItMS = 1; anItMS <= MS.Extent(); ++anItMS)
@@ -1956,7 +1956,7 @@ static Standard_Boolean WireIN(const DataLabel&                  L,
 // clang-format on
 #ifdef OCCT_DEBUG_WIN
     AsciiString1 entry;
-    TDF_Tool::Entry(it.Value()->Label(), entry);
+    Tool3::Entry(it.Value()->Label(), entry);
     AsciiString1 Nam("Arg_");
     AsciiString1 aNam = Nam + entry + "_" + "2.brep";
     DbgTools_Write(CS, aNam.ToCString());
@@ -1966,7 +1966,7 @@ static Standard_Boolean WireIN(const DataLabel&                  L,
     for (; anIter.More(); anIter.Next())
     {
 #ifdef OCCT_DEBUG_WIN
-      TDF_Tool::Entry(it.Value()->Label(), entry);
+      Tool3::Entry(it.Value()->Label(), entry);
 #endif
       MS.Clear();
       // clang-format off
@@ -2130,7 +2130,7 @@ static Standard_Boolean ShellIN(const DataLabel&                  L,
 // clang-format on
 #ifdef OCCT_DEBUG_SHELL
     AsciiString1 entry;
-    TDF_Tool::Entry(anIter.Value()->Label(), entry);
+    Tool3::Entry(anIter.Value()->Label(), entry);
     AsciiString1 Nam("Arg_");
     AsciiString1 aNam = Nam + entry + "_" + "2.brep";
     DbgTools_Write(CS, aNam.ToCString());
@@ -2140,7 +2140,7 @@ static Standard_Boolean ShellIN(const DataLabel&                  L,
     for (; anIter.More(); anIter.Next())
     {
 #ifdef OCCT_DEBUG_SHELL
-      TDF_Tool::Entry(anIter.Value()->Label(), entry);
+      Tool3::Entry(anIter.Value()->Label(), entry);
 #endif
       MS.Clear();
       // clang-format off
@@ -2391,7 +2391,7 @@ void TNaming_Name::DumpJson(Standard_OStream& theOStream, Standard_Integer theDe
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myShape)
 
   AsciiString1 aLabel;
-  TDF_Tool::Entry(myContextLabel, aLabel);
+  Tool3::Entry(myContextLabel, aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, myOrientation)
 }

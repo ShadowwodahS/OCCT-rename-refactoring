@@ -50,7 +50,7 @@ Geom2dConvert_CompCurveToBSplineCurve::Geom2dConvert_CompCurveToBSplineCurve(
   }
   else
   {
-    myCurve = Geom2dConvert::CurveToBSplineCurve(BasisCurve, myType);
+    myCurve = Geom2dConvert1::CurveToBSplineCurve(BasisCurve, myType);
   }
 }
 
@@ -69,7 +69,7 @@ Standard_Boolean Geom2dConvert_CompCurveToBSplineCurve::Add(
   }
   else
   {
-    Bs = Geom2dConvert::CurveToBSplineCurve(NewCurve, myType);
+    Bs = Geom2dConvert1::CurveToBSplineCurve(NewCurve, myType);
   }
   if (myCurve.IsNull())
   {

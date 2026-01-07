@@ -450,7 +450,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     return res;
   }
 
-  Handle(Geom_BSplineSurface) Bspline = GeomConvert::SurfaceToBSplineSurface(start);
+  Handle(Geom_BSplineSurface) Bspline = GeomConvert1::SurfaceToBSplineSurface(start);
   Standard_Real               U1, U2, V1, V2;
   Bspline->Bounds(U1, U2, V1, V2);
   res = TransferSurface(Bspline, U1, U2, V1, V2);

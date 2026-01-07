@@ -29,7 +29,7 @@ class Dir3d;
 class HLRAlgo_Interference;
 
 //! Implements the  methods required  to  instantiates
-//! the EdgeInterferenceList from HLRAlgo.
+//! the EdgeInterferenceList from HLRAlgo1.
 class HLRBRep_EdgeInterferenceTool
 {
 public:
@@ -45,7 +45,7 @@ public:
 
   void NextVertex();
 
-  const HLRAlgo_Intersection& CurrentVertex() const;
+  const Intersection3& CurrentVertex() const;
 
   TopAbs_Orientation CurrentOrientation() const;
 
@@ -84,7 +84,7 @@ public:
 protected:
 private:
   Handle(HLRBRep_Data) myDS;
-  HLRAlgo_Intersection inter[2];
+  Intersection3 inter[2];
   Standard_Integer     cur;
 };
 

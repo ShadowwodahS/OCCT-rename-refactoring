@@ -27,7 +27,7 @@
 #include <Graphic3d_TypeOfShadingModel.hxx>
 #include <Graphic3d_Vec4.hxx>
 
-//! Helper class to store rendering parameters.
+//! Helper1 class to store rendering parameters.
 class Graphic3d_RenderingParams
 {
 public:

@@ -206,7 +206,7 @@ static Standard_Integer DDataStd_GetConstraint(DrawInterpreter& di,
     }
     else
     {
-      TDF_ChildIterator it(L, Standard_True);
+      ChildIterator it(L, Standard_True);
       for (; it.More(); it.Next())
       {
         const DataLabel& current = it.Value();
@@ -374,54 +374,54 @@ static Standard_Integer DDataStd_DumpPattern(DrawInterpreter& di,
       //      di << aStream.rdbuf()->str();
 
       AsciiString1 S;
-      TDF_Tool::Entry(CTR->Label(), S);
+      Tool3::Entry(CTR->Label(), S);
       di << S.ToCString() << " signature = " << CTR->Signature();
 
       if (!CTR->Axis1().IsNull())
       {
-        TDF_Tool::Entry(CTR->Axis1()->Label(), S);
+        Tool3::Entry(CTR->Axis1()->Label(), S);
         di << " Axis1 (" << S.ToCString() << ")";
       }
 
       if (!CTR->Value1().IsNull())
       {
-        TDF_Tool::Entry(CTR->Value1()->Label(), S);
+        Tool3::Entry(CTR->Value1()->Label(), S);
         di << " Val1 (" << S.ToCString() << ")";
       }
 
       if (!CTR->NbInstances1().IsNull())
       {
-        TDF_Tool::Entry(CTR->NbInstances1()->Label(), S);
+        Tool3::Entry(CTR->NbInstances1()->Label(), S);
         di << " NbIns1 (" << S.ToCString() << ")";
       }
 
       if (!CTR->Axis2().IsNull())
       {
-        TDF_Tool::Entry(CTR->Axis2()->Label(), S);
+        Tool3::Entry(CTR->Axis2()->Label(), S);
         di << " Axis2 (" << S.ToCString() << ")";
       }
 
       if (!CTR->Value2().IsNull())
       {
-        TDF_Tool::Entry(CTR->Value2()->Label(), S);
+        Tool3::Entry(CTR->Value2()->Label(), S);
         di << " Val2 (" << S.ToCString() << ")";
       }
 
       if (!CTR->NbInstances2().IsNull())
       {
-        TDF_Tool::Entry(CTR->NbInstances2()->Label(), S);
+        Tool3::Entry(CTR->NbInstances2()->Label(), S);
         di << " NbIns2 (" << S.ToCString() << ")";
       }
 
       if (!CTR->Mirror().IsNull())
       {
-        TDF_Tool::Entry(CTR->Mirror()->Label(), S);
+        Tool3::Entry(CTR->Mirror()->Label(), S);
         di << " Mirror (" << S.ToCString() << ")";
       }
     }
     else
     {
-      TDF_ChildIterator it(L, Standard_True);
+      ChildIterator it(L, Standard_True);
       for (; it.More(); it.Next())
       {
         const DataLabel& current = it.Value();

@@ -78,7 +78,7 @@ void HLRBRep_VertexList::Next()
 
 //=================================================================================================
 
-const HLRAlgo_Intersection& HLRBRep_VertexList::Current() const
+const Intersection3& HLRBRep_VertexList::Current() const
 {
   if (fromEdge)
     return myTool.CurrentVertex();

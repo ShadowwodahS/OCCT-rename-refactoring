@@ -20,6 +20,6 @@
 #include <HLRAlgo_TriangleData.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<HLRAlgo_TriangleData> HLRAlgo_Array1OfTData;
+typedef NCollection_Array1<TriangleData> HLRAlgo_Array1OfTData;
 
 #endif

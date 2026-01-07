@@ -117,8 +117,8 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     gp_Pln bPln = surf2.Plane();
 
     Standard_Real uPnt, vPnt;
-    ElSLib::Parameters(bPln, aPnt, uPnt, vPnt);
-    Point3d bPnt = ElSLib::Value(uPnt, vPnt, bPln);
+    ElSLib1::Parameters(bPln, aPnt, uPnt, vPnt);
+    Point3d bPnt = ElSLib1::Value(uPnt, vPnt, bPln);
     if (aPnt.IsEqual(bPnt, Precision::Confusion()))
     {
       Axis3d aAx1 = aPln.Axis();
@@ -154,8 +154,8 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectionContainer)& 
 
   gp_Lin L1(myTFAttach, myTDirAttach);
   gp_Lin L2(myTSAttach, myTDirAttach2);
-  Point3d Proj1 = ElCLib::Value(ElCLib::Parameter(L1, Tcurpos), L1);
-  Point3d Proj2 = ElCLib::Value(ElCLib::Parameter(L2, Tcurpos), L2);
+  Point3d Proj1 = ElCLib1::Value(ElCLib1::Parameter(L1, Tcurpos), L1);
+  Point3d Proj2 = ElCLib1::Value(ElCLib1::Parameter(L2, Tcurpos), L2);
   gp_Lin L3;
 
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -190,19 +190,19 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectionContainer)& 
   }
 
   Standard_Real parmin, parmax, parcur;
-  parmin = ElCLib::Parameter(L3, Proj1);
+  parmin = ElCLib1::Parameter(L3, Proj1);
   parmax = parmin;
 
-  parcur = ElCLib::Parameter(L3, Proj2);
+  parcur = ElCLib1::Parameter(L3, Proj2);
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  parcur = ElCLib::Parameter(L3, Tcurpos);
+  parcur = ElCLib1::Parameter(L3, Tcurpos);
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  Point3d PointMin = ElCLib::Value(parmin, L3);
-  Point3d PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib1::Value(parmin, L3);
+  Point3d PointMax = ElCLib1::Value(parmax, L3);
 
   Handle(Select3D_SensitiveSegment) seg;
   if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
@@ -296,18 +296,18 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
     curpos = myPosition;
   }
 
-  curpos = ElCLib::Value(ElCLib::Parameter(aProjLine, curpos), aProjLine);
+  curpos = ElCLib1::Value(ElCLib1::Parameter(aProjLine, curpos), aProjLine);
   // on projette pour la presentation
 
-  Point3d P1FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P1First), aProjLine);
-  Point3d P1LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P1Last), aProjLine);
+  Point3d P1FirstProj = ElCLib1::Value(ElCLib1::Parameter(aProjLine, P1First), aProjLine);
+  Point3d P1LastProj  = ElCLib1::Value(ElCLib1::Parameter(aProjLine, P1Last), aProjLine);
   if (P1FirstProj.Distance(curpos) > P1LastProj.Distance(curpos))
     myFAttach = P1FirstProj;
   else
     myFAttach = P1LastProj;
 
-  Point3d P2FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P2First), aProjLine);
-  Point3d P2LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P2Last), aProjLine);
+  Point3d P2FirstProj = ElCLib1::Value(ElCLib1::Parameter(aProjLine, P2First), aProjLine);
+  Point3d P2LastProj  = ElCLib1::Value(ElCLib1::Parameter(aProjLine, P2Last), aProjLine);
   if (P2FirstProj.Distance(curpos) > P2LastProj.Distance(curpos))
     mySAttach = P2FirstProj;
   else
@@ -416,8 +416,8 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
 
   // Point3d proj2;
   Standard_Real u2, v2, uatt, vatt;
-  ElSLib::Parameters(apln, mySAttach, uatt, vatt);
-  ElSLib::Parameters(apln, curpos, u2, v2);
+  ElSLib1::Parameters(apln, mySAttach, uatt, vatt);
+  ElSLib1::Parameters(apln, curpos, u2, v2);
 
   if (uatt == u2 && vatt == v2)
   {
@@ -425,7 +425,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   }
   else
   {
-    Vector3d avec(ElSLib::Value(uatt, vatt, apln), ElSLib::Value(u2, v2, apln));
+    Vector3d avec(ElSLib1::Value(uatt, vatt, apln), ElSLib1::Value(u2, v2, apln));
     myDirAttach2.SetCoord(avec.X(), avec.Y(), avec.Z());
   }
 

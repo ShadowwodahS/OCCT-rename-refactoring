@@ -65,7 +65,7 @@ static Standard_Real PIPI = M_PI + M_PI;
 //          needs to be replaced with following:
 //            (theU, theUFirst, thePeriod). theULast parameter is excess.
 //=======================================================================
-Standard_Real ElCLib::InPeriod(const Standard_Real theU,
+Standard_Real ElCLib1::InPeriod(const Standard_Real theU,
                                const Standard_Real theUFirst,
                                const Standard_Real theULast)
 {
@@ -85,7 +85,7 @@ Standard_Real ElCLib::InPeriod(const Standard_Real theU,
 
 //=================================================================================================
 
-void ElCLib::AdjustPeriodic(const Standard_Real UFirst,
+void ElCLib1::AdjustPeriodic(const Standard_Real UFirst,
                             const Standard_Real ULast,
                             const Standard_Real Preci,
                             Standard_Real&      U1,
@@ -119,7 +119,7 @@ void ElCLib::AdjustPeriodic(const Standard_Real UFirst,
 
 //=================================================================================================
 
-Point3d ElCLib::LineValue(const Standard_Real U, const Axis3d& Pos)
+Point3d ElCLib1::LineValue(const Standard_Real U, const Axis3d& Pos)
 {
   const gp_XYZ& ZDir = Pos.Direction().XYZ();
   const gp_XYZ& PLoc = Pos.Location().XYZ();
@@ -128,7 +128,7 @@ Point3d ElCLib::LineValue(const Standard_Real U, const Axis3d& Pos)
 
 //=================================================================================================
 
-Point3d ElCLib::CircleValue(const Standard_Real U, const Frame3d& Pos, const Standard_Real Radius)
+Point3d ElCLib1::CircleValue(const Standard_Real U, const Frame3d& Pos, const Standard_Real Radius)
 {
   const gp_XYZ& XDir = Pos.XDirection().XYZ();
   const gp_XYZ& YDir = Pos.YDirection().XYZ();
@@ -142,7 +142,7 @@ Point3d ElCLib::CircleValue(const Standard_Real U, const Frame3d& Pos, const Sta
 
 //=================================================================================================
 
-Point3d ElCLib::EllipseValue(const Standard_Real U,
+Point3d ElCLib1::EllipseValue(const Standard_Real U,
                             const Frame3d&       Pos,
                             const Standard_Real MajorRadius,
                             const Standard_Real MinorRadius)
@@ -159,7 +159,7 @@ Point3d ElCLib::EllipseValue(const Standard_Real U,
 
 //=================================================================================================
 
-Point3d ElCLib::HyperbolaValue(const Standard_Real U,
+Point3d ElCLib1::HyperbolaValue(const Standard_Real U,
                               const Frame3d&       Pos,
                               const Standard_Real MajorRadius,
                               const Standard_Real MinorRadius)
@@ -176,7 +176,7 @@ Point3d ElCLib::HyperbolaValue(const Standard_Real U,
 
 //=================================================================================================
 
-Point3d ElCLib::ParabolaValue(const Standard_Real U, const Frame3d& Pos, const Standard_Real Focal)
+Point3d ElCLib1::ParabolaValue(const Standard_Real U, const Frame3d& Pos, const Standard_Real Focal)
 {
   if (Focal == 0.0)
   {
@@ -195,7 +195,7 @@ Point3d ElCLib::ParabolaValue(const Standard_Real U, const Frame3d& Pos, const S
 
 //=================================================================================================
 
-void ElCLib::LineD1(const Standard_Real U, const Axis3d& Pos, Point3d& P, Vector3d& V1)
+void ElCLib1::LineD1(const Standard_Real U, const Axis3d& Pos, Point3d& P, Vector3d& V1)
 {
   gp_XYZ Coord = Pos.Direction().XYZ();
   V1.SetXYZ(Coord);
@@ -205,7 +205,7 @@ void ElCLib::LineD1(const Standard_Real U, const Axis3d& Pos, Point3d& P, Vector
 
 //=================================================================================================
 
-void ElCLib::CircleD1(const Standard_Real U,
+void ElCLib1::CircleD1(const Standard_Real U,
                       const Frame3d&       Pos,
                       const Standard_Real Radius,
                       Point3d&             P,
@@ -226,7 +226,7 @@ void ElCLib::CircleD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD1(const Standard_Real U,
+void ElCLib1::EllipseD1(const Standard_Real U,
                        const Frame3d&       Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -248,7 +248,7 @@ void ElCLib::EllipseD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD1(const Standard_Real U,
+void ElCLib1::HyperbolaD1(const Standard_Real U,
                          const Frame3d&       Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -270,7 +270,7 @@ void ElCLib::HyperbolaD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::ParabolaD1(const Standard_Real U,
+void ElCLib1::ParabolaD1(const Standard_Real U,
                         const Frame3d&       Pos,
                         const Standard_Real Focal,
                         Point3d&             P,
@@ -297,7 +297,7 @@ void ElCLib::ParabolaD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::CircleD2(const Standard_Real U,
+void ElCLib1::CircleD2(const Standard_Real U,
                       const Frame3d&       Pos,
                       const Standard_Real Radius,
                       Point3d&             P,
@@ -322,7 +322,7 @@ void ElCLib::CircleD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD2(const Standard_Real U,
+void ElCLib1::EllipseD2(const Standard_Real U,
                        const Frame3d&       Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -348,7 +348,7 @@ void ElCLib::EllipseD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD2(const Standard_Real U,
+void ElCLib1::HyperbolaD2(const Standard_Real U,
                          const Frame3d&       Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -374,7 +374,7 @@ void ElCLib::HyperbolaD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::ParabolaD2(const Standard_Real U,
+void ElCLib1::ParabolaD2(const Standard_Real U,
                         const Frame3d&       Pos,
                         const Standard_Real Focal,
                         Point3d&             P,
@@ -405,7 +405,7 @@ void ElCLib::ParabolaD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::CircleD3(const Standard_Real U,
+void ElCLib1::CircleD3(const Standard_Real U,
                       const Frame3d&       Pos,
                       const Standard_Real Radius,
                       Point3d&             P,
@@ -434,7 +434,7 @@ void ElCLib::CircleD3(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD3(const Standard_Real U,
+void ElCLib1::EllipseD3(const Standard_Real U,
                        const Frame3d&       Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -464,7 +464,7 @@ void ElCLib::EllipseD3(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD3(const Standard_Real U,
+void ElCLib1::HyperbolaD3(const Standard_Real U,
                          const Frame3d&       Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -491,7 +491,7 @@ void ElCLib::HyperbolaD3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Pnt2d ElCLib::LineValue(const Standard_Real U, const gp_Ax2d& Pos)
+gp_Pnt2d ElCLib1::LineValue(const Standard_Real U, const gp_Ax2d& Pos)
 {
   const Coords2d& ZDir = Pos.Direction().XY();
   const Coords2d& PLoc = Pos.Location().XY();
@@ -500,7 +500,7 @@ gp_Pnt2d ElCLib::LineValue(const Standard_Real U, const gp_Ax2d& Pos)
 
 //=================================================================================================
 
-gp_Pnt2d ElCLib::CircleValue(const Standard_Real U, const gp_Ax22d& Pos, const Standard_Real Radius)
+gp_Pnt2d ElCLib1::CircleValue(const Standard_Real U, const gp_Ax22d& Pos, const Standard_Real Radius)
 {
   const Coords2d&  XDir = Pos.XDirection().XY();
   const Coords2d&  YDir = Pos.YDirection().XY();
@@ -513,7 +513,7 @@ gp_Pnt2d ElCLib::CircleValue(const Standard_Real U, const gp_Ax22d& Pos, const S
 
 //=================================================================================================
 
-gp_Pnt2d ElCLib::EllipseValue(const Standard_Real U,
+gp_Pnt2d ElCLib1::EllipseValue(const Standard_Real U,
                               const gp_Ax22d&     Pos,
                               const Standard_Real MajorRadius,
                               const Standard_Real MinorRadius)
@@ -529,7 +529,7 @@ gp_Pnt2d ElCLib::EllipseValue(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Pnt2d ElCLib::HyperbolaValue(const Standard_Real U,
+gp_Pnt2d ElCLib1::HyperbolaValue(const Standard_Real U,
                                 const gp_Ax22d&     Pos,
                                 const Standard_Real MajorRadius,
                                 const Standard_Real MinorRadius)
@@ -545,7 +545,7 @@ gp_Pnt2d ElCLib::HyperbolaValue(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Pnt2d ElCLib::ParabolaValue(const Standard_Real U,
+gp_Pnt2d ElCLib1::ParabolaValue(const Standard_Real U,
                                const gp_Ax22d&     Pos,
                                const Standard_Real Focal)
 {
@@ -564,7 +564,7 @@ gp_Pnt2d ElCLib::ParabolaValue(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::LineD1(const Standard_Real U, const gp_Ax2d& Pos, gp_Pnt2d& P, gp_Vec2d& V1)
+void ElCLib1::LineD1(const Standard_Real U, const gp_Ax2d& Pos, gp_Pnt2d& P, gp_Vec2d& V1)
 {
   Coords2d Coord = Pos.Direction().XY();
   V1.SetXY(Coord);
@@ -574,7 +574,7 @@ void ElCLib::LineD1(const Standard_Real U, const gp_Ax2d& Pos, gp_Pnt2d& P, gp_V
 
 //=================================================================================================
 
-void ElCLib::CircleD1(const Standard_Real U,
+void ElCLib1::CircleD1(const Standard_Real U,
                       const gp_Ax22d&     Pos,
                       const Standard_Real Radius,
                       gp_Pnt2d&           P,
@@ -595,7 +595,7 @@ void ElCLib::CircleD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD1(const Standard_Real U,
+void ElCLib1::EllipseD1(const Standard_Real U,
                        const gp_Ax22d&     Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -618,7 +618,7 @@ void ElCLib::EllipseD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD1(const Standard_Real U,
+void ElCLib1::HyperbolaD1(const Standard_Real U,
                          const gp_Ax22d&     Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -641,7 +641,7 @@ void ElCLib::HyperbolaD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::ParabolaD1(const Standard_Real U,
+void ElCLib1::ParabolaD1(const Standard_Real U,
                         const gp_Ax22d&     Pos,
                         const Standard_Real Focal,
                         gp_Pnt2d&           P,
@@ -666,7 +666,7 @@ void ElCLib::ParabolaD1(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::CircleD2(const Standard_Real U,
+void ElCLib1::CircleD2(const Standard_Real U,
                       const gp_Ax22d&     Pos,
                       const Standard_Real Radius,
                       gp_Pnt2d&           P,
@@ -692,7 +692,7 @@ void ElCLib::CircleD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD2(const Standard_Real U,
+void ElCLib1::EllipseD2(const Standard_Real U,
                        const gp_Ax22d&     Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -722,7 +722,7 @@ void ElCLib::EllipseD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD2(const Standard_Real U,
+void ElCLib1::HyperbolaD2(const Standard_Real U,
                          const gp_Ax22d&     Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -751,7 +751,7 @@ void ElCLib::HyperbolaD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::ParabolaD2(const Standard_Real U,
+void ElCLib1::ParabolaD2(const Standard_Real U,
                         const gp_Ax22d&     Pos,
                         const Standard_Real Focal,
                         gp_Pnt2d&           P,
@@ -781,7 +781,7 @@ void ElCLib::ParabolaD2(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::CircleD3(const Standard_Real U,
+void ElCLib1::CircleD3(const Standard_Real U,
                       const gp_Ax22d&     Pos,
                       const Standard_Real Radius,
                       gp_Pnt2d&           P,
@@ -815,7 +815,7 @@ void ElCLib::CircleD3(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::EllipseD3(const Standard_Real U,
+void ElCLib1::EllipseD3(const Standard_Real U,
                        const gp_Ax22d&     Pos,
                        const Standard_Real MajorRadius,
                        const Standard_Real MinorRadius,
@@ -850,7 +850,7 @@ void ElCLib::EllipseD3(const Standard_Real U,
 
 //=================================================================================================
 
-void ElCLib::HyperbolaD3(const Standard_Real U,
+void ElCLib1::HyperbolaD3(const Standard_Real U,
                          const gp_Ax22d&     Pos,
                          const Standard_Real MajorRadius,
                          const Standard_Real MinorRadius,
@@ -883,7 +883,7 @@ void ElCLib::HyperbolaD3(const Standard_Real U,
 
 //=================================================================================================
 
-Vector3d ElCLib::LineDN(const Standard_Real, const Axis3d& Pos, const Standard_Integer N)
+Vector3d ElCLib1::LineDN(const Standard_Real, const Axis3d& Pos, const Standard_Integer N)
 {
   if (N == 1)
   {
@@ -894,7 +894,7 @@ Vector3d ElCLib::LineDN(const Standard_Real, const Axis3d& Pos, const Standard_I
 
 //=================================================================================================
 
-Vector3d ElCLib::CircleDN(const Standard_Real    U,
+Vector3d ElCLib1::CircleDN(const Standard_Real    U,
                         const Frame3d&          Pos,
                         const Standard_Real    Radius,
                         const Standard_Integer N)
@@ -932,7 +932,7 @@ Vector3d ElCLib::CircleDN(const Standard_Real    U,
 
 //=================================================================================================
 
-Vector3d ElCLib::EllipseDN(const Standard_Real    U,
+Vector3d ElCLib1::EllipseDN(const Standard_Real    U,
                          const Frame3d&          Pos,
                          const Standard_Real    MajorRadius,
                          const Standard_Real    MinorRadius,
@@ -971,7 +971,7 @@ Vector3d ElCLib::EllipseDN(const Standard_Real    U,
 
 //=================================================================================================
 
-Vector3d ElCLib::HyperbolaDN(const Standard_Real    U,
+Vector3d ElCLib1::HyperbolaDN(const Standard_Real    U,
                            const Frame3d&          Pos,
                            const Standard_Real    MajorRadius,
                            const Standard_Real    MinorRadius,
@@ -995,7 +995,7 @@ Vector3d ElCLib::HyperbolaDN(const Standard_Real    U,
 
 //=================================================================================================
 
-Vector3d ElCLib::ParabolaDN(const Standard_Real    U,
+Vector3d ElCLib1::ParabolaDN(const Standard_Real    U,
                           const Frame3d&          Pos,
                           const Standard_Real    Focal,
                           const Standard_Integer N)
@@ -1033,7 +1033,7 @@ Vector3d ElCLib::ParabolaDN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec2d ElCLib::LineDN(const Standard_Real, const gp_Ax2d& Pos, const Standard_Integer N)
+gp_Vec2d ElCLib1::LineDN(const Standard_Real, const gp_Ax2d& Pos, const Standard_Integer N)
 {
   if (N == 1)
   {
@@ -1044,7 +1044,7 @@ gp_Vec2d ElCLib::LineDN(const Standard_Real, const gp_Ax2d& Pos, const Standard_
 
 //=================================================================================================
 
-gp_Vec2d ElCLib::CircleDN(const Standard_Real    U,
+gp_Vec2d ElCLib1::CircleDN(const Standard_Real    U,
                           const gp_Ax22d&        Pos,
                           const Standard_Real    Radius,
                           const Standard_Integer N)
@@ -1083,7 +1083,7 @@ gp_Vec2d ElCLib::CircleDN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec2d ElCLib::EllipseDN(const Standard_Real    U,
+gp_Vec2d ElCLib1::EllipseDN(const Standard_Real    U,
                            const gp_Ax22d&        Pos,
                            const Standard_Real    MajorRadius,
                            const Standard_Real    MinorRadius,
@@ -1123,7 +1123,7 @@ gp_Vec2d ElCLib::EllipseDN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec2d ElCLib::HyperbolaDN(const Standard_Real    U,
+gp_Vec2d ElCLib1::HyperbolaDN(const Standard_Real    U,
                              const gp_Ax22d&        Pos,
                              const Standard_Real    MajorRadius,
                              const Standard_Real    MinorRadius,
@@ -1148,7 +1148,7 @@ gp_Vec2d ElCLib::HyperbolaDN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec2d ElCLib::ParabolaDN(const Standard_Real    U,
+gp_Vec2d ElCLib1::ParabolaDN(const Standard_Real    U,
                             const gp_Ax22d&        Pos,
                             const Standard_Real    Focal,
                             const Standard_Integer N)
@@ -1187,14 +1187,14 @@ gp_Vec2d ElCLib::ParabolaDN(const Standard_Real    U,
 
 //=================================================================================================
 
-Standard_Real ElCLib::LineParameter(const Axis3d& L, const Point3d& P)
+Standard_Real ElCLib1::LineParameter(const Axis3d& L, const Point3d& P)
 {
   return (P.XYZ() - L.Location().XYZ()).Dot(L.Direction().XYZ());
 }
 
 //=================================================================================================
 
-Standard_Real ElCLib::CircleParameter(const Frame3d& Pos, const Point3d& P)
+Standard_Real ElCLib1::CircleParameter(const Frame3d& Pos, const Point3d& P)
 {
   Vector3d aVec(Pos.Location(), P);
   if (aVec.SquareMagnitude() < gp::Resolution())
@@ -1220,7 +1220,7 @@ Standard_Real ElCLib::CircleParameter(const Frame3d& Pos, const Point3d& P)
 
 //=================================================================================================
 
-Standard_Real ElCLib::EllipseParameter(const Frame3d&       Pos,
+Standard_Real ElCLib1::EllipseParameter(const Frame3d&       Pos,
                                        const Standard_Real MajorRadius,
                                        const Standard_Real MinorRadius,
                                        const Point3d&       P)
@@ -1248,7 +1248,7 @@ Standard_Real ElCLib::EllipseParameter(const Frame3d&       Pos,
 
 //=================================================================================================
 
-Standard_Real ElCLib::HyperbolaParameter(const Frame3d& Pos,
+Standard_Real ElCLib1::HyperbolaParameter(const Frame3d& Pos,
                                          const Standard_Real,
                                          const Standard_Real MinorRadius,
                                          const Point3d&       P)
@@ -1264,14 +1264,14 @@ Standard_Real ElCLib::HyperbolaParameter(const Frame3d& Pos,
 
 //=================================================================================================
 
-Standard_Real ElCLib::ParabolaParameter(const Frame3d& Pos, const Point3d& P)
+Standard_Real ElCLib1::ParabolaParameter(const Frame3d& Pos, const Point3d& P)
 {
   return Vector3d(Pos.Location(), P).Dot(Vector3d(Pos.YDirection()));
 }
 
 //=================================================================================================
 
-Standard_Real ElCLib::LineParameter(const gp_Ax2d& L, const gp_Pnt2d& P)
+Standard_Real ElCLib1::LineParameter(const gp_Ax2d& L, const gp_Pnt2d& P)
 {
   Coords2d Coord = P.XY();
   Coord.Subtract(L.Location().XY());
@@ -1280,7 +1280,7 @@ Standard_Real ElCLib::LineParameter(const gp_Ax2d& L, const gp_Pnt2d& P)
 
 //=================================================================================================
 
-Standard_Real ElCLib::CircleParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
+Standard_Real ElCLib1::CircleParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
 {
   Standard_Real Teta = (Pos.XDirection()).Angle(gp_Vec2d(Pos.Location(), P));
   Teta               = ((Pos.XDirection() ^ Pos.YDirection()) >= 0.0) ? Teta : -Teta;
@@ -1293,7 +1293,7 @@ Standard_Real ElCLib::CircleParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
 
 //=================================================================================================
 
-Standard_Real ElCLib::EllipseParameter(const gp_Ax22d&     Pos,
+Standard_Real ElCLib1::EllipseParameter(const gp_Ax22d&     Pos,
                                        const Standard_Real MajorRadius,
                                        const Standard_Real MinorRadius,
                                        const gp_Pnt2d&     P)
@@ -1316,7 +1316,7 @@ Standard_Real ElCLib::EllipseParameter(const gp_Ax22d&     Pos,
 
 //=================================================================================================
 
-Standard_Real ElCLib::HyperbolaParameter(const gp_Ax22d& Pos,
+Standard_Real ElCLib1::HyperbolaParameter(const gp_Ax22d& Pos,
                                          const Standard_Real,
                                          const Standard_Real MinorRadius,
                                          const gp_Pnt2d&     P)
@@ -1332,7 +1332,7 @@ Standard_Real ElCLib::HyperbolaParameter(const gp_Ax22d& Pos,
 
 //=================================================================================================
 
-Standard_Real ElCLib::ParabolaParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
+Standard_Real ElCLib1::ParabolaParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
 {
   gp_Vec2d Directrix(Pos.YDirection().XY());
   return gp_Vec2d(Pos.Location(), P).Dot(Directrix);
@@ -1340,7 +1340,7 @@ Standard_Real ElCLib::ParabolaParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P)
 
 //=================================================================================================
 
-Point3d ElCLib::To3d(const Frame3d& Pos, const gp_Pnt2d& P)
+Point3d ElCLib1::To3d(const Frame3d& Pos, const gp_Pnt2d& P)
 {
   gp_XYZ Vxy = Pos.XDirection().XYZ();
   Vxy.SetLinearForm(P.X(), Vxy, P.Y(), Pos.YDirection().XYZ(), Pos.Location().XYZ());
@@ -1349,7 +1349,7 @@ Point3d ElCLib::To3d(const Frame3d& Pos, const gp_Pnt2d& P)
 
 //=================================================================================================
 
-Dir3d ElCLib::To3d(const Frame3d& Pos, const gp_Dir2d& V)
+Dir3d ElCLib1::To3d(const Frame3d& Pos, const gp_Dir2d& V)
 {
   Vector3d Vx = Pos.XDirection();
   Vector3d Vy = Pos.YDirection();
@@ -1361,7 +1361,7 @@ Dir3d ElCLib::To3d(const Frame3d& Pos, const gp_Dir2d& V)
 
 //=================================================================================================
 
-Vector3d ElCLib::To3d(const Frame3d& Pos, const gp_Vec2d& V)
+Vector3d ElCLib1::To3d(const Frame3d& Pos, const gp_Vec2d& V)
 {
   Vector3d Vx = Pos.XDirection();
   Vector3d Vy = Pos.YDirection();
@@ -1373,54 +1373,54 @@ Vector3d ElCLib::To3d(const Frame3d& Pos, const gp_Vec2d& V)
 
 //=================================================================================================
 
-Axis3d ElCLib::To3d(const Frame3d& Pos, const gp_Ax2d& A)
+Axis3d ElCLib1::To3d(const Frame3d& Pos, const gp_Ax2d& A)
 {
-  Point3d P = ElCLib::To3d(Pos, A.Location());
-  Vector3d V = ElCLib::To3d(Pos, A.Direction());
+  Point3d P = ElCLib1::To3d(Pos, A.Location());
+  Vector3d V = ElCLib1::To3d(Pos, A.Direction());
   return Axis3d(P, V);
 }
 
 //=================================================================================================
 
-Frame3d ElCLib::To3d(const Frame3d& Pos, const gp_Ax22d& A)
+Frame3d ElCLib1::To3d(const Frame3d& Pos, const gp_Ax22d& A)
 {
-  Point3d P  = ElCLib::To3d(Pos, A.Location());
-  Vector3d VX = ElCLib::To3d(Pos, A.XDirection());
-  Vector3d VY = ElCLib::To3d(Pos, A.YDirection());
+  Point3d P  = ElCLib1::To3d(Pos, A.Location());
+  Vector3d VX = ElCLib1::To3d(Pos, A.XDirection());
+  Vector3d VY = ElCLib1::To3d(Pos, A.YDirection());
   return Frame3d(P, VX.Crossed(VY), VX);
 }
 
 //=================================================================================================
 
-gp_Lin ElCLib::To3d(const Frame3d& Pos, const gp_Lin2d& L)
+gp_Lin ElCLib1::To3d(const Frame3d& Pos, const gp_Lin2d& L)
 {
-  return gp_Lin(ElCLib::To3d(Pos, L.Position()));
+  return gp_Lin(ElCLib1::To3d(Pos, L.Position()));
 }
 
 //=================================================================================================
 
-gp_Circ ElCLib::To3d(const Frame3d& Pos, const gp_Circ2d& C)
+gp_Circ ElCLib1::To3d(const Frame3d& Pos, const gp_Circ2d& C)
 {
-  return gp_Circ(ElCLib::To3d(Pos, C.Axis()), C.Radius());
+  return gp_Circ(ElCLib1::To3d(Pos, C.Axis()), C.Radius());
 }
 
 //=================================================================================================
 
-gp_Elips ElCLib::To3d(const Frame3d& Pos, const gp_Elips2d& E)
+gp_Elips ElCLib1::To3d(const Frame3d& Pos, const gp_Elips2d& E)
 {
-  return gp_Elips(ElCLib::To3d(Pos, E.Axis()), E.MajorRadius(), E.MinorRadius());
+  return gp_Elips(ElCLib1::To3d(Pos, E.Axis()), E.MajorRadius(), E.MinorRadius());
 }
 
 //=================================================================================================
 
-gp_Hypr ElCLib::To3d(const Frame3d& Pos, const gp_Hypr2d& H)
+gp_Hypr ElCLib1::To3d(const Frame3d& Pos, const gp_Hypr2d& H)
 {
-  return gp_Hypr(ElCLib::To3d(Pos, H.Axis()), H.MajorRadius(), H.MinorRadius());
+  return gp_Hypr(ElCLib1::To3d(Pos, H.Axis()), H.MajorRadius(), H.MinorRadius());
 }
 
 //=================================================================================================
 
-gp_Parab ElCLib::To3d(const Frame3d& Pos, const gp_Parab2d& Prb)
+gp_Parab ElCLib1::To3d(const Frame3d& Pos, const gp_Parab2d& Prb)
 {
-  return gp_Parab(ElCLib::To3d(Pos, Prb.Axis()), Prb.Focal());
+  return gp_Parab(ElCLib1::To3d(Pos, Prb.Axis()), Prb.Focal());
 }

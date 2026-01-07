@@ -25,9 +25,9 @@
 #include <HLRBRep_TheCSFunctionOfInterCSurf.hxx>
 class StdFail_NotDone;
 class Standard_DomainError;
-class HLRBRep_SurfaceTool;
+class SurfaceTool3;
 class gp_Lin;
-class HLRBRep_LineTool;
+class LineTool3;
 class HLRBRep_TheCSFunctionOfInterCSurf;
 class math_FunctionSetRoot;
 class Point3d;

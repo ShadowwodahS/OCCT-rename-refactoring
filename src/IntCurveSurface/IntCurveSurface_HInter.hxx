@@ -40,8 +40,8 @@ class gp_Circ;
 class gp_Elips;
 class gp_Parab;
 class gp_Hypr;
-class IntAna_IntConicQuad;
-class Bnd_Box;
+class ConicQuadIntersection;
+class Box2;
 
 class IntCurveSurface_HInter : public CurveSurfaceIntersection1
 {
@@ -171,7 +171,7 @@ protected:
 
   Standard_EXPORT void AppendIntAna(const Handle(Adaptor3d_Curve)&   Curve,
                                     const Handle(Adaptor3d_Surface)& Surface,
-                                    const IntAna_IntConicQuad&       InterAna);
+                                    const ConicQuadIntersection&       InterAna);
 
   Standard_EXPORT void AppendPoint(const Handle(Adaptor3d_Curve)&   Curve,
                                    const Standard_Real              w,
@@ -191,7 +191,7 @@ private:
                                  const Standard_Real              v0,
                                  const Standard_Real              v1,
                                  TColgp_Array2OfPnt&              pntsOnSurface,
-                                 Bnd_Box&                         boxSurface,
+                                 Box2&                         boxSurface,
                                  Standard_Real&                   gap);
 
   Standard_EXPORT void DoNewBounds(const Handle(Adaptor3d_Surface)& surface,

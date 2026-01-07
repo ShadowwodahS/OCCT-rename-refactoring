@@ -532,7 +532,7 @@ const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
     if (HasEdge(d1, dd4))
     {
       L = Line(d1, dd4);
-      ElSLib::Parameters(P, L.Location(), U, V);
+      ElSLib1::Parameters(P, L.Location(), U, V);
       DU = L.Direction() * DX;
       DV = L.Direction() * DY;
       myBuilder.SetPCurve(myEdges[BRepPrim_Wedge_NumDir2(d1, dd4)],
@@ -542,7 +542,7 @@ const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
     if (HasEdge(d1, dd3))
     {
       L = Line(d1, dd3);
-      ElSLib::Parameters(P, L.Location(), U, V);
+      ElSLib1::Parameters(P, L.Location(), U, V);
       DU = L.Direction() * DX;
       DV = L.Direction() * DY;
       myBuilder.SetPCurve(myEdges[BRepPrim_Wedge_NumDir2(d1, dd3)],
@@ -553,7 +553,7 @@ const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
     if (HasEdge(d1, dd2))
     {
       L = Line(d1, dd2);
-      ElSLib::Parameters(P, L.Location(), U, V);
+      ElSLib1::Parameters(P, L.Location(), U, V);
       DU = L.Direction() * DX;
       DV = L.Direction() * DY;
       myBuilder.SetPCurve(myEdges[BRepPrim_Wedge_NumDir2(d1, dd2)],
@@ -564,7 +564,7 @@ const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
     if (HasEdge(d1, dd1))
     {
       L = Line(d1, dd1);
-      ElSLib::Parameters(P, L.Location(), U, V);
+      ElSLib1::Parameters(P, L.Location(), U, V);
       DU = L.Direction() * DX;
       DV = L.Direction() * DY;
       myBuilder.SetPCurve(myEdges[BRepPrim_Wedge_NumDir2(d1, dd1)],
@@ -886,14 +886,14 @@ const TopoEdge& BRepPrim_GWedge::Edge(const BRepPrim_Direction d1, const BRepPri
     {
       myBuilder.AddEdgeVertex(myEdges[i],
                               Vertex(d1, d2, dd2),
-                              ElCLib::Parameter(L, Point(d1, d2, dd2)),
+                              ElCLib1::Parameter(L, Point(d1, d2, dd2)),
                               Standard_False);
     }
     if (HasVertex(d1, d2, dd1))
     {
       myBuilder.AddEdgeVertex(myEdges[i],
                               Vertex(d1, d2, dd1),
-                              ElCLib::Parameter(L, Point(d1, d2, dd1)),
+                              ElCLib1::Parameter(L, Point(d1, d2, dd1)),
                               Standard_True);
     }
 

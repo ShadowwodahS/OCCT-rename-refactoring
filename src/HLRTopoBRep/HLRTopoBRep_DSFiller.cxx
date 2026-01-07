@@ -59,9 +59,9 @@
 // purpose  : explore the faces and insert them
 //=======================================================================
 
-void HLRTopoBRep_DSFiller::Insert(const TopoShape&            S,
+void DSFiller::Insert(const TopoShape&            S,
                                   Contap_Contour&                FO,
-                                  HLRTopoBRep_Data&              DS,
+                                  Data1&              DS,
                                   BRepTopAdaptor_MapOfShapeTool& MST,
                                   const Standard_Integer         nbIso)
 {
@@ -100,7 +100,7 @@ void HLRTopoBRep_DSFiller::Insert(const TopoShape&            S,
           InsertFace(f, S1, FO, DS, withPCurve);
       }
       if (nbIso != 0)
-        HLRTopoBRep_FaceIsoLiner::Perform(f, S1, DS, nbIso);
+        FaceIsoLiner::Perform(f, S1, DS, nbIso);
     }
     ex.Next();
   }
@@ -112,10 +112,10 @@ void HLRTopoBRep_DSFiller::Insert(const TopoShape&            S,
 // purpose  : private, insert the outlines of a face
 //=======================================================================
 
-void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
+void DSFiller::InsertFace(const Standard_Integer /*FI*/,
                                       const TopoFace&     F,
                                       Contap_Contour&        FO,
-                                      HLRTopoBRep_Data&      DS,
+                                      Data1&      DS,
                                       const Standard_Boolean withPCurve)
 {
   // Insert the intersections of FO in DS
@@ -205,7 +205,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                 {
                   Handle(GeomSurface) S   = BRepInspector::Surface(F);
                   Standard_Real        Tol = 1e-7;
-                  C2d                      = GeomProjLib::Curve2d(C, first, last, S, Tol);
+                  C2d                      = GeomProjLib1::Curve2d(C, first, last, S, Tol);
                 }
               }
               break;
@@ -221,7 +221,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                     S = Handle(GeomSurface)::DownCast(S->Transformed(Loc.Transformation()));
                   }
                   Standard_Real Tol = 1e-7;
-                  C2d               = GeomProjLib::Curve2d(C, first, last, S, Tol);
+                  C2d               = GeomProjLib1::Curve2d(C, first, last, S, Tol);
                 }
               }
               break;
@@ -466,7 +466,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
               break;
 
               case Contap_Restriction: {
-                throw Standard_ProgramError("HLRTopoBRep_DSFiller::InsertFace : Restriction");
+                throw Standard_ProgramError("DSFiller::InsertFace : Restriction");
               }
               break;
             }
@@ -545,9 +545,9 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
 // purpose  : private, make a vertex from an intersection point
 //=======================================================================
 
-TopoVertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
+TopoVertex DSFiller::MakeVertex(const Contap_Point& P,
                                                const Standard_Real tol,
-                                               HLRTopoBRep_Data&   DS)
+                                               Data1&   DS)
 {
   ShapeBuilder  B;
   TopoVertex V;
@@ -609,10 +609,10 @@ TopoVertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
 //           on resctriction
 //=======================================================================
 
-void HLRTopoBRep_DSFiller::InsertVertex(const Contap_Point& P,
+void DSFiller::InsertVertex(const Contap_Point& P,
                                         const Standard_Real tol,
                                         const TopoEdge&  E,
-                                        HLRTopoBRep_Data&   DS)
+                                        Data1&   DS)
 {
   ShapeBuilder  B;
   TopoVertex V;
@@ -655,7 +655,7 @@ void HLRTopoBRep_DSFiller::InsertVertex(const Contap_Point& P,
 // purpose  : private, split edges with outline vertices
 //=======================================================================
 
-void HLRTopoBRep_DSFiller::ProcessEdges(HLRTopoBRep_Data& DS)
+void DSFiller::ProcessEdges(Data1& DS)
 {
   ShapeBuilder  B;
   TopoEdge   newE;

@@ -28,7 +28,7 @@ class gp_Trsf2d;
 //! vector is also called "Direction".
 //! See Also
 //! gce_MakeDir2d which provides functions for more
-//! complex unit vector constructions
+//! complex1 unit vector constructions
 //! Geom2d_Direction which provides additional functions
 //! for constructing unit vectors and works, in particular, with
 //! the parametric equations of unit vectors

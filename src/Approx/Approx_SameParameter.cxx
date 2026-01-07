@@ -74,7 +74,7 @@ void Approx_SameParameter_Evaluator::Evaluate(Standard_Integer*, /*Dimension*/
   Standard_Real*         PolesArray = (Standard_Real*)&Poles(Poles.Lower());
 
   // Evaluate the 1D B-Spline that represents the change in parameterization.
-  BSplCLib::Eval(*Parameter,
+  BSplCLib1::Eval(*Parameter,
                  Standard_False,
                  *DerivativeRequest,
                  extrap_mode[0],
@@ -227,7 +227,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
     Standard_Real tc3d = pc3d[0] * (1.0 - t) + pc3d[nbp - 1] * t; // weight function.
     Point3d        Pc3d = c3d->Value(tc3d);
     Standard_Real tcons;
-    BSplCLib::Eval(tc3d,
+    BSplCLib1::Eval(tc3d,
                    Standard_False,
                    0,
                    extrap_mode[0],
@@ -265,7 +265,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
 
 //=================================================================================================
 
-Approx_SameParameter::Approx_SameParameter(const Handle(GeomCurve3d)&   C3D,
+SameParameterTool::SameParameterTool(const Handle(GeomCurve3d)&   C3D,
                                            const Handle(GeomCurve2d)& C2D,
                                            const Handle(GeomSurface)& S,
                                            const Standard_Real         Tol)
@@ -281,7 +281,7 @@ Approx_SameParameter::Approx_SameParameter(const Handle(GeomCurve3d)&   C3D,
 
 //=================================================================================================
 
-Approx_SameParameter::Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
+SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                            const Handle(GeomCurve2d)&      C2D,
                                            const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              Tol)
@@ -297,7 +297,7 @@ Approx_SameParameter::Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
 
 //=================================================================================================
 
-Approx_SameParameter::Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
+SameParameterTool::SameParameterTool(const Handle(Adaptor3d_Curve)&   C3D,
                                            const Handle(Adaptor2d_Curve2d)& C2D,
                                            const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              Tol)
@@ -313,7 +313,7 @@ Approx_SameParameter::Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
 
 //=================================================================================================
 
-void Approx_SameParameter::Build(const Standard_Real Tolerance)
+void SameParameterTool::Build(const Standard_Real Tolerance)
 {
   // Algorithm:
   // 1) Build initial distribution. Increase number of samples in case of C0 continuity.
@@ -541,7 +541,7 @@ void Approx_SameParameter::Build(const Standard_Real Tolerance)
 // purpose  : Sub-method in Build.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::BuildInitialDistribution(
+Standard_Boolean SameParameterTool::BuildInitialDistribution(
   Approx_SameParameter_Data& theData) const
 {
   // Take a multiple of the sample pof CheckShape,
@@ -583,7 +583,7 @@ Standard_Boolean Approx_SameParameter::BuildInitialDistribution(
 //           Sub-method in BuildInitialDistribution.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::IncreaseInitialNbSamples(
+Standard_Boolean SameParameterTool::IncreaseInitialNbSamples(
   Approx_SameParameter_Data& theData) const
 {
   Standard_Integer     NbInt = myHCurve2d->NbIntervals(GeomAbs_C1) + 1;
@@ -648,7 +648,7 @@ Standard_Boolean Approx_SameParameter::IncreaseInitialNbSamples(
 // purpose  : Sub-method in Build.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::CheckSameParameter(Approx_SameParameter_Data& theData,
+Standard_Boolean SameParameterTool::CheckSameParameter(Approx_SameParameter_Data& theData,
                                                           Standard_Real& theSqDist) const
 {
   const Standard_Real Tol2        = theData.myTol * theData.myTol;
@@ -763,7 +763,7 @@ Standard_Boolean Approx_SameParameter::CheckSameParameter(Approx_SameParameter_D
 // purpose  : Sub-method in Build.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::ComputeTangents(const Adaptor3d_CurveOnSurface& theCOnS,
+Standard_Boolean SameParameterTool::ComputeTangents(const Adaptor3d_CurveOnSurface& theCOnS,
                                                        Standard_Real& theFirstTangent,
                                                        Standard_Real& theLastTangent) const
 {
@@ -801,7 +801,7 @@ Standard_Boolean Approx_SameParameter::ComputeTangents(const Adaptor3d_CurveOnSu
 // purpose  : Sub-method in Build.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::Interpolate(const Approx_SameParameter_Data& theData,
+Standard_Boolean SameParameterTool::Interpolate(const Approx_SameParameter_Data& theData,
                                                    const Standard_Real              aTangFirst,
                                                    const Standard_Real              aTangLast,
                                                    TColStd_Array1OfReal&            thePoles,
@@ -833,7 +833,7 @@ Standard_Boolean Approx_SameParameter::Interpolate(const Approx_SameParameter_Da
     aParameters(ii) = theFlatKnots(ii + 2) = theData.myPC3d[ii - 2];
   }
   Standard_Integer inversion_problem;
-  BSplCLib::Interpolate(3,
+  BSplCLib1::Interpolate(3,
                         theFlatKnots,
                         aParameters,
                         ContactOrder,
@@ -853,7 +853,7 @@ Standard_Boolean Approx_SameParameter::Interpolate(const Approx_SameParameter_Da
 // purpose  : Sub-method in Build.
 //=================================================================================================
 
-Standard_Boolean Approx_SameParameter::IncreaseNbPoles(const TColStd_Array1OfReal& thePoles,
+Standard_Boolean SameParameterTool::IncreaseNbPoles(const TColStd_Array1OfReal& thePoles,
                                                        const TColStd_Array1OfReal& theFlatKnots,
                                                        Approx_SameParameter_Data&  theData,
                                                        Standard_Real& theBestSqTol) const
@@ -879,7 +879,7 @@ Standard_Boolean Approx_SameParameter::IncreaseNbPoles(const TColStd_Array1OfRea
     if (theData.myNbPnt - ii + newcount == myMaxArraySize)
       continue;
 
-    BSplCLib::Eval(0.5 * (theData.myPC3d[ii] + theData.myPC3d[ii + 1]),
+    BSplCLib1::Eval(0.5 * (theData.myPC3d[ii] + theData.myPC3d[ii + 1]),
                    Standard_False,
                    DerivativeRequest,
                    extrap_mode[0],

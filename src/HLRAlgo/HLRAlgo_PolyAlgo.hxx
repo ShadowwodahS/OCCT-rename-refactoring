@@ -55,7 +55,7 @@ public:
   Standard_EXPORT void NextHide();
 
   //! process hiding between <Pt1> and <Pt2>.
-  Standard_EXPORT HLRAlgo_BiPoint::PointsT& Hide(HLRAlgo_EdgeStatus& status,
+  Standard_EXPORT BiPoint::PointsT1& Hide(HLRAlgo_EdgeStatus& status,
                                                  Standard_Integer&   Index,
                                                  Standard_Boolean&   reg1,
                                                  Standard_Boolean&   regn,
@@ -73,7 +73,7 @@ public:
   Standard_EXPORT void NextShow();
 
   //! process hiding between <Pt1> and <Pt2>.
-  Standard_EXPORT HLRAlgo_BiPoint::PointsT& Show(Standard_Integer& Index,
+  Standard_EXPORT BiPoint::PointsT1& Show(Standard_Integer& Index,
                                                  Standard_Boolean& reg1,
                                                  Standard_Boolean& regn,
                                                  Standard_Boolean& outl,
@@ -83,7 +83,7 @@ public:
 
 private:
   NCollection_Array1<Handle(HLRAlgo_PolyShellData)> myHShell;
-  HLRAlgo_PolyData::Triangle                        myTriangle;
+  HLRAlgo_PolyData::Triangle1                        myTriangle;
   HLRAlgo_ListIteratorOfListOfBPoint                mySegListIt;
   Standard_Integer                                  myNbrShell;
   Standard_Integer                                  myCurShell;

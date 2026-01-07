@@ -79,32 +79,32 @@ void ChFi3d_Boite(const gp_Pnt2d& p1,
                   Standard_Real&  Mv);
 
 void ChFi3d_SetPointTolerance(TopOpeBRepDS_DataStructure& DStr,
-                              const Bnd_Box&              box,
+                              const Box2&              box,
                               const Standard_Integer      IP);
 
 void ChFi3d_EnlargeBox(const Handle(GeomCurve3d)& C,
                        const Standard_Real       wd,
                        const Standard_Real       wf,
-                       Bnd_Box&                  box1,
-                       Bnd_Box&                  box2);
+                       Box2&                  box1,
+                       Box2&                  box2);
 
 void ChFi3d_EnlargeBox(const Handle(Adaptor3d_Surface)& S,
                        const Handle(GeomCurve2d)&      PC,
                        const Standard_Real              wd,
                        const Standard_Real              wf,
-                       Bnd_Box&                         box1,
-                       Bnd_Box&                         box2);
+                       Box2&                         box1,
+                       Box2&                         box2);
 
 void ChFi3d_EnlargeBox(const TopoEdge&          E,
                        const ShapeList& LF,
                        const Standard_Real         w,
-                       Bnd_Box&                    box);
+                       Box2&                    box);
 
 void ChFi3d_EnlargeBox(TopOpeBRepDS_DataStructure&    DStr,
                        const Handle(ChFiDS_Stripe)&   st,
                        const Handle(ChFiDS_SurfData)& sd,
-                       Bnd_Box&                       b1,
-                       Bnd_Box&                       b2,
+                       Box2&                       b1,
+                       Box2&                       b2,
                        const Standard_Boolean         isfirst);
 
 GeomAbs_Shape ChFi3d_evalconti(const TopoEdge& E, const TopoFace& F1, const TopoFace& F2);

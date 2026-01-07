@@ -644,8 +644,8 @@ void Approx_BSplComputeLine::Perform(const MultiLine& Line)
   Standard_Integer myfirstpt = Thefirstpt;
   Standard_Integer mylastpt = Thelastpt;
 
-  AppParCurves_ConstraintCouple myCouple1(myfirstpt, realfirstC);
-  AppParCurves_ConstraintCouple myCouple2(mylastpt, reallastC);
+  ConstraintCouple myCouple1(myfirstpt, realfirstC);
+  ConstraintCouple myCouple2(mylastpt, reallastC);
   myConstraints->SetValue(1, myCouple1);
   myConstraints->SetValue(2, myCouple2);
 

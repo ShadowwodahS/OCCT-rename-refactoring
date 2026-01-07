@@ -312,7 +312,7 @@ Standard_Boolean RWStl1::writeASCII(const Handle(MeshTriangulation)& theMesh,
   Standard_Integer anElem[3] = {0, 0, 0};
   for (Standard_Integer aTriIter = 1; aTriIter <= NBTriangles; ++aTriIter)
   {
-    const Poly_Triangle aTriangle = theMesh->Triangle(aTriIter);
+    const Poly_Triangle aTriangle = theMesh->Triangle1(aTriIter);
     aTriangle.Get(anElem[0], anElem[1], anElem[2]);
 
     const Point3d aP1 = theMesh->Node(anElem[0]);
@@ -405,7 +405,7 @@ Standard_Boolean RWStl1::writeBinary(const Handle(MeshTriangulation)& theMesh,
   for (Standard_Integer aTriIter = 1; aTriIter <= aNBTriangles; ++aTriIter)
   {
     Standard_Integer    id[3];
-    const Poly_Triangle aTriangle = theMesh->Triangle(aTriIter);
+    const Poly_Triangle aTriangle = theMesh->Triangle1(aTriIter);
     aTriangle.Get(id[0], id[1], id[2]);
 
     const Point3d aP1 = theMesh->Node(id[0]);

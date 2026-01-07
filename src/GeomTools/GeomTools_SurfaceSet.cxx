@@ -57,25 +57,25 @@
 
 //=================================================================================================
 
-GeomTools_SurfaceSet::GeomTools_SurfaceSet() {}
+SurfaceSet1::SurfaceSet1() {}
 
 //=================================================================================================
 
-void GeomTools_SurfaceSet::Clear()
+void SurfaceSet1::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer GeomTools_SurfaceSet::Add(const Handle(GeomSurface)& S)
+Standard_Integer SurfaceSet1::Add(const Handle(GeomSurface)& S)
 {
   return myMap.Add(S);
 }
 
 //=================================================================================================
 
-Handle(GeomSurface) GeomTools_SurfaceSet::Surface(const Standard_Integer I) const
+Handle(GeomSurface) SurfaceSet1::Surface(const Standard_Integer I) const
 {
   if (I <= 0 || I > myMap.Extent())
     return Handle(GeomSurface)();
@@ -84,7 +84,7 @@ Handle(GeomSurface) GeomTools_SurfaceSet::Surface(const Standard_Integer I) cons
 
 //=================================================================================================
 
-Standard_Integer GeomTools_SurfaceSet::Index(const Handle(GeomSurface)& S) const
+Standard_Integer SurfaceSet1::Index(const Handle(GeomSurface)& S) const
 {
   return myMap.FindIndex(S);
 }
@@ -297,7 +297,7 @@ static void Print(const Handle(Geom_SurfaceOfLinearExtrusion)& S,
   if (!compact)
     OS << "\n  Basis curve : ";
   OS << "\n";
-  GeomTools_CurveSet::PrintCurve(S->BasisCurve(), OS, compact);
+  CurveSet1::PrintCurve(S->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
@@ -320,7 +320,7 @@ static void Print(const Handle(Geom_SurfaceOfRevolution)& S,
   if (!compact)
     OS << "\n  Basis curve : ";
   OS << "\n";
-  GeomTools_CurveSet::PrintCurve(S->BasisCurve(), OS, compact);
+  CurveSet1::PrintCurve(S->BasisCurve(), OS, compact);
 }
 
 //=================================================================================================
@@ -518,7 +518,7 @@ static void Print(const Handle(Geom_RectangularTrimmedSurface)& S,
   OS << U1 << " " << U2 << " " << V1 << " " << V2 << "\n";
   if (!compact)
     OS << "BasisSurface :\n";
-  GeomTools_SurfaceSet::PrintSurface(S->BasisSurface(), OS, compact);
+  SurfaceSet1::PrintSurface(S->BasisSurface(), OS, compact);
 }
 
 //=================================================================================================
@@ -537,12 +537,12 @@ static void Print(const Handle(Geom_OffsetSurface)& S,
   OS << S->Offset() << "\n";
   if (!compact)
     OS << "BasisSurface :\n";
-  GeomTools_SurfaceSet::PrintSurface(S->BasisSurface(), OS, compact);
+  SurfaceSet1::PrintSurface(S->BasisSurface(), OS, compact);
 }
 
 //=================================================================================================
 
-void GeomTools_SurfaceSet::PrintSurface(const Handle(GeomSurface)& S,
+void SurfaceSet1::PrintSurface(const Handle(GeomSurface)& S,
                                         Standard_OStream&           OS,
                                         const Standard_Boolean      compact)
 {
@@ -594,7 +594,7 @@ void GeomTools_SurfaceSet::PrintSurface(const Handle(GeomSurface)& S,
   }
   else
   {
-    GeomTools::GetUndefinedTypeHandler()->PrintSurface(S, OS, compact);
+    GeomTools1::GetUndefinedTypeHandler()->PrintSurface(S, OS, compact);
     // if (!compact)
     //   OS << "***** Unknown Surface ********\n";
     // else
@@ -604,7 +604,7 @@ void GeomTools_SurfaceSet::PrintSurface(const Handle(GeomSurface)& S,
 
 //=================================================================================================
 
-void GeomTools_SurfaceSet::Dump(Standard_OStream& OS) const
+void SurfaceSet1::Dump(Standard_OStream& OS) const
 {
   Standard_Integer i, nbsurf = myMap.Extent();
   OS << "\n -------\n";
@@ -620,7 +620,7 @@ void GeomTools_SurfaceSet::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void GeomTools_SurfaceSet::Write(Standard_OStream&            OS,
+void SurfaceSet1::Write(Standard_OStream&            OS,
                                  const Message_ProgressRange& theProgress) const
 {
   std::streamsize prec = OS.precision(17);
@@ -640,9 +640,9 @@ void GeomTools_SurfaceSet::Write(Standard_OStream&            OS,
 static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
-  GeomTools::GetReal(IS, Z);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, Z);
   P.SetCoord(X, Y, Z);
   return IS;
 }
@@ -652,9 +652,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  GeomTools::GetReal(IS, X);
-  GeomTools::GetReal(IS, Y);
-  GeomTools::GetReal(IS, Z);
+  GeomTools1::GetReal(IS, X);
+  GeomTools1::GetReal(IS, Y);
+  GeomTools1::GetReal(IS, Z);
   D.SetCoord(X, Y, Z);
   return IS;
 }
@@ -696,7 +696,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Cylindrica
   gp_Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
-  GeomTools::GetReal(IS, R);
+  GeomTools1::GetReal(IS, R);
   S = new Geom_CylindricalSurface(A, R);
   return IS;
 }
@@ -711,8 +711,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ConicalSur
   gp_Ax3        A;
   Standard_Real R = 0., Ang = 0.;
   IS >> A;
-  GeomTools::GetReal(IS, R);
-  GeomTools::GetReal(IS, Ang);
+  GeomTools1::GetReal(IS, R);
+  GeomTools1::GetReal(IS, Ang);
   S = new Geom_ConicalSurface(A, Ang, R);
   return IS;
 }
@@ -727,7 +727,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SphericalS
   gp_Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
-  GeomTools::GetReal(IS, R);
+  GeomTools1::GetReal(IS, R);
   S = new Geom_SphericalSurface(A, R);
   return IS;
 }
@@ -742,8 +742,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ToroidalSu
   gp_Ax3        A;
   Standard_Real R1 = 0., R2 = 0.;
   IS >> A;
-  GeomTools::GetReal(IS, R1);
-  GeomTools::GetReal(IS, R2);
+  GeomTools1::GetReal(IS, R1);
+  GeomTools1::GetReal(IS, R2);
   S = new Geom_ToroidalSurface(A, R1, R2);
   return IS;
 }
@@ -757,7 +757,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfL
 {
   Dir3d D(1., 0., 0.);
   IS >> D;
-  Handle(GeomCurve3d) C = GeomTools_CurveSet::ReadCurve(IS);
+  Handle(GeomCurve3d) C = CurveSet1::ReadCurve(IS);
   S                    = new Geom_SurfaceOfLinearExtrusion(C, D);
   return IS;
 }
@@ -772,7 +772,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfR
   Point3d P(0., 0., 0.);
   Dir3d D(1., 0., 0.);
   IS >> P >> D;
-  Handle(GeomCurve3d) C = GeomTools_CurveSet::ReadCurve(IS);
+  Handle(GeomCurve3d) C = CurveSet1::ReadCurve(IS);
   S                    = new Geom_SurfaceOfRevolution(C, Axis3d(P, D));
   return IS;
 }
@@ -798,7 +798,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BezierSurf
     {
       IS >> poles(i, j);
       if (urational || vrational)
-        GeomTools::GetReal(IS, weights(i, j));
+        GeomTools1::GetReal(IS, weights(i, j));
     }
   }
 
@@ -835,7 +835,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
     {
       IS >> poles(i, j);
       if (urational || vrational)
-        GeomTools::GetReal(IS, weights(i, j));
+        GeomTools1::GetReal(IS, weights(i, j));
     }
   }
 
@@ -843,7 +843,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
   TColStd_Array1OfInteger umults(1, nbuknots);
   for (i = 1; i <= nbuknots; i++)
   {
-    GeomTools::GetReal(IS, uknots(i));
+    GeomTools1::GetReal(IS, uknots(i));
     IS >> umults(i);
   }
 
@@ -851,7 +851,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
   TColStd_Array1OfInteger vmults(1, nbvknots);
   for (i = 1; i <= nbvknots; i++)
   {
-    GeomTools::GetReal(IS, vknots(i));
+    GeomTools1::GetReal(IS, vknots(i));
     IS >> vmults(i);
   }
 
@@ -887,11 +887,11 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_RectangularTrimmedSurface)& S)
 {
   Standard_Real U1 = 0., U2 = 0., V1 = 0., V2 = 0.;
-  GeomTools::GetReal(IS, U1);
-  GeomTools::GetReal(IS, U2);
-  GeomTools::GetReal(IS, V1);
-  GeomTools::GetReal(IS, V2);
-  Handle(GeomSurface) BS = GeomTools_SurfaceSet::ReadSurface(IS);
+  GeomTools1::GetReal(IS, U1);
+  GeomTools1::GetReal(IS, U2);
+  GeomTools1::GetReal(IS, V1);
+  GeomTools1::GetReal(IS, V2);
+  Handle(GeomSurface) BS = SurfaceSet1::ReadSurface(IS);
   S                       = new Geom_RectangularTrimmedSurface(BS, U1, U2, V1, V2);
   return IS;
 }
@@ -904,15 +904,15 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Rectangula
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_OffsetSurface)& S)
 {
   Standard_Real O = 0.;
-  GeomTools::GetReal(IS, O);
-  Handle(GeomSurface) BS = GeomTools_SurfaceSet::ReadSurface(IS);
+  GeomTools1::GetReal(IS, O);
+  Handle(GeomSurface) BS = SurfaceSet1::ReadSurface(IS);
   S                       = new Geom_OffsetSurface(BS, O, Standard_True);
   return IS;
 }
 
 //=================================================================================================
 
-Handle(GeomSurface) GeomTools_SurfaceSet::ReadSurface(Standard_IStream& IS)
+Handle(GeomSurface) SurfaceSet1::ReadSurface(Standard_IStream& IS)
 {
   Standard_Integer stype;
 
@@ -1003,7 +1003,7 @@ Handle(GeomSurface) GeomTools_SurfaceSet::ReadSurface(Standard_IStream& IS)
 
       default: {
         Handle(GeomSurface) SS;
-        GeomTools::GetUndefinedTypeHandler()->ReadSurface(stype, IS, SS);
+        GeomTools1::GetUndefinedTypeHandler()->ReadSurface(stype, IS, SS);
         S = SS;
       }
       break;
@@ -1012,7 +1012,7 @@ Handle(GeomSurface) GeomTools_SurfaceSet::ReadSurface(Standard_IStream& IS)
   catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "EXCEPTION in GeomTools_SurfaceSet::ReadSurface(..)!!!" << std::endl;
+    std::cout << "EXCEPTION in SurfaceSet1::ReadSurface(..)!!!" << std::endl;
     std::cout << anException << std::endl;
 #endif
     (void)anException;
@@ -1022,7 +1022,7 @@ Handle(GeomSurface) GeomTools_SurfaceSet::ReadSurface(Standard_IStream& IS)
 
 //=================================================================================================
 
-void GeomTools_SurfaceSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
+void SurfaceSet1::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
 {
   char buffer[255];
   IS >> buffer;
@@ -1037,7 +1037,7 @@ void GeomTools_SurfaceSet::Read(Standard_IStream& IS, const Message_ProgressRang
   Message_ProgressScope aPS(theProgress, "Surfaces", nbsurf);
   for (i = 1; i <= nbsurf && aPS.More(); i++, aPS.Next())
   {
-    Handle(GeomSurface) S = GeomTools_SurfaceSet::ReadSurface(IS);
+    Handle(GeomSurface) S = SurfaceSet1::ReadSurface(IS);
     myMap.Add(S);
   }
 }

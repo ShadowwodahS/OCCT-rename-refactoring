@@ -90,12 +90,12 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 
   if (!IsInDomain)
   {
-    const Standard_Real uLast = ElCLib::Parameter(anEllipse, anEndOfArrow);
+    const Standard_Real uLast = ElCLib1::Parameter(anEllipse, anEndOfArrow);
     // clang-format off
     const Standard_Real Alpha = DsgPrs::DistanceFromApex(anEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on
-    Vector3d        Vapex(aCenter, ElCLib::Value(uLast, anEllipse));
-    Vector3d        Vpnt(aCenter, ElCLib::Value(uFirst, anEllipse));
+    Vector3d        Vapex(aCenter, ElCLib1::Value(uLast, anEllipse));
+    Vector3d        Vpnt(aCenter, ElCLib1::Value(uFirst, anEllipse));
     Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
       anEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
@@ -104,7 +104,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 
     Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(NodeNumber);
     for (Standard_Integer i = 0; i < NodeNumber; i++, parFirst += delta)
-      aPrims->AddVertex(ElCLib::Value(parFirst, anEllipse));
+      aPrims->AddVertex(ElCLib1::Value(parFirst, anEllipse));
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
   }
   DsgPrs_EllipseRadiusPresentation::Add(aPresentation,
@@ -147,7 +147,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     const Standard_Real Offset    = aCurve->Offset();
     aBEllipse.SetMajorRadius(aBEllipse.MajorRadius() + Offset);
     aBEllipse.SetMinorRadius(aBEllipse.MinorRadius() + Offset);
-    const Standard_Real uLast = ElCLib::Parameter(aBEllipse, anEndOfArrow);
+    const Standard_Real uLast = ElCLib1::Parameter(aBEllipse, anEndOfArrow);
     // clang-format off
     const Standard_Real Alpha = DsgPrs::DistanceFromApex(aBEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on

@@ -18,8 +18,8 @@
 #define _Geom2dConvert_SequenceOfPPoint_HeaderFile
 
 #include <NCollection_Sequence.hxx>
-class Geom2dConvert_PPoint;
+class ParameterPoint;
 
-typedef NCollection_Sequence<Geom2dConvert_PPoint> Geom2dConvert_SequenceOfPPoint;
+typedef NCollection_Sequence<ParameterPoint> Geom2dConvert_SequenceOfPPoint;
 
 #endif

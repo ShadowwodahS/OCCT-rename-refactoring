@@ -34,7 +34,7 @@
 
 //=================================================================================================
 
-TopoEdge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
+TopoEdge HLRBRep1::MakeEdge(const HLRBRep_Curve& ec,
                               const Standard_Real  U1,
                               const Standard_Real  U2)
 {
@@ -180,7 +180,7 @@ TopoEdge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
 
 //=================================================================================================
 
-TopoEdge HLRBRep::MakeEdge3d(const HLRBRep_Curve& ec,
+TopoEdge HLRBRep1::MakeEdge3d(const HLRBRep_Curve& ec,
                                 const Standard_Real  U1,
                                 const Standard_Real  U2)
 {
@@ -230,7 +230,7 @@ TopoEdge HLRBRep::MakeEdge3d(const HLRBRep_Curve& ec,
 
 //=================================================================================================
 
-void HLRBRep::PolyHLRAngleAndDeflection(const Standard_Real InAngl,
+void HLRBRep1::PolyHLRAngleAndDeflection(const Standard_Real InAngl,
                                         Standard_Real&      OutAngl,
                                         Standard_Real&      OutDefl)
 {

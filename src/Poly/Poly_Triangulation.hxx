@@ -165,7 +165,7 @@ public:
   //! Returns triangle at the given index.
   //! @param[in] theIndex triangle index within [1, NbTriangles()] range
   //! @return triangle node indices, with each node defined within [1, NbNodes()] range
-  const Poly_Triangle& Triangle(Standard_Integer theIndex) const
+  const Poly_Triangle& Triangle1(Standard_Integer theIndex) const
   {
     return myTriangles.Value(theIndex);
   }
@@ -220,13 +220,13 @@ public:
 
   //! Returns cached min - max range of triangulation data,
   //! which is VOID by default (e.g, no cached information).
-  Standard_EXPORT const Bnd_Box& CachedMinMax() const;
+  Standard_EXPORT const Box2& CachedMinMax() const;
 
   //! Sets a cached min - max range of this triangulation.
   //! The bounding box should exactly match actual range of triangulation data
   //! without a gap or transformation, or otherwise undefined behavior will be observed.
   //! Passing a VOID range invalidates the cache.
-  Standard_EXPORT void SetCachedMinMax(const Bnd_Box& theBox);
+  Standard_EXPORT void SetCachedMinMax(const Box2& theBox);
 
   //! Returns TRUE if there is some cached min - max range of this triangulation.
   Standard_EXPORT Standard_Boolean HasCachedMinMax() const { return myCachedMinMax != NULL; }
@@ -234,7 +234,7 @@ public:
   //! Updates cached min - max range of this triangulation with bounding box of nodal data.
   void UpdateCachedMinMax()
   {
-    Bnd_Box aBox;
+    Box2 aBox;
     MinMax(aBox, Transform3d(), true);
     SetCachedMinMax(aBox);
   }
@@ -251,7 +251,7 @@ public:
   //!                           even for non-identity transformation.
   //! @return FALSE if there is no any data to extend the passed box (no both triangulation and
   //! cached min - max range).
-  Standard_EXPORT Standard_Boolean MinMax(Bnd_Box&       theBox,
+  Standard_EXPORT Standard_Boolean MinMax(Box2&       theBox,
                                           const Transform3d& theTrsf,
                                           const bool     theIsAccurate = false) const;
 
@@ -300,7 +300,7 @@ public:
   Standard_EXPORT Handle(TColgp_HArray1OfPnt) MapNodeArray() const;
 
   //! Returns the triangle array for read-only access or NULL if triangle array is undefined.
-  //! MeshTriangulation::Triangle() should be used instead when possible.
+  //! MeshTriangulation::Triangle1() should be used instead when possible.
   //! Returned object should not be used after MeshTriangulation destruction.
   Standard_EXPORT Handle(Poly_HArray1OfTriangle) MapTriangleArray() const;
 
@@ -316,7 +316,7 @@ public:
 
 public:
   //! Returns an internal array of triangles.
-  //! Triangle()/SetTriangle() should be used instead in portable code.
+  //! Triangle1()/SetTriangle() should be used instead in portable code.
   Poly_Array1OfTriangle& InternalTriangles() { return myTriangles; }
 
   //! Returns an internal array of nodes.
@@ -334,7 +334,7 @@ public:
   Standard_DEPRECATED("Deprecated method, SetNormal() should be used instead")
   Standard_EXPORT void SetNormals(const Handle(TShort_HArray1OfShortReal)& theNormals);
 
-  Standard_DEPRECATED("Deprecated method, Triangle() should be used instead")
+  Standard_DEPRECATED("Deprecated method, Triangle1() should be used instead")
 
   const Poly_Array1OfTriangle& Triangles() const { return myTriangles; }
 
@@ -396,10 +396,10 @@ protected:
 
   //! Calculates bounding box of nodal data.
   //! @param[in] theTrsf  optional transformation.
-  Standard_EXPORT virtual Bnd_Box computeBoundingBox(const Transform3d& theTrsf) const;
+  Standard_EXPORT virtual Box2 computeBoundingBox(const Transform3d& theTrsf) const;
 
 protected:
-  Bnd_Box*                     myCachedMinMax;
+  Box2*                     myCachedMinMax;
   Standard_Real                myDeflection;
   Poly_ArrayOfNodes            myNodes;
   Poly_Array1OfTriangle        myTriangles;

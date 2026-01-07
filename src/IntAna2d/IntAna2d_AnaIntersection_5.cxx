@@ -22,7 +22,7 @@
 #include <IntAna2d_Outils.hxx>
 #include <StdFail_NotDone.hxx>
 
-void IntAna2d_AnaIntersection::Perform(const gp_Circ2d& Circle, const IntAna2d_Conic& Conic)
+void AnalyticIntersection2d::Perform(const gp_Circ2d& Circle, const Conic2d& Conic)
 {
   Standard_Boolean CIsDirect = Circle.IsDirect();
   Standard_Real    A, B, C, D, E, F;

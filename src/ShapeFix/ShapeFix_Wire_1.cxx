@@ -327,7 +327,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
           segment = Standard_True;
         }
         if (segment)
-          bsp = GeomConvert::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::Confusion());
+          bsp = GeomConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::Confusion());
       }
       else if (c->IsKind(STANDARD_TYPE(Geom_Conic)))
       {
@@ -353,7 +353,7 @@ Standard_Boolean WireHealer::FixGap3d(const Standard_Integer num, const Standard
                                        Min(last, c->LastParameter()));
           else
             tc = new Geom_TrimmedCurve(c, first, last);
-          bsp = GeomConvert::CurveToBSplineCurve(tc);
+          bsp = GeomConvert1::CurveToBSplineCurve(tc);
         }
         catch (ExceptionBase const& anException)
         {
@@ -972,7 +972,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
           segment = Standard_True;
         }
         if (segment)
-          bsp = Geom2dConvert::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::PConfusion());
+          bsp = Geom2dConvert1::SplitBSplineCurve(bsp, fbsp, lbsp, ::Precision::PConfusion());
       }
       else if (pc->IsKind(STANDARD_TYPE(Geom2d_Conic)))
       {
@@ -1004,7 +1004,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                                         Min(last, pc->LastParameter()));
           else
             c = new Geom2d_TrimmedCurve(pc, first, last);
-          bsp = Geom2dConvert::CurveToBSplineCurve(c);
+          bsp = Geom2dConvert1::CurveToBSplineCurve(c);
         }
         catch (ExceptionBase const& anException)
         {

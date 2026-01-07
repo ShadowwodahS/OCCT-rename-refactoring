@@ -19,8 +19,8 @@
   #define No_Standard_OutOfRange
 #endif
 
-#define CREATE IntAna_IntConicQuad::IntAna_IntConicQuad
-#define PERFORM void IntAna_IntConicQuad::Perform
+#define CREATE ConicQuadIntersection::ConicQuadIntersection
+#define PERFORM void ConicQuadIntersection::Perform
 
 #include <ElCLib.hxx>
 #include <gp_Circ.hxx>
@@ -59,12 +59,12 @@ CREATE(void)
 //=============================================================================
 //==                                                 L i n e  -   Q u a d r i c
 //==
-CREATE(const gp_Lin& L, const IntAna_Quadric& Quad)
+CREATE(const gp_Lin& L, const Quadric2& Quad)
 {
   Perform(L, Quad);
 }
 
-PERFORM(const gp_Lin& L, const IntAna_Quadric& Quad)
+PERFORM(const gp_Lin& L, const Quadric2& Quad)
 {
 
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
@@ -130,12 +130,12 @@ PERFORM(const gp_Lin& L, const IntAna_Quadric& Quad)
 //=============================================================================
 //==                                            C i r c l e   -   Q u a d r i c
 //==
-CREATE(const gp_Circ& C, const IntAna_Quadric& Quad)
+CREATE(const gp_Circ& C, const Quadric2& Quad)
 {
   Perform(C, Quad);
 }
 
-PERFORM(const gp_Circ& C, const IntAna_Quadric& Quad)
+PERFORM(const gp_Circ& C, const Quadric2& Quad)
 {
 
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
@@ -189,7 +189,7 @@ PERFORM(const gp_Circ& C, const IntAna_Quadric& Quad)
       {
         Standard_Real t = CircQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib::CircleValue(t, C.Position(), R);
+        pnts[i - 1]     = ElCLib1::CircleValue(t, C.Position(), R);
       }
     }
   }
@@ -198,12 +198,12 @@ PERFORM(const gp_Circ& C, const IntAna_Quadric& Quad)
 //=============================================================================
 //==                                                  E l i p s - Q u a d r i c
 //==
-CREATE(const gp_Elips& E, const IntAna_Quadric& Quad)
+CREATE(const gp_Elips& E, const Quadric2& Quad)
 {
   Perform(E, Quad);
 }
 
-PERFORM(const gp_Elips& E, const IntAna_Quadric& Quad)
+PERFORM(const gp_Elips& E, const Quadric2& Quad)
 {
 
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
@@ -257,7 +257,7 @@ PERFORM(const gp_Elips& E, const IntAna_Quadric& Quad)
       {
         Standard_Real t = ElipsQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib::EllipseValue(t, E.Position(), R, r);
+        pnts[i - 1]     = ElCLib1::EllipseValue(t, E.Position(), R, r);
       }
     }
   }
@@ -266,12 +266,12 @@ PERFORM(const gp_Elips& E, const IntAna_Quadric& Quad)
 //=============================================================================
 //==                                                  P a r a b - Q u a d r i c
 //==
-CREATE(const gp_Parab& P, const IntAna_Quadric& Quad)
+CREATE(const gp_Parab& P, const Quadric2& Quad)
 {
   Perform(P, Quad);
 }
 
-PERFORM(const gp_Parab& P, const IntAna_Quadric& Quad)
+PERFORM(const gp_Parab& P, const Quadric2& Quad)
 {
 
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
@@ -319,7 +319,7 @@ PERFORM(const gp_Parab& P, const IntAna_Quadric& Quad)
       {
         Standard_Real t = ParabQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = ElCLib::ParabolaValue(t, P.Position(), f);
+        pnts[i - 1]     = ElCLib1::ParabolaValue(t, P.Position(), f);
       }
     }
   }
@@ -328,12 +328,12 @@ PERFORM(const gp_Parab& P, const IntAna_Quadric& Quad)
 //=============================================================================
 //==                                                    H y p r - Q u a d r i c
 //==
-CREATE(const gp_Hypr& H, const IntAna_Quadric& Quad)
+CREATE(const gp_Hypr& H, const Quadric2& Quad)
 {
   Perform(H, Quad);
 }
 
-PERFORM(const gp_Hypr& H, const IntAna_Quadric& Quad)
+PERFORM(const gp_Hypr& H, const Quadric2& Quad)
 {
 
   Standard_Real Qxx, Qyy, Qzz, Qxy, Qxz, Qyz, Qx, Qy, Qz, QCte;
@@ -388,7 +388,7 @@ PERFORM(const gp_Hypr& H, const IntAna_Quadric& Quad)
         {
           Standard_Real Lnt         = Log(t);
           paramonc[bonnessolutions] = Lnt;
-          pnts[bonnessolutions]     = ElCLib::HyperbolaValue(Lnt, H.Position(), R, r);
+          pnts[bonnessolutions]     = ElCLib1::HyperbolaValue(Lnt, H.Position(), R, r);
           bonnessolutions++;
         }
       }
@@ -399,7 +399,7 @@ PERFORM(const gp_Hypr& H, const IntAna_Quadric& Quad)
 
 //=============================================================================
 
-IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Lin&       L,
+ConicQuadIntersection::ConicQuadIntersection(const gp_Lin&       L,
                                          const gp_Pln&       P,
                                          const Standard_Real Tolang,
                                          const Standard_Real Tol,
@@ -408,7 +408,7 @@ IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Lin&       L,
   Perform(L, P, Tolang, Tol, Len);
 }
 
-IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Circ&      C,
+ConicQuadIntersection::ConicQuadIntersection(const gp_Circ&      C,
                                          const gp_Pln&       P,
                                          const Standard_Real Tolang,
                                          const Standard_Real Tol)
@@ -416,7 +416,7 @@ IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Circ&      C,
   Perform(C, P, Tolang, Tol);
 }
 
-IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Elips&     E,
+ConicQuadIntersection::ConicQuadIntersection(const gp_Elips&     E,
                                          const gp_Pln&       P,
                                          const Standard_Real Tolang,
                                          const Standard_Real Tol)
@@ -424,21 +424,21 @@ IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Elips&     E,
   Perform(E, P, Tolang, Tol);
 }
 
-IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Parab&     Pb,
+ConicQuadIntersection::ConicQuadIntersection(const gp_Parab&     Pb,
                                          const gp_Pln&       P,
                                          const Standard_Real Tolang)
 {
   Perform(Pb, P, Tolang);
 }
 
-IntAna_IntConicQuad::IntAna_IntConicQuad(const gp_Hypr&      H,
+ConicQuadIntersection::ConicQuadIntersection(const gp_Hypr&      H,
                                          const gp_Pln&       P,
                                          const Standard_Real Tolang)
 {
   Perform(H, P, Tolang);
 }
 
-void IntAna_IntConicQuad::Perform(const gp_Lin&       L,
+void ConicQuadIntersection::Perform(const gp_Lin&       L,
                                   const gp_Pln&       P,
                                   const Standard_Real Tolang,
                                   const Standard_Real Tol,
@@ -503,7 +503,7 @@ void IntAna_IntConicQuad::Perform(const gp_Lin&       L,
   done = Standard_True;
 }
 
-void IntAna_IntConicQuad::Perform(const gp_Circ&      C,
+void ConicQuadIntersection::Perform(const gp_Circ&      C,
                                   const gp_Pln&       P,
                                   const Standard_Real Tolang,
                                   const Standard_Real Tol)
@@ -512,7 +512,7 @@ void IntAna_IntConicQuad::Perform(const gp_Circ&      C,
   done = Standard_False;
 
   gp_Pln             Plconic(gp_Ax3(C.Position()));
-  IntAna_QuadQuadGeo IntP(Plconic, P, Tolang, Tol);
+  QuadQuadGeoIntersection IntP(Plconic, P, Tolang, Tol);
   if (!IntP.IsDone())
   {
     return;
@@ -555,7 +555,7 @@ void IntAna_IntConicQuad::Perform(const gp_Circ&      C,
     gp_Ax2d   Ax2dBid(Pnt2dBid, Dir2dBid);
     gp_Circ2d Cir(Ax2dBid, C.Radius());
 
-    IntAna2d_AnaIntersection Int2d(Ligs, Cir);
+    AnalyticIntersection2d Int2d(Ligs, Cir);
 
     if (!Int2d.IsDone())
     {
@@ -578,7 +578,7 @@ void IntAna_IntConicQuad::Perform(const gp_Circ&      C,
   }
 }
 
-void IntAna_IntConicQuad::Perform(const gp_Elips& E,
+void ConicQuadIntersection::Perform(const gp_Elips& E,
                                   const gp_Pln&   Pln,
                                   const Standard_Real,
                                   const Standard_Real)
@@ -586,12 +586,12 @@ void IntAna_IntConicQuad::Perform(const gp_Elips& E,
   Perform(E, Pln);
 }
 
-void IntAna_IntConicQuad::Perform(const gp_Parab& P, const gp_Pln& Pln, const Standard_Real)
+void ConicQuadIntersection::Perform(const gp_Parab& P, const gp_Pln& Pln, const Standard_Real)
 {
   Perform(P, Pln);
 }
 
-void IntAna_IntConicQuad::Perform(const gp_Hypr& H, const gp_Pln& Pln, const Standard_Real)
+void ConicQuadIntersection::Perform(const gp_Hypr& H, const gp_Pln& Pln, const Standard_Real)
 {
   Perform(H, Pln);
 }

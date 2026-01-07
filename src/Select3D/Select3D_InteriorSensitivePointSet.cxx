@@ -206,11 +206,11 @@ Standard_Integer Select3D_InteriorSensitivePointSet::Size() const
 }
 
 //=======================================================================
-// function : Box
+// function : Box1
 // purpose  : Returns bounding box of planar convex polygon with index
 //            theIdx
 //=======================================================================
-Select3D_BndBox3d Select3D_InteriorSensitivePointSet::Box(const Standard_Integer theIdx) const
+Select3D_BndBox3d Select3D_InteriorSensitivePointSet::Box1(const Standard_Integer theIdx) const
 {
   Standard_Integer aPolygIdx = myPolygonsIdxs->Value(theIdx);
   return myPlanarPolygons.Value(aPolygIdx)->BoundingBox();

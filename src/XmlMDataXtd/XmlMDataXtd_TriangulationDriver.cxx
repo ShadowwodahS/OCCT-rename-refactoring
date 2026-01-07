@@ -175,7 +175,7 @@ void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
 
     for (i = 1; i <= nbTriangles; i++)
     {
-      PT->Triangle(i).Get(n1, n2, n3);
+      PT->Triangle1(i).Get(n1, n2, n3);
       stream << n1 << " " << n2 << " " << n3 << " ";
     }
 
